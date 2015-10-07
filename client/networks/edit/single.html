@@ -1,0 +1,24 @@
+<template name="single">
+
+    <div class="row">
+        <div class="col s6">
+            <h1>{{ network.name }}</h1>
+
+            <a class="btn" href="/networks/{{ networkId }}/network">Network</a>
+            <a class="btn" href="/networks/{{ networkId }}/nodes">Nodes</a>
+            <a class="btn" href="/networks/{{ networkId }}/edges">Edges</a>
+
+        </div>
+        <div class="col s6">
+            {{> share }}
+            <a class="btn red" href="/networks/{{ networkId }}/import">Import Data</a>
+        </div>
+    </div>
+</template>
+
+<!-- 
+{> map}}
+{{> timeline }}
+-->
+ 
+ 

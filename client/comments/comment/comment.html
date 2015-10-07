@@ -1,0 +1,10 @@
+<template name="comment">
+        <div class="panel-heading">
+            <span class="comment-user">{{ comment.owner.email }}</span>
+            <time class="text-muted comment-date" datetime="16-12-2014 01:05">Dec 16, 2014</time>
+            <img class="circle" src="http://www.avatarpro.biz/avatar?s=50?{{random}}" />
+        </div>
+        <div class="panel-body">
+            {{comment.body}}
+        </div>
+</template>

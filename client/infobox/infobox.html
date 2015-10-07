@@ -1,0 +1,29 @@
+<template name="infobox">
+    <div id="infoBox" class="card">
+
+        <div class="card-content">
+            <span id="closeInfoBox"><i class="material-icons right">close</i></span> 
+            <span class="card-title activator grey-text text-darken-4">
+                <i class="material-icons right">more_vert</i>
+                {{ currentSelection.group }} - {{ currentSelection.data.id }}
+            </span> 
+            <ul class="collection">
+                {{#each objectToPairs currentSelection.info }}
+                    <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
+                {{/each}}
+            </ul>
+            <p>{{ comments.length }} comments</p>
+            {{> commentForm}}
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Comments<i class="material-icons right">close</i></span> 
+            <ul class="collection">
+                {{#each comments}}
+                    <li class="collection-item avatar">
+                            {{> comment comment=this}}
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

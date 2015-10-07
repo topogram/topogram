@@ -1,0 +1,10 @@
+<template name="nodes">
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <h1>Nodes 
+                    <a href="/networks/{{networkId}}"><small>{{networkId}}</small></a>
+            </h1> 
+    {{> tabular table=TabularTables.NodesList selector=query class="table striped"}}
+        </div>
+    </div>
+</template>

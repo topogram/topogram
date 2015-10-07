@@ -1,0 +1,1 @@
+GeoJSONTools = require('geojson-tools');

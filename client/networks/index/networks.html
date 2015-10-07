@@ -1,0 +1,64 @@
+<template name="networks">
+    <div id="networks" class="row">
+        <div class="col s10 offset-s1">
+            <h1>Your networks</h1>
+            <div class="row">
+                <div class="col s8">
+                     <table>
+                        <thead>
+                          <tr>
+                              <th data-field="index"></th>
+                              <th data-field="id">Name</th>
+                              <th data-field="privacy">Visibility</th>
+                              <th data-field="createdAt">Creation date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {{#each networks}}
+                            {{> networkIndexRow}}
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title grey-text text-darken-4">
+                                Add Network
+                            </span>
+                            {{> addNetwork}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="networkIndexRow">
+    <tr>
+        <td>
+            {{ index }}
+        </td>
+        <td>
+            <a href="/networks/{{_id}}"> {{ name }} 
+            </a>
+        </td>
+        <td>
+            {{privacy}}
+        </td>
+        <td>
+            {{date}}
+        </td>
+    </tr>
+</template>
+
+<template name="addNetwork">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="networkName">Create an Empty Network</label>
+            <input type="text" class="form-control" placeholder="Type name here..." name="networkName">
+            <button type="submit" class="btn">Create</button>
+        </div>
+    </form>
+</template>

@@ -1,0 +1,6 @@
+{
+    "env": {
+        "ROOT_URL": "http://localhost/",
+        "MONGO_URL": "mongodb://localhost:27017/bandstour"
+    }
+}
