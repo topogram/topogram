@@ -11,6 +11,7 @@
                               <th data-field="id">Name</th>
                               <th data-field="privacy">Visibility</th>
                               <th data-field="createdAt">Creation date</th>
+                              <th>Delete</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -33,6 +34,21 @@
             </div>
         </div>
     </div>
+
+    {{> modalDelete}}
+</template>
+
+<template name="modalDelete">
+    <!-- Modal Structure -->
+      <div id="modal-delete" class="modal">
+        <div class="modal-content">
+          <h4>Delete network</h4>
+          <p>Are you sure you want to delete this network</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="delete modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+      </div>
 </template>
 
 <template name="networkIndexRow">
@@ -50,6 +66,9 @@
         <td>
             {{date}}
         </td>
+        <td>
+              <a class="waves-effect waves-light btn modal-trigger modal-delete-open" data-modal-template="{{_id}}" href="#modal-delete">Delete</a>
+        </td>
     </tr>
 </template>
 
@@ -62,3 +81,6 @@
         </div>
     </form>
 </template>
+
+
+

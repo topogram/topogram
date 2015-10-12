@@ -16,7 +16,7 @@ Template.network.rendered = function () {
     var network  = NetworkGraph.initNetwork("network", networkId);
 
     // real-time
-    Tracker.autorun(function(){
+    // Tracker.autorun(function(){
         // fetch and parse data
         var edges = Edges.find().fetch();
         var nodes = Nodes.find().fetch();
@@ -31,9 +31,10 @@ Template.network.rendered = function () {
 
         
 
+    // });
+        var edges = Edges.find().fetch();
+        var nodes = Nodes.find().fetch();
         if(network)  network.updateNetworkData(nodes,edges);
-
-    });
 
     Template.instance().network.set(network);
 

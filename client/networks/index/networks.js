@@ -10,7 +10,18 @@ Template.addNetwork.events({
 Template.networks.events({
     'click .delete' : function(e) {
       e.preventDefault();
-      Meteor.call("deleteNetwork", this._id);
+      console.log(this);
+      // var instance = UI.renderWithData(Template.content, {networkId: data});
+      var id = Session.get('toDelete');
+      console.log(id);
+      Meteor.call("deleteNetwork", id);
+      var id = Session.set('toDelete', "");
+    },
+    'click .modal-delete-open' : function(e) {
+        $('#modal-delete').openModal();
+        var id =$(e.target).data('modal-template');
+        console.log(id);
+         Session.set('toDelete', id);
     }
 });
 
