@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "geojson-tools": {
+      "version": "0.2.1",
+      "dependencies": {
+        "underscore": {
+          "version": "1.8.3"
+        }
+      }
+    }
+  }
+}

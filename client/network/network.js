@@ -25,9 +25,9 @@ Template.network.rendered = function () {
         // console.log("network : ", networkId, nodes .length, "nodes", edges .length, "edges" );
 
         // missing nodes and target
-        for (var i = 0; i <edges.length; i++) {
-            if(!edges[i].data.source || !edges[i].data.target) console.log(edges[i]);
-        }
+        // for (var i = 0; i <edges.length; i++) {
+        //     if(!edges[i].data.source || !edges[i].data.target) console.log(edges[i]);
+        // }
 
         
 

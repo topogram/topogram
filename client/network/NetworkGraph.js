@@ -182,6 +182,14 @@ NetworkGraph = {
         this.net.on('drag', 'node', /*_.debounce(*/function( e ){
             var node = e.cyTarget;
             Meteor.call('updateNodePosition', node.id(), node.position());
+        });
+
+        // check for node merger 
+        this.net.on('cxtdragout', 'node', function (e) {
+            console.log('test');
+            console.log(e.boundingBox());
+
         })
+
     }
 }
