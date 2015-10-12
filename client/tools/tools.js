@@ -8,6 +8,7 @@ Template.networkTools.onCreated(function() {
 Template.networkTools.rendered = function() {}
 
 Template.networkTools.helpers({
+
     layouts: function() {
         return [
             "springy", "random", "grid", "circle", "breadthfirst", "concentric"
@@ -26,6 +27,20 @@ Template.networkTools.helpers({
             }
         });
         return Object.keys(node.data.data);
+    },
+
+    nodeTypes: function() {
+        var nodes = Nodes.find({}, {
+            fields: {
+                "data.data": 1
+            }
+        }).fetch();
+
+        var types = [];
+        nodes.forEach(function (node) {
+            if(types.indexOf(node.data.data.type)< 0) types.push(node.data.data.type)
+        })
+        return types
     }
 
 })
@@ -49,13 +64,25 @@ Template.networkTools.events = {
         template.view.parentView._templateInstance.changeLayout.get()($(e.target).data().layoutName);
     },
 
-    // filter
+    // color
     'change #nodeCatColor': function(e, template) {
         var val = $(e.currentTarget).find('option:selected').val();
         var net = template.view.parentView._templateInstance.network.get().net;
 
         // console.log(val);
         updateNodesColorsByCat(net, val);
+
+    },
+
+    // filter
+    'change #nodeFilterType': function(e, template) {
+        var val = $(e.currentTarget).find('option:selected').val();
+        var net = template.view.parentView._templateInstance.network.get().net;
+
+        // console.log(val);
+        net.nodes().filterFn(function( ele ){
+          return ele.data('type') == val;
+        });;
 
     },
 

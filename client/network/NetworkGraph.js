@@ -40,12 +40,17 @@ NetworkGraph = {
                             'text-outline-color': function( e ){ return e.locked() ?  "red" : "#888" },
                             'min-zoomed-font-size': 8,
                              'width': function(e) { 
-                                var count = e.data().data.count || 12; 
+                                var count = e.data().data.count || e.degree(); 
                                 return count*10 //'mapData('+ count +',0, 1, 20, 50)'
                             },
-                             'height': function(e) { var count = e.data().data.count || 12; 
+                             'height': function(e) { 
+                                var count = e.data().data.count || e.degree(); 
                                 return count*10 //'mapData('+ count +',0, 1, 20, 50)'
                             }
+                    })
+                .selector('node[[degree = 0]]')
+                    .style({
+                        'background-color' : "#555"
                     })
                 .selector('edge')
                     .style({

@@ -1,3 +1,7 @@
+span.badge {
+    position: relative!important;
+    right: 0!important;
+}
 
 #navTitle {
     margin-left: 20px;
