@@ -211,32 +211,34 @@ NetworkGraph = {
             Session.set('currentType', "node");
             Session.set('currentId', node.id());
 
-            if( node.selected() ) {
-                // color focus
-                self.net.nodes().style({"opacity":'.1'});
-                self.net.edges().style({"opacity":'.1'});
-                node.style({"opacity":'1'});
-                node.neighborhood().style({"opacity":'1'});
+            
+            // color focus
+            self.net.nodes().style({"opacity":'.1'});
+            self.net.edges().style({"opacity":'.1'});
+            node.style({"opacity":'1'});
+            node.neighborhood().style({"opacity":'1'});
 
-                // make only the focus selectable 
-                self.net.nodes().unselectify()
-                self.net.edges().unselectify(false)
-                node.neighborhood().selectify();
+            // make only the focus selectable 
+            self.net.nodes().unselectify()
+            self.net.edges().unselectify(false)
+            node.neighborhood().selectify();
 
-                // add tooltip
-                self.addQTip()
+            // add tooltip
+            self.addQTip()
 
 
-                $("#infoBox").css('visibility', 'visible');
-            } else {
+            $("#infoBox").css('visibility', 'visible');
+            
+            // unselect
+            /*
+            self.net.nodes().style({"opacity":'1'});
+            self.net.edges().style({"opacity":'1'});
+            self.net.nodes().selectify();
+            self.net.edges().selectify();
+            $("#infoBox").css('visibility', 'hidden');
+            */
 
-                self.net.nodes().style({"opacity":'1'});
-                self.net.edges().style({"opacity":'1'});
-                self.net.nodes().selectify();
-                self.net.edges().selectify();
-                $("#infoBox").css('visibility', 'hidden');
-
-            }
+            
         });
 
         this.net.on('select', 'edge', /*_.debounce(*/function( e ){
