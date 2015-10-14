@@ -22,6 +22,9 @@ Template.networks.events({
         var id =$(e.target).data('modal-template');
         console.log(id);
          Session.set('toDelete', id);
+    },
+    'click .modal-delete-close' : function(e) {
+        $('#modal-delete').closeModal();
     }
 });
 

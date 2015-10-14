@@ -8,17 +8,16 @@ Template.single.helpers( {
             };
         } );
     },
-
     network: function() {
         var network = Networks.findOne();
         // console.log(network);
         return network;
     }
-
 } );
 
-// Template.gig.helpers( {
-//     formatDate: function( date ) {
-//         return moment( date ).format( "ddd. MMM Do YYYY, hh:mm A" );
-//     }
-// } );
+Template.single.helpers( {
+    getJSON: function( ) {
+        // console.log( cy.json() );
+        // return moment( date ).format( "ddd. MMM Do YYYY, hh:mm A" );
+    }
+} );

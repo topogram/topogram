@@ -36,7 +36,7 @@ Template.networkTools.helpers({
             }
         }).fetch();
 
-        var types = [];
+        var types = [""];
         nodes.forEach(function (node) {
             if(types.indexOf(node.data.data.type)< 0) types.push(node.data.data.type)
         })
@@ -69,8 +69,15 @@ Template.networkTools.events = {
         var val = $(e.currentTarget).find('option:selected').val();
         var net = template.view.parentView._templateInstance.network.get().net;
 
-        // console.log(val);
-        updateNodesColorsByCat(net, val);
+        console.log(val);
+
+        var colors = d3.scale.category20b();
+        net.nodes().forEach(function(ele) {
+            // console.log(val);
+            ele.style({
+                'background-color':  ele.data("starred") ? "yellow" : colors( ele.data().data[val] )
+            })
+        });
 
     },
 
@@ -79,10 +86,14 @@ Template.networkTools.events = {
         var val = $(e.currentTarget).find('option:selected').val();
         var net = template.view.parentView._templateInstance.network.get().net;
 
-        // console.log(val);
-        net.nodes().filterFn(function( ele ){
-          return ele.data('type') == val;
-        });;
+        if(val == "" || !val) {
+            net.nodes().style({"visibility": "visible"})
+        } else {
+            var visible  = net.nodes().forEach(function( ele ){
+                if(ele.data().data.type == val) ele.style({"visibility": "visible"})
+                else ele.style({"visibility": "hidden"})
+            })
+        }
 
     },
 
@@ -142,15 +153,4 @@ Template.networkTools.events = {
 
 }
 
-// BUG : colors don't change
-function updateNodesColorsByCat (net, val){
-    var colors = d3.scale.category20b();
 
-    net.nodes().css({
-            'background-color': function(n) {
-                return n.data("starred") ? "yellow" : colors( n.data().data[val] );
-                }
-            });
-
-
-}
