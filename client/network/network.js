@@ -32,9 +32,11 @@ Template.network.rendered = function () {
         
 
     // });
+
     var edges = Edges.find().fetch();
     var nodes = Nodes.find().fetch();
     if(network)  network.updateNetworkData(nodes,edges);
+
 
     Template.instance().network.set(network);
 

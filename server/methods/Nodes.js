@@ -50,6 +50,7 @@ Meteor.methods({
     starNode : function(nodeId) {
         var node = Nodes.findOne({ "data.id" : nodeId });
         var starred = node.data.starred ? false : true;
+        console.log("starred",starred);
         Nodes.update({
             _id: node._id
         }, {
