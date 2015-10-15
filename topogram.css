@@ -40,3 +40,7 @@ svg {
 .toolbox {
     /*position:absolute;*/
 }
+
+#viewSelector{
+	margin-bottom: 20px;
+}
