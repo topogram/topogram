@@ -34,7 +34,22 @@
                             {{/each}}
                         </select>
                     </div>
+                    <div class="input-field col s3">
+                        <input type="checkbox" checked="{{ asDate }}" id="add-date-info"  />
+                        <label for="add-date-info">Date info</label>
+                    </div>
+                    {{#if getAsDate}}
+                        <div class="col s3">
+                            <label for="dateField">Date</label>
+                            <select class="browser-default " name="dateField" id="dateField">
+                                {{#each getDataFields}}
+                                <option value="{{this }}">{{this }}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    {{/if}}
                 </div>
+                
                 {{/if}} 
                 {{#if isNodes }}
                 <div class="row">
@@ -50,6 +65,10 @@
                         <input type="checkbox" checked="{{ asLatLng }}" id="add-geo-info"  />
                         <label for="add-geo-info">Geo info</label>
                     </div>
+                    <div class="input-field col s3">
+                        <input type="checkbox" checked="{{ asDate }}" id="add-date-info"  />
+                        <label for="add-date-info">Date info</label>
+                    </div>
                     {{#if getAsLatLng}}
                         <div class="col s3">
                             <label for="latField">Latitude</label>
@@ -62,6 +81,16 @@
                         <div class="col s3">
                             <label for="lngField">Longitude</label>
                             <select class="browser-default" name="lngField" id="lngField">
+                                {{#each getDataFields}}
+                                <option value="{{this }}">{{this }}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    {{/if}}
+                    {{#if getAsDate}}
+                        <div class="col s3">
+                            <label for="dateField">Date</label>
+                            <select class="browser-default " name="dateField" id="dateField">
                                 {{#each getDataFields}}
                                 <option value="{{this }}">{{this }}</option>
                                 {{/each}}

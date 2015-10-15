@@ -5,7 +5,9 @@ Template.import.onCreated( function() {
     Session.set('newLayerDataReady', false);
     Session.set('dataFields', []);
     Session.set('asLatLng', false);
+    Session.set('asDate', false);
     Session.set('newLayerType', undefined);
+
 });
 
 Template.import.helpers({
@@ -23,6 +25,9 @@ Template.import.helpers({
     },
     getAsLatLng : function() {
         return Session.get('asLatLng');
+    },
+    getAsDate : function() {
+        return Session.get('asDate');
     },
     getDataFields : function() {
         return Session.get('dataFields');
@@ -71,6 +76,9 @@ Template.import.events = {
     "change #add-geo-info": function (event) {
         Session.set("asLatLng", event.target.checked);
     },
+    "change #add-date-info": function (event) {
+        Session.set("asDate", event.target.checked);
+    },
 
     "submit #importForm" : function(e) {
         e.preventDefault();
@@ -108,8 +116,11 @@ Template.import.events = {
 
             srcField = e.target.srcField.value;
             targetField =  e.target.targetField.value;
+            if(Session.get('asDate')) {
+                dateField =  e.target.dateField.value;
+            }
 
-            // check if src and target have been set correctly
+            // check if src and target have been set correctly // TODO VERIFY DATEFIELD
             if( !targetField || !srcField || (targetField == srcField) ) {
                     FlashMessages.sendError("Please define source and target");
                     return;
@@ -123,7 +134,7 @@ Template.import.events = {
             if(Session.get('asLatLng')) {
                 latField =  e.target.latField.value;
                 lngField =  e.target.lngField.value;
-                
+            
 
                 // add nodes
                 if( !idField || !latField || !lngField || (latField == lngField) ) {
@@ -131,7 +142,11 @@ Template.import.events = {
                     return;
                 }
             }
+            if(Session.get('asDate')) {
+                dateField =  e.target.dateField.value;
+            }
         }
+                    
 
         // parse data
         var parsedData = data.data.map(function  (d) {
@@ -141,6 +156,11 @@ Template.import.events = {
             if (Session.get('asLatLng')) { 
                 lat = d[e.target.latField.value]; 
                 lng = d[e.target.lngField.value]; 
+            };
+            //parse dates
+            var date = 0;
+            if (Session.get('asDate')) { 
+                date = d[e.target.dateField.value]; 
             };
 
             // parse data
