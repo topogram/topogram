@@ -1,20 +1,42 @@
 <template name="single">
-
     <div class="row">
-        <div class="col s6">
+        <div class="col s10 offset-s1">
             <h1>{{ network.name }}</h1>
 
-            <a class="btn" href="/networks/{{ networkId }}/network">Network</a>
-            <a class="btn" href="/networks/{{ networkId }}/nodes">Nodes</a>
-            <a class="btn" href="/networks/{{ networkId }}/edges">Edges</a>
-
-        </div>
-        <div class="col s6">
             {{> share }}
             <a class="btn red" href="/networks/{{ networkId }}/import">Import Data</a>
             <a class="btn blue" href="#">Download as JSON</a>
         </div>
     </div>
+        
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <hr>
+            <a class="btn" href="/networks/{{ networkId }}/network">Network</a>
+            <a class="btn" href="/networks/{{ networkId }}/nodes">Nodes</a>
+            <a class="btn" href="/networks/{{ networkId }}/edges">Edges</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="viewSelector" class="col s10 offset-s1 z-depth-1">
+            <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#tab1">Network</a></li>
+                <li class="tab col s3"><a href="#tab2">Nodes</a></li>
+                <li class="tab col s3"><a href="#tab3">Edges</a></li>
+            </ul>
+        </div>
+        <br>
+        <div id="tab1" class="col s10 offset-s1">Network</div>
+        <div id="tab2" class="col s10 offset-s1">Nodes</div>
+        <div id="tab3" class="col s10 offset-s1">Edges</div>
+    </div>
+
+    <script>
+        ( function( w, d, u , $ ) {
+            $('ul.tabs').tabs();
+        } )( window, document, undefined , jQuery );
+    </script>
 </template>
 
 <!-- 

@@ -18,8 +18,8 @@ Template.network.rendered = function () {
     // real-time
     // Tracker.autorun(function(){
         // fetch and parse data
-        var edges = Edges.find().fetch();
-        var nodes = Nodes.find().fetch();
+        // var edges = Edges.find().fetch();
+        // var nodes = Nodes.find().fetch();
 
         // console.log(edges, nodes);
         // console.log("network : ", networkId, nodes .length, "nodes", edges .length, "edges" );
@@ -32,9 +32,9 @@ Template.network.rendered = function () {
         
 
     // });
-        var edges = Edges.find().fetch();
-        var nodes = Nodes.find().fetch();
-        if(network)  network.updateNetworkData(nodes,edges);
+    var edges = Edges.find().fetch();
+    var nodes = Nodes.find().fetch();
+    if(network)  network.updateNetworkData(nodes,edges);
 
     Template.instance().network.set(network);
 
@@ -50,14 +50,14 @@ Template.network.rendered = function () {
             Meteor.call("updateNodesPositions", nodesLayout);
         }
 
-            var layout = network.net.makeLayout({ 
-                name: layoutName,
-                stop: savePositions // callback on layoutstop
-            });
-            layout.run();
-        }
+        var layout = network.net.makeLayout({ 
+            name: layoutName,
+            stop: savePositions // callback on layoutstop
+        });
+        layout.run();
+    }
 
-        Template.instance().changeLayout.set(changeLayout);
+    Template.instance().changeLayout.set(changeLayout);
 };
 
 Template.network.onDestroyed(function(){

@@ -102,15 +102,20 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <label for="layerData">Layer data - Paste CSV data here (first line should be headers)</label>
-                        <textarea class="textarea" name="layerData" id="layerData" cols="30" rows="10"></textarea>
+                        <label for="layerData">Layer data - Choose CSV file or paste CSV data here (first line should be headers, no empty lines)</label>
+                        <br>
+                        <input type="file" id="file-input" />
+                        <br>
+                        <textarea class="textarea" name="layerData" id="layerData" cols="30" rows="10" height="100"></textarea>
                         
                     </div>
                 </div>
 
-                {{#if dataIsReady }}
-                <button id="submit-new-layer" type="submit" class="btn btn-primary pull-right">Create layer</button>
-                {{ /if }}
+                <div class="row">
+                    <div class="col s12">
+                        <button id="submit-new-layer" type="submit" class="btn btn-primary pull-right">Create layer</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

@@ -43,7 +43,7 @@ Meteor.publish('edges', function (networkId) {
 
 Meteor.publish('nodesLab', function (networkId) {
     return Nodes.find({"networkId" : networkId});
-})
+});
 
 Meteor.publish('nodes', function (networkId) {
 
