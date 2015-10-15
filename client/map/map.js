@@ -1,50 +1,59 @@
 Template.map.rendered = function() {
     // session vars
     Session.set( 'minShowsPerVenue', 0 );
+   var self = this;
+    var networkId = this.data.networkId;
+   var maxRadius = 25;
+    console.log("this.data",this.data);
 
-    var maxRadius = 25;
-    //  parse data
-    var network = Networks.findOne();
-    var venues = network.gigs
+    //  retrieve data
+
+     var edges = Edges.find().fetch();
+     var nodes = Nodes.find().fetch();
+     var selectedNodes = nodes;
+
+   console.log("nodes",nodes);
+   console.log("edges",edges);
+
+/*    var selectedNodes = network.gigs
         .map( function( e ) {
-            return e.venue;
+            return e.selectedNode;
         } )
         .reduce( function( map, d, i, context ) {
             map[ d.id ] = map[ d.id ] ||  d;
             map[ d.id ].count = ( map[ d.id ].count || 0 ) + 1;
             return map;
-        }, {} );
+        }, {} );*/
 
     // GeoJSON features 
     var features = [];
 
-    ///init gravitycenter calculation
-    var bandgravitylat = [];
-    var bandgravitylong = [];
-    Object.keys( venues ).forEach( function( id ) {
-        var venue = venues[ id ];
+    Object.keys( selectedNodes ).forEach( function( id ) {
+        var selectedNode = selectedNodes[ id ];
 
-        if ( !isValidCoordinate( venue.latitude, venue.longitude ) ) {
-            console.log( venue, id );
+        if ( !isValidCoordinate( selectedNode.data.data.lat, selectedNode.data.data.long ) ) {
+            console.log( "discarded_selectedNode",selectedNode, id );
+            console.log( "selectedNode.lat",selectedNode.data.data.lat );
+            console.log( "selectedNode.lng",selectedNode.data.data.long );
             return;
         }
 
-        if ( venue.count > Session.get( "minShowsPerVenue" ) ) {
+        else {
             // parse GeoJSON  point
             var p = turf.point(
-                [ venue.latitude, venue.longitude ], {
-                    'name': venue.name,
-                    'count': venue.count,
-                    'city': venue.city,
-                    'country': venue.country
+                [ selectedNode.data.data.lat, selectedNode.data.data.long ], {
+                    'networkId': selectedNode.networkId,
+                    '_id' : selectedNode._id
+                   /* 'count': selectedNode.count,
+                    'city': selectedNode.city,
+                    'country': selectedNode.country*/
                 }
             );
+            console.log( "accepted_selectedNode",selectedNode, id );
+
             features.push( p );
             ///add coords for gravitycentercalculation
-            for (var c = 0; c < venue.count; c++) {
-                bandgravitylat.push( venue.latitude );
-                bandgravitylong.push( venue.longitude );
-            }
+           
         }
     } );
 
@@ -52,33 +61,12 @@ Template.map.rendered = function() {
     var collection = turf.featurecollection( features );
     // console.log( "collection", collection );
 
-    var bandgravitycenterlat = 0,
-        bandgravitycenterlong = 0;
-    for ( var i = 0; i < bandgravitylat.length; i++ ) {
-        bandgravitycenterlat += bandgravitylat[ i ];
-        bandgravitycenterlong += bandgravitylong[ i ];
-    };
-    // console.log("bandgravitycenterlat", bandgravitycenterlat);
-    bandgravitycenterlat = bandgravitycenterlat / bandgravitylat.length;
-    // console.log("bandgravitycenterlat", bandgravitycenterlat);
-    bandgravitycenterlong = bandgravitycenterlong / bandgravitylong.length;
-
-    // console.log("centralité géo", bandgravitycenterlat, bandgravitycenterlong);
-    var q = [];
-    q.push( turf.point(
-        [ bandgravitycenterlat, bandgravitycenterlong ], {
-            'name': network.name,
-            'location': ( bandgravitycenterlat + " " + bandgravitycenterlong ),
-            'info': 'centre de gravité'
-        }
-    ) );
-
-    // console.log("q", q);
+  
 
     // GeoJSON collection
     var collection = turf.featurecollection( features );
     // console.log("collection", collection);
-    var colleccentr = turf.featurecollection( q );
+    //var colleccentr = turf.featurecollection( q );
     // console.log("colleccentr", colleccentr);
 
     // setup map
@@ -111,25 +99,28 @@ Template.map.rendered = function() {
     // radius scale 
     var radius = d3.scale.linear()
         .domain( [
-            Session.get( 'minShowsPerVenue' ),
-            d3.max( Object.keys( venues ).map( function( d ) {
-                return venues[ d ].count;
+            Session.get( 'minParamForDisplay' ),
+            d3.max( Object.keys( selectedNodes ).map( function( d ) {
+                return selectedNodes[ d ].count;
             } ) )
         ] )
         .range( [ 5, maxRadius ] );
-
+///IMPROVEME: Size need to be set according to the number of edges;
     var feature = g.selectAll( "circle" )
         .data( collection.features ).enter()
         .append( "circle" )
-        .attr( "r", function( d ) {
+        .attr( "r", /*function( d ) {
             return radius( d.properties.count );
-        } )
+            console.log("d.properties.count",d.properties.count); 
+        }*/ 25
+         )
         .style( "fill", "red" )
         .style( "stroke", "none" )
         .style( "opacity", .6 );
 
     // features du centre de Gravité géographique FIX ME!! CHANGE STYLE OF THE CENTRALITY POINT
-    var g2 = svg.append( "g" ).attr( "class", "leaflet-zoom-hide" );
+   /* 
+   var g2 = svg.append( "g" ).attr( "class", "leaflet-zoom-hide" );
     var featurecentr = g2.selectAll( "circle" )
         .data( colleccentr.features ).enter()
         .append( "circle" )
@@ -137,6 +128,7 @@ Template.map.rendered = function() {
         .style( "fill", "green" )
         .style( "stroke", "none" )
         .style( "opacity", .8 );
+*/
 
     d3.selectAll( "circle" ).on( 'mouseover', function( d ) {
         var infos = "";
@@ -175,11 +167,11 @@ Template.map.rendered = function() {
         } );
 
         //point du centre de G géo
-        featurecentr.attr( "transform", function( d ) {
+        /*featurecentr.attr( "transform", function( d ) {
             return "translate(" +
                 applyLatLngToLayer( d ).x + "," +
                 applyLatLngToLayer( d ).y + ")";
-        } );
+        } );*/
     }
 
     // Use Leaflet to implement a D3 geometric transformation.
@@ -210,19 +202,20 @@ var getRandomColor = function() {
     }
     return color;
 };
-
 Template.map.events( {
-    'click #showVenues': function( e ) {
+    'click #showselectedNodes': function( e ) {
         e.preventDefault();
         var network = Networks.findOne();
         // render 
-    },
+    }
+} );
 
+/*
     'click showTours': function( e ) {
         e.preventDefault();
         var pointList = result.gigs.map( function( gig, i ) {
             var nextGig = result.gigs[ i + 1 ];
-            return new L.LatLng( gig.venue.latitude, gig.venue.longitude );
+            return new L.LatLng( gig.selectedNode.data.data.lat, gig.selectedNode.data.data.long );
         } );
 
         var firstpolyline = new L.Polyline( pointList, {
@@ -234,4 +227,4 @@ Template.map.events( {
 
         firstpolyline.addTo( template.map );
     }
-} );
+*/

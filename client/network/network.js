@@ -18,8 +18,8 @@ Template.network.rendered = function () {
     // real-time
     // Tracker.autorun(function(){
         // fetch and parse data
-        var edges = Edges.find().fetch();
-        var nodes = Nodes.find().fetch();
+   // var edges = Edges.find().fetch();
+    //    var nodes = Nodes.find().fetch();
 
         // console.log(edges, nodes);
         // console.log("network : ", networkId, nodes .length, "nodes", edges .length, "edges" );
@@ -34,6 +34,9 @@ Template.network.rendered = function () {
     // });
         var edges = Edges.find().fetch();
         var nodes = Nodes.find().fetch();
+           console.log("nodes",nodes);
+   console.log("edges",edges);
+
         if(network)  network.updateNetworkData(nodes,edges);
 
     Template.instance().network.set(network);
