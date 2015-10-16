@@ -5,11 +5,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
 
     {{> header}}
-    {{> flashMessages}}
+
+    <div class="row">
+        <div class="col s10 offset-s1">
+            {{> flashMessages}}
+        </div>
+    </div>
 
     <div class="main-view">
-
-        {{> yield}}
+        <div class="row">
+            <div class="col s10 offset-s1">
+                {{> yield}}
+            </div>
+        </div>
     </div>
 
     {{> footer}}

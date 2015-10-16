@@ -1,6 +1,6 @@
 span.badge {
-    position: relative!important;
-    right: 0!important;
+    position: relative !important;
+    right: 0 !important;
 }
 
 #navTitle {
@@ -11,13 +11,13 @@ nav ul {
     margin-right: 20px !important;
 }
 
-.category{
-	word-wrap: break-word;
+.category {
+    word-wrap: break-word;
 }
 
-#closeInfoBox { 
-    cursor: pointer; 
-    cursor: hand; 
+#closeInfoBox {
+    cursor: pointer;
+    cursor: hand;
 }
 
 #map {
@@ -27,20 +27,25 @@ nav ul {
 }
 
 svg {
-    position: relative.
+    position: relative;
+}
+
+#networkTemplate {
+    position: relative;
 }
 
 #network {
+    position: absolute;
+    top: 0;
+    left: 0;
     width : 100%;
-    height: 75vw;
-    position: fixed;
-    top: 70px;
+    height: 80vh;
 }
 
-.toolbox {
-    /*position:absolute;*/
+.cxtmenu, #network>canvas{
+	z-index: 0 !important;
 }
 
-#viewSelector{
-	margin-bottom: 20px;
+#viewSelector {
+    margin-bottom: 20px;
 }

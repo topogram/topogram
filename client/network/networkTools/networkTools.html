@@ -2,13 +2,14 @@
     <div class="card card-small">
         <div class="card-content">
             <p>
-                 Labels : 
+                Labels : <br> 
                 <a href="#" class="btn btn-flat toggle-node-labels">Node</a>
                 <a href="#" class="btn btn-flat toggle-edge-labels">Edges</a>
             </p>
+            <br>
             <a class='btn dropdown-button' href="#" data-activates="layouts" role="button">Layouts <span class="caret"></span></a>
             <ul id="layouts" class="small dropdown-content">
-                {{#each layouts }}
+                {{#each layouts}}
                     <li><a class="layout" data-layout-name="{{this.slug}}" href="#">{{ this.name }}</a></li>
                 {{/each}}
             </ul>
@@ -17,23 +18,21 @@
         <label for="nodeCatColor">Node Color</label>
         <select class="browser-default" name="nodeCatColor" id="nodeCatColor">
             {{#each nodeCategories}}
-                <option value="{{this }}">{{this }}</option>
+                <option value="{{this}}">{{this}}</option>
             {{/each}}
         </select>
 
         <label for="nodeFilterType">Filter Nodes</label>
         <select class="browser-default" name="nodeFilterType" id="nodeFilterType">
             {{#each nodeTypes}}
-                <option value="{{this }}">{{this }}</option>
+                <option value="{{this}}">{{this}}</option>
             {{/each}}
         </select>
 
         <div class="card-action">
-            <a id="edges-lab" href="/networks/{{networkId}}/edges">Edges</a>
-            <a id="nodes-lab" href="/networks/{{networkId}}/nodes">Nodes</a>
-            <a id="import-data" href="/networks/{{networkId}}/import"><i class="fa fa-plus fa-fw"></i>Import Data</a>
+            <a id="import-data" href="/networks/{{networkId}}/import"><i class="fa fa-plus fa-fw"></i>Import Data</a><br>
+            <a  id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a><br>
             <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
-            <a  id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
         </div>
     </div>
     
