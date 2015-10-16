@@ -2,12 +2,10 @@
     <nav class='grey darken-4 z-depth-3'>
         <div class="nav-wrapper">
             <a id="navTitle" href="/" class="brand-logo">Topogram</a>
-            {{#if currentUser}}
-            <ul>
-            </ul>
-            {{/if}}
             <ul id="nav-mobile" class="right hide-on-med-and-down">
+            	{{#if currentUser}}
                 <li><a href="/networks">Your networks</a></li>
+            	{{/if}}
                 <li>{{> searchbox }}</li>
                 <li><a href="/about">About</a></li>
                 <li>{{> atNavButton }}</li>
