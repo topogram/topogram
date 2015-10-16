@@ -7,19 +7,6 @@
     
     {{> share }}
        
-    <!-- 
-        <hr>
-        {{#if hasNetwork}}
-            <a class="btn" href="/networks/{{ networkId }}/network">Network</a>
-        {{/if}}
-        {{#if hasNodes}}
-            <a class="btn" href="/networks/{{ networkId }}/nodes">Nodes</a>
-        {{/if}}
-        {{#if hasEdges}}
-            <a class="btn" href="/networks/{{ networkId }}/edges">Edges</a>
-        {{/if}}
-    -->
-
     {{#if hasElements}}
         <div id="viewSelector" class="z-depth-1">
             <ul class="tabs">
@@ -31,6 +18,9 @@
                 {{/if}}
                 {{#if hasEdges}}
                     <li class="tab"><a href="#tab3">Edges</a></li>
+                {{/if}}
+                {{#if hasGeo}}
+                	<li class="tab"><a href="#tab4">Map</a></li>
                 {{/if}}
             </ul>
         </div>
@@ -50,6 +40,11 @@
                 <div id="tab3">
                     {{> edgesTemplate networkId=networkId}}
                 </div>
+            {{/if}}
+            {{#if hasGeo}}
+            	<div id="tab4">
+            		{{> map}}
+            	</div>
             {{/if}}
         </div>
 

@@ -3,12 +3,12 @@
         <div class="nav-wrapper">
             <a id="navTitle" href="/" class="brand-logo">Topogram</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-            	{{#if currentUser}}
-                <li><a href="/networks">Your networks</a></li>
-            	{{/if}}
-                <li>{{> searchbox }}</li>
+                <li>{{> searchbox}}</li>
+                {{#if currentUser}}
+                    <li><a href="/networks">Your networks</a></li>
+                {{/if}}
+                <li>{{> atNavButton}}</li>
                 <li><a href="/about">About</a></li>
-                <li>{{> atNavButton }}</li>
             </ul>
         </div>
     </nav>

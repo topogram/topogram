@@ -1,4 +1,4 @@
-Meteor.methods({ 
+Meteor.methods( {
     searchUser: function( query, options ) {
         options = options || {};
 
@@ -10,11 +10,11 @@ Meteor.methods({
         }
 
         // TODO fix regexp to support multiple tokens
-        var regex = new RegExp( "^" + query );
+        var regex = new RegExp( '^' + query );
         return Meteor.users.find( {
-             "emails.address" : {
+            'emails.address': {
                 $regex: regex
             }
-        }, options ).fetch( );
+        }, options ).fetch();
     }
-});
+} );

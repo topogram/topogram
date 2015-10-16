@@ -6,7 +6,7 @@ Meteor.methods( {
     },
 
     networkListForUser: function( userId ) {
-        console.log(userId);
+        // console.log(userId);
         return Networks.find({"owner" : userId, "name" :1}, { 'sort' : {'createdAt' : 1}, 'limit' : 500 });
     },
 

@@ -30,7 +30,7 @@ Template.import.helpers( {
     }
 } );
 
-Template.import.events = {
+Template.import.events( {
     'change #layerType': function( e, t ) {
         Session.set( 'newLayerType', e.currentTarget.value );
     },
@@ -205,4 +205,4 @@ Template.import.events = {
         };
         reader.readAsText( file );
     }
-}
+} );

@@ -1,5 +1,9 @@
-Template.home.helpers({
-    networks : function() {
-        return networks =  Networks.find().fetch(); 
+Template.home.helpers( {
+    hasPublicNetworks: function() {
+        return Networks.find().fetch().length > 0;
+    },
+
+    publicNetworks: function() {
+        return Networks.find().fetch();
     }
-})
+} );

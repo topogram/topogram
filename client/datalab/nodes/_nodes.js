@@ -4,9 +4,9 @@ Template.nodesTemplate.helpers( {
         return nodes = Nodes.find();
     },
     'query': function() {
-        console.log( this );
+        // console.log( this );
         return {
             networkId: this.networkId
-        }
+        };
     }
 } );

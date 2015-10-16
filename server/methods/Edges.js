@@ -6,11 +6,11 @@ Meteor.methods({
 
     addEdgeFromIds : function(networkId, srcId, targetId) {
         var edge = makeEdge(networkId, srcId, targetId, {})
-        console.log(edge);
+        // console.log(edge);
         return Edges.insert(edge);
     },
     batchInsertEdges: function (edges) {
-        console.log(edges.length);
+        // console.log(edges.length);
         Edges.batchInsert(edges);
     }, 
 

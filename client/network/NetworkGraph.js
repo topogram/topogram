@@ -1,6 +1,6 @@
 NetworkGraph = {
     initNetwork: function( _id, networkId ) {
-        console.log( 'initNetwok' );
+        // console.log( 'initNetwork' );
         this._id = _id;
         this.networkId = networkId;
         this.colors = d3.scale.category20c();
