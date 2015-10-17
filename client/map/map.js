@@ -14,6 +14,7 @@ Template.map.rendered = function() {
     var nodes = Nodes.find().fetch();
 
     console.log("edges", edges);
+    console.log("nodes", nodes);
     //Checks that the selected nodes are connected with edges and checks nodes length
     var selectedNodes = nodes.filter(function(node) {
         var nodeEdgesSrc = edges.filter(function(edge) {
@@ -28,9 +29,8 @@ Template.map.rendered = function() {
         return nodeEdgesSrc.length > 0 || nodeEdgesTar.length > 0;
     });
     console.log("selectedNodes", selectedNodes);
-
-    // GeoJSON features 
     var features = [];
+    /*-----GeoJSON features for Nodes-----------*/
 
     Object.keys(selectedNodes).forEach(function(id) {
         var selectedNode = selectedNodes[id];
@@ -43,32 +43,85 @@ Template.map.rendered = function() {
                 [selectedNode.data.data.lat, selectedNode.data.data.long], {
                     'networkId': selectedNode.networkId,
                     '_id': selectedNode._id,
-                         'countSrc': selectedNode.nodeEdgesSrc.length,
-                         'countTar': selectedNode.nodeEdgesTar.length
+                    'countSrc': selectedNode.nodeEdgesSrc.length,
+                    'countTar': selectedNode.nodeEdgesTar.length
 
-                        /*
-                         'city': selectedNode.city,
-                         'country': selectedNode.country*/
+                    /*
+                     'city': selectedNode.city,
+                     'country': selectedNode.country*/
                 }
             );
-            
+
             features.push(p);
             ///add coords for gravitycentercalculation
 
         }
     });
 
-    // GeoJSON collection
-   // var collection = turf.featurecollection(features);
-    // console.log( "collection", collection );
-
-
-
-    // GeoJSON collection
+    // GeoJSON collection for Nodes
     var collection = turf.featurecollection(features);
     // console.log("collection", collection);
     //var colleccentr = turf.featurecollection( q );
     // console.log("colleccentr", colleccentr);
+
+    /*-----GeoJSON features for Edges-----------*/
+    Object.keys(edges).forEach(function(id) {
+            console.log("id",id);
+            console.log("edges[id]",edges[id]);
+            console.log("edges[id].data.source",edges[id].data.source);
+            console.log("edges[id].data.target",edges[id].data.target);
+            console.log("selectedNodes[edges[id]",selectedNodes[edges[id].data.source]);
+            console.log("selectedNodes[edges[id]",selectedNodes[edges[id].data.target]);
+            
+            //BUG HERE!!!!!! check the -1, must be because of funct 18-30; FIXME!
+
+            edges[id].data.sourcelat = selectedNodes[edges[id].data.source-1].data.lat;
+            edges[id].data.sourcelong = selectedNodes[edges[id].data.source-1].data.lng;
+            edges[id].data.targetlat = selectedNodes[edges[id].data.target-1].data.lat;
+            edges[id].data.targetlong = selectedNodes[edges[id].data.target-1].data.lng;
+
+            console.log("edges[id].data.sourcelat ", edges[id].data.sourcelat);
+            console.log("edges[id].data.sourcelong", edges[id].data.sourcelong);
+            console.log("edges[id].data.targetlat ", edges[id].data.targetlat);
+            console.log("edges[id].data.targetlong", edges[id].data.targetlong);
+
+
+        })
+        /*
+
+                if (!isValidCoordinate(selectedEdge.data.data.lat, selectedEdge.data.data.long)) {
+                    return;
+                } else {
+                    // parse GeoJSON  point
+                    var p = turf.point(
+                        [selectedEdge.data.data.lat, selectedEdge.data.data.long], {
+                            'networkId': selectedEdge.networkId,
+                            '_id': selectedEdge._id,
+                                 'countSrc': selectedEdge.nodeEdgesSrc.length,
+                                 'countTar': selectedEdge.nodeEdgesTar.length
+
+                                /*
+                                 'city': selectedNode.city,
+                                 'country': selectedNode.country*/
+        /*
+                        }
+                    );
+                    
+                    features.push(p);
+                    ///add coords for gravitycentercalculation
+
+                }
+            });
+
+           // GeoJSON collection for Edges
+            var collection = turf.featurecollection(features);
+            // console.log("collection", collection);
+            //var colleccentr = turf.featurecollection( q );
+            // console.log("colleccentr", colleccentr);
+
+        */
+
+
 
     // setup map
     L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
@@ -103,7 +156,7 @@ Template.map.rendered = function() {
             Session.get('minParamForDisplay'),
             d3.max(Object.keys(selectedNodes).map(function(d) {
                 console.log("selectedNodes[d].count", selectedNodes[d].nodeEdgesSrc.length + selectedNodes[d].nodeEdgesTar.length);
-               
+
                 return selectedNodes[d].nodeEdgesSrc.length + selectedNodes[d].nodeEdgesTar.length;
             }))
         ])
@@ -116,10 +169,10 @@ Template.map.rendered = function() {
             function(d) {
                 //TODO:IMPLEMENT SELECTOR FOR THE RADIUS SIZE
 
-                console.log("radius(d.properties.countSrc + d.properties.countTar)",radius(d.properties.countSrc + d.properties.countTar));
+                console.log("radius(d.properties.countSrc + d.properties.countTar)", radius(d.properties.countSrc + d.properties.countTar));
                 return ~~(radius(d.properties.countSrc + d.properties.countTar));
-            } 
-            
+            }
+
         )
         .style("fill", "red")
         .style("stroke", "none")
