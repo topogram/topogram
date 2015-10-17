@@ -1,4 +1,5 @@
-Template.import.rendered = function() {};
+Template.import.rendered = function() {
+};
 
 Template.import.onCreated( function() {
     Session.set( 'newLayerDataReady', false );
@@ -29,44 +30,52 @@ Template.import.helpers( {
     }
 } );
 
-Template.import.events = {
+Template.import.events( {
     'change #layerType': function( e, t ) {
         Session.set( 'newLayerType', e.currentTarget.value );
     },
 
-    'change #layerData': function( e ) {
-        e.preventDefault();
-        console.log( 'change #layerData' );
-    },
-
-    'click #submit-new-layer': function( e ) {
+    'keyup #layerData': function( e ) {
         e.preventDefault();
 
-        var type = Session.get( 'newLayerType' );
+        //check all lines have the same nb of datum
+        var lines = e.target.value.split( '\n' );
+        var nbDatum = lines[ 0 ].split( ',' ).length;
+        // console.log( 'nbDatum:', nbDatum );
 
-        // TODO : make UI for those options
-        var parsingOptions = {
-            header: true
-        };
-
-        var data = Papa.parse( document.getElementById( 'layerData' ).value, parsingOptions );
-        console.log( data );
-
-        if ( data.errors.length ) {
-            for ( var i = 0; i < data.errors.length; i++ ) {
-                Session.set( 'newLayerDataReady', false );
-                var message = 'CSV parsing Error ';
-                if ( data.errors[ i ].row ) message += 'at row: ' + data.errors[ i ].row + ' ';
-                message += data.errors[ i ].message;
-                FlashMessages.sendError( message );
-            }
+        if ( lines.filter( function( l ) {
+            l.split( ',' ).length != nbDatum;
+        } ).length != 0 ) {
+            console.log( "all lines don't have the same nb of datum" );
         } else {
-            var message = type + ' CSV parsed succesfully : ' + data.data.length + ' records';
-            FlashMessages.sendSuccess( message );
+            console.log( "data seems safe" );
 
-            // keep data
-            Session.set( 'newLayerDataReady', true );
-            Session.set( 'dataFields', data.meta.fields );
+            var type = Session.get( 'newLayerType' );
+
+            // TODO : make UI for those options
+            var parsingOptions = {
+                header: true
+            };
+
+            var data = Papa.parse( e.target.value, parsingOptions );
+            console.log( data );
+
+            if ( data.errors.length ) {
+                for ( var i = 0; i < data.errors.length; i++ ) {
+                    Session.set( 'newLayerDataReady', false );
+                    var message = 'CSV parsing Error ';
+                    if ( data.errors[ i ].row ) message += 'at row: ' + data.errors[ i ].row + ' ';
+                    message += data.errors[ i ].message;
+                    FlashMessages.sendError( message );
+                }
+            } else {
+                var message = type + ' CSV parsed succesfully : ' + data.data.length + ' records';
+                FlashMessages.sendSuccess( message );
+
+                // keep data
+                Session.set( 'newLayerDataReady', true );
+                Session.set( 'dataFields', data.meta.fields );
+            }
         }
     },
 
@@ -166,16 +175,17 @@ Template.import.events = {
             Meteor.call( 'batchInsertEdges', parsedData, function( edges ) {
                 console.log( data.data.length, ' edges added' );
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' );
-                Router.go( '/networks/' + self.networkId + '/edges' );
+                // Router.go( '/networks/' + self.networkId + '/edges' );
             } )
         } else if ( type == 'nodes' ) {
             console.log( parsedData );
             Meteor.call( 'batchInsertNodes', parsedData, function( nodes ) {
                 console.log( data.data.length, ' nodes added' );
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' );
-                Router.go( '/networks/' + self.networkId + '/nodes' );
+                // Router.go( '/networks/' + self.networkId + '/nodes' );
             } );
         }
+        Router.go( '/networks/' + self.networkId );
     },
 
     'change #file-input': function( e ) {
@@ -195,4 +205,4 @@ Template.import.events = {
         };
         reader.readAsText( file );
     }
-}
+} );

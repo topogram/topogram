@@ -1,35 +1,32 @@
 <template name="networks">
-    <div id="networks" class="row">
-        <div class="col s10 offset-s1">
-            <h1>Your networks</h1>
-            <div class="row">
-                <div class="col s8">
-                     <table>
-                        <thead>
-                          <tr>
-                              <th data-field="index"></th>
-                              <th data-field="id">Name</th>
-                              <th data-field="privacy">Visibility</th>
-                              <th data-field="createdAt">Creation date</th>
-                              <th>Delete</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        {{#each networks}}
-                            {{> networkIndexRow}}
-                        {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col s4">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title grey-text text-darken-4">
-                                Add Network
-                            </span>
-                            {{> addNetwork}}
-                        </div>
-                    </div>
+
+    <h1>Your networks</h1>
+    <div class="row">
+        <div class="col s8">
+             <table>
+                <thead>
+                  <tr>
+                      <th data-field="index"></th>
+                      <th data-field="id">Name</th>
+                      <th data-field="privacy">Visibility</th>
+                      <th data-field="createdAt">Creation date</th>
+                      <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {{#each networks}}
+                    {{> networkIndexRow}}
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="col s4">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title grey-text text-darken-4">
+                        Add Network
+                    </span>
+                    {{> addNetwork}}
                 </div>
             </div>
         </div>
@@ -40,16 +37,16 @@
 
 <template name="modalDelete">
     <!-- Modal Structure -->
-      <div id="modal-delete" class="modal">
+    <div id="modal-delete" class="modal">
         <div class="modal-content">
-          <h4>Delete network</h4>
-          <p>Are you sure you want to delete this network</p>
+            <h4>Delete network</h4>
+            <p>Are you sure you want to delete this network</p>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="delete modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-          <a href="#!" class="modal-delete-close modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="delete modal-action modal-close waves-effect waves-red btn-flat">Agree</a>
+            <a href="#!" class="modal-delete-close modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
-      </div>
+    </div>
 </template>
 
 <template name="networkIndexRow">

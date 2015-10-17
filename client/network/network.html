@@ -1,19 +1,12 @@
-<template name="network">
-<div class="row">
-    <div class="col s12">
-        <div id="network"></div>
-    </div>
+<template name="networkTemplate">
+    <div id="networkTemplate" class="row">
+        <div class="col s12" id="network"></div>
 
-    <div class="toolbox ">
-        <div class="col s3">
+        <div class="toolbox col s3">
             {{> networkTools }}
         </div>
         <div class="col offset-s6 s3">
             {{> infobox}}
         </div>
     </div>
-
-
-</div>
-
 </template>
