@@ -16,23 +16,18 @@ Template.networkTemplate.rendered = function() {
 
     // real-time
     // Tracker.autorun(function(){
-    // fetch and parse data
-    // var edges = Edges.find().fetch();
-    // var nodes = Nodes.find().fetch();
+        // fetch and parse data
+        var edges = Edges.find().fetch();
+        var nodes = Nodes.find().fetch();
 
-    // console.log(edges, nodes);
-    // console.log('network : ', networkId, nodes .length, 'nodes', edges .length, 'edges' );
-
-    // missing nodes and target
-    // for (var i = 0; i <edges.length; i++) {
-    //     if(!edges[i].data.source || !edges[i].data.target) console.log(edges[i]);
-    // }
+        // console.log(edges, nodes);
+        console.log('network : ', networkId, nodes .length, 'nodes', edges .length, 'edges' );
+        console.log(edges);
+        if ( network ) network.updateNetworkData( nodes, edges );
 
     // });
 
-    var edges = Edges.find().fetch();
-    var nodes = Nodes.find().fetch();
-    if ( network ) network.updateNetworkData( nodes, edges );
+    console.log(network.net.nodes());
 
     Template.instance().network.set( network );
 

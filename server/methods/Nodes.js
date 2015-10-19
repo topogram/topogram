@@ -8,10 +8,20 @@ Meteor.methods( {
     },
 
     deleteNode: function( nodeId ) {
-        var node = Nodes.findOne( {
-            'data.id': nodeId
-        } );
-        Nodes.remove( node );
+        var _id = Nodes.findOne({'data.id': nodeId }, {"_id" :1})._id;
+        Nodes.remove({'_id': _id}, {tx: true});
+    },
+
+    deleteNodeAndConnectedEdges: function(nodeId, edgesId) {
+        var _id = Nodes.findOne({ 'data.id': nodeId }, {"_id" : 1})._id;
+
+        console.log(nodeId, edgesId, _id);
+        tx.start("delete node+neighborhood");
+        Nodes.remove({"_id" : _id }, {tx: true});
+        Edges.find({'data.id' : { '$in' : edgesId } }).forEach(function (edge) {
+          Edges.remove({ "_id" : edge._id}, {tx: true});
+        });
+        tx.commit();
     },
 
     deleteNodesByNetworkId: function( networkId ) {

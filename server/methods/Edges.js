@@ -9,6 +9,7 @@ Meteor.methods({
         // console.log(edge);
         return Edges.insert(edge);
     },
+
     batchInsertEdges: function (edges) {
         // console.log(edges.length);
         Edges.batchInsert(edges);

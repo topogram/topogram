@@ -1,64 +1,58 @@
 <template name="single">
+    <div class="row">
+        <div class="col s6">
+            <h1>{{ network.name }}</h1>
+        </div>
+        <div class="col s6">
+            <a class="btn red lighten-1" href="/networks/{{ networkId }}/import">Import Data</a>
+            <a class="btn blue lighten-1" href="#">Download as JSON</a>
+            {{> share }} 
+        </div>
+    </div>
 
-    <h1>{{ network.name }}</h1>
 
-    <a class="btn red lighten-1" href="/networks/{{ networkId }}/import">Import Data</a>
-    <a class="btn blue lighten-1" href="#">Download as JSON</a>
-    
-    {{> share }}
-       
     {{#if hasElements}}
-        <div id="viewSelector" class="z-depth-1">
-            <ul class="tabs">
-                {{#if hasNetwork}}
-                    <li class="tab"><a class="active" href="#tab1">Network</a></li>
-                {{/if}}
-                {{#if hasNodes}}
-                    <li class="tab"><a href="#tab2">Nodes</a></li>
-                {{/if}}
-                {{#if hasEdges}}
-                    <li class="tab"><a href="#tab3">Edges</a></li>
-                {{/if}}
-                {{#if hasGeo}}
-                	<li class="tab"><a href="#tab4">Map</a></li>
-                {{/if}}
-            </ul>
-        </div>
-        <br>
-        <div id="view">
+    <div id="viewSelector" class="z-depth-1">
+        <ul class="tabs">
             {{#if hasNetwork}}
-                <div id="tab1">
-                    {{> networkTemplate networkId=networkId}}
-                </div>
+            <li class="tab"><a class="active" href="#tab1">Network</a></li>
+            {{/if}} {{#if hasNodes}}
+            <li class="tab"><a href="#tab2">Nodes</a></li>
+            {{/if}} {{#if hasEdges}}
+            <li class="tab"><a href="#tab3">Edges</a></li>
+            {{/if}} {{#if hasGeo}}
+            <li class="tab"><a href="#tab4">Map</a></li>
             {{/if}}
-            {{#if hasNodes}}
-                <div id="tab2">
-                    {{> nodesTemplate networkId=networkId}}
-                </div>
-            {{/if}}
-            {{#if hasEdges}}
-                <div id="tab3">
-                    {{> edgesTemplate networkId=networkId}}
-                </div>
-            {{/if}}
-            {{#if hasGeo}}
-            	<div id="tab4">
-            		{{> map}}
-            	</div>
-            {{/if}}
+        </ul>
+    </div>
+    <br>
+    <div id="view">
+        {{#if hasNetwork}}
+        <div id="tab1">
+            {{> networkTemplate networkId=networkId}}
         </div>
-
-        <script>
-            ( function( w, d, u , $ ) {
-                $('ul.tabs').tabs();
-            } )( window, document, undefined , jQuery );
-        </script>
+        {{/if}} {{#if hasNodes}}
+        <div id="tab2">
+            {{> nodesTemplate networkId=networkId}}
+        </div>
+        {{/if}} {{#if hasEdges}}
+        <div id="tab3">
+            {{> edgesTemplate networkId=networkId}}
+        </div>
+        {{/if}} {{#if hasGeo}}
+        <div id="tab4">
+            {{> map}}
+        </div>
+        {{/if}}
+    </div>
+    <script>
+    (function(w, d, u, $) {
+        $('ul.tabs').tabs();
+    })(window, document, undefined, jQuery);
+    </script>
     {{/if}}
 </template>
-
 <!-- 
 {> map}}
 {{> timeline }}
 -->
- 
- 
