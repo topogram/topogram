@@ -12,9 +12,8 @@ Template.map.rendered = function() {
     var edges = Edges.find().fetch();
     var nodes = Nodes.find().fetch();
 
-
-    console.log("edges", edges);
-    console.log("nodes", nodes);
+    console.log( 'edges[ 0 ]', edges[ 0 ] );
+    console.log( 'nodes[ 0 ]', nodes[ 0 ] );
 
     //Checks that the selected nodes are connected with edges and checks nodes length
     var selectedNodes = nodes.filter( function( node ) {
@@ -28,12 +27,11 @@ Template.map.rendered = function() {
         node[ 'nodeEdgesTar' ] = nodeEdgesTar;
 
         return nodeEdgesSrc.length > 0 || nodeEdgesTar.length > 0;
+    } );
+    console.log( 'selectedNodes[ 0 ]', selectedNodes[ 0 ] );
 
-    });
-    console.log("selectedNodes", selectedNodes);
-    var features = [];
     /*-----GeoJSON features for Nodes-----------*/
-
+    var features = [];
 
     Object.keys( selectedNodes ).forEach( function( id ) {
         var selectedNode = selectedNodes[ id ];
@@ -48,93 +46,96 @@ Template.map.rendered = function() {
                     '_id': selectedNode._id,
                     'countSrc': selectedNode.nodeEdgesSrc.length,
                     'countTar': selectedNode.nodeEdgesTar.length
-
                     /*
-
-                     'city': selectedNode.city,
-                     'country': selectedNode.country*/
+                    'city': selectedNode.city,
+                    'country': selectedNode.country
+                    */
                 }
             );
 
-            features.push(p);
+            features.push( p );
 
             ///add coords for gravitycentercalculation
 
         }
     } );
 
-
     // GeoJSON collection for Nodes
-    var collection = turf.featurecollection(features);
-    // console.log("collection", collection);
+    var collection = turf.featurecollection( features );
+    // console.log( 'collection', collection );
 
     //var colleccentr = turf.featurecollection( q );
-    // console.log('colleccentr', colleccentr);
+    // console.log( 'colleccentr', colleccentr );
 
     /*-----GeoJSON features for Edges-----------*/
-    Object.keys(edges).forEach(function(id) {
-            console.log("id",id);
-            console.log("edges[id]",edges[id]);
-            console.log("edges[id].data.source",edges[id].data.source);
-            console.log("edges[id].data.target",edges[id].data.target);
-            console.log("selectedNodes[edges[id]",selectedNodes[edges[id].data.source]);
-            console.log("selectedNodes[edges[id]",selectedNodes[edges[id].data.target]);
-            
-            //BUG HERE!!!!!! check the -1, must be because of funct 18-30; FIXME!
+    Object.keys( edges ).forEach( function( id ) {
+        console.log( 'edges[ ' + id + ' ]', edges[ id ] );
+          
+        // for-loop is better than selectedNodes.filter( ... ) here since we want only one source and one target, and we can thus break the for-loop once they are found instead of looping through all selectedNodes
+        var sourceNode, targetNode,
+            srcFound = false, tarFound = false;
+        for (var i = 0, l = selectedNodes.length; i < l; i++) {
+            if( !srcFound && selectedNodes[ i ].data.id == edges[ id ].data.source ){
+                sourceNode = selectedNodes[ i ];
+                srcFound = true;
+            }
+            else if( !tarFound && selectedNodes[ i ].data.id == edges[ id ].data.target ){
+                targetNode = selectedNodes[ i ];
+                tarFound = true;
+            }
+            else if( srcFound && tarFound ) break; //stop for-loop since we found our nodes
+        }
 
-            edges[id].data.sourcelat = selectedNodes[edges[id].data.source-1].data.lat;
-            edges[id].data.sourcelong = selectedNodes[edges[id].data.source-1].data.lng;
-            edges[id].data.targetlat = selectedNodes[edges[id].data.target-1].data.lat;
-            edges[id].data.targetlong = selectedNodes[edges[id].data.target-1].data.lng;
+        console.log( 'sourceNode', sourceNode );
+        console.log( 'targetNode', targetNode );
 
-            console.log("edges[id].data.sourcelat ", edges[id].data.sourcelat);
-            console.log("edges[id].data.sourcelong", edges[id].data.sourcelong);
-            console.log("edges[id].data.targetlat ", edges[id].data.targetlat);
-            console.log("edges[id].data.targetlong", edges[id].data.targetlong);
+        edges[ id ].data.sourcelat = sourceNode.data.lat;
+        edges[ id ].data.sourcelong = sourceNode.data.lng;
+        edges[ id ].data.targetlat = targetNode.data.lat;
+        edges[ id ].data.targetlong = targetNode.data.lng;
 
+        // console.log('edges[id].data.sourcelat ', edges[id].data.sourcelat);
+        // console.log('edges[id].data.sourcelong', edges[id].data.sourcelong);
+        // console.log('edges[id].data.targetlat ', edges[id].data.targetlat);
+        // console.log('edges[id].data.targetlong', edges[id].data.targetlong);
 
-        })
-        /*
-
-                if (!isValidCoordinate(selectedEdge.data.data.lat, selectedEdge.data.data.long)) {
-                    return;
-                } else {
-                    // parse GeoJSON  point
-                    var p = turf.point(
-                        [selectedEdge.data.data.lat, selectedEdge.data.data.long], {
-                            'networkId': selectedEdge.networkId,
-                            '_id': selectedEdge._id,
-                                 'countSrc': selectedEdge.nodeEdgesSrc.length,
-                                 'countTar': selectedEdge.nodeEdgesTar.length
-
-                                /*
-                                 'city': selectedNode.city,
-                                 'country': selectedNode.country*/
-        /*
-                        }
-                    );
-                    
-                    features.push(p);
-                    ///add coords for gravitycentercalculation
-
-                }
-            });
-
-           // GeoJSON collection for Edges
-            var collection = turf.featurecollection(features);
-            // console.log("collection", collection);
-            //var colleccentr = turf.featurecollection( q );
-            // console.log("colleccentr", colleccentr);
-
-        */
+    } );
+    /*
+        if (!isValidCoordinate(selectedEdge.data.data.lat, selectedEdge.data.data.long)) {
+        return;
+        } else {
+        // parse GeoJSON  point
+        var p = turf.point(
+        [selectedEdge.data.data.lat, selectedEdge.data.data.long], {
+        'networkId': selectedEdge.networkId,
+        '_id': selectedEdge._id,
+        'countSrc': selectedEdge.nodeEdgesSrc.length,
+        'countTar': selectedEdge.nodeEdgesTar.length
 
 
+        // 'city': selectedNode.city,
+        // 'country': selectedNode.country
+        }
+        );
+
+        features.push(p);
+        ///add coords for gravitycentercalculation
+
+        }
+        });
+
+        // GeoJSON collection for Edges
+        var collection = turf.featurecollection(features);
+        // console.log('collection', collection);
+        //var colleccentr = turf.featurecollection( q );
+        // console.log('colleccentr', colleccentr);
+    */
 
     // setup map
     L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
     // var url = 'http://tile.stamen.com/toner/{z}/{x}/{y}.png';
     var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    var attrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+    var attrib = "Map data © <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors";
     var layer = new L.TileLayer( url, {
         minZoom: 2,
         maxZoom: 16,
@@ -160,32 +161,31 @@ Template.map.rendered = function() {
     // radius scale 
     var radius = d3.scale.linear()
 
-        .domain([
-            Session.get('minParamForDisplay'),
-            d3.max(Object.keys(selectedNodes).map(function(d) {
-                console.log("selectedNodes[d].count", selectedNodes[d].nodeEdgesSrc.length + selectedNodes[d].nodeEdgesTar.length);
+    .domain( [
+        Session.get( 'minParamForDisplay' ),
+        d3.max( Object.keys( selectedNodes ).map( function( d ) {
+            // console.log('selectedNodes[d].count', selectedNodes[d].nodeEdgesSrc.length + selectedNodes[d].nodeEdgesTar.length);
 
-                return selectedNodes[d].nodeEdgesSrc.length + selectedNodes[d].nodeEdgesTar.length;
-            }))
-        ])
-        .range([5, maxRadius]);
+            return selectedNodes[ d ].nodeEdgesSrc.length + selectedNodes[ d ].nodeEdgesTar.length;
+        } ) )
+    ] )
+        .range( [ 5, maxRadius ] );
     ///IMPROVEME: Size need to be set according to the number of edges;
-    var feature = g.selectAll("circle")
-        .data(collection.features).enter()
-        .append("circle")
-        .attr("r",
-            function(d) {
+    var feature = g.selectAll( 'circle' )
+        .data( collection.features ).enter()
+        .append( 'circle' )
+        .attr( 'r',
+            function( d ) {
                 //TODO:IMPLEMENT SELECTOR FOR THE RADIUS SIZE
 
-                console.log("radius(d.properties.countSrc + d.properties.countTar)", radius(d.properties.countSrc + d.properties.countTar));
-                return ~~(radius(d.properties.countSrc + d.properties.countTar));
+                // console.log('radius(d.properties.countSrc + d.properties.countTar)', radius(d.properties.countSrc + d.properties.countTar));
+                return~~ ( radius( d.properties.countSrc + d.properties.countTar ) );
             }
 
-        )
-        .style("fill", "red")
-        .style("stroke", "none")
-        .style("opacity", .6);
-
+    )
+        .style( 'fill', 'red' )
+        .style( 'stroke', 'none' )
+        .style( 'opacity', .6 );
 
     // features du centre de Gravité géographique FIX ME!! CHANGE STYLE OF THE CENTRALITY POINT
     /* 
