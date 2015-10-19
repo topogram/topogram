@@ -5,7 +5,7 @@
             <span id="closeInfoBox"><i class="material-icons right">close</i></span> 
             <span class="card-title activator grey-text text-darken-4">
                 <i class="material-icons right">more_vert</i>
-                {{ currentSelection.group }} - {{ currentSelection.data.id }}
+                <small>{{ currentSelection.group }}</small> - {{ currentSelection.data.name }}
             </span> 
             <ul class="collection">
                 {{#each objectToPairs currentSelection.info }}

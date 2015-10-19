@@ -78,7 +78,20 @@ NetworkGraph = {
         return this;
     },
 
-    updateNetworkData: function(nodes, edges) {
+
+    addNode : function(node) {
+        this.net.add(node);
+    },
+    updateNode : function(_id, changes) {
+        console.log(node);
+    },
+    addEdge : function(edge) {
+        this.net.add(edge);
+    },
+    updateEdge : function(edge) {
+        console.log(edge);
+    },
+    initNetworkData: function(nodes, edges) {
         // console.log('updateNetworkData');
 
         this.net.elements().remove(); // make sure evything is clean
@@ -211,10 +224,43 @@ NetworkGraph = {
             $('#infoBox').css('visibility', 'visible');
         });
 
-        this.net.on('drag', 'node', /*_.debounce(*/ function(e) {
+
+
+        this.net.on('free', 'node', /*_.debounce(*/ function(e) {
             var node = e.cyTarget;
+
+            // update position
             Meteor.call('updateNodePosition', node.id(), node.position());
+
+            // check for node merger 
+            var bb = node.boundingbox();
+
+            var targets = Nodes.find({
+                "position.x": {
+                    "$lt": Math.max(bb.x1, bb.x2),
+                    "$gte": Math.min(bb.x1, bb.x2)
+                },
+                "position.y": {
+                    "$lt": Math.max(bb.y1, bb.y2),
+                    "$gte": Math.min(bb.y1, bb.y2)
+                },
+                "data.id": {
+                    "$not": node.id()
+                }
+            }).fetch();
+
+            var nodeSource = Nodes.findOne({
+                "data.id": node.id()
+            });
+
+            if (targets.length) {
+                Session.set("mergeSource", nodeSource)
+                Session.set("mergeTargets", targets)
+                $('#modal-merge').openModal();
+
+            }
         });
+
 
         // check for node merger 
         this.net.on('cxtdragout', 'node', function(e) {

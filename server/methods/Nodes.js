@@ -7,6 +7,31 @@ Meteor.methods( {
         Nodes.batchInsert( nodes );
     },
 
+    mergeNodes : function (sourceId, targetId){
+        var source = Nodes.findOne({"_id" : sourceId}); 
+        var target = Nodes.findOne({"_id" : targetId}); // will be deleted
+        console.log(source.data.id, target.data.id);
+
+        tx.start("merges nodes");
+
+        // find and replace all target node edges with source id
+        Edges.find({'data.source' : target.data.id } ).forEach(function (edge) {
+            console.log(edge.data.source, source.data.id);
+            Edges.update({"_id": edge._id }, {$set:{'data.source' : source.data.id}}, {tx: true})
+        })
+
+        Edges.find({'data.target' : target.data.id } ).forEach(function (edge) {
+            Edges.update({"_id": edge._id }, {$set:{'data.target' : source.data.id}}, {tx: true})
+        });
+
+        // copy data of target into source (if missing) 
+        // TODO : node merger startegy
+
+        //erase target
+        Nodes.remove({'_id': targetId}, {tx: true});
+        tx.commit();
+    },
+
     deleteNode: function( nodeId ) {
         var _id = Nodes.findOne({'data.id': nodeId }, {"_id" :1})._id;
         Nodes.remove({'_id': _id}, {tx: true});

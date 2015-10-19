@@ -1,0 +1,18 @@
+<template name="nodeMerge">
+    <!-- Modal Structure -->
+    <div id="modal-merge" class="modal">
+        <div class="modal-content">
+            <h4>Merge Nodes</h4>
+            <ul class="collection with-header">
+            <li class="collection-header"><h4>Source : {{ source.data.data.name }}</h4></li>
+                {{#each targets}}
+                    <li class="collection-item"><a href="#"  class="collection-item select-merge-target" data-merge-target-id="{{_id }}" data-merge-source-id="{{source._id }}">{{ data.data.name }}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Agree</a>
+            <a href="#!" class="modal-merge-close modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </div>
+</template>
