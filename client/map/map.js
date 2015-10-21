@@ -234,13 +234,12 @@ Template.map.rendered = function() {
 
         // points
         feature.attr( 'transform', function( d ) {
-            console.log( d );
+            // console.log( d );
             return 'translate(' +
                 applyLatLngToLayer( d ).x + ',' +
                 applyLatLngToLayer( d ).y + ')';
         } );
 
-        console.log( '/////////////////////////////////////////////' );
         featureedges.attr( 'x1', function( d ) {
                 // console.log( d );
                 // console.log( applyLatLngToLayerForEdges( d.geometry.coordinates[ 0 ] ) );
