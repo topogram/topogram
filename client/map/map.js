@@ -71,7 +71,7 @@ Template.map.rendered = function() {
     /*-----GeoJSON features for Edges-----------*/
 
     Object.keys(edges).forEach(function(id) {
-       // console.log('edges[ ' + id + ' ]', edges[id]);
+        // console.log('edges[ ' + id + ' ]', edges[id]);
 
         // for-loop is better than selectedNodes.filter( ... ) here since we want only one source and one target, and we can thus break the for-loop once they are found instead of looping through all selectedNodes
         var sourceNode, targetNode,
@@ -87,7 +87,7 @@ Template.map.rendered = function() {
             } else if (srcFound && tarFound) break; //stop for-loop since we found our nodes
         }
 
-       // console.log('sourceNode', sourceNode);
+        // console.log('sourceNode', sourceNode);
         // console.log('targetNode', targetNode);
 
         edges[id].data.sourcelat = sourceNode.data.lat;
@@ -163,8 +163,8 @@ Template.map.rendered = function() {
             point: projectPoint
         }),
         path = d3.geo.path().projection(transform);
-console.log("path",path);
-console.log("transform",transform);
+    console.log("path", path);
+    console.log("transform", transform);
 
     // radius scale 
     var radius = d3.scale.linear()
@@ -190,10 +190,12 @@ console.log("transform",transform);
                 return ~~(radius(d.properties.countSrc + d.properties.countTar));
             }
 
+
         )
         .style('fill', 'red')
         .style('stroke', 'none')
         .style('opacity', .6);
+        console.log("feature", feature);
 
     // Edge features
 
@@ -204,9 +206,9 @@ console.log("transform",transform);
         .data(collectionedges.features).enter()
         .append('line')
         .style('fill', 'green')
-  
-        .style('stroke', "#FFFFFF")
-        .style('stroke-width',"4")
+
+    .style('stroke', "#FFFFFF")
+        .style('stroke-width', "4")
         .style('opacity', .8);
 
     console.log("featureedges", featureedges);
@@ -247,12 +249,16 @@ console.log("transform",transform);
                 applyLatLngToLayer(d).y + ')';
         });
 
-featureedges.attr('transform', function(d) {
+        featureedges.attr('transform', function(d) {
+        //console.log("applyLatLngToLayerForEdges(d).x", applyLatLngToLayerForEdges(d).x);
+        //console.log(applyLatLngToLayerForEdges(d).y)
             return 'translate(' +
-                applyLatLngToLayerForEdges(d).x + ',' +
-                applyLatLngToLayerForEdges(d).y + ')';
+                applyLatLngToLayerForEdges(d)[0].x + ',' +
+                //applyLatLngToLayerForEdges(d)[0].y + ',' +
+                //applyLatLngToLayerForEdges(d)[1].x + ',' +
+                applyLatLngToLayerForEdges(d)[1].y + ')';
         });
-       
+
     }
 
     // Use Leaflet to implement a D3 geometric transformation.
@@ -267,16 +273,18 @@ featureedges.attr('transform', function(d) {
         var x = d.geometry.coordinates[0];
         return map.latLngToLayerPoint(new L.LatLng(x, y))
     }
-function applyLatLngToLayerForEdges(d) {
+
+    function applyLatLngToLayerForEdges(d) {
         var y1 = d.geometry.coordinates[0][1];
-        console.log("d.geometry.coordinates[0][1]",d.geometry.coordinates[0][1]);
+        //console.log("d.geometry.coordinates[0][1]", d.geometry.coordinates[0][1]);
         var x1 = d.geometry.coordinates[0][0];
-        console.log("d.geometry.coordinates[0][0]",d.geometry.coordinates[0][0]);
+        // console.log("d.geometry.coordinates[0][0]", d.geometry.coordinates[0][0]);
         var y2 = d.geometry.coordinates[1][1];
-        console.log("d.geometry.coordinates[1][1]",d.geometry.coordinates[1][1]);
+        // console.log("d.geometry.coordinates[1][1]", d.geometry.coordinates[1][1]);
         var x2 = d.geometry.coordinates[1][0];
-        console.log("d.geometry.coordinates[1][0]",d.geometry.coordinates[1][0]);
-        return [map.latLngToLayerPoint(new L.LatLng(x1, y1)),map.latLngToLayerPoint(new L.LatLng(x2, y2))]
+        // console.log("d.geometry.coordinates[1][0]", d.geometry.coordinates[1][0]);
+        // console.log("[map.latLngToLayerPoint(new L.LatLng(x1, y1)), map.latLngToLayerPoint(new L.LatLng(x2, y2))]",[map.latLngToLayerPoint(new L.LatLng(x1, y1)), map.latLngToLayerPoint(new L.LatLng(x2, y2))]);
+        return [map.latLngToLayerPoint(new L.LatLng(x1, y1)), map.latLngToLayerPoint(new L.LatLng(x2, y2))]
     }
 
     function isValidCoordinate(lat, lng) {
