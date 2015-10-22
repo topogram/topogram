@@ -52,22 +52,15 @@ Meteor.publish( 'edges', function( topogramId ) {
     var edges = Edges.find( {
         'topogramId': topogramId
     } );
-    console.log( edges.count(), "edges" );
+    // console.log( edges.count(), "edges" );
     return edges;
-} );
-
-
-Meteor.publish( 'nodesLab', function( topogramId ) {
-    return Nodes.find( {
-        "topogramId": topogramId
-    } );
 } );
 
 Meteor.publish( 'nodes', function( topogramId ) {
 
-    var edges = Edges.find( {
-        "topogramId": topogramId
-    } );
+    // var edges = Edges.find( {
+    //     "topogramId": topogramId
+    // } );
 
     //  var allNodes = edges.map(function(e) {
     //        return {
@@ -93,6 +86,12 @@ Meteor.publish( 'nodes', function( topogramId ) {
     var nodes = Nodes.find( {
         "topogramId": topogramId
     } );
-    console.log( nodes.count(), "nodes" );
+    // console.log( nodes.count(), "nodes" );
     return nodes;
+} );
+
+Meteor.publish( 'nodesLab', function( topogramId ) {
+    return Nodes.find( {
+        "topogramId": topogramId
+    } );
 } );
