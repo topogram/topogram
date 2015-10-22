@@ -217,7 +217,13 @@ Template.map.rendered = function() {
     map.on( 'move', update );
     map.on( 'zoom', update );
 
+    d3.select( '.tab' )
+        .on( 'click', function(){
+            resetView();
+        } );
+
     function resetView() {
+        map.invalidateSize();
         svg.style( 'width', d3.select( '#map' ).style( 'width' ) )
             .style( 'height', d3.select( '#map' ).style( 'height' ) );
         update();
