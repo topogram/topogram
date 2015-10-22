@@ -1,7 +1,7 @@
 Template.networkTools.onCreated( function() {
     this.changeLayout = new ReactiveVar();
 
-    // inherit change layout function from parent network view
+    // inherit change layout function from parent topogram view
     this.changeLayout.set( this.view.parentView._templateInstance.changeLayout.get() )
 } );
 
@@ -53,7 +53,7 @@ Template.networkTools.events = {
 
     // add random nodes 
     'click #init-data': function() {
-        Meteor.call( 'resetNetworkData', this.networkId );
+        Meteor.call( 'resetTopogramData', this.topogramId );
     },
 
     // apply layout
@@ -64,7 +64,7 @@ Template.networkTools.events = {
     // color
     'change #nodeCatColor': function( e, template ) {
         var val = $( e.currentTarget ).find( 'option:selected' ).val();
-        var net = template.view.parentView._templateInstance.network.get().net;
+        var net = template.view.parentView._templateInstance.topogram.get().net;
 
         console.log( val );
 
@@ -80,7 +80,7 @@ Template.networkTools.events = {
     // filter
     'change #nodeFilterType': function( e, template ) {
         var val = $( e.currentTarget ).find( 'option:selected' ).val();
-        var net = template.view.parentView._templateInstance.network.get().net;
+        var net = template.view.parentView._templateInstance.topogram.get().net;
 
         if ( val == '' || !val ) {
             net.nodes().style( {
@@ -99,7 +99,7 @@ Template.networkTools.events = {
     },
 
     'click .toggle-node-labels': function( e, template ) {
-        var net = template.view.parentView._templateInstance.network.get().net;
+        var net = template.view.parentView._templateInstance.topogram.get().net;
 
         if ( net.nodes()[ 0 ].css( 'content' ) == '' ) {
             net.nodes().css( {
@@ -116,7 +116,7 @@ Template.networkTools.events = {
     },
 
     'click .toggle-edge-labels': function( e, template ) {
-        var net = template.view.parentView._templateInstance.network.get().net;
+        var net = template.view.parentView._templateInstance.topogram.get().net;
 
         if ( net.edges()[ 0 ].css( 'content' ) == '' ) {
             net.edges().css( {
@@ -145,8 +145,8 @@ Template.networkTools.events = {
 
     // degree
     'click #remove-isolated-nodes': function() {
-        // var network = Template.instance().network.get().net;
-        var isolated = network.elements( 'node[[degree = 0]]' );
-        network.remove( isolated );
+        // var topogram = Template.instance().topogram.get().net;
+        var isolated = topogram.elements( 'node[[degree = 0]]' );
+        topogram.remove( isolated );
     }
 }

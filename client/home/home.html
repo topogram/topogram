@@ -2,16 +2,16 @@
     {{#if currentUser}}
         <div class="row">
             <div class="col s12">
-                {{> networks}}
+                {{> topograms}}
                 <hr>
             </div>
         </div>
     {{/if}}
     
-    {{#if hasPublicNetworks}}
-        <h3>Public networks</h3>
+    {{#if hasPublicTopograms}}
+        <h3>Public topograms</h3>
         <div class="row">
-            {{#each publicNetworks}}
+            {{#each publicTopograms}}
                 <div class="col sc4">
                     {{> homeCard}}
                 </div>
@@ -24,7 +24,7 @@
     <div class="card">
         <div class="card-content">
             <h3 class="card-title">
-                <a href="/networks/{{this._id}}/view">{{this.name}}</a>
+                <a href="/topograms/{{this._id}}/view">{{this.name}}</a>
                 by {{this.owner}}
             </h3> 
         </div>

@@ -1,53 +1,73 @@
 /*
-*  COMMENTS
-*/
+ *  COMMENTS
+ */
 
-Meteor.publish('comments', function() {
+Meteor.publish( 'comments', function() {
     return Comments.find();
-});
+} );
 
 
 /*
-*  MULTIPLE NETWORKS
-*/
-// only the networks that have been publicized
-Meteor.publish('publicNetworks', function() {
-    return  Networks.find({ "sharedPublic" :1 }, { 'sort' : {'createdAt' : 1}, 'limit' : 500 });
-});
+ *  MULTIPLE TOPOGAMS
+ */
+// only the topogams that have been publicized
+Meteor.publish( 'topograms', function( userId ) {
+    return Topograms.find( {
+        "owner": this.userId
+    } );
+} );
 
-Meteor.publish('networks', function(userId) {
-    return  Networks.find({"owner" : this.userId});
-});
-
-/*
-*  SINGLE NETWORK
-*/
-Meteor.publish('network', function (networkId) {
-    return Networks.find({'_id' : networkId});
-});
-
-Meteor.publish('publicNetwork', function (networkId) {
-    return Networks.find({'_id' : networkId, 'sharedPublic' : 1});
-});
+Meteor.publish( 'publicTopograms', function() {
+    return Topograms.find( {
+        "sharedPublic": 1
+    }, {
+        'sort': {
+            'createdAt': 1
+        },
+        'limit': 500
+    } );
+} );
 
 /*
-*  NODES AND EDGES
-*/
+ *  SINGLE TOPOGRAM
+ */
+Meteor.publish( 'topogram', function( topogramId ) {
+    return Topograms.find( {
+        '_id': topogramId
+    } );
+} );
 
-Meteor.publish('edges', function (networkId) {
-    var edges = Edges.find({'networkId' : networkId});
-    console.log(edges.count(), "edges");
+Meteor.publish( 'publicTopogram', function( topogramId ) {
+    return Topograms.find( {
+        '_id': topogramId,
+        'sharedPublic': 1
+    } );
+} );
+
+/*
+ *  NODES AND EDGES
+ */
+
+Meteor.publish( 'edges', function( topogramId ) {
+    var edges = Edges.find( {
+        'topogramId': topogramId
+    } );
+    console.log( edges.count(), "edges" );
     return edges;
-});
+} );
 
 
-Meteor.publish('nodesLab', function (networkId) {
-    return Nodes.find({"networkId" : networkId});
-});
+Meteor.publish( 'nodesLab', function( topogramId ) {
+    return Nodes.find( {
+        "topogramId": topogramId
+    } );
+} );
 
-Meteor.publish('nodes', function (networkId) {
+Meteor.publish( 'nodes', function( topogramId ) {
 
-    var edges = Edges.find({ "networkId" : networkId});
+    var edges = Edges.find( {
+        "topogramId": topogramId
+    } );
 
     //  var allNodes = edges.map(function(e) {
     //        return {
@@ -70,9 +90,9 @@ Meteor.publish('nodes', function (networkId) {
     //     return String(d);
     // }) } });
 
-    var nodes = Nodes.find({ "networkId" : networkId});
-    console.log(nodes.count(), "nodes");
+    var nodes = Nodes.find( {
+        "topogramId": topogramId
+    } );
+    console.log( nodes.count(), "nodes" );
     return nodes;
-});
-
-
+} );

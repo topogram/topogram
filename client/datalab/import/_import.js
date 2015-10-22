@@ -4,8 +4,8 @@ Template.import.rendered = function() {
 Template.import.onCreated( function() {
     Session.set( 'newLayerDataReady', false );
     Session.set( 'dataFields', [] );
-    Session.set( 'asLatLng', false );
-    Session.set( 'asDate', false );
+    Session.set( 'hasLatLng', false );
+    Session.set( 'hasDate', false );
     Session.set( 'newLayerType', undefined );
 } );
 
@@ -19,11 +19,11 @@ Template.import.helpers( {
     isNodes: function() {
         return Session.get( 'newLayerType' ) === 'nodes' && Session.get( 'newLayerDataReady' );
     },
-    getAsLatLng: function() {
-        return Session.get( 'asLatLng' );
+    getHasLatLng: function() {
+        return Session.get( 'hasLatLng' );
     },
-    getAsDate: function() {
-        return Session.get( 'asDate' );
+    getHasDate: function() {
+        return Session.get( 'hasDate' );
     },
     getDataFields: function() {
         return Session.get( 'dataFields' );
@@ -40,6 +40,10 @@ Template.import.events( {
 
         //check all lines have the same nb of datum
         var lines = e.target.value.split( '\n' );
+        //remove empty lines
+        lines = lines.filter( function( line ) {
+            return line != '';
+        } );
         var nbDatum = lines[ 0 ].split( ',' ).length;
         // console.log( 'nbDatum:', nbDatum );
 
@@ -80,11 +84,11 @@ Template.import.events( {
     },
 
     'change #add-geo-info': function( event ) {
-        Session.set( 'asLatLng', event.target.checked );
+        Session.set( 'hasLatLng', event.target.checked );
     },
 
     'change #add-date-info': function( event ) {
-        Session.set( 'asDate', event.target.checked );
+        Session.set( 'hasDate', event.target.checked );
     },
 
     'submit #importForm': function( e ) {
@@ -116,10 +120,9 @@ Template.import.events( {
 
         // check for errors in vars
         if ( type == 'edges' ) {
-
             srcField = e.target.srcField.value;
             targetField = e.target.targetField.value;
-            if ( Session.get( 'asDate' ) ) {
+            if ( Session.get( 'hasDate' ) ) {
                 dateField = e.target.dateField.value;
             }
 
@@ -128,13 +131,11 @@ Template.import.events( {
                 FlashMessages.sendError( 'Please define source and target' );
                 return;
             }
-
         } else if ( type == 'nodes' ) {
-
             idField = e.target.idField.value;
 
             // parse latitude / longitude
-            if ( Session.get( 'asLatLng' ) ) {
+            if ( Session.get( 'hasLatLng' ) ) {
                 latField = e.target.latField.value;
                 lngField = e.target.lngField.value;
 
@@ -144,30 +145,29 @@ Template.import.events( {
                     return;
                 }
             }
-            if ( Session.get( 'asDate' ) ) {
+            if ( Session.get( 'hasDate' ) ) {
                 dateField = e.target.dateField.value;
             }
         }
 
         // parse data
         var parsedData = data.data.map( function( d ) {
-
             // parse geo coords
             var lat = 0,
                 lng = 0;
-            if ( Session.get( 'asLatLng' ) ) {
+            if ( Session.get( 'hasLatLng' ) ) {
                 lat = d[ e.target.latField.value ];
                 lng = d[ e.target.lngField.value ];
             };
             //parse dates
             var date = 0;
-            if ( Session.get( 'asDate' ) ) {
+            if ( Session.get( 'hasDate' ) ) {
                 date = d[ e.target.dateField.value ];
             };
 
             // parse data
-            if ( type == 'nodes' ) return makeNode( self.networkId, d[ idField ], 0, 0, lat, lng, d );
-            else if ( type == 'edges' ) return makeEdge( self.networkId, d[ srcField ], d[ targetField ], d );
+            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, d );
+            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ], d );
         } );
 
         /// TODO : display loader
@@ -175,17 +175,17 @@ Template.import.events( {
             Meteor.call( 'batchInsertEdges', parsedData, function( edges ) {
                 console.log( data.data.length, ' edges added' );
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' );
-                // Router.go( '/networks/' + self.networkId + '/edges' );
+                // Router.go( '/topograms/' + self.topogramId + '/edges' );
             } )
         } else if ( type == 'nodes' ) {
             console.log( parsedData );
             Meteor.call( 'batchInsertNodes', parsedData, function( nodes ) {
                 console.log( data.data.length, ' nodes added' );
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' );
-                // Router.go( '/networks/' + self.networkId + '/nodes' );
+                // Router.go( '/topograms/' + self.topogramId + '/nodes' );
             } );
         }
-        Router.go( '/networks/' + self.networkId );
+        Router.go( '/topograms/' + self.topogramId );
     },
 
     'change #file-input': function( e ) {

@@ -1,6 +1,6 @@
-<template name="networks">
+<template name="topograms">
+    <h1>Your topograms</h1>
 
-    <h1>Your networks</h1>
     <div class="row">
         <div class="col s8">
              <table>
@@ -14,19 +14,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                {{#each networks}}
-                    {{> networkIndexRow}}
-                {{/each}}
+                    {{#each topograms}}
+                        {{> topogramIndexRow}}
+                    {{/each}}
                 </tbody>
             </table>
         </div>
+        
         <div class="col s4">
             <div class="card">
                 <div class="card-content">
                     <span class="card-title grey-text text-darken-4">
-                        Add Network
+                        Add Topogram
                     </span>
-                    {{> addNetwork}}
+                    {{> addTopogram}}
                 </div>
             </div>
         </div>
@@ -39,8 +40,8 @@
     <!-- Modal Structure -->
     <div id="modal-delete" class="modal">
         <div class="modal-content">
-            <h4>Delete network</h4>
-            <p>Are you sure you want to delete this network</p>
+            <h4>Delete topogram</h4>
+            <p>Are you sure you want to delete this topogram</p>
         </div>
         <div class="modal-footer">
             <a href="#!" class="delete modal-action modal-close waves-effect waves-red btn-flat">Agree</a>
@@ -49,13 +50,13 @@
     </div>
 </template>
 
-<template name="networkIndexRow">
+<template name="topogramIndexRow">
     <tr>
         <td>
             {{ index }}
         </td>
         <td>
-            <a href="/networks/{{_id}}"> {{ name }} 
+            <a href="/topograms/{{_id}}"> {{ name }} 
             </a>
         </td>
         <td>
@@ -70,11 +71,11 @@
     </tr>
 </template>
 
-<template name="addNetwork">
+<template name="addTopogram">
     <form class="form-inline">
         <div class="form-group">
-            <label for="networkName">Create an Empty Network</label>
-            <input type="text" class="form-control" placeholder="Type name here..." name="networkName">
+            <label for="topogramName">Create an Empty Topogram</label>
+            <input type="text" class="form-control" placeholder="Type name here..." name="topogramName">
             <button type="submit" class="btn">Create</button>
         </div>
     </form>

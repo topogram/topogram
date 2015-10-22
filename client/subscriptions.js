@@ -1,1 +1,1 @@
-Meteor.subscribe('comments');
+Meteor.subscribe( 'comments' );

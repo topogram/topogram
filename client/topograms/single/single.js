@@ -1,18 +1,18 @@
 Template.single.helpers( {
     categories: function() {
-        var network = Networks.findOne();
-        return [ "totalGigs", "totalKm", "meanOfGigsPerYear", "meanDelayBetweenGigs", "tourDutyCycle", "co2Spent" ].map( function( cat ) {
+        var topogram = Topograms.findOne();
+        return [ 'totalGigs', 'totalKm', 'meanOfGigsPerYear', 'meanDelayBetweenGigs', 'tourDutyCycle', 'co2Spent' ].map( function( cat ) {
             return {
                 name: cat,
-                value: Math.round( network[ cat ] * 1000 ) / 1000
+                value: Math.round( topogram[ cat ] * 1000 ) / 1000
             };
         } );
     },
 
-    network: function() {
-        var network = Networks.findOne();
-        // console.log(network);
-        return network;
+    topogram: function() {
+        var topogram = Topograms.findOne();
+        // console.log(topogram);
+        return topogram;
     },
 
     hasNodes: function() {
@@ -32,12 +32,12 @@ Template.single.helpers( {
     },
 
     hasGeo: function() {
-    	var nodes = Nodes.find().fetch();
-    	return nodes[ 0 ].data.data.lat ? true : false;
+        var nodes = Nodes.find().fetch();
+        return nodes[ 0 ].data.data.lat ? true : false;
     },
 
     getJSON: function() {
         // console.log( cy.json() );
-        // return moment( date ).format( "ddd. MMM Do YYYY, hh:mm A" );
+        // return moment( date ).format( 'ddd. MMM Do YYYY, hh:mm A' );
     }
 } );

@@ -4,13 +4,13 @@ Template.map.rendered = function() {
     //In order to select if radius as to vary according to source, to target, or to both 
     Session.set( 'radiusas', 'both' );
     var self = this;
-    var networkId = this.data.networkId;
+    var topogramId = this.data.topogramId;
     var maxRadius = 30;
 
     //  retrieve data
 
-    var edges = Edges.find().fetch();
-    var nodes = Nodes.find().fetch();
+    var edges = Edges.find().fetch(),
+        nodes = Nodes.find().fetch();
 
     // console.log('nodes[ 0 ]', nodes[0]);
     // console.log('edges[ 0 ]', edges[0]);
@@ -42,7 +42,7 @@ Template.map.rendered = function() {
             // parse GeoJSON  point
             var p = turf.point(
                 [ selectedNode.data.data.lat, selectedNode.data.data.long ], {
-                    'networkId': selectedNode.networkId,
+                    'topogramId': selectedNode.topogramId,
                     '_id': selectedNode._id,
                     'countSrc': selectedNode.nodeEdgesSrc.length,
                     'countTar': selectedNode.nodeEdgesTar.length
@@ -109,7 +109,7 @@ Template.map.rendered = function() {
                     [ edges[ id ].data.sourcelat, edges[ id ].data.sourcelong ],
                     [ edges[ id ].data.targetlat, edges[ id ].data.targetlong ]
                 ], {
-                    //'networkId': selectedEdge.networkId,
+                    //'topogramId': selectedEdge.topogramId,
                     //'_id': selectedEdge._id,
                     //'countSrc': selectedEdge.nodeEdgesSrc.length,
                     //'countTar': selectedEdge.nodeEdgesTar.length
@@ -144,7 +144,7 @@ Template.map.rendered = function() {
         maxZoom: 16,
         attribution: attrib
     } );
-    var map = L.map( 'map' ).setView( [ 51.505, -0.09 ], 6 );
+    var map = L.map( 'map' ).setView( [ 35.0, 50.0 ], 4 );
     map.addLayer( layer );
 
     var svg = d3.select( '#map' ).append( 'svg' )
@@ -255,7 +255,7 @@ Template.map.rendered = function() {
                 return applyLatLngToLayerForEdges( d.geometry.coordinates[ 1 ] ).y;
             } );
     }
-    resetView();
+    window.setInterval( resetView, 500 );
 
     // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint( x, y ) {
@@ -294,26 +294,7 @@ var getRandomColor = function() {
 Template.map.events( {
     'click #showselectedNodes': function( e ) {
         e.preventDefault();
-        var network = Networks.findOne();
+        var topogram = Topograms.findOne();
         // render 
     }
 } );
-
-/*
-    'click showTours': function( e ) {
-        e.preventDefault();
-        var pointList = result.gigs.map( function( gig, i ) {
-            var nextGig = result.gigs[ i + 1 ];
-            return new L.LatLng( gig.selectedNode.data.data.lat, gig.selectedNode.data.data.long );
-        } );
-
-        var firstpolyline = new L.Polyline( pointList, {
-            color: getRandomColor(),
-            weight: 10,
-            opacity: 0.5,
-            smoothFactor: 1
-        } );
-
-        firstpolyline.addTo( template.map );
-    }
-*/

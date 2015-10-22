@@ -1,9 +1,11 @@
 Template.home.helpers( {
-    hasPublicNetworks: function() {
-        return Networks.find().fetch().length > 0;
+    hasPublicTopograms: function() {
+        return Topograms.find( {
+            "sharedPublic": 1
+        } ).fetch().length > 0;
     },
 
-    publicNetworks: function() {
-        return Networks.find().fetch();
+    publicTopograms: function() {
+        return Topograms.find( { "sharedPublic": 1 }, { 'sort': {  'createdAt': 1 } } ).fetch();
     }
 } );

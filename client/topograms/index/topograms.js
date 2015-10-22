@@ -1,25 +1,24 @@
-Template.addNetwork.events( {
+Template.addTopogram.events( {
     'submit form': function( event ) {
         event.preventDefault();
-        var networkName = $( '[name=networkName]' ).val();
-        if( networkName != '' ){
-            Meteor.call( 'createNetwork', networkName );
-            $( '[name=networkName]' ).val( '' );
-        }
-        else {
-            FlashMessages.sendError( 'NetworkName should not be empty' );
+        var topogramName = $( '[name=topogramName]' ).val();
+        if ( topogramName != '' ) {
+            Meteor.call( 'createTopogram', Meteor.userId(), topogramName );
+            $( '[name=topogramName]' ).val( '' );
+        } else {
+            FlashMessages.sendError( 'TopogramName should not be empty' );
         }
     }
 } );
 
-Template.networks.events( {
+Template.topograms.events( {
     'click .delete': function( e ) {
         e.preventDefault();
         // console.log( this );
-        // var instance = UI.renderWithData(Template.content, {networkId: data});
+        // var instance = UI.renderWithData(Template.content, {topogramId: data});
         var id = Session.get( 'toDelete' );
         // console.log( id );
-        Meteor.call( 'deleteNetwork', id );
+        Meteor.call( 'deleteTopogram', id );
         var id = Session.set( 'toDelete', '' );
     },
     'click .modal-delete-open': function( e ) {
@@ -33,9 +32,10 @@ Template.networks.events( {
     }
 } );
 
-Template.networks.helpers( {
-    networks: function( e ) {
-        return Networks.find().fetch().map( function( d, i ) {
+Template.topograms.helpers( {
+    topograms: function( e ) {
+        return Topograms.find().fetch().map( function( d, i ) {
+            console.log(i);
             d.index = i + 1;
             d.privacy = d.sharedPublic ? 'Public' : 'Private';
             d.date = moment( d.createdAr ).format( 'MMMM Do YYYY, h:mm:ss a' );

@@ -36,7 +36,7 @@ Template.infobox.helpers( {
 
 Template.infobox.events = {
     'click #closeInfoBox': function( event ) {
-        if( NetworkGraph ){
+        if ( NetworkGraph ) {
             NetworkGraph.net.nodes().style( {
                 "opacity": '1'
             } );

@@ -1,9 +1,9 @@
 Template.top.rendered = function(){
-    this.networks = Networks.find().fetch();
+    this.topograms = Topograms.find().fetch();
 }
 
 Template.top.helpers({
-    networks : function() {
-        return Networks.find().fetch();
+    topograms : function() {
+        return Topograms.find().fetch();
     }
 })

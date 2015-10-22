@@ -1,4 +1,4 @@
-// networks index
+// topograms index
 Template.nodesTemplate.helpers( {
     'nodes': function() {
         return nodes = Nodes.find();
@@ -6,7 +6,7 @@ Template.nodesTemplate.helpers( {
     'query': function() {
         // console.log( this );
         return {
-            networkId: this.networkId
+            topogramId: this.topogramId
         };
     }
 } );

@@ -1,18 +1,18 @@
 Template.searchbox.events( {
     'submit form': function( e, template ) {
-        e.preventDefault( );
+        e.preventDefault();
         var bandName = event.target.bandName.value;
         if ( !bandName ) return;
-        Router.go( '/networks/' + slugify( bandName ) );
+        Router.go( '/topograms/' + slugify( bandName ) );
         document.getElementById( "search" ).value = '';
     },
 
-    'click #dropdown1>li': function( ) {
+    'click #dropdown1>li': function() {
         document.getElementById( "search" ).value = '';
     },
 
     'click #searchClose': function( e ) {
-        e.preventDefault( );
+        e.preventDefault();
         document.getElementById( "search" ).value = '';
     },
 
@@ -24,9 +24,9 @@ Template.searchbox.events( {
                     console.log( err );
                     return;
                 }
-                $( "#dropdown1>li" ).remove( );
+                $( "#dropdown1>li" ).remove();
                 res.forEach( function( r ) {
-                    $( "#dropdown1" ).append( "<li><a href=\"/networks/" + r._id + "\">" + r.name + "</a></li>" );
+                    $( "#dropdown1" ).append( "<li><a href=\"/topograms/" + r._id + "\">" + r.name + "</a></li>" );
                 } );
             } );
         }
