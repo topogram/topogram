@@ -99,7 +99,7 @@ Template.networkTools.events = {
     },
 
     'click .toggle-node-labels': function( e, template ) {
-        var net = template.view.parentView._templateInstance.topogram.get().net;
+        var net = template.view.parentView._templateInstance.network.get().net;
 
         if ( net.nodes()[ 0 ].css( 'content' ) == '' ) {
             net.nodes().css( {
@@ -116,7 +116,7 @@ Template.networkTools.events = {
     },
 
     'click .toggle-edge-labels': function( e, template ) {
-        var net = template.view.parentView._templateInstance.topogram.get().net;
+        var net = template.view.parentView._templateInstance.network.get().net;
 
         if ( net.edges()[ 0 ].css( 'content' ) == '' ) {
             net.edges().css( {
