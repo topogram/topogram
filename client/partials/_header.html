@@ -6,8 +6,10 @@
                 <li>{{> searchbox}}</li>
                 {{#if currentUser}}
                     <li><a href="/topograms">Your topograms</a></li>
+                    <li>{{> atNavButton}}</li>
+                {{else}}
+                    <li><a class="btn" href="/login">Login</a></li>
                 {{/if}}
-                <li>{{> atNavButton}}</li>
                 <li><a href="/about">About</a></li>
             </ul>
         </div>

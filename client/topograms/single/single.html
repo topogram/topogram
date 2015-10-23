@@ -31,22 +31,22 @@
         <div id="view">
             {{#if hasNetwork}}
                 <div id="tab1">
-                    {{> networkTemplate topogramId=topogramId}}
+                    {{> networkTemplate topogramId=topogramId editMode=true}}
                 </div>
             {{/if}}
             {{#if hasNodes}}
                 <div id="tab2">
-                    {{> nodesTemplate topogramId=topogramId}}
+                    {{> nodesTemplate topogramId=topogramId editMode=true}}
                 </div>
             {{/if}}
             {{#if hasEdges}}
                 <div id="tab3">
-                    {{> edgesTemplate topogramId=topogramId}}
+                    {{> edgesTemplate topogramId=topogramId editMode=true}}
                 </div>
             {{/if}}
             {{#if hasGeo}}
                 <div id="tab4">
-                    {{> map}}
+                    {{> map topogramId=topogramId editMode=true}}
                 </div>
             {{/if}}
         </div>

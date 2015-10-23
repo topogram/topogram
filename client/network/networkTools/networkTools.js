@@ -64,7 +64,7 @@ Template.networkTools.events = {
     // color
     'change #nodeCatColor': function( e, template ) {
         var val = $( e.currentTarget ).find( 'option:selected' ).val();
-        var net = template.view.parentView._templateInstance.topogram.get().net;
+        var net = template.view.parentView._templateInstance.network.get().net;
 
         console.log( val );
 
@@ -80,7 +80,7 @@ Template.networkTools.events = {
     // filter
     'change #nodeFilterType': function( e, template ) {
         var val = $( e.currentTarget ).find( 'option:selected' ).val();
-        var net = template.view.parentView._templateInstance.topogram.get().net;
+        var net = template.view.parentView._templateInstance.network.get().net;
 
         if ( val == '' || !val ) {
             net.nodes().style( {
@@ -145,7 +145,7 @@ Template.networkTools.events = {
 
     // degree
     'click #remove-isolated-nodes': function() {
-        // var topogram = Template.instance().topogram.get().net;
+        // var topogram = Template.instance().network.get().net;
         var isolated = topogram.elements( 'node[[degree = 0]]' );
         topogram.remove( isolated );
     }

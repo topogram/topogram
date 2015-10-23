@@ -78,7 +78,6 @@ NetworkGraph = {
         return this;
     },
 
-
     addNode: function( node ) {
         this.net.add( node );
     },
