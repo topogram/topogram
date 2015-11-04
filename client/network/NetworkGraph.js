@@ -1,3 +1,8 @@
+var color = '#bb11ff' ;
+var repMethodEdge = 'line' ;// line ou arrow ou arrows
+var repMethodWidthEdge = 'width' ;// width ou countsrc ou count target ou both ou simple
+var repMethodWidthNode = 'width';// width ou edge ou edgeWeighed ou both ou simple
+
 NetworkGraph = {
     initTopogram: function( containerId, topogramId ) {
         // console.log( 'initTopogram' );
@@ -19,6 +24,8 @@ NetworkGraph = {
                 self.addCxtMenu();
                 self.addMouseBehaviours();
                 self.addEdgehandles();
+console.log ("repMethodEdge",repMethodWidthEdge);
+console.log ("repMethodEdge",repMethodEdge);
             },
             // load existing positions
             layout: {
@@ -29,7 +36,7 @@ NetworkGraph = {
                 .selector( 'node' )
                 .style( {
                     'content': '',
-                    'background-color': function( e ) {
+                    'background-color' : function( e ) {
                         return e.data( 'starred' ) ? 'yellow' : self.colors( e.data().data.country );
                     },
                     'font-size': 12,
@@ -40,10 +47,19 @@ NetworkGraph = {
                         return e.locked() ? 'red' : '#888';
                     },
                     'min-zoomed-font-size': 8,
-                    'width': function( e ) {
+                    'width': function( e ) { if ( repMethodWidthNode == 'edge' ) {
                         var count = e.data().data.count || e.degree();
-                        console.log("count",count)
-                        return count * 10; //'mapData('+ count +',0, 1, 20, 50)'
+                        console.log("count",count);
+                        console.log ("e.data()",e.data());
+                        return count * 10; //'mapData('+ count +',0, 1, 20, 50)'};
+                        } else if (repMethodWidthNode == 'width') {
+                        var count = e.data().data.count || e.degree();
+                        console.log("count",count);
+                        console.log ("e.data()",e.data());
+                        return count * 10; //'mapData('+ count +',0, 1, 20, 50)'};
+                        }
+
+                        
                     },
                     'height': function( e ) {
                         var count = e.data().data.count || e.degree();
@@ -57,9 +73,22 @@ NetworkGraph = {
                 .selector( 'edge' )
                 .style( {
                     // 'content': function( e ){ return e.data('name')? e.data('name') : '';},
-                //    'target-arrow-shape': 'triangle',
+                    'target-arrow-shape': function(e) { if ( repMethodEdge == 'line' ) {
+                        return 'none';
+                        }  else if ( repMethodEdge = 'arrow' ) {
+                        return 'triangle';
+                        }
+                    },
                     'line-color': function( e ) {
                         return self.colors( e.data().group );
+                    },
+                    'width': function(e) { if ( repMethodWidthEdge == 'width' ) {
+                        var width = e.data().width;
+                        return width;
+                        } else if ( repMethodWidthEdge == 'simple' ) {
+                        var width = 1;
+                        return width;
+                        }
                     }
                 } )
                 .selector( '.edgehandles-hover' )
