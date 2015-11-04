@@ -2,6 +2,9 @@ var color = '#bb11ff' ;
 var repMethodEdge = 'line' ;// line ou arrow ou arrows
 var repMethodWidthEdge = 'width' ;// width ou countsrc ou count target ou both ou simple
 var repMethodWidthNode = 'width';// width ou edge ou edgeWeighed ou both ou simple
+var textNode = true ;
+var textEdge = false ;
+var mergerNodes = false ;
 
 NetworkGraph = {
     initTopogram: function( containerId, topogramId ) {
@@ -35,13 +38,16 @@ console.log ("repMethodEdge",repMethodEdge);
             style: cytoscape.stylesheet()
                 .selector( 'node' )
                 .style( {
-                    'content': '',
+                    'content': function(e) { if ( textNode == true ) {
+                        var content = e.data().name;
+                        return content;
+                        } else {return ""}},
                     'background-color' : function( e ) {
                         return e.data( 'starred' ) ? 'yellow' : self.colors( e.data().data.country );
                     },
-                    'font-size': 12,
+                    'font-size': 128,
                     'text-valign': 'center',
-                    'color': 'white',
+                    'color': 'black',
                     'text-outline-width': 2,
                     'text-outline-color': function( e ) {
                         return e.locked() ? 'red' : '#888';
