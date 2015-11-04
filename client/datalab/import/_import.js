@@ -182,7 +182,7 @@ Template.import.events( {
             };
             // parse data
             if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, d );
-            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ],width, date, d[ targetField ], d );
+            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width, date, d );
         } );
 
         /// TODO : display loader
