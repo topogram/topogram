@@ -8,6 +8,10 @@ Template.import.onCreated( function() {
     Session.set( 'hasDate', false );
     Session.set( 'hasWidth', false );
     Session.set( 'hasName', false );
+    Session.set( 'hasArrow', false );//A IMPLE
+    Session.set( 'hasColor', false );//A IMPLE
+    Session.set( 'hasStar', false );//A IMPLE
+    Session.set( 'hasRepMethod', false );//A IMPLE
     Session.set( 'newLayerType', undefined );
 } );
 
@@ -32,6 +36,18 @@ Template.import.helpers( {
     },
     getHasName: function() {
         return Session.get( 'hasName' );
+    },
+    getHasArrow: function() {
+        return Session.get( 'hasArrow' );
+    },
+    getHasColor: function() {
+        return Session.get( 'hasColor' );
+    },
+    getHasStar: function() {
+        return Session.get( 'hasStar' );
+    },
+    getHasRepMethod: function() {
+        return Session.get( 'hasRepMethod' );
     },
     getDataFields: function() {
         return Session.get( 'dataFields' );
@@ -103,6 +119,18 @@ Template.import.events( {
     'change #add-name-info': function( event ) {
         Session.set( 'hasName', event.target.checked );
     },
+    'change #add-arrow-info': function( event ) {
+        Session.set( 'hasArrow', event.target.checked );
+    },
+    'change #add-color-info': function( event ) {
+        Session.set( 'hasColor', event.target.checked );
+    },
+    'change #add-star-info': function( event ) {
+        Session.set( 'hasStar', event.target.checked );
+    },
+    'change #add-repMethod-info': function( event ) {
+        Session.set( 'hasRepMethod', event.target.checked );
+    },
     'submit #importForm': function( e ) {
         e.preventDefault();
 
@@ -169,6 +197,18 @@ Template.import.events( {
             if ( Session.get( 'hasName' ) ) {
                 nameField = e.target.nameField.value;
             }
+            if ( Session.get( 'hasArrow' ) ) {
+                arrowField = e.target.arrowField.value;
+            }
+            if ( Session.get( 'hasColor' ) ) {
+                colorField = e.target.colorField.value;
+            }
+            if ( Session.get( 'hasStar' ) ) {
+                starField = e.target.starField.value;
+            }
+            if ( Session.get( 'hasRepMethod' ) ) {
+                repMethodField = e.target.repMethodField.value;
+            }
         }
 
         // parse data
@@ -195,10 +235,30 @@ Template.import.events( {
             if ( Session.get( 'hasName' ) ) {
                 nameE = d[ e.target.nameField.value ];
             };
+            //parse arrow
+            var arrow = 0;
+            if ( Session.get( 'hasArrow' ) ) {
+                arrow = d[ e.target.arrowField.value ];
+            };
+            //parse color
+            var color = 0;
+            if ( Session.get( 'hasColor' ) ) {
+                color = d[ e.target.colorField.value ];
+            };
+            //parse star
+            var star = 0;
+            if ( Session.get( 'hasStar' ) ) {
+                star = d[ e.target.starField.value ];
+            };
+            //parse repMethod
+            var repMethod = "";
+            if ( Session.get( 'hasrepMethod' ) ) {
+                repMethod = d[ e.target.repMethodField.value ];
+            };
 
             // parse data
-            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, nameE, d );
-            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width, date, nameE, d );
+            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, nameE, color, repMethod,star, d );
+            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width, date, nameE, color, repMethod, arrow, d );
         } );
 
         /// TODO : display loader

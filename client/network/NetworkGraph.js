@@ -41,7 +41,6 @@ NetworkGraph = {
                     },
                     'min-zoomed-font-size': 8,
                     'width': function( e ) {
-                        console.log("e",e)
                         var count = e.data().data.count || e.degree();
                         console.log("count",count)
                         return count * 10; //'mapData('+ count +',0, 1, 20, 50)'
