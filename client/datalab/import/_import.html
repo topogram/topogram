@@ -39,14 +39,28 @@
                         {{/each}}
                     </select>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                     <input type="checkbox" checked="{{hasDate}}" id="add-date-info" />
                     <label for="add-date-info">Date info</label>
                 </div>
-                {{#if getAsDate}}
-                    <div class="col s3">
+                {{#if getHasDate}}
+                    <div class="col s2">
                         <label for="dateField">Date</label>
                         <select class="browser-default " name="dateField" id="dateField">
+                            {{#each getDataFields}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                {{/if}}
+                <div class="input-field col s2">
+                    <input type="checkbox" checked="{{hasWidth}}" id="add-width-info" />
+                    <label for="add-width-info">Width info</label>
+                </div>
+                {{#if getHasWidth}}
+                    <div class="col s2">
+                        <label for="widthField">Width</label>
+                        <select class="browser-default " name="widthField" id="widthField">
                             {{#each getDataFields}}
                                 <option value="{{this}}">{{this}}</option>
                             {{/each}}
@@ -57,7 +71,7 @@
         {{/if}}
         {{#if isNodes}}
             <div class="row">
-                <div class="col s3">
+                <div class="col s2">
                     <label for="idField">ID</label>
                     <select class='browser-default' name="idField" id="idField">
                         {{#each getDataFields}}
@@ -67,12 +81,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                     <input type="checkbox" checked="{{hasLatLng}}" id="add-geo-info" />
                     <label for="add-geo-info">Geo info</label>
                 </div>
                 {{#if getHasLatLng}}
-                    <div class="col s3">
+                    <div class="col s2">
                         <label for="latField">Latitude</label>
                         <select class="browser-default " name="latField" id="latField">
                             {{#each getDataFields}}
@@ -80,7 +94,7 @@
                             {{/each}}
                         </select>
                     </div>
-                    <div class="col s3">
+                    <div class="col s2">
                         <label for="lngField">Longitude</label>
                         <select class="browser-default" name="lngField" id="lngField">
                             {{#each getDataFields}}
@@ -91,14 +105,30 @@
                 {{/if}}
             </div>
             <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                     <input type="checkbox" checked="{{hasDate}}" id="add-date-info" />
                     <label for="add-date-info">Date info</label>
                 </div>
-                {{#if getAsDate}}
-                    <div class="col s3">
+                {{#if getHasDate}}
+                    <div class="col s2">
                         <label for="dateField">Date</label>
                         <select class="browser-default " name="dateField" id="dateField">
+                            {{#each getDataFields}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                {{/if}}
+            </div>
+            <div class="row">
+                <div class="input-field col s2">
+                    <input type="checkbox" checked="{{hasWidth}}" id="add-width-info" />
+                    <label for="add-width-info">Width info</label>
+                </div>
+                {{#if getHasWidth}}
+                    <div class="col s2">
+                        <label for="widthField">Width</label>
+                        <select class="browser-default " name="widthField" id="widthField">
                             {{#each getDataFields}}
                                 <option value="{{this}}">{{this}}</option>
                             {{/each}}

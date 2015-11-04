@@ -41,7 +41,9 @@ NetworkGraph = {
                     },
                     'min-zoomed-font-size': 8,
                     'width': function( e ) {
+                        console.log("e",e)
                         var count = e.data().data.count || e.degree();
+                        console.log("count",count)
                         return count * 10; //'mapData('+ count +',0, 1, 20, 50)'
                     },
                     'height': function( e ) {
@@ -56,7 +58,7 @@ NetworkGraph = {
                 .selector( 'edge' )
                 .style( {
                     // 'content': function( e ){ return e.data('name')? e.data('name') : '';},
-                    'target-arrow-shape': 'triangle',
+                //    'target-arrow-shape': 'triangle',
                     'line-color': function( e ) {
                         return self.colors( e.data().group );
                     }

@@ -25,6 +25,9 @@ Template.import.helpers( {
     getHasDate: function() {
         return Session.get( 'hasDate' );
     },
+    getHasWidth: function() {
+        return Session.get( 'hasWidth' );
+    },
     getDataFields: function() {
         return Session.get( 'dataFields' );
     }
@@ -90,7 +93,9 @@ Template.import.events( {
     'change #add-date-info': function( event ) {
         Session.set( 'hasDate', event.target.checked );
     },
-
+    'change #add-width-info': function( event ) {
+        Session.set( 'hasWidth', event.target.checked );
+    },
     'submit #importForm': function( e ) {
         e.preventDefault();
 
@@ -125,6 +130,9 @@ Template.import.events( {
             if ( Session.get( 'hasDate' ) ) {
                 dateField = e.target.dateField.value;
             }
+            if ( Session.get( 'hasWidthField' ) ) {
+                widthField = e.target.widthField.value;
+            }
 
             // check if src and target have been set correctly // TODO VERIFY DATEFIELD
             if ( !targetField || !srcField || ( targetField == srcField ) ) {
@@ -148,6 +156,9 @@ Template.import.events( {
             if ( Session.get( 'hasDate' ) ) {
                 dateField = e.target.dateField.value;
             }
+            if ( Session.get( 'hasWidthField' ) ) {
+                widthField = e.target.widthField.value;
+            }
         }
 
         // parse data
@@ -164,10 +175,14 @@ Template.import.events( {
             if ( Session.get( 'hasDate' ) ) {
                 date = d[ e.target.dateField.value ];
             };
-
+            //parse width
+            var width = 0;
+            if ( Session.get( 'hasWidthField' ) ) {
+                width = d[ e.target.widthField.value ];
+            };
             // parse data
-            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, d );
-            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ], d );
+            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, d );
+            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ],width, date, d[ targetField ], d );
         } );
 
         /// TODO : display loader

@@ -16,7 +16,8 @@ Template.networkTemplate.rendered = function() {
     // fetch and parse data
     var edges = Edges.find().fetch(),
         nodes = Nodes.find().fetch();
-
+        console.log("nodes",nodes)
+        console.log("edges",edges)
     // init data
     if ( network ) network.initData( nodes, edges );
 
