@@ -6,6 +6,8 @@ Template.import.onCreated( function() {
     Session.set( 'dataFields', [] );
     Session.set( 'hasLatLng', false );
     Session.set( 'hasDate', false );
+    Session.set( 'hasWidth', false );
+    Session.set( 'hasName', false );
     Session.set( 'newLayerType', undefined );
 } );
 
@@ -27,6 +29,9 @@ Template.import.helpers( {
     },
     getHasWidth: function() {
         return Session.get( 'hasWidth' );
+    },
+    getHasName: function() {
+        return Session.get( 'hasName' );
     },
     getDataFields: function() {
         return Session.get( 'dataFields' );
@@ -89,12 +94,14 @@ Template.import.events( {
     'change #add-geo-info': function( event ) {
         Session.set( 'hasLatLng', event.target.checked );
     },
-
     'change #add-date-info': function( event ) {
         Session.set( 'hasDate', event.target.checked );
     },
     'change #add-width-info': function( event ) {
         Session.set( 'hasWidth', event.target.checked );
+    },
+    'change #add-name-info': function( event ) {
+        Session.set( 'hasName', event.target.checked );
     },
     'submit #importForm': function( e ) {
         e.preventDefault();
@@ -130,7 +137,7 @@ Template.import.events( {
             if ( Session.get( 'hasDate' ) ) {
                 dateField = e.target.dateField.value;
             }
-            if ( Session.get( 'hasWidthField' ) ) {
+            if ( Session.get( 'hasWidth' ) ) {
                 widthField = e.target.widthField.value;
             }
 
@@ -156,8 +163,11 @@ Template.import.events( {
             if ( Session.get( 'hasDate' ) ) {
                 dateField = e.target.dateField.value;
             }
-            if ( Session.get( 'hasWidthField' ) ) {
+            if ( Session.get( 'hasWidth' ) ) {
                 widthField = e.target.widthField.value;
+            }
+            if ( Session.get( 'hasName' ) ) {
+                nameField = e.target.nameField.value;
             }
         }
 
@@ -177,12 +187,18 @@ Template.import.events( {
             };
             //parse width
             var width = 0;
-            if ( Session.get( 'hasWidthField' ) ) {
+            if ( Session.get( 'hasWidth' ) ) {
                 width = d[ e.target.widthField.value ];
             };
+            //parse name
+            var nameE = 0;
+            if ( Session.get( 'hasName' ) ) {
+                nameE = d[ e.target.nameField.value ];
+            };
+
             // parse data
-            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, d );
-            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width, date, d );
+            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, nameE, d );
+            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width, date, nameE, d );
         } );
 
         /// TODO : display loader
