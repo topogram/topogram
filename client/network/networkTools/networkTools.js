@@ -62,20 +62,21 @@ Template.networkTools.events = {
     },
 
     // color
-    'change #nodeCatColor': function( e, template ) {
-        var val = $( e.currentTarget ).find( 'option:selected' ).val();
-        var net = template.view.parentView._templateInstance.network.get().net;
+//     'change #nodeCatColor': function( e, template ) {
+//         var val = $( e.currentTarget ).find( 'option:selected' ).val();
+//         var net = template.view.parentView._templateInstance.network.get().net;
 
-        console.log( val );
+//         console.log( val );
 
-        var colors = d3.scale.category20b();
-        net.nodes().forEach( function( ele ) {
-            // console.log(val);
-            ele.style( {
-                'background-color': ele.data( 'starred' ) ? 'yellow' : colors( ele.data().data[ val ] )
-            } );
-        } );
-    },
+//         var colors = d3.scale.category20b();
+//         net.nodes().forEach( function( ele ) {
+//             // console.log(val);
+//             ele.style( {
+// //                'background-color': ele.data( 'starred' ) ? 'yellow' : colors( ele.data().data[ val ] )
+//                 'background-color': ele.data( 'starred' ) ? 'yellow' : colors( ele.data().data.color )
+//             } );
+//         } );
+//     },
 
     // filter
     'change #nodeFilterType': function( e, template ) {
