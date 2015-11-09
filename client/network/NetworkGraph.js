@@ -7,7 +7,7 @@ var repMethodWidthNode = 'width'; // width ou (edge ou edgeWeighed ou both)TODO 
 var textNode = true;
 var textEdge = false;
 var mergerNodes = false;
-var fontSize = 16;
+var fontSize = 3;
 
 NetworkGraph = {
     initTopogram: function(containerId, topogramId) {
@@ -123,6 +123,7 @@ NetworkGraph = {
                             return self.colors(e.data().group);
                         }
                     },
+                    //CHOOSE EDGE WIDTH METHOD
                     'width': function(e) {
                         if (repMethodWidthEdge == 'width') {
                             var width = e.data().width;
@@ -304,41 +305,41 @@ NetworkGraph = {
             // update position
             Meteor.call('updateNodePosition', node.id(), node.position());
 
-            // check for node merger 
-            var bb = node.boundingbox();
+//             // check for node merger 
+//             var bb = node.boundingbox();
 
-            var targets = Nodes.find({
-                "position.x": {
-                    "$lt": Math.max(bb.x1, bb.x2),
-                    "$gte": Math.min(bb.x1, bb.x2)
-                },
-                "position.y": {
-                    "$lt": Math.max(bb.y1, bb.y2),
-                    "$gte": Math.min(bb.y1, bb.y2)
-                },
-                "data.id": {
-                    "$not": node.id()
-                }
-            }).fetch();
+//             var targets = Nodes.find({
+//                 "position.x": {
+//                     "$lt": Math.max(bb.x1, bb.x2),
+//                     "$gte": Math.min(bb.x1, bb.x2)
+//                 },
+//                 "position.y": {
+//                     "$lt": Math.max(bb.y1, bb.y2),
+//                     "$gte": Math.min(bb.y1, bb.y2)
+//                 },
+//                 "data.id": {
+//                     "$not": node.id()
+//                 }
+//             }).fetch();
 
-            var nodeSource = Nodes.findOne({
-                "data.id": node.id()
-            });
+//             var nodeSource = Nodes.findOne({
+//                 "data.id": node.id()
+//             });
 
-            if (targets.length) {
-                Session.set("mergeSource", nodeSource)
-                Session.set("mergeTargets", targets)
-                $('#modal-merge').openModal();
-            }
-        });
+//             if (targets.length) {
+//                 Session.set("mergeSource", nodeSource)
+//                 Session.set("mergeTargets", targets)
+//                 $('#modal-merge').openModal();
+//             }
+//         });
 
-        // check for node merger 
-        this.net.on('cxtdragout', 'node', function(e) {
-            console.log('test');
-            console.log(e.boundingBox());
-        });
-    }
-};
+//         // check for node merger 
+//         this.net.on('cxtdragout', 'node', function(e) {
+//             console.log('test');
+//             console.log(e.boundingBox());
+//         });
+//     }
+// };
 
 
 //color mean
