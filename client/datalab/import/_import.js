@@ -11,8 +11,10 @@ Template.import.onCreated( function() {
     Session.set( 'hasArrow', false );//A IMPLE
     Session.set( 'hasColor', false );//A IMPLE
     Session.set( 'hasStar', false );//A IMPLE
+    Session.set( 'hasGroup', false );//A IMPLE
     Session.set( 'hasRepMethod', false );//A IMPLE
     Session.set( 'newLayerType', undefined );
+
 } );
 
 Template.import.helpers( {
@@ -45,6 +47,11 @@ Template.import.helpers( {
     },
     getHasStar: function() {
         return Session.get( 'hasStar' );
+
+    },
+    getHasGroup: function() {
+        return Session.get( 'hasGroup' );
+        
     },
     getHasRepMethod: function() {
         return Session.get( 'hasRepMethod' );
@@ -127,6 +134,9 @@ Template.import.events( {
     },
     'change #add-star-info': function( event ) {
         Session.set( 'hasStar', event.target.checked );
+    },
+    'change #add-group-info': function( event ) {
+        Session.set( 'hasGroup', event.target.checked );
     },
     'change #add-repMethod-info': function( event ) {
         Session.set( 'hasRepMethod', event.target.checked );
@@ -250,6 +260,11 @@ Template.import.events( {
             if ( Session.get( 'hasStar' ) ) {
                 star = d[ e.target.starField.value ];
             };
+            //parse group
+            var group = 0;
+            if ( Session.get( 'hasGroup' ) ) {
+                group = d[ e.target.groupField.value ];
+            };
             //parse repMethod
             var repMethod = "";
             if ( Session.get( 'hasrepMethod' ) ) {
@@ -257,8 +272,8 @@ Template.import.events( {
             };
 
             // parse data
-            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, nameE, color, repMethod,star, d );
-            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width, date, nameE, color, repMethod, arrow, d );
+            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, nameE, color, repMethod,star,group, d );
+            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width, date, nameE, color, repMethod, arrow,group, d );
         } );
 
         /// TODO : display loader

@@ -111,6 +111,20 @@
         </div>
         {{/if}}
         <div class="input-field col s3">
+            <input type="checkbox" checked="{{hasGroup}}" id="add-group-info" />
+            <label for="add-group-info">Group info</label>
+        </div>
+        {{#if getHasGroup}}
+        <div class="col s3">
+            <label for="groupField">Group</label>
+            <select class="browser-default " name="groupField" id="groupField">
+                {{#each getDataFields}}
+                <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+        {{/if}}
+        <div class="input-field col s3">
             <input type="checkbox" checked="{{hasRepMethod}}" id="add-repMethod-info" />
             <label for="add-repMethod-info">representation Method info</label>
         </div>
@@ -123,10 +137,7 @@
                 {{/each}}
             </select>
         </div>
-        {{/if}}
-        
-        {{/if}} 
-        {{#if isNodes}}
+        {{/if}} {{/if}} {{#if isNodes}}
         <div class="row">
             <div class="col s3">
                 <label for="idField">ID</label>
@@ -228,6 +239,20 @@
             <div class="col s3">
                 <label for="starField">Star</label>
                 <select class="browser-default " name="starField" id="starField">
+                    {{#each getDataFields}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            {{/if}}
+            <div class="input-field col s3">
+                <input type="checkbox" checked="{{hasGroup}}" id="add-group-info" />
+                <label for="add-group-info">Group info</label>
+            </div>
+            {{#if getHasGroup}}
+            <div class="col s3">
+                <label for="groupField">Group</label>
+                <select class="browser-default " name="groupField" id="groupField">
                     {{#each getDataFields}}
                     <option value="{{this}}">{{this}}</option>
                     {{/each}}
