@@ -1,4 +1,4 @@
-Template.map.rendered = function() -{
+Template.map.rendered = function() {
     // session vars
     Session.set( 'minParamForDisplay', 0 );
     //In order to select if radius as to vary according to source, to target, or to both 
@@ -242,60 +242,60 @@ Template.map.rendered = function() -{
         feature.attr( 'transform', function( d ) {
             // console.log( d );
             return 'translate(' +
-                applyLatLngToLayer( d ).x + ',' +
-                applyLatLngToLayer( d ).y + ')';
+                applyLatLngToLayer(map, d ).x + ',' +
+                applyLatLngToLayer(map, d ).y + ')';
         } );
 
         featureedges.attr( 'x1', function( d ) {
                 // console.log( d );
                 // console.log( applyLatLngToLayerForEdges( d.geometry.coordinates[ 0 ] ) );
-                return applyLatLngToLayerForEdges( d.geometry.coordinates[ 0 ] ).x;
+                return applyLatLngToLayerForEdges(map, d.geometry.coordinates[ 0 ] ).x;
             } )
             .attr( 'y1', function( d ) {
-                return applyLatLngToLayerForEdges( d.geometry.coordinates[ 0 ] ).y;
+                return applyLatLngToLayerForEdges(map, d.geometry.coordinates[ 0 ] ).y;
             } )
             .attr( 'x2', function( d ) {
-                return applyLatLngToLayerForEdges( d.geometry.coordinates[ 1 ] ).x;
+                return applyLatLngToLayerForEdges(map, d.geometry.coordinates[ 1 ] ).x;
             } )
             .attr( 'y2', function( d ) {
-                return applyLatLngToLayerForEdges( d.geometry.coordinates[ 1 ] ).y;
+                return applyLatLngToLayerForEdges(map, d.geometry.coordinates[ 1 ] ).y;
             } );
     }
     window.setInterval( resetView, 500 );
 
-    //Use Leaflet to implement a D3 geometric transformation.
+    // Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
-        var point = map.latLngToLayerPoint(new L.LatLng(x, y));
+        var point = map.latLngToLayerPoint(map,new L.LatLng(x, y));
         this.stream.point(point.x, point.y);
     }
 
-    function applyLatLngToLayer(d) {
-        var y = d.geometry.coordinates[1];
-        var x = d.geometry.coordinates[0];
-        return map.latLngToLayerPoint(new L.LatLng(x, y))
-    }
+    // function applyLatLngToLayer(d) {
+    //     var y = d.geometry.coordinates[1];
+    //     var x = d.geometry.coordinates[0];
+    //     return map.latLngToLayerPoint(new L.LatLng(x, y))
+    // }
 
-    function applyLatLngToLayerForEdges(coords) {
-        var x = coords[0];
-        var y = coords[1];
-        return map.latLngToLayerPoint(new L.LatLng(x, y));
-    }
+    // function applyLatLngToLayerForEdges(coords) {
+    //     var x = coords[0];
+    //     var y = coords[1];
+    //     return map.latLngToLayerPoint(new L.LatLng(x, y));
+    // }
 
-    function isValidCoordinate(lat, lng) {
-        var valLat = parseFloat(lat);
-        var valLng = parseFloat(lng);
-        return (!isNaN(valLat) && valLat <= 90 && valLat >= -90 && !isNaN(valLng) && valLng <= 180 && valLng >= -180) ? true : false;
-    }
+    // function isValidCoordinate(lat, lng) {
+    //     var valLat = parseFloat(lat);
+    //     var valLng = parseFloat(lng);
+    //     return (!isNaN(valLat) && valLat <= 90 && valLat >= -90 && !isNaN(valLng) && valLng <= 180 && valLng >= -180) ? true : false;
+    // }
     };
 
-    var getRandomColor = function() {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    };
+    // var getRandomColor = function() {
+    //     var letters = '0123456789ABCDEF'.split('');
+    //     var color = '#';
+    //     for (var i = 0; i < 6; i++) {
+    //         color += letters[Math.floor(Math.random() * 16)];
+    //     }
+    //     return color;
+    // };
 
 
 Template.map.events( {

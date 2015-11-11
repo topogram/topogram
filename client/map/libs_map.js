@@ -1,15 +1,12 @@
- projectPoint = function(x, y) {
-     var point = map.latLngToLayerPoint(new L.LatLng(x, y));
-     this.stream.point(point.x, point.y);
- }
 
- applyLatLngToLayer = function(d) {
+
+ applyLatLngToLayer = function(map,d) {
      var y = d.geometry.coordinates[1];
      var x = d.geometry.coordinates[0];
      return map.latLngToLayerPoint(new L.LatLng(x, y))
  }
 
- applyLatLngToLayerForEdges = function(coords) {
+ applyLatLngToLayerForEdges = function(map, coords) {
      var x = coords[0];
      var y = coords[1];
      return map.latLngToLayerPoint(new L.LatLng(x, y));

@@ -344,7 +344,7 @@ NetworkGraph = {
             node.neighborhood().selectify();
 
             // add tooltip
-            self.addQTip();
+            //self.addQTip();
 
             $('#infoBox').css('visibility', 'visible');
         });
