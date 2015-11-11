@@ -263,39 +263,40 @@ Template.map.rendered = function() {
     }
     window.setInterval( resetView, 500 );
 
-    // Use Leaflet to implement a D3 geometric transformation.
-    function projectPoint( x, y ) {
-        var point = map.latLngToLayerPoint( new L.LatLng( x, y ) );
-        this.stream.point( point.x, point.y );
+    Use Leaflet to implement a D3 geometric transformation.
+    function projectPoint(x, y) {
+        var point = map.latLngToLayerPoint(new L.LatLng(x, y));
+        this.stream.point(point.x, point.y);
     }
 
-    function applyLatLngToLayer( d ) {
-        var y = d.geometry.coordinates[ 1 ];
-        var x = d.geometry.coordinates[ 0 ];
-        return map.latLngToLayerPoint( new L.LatLng( x, y ) )
+    function applyLatLngToLayer(d) {
+        var y = d.geometry.coordinates[1];
+        var x = d.geometry.coordinates[0];
+        return map.latLngToLayerPoint(new L.LatLng(x, y))
     }
 
-    function applyLatLngToLayerForEdges( coords ) {
-        var x = coords[ 0 ];
-        var y = coords[ 1 ];
-        return map.latLngToLayerPoint( new L.LatLng( x, y ) );
+    function applyLatLngToLayerForEdges(coords) {
+        var x = coords[0];
+        var y = coords[1];
+        return map.latLngToLayerPoint(new L.LatLng(x, y));
     }
 
-    function isValidCoordinate( lat, lng ) {
-        var valLat = parseFloat( lat );
-        var valLng = parseFloat( lng );
-        return ( !isNaN( valLat ) && valLat <= 90 && valLat >= -90 && !isNaN( valLng ) && valLng <= 180 && valLng >= -180 ) ? true : false;
+    function isValidCoordinate(lat, lng) {
+        var valLat = parseFloat(lat);
+        var valLng = parseFloat(lng);
+        return (!isNaN(valLat) && valLat <= 90 && valLat >= -90 && !isNaN(valLng) && valLng <= 180 && valLng >= -180) ? true : false;
     }
-};
+    };
 
-var getRandomColor = function() {
-    var letters = '0123456789ABCDEF'.split( '' );
-    var color = '#';
-    for ( var i = 0; i < 6; i++ ) {
-        color += letters[ Math.floor( Math.random() * 16 ) ];
-    }
-    return color;
-};
+    var getRandomColor = function() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    };
+
 
 Template.map.events( {
     'click #showselectedNodes': function( e ) {
