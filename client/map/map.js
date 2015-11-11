@@ -1,4 +1,4 @@
-Template.map.rendered = function() {
+Template.map.rendered = function() -{
     // session vars
     Session.set( 'minParamForDisplay', 0 );
     //In order to select if radius as to vary according to source, to target, or to both 
@@ -263,7 +263,7 @@ Template.map.rendered = function() {
     }
     window.setInterval( resetView, 500 );
 
-    Use Leaflet to implement a D3 geometric transformation.
+    //Use Leaflet to implement a D3 geometric transformation.
     function projectPoint(x, y) {
         var point = map.latLngToLayerPoint(new L.LatLng(x, y));
         this.stream.point(point.x, point.y);
