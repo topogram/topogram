@@ -15,7 +15,20 @@
                 {{/each}}
             </ul>
             <br>
-            <label for="nodeCatColor">Node Color</label>
+            <label for="nodeColorMethod">Node Color Method</label>
+            <select class="browser-default" name="nodeColorMethod" id="nodeColorMethod">
+                {{#each nodeColorMethod}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+            <label for="edgeColorMethod">Edge color Method</label>
+            <select class="browser-default" name="edgeColorMethod" id="edgeColorMethod">
+                {{#each edgeColorMethod}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+            
+            <!-- <label for="nodeCatColor">Node Color</label>
             <select class="browser-default" name="nodeCatColor" id="nodeCatColor">
                 {{#each nodeCategories}}
                     <option value="{{this}}">{{this}}</option>
@@ -26,7 +39,7 @@
                 {{#each nodeTypes}}
                     <option value="{{this}}">{{this}}</option>
                 {{/each}}
-            </select>
+            </select> -->
             <br>
             <p class="btn activator">Undo / History</p> 
         </div>

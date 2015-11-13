@@ -1,14 +1,14 @@
 var NodeColorMethod = 'group'; //file ou fix ou group ou alphabet ou count
 var EdgeColorMethod = 'count'; //file ou fix ou fromNodes ou group ou count
-var repMethodWidthEdge = 'width'; // width ou (countsrc ou counttgt ou both)TODO ou simple
-var repMethodWidthNode = 'edge'; // width ou (edge ou edgeWeighed ou both)TODO ou simple
+var repMethodWidthEdge = 'simple'; // width ou (countsrc ou counttgt ou both)TODO ou simple
+var repMethodWidthNode = 'simple'; // width ou (edge ou edgeWeighed ou both)TODO ou simple
 var repMethodEdge = 'line'; // line ou (arrow ou arrows)TODO
 var color = '#bb11ff';
 var textNode = true; //TODO
 var textEdge = false; //TODO
 var mergerNodes = false; //TODO
 var fontSize = 16;
-var fixedWidth = 1;
+var fixedWidth = 10;
 
 NetworkGraph = {
     initTopogram: function(containerId, topogramId) {
@@ -57,17 +57,18 @@ NetworkGraph = {
                         }
                     },
                     'background-color': function(e) {
-                        if (NodeColorMethod == 'file' && e.data().color.slice(0, 1) == '#') {
+                        console.log(e.data().color);
+                        if (NodeColorMethod == 'file' && e.data().color.length > 2 && e.data().color.slice(0, 1) == '#') {
                             return e.data('starred') ? 'yellow' : e.data().color;
-                        } else if (NodeColorMethod == 'file' && e.data().color.slice(0, 1) != '#') {
+                        } else if (NodeColorMethod == 'file' && e.data().color.length > 2 && e.data().color.slice(0, 1) != '#') {
                             return e.data('starred') ? 'yellow' : "#" + e.data().color;
                         } else if (NodeColorMethod == 'alphabet') {
-                            return e.data('starred') ? 'yellow' : self.colors(e.data().name)
+                            return e.data('starred') ? 'yellow' : self.colors(e.data().name.slice(0,1))
                         } else if (NodeColorMethod == 'group') {
                             if (e.data().color == 0) {
-                                console.log("ante e.data().color", e.data().color)
-                                e.data().color = self.colors(e.data().group)
-                                console.log("post e.data().color", e.data().color)
+                                //console.log("ante e.data().color", e.data().color)
+                                //e.data().color = self.colors(e.data().group)
+                                //console.log("post e.data().color", e.data().color)
                             }
                             return e.data('starred') ? 'yellow' : self.colors(e.data().group)
                         }
@@ -138,6 +139,7 @@ NetworkGraph = {
 
                     //HERE WE ADD THE EDGE COLOR PICKER
                     'line-color': function(e) {
+                        colors = d3.scale.category20c();
                         if (EdgeColorMethod == 'fromNodes') {
                             var sourceNode, targetNode,
                                 srcFound = false,
@@ -155,7 +157,7 @@ NetworkGraph = {
                             // console.log("targetNode", targetNode.data.id);
                             // console.log("sourceNode color", sourceNode.data.color);
                             // console.log("targetNode color", targetNode.data.color);                            
-                            var color = colorMean(sourceNode.data.color, targetNode.data.color);
+                            var color = colorMean(colors(sourceNode.data.group), colors(targetNode.data.group));
                             return color;
                         } else if (EdgeColorMethod == 'group') {
                             return self.colors(e.data().group);
@@ -402,54 +404,54 @@ NetworkGraph = {
 };
 
 
-//color mean
-function colorMean(color1, color2) {
-    console.log(color1, color2);
-    rgb = hexToRgb(color1)
-    shc = hexToRgb(color2)
-    console.log("rgb", rgb)
-    console.log("shc", shc)
-    var r = rgb[Object.keys(rgb)[0]];
-    var g = rgb[Object.keys(rgb)[1]];
-    var b = rgb[Object.keys(rgb)[2]];
-    var s = shc[Object.keys(shc)[0]];
-    var h = shc[Object.keys(shc)[1]];
-    var c = shc[Object.keys(shc)[2]];
+// //color mean
+// function colorMean(color1, color2) {
+//     console.log(color1, color2);
+//     rgb = hexToRgb(color1)
+//     shc = hexToRgb(color2)
+//     console.log("rgb", rgb)
+//     console.log("shc", shc)
+//     var r = rgb[Object.keys(rgb)[0]];
+//     var g = rgb[Object.keys(rgb)[1]];
+//     var b = rgb[Object.keys(rgb)[2]];
+//     var s = shc[Object.keys(shc)[0]];
+//     var h = shc[Object.keys(shc)[1]];
+//     var c = shc[Object.keys(shc)[2]];
 
-    t = Math.round((r + s) / 2)
-    i = Math.round((g + h) / 2)
-    d = Math.round((b + c) / 2)
-    console.log("t", t, "i", i, "d", d)
-    console.log("rgbToHex(t, i, d)", rgbToHex(t, i, d))
-    return rgbToHex(t, i, d)
-}
-
-
-//Play with color
-//http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-
-function hexToRgb(hex) {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    console.log("hex", hex)
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
-
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
+//     t = Math.round((r + s) / 2)
+//     i = Math.round((g + h) / 2)
+//     d = Math.round((b + c) / 2)
+//     console.log("t", t, "i", i, "d", d)
+//     console.log("rgbToHex(t, i, d)", rgbToHex(t, i, d))
+//     return rgbToHex(t, i, d)
+// }
 
 
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-}
+// //Play with color
+// //http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 
-function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
+// function hexToRgb(hex) {
+//     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+//     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+//     console.log("hex", hex)
+//     hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+//         return r + r + g + g + b + b;
+//     });
+
+//     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+//     return result ? {
+//         r: parseInt(result[1], 16),
+//         g: parseInt(result[2], 16),
+//         b: parseInt(result[3], 16)
+//     } : null;
+// }
+
+
+// function componentToHex(c) {
+//     var hex = c.toString(16);
+//     return hex.length == 1 ? "0" + hex : hex;
+// }
+
+// function rgbToHex(r, g, b) {
+//     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+// }
