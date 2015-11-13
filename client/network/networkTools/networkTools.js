@@ -50,10 +50,16 @@ Template.networkTools.helpers({
         return types;
     },
     nodeColorMethod: function() {
-        return nodeColorMethod = ["file", "fix", "group", "alphabet", "count"]
+        return nodeColorMethod = ["fix", "file", "group", "alphabet", "count"]
     },
     edgeColorMethod: function() {
-        return edgeColorMethod = ["file", "fix", "nodesMean", "nodesDash", "group", "count"]
+        return edgeColorMethod = ["fix", "file", "nodesMean", "nodesDash", "group", "count"]
+    },
+    edgeWidthMethod: function() {
+        return edgeWidthMethod = ["simple", "width"]
+    },
+    nodeWidthMethod: function() {
+        return edgeWidthMethod = ["simple", "width", "edge"]
     }
 });
 
@@ -192,9 +198,9 @@ Template.networkTools.events = {
                 console.log("ele.data().name", ele.data().name)
                 if (ele.data().name == "" || 0) {
                     warning.push(ele.data().id);
-                    var eleColor = colorsNode(ele.data().id.slice(0,1))
+                    var eleColor = colorsNode(ele.data().id.slice(0, 1))
                 } else {
-                    var eleColor = colorsNode(ele.data().name.slice(0,1));
+                    var eleColor = colorsNode(ele.data().name.slice(0, 1));
                 }
                 ele.style({
                     'background-color': ele.data('starred') ? 'yellow' : eleColor
@@ -244,8 +250,57 @@ Template.networkTools.events = {
                 })
             })
         }
+    },
+    'change #nodeWidthMethod': function(e, template) {
+        var net = template.view.parentView._templateInstance.network.get().net;
+        var val = $(e.currentTarget).find('option:selected').val();
+        var nodes = Nodes.find().fetch(),
+            edges = Edges.find().fetch();
+        var self = this;
 
+        if (val == 'edge') {
+            net.nodes().forEach(function(ele) {
+                ele.style({
+                    'width': ele.degree(),
+                    'height': ele.degree()
+                })
+            })
+        } else if (val == 'witdth') {
+            net.nodes().forEach(function(ele) {
+                ele.style({
+                    'width': ele.data().count,
+                    'height': ele.data().count
+                })
+            })
+        } else if (val == 'simple') {
+            net.nodes().forEach(function(ele) {
+                ele.style({
+                    'width': 5,
+                    'height': 5
+                })
+            })
+        }
+    },
+    'change #edgeWidthMethod': function(e, template) {
+        var net = template.view.parentView._templateInstance.network.get().net;
+        var val = $(e.currentTarget).find('option:selected').val();
+        var nodes = Nodes.find().fetch(),
+            edges = Edges.find().fetch();
+        var self = this;
 
+        if (val == 'simple') {
+            net.edges().forEach(function(ele) {
+                ele.style({
+                    'width': 5
+                })
+            })
+        } else if (val == 'width') {
+            net.edges().forEach(function(ele) {
+                ele.style({
+                    'width': ele.data().width
+                })
+            })
+        }
     },
     'change #edgeColorMethod': function(e, template) {
         var net = template.view.parentView._templateInstance.network.get().net;
@@ -271,7 +326,7 @@ Template.networkTools.events = {
             net.edges().forEach(function(ele) {
                 ele.style({
 
-                    'line-color': ele.data('starred') ? 'yellow' : colorsNode(ele.data().name.slice(0,1))
+                    'line-color': ele.data('starred') ? 'yellow' : colorsNode(ele.data().name.slice(0, 1))
                 })
             })
         } else if (val == 'group') {
@@ -347,7 +402,7 @@ Template.networkTools.events = {
                         'line-style': "solid"
                     })
                 }
-            //MESSAGE///TAUX ETC
+                //MESSAGE///TAUX ETC
             })
         } else if (val == 'fix') {
             net.edges().forEach(function(ele) {
