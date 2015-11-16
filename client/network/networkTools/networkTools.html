@@ -21,6 +21,12 @@
                     <option value="{{this}}">{{this}}</option>
                 {{/each}}
             </select>
+            <label for="nodeWidthMethod">Node Width Method</label>
+            <select class="browser-default" name="nodeWidthMethod" id="nodeWidthMethod">
+                {{#each nodeWidthMethod}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
             <label for="edgeColorMethod">Edge color Method</label>
             <select class="browser-default" name="edgeColorMethod" id="edgeColorMethod">
                 {{#each edgeColorMethod}}
@@ -33,9 +39,15 @@
                     <option value="{{this}}">{{this}}</option>
                 {{/each}}
             </select>
-            <label for="nodeWidthMethod">Node Width Method</label>
-            <select class="browser-default" name="nodeWidthMethod" id="nodeWidthMethod">
-                {{#each nodeWidthMethod}}
+            <label for="edgeEndMethod">Edge End Method</label>
+            <select class="browser-default" name="edgeEndMethod" id="edgeEndMethod">
+                {{#each edgeEndMethod}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+            <label for="textLocationMethod">node text Location Method</label>
+            <select class="browser-default" name="textLocationMethod" id="textLocationMethod">
+                {{#each textLocationMethod}}
                     <option value="{{this}}">{{this}}</option>
                 {{/each}}
             </select>

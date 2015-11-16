@@ -58,8 +58,20 @@ Template.networkTools.helpers({
     edgeWidthMethod: function() {
         return edgeWidthMethod = ["simple", "width"]
     },
+    // nodeTextMethod: function() {
+    //     return edgeWidthMethod = ["true", "false"]
+    // },
+    // edgeTextMethod: function() {
+    //     return edgeWidthMethod = ["true", "false"]
+    // },
     nodeWidthMethod: function() {
         return edgeWidthMethod = ["simple", "width", "edge"]
+    },
+    textLocationMethod: function() {
+        return textLocationMethod = ["above", "below", "alternate"]
+    },
+    edgeEndMethod: function() {
+        return edgeEndMethod = ["simple", "arrow", "arrows"]
     }
 });
 
@@ -302,6 +314,80 @@ Template.networkTools.events = {
             })
         }
     },
+    'change #edgeEndMethod': function(e, template) {
+        var net = template.view.parentView._templateInstance.network.get().net;
+        var val = $(e.currentTarget).find('option:selected').val();
+        var nodes = Nodes.find().fetch(),
+            edges = Edges.find().fetch();
+        var self = this;
+
+        if (val == 'simple') {
+            net.edges().forEach(function(ele) {
+                ele.style({
+                    'target-arrow-shape': 'none',
+                    'source-arrow-shape': 'none'
+                })
+            })
+        } else if (val == 'arrow') {
+            net.edges().forEach(function(ele) {
+                ele.style({
+                    'target-arrow-shape': 'triangle',
+                    'source-arrow-shape': 'none'
+                })
+            })
+        } else if (val == 'arrows') {
+            net.edges().forEach(function(ele) {
+                ele.style({
+                    'target-arrow-shape': 'triangle',
+                    'source-arrow-shape': 'triangle'
+                })
+            })
+        }
+    },
+    'change #textLocationMethod': function(e, template) {
+        var net = template.view.parentView._templateInstance.network.get().net;
+        var val = $(e.currentTarget).find('option:selected').val();
+        var nodes = Nodes.find().fetch(),
+            edges = Edges.find().fetch();
+        var self = this;
+
+        if (val == 'above') {
+            net.nodes().forEach(function(ele) {
+                ele.style({
+                    'text-valign': 'top'
+
+                })
+            })
+        } else if (val == 'below') {
+            net.nodes().forEach(function(ele) {
+                ele.style({
+                    'text-valign': 'bottom'
+
+                })
+            })
+        } else if (val == 'alternate') {
+            var alternate = 1;
+            net.nodes().forEach(function(ele) {
+                erro = alternate % 2
+                console.log("alternate % 2", erro)
+                if ((alternate % 2) == 0) {
+                    console.log("here")
+                    ele.style({
+                        'text-valign': 'top'
+
+                    })
+                } else {
+                    console.log("there");
+                    ele.style({
+                        'text-valign': 'bottom'
+
+                    })
+                }
+                alternate = alternate + 1;
+                console.log("alternate", alternate);
+            })
+        }
+    },
     'change #edgeColorMethod': function(e, template) {
         var net = template.view.parentView._templateInstance.network.get().net;
         var val = $(e.currentTarget).find('option:selected').val();
@@ -488,6 +574,6 @@ function componentToHex(c) {
 function rgbToHex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
-
+//THEY ARE HERE BECAUSE THEY ARE ACCESSED FROM OUTSIDE
 colorsNode = d3.scale.category20c();
 colorsEdge = d3.scale.category20c();
