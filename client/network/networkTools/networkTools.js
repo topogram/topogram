@@ -72,18 +72,23 @@ Template.networkTools.helpers({
     },
     edgeEndMethod: function() {
         return edgeEndMethod = ["simple", "arrow", "arrows"]
-    }
+    },
+   // textSizeParam : function() { return Session.get('textSizeParam'); },
 });
 
 Template.networkTools.events = {
-    'submit .paramTopo': function(event) {
-
-        //var countEdgeViewParam1 = e.target.text.value;
-        // console.log("document.getElementById(countEdgeViewParam1)",document.getElementById("countEdgeViewParam1"))
-        console.log("event", event);
-        wait(10000);
+    
 
 
+    'change #textSizeParam': function(e,template){
+
+        var net = template.view.parentView._templateInstance.network.get().net;
+        //var val = $(e.currentTarget).find('value').val();
+        var val = textSizeParam.value;
+        console.log("val",val);
+        net.nodes().forEach(function(ele) {
+            ele.style({ 'font-size': val })
+        }) 
     },
     // add/remove nodes
     'click #add-node': function() {
