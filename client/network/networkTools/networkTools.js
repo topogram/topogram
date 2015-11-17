@@ -76,6 +76,15 @@ Template.networkTools.helpers({
 });
 
 Template.networkTools.events = {
+    'submit .paramTopo': function(event) {
+
+        //var countEdgeViewParam1 = e.target.text.value;
+        // console.log("document.getElementById(countEdgeViewParam1)",document.getElementById("countEdgeViewParam1"))
+        console.log("event", event);
+        wait(10000);
+
+
+    },
     // add/remove nodes
     'click #add-node': function() {
         var nodeId = 'node' + Math.round(Math.random() * 1000000);
@@ -137,7 +146,7 @@ Template.networkTools.events = {
         if (net.nodes()[0].css('content') == '') {
             net.nodes().css({
                 'content': function(e) {
-                    console.log(e.data().data.name);
+                    // console.log(e.data().data.name);
                     return e.data().data.name;
                 }
             });
@@ -191,7 +200,7 @@ Template.networkTools.events = {
         var self = this;
 
         if (val == 'file') {
-            console.log("I'm in nodefile")
+            // console.log("I'm in nodefile")
             net.nodes().forEach(function(ele) {
                 if (ele.data().color.length > 2 && ele.data().color.slice(0, 1) == '#') {
                     ele.style({
@@ -204,21 +213,21 @@ Template.networkTools.events = {
                 }
             })
         } else if (val == 'alphabet') {
-            console.log("I'm in! nodealpha")
+            // console.log("I'm in! nodealpha")
             warning = []
             net.nodes().forEach(function(ele) {
-                console.log("ele.data().name", ele.data().name)
-                if (ele.data().name == "" || 0) {
-                    warning.push(ele.data().id);
-                    var eleColor = colorsNode(ele.data().id.slice(0, 1))
-                } else {
-                    var eleColor = colorsNode(ele.data().name.slice(0, 1));
-                }
-                ele.style({
-                    'background-color': ele.data('starred') ? 'yellow' : eleColor
+                    // console.log("ele.data().name", ele.data().name)
+                    if (ele.data().name == "" || 0) {
+                        warning.push(ele.data().id);
+                        var eleColor = colorsNode(ele.data().id.slice(0, 1))
+                    } else {
+                        var eleColor = colorsNode(ele.data().name.slice(0, 1));
+                    }
+                    ele.style({
+                        'background-color': ele.data('starred') ? 'yellow' : eleColor
+                    })
                 })
-            })
-            console.log("warning.length", warning.length)
+                // console.log("warning.length", warning.length)
 
             if (warning.length > 0) {
                 text = "elements with ids "
@@ -234,29 +243,29 @@ Template.networkTools.events = {
                     FlashMessages.sendError("no data available, creating");
                     //WE SET THIS BECAUSE WE WANT TO BE ABLE TO DISTINGUISH BETWEEN SELF AND ADDED COLORS, SO WE DON4T RETUR ele.data.color
                     var tmpcol = colorsNode(ele.data().id);
-                    console.log(tmpcol)
+                    // console.log(tmpcol)
                     ele.data({
                         'group': tmpcol
                     });
-                    console.log("ele.data().group", ele.data().group);
+                    // console.log("ele.data().group", ele.data().group);
                 }
 
                 if (ele.data().color == 0 || "") {
                     FlashMessages.sendError("no color available, creating");
                     //WE SET THIS BECAUSE WE WANT TO BE ABLE TO DISTINGUISH BETWEEN SELF AND ADDED COLORS, SO WE DON4T RETUR ele.data.color
                     var tmpcol = colorsNode(ele.data().group)
-                    console.log(tmpcol)
+                        // console.log(tmpcol)
                     ele.data({
                         'color': tmpcol
                     });
-                    console.log("ele.data().color", ele.data().color);
+                    // console.log("ele.data().color", ele.data().color);
                     if (ele.data().id == 'BEAL') {
-                        console.log('BEAL', ele.data().color)
+                        // console.log('BEAL', ele.data().color)
                     }
                 }
                 // console.log(ele.data().color)
                 var eleColor = (ele.data().group == 0) ? "#CCCCCC" : colorsNode(ele.data().group);
-                console.log(eleColor)
+                // console.log(eleColor)
                 ele.style({
                     'background-color': ele.data('starred') ? 'yellow' : eleColor
                 })
@@ -369,22 +378,22 @@ Template.networkTools.events = {
             var alternate = 1;
             net.nodes().forEach(function(ele) {
                 erro = alternate % 2
-                console.log("alternate % 2", erro)
+                    // console.log("alternate % 2", erro)
                 if ((alternate % 2) == 0) {
-                    console.log("here")
+                    // console.log("here")
                     ele.style({
                         'text-valign': 'top'
 
                     })
                 } else {
-                    console.log("there");
+                    // console.log("there");
                     ele.style({
                         'text-valign': 'bottom'
 
                     })
                 }
                 alternate = alternate + 1;
-                console.log("alternate", alternate);
+                // console.log("alternate", alternate);
             })
         }
     },
@@ -395,7 +404,7 @@ Template.networkTools.events = {
             edges = Edges.find().fetch();
         var self = this;
         if (val == 'file') {
-            console.log("I'm in edgefile")
+            // console.log("I'm in edgefile")
             net.edges().forEach(function(ele) {
                 if (ele.data().color.length > 2 && ele.data().color.slice(0, 1) == '#') {
                     ele.style({
@@ -408,7 +417,7 @@ Template.networkTools.events = {
                 }
             })
         } else if (val == 'alphabet') {
-            console.log("I'm in edge alphabet")
+            // console.log("I'm in edge alphabet")
             net.edges().forEach(function(ele) {
                 ele.style({
 
@@ -416,7 +425,7 @@ Template.networkTools.events = {
                 })
             })
         } else if (val == 'group') {
-            console.log("I'm in!3")
+            // console.log("I'm in!3")
             net.edges().forEach(function(ele) {
                 if (ele.data().group == 0) {
                     FlashMessages.sendError("no data available, creating");
@@ -502,7 +511,7 @@ Template.networkTools.events = {
                 ele.data().count = ele.data().width
                 var width = ele.data().count;
                 //TODO: D3 SCALE
-                console.log("widthedge", width)
+                // console.log("widthedge", width)
                 if (width <= 3) {
                     color = '#ECECEC'
                 } else if (width > 3 && width <= 6) {
@@ -525,11 +534,11 @@ Template.networkTools.events = {
 
 //color mean
 function colorMean(color1, color2) {
-    console.log(color1, color2);
+    // console.log(color1, color2);
     rgb = hexToRgb(color1)
     shc = hexToRgb(color2)
-    console.log("rgb", rgb)
-    console.log("shc", shc)
+        // console.log("rgb", rgb)
+        // console.log("shc", shc)
     var r = rgb[Object.keys(rgb)[0]];
     var g = rgb[Object.keys(rgb)[1]];
     var b = rgb[Object.keys(rgb)[2]];
@@ -540,8 +549,8 @@ function colorMean(color1, color2) {
     t = Math.round((r + s) / 2)
     i = Math.round((g + h) / 2)
     d = Math.round((b + c) / 2)
-    console.log("t", t, "i", i, "d", d)
-    console.log("rgbToHex(t, i, d)", rgbToHex(t, i, d))
+        // console.log("t", t, "i", i, "d", d)
+        // console.log("rgbToHex(t, i, d)", rgbToHex(t, i, d))
     return rgbToHex(t, i, d)
 }
 
@@ -552,7 +561,7 @@ function colorMean(color1, color2) {
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    console.log("hex", hex)
+    // console.log("hex", hex)
     hex = hex.replace(shorthandRegex, function(m, r, g, b) {
         return r + r + g + g + b + b;
     });
@@ -577,3 +586,11 @@ function rgbToHex(r, g, b) {
 //THEY ARE HERE BECAUSE THEY ARE ACCESSED FROM OUTSIDE
 colorsNode = d3.scale.category20c();
 colorsEdge = d3.scale.category20c();
+
+function wait(ms) {
+    var start = new Date().getTime();
+    var end = start;
+    while (end < start + ms) {
+        end = new Date().getTime();
+    }
+}

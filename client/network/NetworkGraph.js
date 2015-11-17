@@ -33,8 +33,8 @@ NetworkGraph = {
                 self.addCxtMenu();
                 self.addMouseBehaviours();
                 self.addEdgehandles();
-                console.log("repMethodEdge", repMethodWidthEdge);
-                console.log("repMethodEdge", repMethodEdge);
+                //console.log("repMethodEdge", repMethodWidthEdge);
+                //console.log("repMethodEdge", repMethodEdge);
             },
             // load existing positions
             layout: {
@@ -57,7 +57,7 @@ NetworkGraph = {
                         }
                     },
                     'background-color': function(e) {
-                        console.log(e.data().color);
+                        //console.log(e.data().color);
                         if (NodeColorMethod == 'file' && e.data().color.length > 2 && e.data().color.slice(0, 1) == '#') {
                             return e.data('starred') ? 'yellow' : e.data().color;
                         } else if (NodeColorMethod == 'file' && e.data().color.length > 2 && e.data().color.slice(0, 1) != '#') {
@@ -168,7 +168,7 @@ NetworkGraph = {
                             e.data().count = e.data().width
                             var width = e.data().count;
                             //TODO: D3 SCALE
-                            console.log("widthedge", width)
+                            //console.log("widthedge", width)
                             if (width <= 3) {
                                 color = '#ECECEC'
                             }else if (width > 3 && width <= 6) {
