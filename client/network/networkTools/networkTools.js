@@ -86,9 +86,14 @@ Template.networkTools.events = {
         //var val = $(e.currentTarget).find('value').val();
         var val = textSizeParam.value;
         console.log("val",val);
-        net.nodes().forEach(function(ele) {
-            ele.style({ 'font-size': val })
-        }) 
+
+        net.nodes().css({ 'font-size': val })
+        console.log(net.nodes().style("font-size"));
+
+        // net.nodes().forEach(function(ele) {
+        //     ele.css({ 'font-size': val })
+        // }) 
+
     },
     // add/remove nodes
     'click #add-node': function() {
@@ -164,7 +169,6 @@ Template.networkTools.events = {
 
     'click .toggle-edge-labels': function(e, template) {
         var net = template.view.parentView._templateInstance.network.get().net;
-
 
         if (net.edges()[0].css('content') == '') {
             net.edges().css({

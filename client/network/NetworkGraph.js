@@ -76,11 +76,9 @@ NetworkGraph = {
                     'font-size': fontSize,
                     'text-valign': 'top',
                     'color': 'black',
-                    'text-outline-width': 1,
-                    'text-outline-color': function(e) {
-                        return e.locked() ? 'red' : '#888';
-                    },
-                    'min-zoomed-font-size': 1,
+                    'text-max-width' : 100,
+                    'text-wrap' : 'wrap',
+                    'min-zoomed-font-size': 0.4,
                     'width': function(e) {
                         if (repMethodWidthNode == 'edge') {
                             var count = e.data().data.count || e.degree();
