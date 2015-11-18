@@ -101,16 +101,16 @@ Template.networkTools.events = {
 
         var net = template.view.parentView._templateInstance.network.get().net;
         //var val = $(e.currentTarget).find('value').val();
-        var val = countEdgeViewParam1.value;
-        var val2 = countEdgeViewParam2.value;
-        var val3 = countEdgeViewParam3.value;
+        var val = parseInt(countEdgeViewParam1.value);
+        var val2 = parseInt(countEdgeViewParam2.value);
+        var val3 = parseInt(countEdgeViewParam3.value);
 
         console.log("values", val, val2, val3);
 
         net.edges().forEach(function(ele) {
             //FIXME:
             ele.data().count = ele.data().width
-            var width = ele.data().count;
+            var width = parseInt(ele.data().count);
             //TODO: D3 SCALE
             // console.log("widthedge", width)
             if (width <= val) {
@@ -135,16 +135,16 @@ Template.networkTools.events = {
 
         var net = template.view.parentView._templateInstance.network.get().net;
         //var val = $(e.currentTarget).find('value').val();
-        var val = countEdgeViewParam1.value;
-        var val2 = countEdgeViewParam2.value;
-        var val3 = countEdgeViewParam3.value;
+        var val = parseInt(countEdgeViewParam1.value);
+        var val2 = parseInt(countEdgeViewParam2.value);
+        var val3 = parseInt(countEdgeViewParam3.value);
 
         console.log("values", val, val2, val3);
 
         net.edges().forEach(function(ele) {
             //FIXME:
             ele.data().count = ele.data().width
-            var width = ele.data().count;
+            var width = parseInt(ele.data().count);
             //TODO: D3 SCALE
             // console.log("widthedge", width)
             if (width <= val) {
@@ -169,16 +169,16 @@ Template.networkTools.events = {
 
         var net = template.view.parentView._templateInstance.network.get().net;
         //var val = $(e.currentTarget).find('value').val();
-        var val = countEdgeViewParam1.value;
-        var val2 = countEdgeViewParam2.value;
-        var val3 = countEdgeViewParam3.value;
+        var val = parseInt(countEdgeViewParam1.value);
+        var val2 = parseInt(countEdgeViewParam2.value);
+        var val3 = parseInt(countEdgeViewParam3.value);
 
         console.log("values", val, val2, val3);
 
         net.edges().forEach(function(ele) {
             //FIXME:
             ele.data().count = ele.data().width
-            var width = ele.data().count;
+            var width = parseInt(ele.data().count);
             //TODO: D3 SCALE
             // console.log("widthedge", width)
             if (width <= val) {

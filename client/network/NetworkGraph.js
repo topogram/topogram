@@ -174,7 +174,7 @@ NetworkGraph = {
                             } 
                             else if (width > 6 && width <= 9) {
                                 color = '#42A5F5'
-                            } else if (width >= 10) {
+                            } else if (width > 9) {
                                 color = '#EF5350'
                             } else {color = '#000000'}
                             return color;
