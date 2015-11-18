@@ -53,7 +53,7 @@ Template.networkTools.helpers({
         return nodeColorMethod = ["fix", "file", "group", "alphabet", "count"]
     },
     edgeColorMethod: function() {
-        return edgeColorMethod = ["fix", "file", "nodesMean", "nodesDash", "group", "count"]
+        return edgeColorMethod = ["fix", "file", "nodesMean", "nodesDash", "group", "count","compNodEdg"]
     },
     edgeWidthMethod: function() {
         return edgeWidthMethod = ["simple", "width"]
@@ -635,6 +635,53 @@ Template.networkTools.events = {
                     color = '#EF5350'
                 } else {
                     color = '#000000'
+                }
+                ele.style({
+                    'line-color': ele.data('starred') ? 'yellow' : color
+                })
+            })
+        } else if (val == 'compNodEdg') {
+            net.edges().forEach(function(ele) {
+                //FIXME:
+                ele.data().count = ele.data().width
+                var width = ele.data().count;
+                var val = parseInt(countEdgeViewParam1.value);
+                var val2 = parseInt(countEdgeViewParam2.value);
+                var val3 = parseInt(countEdgeViewParam3.value);
+                var nodesMeanDeg = 0;
+                var nodesMeanDegtmp = 0;
+                var sourceNode, targetNode,
+                    srcFound = false,
+                    tarFound = false;
+                for (var i = 0, l = nodes.length; i < l; i++) {
+                    nodesMeanDegtmp += nodes[i].degree()
+                }
+                nodesMeanDeg = nodesMeanDegtmp / nodes.length;
+                for (var i = 0, l = nodes.length; i < l; i++) {
+                    if (!srcFound && nodes[i].data.id == ele.data().source) {
+                        sourceNode = nodes[i];
+                        srcFound = true;
+                    } else if (!tarFound && nodes[i].data.id == ele.data().target) {
+                        targetNode = nodes[i];
+                        tarFound = true;
+                    } else if (srcFound && tarFound) break; //stop for-loop since we found our nodes
+                }
+                var sourceDeg = sourceNode.degree();
+                var targetDeg = targetNode.degree();
+
+                //TODO: D3 SCALE
+                // console.log("widthedge", width)
+                if (width <= val && (sourceDeg < nodesMeanDeg || targetDeg < nodesMeanDeg)) {
+                    color = '#BCBCBC'
+                } else if (width > val && width <= val3 && (sourceDeg < nodesMeanDeg || targetDeg < nodesMeanDeg)) {
+                    color = '#2BBBAD'
+                } else if (width < val2 && (sourceDeg > nodesMeanDeg || targetDeg > nodesMeanDeg)) {
+                    color = '#42A5F5'
+                } else if (width > val3 && (sourceDeg < nodesMeanDeg || targetDeg < nodesMeanDeg)) {
+                    color = '#EF5350'
+                } else {
+                    console.log(souc)
+                    color = '#ECECEC'
                 }
                 ele.style({
                     'line-color': ele.data('starred') ? 'yellow' : color
