@@ -73,26 +73,130 @@ Template.networkTools.helpers({
     edgeEndMethod: function() {
         return edgeEndMethod = ["simple", "arrow", "arrows"]
     },
-   // textSizeParam : function() { return Session.get('textSizeParam'); },
+    // textSizeParam : function() { return Session.get('textSizeParam'); },
 });
 
 Template.networkTools.events = {
-    
 
 
-    'change #textSizeParam': function(e,template){
+
+    'change #textSizeParam': function(e, template) {
 
         var net = template.view.parentView._templateInstance.network.get().net;
         //var val = $(e.currentTarget).find('value').val();
         var val = textSizeParam.value;
-        console.log("val",val);
+        console.log("val", val);
 
-        net.nodes().css({ 'font-size': val })
+        net.nodes().css({
+            'font-size': val
+        })
         console.log(net.nodes().style("font-size"));
 
         // net.nodes().forEach(function(ele) {
         //     ele.css({ 'font-size': val })
         // }) 
+
+    },
+    'change #countEdgeViewParam1': function(e, template) {
+
+        var net = template.view.parentView._templateInstance.network.get().net;
+        //var val = $(e.currentTarget).find('value').val();
+        var val = countEdgeViewParam1.value;
+        var val2 = countEdgeViewParam2.value;
+        var val3 = countEdgeViewParam3.value;
+
+        console.log("values", val, val2, val3);
+
+        net.edges().forEach(function(ele) {
+            //FIXME:
+            ele.data().count = ele.data().width
+            var width = ele.data().count;
+            //TODO: D3 SCALE
+            // console.log("widthedge", width)
+            if (width <= val) {
+                color = '#ECECEC'
+            } else if (width > val && width <= val2) {
+                color = '#2BBBAD'
+            } else if (width > val2 && width <= val3) {
+                color = '#42A5F5'
+            } else if (width > val3) {
+                color = '#EF5350'
+            } else {
+                color = '#000000'
+            }
+            ele.style({
+                'line-color': ele.data('starred') ? 'yellow' : color
+            })
+        })
+
+
+    },
+    'change #countEdgeViewParam2': function(e, template) {
+
+        var net = template.view.parentView._templateInstance.network.get().net;
+        //var val = $(e.currentTarget).find('value').val();
+        var val = countEdgeViewParam1.value;
+        var val2 = countEdgeViewParam2.value;
+        var val3 = countEdgeViewParam3.value;
+
+        console.log("values", val, val2, val3);
+
+        net.edges().forEach(function(ele) {
+            //FIXME:
+            ele.data().count = ele.data().width
+            var width = ele.data().count;
+            //TODO: D3 SCALE
+            // console.log("widthedge", width)
+            if (width <= val) {
+                color = '#ECECEC'
+            } else if (width > val && width <= val2) {
+                color = '#2BBBAD'
+            } else if (width > val2 && width <= val3) {
+                color = '#42A5F5'
+            } else if (width > val3) {
+                color = '#EF5350'
+            } else {
+                color = '#000000'
+            }
+            ele.style({
+                'line-color': ele.data('starred') ? 'yellow' : color
+            })
+        })
+
+
+    },
+    'change #countEdgeViewParam3': function(e, template) {
+
+        var net = template.view.parentView._templateInstance.network.get().net;
+        //var val = $(e.currentTarget).find('value').val();
+        var val = countEdgeViewParam1.value;
+        var val2 = countEdgeViewParam2.value;
+        var val3 = countEdgeViewParam3.value;
+
+        console.log("values", val, val2, val3);
+
+        net.edges().forEach(function(ele) {
+            //FIXME:
+            ele.data().count = ele.data().width
+            var width = ele.data().count;
+            //TODO: D3 SCALE
+            // console.log("widthedge", width)
+            if (width <= val) {
+                color = '#ECECEC'
+            } else if (width > val && width <= val2) {
+                color = '#2BBBAD'
+            } else if (width > val2 && width <= val3) {
+                color = '#42A5F5'
+            } else if (width > val3) {
+                color = '#EF5350'
+            } else {
+                color = '#000000'
+            }
+            ele.style({
+                'line-color': ele.data('starred') ? 'yellow' : color
+            })
+        })
+
 
     },
     // add/remove nodes
