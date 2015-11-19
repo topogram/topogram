@@ -9,7 +9,6 @@ var textEdge = false; //TODO
 var mergerNodes = false; //TODO
 var fontSize = 16;
 var fixedWidth = 10;
-
 NetworkGraph = {
     initTopogram: function(containerId, topogramId) {
         // console.log( 'initTopogram' );
@@ -32,7 +31,10 @@ NetworkGraph = {
                 // self.addQTip();
                 self.addCxtMenu();
                 self.addMouseBehaviours();
+
+
                 self.addEdgehandles();
+
                 //console.log("repMethodEdge", repMethodWidthEdge);
                 //console.log("repMethodEdge", repMethodEdge);
             },
@@ -63,7 +65,7 @@ NetworkGraph = {
                         } else if (NodeColorMethod == 'file' && e.data().color.length > 2 && e.data().color.slice(0, 1) != '#') {
                             return e.data('starred') ? 'yellow' : "#" + e.data().color;
                         } else if (NodeColorMethod == 'alphabet') {
-                            return e.data('starred') ? 'yellow' : self.colors(e.data().name.slice(0,1))
+                            return e.data('starred') ? 'yellow' : self.colors(e.data().name.slice(0, 1))
                         } else if (NodeColorMethod == 'group') {
                             if (e.data().color == 0) {
                                 //console.log("ante e.data().color", e.data().color)
@@ -76,8 +78,8 @@ NetworkGraph = {
                     'font-size': fontSize,
                     'text-valign': 'top',
                     'color': 'black',
-                    'text-max-width' : 100,
-                    'text-wrap' : 'wrap',
+                    'text-max-width': 100,
+                    'text-wrap': 'wrap',
                     'min-zoomed-font-size': 0.4,
                     'width': function(e) {
                         if (repMethodWidthNode == 'edge') {
@@ -169,20 +171,21 @@ NetworkGraph = {
                             //console.log("widthedge", width)
                             if (width <= 3) {
                                 color = '#ECECEC'
-                            }else if (width > 3 && width <= 6) {
+                            } else if (width > 3 && width <= 6) {
                                 color = '#2BBBAD'
-                            } 
-                            else if (width > 6 && width <= 9) {
+                            } else if (width > 6 && width <= 9) {
                                 color = '#42A5F5'
                             } else if (width > 9) {
                                 color = '#EF5350'
-                            } else {color = '#000000'}
+                            } else {
+                                color = '#000000'
+                            }
                             return color;
                         }
                     },
                     //CHOOSE EDGE WIDTH METHOD
                     'width': function(e) {
-                        if (repMethodWidthEdge == 'width') { 
+                        if (repMethodWidthEdge == 'width') {
                             console.log("e.data().width", e.data().width)
                             var width = e.data().width;
                             return width;
@@ -306,7 +309,9 @@ NetworkGraph = {
         var self = this;
 
         var onComplete = function(source, target, addedEntities) {
+
             Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'));
+
         };
 
         this.net.edgehandles({
@@ -362,36 +367,40 @@ NetworkGraph = {
 
             // update position
             Meteor.call('updateNodePosition', node.id(), node.position());
+            //console.log("NodeMergingMode.value",NodeMergingMode.value)
 
-            // check for node merger 
-            var bb = node.boundingbox();
+            if (nodeEditMode == true) {
+                // check for node merger
+                console.log("check for node merger")
+                var bb = node.boundingbox();
 
-            var targets = Nodes.find({
-                "position.x": {
-                    "$lt": Math.max(bb.x1, bb.x2),
-                    "$gte": Math.min(bb.x1, bb.x2)
-                },
-                "position.y": {
-                    "$lt": Math.max(bb.y1, bb.y2),
-                    "$gte": Math.min(bb.y1, bb.y2)
-                },
-                "data.id": {
-                    "$not": node.id()
+                var targets = Nodes.find({
+                    "position.x": {
+                        "$lt": Math.max(bb.x1, bb.x2),
+                        "$gte": Math.min(bb.x1, bb.x2)
+                    },
+                    "position.y": {
+                        "$lt": Math.max(bb.y1, bb.y2),
+                        "$gte": Math.min(bb.y1, bb.y2)
+                    },
+                    "data.id": {
+                        "$not": node.id()
+                    }
+                }).fetch();
+
+                var nodeSource = Nodes.findOne({
+                    "data.id": node.id()
+                });
+
+                if (targets.length) {
+                    Session.set("mergeSource", nodeSource)
+                    Session.set("mergeTargets", targets)
+                    $('#modal-merge').openModal();
                 }
-            }).fetch();
-
-            var nodeSource = Nodes.findOne({
-                "data.id": node.id()
-            });
-
-            if (targets.length) {
-                Session.set("mergeSource", nodeSource)
-                Session.set("mergeTargets", targets)
-                $('#modal-merge').openModal();
-            }
+            };
         });
 
-        // check for node merger 
+        // check for node merger
         this.net.on('cxtdragout', 'node', function(e) {
             console.log('test');
             console.log(e.boundingBox());

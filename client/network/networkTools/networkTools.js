@@ -6,12 +6,17 @@ Template.networkTools.onCreated(function() {
     this.changeLayout.set(this.view.parentView._templateInstance.changeLayout.get())
 });
 
+
+
 Template.networkTools.rendered = function() {
 
     //for searching easily
     var nodes = Nodes.find().fetch(),
         edges = Edges.find().fetch();
     var self = this;
+    nodeEditMode = false;
+    // edgeEditMode = false;
+
 }
 
 Template.networkTools.helpers({
@@ -53,7 +58,7 @@ Template.networkTools.helpers({
         return nodeColorMethod = ["fix", "file", "group", "alphabet", "count"]
     },
     edgeColorMethod: function() {
-        return edgeColorMethod = ["fix", "file", "nodesMean", "nodesDash", "group", "count","compNodEdg"]
+        return edgeColorMethod = ["fix", "file", "nodesMean", "nodesDash", "group", "count", "compNodEdg"]
     },
     edgeWidthMethod: function() {
         return edgeWidthMethod = ["simple", "width"]
@@ -269,6 +274,21 @@ Template.networkTools.events = {
                 'content': ''
             });
         }
+    },
+    'click .toggle-node-edit-mode': function() {
+
+        nodeEditMode = !nodeEditMode
+        console.log("nodeEditMode", nodeEditMode)
+        return;
+
+    },
+    'click .toggle-edge-edit-mode': function() {
+
+        edgeEditMode = !edgeEditMode
+        console.log("edgeEditMode", edgeEditMode)
+        return;
+
+
     },
 
     'click .toggle-edge-labels': function(e, template) {
