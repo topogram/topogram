@@ -205,6 +205,70 @@ Template.networkTools.events = {
 
 
         },
+        'change #sigmaViewParam': function(e, template) {
+
+            var net = template.view.parentView._templateInstance.network.get().net;
+            //var val = $(e.currentTarget).find('value').val();
+            var val = parseInt(sigmaViewParam.value);
+            
+
+            console.log("values", val);
+                var data1 = [];
+                console.log("data1", data1);
+
+                net.edges().forEach(function(ele) {
+                //FIXME
+
+                ele.data().count = ele.data().width;
+                console.log("ele.data().count = ele.data().width",ele.data().count ,ele.data().width);
+                    data1.push(ele.data().count);
+                })
+                //console.log("I'm in sigma")
+                console.log(data1);
+                var average1 = average(data1);
+                var standardDeviation1 = standardDeviation(data1);
+                //console.log("average1",average1);
+                //console.log("standardDeviation1",standardDeviation1);
+                
+                // NOT SURE IT IS NEEDED
+                if (val > 6) {
+                    val = 1;
+                    console.log("sigma value set too high, so taking 1 instead")
+                }
+                net.edges().forEach(function(ele) {
+                    //FIXME:
+                    ele.data().count = ele.data().width
+                    var width = ele.data().count;
+                    //TODO: D3 SCALE
+
+                    if (width <= (average1 - ((val + 4) * standardDeviation1)) || width >= (average1 + ((val + 4) * standardDeviation1))) {
+                        color = '#FF1010'
+                    } 
+                    else if (width <= (average1 - ((val + 3) * standardDeviation1)) || width >= (average1 + ((val + 3) * standardDeviation1))) {
+                        color = '#EF5350'
+                    } 
+                    else if (width <= (average1 - ((val + 2) * standardDeviation1)) || width >= (average1 + (val + 2) * standardDeviation1)) {
+                        color = '#42A5F5'
+                    } 
+                    else if (width <= (average1 - ((val + 1) * standardDeviation1)) || width >= (average1 + (val + 1) * standardDeviation1)) {
+                        color = '#2BBBAD'
+                    } 
+                    else if (width <= (average1 + (val * standardDeviation1)) && width >= (average1 - (val * standardDeviation1))) {
+                        color = '#ECECEC'
+                    } 
+                    else {
+                        color = '#000000'
+                    }
+                    console.log(width);
+                    console.log("average1",average1);
+                console.log("standardDeviation1",standardDeviation1);
+                    ele.style({
+                        'line-color': ele.data('starred') ? 'yellow' : color
+                    })
+                })
+
+        },
+
         // add/remove nodes
         'click #add-node': function() {
             var nodeId = 'node' + Math.round(Math.random() * 1000000);
@@ -670,7 +734,7 @@ Template.networkTools.events = {
 
                     data1.push(ele.degree())
                 })
-                console.log("I'm in sigma")
+                
                 var nodesMeanDeg = average(data1)
 
                 net.edges().forEach(function(ele) {
@@ -718,40 +782,33 @@ Template.networkTools.events = {
                 })
             } else if (val == 'sigma') {
                 var data1 = []
+                console.log("data1",data1);
+                
                 net.edges().forEach(function(ele) {
-
-                    data1.push(ele.data().count)
+                //FIXME
+                ele.data().count = ele.data().width
+                    data1.push(parseInt(ele.data().count));
+                    console.log("ele.data().width, ele.data().count", ele.data().width, ele.data().count);
                 })
-                console.log("I'm in sigma")
-                var average1 = average(data1)
-                var standardDeviation1 = standardDeviation(data1)
+
+                console.log("I'm in sigma");
+                console.log("data1",data1);
+                var average1 = average(data1);
+                var standardDeviation1 = standardDeviation(data1);
                 console.log("average1",average1);
                 console.log("standardDeviation1",standardDeviation1);
                 var val = parseInt(countEdgeViewParam1.value);
                 // NOT SURE IT IS NEEDED
-                // if (val > 6) {
-                //     val = 6;
-                //     console.log("sigma value set too high, so taking 2 instead")
-                // }
+                if (val > 6) {
+                    val = 1;
+                    console.log("sigma value set too high, so taking 1 instead")
+                }
                 net.edges().forEach(function(ele) {
                     //FIXME:
                     ele.data().count = ele.data().width
                     var width = ele.data().count;
                     //TODO: D3 SCALE
-                    // console.log("widthedge", width)
-                    // if (width <= (average1 + val * standardDeviation1) && width >= (average1 + val * standardDeviation1)) {
-                    //     color = '#ECECEC'
-                    // } else if (width <= (average1 + (val + 1) * standardDeviation1) || width >= (average1 + (val + 1) * standardDeviation1)) {
-                    //     color = '#2BBBAD'
-                    // } else if (width <= (average1 + (val + 2) * standardDeviation1) || width >= (average1 + (val + 2) * standardDeviation1)) {
-                    //     color = '#42A5F5'
-                    // } else if (width <= (average1 + (val + 3) * standardDeviation1) || width >= (average1 + (val + 3) * standardDeviation1)) {
-                    //     color = '#EF5350'
-                    // } else if (width <= (average1 + (val + 4) * standardDeviation1) || width >= (average1 + (val + 4) * standardDeviation1)) {
-                    //     color = '#FF1010'
-                    // } else {
-                    //     color = '#000000'
-                    // }
+
                     if (width <= (average1 - ((val + 4) * standardDeviation1)) || width >= (average1 + ((val + 4) * standardDeviation1))) {
                         color = '#FF1010'
                     } 
@@ -770,9 +827,9 @@ Template.networkTools.events = {
                     else {
                         color = '#000000'
                     }
-                    console.log(width);
-                    console.log("average1",average1);
-                console.log("standardDeviation1",standardDeviation1);
+                    //console.log(width);
+                    //console.log("average1",average1);
+                //console.log("standardDeviation1",standardDeviation1);
                     ele.style({
                         'line-color': ele.data('starred') ? 'yellow' : color
                     })
@@ -897,3 +954,4 @@ function average(data) {
     var avg = sum / data.length;
     return avg;
 }
+
