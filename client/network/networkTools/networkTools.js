@@ -56,10 +56,10 @@ Template.networkTools.helpers({
         return types;
     },
     nodeColorMethod: function() {
-        return nodeColorMethod = ["fix", "file", "group", "alphabet", "count", "compNodEdg", "sigma", "sigmaDegree"]
+        return nodeColorMethod = ["fix", "setInFile", "group", "alphabet", "count", "compNodEdg", "sigma", "sigmaDegree"]
     },
     edgeColorMethod: function() {
-        return edgeColorMethod = ["fix", "file", "nodesMean", "nodesDash", "group", "count", "compNodEdg", "sigma"]
+        return edgeColorMethod = ["fix", "file", "nodesMeanGroup","nodesMeanColor", "nodesDash", "group", "count", "compNodEdg", "sigma"]
     },
     edgeWidthMethod: function() {
         return edgeWidthMethod = ["simple", "width"]
@@ -466,7 +466,7 @@ Template.networkTools.events = {
                 edges = Edges.find().fetch();
             var self = this;
 
-            if (val == 'file') {
+            if (val == 'setInFile') {
                 // console.log("I'm in nodefile")
                 net.nodes().forEach(function(ele) {
                     if (ele.data().color.length > 2 && ele.data().color.slice(0, 1) == '#') {
@@ -813,7 +813,7 @@ Template.networkTools.events = {
                     })
                 })
             } else if (val == 'group') {
-                // console.log("I'm in!3")
+               console.log("I'm in!3")
                 net.edges().forEach(function(ele) {
                     if (ele.data().group == 0) {
                         FlashMessages.sendError("no data available, creating");
@@ -830,7 +830,7 @@ Template.networkTools.events = {
                         'line-color': ele.data('starred') ? 'yellow' : colorsEdge(ele.data().group)
                     })
                 })
-            } else if (val == 'nodesMean') {
+            } else if (val == 'nodesMeanGroup') {
                 net.edges().forEach(function(ele) {
                     var sourceNode = "";
                     var targetNode = "";
@@ -845,11 +845,42 @@ Template.networkTools.events = {
                             tarFound = true;
                         } else if (srcFound && tarFound) break; //stop for-loop since we found our nodes
                     }
-                    // console.log("sourceNode", sourceNode.data.id);
-                    // console.log("targetNode", targetNode.data.id);
-                    // console.log("sourceNode color", sourceNode.data.color);
-                    // console.log("targetNode color", targetNode.data.color);
+                    console.log("sourceNode", sourceNode.data.id);
+                    console.log("targetNode", targetNode.data.id);
+                    console.log("sourceNode color", sourceNode.data.color);
+                    console.log("sourceNode group", sourceNode.data.group);
+                    console.log("targetNode color", targetNode.data.color);
+                    console.log("targetNode group", targetNode.data.color);
                     var color = colorMean(colorsNode(sourceNode.data.group), colorsNode(targetNode.data.group));
+                    console.log("color",color);
+                    ele.style({
+                        'line-color': ele.data('starred') ? 'yellow' : color,
+                        'line-style': "solid"
+                    })
+                })
+            } else if (val == 'nodesMeanColor') {
+                net.edges().forEach(function(ele) {
+                    var sourceNode = "";
+                    var targetNode = "";
+                    srcFound = false;
+                    tarFound = false;
+                    for (var i = 0, l = nodes.length; i < l; i++) {
+                        if (!srcFound && nodes[i].data.id == ele.data().source) {
+                            sourceNode = nodes[i];
+                            srcFound = true;
+                        } else if (!tarFound && nodes[i].data.id == ele.data().target) {
+                            targetNode = nodes[i];
+                            tarFound = true;
+                        } else if (srcFound && tarFound) break; //stop for-loop since we found our nodes
+                    }
+                    console.log("sourceNode", sourceNode.data.id);
+                    console.log("targetNode", targetNode.data.id);
+                    console.log("sourceNode color", sourceNode.data.color);
+                    console.log("sourceNode group", sourceNode.data.group);
+                    console.log("targetNode color", targetNode.data.color);
+                    console.log("targetNode group", targetNode.data.color);
+                    var color = colorMean(sourceNode.data.color, targetNode.data.color);
+                    console.log("color",color);
                     ele.style({
                         'line-color': ele.data('starred') ? 'yellow' : color,
                         'line-style': "solid"
@@ -1062,11 +1093,11 @@ function createLinearScale(domain, range) {
 
 //color mean 
 function colorMean(color1, color2) {
-    // console.log(color1, color2);
+    console.log(color1, color2);
     rgb = hexToRgb(color1)
     shc = hexToRgb(color2)
-        // console.log("rgb", rgb)
-        // console.log("shc", shc)
+        console.log("rgb", rgb)
+        console.log("shc", shc)
     var r = rgb[Object.keys(rgb)[0]];
     var g = rgb[Object.keys(rgb)[1]];
     var b = rgb[Object.keys(rgb)[2]];
@@ -1077,8 +1108,8 @@ function colorMean(color1, color2) {
     t = Math.round((r + s) / 2)
     i = Math.round((g + h) / 2)
     d = Math.round((b + c) / 2)
-        // console.log("t", t, "i", i, "d", d)
-        // console.log("rgbToHex(t, i, d)", rgbToHex(t, i, d))
+        console.log("t", t, "i", i, "d", d)
+        console.log("rgbToHex(t, i, d)", rgbToHex(t, i, d))
     return rgbToHex(t, i, d)
 }
 
@@ -1089,7 +1120,7 @@ function colorMean(color1, color2) {
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    // console.log("hex", hex)
+    console.log("hex", hex)
     hex = hex.replace(shorthandRegex, function(m, r, g, b) {
         return r + r + g + g + b + b;
     });
