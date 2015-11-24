@@ -98,16 +98,34 @@ Template.networkTemplate.rendered = function() {
 
         var layoutConfig;
         if (layoutName == 'map') {
-            
-            layoutConfig = {
-                name: 'preset',
-                positions: function(node) {
-                    console.log(network.net.extent());
 
-                    return convertLatLngToCoords(node.data().lat, node.data().lng);
-                },
-                stop: savePositions // callback on layoutstop
-            }
+          var positionMap = function() {
+            console.log("positionMap");
+
+            // get network viewport extent in pixels
+            var ext = network.net.extent();
+            console.log(ext);
+
+            // convert ext
+            var coordA = convertCoordsToLatLng(ext.x1,ext.y1);
+            var coordB = convertCoordsToLatLng(ext.x2,ext.y2);
+            console.log(coordA, coordB);
+
+            // resize map
+            resizeMap(coordA, coordB)
+
+          }
+
+          layoutConfig = {
+              name: 'preset',
+              positions: function(node) {
+                  return convertLatLngToCoords(node.data().lat, node.data().lng);
+              },
+              ready : positionMap,
+              stop: savePositions // callback on layoutstop
+          }
+
+
         } else {
 
             layoutConfig = {
@@ -115,7 +133,7 @@ Template.networkTemplate.rendered = function() {
                 stop: savePositions // callback on layoutstop
             }
         }
-        
+
         console.log("layoutConfig", layoutConfig)
 
 

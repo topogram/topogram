@@ -156,7 +156,7 @@ NetworkGraph = {
                             // console.log("sourceNode", sourceNode.data.id);
                             // console.log("targetNode", targetNode.data.id);
                             // console.log("sourceNode color", sourceNode.data.color);
-                            // console.log("targetNode color", targetNode.data.color);                            
+                            // console.log("targetNode color", targetNode.data.color);
                             var color = colorMean(colors(sourceNode.data.group), colors(targetNode.data.group));
                             return color;
                         } else if (EdgeColorMethod == 'group') {
@@ -345,7 +345,7 @@ NetworkGraph = {
                 'opacity': '1'
             });
 
-            // make only the focus selectable 
+            // make only the focus selectable
             self.net.nodes().unselectify();
             self.net.edges().unselectify(false);
             node.neighborhood().selectify();
@@ -407,6 +407,11 @@ NetworkGraph = {
             console.log('test');
             console.log(e.boundingBox());
         });
+
+        // this.net.on('zoom', function(e) {
+        //     console.log('test');
+        //     console.log(e.boundingBox());
+        // });
     }
 
 

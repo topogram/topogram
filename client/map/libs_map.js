@@ -6,8 +6,8 @@ initMap = function() {
     //var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     var attrib = "Map data © <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors";
     var layer = new L.TileLayer(url, {
-        minZoom: 2,
-        maxZoom: 16,
+        minZoom: 0,
+        maxZoom: 160,
         attribution: attrib
     });
     map = L.map('map').setView([35.0, 50.0], 4);
@@ -24,8 +24,8 @@ initMap = function() {
         }),
         path = d3.geo.path().projection(transform);
     // map.on('resize', resetView);
-    map.on('move', updateMap);
-    map.on('zoom', updateMap);
+    // map.on('move', updateMap);
+    // map.on('zoom', updateMap);
 
     function resetView() {
         map.invalidateSize();
@@ -55,9 +55,19 @@ updateMap = function() {
 
 }
 
+resizeMap = function(southWest, northEast) {
+  var bounds = L.latLngBounds(southWest, northEast);
+  map.fitBounds([ southWest, northEast ]);
+}
+
+
 // Use Leaflet to implement a D3 geometric transformation.
 convertLatLngToCoords = function(lat,lng) {
     return map.latLngToLayerPoint(new L.LatLng(lat, lng))
+}
+
+convertCoordsToLatLng = function(x,y) {
+    return map.layerPointToLatLng(new L.Point(x, y))
 }
 
 applyLatLngToLayer = function(map, d) {
