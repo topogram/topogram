@@ -24,7 +24,7 @@ Template.networkTools.helpers({
 
     layouts: function() {
         return [
-            'springy', 'random', 'grid', 'circle', 'breadthfirst', 'concentric'
+            'springy', 'random', 'grid', 'circle', 'breadthfirst', 'concentric','map'
         ].map(function(d) {
             return {
                 'slug': d,

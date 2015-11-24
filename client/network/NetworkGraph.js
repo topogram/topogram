@@ -327,6 +327,7 @@ NetworkGraph = {
         this.net.on('select', 'node', /*_.debounce(*/ function(e) {
 
             var node = e.cyTarget;
+            console.log(node.data());
             Session.set('currentType', 'node');
             Session.set('currentId', node.id());
 

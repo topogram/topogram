@@ -6,28 +6,29 @@ Template.networkTemplate.created = function() {
 Template.networkTemplate.rendered = function() {
     var self = this;
     // console.log( this.data );
+    initMap();
 
-    $( '#infoBox' ).css( 'visibility', 'hidden' ); // hide infobox by default
+    $('#infoBox').css('visibility', 'hidden'); // hide infobox by default
 
     // create graph// network.destroy();
     var topogramId = this.data.topogramId,
-        network = NetworkGraph.initTopogram( 'network', topogramId );
+        network = NetworkGraph.initTopogram('network', topogramId);
 
     // fetch and parse data
     var edges = Edges.find().fetch(),
         nodes = Nodes.find().fetch();
-        console.log("nodes",nodes)
-        console.log("edges",edges)
-    // init data
-    if ( network ) network.initData( nodes, edges );
+    console.log("nodes", nodes)
+    console.log("edges", edges)
+        // init data
+    if (network) network.initData(nodes, edges);
 
     var fieldFunctionMap = {
-        'data': function( elem, data ) {
-            elem.data( data );
+        'data': function(elem, data) {
+            elem.data(data);
         },
-        'position': function( elem, data ) {
+        'position': function(elem, data) {
             // console.log( elem, data );
-            elem.position( data );
+            elem.position(data);
         }
     };
 
@@ -76,35 +77,57 @@ Template.networkTemplate.rendered = function() {
 
     // console.log(network.net.nodes());
 
-    Template.instance().network.set( network );
+    Template.instance().network.set(network);
 
     // layout function
-    var changeLayout = function( layoutName ) {
+    var changeLayout = function(layoutName) {
 
         // callback
         var savePositions = function() {
             // console.log( 'update position ' );
-            var nodesLayout = network.net.nodes().map( function( node ) {
+            var nodesLayout = network.net.nodes().map(function(node) {
                 return {
                     id: node.id(),
                     position: node.position()
                 };
-            } );
-            Meteor.call( 'updateNodesPositions', nodesLayout );
+            });
+            Meteor.call('updateNodesPositions', nodesLayout);
         }
 
-        var layout = network.net.makeLayout( {
-            name: layoutName,
-            stop: savePositions // callback on layoutstop
-        } );
+        console.log("layoutName", layoutName)
+
+        var layoutConfig;
+        if (layoutName == 'map') {
+            
+            layoutConfig = {
+                name: 'preset',
+                positions: function(node) {
+                    console.log(network.net.extent());
+
+                    return convertLatLngToCoords(node.data().lat, node.data().lng);
+                },
+                stop: savePositions // callback on layoutstop
+            }
+        } else {
+
+            layoutConfig = {
+                name: layoutName,
+                stop: savePositions // callback on layoutstop
+            }
+        }
+        
+        console.log("layoutConfig", layoutConfig)
+
+
+        var layout = network.net.makeLayout(layoutConfig);
         layout.run();
     }
 
-    Template.instance().changeLayout.set( changeLayout );
+    Template.instance().changeLayout.set(changeLayout);
 };
 
-Template.networkTemplate.onDestroyed( function() {
+Template.networkTemplate.onDestroyed(function() {
     // this.network.net.destroy();
 
     // console.log( 'network destroyed', this.network );
-} );
+});

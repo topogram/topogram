@@ -1,6 +1,7 @@
 Template.map.rendered = function() {
     // session vars
     Session.set('minParamForDisplay', 0);
+    Session.set("D3mapCoords",{});
     //In order to select if radius as to vary according to source, to target, or to both 
     Session.set('radiusas', 'both');
     var self = this;
@@ -223,6 +224,7 @@ Template.map.rendered = function() {
         var mapBounds = map.getBounds();
         var SW = map.latLngToLayerPoint(mapBounds._southWest),
             NE = map.latLngToLayerPoint(mapBounds._northEast);
+
         // console.log(NE, SW);
         // console.log(Math.abs(NE.x - SW.x), Math.abs(NE.y - SW.y));
 
@@ -230,10 +232,11 @@ Template.map.rendered = function() {
 
         // points
         feature.attr('transform', function(d) {
-
+            // console.log("d",d)
             return 'translate(' +
                 applyLatLngToLayer(map, d).x + ',' +
                 applyLatLngToLayer(map, d).y + ')';
+
         });
 
         featureedges.attr('x1', function(d) {
