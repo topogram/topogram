@@ -420,8 +420,14 @@ Template.networkTools.events = {
             var net = template.view.parentView._templateInstance.network.get().net;
             edgeEditMode = !edgeEditMode
             console.log("edgeEditMode", edgeEditMode)
-            if (!edgeEditMode){net.edgehandles("disable")}
-                else {net.edgehandles("enable")}
+            if (!edgeEditMode){
+                net.edgehandles("disable");
+                $(e.target).text("edge edit mode off").toggleClass("btn-flat")
+            }
+            else {
+                net.edgehandles("enable")
+                $(e.target).text("edge edit mode on").toggleClass("btn-flat")
+            }
             return;
 
 

@@ -317,6 +317,7 @@ NetworkGraph = {
         this.net.edgehandles({
             complete: onComplete
         });
+        this.net.edgehandles("disable");
     },
 
     // drag behaviour
