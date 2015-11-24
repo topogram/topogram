@@ -15,7 +15,7 @@ Template.networkTools.rendered = function() {
         edges = Edges.find().fetch();
     var self = this;
     nodeEditMode = false;
-    // edgeEditMode = false;
+    edgeEditMode = false;
     scaleForParams = [];
 
 }
@@ -416,10 +416,12 @@ Template.networkTools.events = {
             return;
 
         },
-        'click .toggle-edge-edit-mode': function() {
-
+        'click .toggle-edge-edit-mode': function(e,template) {
+            var net = template.view.parentView._templateInstance.network.get().net;
             edgeEditMode = !edgeEditMode
             console.log("edgeEditMode", edgeEditMode)
+            if (!edgeEditMode){net.edgehandles("disable")}
+                else {net.edgehandles("enable")}
             return;
 
 
