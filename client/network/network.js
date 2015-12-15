@@ -12,15 +12,7 @@ Template.networkTemplate.helpers = {
 
 Template.networkTemplate.rendered = function() {
     var self = this;
-    // console.log( this.data );
-
-    // sidebar
-    $('.collapsing').sideNav({
-      closeOnClick: true,
-      menuWidth: 300, // Default is 240
-      edge: 'left' // Choose the horizontal origin
-    });
-    // $('.button-collapse').sideNav('show');
+    
     // if a node has lat/lng, then addmap layout
     if (hasGeo()) initMap();
 
