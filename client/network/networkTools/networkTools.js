@@ -69,8 +69,6 @@ Template.networkTools.helpers({
 
 Template.networkTools.events = {
 
-
-
         'change #textSizeParam': function(e, template) {
 
             var net = template.view.parentView._templateInstance.network.get().net;
@@ -373,22 +371,7 @@ Template.networkTools.events = {
             }
         },
 
-        'click .toggle-node-labels': function(e, template) {
-            var net = template.view.parentView._templateInstance.network.get().net;
 
-            if (net.nodes()[0].css('content') == '') {
-                net.nodes().css({
-                    'content': function(e) {
-                        // console.log(e.data().data.name);
-                        return e.data().data.name;
-                    }
-                });
-            } else {
-                net.nodes().css({
-                    'content': ''
-                });
-            }
-        },
         'click .toggle-node-edit-mode': function(e,template) {
             var net = template.view.parentView._templateInstance.network.get().net;
             nodeEditMode = !nodeEditMode
@@ -419,22 +402,7 @@ Template.networkTools.events = {
             return;
         },
 
-        'click .toggle-edge-labels': function(e, template) {
-            var net = template.view.parentView._templateInstance.network.get().net;
 
-            if (net.edges()[0].css('content') == '') {
-                net.edges().css({
-                    'content': function(e) {
-                        if (e.data().data) return e.data().data.name;
-                        else return '';
-                    }
-                });
-            } else {
-                net.edges().css({
-                    'content': ''
-                });
-            }
-        },
 
         // toggle add/remove edges feature
         'click #draw-edgehandles': function() {

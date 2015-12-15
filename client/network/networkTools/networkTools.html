@@ -30,16 +30,14 @@
             <br>
             <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
             <p>
-                Labels :
-                <br>
-                <a href="#" class="btn btn-flat toggle-node-labels">Node</a>
-                <a href="#" class="btn btn-flat toggle-edge-labels">Edges</a>
                 <a href="#" class="btn btn-flat grey toggle-node-edit-mode">Node Edit</a>
                 <a href="#" class="btn btn-flat grey toggle-edge-edit-mode">Edge Edit</a>
 
             </p>
             <br>
             {{> selectLayout }}
+            {{> labels }}
+
             <br>
             <label for="nodeColorMethod">Node Color Method</label>
             <select class="browser-default" name="nodeColorMethod" id="nodeColorMethod">
