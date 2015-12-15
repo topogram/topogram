@@ -37,6 +37,7 @@
             <br>
             {{> selectLayout }}
             {{> labels }}
+            {{> edgesOptions}}
 
             <br>
             <label for="nodeColorMethod">Node Color Method</label>
@@ -57,18 +58,7 @@
                 <option value="{{this}}">{{this}}</option>
                 {{/each}}
             </select>
-            <label for="edgeWidthMethod">Edge Width Method</label>
-            <select class="browser-default" name="edgeWidthMethod" id="edgeWidthMethod">
-                {{#each edgeWidthMethod}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-            <label for="edgeEndMethod">Edge End Method</label>
-            <select class="browser-default" name="edgeEndMethod" id="edgeEndMethod">
-                {{#each edgeEndMethod}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
+
             <label for="textLocationMethod">node text Location Method</label>
             <select class="browser-default" name="textLocationMethod" id="textLocationMethod">
                 {{#each textLocationMethod}}

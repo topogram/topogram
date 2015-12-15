@@ -1,0 +1,14 @@
+<template name="edgesOptions">
+  <label for="edgeWidthMethod">Edge Width Method</label>
+  <select class="browser-default" name="edgeWidthMethod" id="edgeWidthMethod">
+      {{#each edgeWidthMethod}}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+  </select>
+  <label for="edgeEndMethod">Edge End Method</label>
+  <select class="browser-default" name="edgeEndMethod" id="edgeEndMethod">
+      {{#each edgeEndMethod}}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+  </select>
+</template>

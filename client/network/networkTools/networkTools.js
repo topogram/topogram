@@ -43,12 +43,7 @@ Template.networkTools.helpers({
     nodeColorMethod: function() {
         return nodeColorMethod = ["fix", "setInFile", "group", "alphabet", "count", "compNodEdg", "sigma", "sigmaDegree"]
     },
-    edgeColorMethod: function() {
-        return edgeColorMethod = ["fix", "file", "nodesMeanGroup","nodesMeanColor", "nodesDash", "group", "count", "compNodEdg", "sigma"]
-    },
-    edgeWidthMethod: function() {
-        return edgeWidthMethod = ["simple", "width"]
-    },
+
     // nodeTextMethod: function() {
     //     return edgeWidthMethod = ["true", "false"]
     // },
@@ -61,9 +56,10 @@ Template.networkTools.helpers({
     textLocationMethod: function() {
         return textLocationMethod = ["above", "below", "alternate"]
     },
-    edgeEndMethod: function() {
-        return edgeEndMethod = ["simple", "arrow", "arrows"]
-    },
+
+    edgeColorMethod: function() {
+        return edgeColorMethod = ["fix", "file", "nodesMeanGroup","nodesMeanColor", "nodesDash", "group", "count", "compNodEdg", "sigma"]
+    }
     // textSizeParam : function() { return Session.get('textSizeParam'); },
 });
 
@@ -652,57 +648,7 @@ Template.networkTools.events = {
                 })
             }
         },
-        'change #edgeWidthMethod': function(e, template) {
-            var net = template.view.parentView._templateInstance.network.get().net;
-            var val = $(e.currentTarget).find('option:selected').val();
-            var nodes = Nodes.find().fetch(),
-                edges = Edges.find().fetch();
-            var self = this;
 
-            if (val == 'simple') {
-                net.edges().forEach(function(ele) {
-                    ele.style({
-                        'width': 5
-                    })
-                })
-            } else if (val == 'width') {
-                net.edges().forEach(function(ele) {
-                    ele.style({
-                        'width': ele.data().width
-                    })
-                })
-            }
-        },
-        'change #edgeEndMethod': function(e, template) {
-            var net = template.view.parentView._templateInstance.network.get().net;
-            var val = $(e.currentTarget).find('option:selected').val();
-            var nodes = Nodes.find().fetch(),
-                edges = Edges.find().fetch();
-            var self = this;
-
-            if (val == 'simple') {
-                net.edges().forEach(function(ele) {
-                    ele.style({
-                        'target-arrow-shape': 'none',
-                        'source-arrow-shape': 'none'
-                    })
-                })
-            } else if (val == 'arrow') {
-                net.edges().forEach(function(ele) {
-                    ele.style({
-                        'target-arrow-shape': 'triangle',
-                        'source-arrow-shape': 'none'
-                    })
-                })
-            } else if (val == 'arrows') {
-                net.edges().forEach(function(ele) {
-                    ele.style({
-                        'target-arrow-shape': 'triangle',
-                        'source-arrow-shape': 'triangle'
-                    })
-                })
-            }
-        },
         'change #textLocationMethod': function(e, template) {
             var net = template.view.parentView._templateInstance.network.get().net;
             var val = $(e.currentTarget).find('option:selected').val();
