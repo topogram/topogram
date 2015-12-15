@@ -19,7 +19,7 @@ Template.selectLayout.helpers({
       ];
 
       // add map layout
-      if (hasGeo()) layouts.push("map");
+      if ( hasGeo() ) layouts.push("map");
 
       return layouts.map(function(d) {
             return {

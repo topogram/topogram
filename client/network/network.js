@@ -3,18 +3,15 @@ Template.networkTemplate.created = function() {
     this.changeLayout = new ReactiveVar();
 };
 
-Template.networkTemplate.helpers = {
+Template.networkTemplate.helpers({
   hasGeo: function() {
-    console.log(hasGeo);
+    console.log(hasGeo());
     return hasGeo()
   }
-}
+});
 
 Template.networkTemplate.rendered = function() {
     var self = this;
-
-    // if a node has lat/lng, then addmap layout
-    if (hasGeo()) initMap();
 
     // hide infobox by default
     $('#infoBox').css('visibility', 'hidden');
@@ -28,7 +25,8 @@ Template.networkTemplate.rendered = function() {
         nodes = Nodes.find().fetch();
     console.log("nodes", nodes)
     console.log("edges", edges)
-        // init data
+
+    // init data
     if (network) network.initData(nodes, edges);
 
     var fieldFunctionMap = {
@@ -104,10 +102,10 @@ Template.networkTemplate.rendered = function() {
 
         var layoutConfig;
         if (layoutName == 'map') {
-          $("#map").show();
-          var positionMap = function() {
-            // console.log("positionMap");
 
+          $("#map").show();
+
+          var positionMap = function() {
 
             // get network viewport extent in pixels
             var ext = network.net.extent();
@@ -126,6 +124,7 @@ Template.networkTemplate.rendered = function() {
           layoutConfig = {
               name: 'preset',
               positions: function(node) {
+                console.log(node);
                   return convertLatLngToCoords(node.data().lat, node.data().lng);
               },
               ready : positionMap,

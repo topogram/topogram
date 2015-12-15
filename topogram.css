@@ -28,16 +28,16 @@ svg {
     position: relative;
 }
 
-#map {
+/*#map {
   display: none;
-}
+}*/
 
 #map, #network {
     position: fixed;
     top: 0px;
     left: 0;
     width : 100%;
-    height: 80vh;
+    height: 100%;
 }
 
 .cxtmenu, #network>canvas{

@@ -1,7 +1,11 @@
 <template name="networkTemplate">
 
   <div id="networkTemplate" >
-    <div id="map"></div>
+    {{ hasGeo }}
+    {{#if hasGeo}}
+      {{> map}}
+    {{/if}}
+
     <div id="network"></div>
     <div id="toolkit" class="row">
 
