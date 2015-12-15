@@ -13,27 +13,22 @@
 
     }
     </script>
-    <div class="card card-small">
-        <div class="card-content">
-          <p class="card-title activator grey-text text-darken-4">
-              {{ topogramName }}
-          </p>
-        </div>
-        <div class="card-action">
-              <a href="/topograms/{{ topogramId }}/lab">Lab</a>
-            <a id="import-data" href="/topograms/{{topogramId}}/import"><i class="fa fa-plus fa-fw"></i>Import Data</a>
-            <br>
-        </div>
-        <div class="card-content">
 
-            <a id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
-            <br>
-            <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
-            <p>
-              {{> editMode}}
-            </p>
-            <br>
+<div id="toolbox" class="card card-small">
+
+
             <ul class="collapsible" data-collapsible="expandable">
+              <li>
+                <div class="collapsible-header">
+                  Edit
+                </div>
+                <div class="collapsible-body">
+                  <a id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
+                  <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
+                  {{> editMode}}
+                </div>
+
+              </li>
               <li>
                 <div class="collapsible-header">
                   Layout
@@ -59,6 +54,7 @@
                 </div>
               </li>
             </ul>
+
             <label for="nodeColorMethod">Node Color Method</label>
             <select class="browser-default" name="nodeColorMethod" id="nodeColorMethod">
                 {{#each nodeColorMethod}}
@@ -125,11 +121,10 @@
             </select> -->
             <br>
             <p class="btn activator">Undo / History</p>
-        </div>
-        <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">History<i class="material-icons right">close</i></span> {{> undoRedoButtons}}
-        </div>
-    </div>
+
+
+</div>
     <script>
     $('.dropdown-button').dropdown({})
     </script>
