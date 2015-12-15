@@ -21,9 +21,6 @@
                 {{#if hasEdges}}
                     <li class="tab"><a href="#tab3">Edges</a></li>
                 {{/if}}
-                {{#if hasGeo}}
-                    <li class="tab"><a href="#tab4">Map</a></li>
-                {{/if}}
             </ul>
         </div>
         <br>
@@ -43,11 +40,6 @@
                     {{> edgesTemplate topogramId=topogramId editMode=false}}
                 </div>
             {{/if}}
-            {{#if hasGeo}}
-                <div id="tab4">
-                    {{> map topogramId=topogramId editMode=false}}
-                </div>
-            {{/if}}
         </div>
         <script>
             ( function( w, d, u, $ ) {
@@ -56,4 +48,3 @@
         </script>
     {{/if}}
 </template>
-

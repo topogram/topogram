@@ -1,7 +1,6 @@
 Template.networkTools.onCreated(function() {
     this.changeLayout = new ReactiveVar();
 
-
     // inherit change layout function from parent topogram view
     this.changeLayout.set(this.view.parentView._templateInstance.changeLayout.get())
 });
@@ -23,9 +22,19 @@ Template.networkTools.rendered = function() {
 Template.networkTools.helpers({
 
     layouts: function() {
-        return [
-            'springy', 'random', 'grid', 'circle', 'breadthfirst', 'concentric','map'
-        ].map(function(d) {
+      var layouts =  [
+          'springy', 'random', 'grid', 'circle', 'breadthfirst', 'concentric'
+      ];
+
+      // if a node has lat/lng, then addmap layout
+      var node = Nodes.findOne({}, {
+          fields: {
+              'data.data': 1
+          }
+      });
+      if (node.data.data.lat) layouts.push("map");
+
+      return layouts.map(function(d) {
             return {
                 'slug': d,
                 'name': d.charAt(0).toUpperCase() + d.slice(1)
@@ -55,6 +64,12 @@ Template.networkTools.helpers({
         });
         return types;
     },
+
+    hasGeo: function() {
+        var nodes = Nodes.find().fetch();
+        return nodes[ 0 ].data.data.lat ? true : false;
+    },
+
     nodeColorMethod: function() {
         return nodeColorMethod = ["fix", "setInFile", "group", "alphabet", "count", "compNodEdg", "sigma", "sigmaDegree"]
     },
@@ -100,7 +115,7 @@ Template.networkTools.events = {
 
             // net.nodes().forEach(function(ele) {
             //     ele.css({ 'font-size': val })
-            // }) 
+            // })
 
         },
         'change #countEdgeViewParam1': function(e, template) {
@@ -345,7 +360,7 @@ Template.networkTools.events = {
             Meteor.call('addNode', node);
         },
 
-        // add random nodes 
+        // add random nodes
         'click #init-data': function() {
             Meteor.call('resetTopogramData', this.topogramId);
         },
@@ -368,7 +383,7 @@ Template.networkTools.events = {
         //             ele.style( {
         // //                'background-color': ele.data( 'starred' ) ? 'yellow' : colors( ele.data().data[ val ] )
         //                 'background-color': ele.data( 'starred' ) ? 'yellow' : colors( ele.data().data.color )
-        //             } ); 
+        //             } );
         //         } );
         //     },
 
@@ -1099,7 +1114,7 @@ function createLinearScale(domain, range) {
 //                     .domain([100, 500])
 //                     .range([10, 350]);
 
-//color mean 
+//color mean
 function colorMean(color1, color2) {
     console.log(color1, color2);
     rgb = hexToRgb(color1)

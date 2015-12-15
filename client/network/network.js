@@ -3,6 +3,7 @@ Template.networkTemplate.created = function() {
     this.changeLayout = new ReactiveVar();
 };
 
+
 Template.networkTemplate.rendered = function() {
     var self = this;
     // console.log( this.data );
