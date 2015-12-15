@@ -12,7 +12,6 @@ bevanhunt:leaflet
 d3js:d3
 sergeyt:typeahead
 momentjs:moment
-rcy:nouislider
 maxkfranz:cytoscape
 maxkfranz:cytoscape-qtip
 geojson-utils
