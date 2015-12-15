@@ -6,6 +6,10 @@ Template.toolbox.rendered = function() {
     var self = this;
     scaleForParams = [];
 
+    $(".collapsible").collapsible({
+      accordion: false
+    });
+
 }
 
 Template.toolbox.helpers({

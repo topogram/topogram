@@ -33,11 +33,32 @@
               {{> editMode}}
             </p>
             <br>
-            {{> selectLayout }}
-            {{> labels }}
-            {{> edgesOptions}}
-
-            <br>
+            <ul class="collapsible" data-collapsible="expandable">
+              <li>
+                <div class="collapsible-header">
+                  Layout
+                </div>
+                <div class="collapsible-body">
+                  {{> selectLayout }}
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">
+                  Labels
+                </div>
+                <div class="collapsible-body">
+                  {{> labels }}
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">
+                  Edges
+                </div>
+                <div class="collapsible-body">
+                  {{> edgesOptions}}
+                </div>
+              </li>
+            </ul>
             <label for="nodeColorMethod">Node Color Method</label>
             <select class="browser-default" name="nodeColorMethod" id="nodeColorMethod">
                 {{#each nodeColorMethod}}
