@@ -2,4 +2,16 @@
   Labels :
   <a href="#" class="btn btn-flat toggle-node-labels">Node</a>
   <a href="#" class="btn btn-flat toggle-edge-labels">Edges</a>
+
+  <label for="textSizeParam">size of the text: </label>
+  <output id="textSizeParam1" value="textSizeParam1">4</output>
+  <input id="textSizeParam" type="range" name="textSizeParam" min="0" max="50" defaultValue="4" value={{this}} step="1" onchange="textSizeParam1.value = textSizeParam.value">
+
+  <label for="nodeLabelLocation">node text Location Method</label>
+  <select class="browser-default" name="nodeLabelLocation" id="nodeLabelLocation">
+      {{#each nodeLabelLocations }}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+  </select>
+
 </template>
