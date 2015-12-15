@@ -12,7 +12,7 @@ Template.networkTemplate.helpers = {
 
 Template.networkTemplate.rendered = function() {
     var self = this;
-    
+
     // if a node has lat/lng, then addmap layout
     if (hasGeo()) initMap();
 
@@ -81,9 +81,6 @@ Template.networkTemplate.rendered = function() {
     } );
     */
     // console.log('network : ', topogramId, nodes .length, 'nodes', edges .length, 'edges' );
-
-
-
     // console.log(network.net.nodes());
 
     Template.instance().network.set(network);

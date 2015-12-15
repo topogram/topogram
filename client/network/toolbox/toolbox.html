@@ -1,131 +1,76 @@
 <template name="toolbox">
-    <script>
-    function setColor(btn, color) {
-        var count = 1;
-        var property = document.getElementById(btn);
-        if (count == 0) {
-            property.style.backgroundColor = "#FFFFFF"
-            count = 1;
-        } else {
-            property.style.backgroundColor = "#7FFF00"
-            count = 0;
-        }
+  <div id="toolbox" class="card card-small">
 
-    }
-    </script>
+    {{> selectLayout }}
 
-<div id="toolbox" class="card card-small">
+    <ul class="collapsible" data-collapsible="expandable">
+      <li>
+        <div class="collapsible-header">
+          Filters
+        </div>
+        <div class="collapsible-body">
+          {{> filters }}
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header">
+          Edit
+        </div>
+        <div class="collapsible-body">
+          <a id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
+          <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
+          {{> editMode}}
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header">
+          Labels
+        </div>
+        <div class="collapsible-body">
+          {{> labels }}
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header">
+          Nodes
+        </div>
+        <div class="collapsible-body">
+          {{> nodesOptions}}
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header">
+          Edges
+        </div>
+        <div class="collapsible-body">
+          {{> edgesOptions}}
+        </div>
+      </li>
+    </ul>
 
 
-            <ul class="collapsible" data-collapsible="expandable">
-              <li>
-                <div class="collapsible-header">
-                  Edit
-                </div>
-                <div class="collapsible-body">
-                  <a id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
-                  <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
-                  {{> editMode}}
-                </div>
+    <!--
 
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  Layout
-                </div>
-                <div class="collapsible-body">
-                  {{> selectLayout }}
-                </div>
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  Labels
-                </div>
-                <div class="collapsible-body">
-                  {{> labels }}
-                </div>
-              </li>
-              <li>
-                <div class="collapsible-header">
-                  Edges
-                </div>
-                <div class="collapsible-body">
-                  {{> edgesOptions}}
-                </div>
-              </li>
-            </ul>
+    <label for="edgeColorMethod">Edge color Method</label>
+    <select class="browser-default" name="edgeColorMethod" id="edgeColorMethod">
+      {{#each edgeColorMethod}}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
 
-            <label for="nodeColorMethod">Node Color Method</label>
-            <select class="browser-default" name="nodeColorMethod" id="nodeColorMethod">
-                {{#each nodeColorMethod}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-            <label for="nodeWidthMethod">Node Width Method</label>
-            <select class="browser-default" name="nodeWidthMethod" id="nodeWidthMethod">
-                {{#each nodeWidthMethod}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-            <label for="edgeColorMethod">Edge color Method</label>
-            <select class="browser-default" name="edgeColorMethod" id="edgeColorMethod">
-                {{#each edgeColorMethod}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
+    <label for="nodeCatColor">Node Color</label>
+    <select class="browser-default" name="nodeCatColor" id="nodeCatColor">
+      {{#each nodeCategories}}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+-->
+<br>
 
-            <label for="textLocationMethod">node text Location Method</label>
-            <select class="browser-default" name="textLocationMethod" id="textLocationMethod">
-                {{#each textLocationMethod}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-            <label for="textSizeParam">size of the text: </label>
-            <output id="textSizeParam1" value="textSizeParam1">4</output>
-            <input id="textSizeParam" type="range" name="textSizeParam" min="0" max="50" defaultValue="4" value={{this}} step="1" onchange="textSizeParam1.value = textSizeParam.value">
-            <label>FOR EDGE COLOR METHOD <i>SIGMA (COUNT/WIDTH)</i> </label>
-            <label for="sigmaViewParam">SigmaViewParam: </label>
-            <output id="sigViewParam" value="sigViewParam">0</output>
-            <input type="range" name="sigmaViewParam" id="sigmaViewParam" min="0" max="6" defaultValue="1" value={{this}} step="1" onchange="sigViewParam.value = sigmaViewParam.value">
-            <label>FOR NODE COLOR METHOD <i>SIGMA NODE (COUNT)</i> </label>
-            <label for="sigmaNodeViewParam">SigmaNodeViewParam: </label>
-            <output id="sigNodeViewParam" value="sigNodeViewParam">0</output>
-            <input type="range" name="sigmaNodeViewParam" id="sigmaNodeViewParam" min="0" max="6" defaultValue="1" value={{this}} step="1" onchange="sigNodeViewParam.value = sigmaNodeViewParam.value">
-            <label>FOR NODE COLOR METHOD <i>SIGMA NODE DEGREE</i> </label>
-            <label for="sigmaNodeDegreeViewParam">SigmaNodeDegreeViewParam: </label>
-            <output id="sigNodeDegreeViewParam" value="sigNodeDegreeViewParam">0</output>
-            <input type="range" name="sigmaNodeDegreeViewParam" id="sigmaNodeDegreeViewParam" min="0" max="6" defaultValue="1" value={{this}} step="1" onchange="sigNodeDegreeViewParam.value = sigmaNodeDegreeViewParam.value">
-            <label>FOR EDGE COLOR METHOD <i>COUNT</i> </label>
-            <label for="countEdgeViewParam1">Count edge view param1: </label>
-            <output id="edgeViewParam1" value="edgeViewParam1">3</output>
-            <input type="range" name="countEdgeViewParam1" id="countEdgeViewParam1" min="0" max="256" defaultValue="3" value={{this}} step="1" onchange="edgeViewParam1.value = countEdgeViewParam1.value">
-            <label for="countEdgeViewParam2">Count edge view param2: </label>
-            <output id="edgeViewParam2" value="edgeViewParam2">6</output>
-            <input type="range" name="countEdgeViewParam2" id="countEdgeViewParam2" min="0" max="256" defaultValue="6" value={{this}} step="1" onchange="edgeViewParam2.value = countEdgeViewParam2.value">
-            <label for="countEdgeViewParam3">Count edge view param3: </label>
-            <output id="edgeViewParam3" value="edgeViewParam3">9</output>
-            <input type="range" name="countEdgeViewParam3" id="countEdgeViewParam3" min="0" max="256" defaultValue="9" value={{this}} step="1" onchange="edgeViewParam3.value = countEdgeViewParam3.value">
-            <label for="globalNodedistance">distance between nodes (not working yet)</label>
-            <input type="range" name="globalNodedistance" id="globalNodedistance" min="0" max="256" defaultValue="4" value={{this}} step="1">
-            <!-- <label for="nodeCatColor">Node Color</label>
-            <select class="browser-default" name="nodeCatColor" id="nodeCatColor">
-                {{#each nodeCategories}}
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-            <label for="nodeFilterType">Filter Nodes</label>
-            <select class="browser-default" name="nodeFilterType" id="nodeFilterType">
-                {{#each nodeTypes}}
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select> -->
-            <br>
-            <p class="btn activator">Undo / History</p>
-            <span class="card-title grey-text text-darken-4">History<i class="material-icons right">close</i></span> {{> undoRedoButtons}}
 
 
 </div>
-    <script>
-    $('.dropdown-button').dropdown({})
-    </script>
+<script>
+$('.dropdown-button').dropdown({})
+</script>
 </template>
