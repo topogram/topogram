@@ -1,14 +1,36 @@
 <template name="edgesOptions">
-  <label for="edgeWidthMethod">Edge Width Method</label>
+  <label for="edgeWidthMethod">Edges Width</label>
   <select class="browser-default" name="edgeWidthMethod" id="edgeWidthMethod">
       {{#each edgeWidthMethod}}
       <option value="{{this}}">{{this}}</option>
       {{/each}}
   </select>
-  <label for="edgeEndMethod">Edge End Method</label>
+  <label for="edgeEndMethod">Edges End</label>
   <select class="browser-default" name="edgeEndMethod" id="edgeEndMethod">
       {{#each edgeEndMethod}}
       <option value="{{this}}">{{this}}</option>
       {{/each}}
+  </select>
+
+  <label for="edgesColor">Edges Color</label>
+  <select class="browser-default" name="edgesColor" id="edgesColor">
+      <option value="{{fix}}">Unique color</option>
+      <option value="{{count}}">Weight</option>
+
+      {{#if hasColor }}
+      <option value="{{file}}">From file</option>
+      {{/if}}
+      {{#if hasGroup }}
+      <option value="{{group}}">Type</option>
+      {{/if }}
+
+      <!--
+        <option value="{{nodesMeanGroup}}">Unique color</option>
+        <option value="{{nodesMeanColor}}">Unique color</option>
+        <option value="{{nodesDash}}">Unique color</option>
+        <option value="{{sigma}}">Unique color</option>
+        <option value="{{compNodEdg}}">Unique color</option>
+      -->
+
   </select>
 </template>
