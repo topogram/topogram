@@ -1,0 +1,8 @@
+<template name="selectLayout">
+  <a class='btn dropdown-button' href="#" data-activates="layouts" role="button">Layouts <span class="caret"></span></a>
+  <ul id="layouts" class="small dropdown-content">
+      {{#each layouts}}
+      <li><a class="layout" data-layout-name="{{this.slug}}" href="#">{{ this.name }}</a></li>
+      {{/each}}
+  </ul>
+</template>
