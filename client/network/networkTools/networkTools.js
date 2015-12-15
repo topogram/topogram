@@ -417,10 +417,18 @@ Template.networkTools.events = {
                 });
             }
         },
-        'click .toggle-node-edit-mode': function() {
-
+        'click .toggle-node-edit-mode': function(e,template) {
+            var net = template.view.parentView._templateInstance.network.get().net;
             nodeEditMode = !nodeEditMode
             console.log("nodeEditMode", nodeEditMode)
+            if (!nodeEditMode){
+                net.edgehandles("disable");
+                $(e.target).text("node edit").toggleClass("btn-flat")
+            }
+            else {
+                net.edgehandles("enable")
+                $(e.target).text("node edit on").toggleClass("btn-flat")
+            }
             return;
 
         },
@@ -430,15 +438,13 @@ Template.networkTools.events = {
             console.log("edgeEditMode", edgeEditMode)
             if (!edgeEditMode){
                 net.edgehandles("disable");
-                $(e.target).text("edge edit mode off").toggleClass("btn-flat")
+                $(e.target).text("edge edit").toggleClass("btn-flat")
             }
             else {
                 net.edgehandles("enable")
-                $(e.target).text("edge edit mode on").toggleClass("btn-flat")
+                $(e.target).text("edge edit on").toggleClass("btn-flat")
             }
             return;
-
-
         },
 
         'click .toggle-edge-labels': function(e, template) {

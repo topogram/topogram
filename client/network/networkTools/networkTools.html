@@ -14,15 +14,18 @@
     }
     </script>
     <div class="card card-small">
+        <div class="card-content">
+          <p class="card-title activator grey-text text-darken-4">
+              {{ topogramName }}
+          </p>
+        </div>
         <div class="card-action">
-            <a href="/topograms/{{ topogramId }}/lab">Lab</a>
+              <a href="/topograms/{{ topogramId }}/lab">Lab</a>
             <a id="import-data" href="/topograms/{{topogramId}}/import"><i class="fa fa-plus fa-fw"></i>Import Data</a>
             <br>
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">
-              {{ topogramName }}
-          </span>
+
             <a id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
             <br>
             <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
@@ -31,8 +34,8 @@
                 <br>
                 <a href="#" class="btn btn-flat toggle-node-labels">Node</a>
                 <a href="#" class="btn btn-flat toggle-edge-labels">Edges</a>
-                <a href="#" class="btn btn-flat toggle-node-edit-mode">Node Edit Mode ON/OFF</a>
-                <a href="#" class="btn btn-flat toggle-edge-edit-mode">Edge Edit Mode ON/OFF</a>
+                <a href="#" class="btn btn-flat grey toggle-node-edit-mode">Node Edit</a>
+                <a href="#" class="btn btn-flat grey toggle-edge-edit-mode">Edge Edit</a>
 
             </p>
             <br>
