@@ -14,10 +14,18 @@
     }
     </script>
     <div class="card card-small">
+        <div class="card-action">
+            <a href="/topograms/{{ topogramId }}/lab">Lab</a>
+            <a id="import-data" href="/topograms/{{topogramId}}/import"><i class="fa fa-plus fa-fw"></i>Import Data</a>
+            <br>
+        </div>
         <div class="card-content">
-          <p>
-            <a class="btn red" href="/topograms/{{ topogramId }}/lab">Options</a>
-          </p>
+          <span class="card-title activator grey-text text-darken-4">
+              {{ topogramName }}
+          </span>
+            <a id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
+            <br>
+            <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
             <p>
                 Labels :
                 <br>
@@ -115,13 +123,6 @@
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">History<i class="material-icons right">close</i></span> {{> undoRedoButtons}}
-        </div>
-        <div class="card-action">
-            <a id="import-data" href="/topograms/{{topogramId}}/import"><i class="fa fa-plus fa-fw"></i>Import Data</a>
-            <br>
-            <a id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
-            <br>
-            <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
         </div>
     </div>
     <script>
