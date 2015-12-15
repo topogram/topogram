@@ -1,0 +1,20 @@
+ <template name="networkLayout">
+
+    <!-- Materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+
+    {{> header}}
+    {{> flashMessages}}
+
+    <div class="main-view">
+        <div class="row">
+            <div class="col s12">
+                {{> yield}}
+            </div>
+        </div>
+    </div>
+
+    {{> footer}}
+
+</template>
