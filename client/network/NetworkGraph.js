@@ -320,6 +320,67 @@ NetworkGraph = {
         this.net.edgehandles("disable");
     },
 
+    changeLayout: function(layoutName) {
+      var self = this;
+      console.log(self);
+      // callback
+      var savePositions = function() {
+          // console.log( 'update position ' );
+          var nodesLayout = network.net.nodes().map(function(node) {
+              return {
+                  id: node.id(),
+                  position: node.position()
+              };
+          });
+          Meteor.call('updateNodesPositions', nodesLayout);
+      }
+
+      console.log("layoutName", layoutName)
+
+      var layoutConfig;
+      if (layoutName == 'map') {
+
+        $("#map").show();
+
+        var positionMap = function() {
+
+          // get network viewport extent in pixels
+          var ext = network.net.extent();
+          // console.log(ext);
+
+          // convert ext
+          var coordA = convertCoordsToLatLng(ext.x1,ext.y1);
+          var coordB = convertCoordsToLatLng(ext.x2,ext.y2);
+          // console.log(coordA, coordB);
+
+          // resize map
+          resizeMap(coordA, coordB)
+
+        }
+
+        layoutConfig = {
+            name: 'preset',
+            positions: function(node) {
+                return convertLatLngToCoords(node.data().lat, node.data().lng);
+            },
+            ready : positionMap,
+            stop: savePositions // callback on layoutstop
+        }
+
+
+      } else {
+          $("#map").hide();
+          layoutConfig = {
+              name: layoutName,
+              stop: savePositions // callback on layoutstop
+          }
+      }
+
+      console.log("layoutConfig", layoutConfig)
+      var layout = self.net.makeLayout(layoutConfig);
+      layout.run();
+
+    },
     // drag behaviour
     addMouseBehaviours: function() {
         var self = this;
@@ -408,10 +469,17 @@ NetworkGraph = {
             console.log(e.boundingBox());
         });
 
-        // this.net.on('zoom', function(e) {
-        //     console.log('test');
-        //     console.log(e.boundingBox());
-        // });
+        this.net.on('zoom', function(g) {
+            console.log('cy zoomed');
+            var ext = g.cy.extent();
+            console.log(ext);
+            var p1 = convertCoordsToLatLng(ext.x1, ext.y1);
+            console.log(p2);
+            var p2 = convertCoordsToLatLng(ext.x2, ext.y2);
+            resizeMap(p1,p2)
+
+        });
+
     }
 
 

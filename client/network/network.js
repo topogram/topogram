@@ -39,6 +39,9 @@ Template.networkTemplate.rendered = function() {
         }
     };
 
+    Template.instance().network.set(network);
+    
+
     // watch changes
     /*
     nodes.observeChanges( {
@@ -80,74 +83,6 @@ Template.networkTemplate.rendered = function() {
     */
     // console.log('network : ', topogramId, nodes .length, 'nodes', edges .length, 'edges' );
     // console.log(network.net.nodes());
-
-    Template.instance().network.set(network);
-
-    // layout function
-    var changeLayout = function(layoutName) {
-
-        // callback
-        var savePositions = function() {
-            // console.log( 'update position ' );
-            var nodesLayout = network.net.nodes().map(function(node) {
-                return {
-                    id: node.id(),
-                    position: node.position()
-                };
-            });
-            Meteor.call('updateNodesPositions', nodesLayout);
-        }
-
-        console.log("layoutName", layoutName)
-
-        var layoutConfig;
-        if (layoutName == 'map') {
-
-          $("#map").show();
-
-          var positionMap = function() {
-
-            // get network viewport extent in pixels
-            var ext = network.net.extent();
-            // console.log(ext);
-
-            // convert ext
-            var coordA = convertCoordsToLatLng(ext.x1,ext.y1);
-            var coordB = convertCoordsToLatLng(ext.x2,ext.y2);
-            // console.log(coordA, coordB);
-
-            // resize map
-            resizeMap(coordA, coordB)
-
-          }
-
-          layoutConfig = {
-              name: 'preset',
-              positions: function(node) {
-                console.log(node);
-                  return convertLatLngToCoords(node.data().lat, node.data().lng);
-              },
-              ready : positionMap,
-              stop: savePositions // callback on layoutstop
-          }
-
-
-        } else {
-            $("#map").hide();
-            layoutConfig = {
-                name: layoutName,
-                stop: savePositions // callback on layoutstop
-            }
-        }
-
-        console.log("layoutConfig", layoutConfig)
-
-
-        var layout = network.net.makeLayout(layoutConfig);
-        layout.run();
-    }
-
-    Template.instance().changeLayout.set(changeLayout);
 };
 
 Template.networkTemplate.events = {

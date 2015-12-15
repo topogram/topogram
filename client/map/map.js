@@ -1,4 +1,4 @@
-var map;
+var map, svg;
 
 // global helper to check if network has geo information
 hasGeo = function() {
@@ -9,6 +9,11 @@ hasGeo = function() {
 }
 
 Template.map.rendered = function() {
+
+  // get network
+  var network = this.view.parentView.parentView._templateInstance.network.get();
+  // console.log();
+
 
   L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
   var url = 'http://tile.stamen.com/toner/{z}/{x}/{y}.png';
@@ -23,7 +28,7 @@ Template.map.rendered = function() {
   map = L.map('map').setView([35.0, 50.0], 4);
   map.addLayer(layer);
 
-  var svg = d3.select('#map').append('svg')
+  svg = d3.select('#map').append('svg')
   .style('position', 'absolute')
   .style('top', 0)
   .style('left', 0)
@@ -34,6 +39,12 @@ Template.map.rendered = function() {
     point: projectPoint
   }),
   path = d3.geo.path().projection(transform);
+
+  // define projection
+  // map.on('resize', resetView);
+  // map.on('move', update);
+  // map.on('zoom', network.net.changeLayout("map"));
+  // changeLayout
 
   function resetView() {
     map.invalidateSize();

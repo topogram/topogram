@@ -7,7 +7,9 @@ Template.selectLayout.onCreated(function() {
 Template.selectLayout.events = {
   // apply layout
   'click .layout': function(e, template) {
-      template.view.parentView.parentView._templateInstance.changeLayout.get()($(e.target).data().layoutName);
+    var layoutName = $(e.target).data().layoutName;
+    var net = template.view.parentView.parentView._templateInstance.network.get();
+    net.changeLayout(layoutName)
   }
 }
 
