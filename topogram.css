@@ -34,7 +34,7 @@ svg {
 
 #map, #network {
     position: fixed;
-    top: 70px;
+    top: 0px;
     left: 0;
     width : 100%;
     height: 80vh;
@@ -46,4 +46,19 @@ svg {
 
 #viewSelector {
     margin-bottom: 20px;
+}
+
+#footer {
+  position: relative;
+  bottom:0;
+  text-align: center;
+}
+
+.main-view {
+  height: 90vh
+}
+
+#footer p {
+  color: #555;
+  font-size: .7em
 }
