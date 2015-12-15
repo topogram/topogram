@@ -3,7 +3,6 @@ Template.networkTemplate.created = function() {
     this.changeLayout = new ReactiveVar();
 };
 
-
 Template.networkTemplate.helpers = {
   hasGeo: function() {
     console.log(hasGeo);
@@ -15,6 +14,13 @@ Template.networkTemplate.rendered = function() {
     var self = this;
     // console.log( this.data );
 
+    // sidebar
+    $('.collapsing').sideNav({
+      closeOnClick: true,
+      menuWidth: 300, // Default is 240
+      edge: 'left' // Choose the horizontal origin
+    });
+    // $('.button-collapse').sideNav('show');
     // if a node has lat/lng, then addmap layout
     if (hasGeo()) initMap();
 
@@ -154,6 +160,10 @@ Template.networkTemplate.rendered = function() {
     }
 
     Template.instance().changeLayout.set(changeLayout);
+};
+
+Template.networkTemplate.events = {
+
 };
 
 Template.networkTemplate.onDestroyed(function() {
