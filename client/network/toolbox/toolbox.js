@@ -1,4 +1,4 @@
-Template.networkTools.rendered = function() {
+Template.toolbox.rendered = function() {
 
     //for searching easily
     var nodes = Nodes.find().fetch(),
@@ -8,7 +8,7 @@ Template.networkTools.rendered = function() {
 
 }
 
-Template.networkTools.helpers({
+Template.toolbox.helpers({
 
     nodeCategories: function() {
         var node = Nodes.findOne({}, {
@@ -61,7 +61,7 @@ Template.networkTools.helpers({
     // textSizeParam : function() { return Session.get('textSizeParam'); },
 });
 
-Template.networkTools.events = {
+Template.toolbox.events = {
 
         'change #textSizeParam': function(e, template) {
 
