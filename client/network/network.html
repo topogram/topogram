@@ -1,14 +1,17 @@
 <template name="networkTemplate">
 
-    <div id="networkTemplate" class="row">
+    <div id="networkTemplate" >
         <div id="map"></div>
-        <div id="network" class="col s12"></div>
-        <div class="toolbox col s3">
-            {{> networkTools }}
+        <div id="network"></div>
+        <div id="toolkit" class="row">
+            <div class="toolbox col s3">
+              {{> networkTools }}
+            </div>
+            <div class="col offset-s6 s3">
+                {{> infobox}}
+            </div>
         </div>
-        <div class="col offset-s6 s3">
-            {{> infobox}}
-        </div>
+
     </div>
     {{> nodeMerge}}
 </template>
