@@ -4,12 +4,22 @@ Template.networkTemplate.created = function() {
 };
 
 
+Template.networkTemplate.helpers = {
+  hasGeo: function() {
+    console.log(hasGeo);
+    return hasGeo()
+  }
+}
+
 Template.networkTemplate.rendered = function() {
     var self = this;
     // console.log( this.data );
-    // initMap();
 
-    $('#infoBox').css('visibility', 'hidden'); // hide infobox by default
+    // if a node has lat/lng, then addmap layout
+    if (hasGeo()) initMap();
+
+    // hide infobox by default
+    $('#infoBox').css('visibility', 'hidden');
 
     // create graph// network.destroy();
     var topogramId = this.data.topogramId,
@@ -99,18 +109,19 @@ Template.networkTemplate.rendered = function() {
 
         var layoutConfig;
         if (layoutName == 'map') {
-
+          $("#map").show();
           var positionMap = function() {
-            console.log("positionMap");
+            // console.log("positionMap");
+
 
             // get network viewport extent in pixels
             var ext = network.net.extent();
-            console.log(ext);
+            // console.log(ext);
 
             // convert ext
             var coordA = convertCoordsToLatLng(ext.x1,ext.y1);
             var coordB = convertCoordsToLatLng(ext.x2,ext.y2);
-            console.log(coordA, coordB);
+            // console.log(coordA, coordB);
 
             // resize map
             resizeMap(coordA, coordB)
@@ -128,7 +139,7 @@ Template.networkTemplate.rendered = function() {
 
 
         } else {
-
+            $("#map").hide();
             layoutConfig = {
                 name: layoutName,
                 stop: savePositions // callback on layoutstop

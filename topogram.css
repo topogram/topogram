@@ -20,12 +20,6 @@ nav ul {
     cursor: hand;
 }
 
-#map {
-    width: 100%;
-    height: 500px;
-    border : none;
-}
-
 svg {
     position: relative;
 }
@@ -34,7 +28,11 @@ svg {
     position: relative;
 }
 
-#network {
+#map {
+  display: none;
+}
+
+#map, #network {
     position: absolute;
     top: 0;
     left: 0;

@@ -1,5 +1,16 @@
 // setup map
 var svg, map;
+
+hasGeo = function() {
+  var node = Nodes.findOne({}, {
+      fields: {
+          'data.data': 1
+      }
+  });
+
+  return node.data.data.lat ? true : false;
+}
+
 initMap = function() {
     L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
     var url = 'http://tile.stamen.com/toner/{z}/{x}/{y}.png';

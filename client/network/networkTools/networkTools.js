@@ -1,10 +1,8 @@
 Template.networkTools.onCreated(function() {
     this.changeLayout = new ReactiveVar();
-
     // inherit change layout function from parent topogram view
     this.changeLayout.set(this.view.parentView._templateInstance.changeLayout.get())
 });
-
 
 
 Template.networkTools.rendered = function() {
@@ -26,13 +24,8 @@ Template.networkTools.helpers({
           'springy', 'random', 'grid', 'circle', 'breadthfirst', 'concentric'
       ];
 
-      // if a node has lat/lng, then addmap layout
-      var node = Nodes.findOne({}, {
-          fields: {
-              'data.data': 1
-          }
-      });
-      if (node.data.data.lat) layouts.push("map");
+      // add map layout
+      if (hasGeo()) layouts.push("map");
 
       return layouts.map(function(d) {
             return {
