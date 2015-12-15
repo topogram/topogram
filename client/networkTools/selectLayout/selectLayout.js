@@ -16,12 +16,12 @@ Template.selectLayout.events = {
 Template.selectLayout.helpers({
 
     layouts: function() {
-      var layouts =  [
-          'springy', 'random', 'grid', 'circle', 'breadthfirst', 'concentric'
-      ];
-
+      var layouts =  [];
       // add map layout
       if ( hasGeo() ) layouts.push("map");
+      
+      layouts.push('springy', 'random', 'grid', 'circle', 'breadthfirst', 'concentric')
+
 
       return layouts.map(function(d) {
             return {

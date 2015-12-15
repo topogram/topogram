@@ -12,16 +12,14 @@ Template.map.rendered = function() {
 
   // get network
   var network = this.view.parentView.parentView._templateInstance.network.get();
-  // console.log();
-
 
   L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
   var url = 'http://tile.stamen.com/toner/{z}/{x}/{y}.png';
   // var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   var attrib = "Map data © <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors";
   var layer = new L.TileLayer(url, {
-    minZoom: 0,
-    maxZoom: 160,
+    minZoom: 1,
+    maxZoom: 16,
     attribution: attrib
   });
 
@@ -40,11 +38,50 @@ Template.map.rendered = function() {
   }),
   path = d3.geo.path().projection(transform);
 
-  // define projection
+  var nodes = Nodes.find().fetch();
+  // create points
+  var points = nodes.map(function(d) {
+
+     return {
+       latLng : new L.LatLng(d.data.lat, d.data.lng),
+       id : d.data.id
+     }
+	})
+  console.log(points);
+
+  g = svg.append("g");
+
+  var feature = g.selectAll("circle")
+			.data(points)
+			   .enter()
+      .append("circle")
+      .attr("id", function(d) { return d.id })
+			.style("stroke", "black")
+			.style("opacity", .6)
+			.style("fill", "red")
+			.attr("r", 10);
+
+	map.on("viewreset", update);
+	update();
+
+  map.on('move', update);
+  map.on('zoom', update);
   // map.on('resize', resetView);
-  // map.on('move', update);
-  // map.on('zoom', network.net.changeLayout("map"));
-  // changeLayout
+
+  function update() {
+      var mapBounds = map.getBounds();
+      var SW = map.latLngToLayerPoint(mapBounds._southWest),
+          NE = map.latLngToLayerPoint(mapBounds._northEast);
+
+      svg.attr('viewBox', SW.x + ' ' + NE.y + ' ' + Math.abs(NE.x - SW.x) + ' ' + Math.abs(NE.y - SW.y));
+			feature.attr("transform",
+  			function(d) {
+  				return "translate("+
+  					map.latLngToLayerPoint(d.latLng).x +","+
+  					map.latLngToLayerPoint(d.latLng).y +")";
+  			}
+  		)
+		}
 
   function resetView() {
     map.invalidateSize();

@@ -265,6 +265,8 @@ NetworkGraph = {
 
     // contextual menu
     addCxtMenu: function() {
+        var self = this;
+
         this.net.cxtmenu({
             selector: 'node',
             commands: [{
@@ -277,8 +279,8 @@ NetworkGraph = {
                     }));
 
                     // remove from graph
-                    net.remove(this.neighborhood('edge'));
-                    net.remove(this);
+                    self.net.remove(this.neighborhood('edge'));
+                    self.net.remove(this);
                 }
             }, {
                 content: '<span class="medium material - icons">star_rate</span>',
@@ -323,10 +325,11 @@ NetworkGraph = {
     changeLayout: function(layoutName) {
       var self = this;
       console.log(self);
+
       // callback
       var savePositions = function() {
           // console.log( 'update position ' );
-          var nodesLayout = network.net.nodes().map(function(node) {
+          var nodesLayout = self.net.nodes().map(function(node) {
               return {
                   id: node.id(),
                   position: node.position()
@@ -342,26 +345,51 @@ NetworkGraph = {
 
         $("#map").show();
 
+        var coords = d3.select("#map").selectAll("circle")[0].map(function(d){
+
+          return {
+            left : $(d).offset().left - $(d).prop("r")/2,
+            top : $(d).offset().top - $(d).prop("r")/2,
+            id : $(d).prop("id"),
+          }
+        })
+        console.log(coords);
+
         var positionMap = function() {
 
           // get network viewport extent in pixels
-          var ext = network.net.extent();
-          // console.log(ext);
+          var ext = self.net.nodes().renderedBoundingBox({
+            includeNodes : true,
+            includeEdges : false,
+            includeLabels : false
+          });
+
+          // self.net.center();
+          var ext = self.net.extent();
+          console.log(ext);
 
           // convert ext
           var coordA = convertCoordsToLatLng(ext.x1,ext.y1);
           var coordB = convertCoordsToLatLng(ext.x2,ext.y2);
-          // console.log(coordA, coordB);
+          console.log(coordA, coordB);
 
           // resize map
           resizeMap(coordA, coordB)
 
         }
 
+        // positionMap();
+
         layoutConfig = {
             name: 'preset',
+            fit: false,
             positions: function(node) {
-                return convertLatLngToCoords(node.data().lat, node.data().lng);
+              return convertLatLngToCoords(node.data().lat, node.data().lng);
+              var coord = {}
+              coords.forEach(function(d){
+                if (node.data().id == d.id)  coord = { x: d.left, y: d.top}
+              })
+              return coord
             },
             ready : positionMap,
             stop: savePositions // callback on layoutstop
@@ -417,7 +445,6 @@ NetworkGraph = {
             $('#infoBox').css('visibility', 'visible');
         });
 
-
         this.net.on('select', 'edge', /*_.debounce(*/ function(e) {
             var edge = e.cyTarget;
             Session.set('currentType', 'edge');
@@ -464,20 +491,20 @@ NetworkGraph = {
         });
 
         // check for node merger
-        this.net.on('cxtdragout', 'node', function(e) {
-            console.log('test');
-            console.log(e.boundingBox());
-        });
+        // this.net.on('cxtdragout', 'node', function(e) {
+        //     console.log('test');
+        //     console.log(e.boundingBox());
+        // });
 
         this.net.on('zoom', function(g) {
             console.log('cy zoomed');
-            var ext = g.cy.extent();
-            console.log(ext);
-            var p1 = convertCoordsToLatLng(ext.x1, ext.y1);
-            console.log(p2);
-            var p2 = convertCoordsToLatLng(ext.x2, ext.y2);
-            resizeMap(p1,p2)
-
+            // self.changeLayout("map");
+            // var ext = g.cy.extent();
+            // // console.log(ext);
+            // var p1 = convertCoordsToLatLng(ext.x1, ext.y1);
+            // var p2 = convertCoordsToLatLng(ext.x2, ext.y2);
+            // resizeMap(p1,p2)
+            // self.changeLayout("map");
         });
 
     }
