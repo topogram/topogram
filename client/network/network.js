@@ -6,7 +6,7 @@ Template.networkTemplate.created = function() {
 Template.networkTemplate.rendered = function() {
     var self = this;
     // console.log( this.data );
-    initMap();
+    // initMap();
 
     $('#infoBox').css('visibility', 'hidden'); // hide infobox by default
 

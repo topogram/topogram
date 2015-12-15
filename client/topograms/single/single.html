@@ -1,20 +1,10 @@
 <template name="single">
-    <div class="row">
-        <div class="col s7">
-            <h1>{{ topogram.name }}</h1>
-        </div>
-        <div class="col s5" style="margin-top:40px;">
-            <a class="btn red lighten-1" href="/topograms/{{ topogramId }}/import">Import Data</a>
-            <a class="btn blue lighten-1" href="#">Download as JSON</a>
-            {{> share }} 
-        </div>
-    </div>
 
     {{#if hasElements}}
         <div id="viewSelector" class="z-depth-1">
             <ul class="tabs">
                 {{#if hasNetwork}}
-                    <li class="tab"><a class="active" href="#tab1">Network</a></li>
+                    <li class="tab"><a class="blue-text active" href="#tab1">{{ topogram.name }}</a></li>
                 {{/if}}
                 {{#if hasNodes}}
                     <li class="tab"><a href="#tab2">Nodes</a></li>
