@@ -1,0 +1,8 @@
+<template name="filterByCategory">
+  <label for="nodeFilterType">Filter Nodes</label>
+  <select class="browser-default" name="nodeFilterType" id="nodeFilterType">
+      {{#each nodeTypes}}
+          <option value="{{this}}">{{this}}</option>
+      {{/each}}
+  </select>
+</template>
