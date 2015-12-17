@@ -32,7 +32,7 @@ svg {
     overflow: visible !important;
 }
 
-#map {
+#map, #algobox {
   display: none;
 }
 
