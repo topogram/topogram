@@ -1,19 +1,15 @@
 var map, svg;
 
 // global helper to check if network has geo information
-//NEEDS REWRITE
 hasGeo = function() {
-    var node =[];
-    console.log("nodes",nodes);
-    if (nodes.length > 0) {
-        var node = Nodes.findOne({}, {
-            fields: {
-                'data.data': 1
-            }
-        });
-    };
+  var node = Nodes.findOne({}, {
+      fields: {
+          'data.data': 1
+      }
+  });
 
-    return node.data.lat ? true : false;
+  if (!node) return false
+  else return node.data.lat ? true : false;
 }
 
 Template.map.rendered = function() {
