@@ -57,7 +57,6 @@ Template.labels.events = {
     var net = template.view.parentView.parentView._templateInstance.network.get().net;
 
     if (net.edges()[0].css('content') == '') {
-
       net.edges().css({
         'content': function(e) {
           if (e.data().data) return e.data().name;
