@@ -7,12 +7,13 @@ Template.import.onCreated( function() {
     Session.set( 'hasLatLng', false );
     Session.set( 'hasDate', false );
     Session.set( 'hasWidth', false );
+    Session.set( 'hasData2', false );
     Session.set( 'hasName', false );
-    Session.set( 'hasArrow', false );//A IMPLE
-    Session.set( 'hasColor', false );//A IMPLE
+    Session.set( 'hasArrow', false );
+    Session.set( 'hasColor', false );
     Session.set( 'hasStar', false );//A IMPLE
-    Session.set( 'hasGroup', false );//A IMPLE
-    Session.set( 'hasRepMethod', false );//A IMPLE
+    Session.set( 'hasGroup', false );
+    Session.set( 'hasRepMethod', false );
     Session.set( 'newLayerType', undefined );
 
 } );
@@ -35,6 +36,9 @@ Template.import.helpers( {
     },
     getHasWidth: function() {
         return Session.get( 'hasWidth' );
+    },
+    getHasData2: function() {
+        return Session.get( 'hasData2' );
     },
     getHasName: function() {
         return Session.get( 'hasName' );
@@ -122,6 +126,9 @@ Template.import.events( {
     },
     'change #add-width-info': function( event ) {
         Session.set( 'hasWidth', event.target.checked );
+    },
+    'change #add-Data2-info': function( event ) {
+        Session.set( 'hasData2', event.target.checked );
     },
     'change #add-name-info': function( event ) {
         Session.set( 'hasName', event.target.checked );

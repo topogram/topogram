@@ -55,12 +55,26 @@
             {{/if}}
             <div class="input-field col s3">
                 <input type="checkbox" checked="{{hasWidth}}" id="add-width-info" />
-                <label for="add-width-info">Width info</label>
+                <label for="add-width-info">Width/Data info (Width field)</label>
             </div>
             {{#if getHasWidth}}
             <div class="col s3">
                 <label for="widthField">Width</label>
                 <select class="browser-default " name="widthField" id="widthField">
+                    {{#each getDataFields}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            {{/if}}
+            <div class="input-field col s3">
+                <input type="checkbox" checked="{{hasData2}}" id="add-Data2-info" />
+                <label for="add-Data2-info">more Data info (Data2 field)</label>
+            </div>
+            {{#if getHasData2}}
+            <div class="col s3">
+                <label for="Data2Field">Data2</label>
+                <select class="browser-default " name="Data2Field" id="Data2Field">
                     {{#each getDataFields}}
                     <option value="{{this}}">{{this}}</option>
                     {{/each}}
@@ -191,12 +205,26 @@
         <div class="row">
             <div class="input-field col s3">
                 <input type="checkbox" checked="{{hasWidth}}" id="add-width-info" />
-                <label for="add-width-info">Width info</label>
+                <label for="add-width-info">Width/Data info (Width field)</label>
             </div>
             {{#if getHasWidth}}
             <div class="col s3">
                 <label for="widthField">Width</label>
                 <select class="browser-default " name="widthField" id="widthField">
+                    {{#each getDataFields}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            {{/if}}
+            <div class="input-field col s3">
+                <input type="checkbox" checked="{{hasData2}}" id="add-Data2-info" />
+                <label for="add-Data2-info">more Data info (Data 2 field)</label>
+            </div>
+            {{#if getHasData2}}
+            <div class="col s3">
+                <label for="Data2Field">Data2</label>
+                <select class="browser-default " name="Data2Field" id="Data2Field">
                     {{#each getDataFields}}
                     <option value="{{this}}">{{this}}</option>
                     {{/each}}
