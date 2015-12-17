@@ -1,6 +1,6 @@
 Template.labels.helpers({
   nodeLabelLocations: function() {
-      return ["above", "below"]
+      return ["above", "below", "alternate"]
   }
 })
 
@@ -15,7 +15,6 @@ Template.labels.events = {
       } else if (val == 'below') {
           net.nodes().style({'text-valign': 'bottom'})
       }
-      /*
       else if (val == 'alternate') {
           var alternate = 1;
           net.nodes().forEach(function(ele) {
@@ -27,7 +26,7 @@ Template.labels.events = {
               }
               alternate = alternate + 1;
           })
-      }*/
+      }
   },
 
   'change #textSizeParam': function(e, template) {
