@@ -1,10 +1,4 @@
 Meteor.methods( {
-    getGigsByTopogram: function( artistName ) {
-        return Topograms.findOne( {
-            _id: artistName
-        } );
-    },
-
     topogramListForUser: function( userId ) {
         // console.log(userId);
         return Topograms.find( {

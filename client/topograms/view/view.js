@@ -1,14 +1,4 @@
 Template.view.helpers( {
-    categories: function() {
-        var topogram = Topograms.findOne();
-        return [ 'totalGigs', 'totalKm', 'meanOfGigsPerYear', 'meanDelayBetweenGigs', 'tourDutyCycle', 'co2Spent' ].map( function( cat ) {
-            return {
-                name: cat,
-                value: Math.round( topogram[ cat ] * 1000 ) / 1000
-            };
-        } );
-    },
-
     topogram: function() {
         var topogram = Topograms.findOne();
         return topogram;

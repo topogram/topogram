@@ -17,4 +17,4 @@
 
 #### Dependencies
 
-Topogram-client is based on [Meteor JS](https://www.meteor.com/). You can install if following the official [Install procedure](https://www.meteor.com/install) for Mac, Windows and Linux.
+Topogram-client is based on [Meteor JS](https://www.meteor.com/). You can install it following the official [Install procedure](https://www.meteor.com/install) for Mac, Windows and Linux.
