@@ -31,9 +31,10 @@ svg {
 .card {
     overflow: visible !important;
 }
-/*#map {
+
+#map {
   display: none;
-}*/
+}
 
 #map, #network {
     position: fixed;
