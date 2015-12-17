@@ -1,114 +1,124 @@
 var map, svg;
 
 // global helper to check if network has geo information
+//NEEDS REWRITE
 hasGeo = function() {
-  var node = Nodes.findOne({}, {
-      fields: { 'data.data': 1 }
-  });
-  return node.data.data.lat ? true : false;
+    var node =[];
+    console.log("nodes",nodes);
+    if (nodes.length > 0) {
+        var node = Nodes.findOne({}, {
+            fields: {
+                'data.data': 1
+            }
+        });
+    };
+
+    return node.data.lat ? true : false;
 }
 
 Template.map.rendered = function() {
 
-  // get network
-  var network = this.view.parentView.parentView._templateInstance.network.get();
+    // get network
+    var network = this.view.parentView.parentView._templateInstance.network.get();
 
-  L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
-  var url = 'http://tile.stamen.com/toner/{z}/{x}/{y}.png';
-  // var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  var attrib = "Map data © <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors";
-  var layer = new L.TileLayer(url, {
-    minZoom: 1,
-    maxZoom: 16,
-    attribution: attrib
-  });
+    L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
+    var url = 'http://tile.stamen.com/toner/{z}/{x}/{y}.png';
+    // var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var attrib = "Map data © <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors";
+    var layer = new L.TileLayer(url, {
+        minZoom: 1,
+        maxZoom: 16,
+        attribution: attrib
+    });
 
-  map = L.map('map').setView([35.0, 50.0], 4);
-  map.addLayer(layer);
+    map = L.map('map').setView([35.0, 50.0], 4);
+    map.addLayer(layer);
 
-  svg = d3.select('#map').append('svg')
-  .style('position', 'absolute')
-  .style('top', 0)
-  .style('left', 0)
-  .style('width', $("#map").width())
-  .style('height', $("#map").height());
+    svg = d3.select('#map').append('svg')
+        .style('position', 'absolute')
+        .style('top', 0)
+        .style('left', 0)
+        .style('width', $("#map").width())
+        .style('height', $("#map").height());
 
-  var transform = d3.geo.transform({
-    point: projectPoint
-  }),
-  path = d3.geo.path().projection(transform);
+    var transform = d3.geo.transform({
+            point: projectPoint
+        }),
+        path = d3.geo.path().projection(transform);
 
-  var nodes = Nodes.find().fetch();
-  // create points
-  var points = nodes.map(function(d) {
+    var nodes = Nodes.find().fetch();
+    // create points
+    var points = nodes.map(function(d) {
 
-     return {
-       latLng : new L.LatLng(d.data.lat, d.data.lng),
-       id : d.data.id
-     }
-	})
-  console.log(points);
+        return {
+            latLng: new L.LatLng(d.data.lat, d.data.lng),
+            id: d.data.id
+        }
+    })
+    console.log(points);
 
-  g = svg.append("g");
+    g = svg.append("g");
 
-  var feature = g.selectAll("circle")
-			.data(points)
-			   .enter()
-      .append("circle")
-      .attr("id", function(d) { return d.id })
-			.style("stroke", "black")
-			.style("opacity", .6)
-			.style("fill", "red")
-			.attr("r", 10);
+    var feature = g.selectAll("circle")
+        .data(points)
+        .enter()
+        .append("circle")
+        .attr("id", function(d) {
+            return d.id
+        })
+        .style("stroke", "black")
+        .style("opacity", .6)
+        .style("fill", "red")
+        .attr("r", 10);
 
-	map.on("viewreset", update);
-	update();
-
-  map.on('move', update);
-  map.on('zoom', update);
-  // map.on('resize', resetView);
-
-  function update() {
-      var mapBounds = map.getBounds();
-      var SW = map.latLngToLayerPoint(mapBounds._southWest),
-          NE = map.latLngToLayerPoint(mapBounds._northEast);
-
-      svg.attr('viewBox', SW.x + ' ' + NE.y + ' ' + Math.abs(NE.x - SW.x) + ' ' + Math.abs(NE.y - SW.y));
-			feature.attr("transform",
-  			function(d) {
-  				return "translate("+
-  					map.latLngToLayerPoint(d.latLng).x +","+
-  					map.latLngToLayerPoint(d.latLng).y +")";
-  			}
-  		)
-		}
-
-  function resetView() {
-    map.invalidateSize();
-    svg.style('width', d3.select('#map').style('width'))
-    .style('height', d3.select('#map').style('height'));
+    map.on("viewreset", update);
     update();
-  }
 
-  function projectPoint(x, y) {
-    var point = map.latLngToLayerPoint(map, new L.LatLng(x, y));
-    this.stream.point(point.x, point.y);
-  }
+    map.on('move', update);
+    map.on('zoom', update);
+    // map.on('resize', resetView);
+
+    function update() {
+        var mapBounds = map.getBounds();
+        var SW = map.latLngToLayerPoint(mapBounds._southWest),
+            NE = map.latLngToLayerPoint(mapBounds._northEast);
+
+        svg.attr('viewBox', SW.x + ' ' + NE.y + ' ' + Math.abs(NE.x - SW.x) + ' ' + Math.abs(NE.y - SW.y));
+        feature.attr("transform",
+            function(d) {
+                return "translate(" +
+                    map.latLngToLayerPoint(d.latLng).x + "," +
+                    map.latLngToLayerPoint(d.latLng).y + ")";
+            }
+        )
+    }
+
+    function resetView() {
+        map.invalidateSize();
+        svg.style('width', d3.select('#map').style('width'))
+            .style('height', d3.select('#map').style('height'));
+        update();
+    }
+
+    function projectPoint(x, y) {
+        var point = map.latLngToLayerPoint(map, new L.LatLng(x, y));
+        this.stream.point(point.x, point.y);
+    }
 
 }
 
 // Use Leaflet to implement a D3 geometric transformation.
-convertLatLngToCoords = function(lat,lng) {
+convertLatLngToCoords = function(lat, lng) {
     return map.latLngToLayerPoint(new L.LatLng(lat, lng))
 }
 
-convertCoordsToLatLng = function(x,y) {
+convertCoordsToLatLng = function(x, y) {
     return map.layerPointToLatLng(new L.Point(x, y))
 }
 
 resizeMap = function(southWest, northEast) {
-  var bounds = L.latLngBounds(southWest, northEast);
-  map.fitBounds([ southWest, northEast ]);
+    var bounds = L.latLngBounds(southWest, northEast);
+    map.fitBounds([southWest, northEast]);
 }
 
 // Template.map.rendered = function() {
@@ -378,9 +388,9 @@ resizeMap = function(southWest, northEast) {
 
 
 Template.map.events({
-  'click #showselectedNodes': function(e) {
-    e.preventDefault();
-    var topogram = Topograms.findOne();
-    // render
-  }
+    'click #showselectedNodes': function(e) {
+        e.preventDefault();
+        var topogram = Topograms.findOne();
+        // render
+    }
 });
