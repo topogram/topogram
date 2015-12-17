@@ -1,6 +1,6 @@
 <template name="toolbox">
     <div id="toolbox" class="card card-small">
-        {{> selectLayout }}
+        {{> selectLayout }} {{> editMode}}
         <ul class="collapsible" data-collapsible="expandable">
             <li>
                 <div class="collapsible-header">
@@ -14,10 +14,13 @@
                 <div class="collapsible-header">
                     Edit
                 </div>
+
+                <!--
                 <div class="collapsible-body">
                     <a id="add-node" data-beloworigin="true" href="#"><i class="fa fa-plus fa-fw"></i>Add node</a>
-                    <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a> {{> editMode}}
+                    <a id="remove-isolated-nodes" href="#"><i class="fa fa-trash fa-fw"></i>Delete singletons</a>
                 </div>
+                -->
             </li>
             <li>
                 <div class="collapsible-header">
