@@ -1,28 +1,21 @@
-<template name="searchbox">
-    <form>
+<template name="searchFilter">
+    <form id="searchFilter">
         <div class="input-field">
             <input
                 id="search"
-                name="bandName"
+                name="searchFilter"
                 type="search"
-                placeholder="Lookup a topogram"
+                placeholder="Lookup a node or edge"
                 autocomplete="off"
                 spellcheck="off"
-                data-activates="dropdown1"
+                data-activates="search-dropdown"
                 data-beloworigin="true"
                 required
             >
             <label for="search"><i class="material-icons">search</i></label>
             <i id="searchClose" class="material-icons">close</i>
-            <!-- <i class="mdi-navigation-close close"></i> -->
-            
-            <ul id="dropdown1" class="dropdown-content"></ul>
+
+            <ul id="search-dropdown" class="dropdown-content"></ul>
         </div>
     </form>
-
-    <script>
-        $(document).ready(function(){
-            $("#search").dropdown();
-        });
-    </script>
 </template>

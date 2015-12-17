@@ -28,6 +28,9 @@ svg {
     position: relative;
 }
 
+.card {
+    overflow: visible !important;
+}
 /*#map {
   display: none;
 }*/

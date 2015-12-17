@@ -4,7 +4,9 @@
       <p class="card-title activator grey-text text-darken-4">
         {{ topogramName }}
       </p>
+      {{> searchFilter }}
     </div>
+
     <div class="card-action">
       <a id="import-data" href="/topograms/{{topogramId}}/lab"><i class="fa fa-plus fa-fw"></i>Data</a>
       <a id="toggle-toolbox" href="#"><i class="fa fa-plus fa-fw"></i>Toolbox</a>

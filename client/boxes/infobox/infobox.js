@@ -47,5 +47,6 @@ Template.infobox.events = {
             NetworkGraph.net.edges().selectify();
         }
         $( "#infoBox" ).css( 'visibility', 'hidden' );
+
     }
 };
