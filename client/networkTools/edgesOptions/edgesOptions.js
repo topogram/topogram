@@ -1,32 +1,35 @@
 Template.edgesOptions.helpers({
-  edgeWidthMethod: function() {
-      return edgeWidthMethod = ["simple", "width"]
+  edgeWeightMethods: function() {
+      return ["simple", "weight"]
   },
   edgeEndMethod: function() {
-      return edgeEndMethod = ["simple", "arrow", "arrows"]
+      return ["simple", "arrow", "arrows"]
+  },
+  edgeHasWeight : function() {
+    var edge = Edges.findOne();
+    return (edge.data.width || edge.data.weight ) ? true: false;
+  },
+  edgeHasProperties : function() {
+    var edge = Edges.findOne();
+    return (edge.data.width || edge.data.weight || edge.data.type || edge.data.color ) ? true: false;
   }
+
 })
 
 Template.edgesOptions.events = {
   'change #edgeWidthMethod': function(e, template) {
       var net = template.view.parentView.parentView._templateInstance.network.get().net;
       var val = $(e.currentTarget).find('option:selected').val();
-      var nodes = Nodes.find().fetch(),
-          edges = Edges.find().fetch();
       var self = this;
 
       if (val == 'simple') {
-          net.edges().forEach(function(ele) {
-              ele.style({
-                  'width': 5
-              })
-          })
-      } else if (val == 'width') {
-          net.edges().forEach(function(ele) {
-              ele.style({
-                  'width': ele.data().width
-              })
-          })
+          net.edges().style({ 'width': 5 })
+      } else if (val == 'weight') {
+          net.edges().style({ 'width': function(ele) {
+            if(ele.data().weight) { return ele.data().weight }
+            else if(ele.data().width) { return ele.data().width }
+          }
+        })
       }
   },
   'change #edgeEndMethod': function(e, template) {
