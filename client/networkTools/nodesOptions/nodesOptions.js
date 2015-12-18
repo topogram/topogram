@@ -3,42 +3,42 @@ Template.nodesOptions.helpers({
       return ["fix", "setInFile", "group", "alphabet", "count", "compNodEdg", "sigma", "sigmaDegree"]
   },
 
-  nodeWidthMethod: function() {
-      return ["simple", "width", "edge"]
+  nodeSizeMethods: function() {
+      var node = Nodes.findOne();
+      var nodeSizeMethods = ["fixed", "degree"];
+      if(node.data.count) nodeSizeMethods.push("width");
+      return nodeSizeMethods
   },
+
 });
 
 Template.nodesOptions.events = {
 
-  'change #nodeWidthMethod': function(e, template) {
-      var net = template.view.parentView._templateInstance.network.get().net;
+  'change #nodeSize': function(e, template) {
+      var net = template.view.parentView.parentView._templateInstance.network.get().net;
       var val = $(e.currentTarget).find('option:selected').val();
-      var nodes = Nodes.find().fetch(),
-          edges = Edges.find().fetch();
       var self = this;
 
-      if (val == 'edge') {
-          net.nodes().forEach(function(ele) {
-              ele.style({
-                  'width': ele.degree(),
-                  'height': ele.degree()
-              })
+      var degrees = net.nodes().nodes().map(function(e){ return e.degree() });
+      var radiusScale = d3.scale.linear().domain([d3.min(degrees),d3.max(degrees)]).range([ 5, 40 ]);
+
+      if (val == 'degree')
+          net.nodes().style({
+              'width': function (ele) { return radiusScale(ele.degree()) },
+              'height': function (ele) { return radiusScale(ele.degree()) }
           })
-      } else if (val == 'witdth') {
-          net.nodes().forEach(function(ele) {
-              ele.style({
-                  'width': ele.data().count,
-                  'height': ele.data().count
-              })
+      else if (val == 'fixed  ')
+          net.nodes().style({
+              'width': 5,
+              'height': 5
           })
-      } else if (val == 'simple') {
-          net.nodes().forEach(function(ele) {
-              ele.style({
-                  'width': 5,
-                  'height': 5
-              })
+      else if (val == 'weight')
+          net.nodes().style(function(ele) {
+            return {
+              'width': ele.data().count,
+              'height': ele.data().count
+            }
           })
-      }
   },
   'change #nodeColorMethod': function(e, template) {
       var net = template.view.parentView._templateInstance.network.get().net;
