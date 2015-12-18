@@ -6,7 +6,8 @@ Template.nodesOptions.helpers({
   nodeSizeMethods: function() {
       var node = Nodes.findOne();
       var nodeSizeMethods = ["fixed", "degree"];
-      if(node.data.count) nodeSizeMethods.push("width");
+      if (!node) return false
+      else if (node.data.count) nodeSizeMethods.push("width");
       return nodeSizeMethods
   },
 

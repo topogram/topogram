@@ -6,11 +6,13 @@ Template.edgesOptions.helpers({
       return ["simple", "arrow", "arrows"]
   },
   edgeHasWeight : function() {
-    var edge = Edges.findOne();
+    if (!edge) return false
+    else var edge = Edges.findOne();
     return (edge.data.width || edge.data.weight ) ? true: false;
   },
   edgeHasProperties : function() {
-    var edge = Edges.findOne();
+    if (!edge) return false
+    else var edge = Edges.findOne();
     return (edge.data.width || edge.data.weight || edge.data.type || edge.data.color ) ? true: false;
   }
 
