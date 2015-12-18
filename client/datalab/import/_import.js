@@ -211,6 +211,9 @@ Template.import.events( {
             if ( Session.get( 'hasWidth' ) ) {
                 widthField = e.target.widthField.value;
             }
+            if ( Session.get( 'hasData2' ) ) {
+                Data2Field = e.target.Data2Field.value;
+            }
             if ( Session.get( 'hasName' ) ) {
                 nameField = e.target.nameField.value;
             }
@@ -247,6 +250,11 @@ Template.import.events( {
             if ( Session.get( 'hasWidth' ) ) {
                 width = d[ e.target.widthField.value ];
             };
+            //parse data2
+            var data2 = 0;
+            if ( Session.get( 'hasData2' ) ) {
+                data2 = d[ e.target.Data2Field.value ];
+            };
             //parse name
             var nameE = 0;
             if ( Session.get( 'hasName' ) ) {
@@ -279,8 +287,8 @@ Template.import.events( {
             };
 
             // parse data
-            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width, date, nameE, color, repMethod,star,group, d );
-            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width, date, nameE, color, repMethod, arrow,group, d );
+            if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width,data2, date, nameE, color, repMethod,star,group, d );
+            else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width,data2, date, nameE, color, repMethod, arrow,group, d );
         } );
 
         /// TODO : display loader

@@ -18,35 +18,35 @@ Template.chi2.events = {
             //TODO: or centrality if DATA2 is empty
             dataChi2Node2.push(parseFloat(ele.data().data2));
         })
-        console.log("I'm in chi2")
-        console.log(dataChi2Node1);
+        console.log("I'm in chi2 Node")
+        console.log("dataChi2Node1", dataChi2Node1);
         console.log(dataChi2Node2);
-        var unique1 = {};
-        var distinct1 = [];
+        var uniqueNode1 = {};
+        var distinctNode1 = [];
         dataChi2Node1.forEach(function(x) {
-            if (!unique1[x]) {
-                distinct1.push(x);
-                unique1[x] = true;
+            if (!uniqueNode1[x]) {
+                distinctNode1.push(x);
+                uniqueNode1[x] = true;
             }
         });
 
-        var unique2 = {};
-        var distinct2 = [];
+        var uniqueNode2 = {};
+        var distinctNode2 = [];
         dataChi2Node2.forEach(function(x) {
-            if (!unique2[x]) {
-                distinct2.push(x);
-                unique2[x] = true;
+            if (!uniqueNode2[x]) {
+                distinctNode2.push(x);
+                uniqueNode2[x] = true;
             }
         });
-        unique1 = unique1.sort;
-        distinct1 = distinct1.sort;
-        unique2 = unique2.sort;
-        distinct2 = distinct2.sort;
+        uniqueNode1 = uniqueNode1.sort();
+        distinctNode1 = distinctNode1.sort();
+        uniqueNode2 = uniqueNode2.sort();
+        distinctNode2 = distinctNode2.sort();
 
-        console.log("unique1", unique1.sort);
-        console.log("distinct1", distinct1.sort);
-        console.log("unique2", unique2.sort);
-        console.log("distinct2", distinct2.sort);
+        console.log("uniqueNode1", uniqueNode1);
+        console.log("distinctNode1", distinctNode1);
+        console.log("uniqueNode2", uniqueNode2);
+        console.log("distinctNode2", distinctNode2);
 
 
 
@@ -128,44 +128,48 @@ Template.chi2.events = {
 
 
         console.log("values", valchiEdge);
-        var dataChi2Node1 = [];
-        var dataChi2Node2 = [];
-        console.log("dataChi2Node1", dataChi2Node1);
+        var dataChi2Edge1 = [];
+        var dataChi2Edge2 = [];
+        console.log("dataChi2Edge1", dataChi2Edge1);
 
         net.edges().forEach(function(ele) {
 
-            dataChi2Node1.push(parseFloat(ele.data().width));
-            dataChi2Node2.push(parseFloat(ele.data().data2));
+            dataChi2Edge1.push(parseFloat(ele.data().width));
+            dataChi2Edge2.push(parseFloat(ele.data().data2));
         })
-        console.log("I'm in chi2")
-        console.log(dataChi2Node1);
-        console.log(dataChi2Node2);
-        var unique1 = {};
-        var distinct1 = [];
-        dataChi2Node1.forEach(function(x) {
-            if (!unique1[x]) {
-                distinct1.push(x);
-                unique1[x] = true;
+        console.log("I'm in chi2 Edge")
+        console.log("dataChi2Edge1", dataChi2Edge1);
+        console.log("dataChi2Edge1", dataChi2Edge2);
+        var uniqueEdge1 = {};
+        var distinctEdge1 = [];
+        dataChi2Edge1.forEach(function(x) {
+            if (!uniqueEdge1[x]) {
+                distinctEdge1.push(x);
+                uniqueEdge1[x] = 1;
+            } else {
+                uniqueEdge1[x] = uniqueEdge1[x] + 1
             }
         });
 
-        var unique2 = {};
-        var distinct2 = [];
-        dataChi2Node2.forEach(function(x) {
-            if (!unique2[x]) {
-                distinct2.push(x);
-                unique2[x] = true;
+        var uniqueEdge2 = {};
+        var distinctEdge2 = [];
+        dataChi2Edge2.forEach(function(x) {
+            if (!uniqueEdge2[x]) {
+                distinctEdge2.push(x);
+                uniqueEdge2[x] = uniqueEdge2[x] + 1;
+            } else {
+                uniqueEdge2[x] = uniqueEdge2[x] + 1
             }
         });
-        unique1 = unique1.sort;
-        distinct1 = distinct1.sort;
-        unique2 = unique2.sort;
-        distinct2 = distinct2.sort;
+        // uniqueEdge1 = uniqueEdge1.toArray().sort();
+        distinctEdge1 = distinctEdge1.sort();
+        // uniqueEdge2 = uniqueEdge2.toArray().sort();
+        distinctEdge2 = distinctEdge2.sort();
 
-        console.log("unique1", unique1);
-        console.log("distinct1", distinct1);
-        console.log("unique2", unique2);
-        console.log("distinct2", distinct2);
+        console.log("uniqueEdge1", uniqueEdge1);
+        console.log("distinctEdge1", distinctEdge1);
+        console.log("uniqueEdge2", uniqueEdge2);
+        console.log("distinctEdge2", distinctEdge2);
 
 
 
