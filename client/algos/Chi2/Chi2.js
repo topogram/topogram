@@ -126,53 +126,91 @@ Template.chi2.events = {
         //var valEdg = $(e.currentTarget).find('value').val();
         var valchiEdge = parseFloat(chi2EdgeViewParam.value);
 
-
+        //INIT
         console.log("values", valchiEdge);
         var dataChi2Edge1 = [];
         var dataChi2Edge2 = [];
         console.log("dataChi2Edge1", dataChi2Edge1);
 
         net.edges().forEach(function(ele) {
-
+            //PUSH DATAS
             dataChi2Edge1.push(parseFloat(ele.data().width));
             dataChi2Edge2.push(parseFloat(ele.data().data2));
         })
         console.log("I'm in chi2 Edge")
         console.log("dataChi2Edge1", dataChi2Edge1);
-        console.log("dataChi2Edge1", dataChi2Edge2);
+        console.log("dataChi2Edge2", dataChi2Edge2);
+        //INIT COMPUTATION
         var uniqueEdge1 = {};
         var distinctEdge1 = [];
+        //COUNT NUMBER OF ITEMS
         dataChi2Edge1.forEach(function(x) {
             if (!uniqueEdge1[x]) {
                 distinctEdge1.push(x);
                 uniqueEdge1[x] = 1;
             } else {
+                //AND THEIR AMOUNT
                 uniqueEdge1[x] = uniqueEdge1[x] + 1
             }
         });
-
+        //COUNT NUMBER OF ITEMS #2
         var uniqueEdge2 = {};
         var distinctEdge2 = [];
         dataChi2Edge2.forEach(function(x) {
             if (!uniqueEdge2[x]) {
                 distinctEdge2.push(x);
-                uniqueEdge2[x] = uniqueEdge2[x] + 1;
+                uniqueEdge2[x] = 1;
             } else {
+                //AND THEIR AMOUNT #2
                 uniqueEdge2[x] = uniqueEdge2[x] + 1
             }
         });
         // uniqueEdge1 = uniqueEdge1.toArray().sort();
-        distinctEdge1 = distinctEdge1.sort();
+        distinctEdge1 = distinctEdge1.sort(sortNumber);
         // uniqueEdge2 = uniqueEdge2.toArray().sort();
-        distinctEdge2 = distinctEdge2.sort();
-
+        distinctEdge2 = distinctEdge2.sort(sortNumber);
+        //FOR TESTS
         console.log("uniqueEdge1", uniqueEdge1);
         console.log("distinctEdge1", distinctEdge1);
         console.log("uniqueEdge2", uniqueEdge2);
         console.log("distinctEdge2", distinctEdge2);
+        console.log("distinctEdge2.length", distinctEdge2.length);
+        //INIT chi2matrix (2D array)
+        var chi2EdgeMatrix = [];
+        for (i = 0; i <= distinctEdge1.length; i++) {
+            chi2EdgeMatrix[i] = new Array();
+            for (j = 0; j <= distinctEdge2.length; j++) {
+                chi2EdgeMatrix[i][j] = 0;
+            }
+        }
+        console.log("chi2EdgeMatrix", chi2EdgeMatrix);
+        // PUSH ROWS HEADERS(FOR REFERENCE)
+        for (var i = 0; i < distinctEdge1.length; i++) {
+            chi2EdgeMatrix[i + 1][0] = distinctEdge1[i];
+        };
+        // PUSH COLUMN HEADERS (FOR REFERENCE)
+        for (var i = 0; i < distinctEdge2.length; i++) {
+            chi2EdgeMatrix[0][i + 1] = distinctEdge2[i];
+        };
+        // FOR EACH EDGE, CHECK WHERE TO INCREMENT
+        net.edges().forEach(function(ele) {
+            //PUSH DATAS:
+            //FIND ROW
+            for (var i = 0; i < distinctEdge1.length; i++) {
+                if (ele.data().width == chi2EdgeMatrix[i + 1][0]) {
+            //FIND COLUMN
+                    for (var j = 0; j < distinctEdge2.length; j++) {
+                        if (ele.data().data2 == chi2EdgeMatrix[0][j + 1]) {
+            //INCREMENT
+                            chi2EdgeMatrix[i + 1][j + 1] = chi2EdgeMatrix[i + 1][j + 1] + 1;
 
+                        }
+                    }
+                }
+            }
 
-
+        })
+        console.log("chi2EdgeMatrix full", chi2EdgeMatrix);
 
 
 
@@ -246,4 +284,8 @@ Template.chi2.events = {
         // })
 
     }
+}
+
+function sortNumber(a, b) {
+    return a - b;
 }
