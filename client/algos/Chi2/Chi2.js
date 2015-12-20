@@ -287,32 +287,13 @@ Template.chi2.events = {
         //SHOW CHI2
         console.log("chi2Edge",chi2Edge);
         console.log("chi2ContribEdgeMatrix",chi2ContribEdgeMatrix);
+        //TODO: SLIDER FOR DEGREE OF INCERT
+        //TODO: SHOW DEGREE OF FREEDOM
+        //TODO: LOAD CSV CONTAINING CHI2 MIN VALUES
+        //TODO: ASSERT IF CORREL OR NOT (comp Chi2 with CSVtable according to parameters)
+        //TODO: STYLE ACCORDING TO TABLE
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // var averageEd = average(dataChi2Node1);
+     // var averageEd = average(dataChi2Node1);
         // var standardDeviationEd = standardDeviation(dataChi2Node1);
         // console.log("averageEd", averageEd);
         // console.log("standardDeviationEd", standardDeviationEd);
