@@ -177,9 +177,9 @@ Template.chi2.events = {
         console.log("distinctEdge2.length", distinctEdge2.length);
         //INIT chi2matrix (2D array)
         var chi2EdgeMatrix = [];
-        for (i = 0; i <= distinctEdge1.length; i++) {
+        for (i = 0; i <= distinctEdge1.length +1; i++) {
             chi2EdgeMatrix[i] = new Array();
-            for (j = 0; j <= distinctEdge2.length; j++) {
+            for (j = 0; j <= distinctEdge2.length + 1; j++) {
                 chi2EdgeMatrix[i][j] = 0;
             }
         }
@@ -192,17 +192,20 @@ Template.chi2.events = {
         for (var i = 0; i < distinctEdge2.length; i++) {
             chi2EdgeMatrix[0][i + 1] = distinctEdge2[i];
         };
-        // FOR EACH EDGE, CHECK WHERE TO INCREMENT
+        // FOR EACH EDGE, CHECK WHERE TO INCREMENT THE OBSERVED MATRIX
         net.edges().forEach(function(ele) {
             //PUSH DATAS:
             //FIND ROW
             for (var i = 0; i < distinctEdge1.length; i++) {
                 if (ele.data().width == chi2EdgeMatrix[i + 1][0]) {
-            //FIND COLUMN
+                    //FIND COLUMN
                     for (var j = 0; j < distinctEdge2.length; j++) {
                         if (ele.data().data2 == chi2EdgeMatrix[0][j + 1]) {
-            //INCREMENT
+                            //INCREMENT RESULT CELL
                             chi2EdgeMatrix[i + 1][j + 1] = chi2EdgeMatrix[i + 1][j + 1] + 1;
+                            // INCREMENT TOTAL CELLS
+                            chi2EdgeMatrix[distinctEdge1.length + 1][j + 1] = chi2EdgeMatrix[distinctEdge1.length + 1][j + 1] + 1;
+                            chi2EdgeMatrix[i + 1][distinctEdge2.length + 1] = chi2EdgeMatrix[i + 1][distinctEdge2.length + 1] + 1;
 
                         }
                     }
@@ -210,7 +213,82 @@ Template.chi2.events = {
             }
 
         })
+        //CALCULATE TOTAL OF ROWS
+        var chi2EdgeMatrixRowTotal = 0;
+        for (var i = 1; i <= distinctEdge2.length; i++) {
+            chi2EdgeMatrixRowTotal += chi2EdgeMatrix[distinctEdge1.length + 1][i]
+        };
+        //CALCULATE TOTAL OF COLUMS
+        var chi2EdgeMatrixColTotal = 0;
+        for (var i = 1; i <= distinctEdge1.length; i++) {
+            chi2EdgeMatrixColTotal += chi2EdgeMatrix[distinctEdge2.length + 1][i]
+        };
+
+        //SHOW RESULT
         console.log("chi2EdgeMatrix full", chi2EdgeMatrix);
+        console.log("chi2EdgeMatrix row total", chi2EdgeMatrixRowTotal);
+        console.log("chi2EdgeMatrix col total", chi2EdgeMatrixColTotal);
+        //INIT Theoretical Matrix
+        var chi2TheoEdgeMatrix = [];
+        for (i = 0; i <= distinctEdge1.length; i++) {
+            chi2TheoEdgeMatrix[i] = new Array();
+            for (j = 0; j <= distinctEdge2.length; j++) {
+                chi2TheoEdgeMatrix[i][j] = 0;
+            }
+        }
+        // PUSH ROWS HEADERS(FOR REFERENCE)
+        for (var i = 0; i < distinctEdge1.length; i++) {
+            chi2TheoEdgeMatrix[i + 1][0] = distinctEdge1[i];
+        };
+        // PUSH COLUMN HEADERS (FOR REFERENCE)
+        for (var i = 0; i < distinctEdge2.length; i++) {
+            chi2TheoEdgeMatrix[0][i + 1] = distinctEdge2[i];
+        };
+        //Calculate its theoretical values
+        for (i = 1; i <= distinctEdge1.length; i++) {
+            for (j = 1; j <= distinctEdge2.length; j++) {
+                console.log("i,j",i,j);
+                console.log("chi2EdgeMatrix[distinctEdge1.length + 1][j]",chi2EdgeMatrix[distinctEdge1.length + 1][j]);
+                console.log("chi2EdgeMatrix[i][distinctEdge2.length + 1]",chi2EdgeMatrix[i][distinctEdge2.length + 1]);
+                chi2TheoEdgeMatrix[i][j] = (chi2EdgeMatrix[distinctEdge1.length + 1][j]*chi2EdgeMatrix[i][distinctEdge2.length + 1])/chi2EdgeMatrixColTotal ;
+            }
+        }
+        //SHOW THEORET MATRIX
+        console.log("chi2TheoEdgeMatrix full", chi2TheoEdgeMatrix);
+        //INIT CELL CONTRIB MATRIX
+        var chi2ContribEdgeMatrix = [];
+        for (i = 0; i <= distinctEdge1.length; i++) {
+            chi2ContribEdgeMatrix[i] = new Array();
+            for (j = 0; j <= distinctEdge2.length; j++) {
+                chi2ContribEdgeMatrix[i][j] = 0;
+            }
+        }
+        // PUSH ROWS HEADERS(FOR REFERENCE)
+        for (var i = 0; i < distinctEdge1.length; i++) {
+            chi2ContribEdgeMatrix[i + 1][0] = distinctEdge1[i];
+        };
+        // PUSH COLUMN HEADERS (FOR REFERENCE)
+        for (var i = 0; i < distinctEdge2.length; i++) {
+            chi2ContribEdgeMatrix[0][i + 1] = distinctEdge2[i];
+        };
+
+        //INIT CHI2 VALUE
+        var chi2Edge = 0;
+
+        // CALCULATE CHI2 AND FILL chi2Contribmatrix
+        for (i = 1; i <= distinctEdge1.length; i++) {
+            for (j = 1; j <= distinctEdge2.length; j++) {
+                chi2ContribEdgeMatrix[i][j] =  Math.pow(chi2EdgeMatrix[i][j] - chi2TheoEdgeMatrix[i][j],2)/ chi2TheoEdgeMatrix[i][j];
+                chi2Edge += chi2ContribEdgeMatrix[i][j];
+                ////FOR DEBUG:
+                //console.log("interm chi2Edge",chi2Edge);
+            }
+        }
+        //SHOW CHI2
+        console.log("chi2Edge",chi2Edge);
+        console.log("chi2ContribEdgeMatrix",chi2ContribEdgeMatrix);
+
+
 
 
 
