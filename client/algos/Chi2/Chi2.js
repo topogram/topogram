@@ -48,7 +48,7 @@ Template.chi2.events = {
         console.log("uniqueNode2", uniqueNode2);
         console.log("distinctNode2", distinctNode2);
 
-
+            
 
 
 
@@ -284,12 +284,35 @@ Template.chi2.events = {
                 //console.log("interm chi2Edge",chi2Edge);
             }
         }
+
         //SHOW CHI2
         console.log("chi2Edge",chi2Edge);
         console.log("chi2ContribEdgeMatrix",chi2ContribEdgeMatrix);
         //TODO: SLIDER FOR DEGREE OF INCERT
-        //TODO: SHOW DEGREE OF FREEDOM
-        //TODO: LOAD CSV CONTAINING CHI2 MIN VALUES
+        //COMPUTE DEGREE OF FREEDOM
+        degreeOfFreedomEdge = distinctEdge1.length + distinctEdge2.length;
+        console.log("degreeOfFreedomEdge",degreeOfFreedomEdge);
+        //LOAD CHI2TESTTABLE
+            var parsingOptions = {
+                delimiter: ",",
+                header: true
+            };
+
+            var dataCHI = Papa.parse( "./chi2testvalues.csv", parsingOptions );
+            console.log( "dataCHI",dataCHI );
+
+            if ( dataCHI.errors.length ) {
+                for ( var i = 0; i < dataCHI.errors.length; i++ ) {
+                    var message = 'CSV parsing Error ';
+                    if ( dataCHI.errors[ i ].row ) message += 'at row: ' + dataCHI.errors[ i ].row + ' ';
+                    message += dataCHI.errors[ i ].message;
+                    FlashMessages.sendError( message );
+                }
+            } else {
+                var message = ' CHI2 CSV parsed succesfully : ' + dataCHI.data.length + ' records';
+                FlashMessages.sendSuccess( message );
+              }
+        //COMPARE THE CHI2 VALUE AND DDLs WITH THE CHI2 TEST TABLE
         //TODO: ASSERT IF CORREL OR NOT (comp Chi2 with CSVtable according to parameters)
         //TODO: STYLE ACCORDING TO TABLE
 

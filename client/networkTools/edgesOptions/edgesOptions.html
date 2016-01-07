@@ -1,22 +1,22 @@
 <template name="edgesOptions">
-  {{#if edgeHasWeight }}
+ 
   <label for="edgeWidthMethod">Edges Width</label>
   <select class="browser-default" name="edgeWidthMethod" id="edgeWidthMethod">
       {{#each edgeWeightMethods}}
       <option value="{{this}}">{{this}}</option>
       {{/each}}
   </select>
-  {{/if }}
-  <!--
+ 
+
   <label for="edgeEndMethod">Edges End</label>
   <select class="browser-default" name="edgeEndMethod" id="edgeEndMethod">
       {{#each edgeEndMethod}}
       <option value="{{this}}">{{this}}</option>
       {{/each}}
   </select>
-  -->
 
-  {{#if edgeHasProperties }}
+
+  
   <label for="edgesColor">Edges Color</label>
   <select class="browser-default" name="edgesColor" id="edgesColor">
       <option value="{{fix}}">Unique color</option>
@@ -39,6 +39,6 @@
       -->
 
   </select>
-  {{/ if}}
+ 
 
 </template>

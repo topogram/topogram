@@ -42,7 +42,7 @@ Template.nodesOptions.events = {
           })
   },
   'change #nodeColorMethod': function(e, template) {
-      var net = template.view.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get().net;
       var val = $(e.currentTarget).find('option:selected').val();
       var nodes = Nodes.find().fetch(),
           edges = Edges.find().fetch();
