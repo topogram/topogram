@@ -283,7 +283,7 @@ NetworkGraph = {
         this.net.cxtmenu({
             selector: 'node',
             commands: [{
-                content: '<span class="medium material - icons">delete</span>',
+                content: '<span><i class="small material-icons">delete</i></span>',
                 select: function() {
 
                     // remove the node plus all connected edges
@@ -296,7 +296,7 @@ NetworkGraph = {
                     self.net.remove(this);
                 }
             }, {
-                content: '<span class="medium material - icons">star_rate</span>',
+                content: '<span><i class="small material-icons">star_rate</i></span>',
                 select: function() {
                     Meteor.call('starNode', this.id());
                     this.style({
@@ -304,13 +304,13 @@ NetworkGraph = {
                     });
                 }
             }, {
-                content: '<span class="medium material - icons">lock</span>',
+                content: '<span><i class="small material-icons">lock</i></span>',
                 select: function() {
                     // console.log( this.position() );
                     Meteor.call('lockNode', this.id(), this.position());
                 },
             }, {
-                content: '<span class="medium material - icons">comment</span>',
+                content: '<span><i class="small material-icons">comment</i></span>',
                 select: function() {
                     Meteor.call('addComment', this.id());
                 },
