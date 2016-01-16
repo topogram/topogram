@@ -5,8 +5,7 @@ Template.searchFilter.rendered = function() {
 
 Template.searchFilter.events( {
     'click #search-dropdown>li': function(e, template) {
-
-        console.log($(e.target).data("node-id"), $(e.target).text());
+        // console.log($(e.target).data("node-id"), $(e.target).text());
 
         // display text
         document.getElementById( "search" ).value = $(e.target).text();

@@ -79,3 +79,8 @@ svg {
 .side-nav .collection.with-header {
   margin-top: 0;
 }
+
+#network-search input[type=search] {
+    padding-left: 0;
+    width: inherit;
+}

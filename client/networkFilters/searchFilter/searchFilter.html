@@ -1,21 +1,20 @@
 <template name="searchFilter">
-    <form id="searchFilter">
-        <div class="input-field">
-            <input
-                id="search"
-                name="searchFilter"
-                type="search"
-                placeholder="Lookup a node or edge"
-                autocomplete="off"
-                spellcheck="off"
-                data-activates="search-dropdown"
-                data-beloworigin="true"
-                required
-            >
-            <label for="search"><i class="material-icons">search</i></label>
-            <i id="searchClose" class="material-icons">close</i>
+  <div id="network-search" class="search input-field">
+    <i class="material-icons prefix">search</i>
+    <!-- <label for="search">Search node or edge</label> -->
+      <input
+            id="search"
+            type=search
+            name="searchFilter"
+            placeholder="Lookup network"
+            autocomplete="off"
+            spellcheck="off"
+            data-activates="search-dropdown"
+            data-beloworigin="true"
+            required
+        >
+        <i id="searchClose" class="material-icons">close</i>
+        <ul id="search-dropdown" class="dropdown-content"></ul>
+    </div>
 
-            <ul id="search-dropdown" class="dropdown-content"></ul>
-        </div>
-    </form>
 </template>
