@@ -49,7 +49,7 @@ svg {
 }
 
 .cxtmenu, #network>canvas{
-	z-index: 0 !important;
+	z-index: -1 !important;
 }
 
 #viewSelector {
