@@ -2,12 +2,13 @@
     <div id="infoBox" class="card">
 
         <div class="card-content">
-            <span id="closeInfoBox"><i class="material-icons right">close</i></span> 
+            <span id="closeInfoBox"><i class="material-icons right">close</i></span>
             <span class="card-title activator grey-text text-darken-4">
                 <i class="material-icons right">more_vert</i>
-                <small>{{ currentSelection.group }}</small> - {{ currentSelection.data.name }}
-            </span> 
+                {{ currentSelection.data.name }}
+            </span>
             <ul class="collection">
+              <!-- <li class="collection-item grey lighten-3">Type <span class="badge">{{ currentSelection.group }}</span></li> -->
                 {{#each objectToPairs currentSelection.info }}
                     <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
                 {{/each}}
@@ -16,7 +17,7 @@
             {{> commentForm}}
         </div>
         <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Comments<i class="material-icons right">close</i></span> 
+            <span class="card-title grey-text text-darken-4">Comments<i class="material-icons right">close</i></span>
             <ul class="collection">
                 {{#each comments}}
                     <li class="collection-item avatar">
