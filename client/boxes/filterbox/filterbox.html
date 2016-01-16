@@ -1,15 +1,17 @@
 <template name="filterbox">
   <div id="filterbox" class="card card-small">
-    {{> searchFilter }}
-    <ul class="collapsible" data-collapsible="expandable">
+    <div class="card-content">
+      {{> searchFilter }}
+      {{> filters }}
+    </div>
+    <!-- <ul class="collapsible" data-collapsible="expandable">
       <li>
           <div class="collapsible-header">
               <i class="material-icons">sort_by_alpha</i> Filters
           </div>
           <div class="collapsible-body">
-              {{> filters }}
           </div>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>

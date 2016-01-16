@@ -1,6 +1,6 @@
 Template.infobox.helpers( {
     comments: function() {
-        var type = Session.get( 'currentType' ) || 'nodes',
+        var type = Session.get( 'currentType' ) || 'node',
             id = Session.get( 'currentId' ) || 'node-000';
         var comments = Comments.find( {
             'id': id,
@@ -26,8 +26,8 @@ Template.infobox.helpers( {
 
         // append
         if ( item.data ) {
-            if ( item.data.data ) delete( item.data.data.url )
-            item.info = item.data.data;
+            if ( item.data ) delete( item.data.url )
+            item.info = item.data;
         };
 
         return item;

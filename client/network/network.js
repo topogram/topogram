@@ -1,11 +1,15 @@
 Template.networkTemplate.created = function() {
     this.network = new ReactiveVar();
     this.changeLayout = new ReactiveVar();
+
+    // init on start
+    Session.set( 'currentId', null );
+    Session.set( 'currentType', null );
+
 };
 
 Template.networkTemplate.helpers({
   hasGeo: function() {
-    console.log(hasGeo());
     return hasGeo()
   }
 });
@@ -23,8 +27,8 @@ Template.networkTemplate.rendered = function() {
     // fetch and parse data
     var edges = Edges.find().fetch(),
         nodes = Nodes.find().fetch();
-    console.log("nodes", nodes)
-    console.log("edges", edges)
+    console.log("nodes", nodes.length)
+    console.log("edges", edges.length)
 
     // init data
     if (network) network.initData(nodes, edges);

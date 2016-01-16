@@ -24,6 +24,9 @@ nav ul {
     cursor: hand;
 }
 
+#nodeFilterType select {
+  height: 150px;
+}
 svg {
     position: relative;
 }
@@ -36,7 +39,7 @@ svg {
     overflow: visible !important;
 }
 
-#map, #algobox, #filterbox {
+#map, #algobox, #toolbox {
   display: none;
 }
 

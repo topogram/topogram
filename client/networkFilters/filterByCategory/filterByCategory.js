@@ -1,32 +1,38 @@
-Template.filterByCategory.helpers = {
+Template.filterByCategory.rendered = function() {
+  // $("#nodeFilterType select").material_select();
+}
+
+Template.filterByCategory.helpers({
     nodeTypes: function() {
         var nodes = Nodes.find({}, {
             fields: {
-                'data.data': 1
+                'data': 1
             }
         }).fetch();
 
-        var types = [''];
+        var types = [];
         nodes.forEach(function(node) {
-            if (types.indexOf(node.data.type) < 0) types.push(node.data.type);
+            if (types.indexOf(node.data.data.type) < 0) types.push(node.data.data.type);
         });
+        console.log(types);
         return types;
     }
-}
+})
 
 Template.filterByCategory.events = {
   // filter
-  'change #nodeFilterType': function(e, template) {
-      var val = $(e.currentTarget).find('option:selected').val();
-      var net = template.view.parentView._templateInstance.network.get().net;
-
-      if (val == '' || !val) {
+  'change #nodeFilterType select': function(e, template) {
+      console.log(e);
+      var selectedCategories = $(e.target).find("option:selected").map(function(i, el){ return $(el).val() }).toArray();
+      var net = template.view.parentView.parentView.parentView._templateInstance.network.get().net;
+      console.log(selectedCategories);
+      if (!selectedCategories.length) {
           net.nodes().style({
               'visibility': 'visible'
           })
       } else {
           var visible = net.nodes().forEach(function(ele) {
-              if (ele.data().data.type == val) ele.style({
+              if (selectedCategories.indexOf(ele.data().data.type) > -1 ) ele.style({
                   'visibility': 'visible'
               })
               else ele.style({
