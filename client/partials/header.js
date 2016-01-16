@@ -1,3 +1,9 @@
+Template.slider.helpers({
+  topograms : function() {
+    return Topograms.find().fetch()
+  }
+})
+
 Template.header.rendered = function() {
   // sidebar
   $('.collapsing').sideNav({
