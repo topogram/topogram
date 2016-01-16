@@ -66,3 +66,12 @@ svg {
   color: #555;
   font-size: .7em
 }
+
+.side-nav a {
+  height: inherit;
+  line-height: inherit;
+}
+
+.side-nav .collection.with-header {
+  margin-top: 0;
+}
