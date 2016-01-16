@@ -40,7 +40,7 @@ Template.networkTemplate.rendered = function() {
     };
 
     Template.instance().network.set(network);
-    
+
 
     // watch changes
     /*

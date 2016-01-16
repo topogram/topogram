@@ -36,20 +36,11 @@ Template.labels.events = {
   },
 
   'click .toggle-node-labels': function(e, template) {
-    var net = template.view.parentView.parentView._templateInstance.network.get().net;
-    console.log(net);
-    if (net.nodes()[0].css('content') == '') {
-      net.nodes().css({
-        'content': function(e) {
-          if (e.data().data) return e.data().name;
-          else return '';
-        }
-      });
-    } else {
-      net.nodes().css({
-        'content': ''
-      });
-    }
+    var network = template.view.parentView.parentView._templateInstance.network.get();
+    console.log(network);
+    network.graphState.showNodesLabels = network.graphState.showNodesLabels ? 0 : 1;
+    console.log(network.graphState);
+    network.net.nodes().css({ "text-opacity" : network.graphState.showNodesLabels })
   },
 
   'click .toggle-edge-labels': function(e, template) {
