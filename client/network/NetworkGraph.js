@@ -193,7 +193,20 @@ NetworkGraph = {
                             var width = 4;
                             return width;
                         }
-                    }
+                    },
+                    'content': function(e) {
+                        if (textNode == true) {
+                            if (!e.data().name) {
+                                var content = e.data().id
+                            } else {
+                                var content = e.data().name;
+                            }
+                            return content;
+                        } else {
+                            return ""
+                        }
+                    },
+                    'text-opacity' : 0
                 })
                 .selector('.edgehandles-hover')
                 .style({

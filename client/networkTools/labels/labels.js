@@ -43,18 +43,8 @@ Template.labels.events = {
 
   'click .toggle-edge-labels': function(e, template) {
     var net = template.view.parentView.parentView._templateInstance.network.get().net;
-
-    if (net.edges()[0].css('content') == '') {
-      net.edges().css({
-        'content': function(e) {
-          if (e.data().data) return e.data().name;
-          else return '';
-        }
-      });
-    } else {
-      net.edges().css({
-        'content': ''
-      });
-    }
+    var network = template.view.parentView.parentView._templateInstance.network.get();
+    network.graphState.showEdgesLabels = network.graphState.showEdgesLabels ? 0 : 1;
+    network.net.edges().css({ "text-opacity" : network.graphState.showEdgesLabels })
   }
 }
