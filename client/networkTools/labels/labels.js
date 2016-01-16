@@ -37,9 +37,7 @@ Template.labels.events = {
 
   'click .toggle-node-labels': function(e, template) {
     var network = template.view.parentView.parentView._templateInstance.network.get();
-    console.log(network);
     network.graphState.showNodesLabels = network.graphState.showNodesLabels ? 0 : 1;
-    console.log(network.graphState);
     network.net.nodes().css({ "text-opacity" : network.graphState.showNodesLabels })
   },
 
