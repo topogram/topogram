@@ -34,7 +34,7 @@ ejson@1.0.7
 email@1.0.7
 fastclick@1.0.7
 geojson-utils@1.0.4
-harrison:papa-parse@1.1.0
+harrison:papa-parse@1.1.1
 hot-code-push@1.0.0
 html-tools@1.0.5
 htmljs@1.0.5
@@ -57,6 +57,7 @@ localstorage@1.0.5
 logging@1.0.8
 maxkfranz:cytoscape@2.4.8
 maxkfranz:cytoscape-qtip@2.2.3
+maxkfranz:cytoscape-spread@1.0.4
 meteor@1.1.9
 meteor-base@1.0.1
 meteorhacks:async@1.0.0
@@ -94,6 +95,7 @@ spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4
 standard-minifiers@1.0.1
+tdj:cola@0.0.3
 templating@1.1.4
 templating-tools@1.0.0
 tracker@1.0.9

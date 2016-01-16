@@ -4,42 +4,61 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-
-iron:router
-reactive-var
-insecure
-bevanhunt:leaflet
-d3js:d3
-sergeyt:typeahead
-momentjs:moment
-maxkfranz:cytoscape
-maxkfranz:cytoscape-qtip
-geojson-utils
-meteorhacks:npm
-npm-container
-cosmos:browserify
-yauh:turfjs
-workman:x-editable-reactive-template
+# native
 standard-minifiers
 meteor-base
-mobile-experience
 mongo
-blaze-html-templates
 session
-jquery
 tracker
 logging
 reload
 random
 ejson
-spacebars
 check
+
+# meteor++
+reactive-var
+insecure
+meteorhacks:npm
+npm-container
+cosmos:browserify
+
+# UI
 aldeed:tabular@=1.4.1
-harrison:papa-parse
+mobile-experience
+blaze-html-templates
+spacebars
+jquery
 mrt:flash-messages
-mikowals:batch-insert
 useraccounts:materialize
-accounts-password
+workman:x-editable-reactive-template
+
+# js libs
+sergeyt:typeahead
+momentjs:moment
+
+# geo maps
+bevanhunt:leaflet
+yauh:turfjs
+geojson-utils
+
+# viz
+d3js:d3
+tdj:cola
+maxkfranz:cytoscape
+maxkfranz:cytoscape-qtip
+maxkfranz:cytoscape-spread
+# maxkfranz:cytoscape-cola
+
+# data manipulation
+harrison:papa-parse
+
+# routing
 useraccounts:iron-routing
+iron:router
+
+# db
+accounts-password
+mikowals:batch-insert
 babrahams:transactions
 babrahams:undo-redo
