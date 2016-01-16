@@ -36,7 +36,7 @@ svg {
     overflow: visible !important;
 }
 
-#map, #algobox {
+#map, #algobox, #filterbox {
   display: none;
 }
 

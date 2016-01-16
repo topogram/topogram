@@ -4,5 +4,8 @@ Template.titlebox.events =  {
   },
   'click #toggle-algobox' : function() {
     $('#algobox').toggle();
+  },
+  'click #toggle-filterbox' : function() {
+    $('#filterbox').toggle();
   }
 }
