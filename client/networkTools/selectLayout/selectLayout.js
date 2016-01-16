@@ -19,9 +19,8 @@ Template.selectLayout.helpers({
       var layouts =  [];
       // add map layout
       if ( hasGeo() ) layouts.push("map");
-      
-      layouts.push('springy', 'random', 'grid', 'circle', 'breadthfirst', 'concentric')
 
+      layouts.push('cola', 'springy', 'random', 'grid', 'circle', 'cose-bilkent', 'breadthfirst', 'concentric', 'dagre', 'spread')
 
       return layouts.map(function(d) {
             return {

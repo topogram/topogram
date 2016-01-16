@@ -48,7 +48,7 @@ Meteor.methods( {
             } )
         } );
 
-        // copy data of target into source (if missing) 
+        // copy data of target into source (if missing)
         // TODO : node merger startegy
 
         //erase target
@@ -107,7 +107,7 @@ Meteor.methods( {
         } );
     },
 
-    //update coords in DB 
+    //update coords in DB
     updateNodePosition: function( nodeId, position ) {
         var node = Nodes.findOne( {
             'data.id': nodeId
@@ -122,7 +122,7 @@ Meteor.methods( {
     },
 
     // TODO : improve batch update of nodes
-    // update coords in DB for bunch of nodes (useful to save topogram layout changes) 
+    // update coords in DB for bunch of nodes (useful to save topogram layout changes)
     updateNodesPositions: function( nodes ) {
         for ( var i = 0; i < nodes.length; i++ ) {
             var node = nodes[ i ];

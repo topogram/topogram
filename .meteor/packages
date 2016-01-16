@@ -45,10 +45,10 @@ geojson-utils
 # viz
 d3js:d3
 tdj:cola
-maxkfranz:cytoscape
 maxkfranz:cytoscape-qtip
 maxkfranz:cytoscape-spread
-# maxkfranz:cytoscape-cola
+# maxkfranz:cytoscape-cola # broken see https://github.com/cytoscape/cytoscape.js-cola/issues/5
+maxkfranz:cytoscape
 
 # data manipulation
 harrison:papa-parse

@@ -28,7 +28,7 @@ NetworkGraph = {
                 // console.log('topogram ready');
 
                 // add everything
-                // self.addQTip();
+                self.addQTip();
                 self.addCxtMenu();
                 self.addMouseBehaviours();
 
@@ -352,8 +352,12 @@ NetworkGraph = {
       }
 
       console.log("layoutName", layoutName)
+      $("#map").hide(); // reset display
+      var layoutConfig = {
+          name: layoutName,
+          stop: savePositions // callback on layoutstop
+      };
 
-      var layoutConfig;
       if (layoutName == 'map') {
 
         $("#map").show();
@@ -409,13 +413,13 @@ NetworkGraph = {
         }
 
 
-      } else {
-          $("#map").hide();
-          layoutConfig = {
-              name: layoutName,
-              stop: savePositions // callback on layoutstop
-          }
       }
+      else if (layoutName == "spread") {
+        layoutConfig.minDist = 40
+      }
+
+      // else if (layoutName = "spread") layoutConfig ={}
+      console.log(layoutConfig);
 
       console.log("layoutConfig", layoutConfig)
       var layout = self.net.makeLayout(layoutConfig);
