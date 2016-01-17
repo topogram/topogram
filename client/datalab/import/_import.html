@@ -1,312 +1,55 @@
 <template name="import">
-    <h1>Import <small><a href="/topogram/{{topogramId}}">{{topogramId}}</a></small></h1>
-    <form id="importForm">
-        <div class="row">
-            <div class="col s12">
-                <label for="layerType">Type</label>
-                <select class="browser-default" name="layerType" id="layerType">
-                    <option value="" selected>Choose a type</option>
-                    <option value="nodes">Nodes</option>
-                    <option value="edges">Edges</option>
-                </select>
+  <h1>Import <small><a href="/topogram/{{topogramId}}">{{topogramId}}</a></small></h1>
+  <form id="importForm">
+    <div id="importFileUpload" class="card row">
+        <div class="card-content col s12">
+          <!-- <p class="card-title">File</p> -->
+          <!-- <i class="material-icons prefix">note_add</i> -->
+          <div class="input-field file-field">
+            <div class="btn">
+              <span>Data file</span>
+              <input type="file" id="file-input" name="importFile"/>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <label for="layerData">Layer data - Choose CSV file or paste CSV data here (first line should be headers, no empty lines)</label>
-                <br>
-                <input type="file" id="file-input" />
-                <br>
-                <br>
-                <textarea class="textarea" name="layerData" id="layerData" cols="30" rows="10" height="100"></textarea>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
             </div>
+          </div>
+          <div class="input-field">
+            <textarea class="textarea" name="layerData" id="layerData" cols="50" rows="10" height="100"></textarea>
+            <!-- <label for="layerData">File content</label> -->
+          </div>
+          <p>Choose CSV file or paste CSV data here (first line should be headers, no empty lines)</p>
         </div>
-        {{#if isEdges}}
-        <div class="row">
+        <div class="card-action">
+            <a href="#" class="validateImportData">Check Data</a>
+        </div>
+      </div>
+
+    {{#if dataIsReady}}
+      <div id="importSelectUploadType" class="card row">
+        <div class="card-content col s12">
+          <div class="row">
             <div class="col s4">
-                <label for="srcField">Source</label>
-                <select class="browser-default" name="srcField" id="srcField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
+              <label for="layerType">Type</label>
+              <select class="browser-default" name="layerType" id="layerType">
+                  <option value="" selected>Choose a type</option>
+                  <option value="nodes">Nodes</option>
+                  <option value="edges">Edges</option>
+              </select>
             </div>
-            <div class="col s4">
-                <label for="targetField">Target</label>
-                <select class="browser-default " name="targetField" id="targetField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasDate}}" id="add-date-info" />
-                <label for="add-date-info">Date info</label>
-            </div>
-            {{#if getHasDate}}
-            <div class="col s3">
-                <label for="dateField">Date</label>
-                <select class="browser-default " name="dateField" id="dateField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
+            {{#if isNodes}}
+              {{> importNodes getDataFields=getDataFields }}
             {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasWidth}}" id="add-width-info" />
-                <label for="add-width-info">Width/Data info (Width field)</label>
-            </div>
-            {{#if getHasWidth}}
-            <div class="col s3">
-                <label for="widthField">Width</label>
-                <select class="browser-default " name="widthField" id="widthField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
+            {{#if isEdges}}
+              {{> importEdges getDataFields=getDataFields }}
             {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasData2}}" id="add-Data2-info" />
-                <label for="add-Data2-info">more Data info (Data2 field)</label>
-            </div>
-            {{#if getHasData2}}
-            <div class="col s3">
-                <label for="Data2Field">Data2</label>
-                <select class="browser-default " name="Data2Field" id="Data2Field">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasName}}" id="add-name-info" />
-                <label for="add-name-info">Name info</label>
-            </div>
-            {{#if getHasName}}
-            <div class="col s3">
-                <label for="nameField">Name</label>
-                <select class="browser-default " name="nameField" id="nameField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
+          </div>
+          {{> importOptionalFields getDataFields=getDataFields }}
         </div>
-        <div class="input-field col s3">
-            <input type="checkbox" checked="{{hasColor}}" id="add-color-info" />
-            <label for="add-color-info">Color info</label>
+        <div class="card-action">
+            <button id="submit-new-layer" type="submit" class="btn btn-primary pull-right">Create layer</button>
         </div>
-        {{#if getHasColor}}
-        <div class="col s3">
-            <label for="colorField">Color</label>
-            <select class="browser-default " name="colorField" id="colorField">
-                {{#each getDataFields}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-        </div>
-        {{/if}}
-        <div class="input-field col s3">
-            <input type="checkbox" checked="{{hasArrow}}" id="add-arrow-info" />
-            <label for="add-arrow-info">Arrow info</label>
-        </div>
-        {{#if getHasArrow}}
-        <div class="col s3">
-            <label for="arrowField">Arrow</label>
-            <select class="browser-default " name="arrowField" id="arrowField">
-                {{#each getDataFields}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-        </div>
-        {{/if}}
-        <div class="input-field col s3">
-            <input type="checkbox" checked="{{hasGroup}}" id="add-group-info" />
-            <label for="add-group-info">Group info</label>
-        </div>
-        {{#if getHasGroup}}
-        <div class="col s3">
-            <label for="groupField">Group</label>
-            <select class="browser-default " name="groupField" id="groupField">
-                {{#each getDataFields}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-        </div>
-        {{/if}}
-        <div class="input-field col s3">
-            <input type="checkbox" checked="{{hasRepMethod}}" id="add-repMethod-info" />
-            <label for="add-repMethod-info">representation Method info</label>
-        </div>
-        {{#if getHasRepMethod}}
-        <div class="col s3">
-            <label for="repMethodField">Representation method</label>
-            <select class="browser-default " name="repMethodField" id="repMethodField">
-                {{#each getDataFields}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-        </div>
-        {{/if}} {{/if}} {{#if isNodes}}
-        <div class="row">
-            <div class="col s3">
-                <label for="idField">ID</label>
-                <select class='browser-default' name="idField" id="idField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasLatLng}}" id="add-geo-info" />
-                <label for="add-geo-info">Geo info</label>
-            </div>
-            {{#if getHasLatLng}}
-            <div class="col s3">
-                <label for="latField">Latitude</label>
-                <select class="browser-default " name="latField" id="latField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            <div class="col s3">
-                <label for="lngField">Longitude</label>
-                <select class="browser-default" name="lngField" id="lngField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-        </div>
-        <div class="row">
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasDate}}" id="add-date-info" />
-                <label for="add-date-info">Date info</label>
-            </div>
-            {{#if getHasDate}}
-            <div class="col s3">
-                <label for="dateField">Date</label>
-                <select class="browser-default " name="dateField" id="dateField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-        </div>
-        <div class="row">
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasWidth}}" id="add-width-info" />
-                <label for="add-width-info">Width/Data info (Width field)</label>
-            </div>
-            {{#if getHasWidth}}
-            <div class="col s3">
-                <label for="widthField">Width</label>
-                <select class="browser-default " name="widthField" id="widthField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasData2}}" id="add-Data2-info" />
-                <label for="add-Data2-info">more Data info (Data 2 field)</label>
-            </div>
-            {{#if getHasData2}}
-            <div class="col s3">
-                <label for="Data2Field">Data2</label>
-                <select class="browser-default " name="Data2Field" id="Data2Field">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasName}}" id="add-name-info" />
-                <label for="add-name-info">Name info</label>
-            </div>
-            {{#if getHasName}}
-            <div class="col s3">
-                <label for="nameField">Name</label>
-                <select class="browser-default " name="nameField" id="nameField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasColor}}" id="add-color-info" />
-                <label for="add-color-info">Color info</label>
-            </div>
-            {{#if getHasColor}}
-            <div class="col s3">
-                <label for="colorField">Color</label>
-                <select class="browser-default " name="colorField" id="colorField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasStar}}" id="add-star-info" />
-                <label for="add-star-info">Star info</label>
-            </div>
-            {{#if getHasStar}}
-            <div class="col s3">
-                <label for="starField">Star</label>
-                <select class="browser-default " name="starField" id="starField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasGroup}}" id="add-group-info" />
-                <label for="add-group-info">Group info</label>
-            </div>
-            {{#if getHasGroup}}
-            <div class="col s3">
-                <label for="groupField">Group</label>
-                <select class="browser-default " name="groupField" id="groupField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-            <div class="input-field col s3">
-                <input type="checkbox" checked="{{hasRepMethod}}" id="add-repMethod-info" />
-                <label for="add-repMethod-info">representation Method info</label>
-            </div>
-            {{#if getHasRepMethod}}
-            <div class="col s3">
-                <label for="repMethodField">Representation method</label>
-                <select class="browser-default " name="repMethodField" id="repMethodField">
-                    {{#each getDataFields}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            {{/if}}
-        </div>
-        {{/if}}
-        <div class="row">
-            <div class="col s12">
-                <button id="submit-new-layer" type="submit" class="btn btn-primary pull-right">Create layer</button>
-            </div>
-        </div>
-    </form>
+      </div>
+    {{/if}}
+  </form>
 </template>
