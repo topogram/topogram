@@ -14,7 +14,6 @@ Template.filterByCategory.helpers({
         nodes.forEach(function(node) {
             if (types.indexOf(node.data.data.type) < 0) types.push(node.data.data.type);
         });
-        console.log(types);
         return types;
     }
 })
