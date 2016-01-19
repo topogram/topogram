@@ -1,3 +1,7 @@
+Template.infobox.rendered = function() {
+  $("#infoBox").hide()
+};
+
 Template.infobox.helpers( {
     comments: function() {
         var type = Session.get( 'currentType' ) || 'node',
