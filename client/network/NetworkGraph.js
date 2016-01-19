@@ -10,11 +10,12 @@ var mergerNodes = false; //TODO
 var fontSize = 16;
 var fixedWidth = 10;
 NetworkGraph = {
-    initTopogram: function(containerId, topogramId) {
+    initTopogram: function(containerId, topogramId, editMode) {
         // console.log( 'initTopogram' );
         this.containerId = containerId;
         this.topogramId = topogramId;
         this.colors = d3.scale.category20c();
+        this.editMode = editMode;
         //for searching easily
         var nodes = Nodes.find().fetch(),
             edges = Edges.find().fetch();
@@ -29,12 +30,10 @@ NetworkGraph = {
 
                 // add everything
                 self.addQTip();
-                self.addCxtMenu();
                 self.addMouseBehaviours();
 
-
-                self.addEdgehandles();
-
+                if(self.editMode) self.addCxtMenu();
+                if(self.editMode) self.addEdgehandles();
                 //console.log("repMethodEdge", repMethodWidthEdge);
                 //console.log("repMethodEdge", repMethodEdge);
             },

@@ -6,12 +6,14 @@
       </p>
     </div>
 
+    {{#if isEditable}}
     <div class="card-action">
-      <a id="import-data" href="/topograms/{{topogramId}}/lab"><i class="material-icons">description</i></a>
       <a id="toggle-filterbox" href="#"><i class="material-icons">search</i></a>
-      <a id="toggle-toolbox" href="#"><i class="material-icons">settings</i></a>
-      <a id="toggle-algobox" href="#"><i class="material-icons">equalizer</i></a>
+        <a id="toggle-toolbox" href="#"><i class="material-icons">settings</i></a>
+        <a id="toggle-algobox" href="#"><i class="material-icons">equalizer</i></a>
+        <a id="import-data" href="/topograms/{{topogramId}}/lab"><i class="material-icons">description</i></a>
       <br>
     </div>
+    {{/if}}
   </div>
 </template>

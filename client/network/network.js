@@ -22,8 +22,7 @@ Template.networkTemplate.rendered = function() {
 
     // create graph// network.destroy();
     var topogramId = this.data.topogramId,
-        network = NetworkGraph.initTopogram('network', topogramId);
-
+        network = NetworkGraph.initTopogram('network', topogramId, this.data.editMode);
     // fetch and parse data
     var edges = Edges.find().fetch(),
         nodes = Nodes.find().fetch();
@@ -32,6 +31,8 @@ Template.networkTemplate.rendered = function() {
 
     // init data
     if (network) network.initData(nodes, edges);
+    if(!this.data.editMode) network.net.autolock(true);
+
 
     var fieldFunctionMap = {
         'data': function(elem, data) {

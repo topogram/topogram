@@ -5,20 +5,18 @@
     {{#if hasGeo}}
       {{> map}}
     {{/if}}
-
     <div id="network"></div>
-    <div id="toolkit" class="row">
-        <div class="toolbox col s3">
-          {{> titlebox }}
-          {{> filterbox }}
-          {{> toolbox }}
-          {{> algobox }}
-        </div>
-      <div class="col offset-s6 s3">
-        {{> infobox}}
+  </div>
+  <div id="toolkit" class="row">
+      <div class="toolbox col s3">
+        {{> titlebox }}
+        {{> filterbox }}
+        {{> toolbox }}
+        {{> algobox }}
       </div>
+    <div class="col offset-s6 s3">
+      {{> infobox}}
     </div>
-
   </div>
   {{> nodeMerge}}
 </template>

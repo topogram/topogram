@@ -1,50 +1,15 @@
 <template name="view">
-    <div class="row">
-        <div class="col s7">
-            <h1>{{ topogram.name }}</h1>
-            <h4>by {{ topogram.owner }}</h4>
+  <!-- <div id="toolkit" class="row">
+      <div class="toolbox col s3">
+        <div class="card card-small">
+          <div class="card-content">
+            <p class="card-title activator grey-text text-darken-4">
+              {{ topogram.name }}
+            </p>
+          </div>
         </div>
-        <div class="col s5" style="margin-top:40px;">
-            <a class="btn blue lighten-1" href="#">Download as JSON</a>
-        </div>
-    </div>
-
-    {{#if hasElements}}
-        <div id="viewSelector" class="z-depth-1">
-            <ul class="tabs">
-                {{#if hasNetwork}}
-                    <li class="tab"><a class="active" href="#tab1">Network</a></li>
-                {{/if}}
-                {{#if hasNodes}}
-                    <li class="tab"><a href="#tab2">Nodes</a></li>
-                {{/if}}
-                {{#if hasEdges}}
-                    <li class="tab"><a href="#tab3">Edges</a></li>
-                {{/if}}
-            </ul>
-        </div>
-        <br>
-        <div id="view">
-            {{#if hasNetwork}}
-                <div id="tab1">
-                    {{> networkTemplate topogramId=topogramId editMode=false}}
-                </div>
-            {{/if}}
-            {{#if hasNodes}}
-                <div id="tab2">
-                    {{> nodesTemplate topogramId=topogramId editMode=false}}
-                </div>
-            {{/if}}
-            {{#if hasEdges}}
-                <div id="tab3">
-                    {{> edgesTemplate topogramId=topogramId editMode=false}}
-                </div>
-            {{/if}}
-        </div>
-        <script>
-            ( function( w, d, u, $ ) {
-                $( 'ul.tabs' ).tabs();
-            } )( window, document, undefined, jQuery );
-        </script>
-    {{/if}}
+        {{> filterbox }}
+      </div>
+    </div> -->
+    {{> networkTemplate topogramId=topogramId topogramName=topogram.name editMode=false}}
 </template>
