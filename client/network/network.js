@@ -1,6 +1,18 @@
 Template.network.created = function() {
   console.log("init network");
 
+  // reactive var to share across templates
+  this.network = new ReactiveVar();
+  this.changeLayout = new ReactiveVar();
+
+  // init graph state (TODO : should be reactiveDict)
+  this.graphState = {
+    showNodesLabels : 1,
+    showEdgesLabels : 0,
+    layout : "circle",
+    nodeFontSize : 16
+  };
+
   // constants
   this.colors = d3.scale.category20c();
   this.editMode = this.data.editMode;
@@ -18,23 +30,7 @@ Template.network.created = function() {
   Session.set("mergeSource", null)
   Session.set("mergeTargets", null)
 
-  // init graph state (TODO : should be reactiveDict)
-  this.graphState = {
-    showNodesLabels : 1,
-    showEdgesLabels : 0,
-    layout : "circle",
-    nodeFontSize : 16
-  };
 };
-
-Template.network.destroyed = function() {
-  console.log("destroy network");
-};
-
-
-Template.network.helpers({
-
-});
 
 Template.network.rendered = function() {
     var self = this;
@@ -87,7 +83,7 @@ Template.network.rendered = function() {
 
     console.log(this.graph);
 
-    // mouse actions
+    // mouse select actions
     this.graph.on('select', 'node', /*_.debounce(*/ function(e) {
 
         var node = e.cyTarget;
@@ -164,7 +160,6 @@ Template.network.rendered = function() {
     });
 
     // interactive edge creation
-    // if(self.editMode)
     this.graph.edgehandles({
         complete: function(source, target, addedEntities) {
             Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'));
@@ -197,9 +192,14 @@ Template.network.rendered = function() {
         }
     });
 
+    if(!this.data.editMode) {
+      self.graph.autolock(true); // prevent drag
+      self.graph.edgehandles("disable");
+    }
+
     // context menu (right click)
-    // if(self.editMode)
-    this.graph.cxtmenu({
+    if(!this.data.editMode)
+      this.graph.cxtmenu({
         selector: 'node',
         commands: [{
             content: '<span><i class="small material-icons">delete</i></span>',
@@ -240,9 +240,35 @@ Template.network.rendered = function() {
             },
 
         }]
-    });
+      });
 
-    // if(self.editMode)
+    // set global var
+    Template.instance().network.set(graph);
+
+    // handle layouts
+    var changeLayout = function(layoutName) {
+      // console.log("layoutName", layoutName)
+      var layoutConfig = {
+          name: layoutName,
+          stop: function() {  // callback on layoutstop
+              console.log( 'update position' );
+              // var nodesLayout = self.net.nodes().map(function(node) {
+              //     return {
+              //         id: node.id(),
+              //         position: node.position()
+              //     };
+              // });
+              // Meteor.call('updateNodesPositions', nodesLayout);
+          }
+      };
+      // console.log("layoutConfig", layoutConfig)
+      var layout = self.net.makeLayout(layoutConfig);
+      // console.log(layout);
+      layout.run();
+    };
+
+    Template.instance().changeLayout.set(changeLayout);
+
     // watch changes
     /*
     nodes.observeChanges( {
@@ -284,8 +310,4 @@ Template.network.rendered = function() {
     */
     // console.log('network : ', topogramId, nodes .length, 'nodes', edges .length, 'edges' );
     // console.log(network.net.nodes());
-};
-
-Template.networkTemplate.events = {
-
 };
