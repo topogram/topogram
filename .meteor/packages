@@ -19,8 +19,8 @@ check
 # meteor++
 reactive-var
 insecure
-meteorhacks:npm
-npm-container
+# meteorhacks:npm
+# npm-container
 cosmos:browserify
 
 # UI
@@ -48,7 +48,7 @@ tdj:cola
 maxkfranz:cytoscape-qtip
 maxkfranz:cytoscape-spread
 # maxkfranz:cytoscape-cola # broken see https://github.com/cytoscape/cytoscape.js-cola/issues/5
-maxkfranz:cytoscape
+#maxkfranz:cytoscape
 
 # data manipulation
 harrison:papa-parse
@@ -62,3 +62,4 @@ accounts-password
 mikowals:batch-insert
 babrahams:transactions
 babrahams:undo-redo
+cytoscape:cytoscape
