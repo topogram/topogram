@@ -299,9 +299,14 @@ NetworkGraph = {
                 content: '<span><i class="small material-icons">star_rate</i></span>',
                 select: function() {
                     Meteor.call('starNode', this.id());
-                    this.style({
-                        'background-color': 'yellow'
+                    this.data().starred = (this.data().starred) ? false : true;
+                    // console.log("starred", this.data("starred"), this.data("color"));
+                    this.style( {
+                      'background-color': function(e){
+                        return e.data("starred") ? "yellow" : e.data("color");
+                      }
                     });
+
                 }
             }, {
                 content: '<span><i class="small material-icons">lock</i></span>',
