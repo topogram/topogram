@@ -5,6 +5,11 @@ Template.titlebox.created = function() {
 Template.titlebox.helpers({
     isEditable : function() {
       return this.editMode
+    },
+    topogram: function() {
+        var topogram = Topograms.findOne({ "name" : 1});
+        console.log(topogram);
+        return topogram;
     }
 })
 
