@@ -1,16 +1,24 @@
-Template.selectLayout.onCreated(function() {
-    this.changeLayout = new ReactiveVar();
-    console.log(this);
-    // inherit change layout function from parent topogram view
-    this.changeLayout.set(this.view.parentView.parentView._templateInstance.changeLayout.get())
-});
-
 Template.selectLayout.events = {
   // apply layout
   'click .layout': function(e, template) {
     var layoutName = $(e.target).data().layoutName;
-    var net = template.view.parentView.parentView._templateInstance.network.get();
-    net.changeLayout(layoutName)
+    var network = template.view.parentView.parentView._templateInstance.network.get()
+    var layoutConfig = {
+        name: layoutName,
+        stop: function() {  // callback on layoutstop
+            console.log( 'update position' );
+            // var nodesLayout = self.graph.nodes().map(function(node) {
+            //     return {
+            //         id: node.id(),
+            //         position: node.position()
+            //     };
+            // });
+            // Meteor.call('updateNodesPositions', nodesLayout);
+        }
+    };
+
+    var layout = network.makeLayout(layoutConfig);
+    layout.run();
   }
 }
 

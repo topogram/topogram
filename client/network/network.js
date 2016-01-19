@@ -231,31 +231,8 @@ Template.network.rendered = function() {
         }]
       });
 
-    // handle layouts
-    var changeLayout = function(layoutName) {
-      // console.log("layoutName", layoutName)
-      var layoutConfig = {
-          name: layoutName,
-          stop: function() {  // callback on layoutstop
-              console.log( 'update position' );
-              // var nodesLayout = self.graph.nodes().map(function(node) {
-              //     return {
-              //         id: node.id(),
-              //         position: node.position()
-              //     };
-              // });
-              // Meteor.call('updateNodesPositions', nodesLayout);
-          }
-      };
-      // console.log("layoutConfig", layoutConfig)
-      var layout = self.graph.makeLayout(layoutConfig);
-      // console.log(layout);
-      layout.run();
-    };
-
     // set global var
     this.view.parentView.parentView._templateInstance.network.set(this.graph);
-    this.view.parentView.parentView._templateInstance.changeLayout.set(changeLayout);
 
     // watch changes
     /*
