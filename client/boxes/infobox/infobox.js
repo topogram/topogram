@@ -1,5 +1,5 @@
 Template.infobox.rendered = function() {
-  $("#infoBox").hide()
+  $("#infoBox").css('visibility', 'hidden');
 };
 
 Template.infobox.helpers( {
