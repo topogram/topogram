@@ -35,18 +35,12 @@ Template.infobox.helpers( {
 } )
 
 Template.infobox.events = {
-    'click #closeInfoBox': function( event ) {
-        if ( NetworkGraph ) {
-            NetworkGraph.net.nodes().style( {
-                "opacity": '1'
-            } );
-            NetworkGraph.net.edges().style( {
-                "opacity": '1'
-            } );
-            NetworkGraph.net.nodes().selectify();
-            NetworkGraph.net.edges().selectify();
-        }
+    'click #closeInfoBox': function( event, template ) {
+        var network = template.view.parentView._templateInstance.network.get()
+        network.nodes().style({ "opacity": '1' });
+        network.edges().style({ "opacity": '1' });
+        network.nodes().selectify();
+        network.edges().selectify();
         $( "#infoBox" ).css( 'visibility', 'hidden' );
-
     }
 };
