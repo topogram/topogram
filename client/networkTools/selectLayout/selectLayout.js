@@ -1,5 +1,6 @@
 Template.selectLayout.onCreated(function() {
     this.changeLayout = new ReactiveVar();
+    console.log(this);
     // inherit change layout function from parent topogram view
     this.changeLayout.set(this.view.parentView.parentView._templateInstance.changeLayout.get())
 });

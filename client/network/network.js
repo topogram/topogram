@@ -1,21 +1,13 @@
 Template.network.created = function() {
   console.log("init network");
+  console.log(this, Template.instance());
+  this.editMode = this.data.editMode;
 
-  // reactive var to share across templates
-  this.network = new ReactiveVar();
-  this.changeLayout = new ReactiveVar();
-
-  // init graph state (TODO : should be reactiveDict)
-  this.graphState = {
-    showNodesLabels : 1,
-    showEdgesLabels : 0,
-    layout : "circle",
-    nodeFontSize : 16
-  };
+  // get reactive graphState
+  this.graphState = this.view.parentView.parentView._templateInstance.graphState.get()
 
   // constants
   this.colors = d3.scale.category20c();
-  this.editMode = this.data.editMode;
 
   // fetch data
   var nodes = Nodes.find().fetch(),
@@ -242,9 +234,6 @@ Template.network.rendered = function() {
         }]
       });
 
-    // set global var
-    Template.instance().network.set(graph);
-
     // handle layouts
     var changeLayout = function(layoutName) {
       // console.log("layoutName", layoutName)
@@ -267,7 +256,10 @@ Template.network.rendered = function() {
       layout.run();
     };
 
-    Template.instance().changeLayout.set(changeLayout);
+    // set global var
+    console.log(Template);
+    this.view.parentView.parentView._templateInstance.network.set(this.graph);
+    this.view.parentView.parentView._templateInstance.network.set(changeLayout);
 
     // watch changes
     /*
