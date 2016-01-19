@@ -1,13 +1,12 @@
 Template.network.created = function() {
-  console.log("init network");
-  console.log(this, Template.instance());
-  this.editMode = this.data.editMode;
+  // console.log("init network");
 
   // get reactive graphState
   this.graphState = this.view.parentView.parentView._templateInstance.graphState.get()
 
   // constants
   this.colors = d3.scale.category20c();
+  this.editMode = this.data.editMode;
 
   // fetch data
   var nodes = Nodes.find().fetch(),
@@ -72,8 +71,6 @@ Template.network.rendered = function() {
     this.graph.add(nodes); // prevent edges to be added before nodes
     this.graph.add(edges);
     this.graph.reset(); // render layout
-
-    console.log(this.graph);
 
     // mouse select actions
     this.graph.on('select', 'node', /*_.debounce(*/ function(e) {
@@ -257,7 +254,6 @@ Template.network.rendered = function() {
     };
 
     // set global var
-    console.log(Template);
     this.view.parentView.parentView._templateInstance.network.set(this.graph);
     this.view.parentView.parentView._templateInstance.changeLayout.set(changeLayout);
 
