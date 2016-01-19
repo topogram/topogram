@@ -1,7 +1,7 @@
 Template.sigma.events = {
   'change #sigmaViewParam': function(e, template) {
 
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       //var valEdg = $(e.currentTarget).find('value').val();
       var valEdg = parseFloat(sigmaViewParam.value);
 
@@ -70,7 +70,7 @@ Template.sigma.events = {
   },
   'change #sigmaNodesViewParam': function(e, template) {
 
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       //var val = $(e.currentTarget).find('value').val();
       var valNod = parseFloat(sigmaViewParam.value);
 
@@ -137,7 +137,7 @@ Template.sigma.events = {
 
   },
   'change #sigmaNodeDegreeViewParam': function(e, template) {
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       var dataSigmaNodesDegree = []
       console.log("dataSigmaNodesDegree", dataSigmaNodesDegree);
 
@@ -199,7 +199,7 @@ Template.sigma.events = {
       })
   }
 }
-  
+
 
 
 //THEY ARE HERE BECAUSE THEY ARE ACCESSED FROM OUTSIDE: D3 PARAMETERS
@@ -228,7 +228,7 @@ function createLinearScale(domain, range) {
 //                     .domain([100, 500])
 //                     .range([10, 350]);
 
-//color mean 
+//color mean
 function colorMean(color1, color2) {
     console.log(color1, color2);
     rgb = hexToRgb(color1)

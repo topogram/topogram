@@ -12,7 +12,7 @@ Template.searchFilter.events( {
 
         if ( !$(e.target).data("node-id") ) return;
 
-        var net = template.view.parentView.parentView._templateInstance.network.get().net;
+        var net = template.view.parentView.parentView._templateInstance.network.get();
 
         // get node from cy
         var node = net.nodes().filter("[id='"+$(e.target).data("node-id")+"']");
@@ -47,7 +47,7 @@ Template.searchFilter.events( {
         e.preventDefault();
         document.getElementById( "search" ).value = '';
 
-        var net = template.view.parentView.parentView._templateInstance.network.get().net;
+        var net = template.view.parentView.parentView._templateInstance.network.get();
 
         net.nodes().style( {
             "opacity": '1'

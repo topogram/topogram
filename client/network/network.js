@@ -241,7 +241,7 @@ Template.network.rendered = function() {
           name: layoutName,
           stop: function() {  // callback on layoutstop
               console.log( 'update position' );
-              // var nodesLayout = self.net.nodes().map(function(node) {
+              // var nodesLayout = self.graph.nodes().map(function(node) {
               //     return {
               //         id: node.id(),
               //         position: node.position()
@@ -251,7 +251,7 @@ Template.network.rendered = function() {
           }
       };
       // console.log("layoutConfig", layoutConfig)
-      var layout = self.net.makeLayout(layoutConfig);
+      var layout = self.graph.makeLayout(layoutConfig);
       // console.log(layout);
       layout.run();
     };
@@ -259,7 +259,7 @@ Template.network.rendered = function() {
     // set global var
     console.log(Template);
     this.view.parentView.parentView._templateInstance.network.set(this.graph);
-    this.view.parentView.parentView._templateInstance.network.set(changeLayout);
+    this.view.parentView.parentView._templateInstance.changeLayout.set(changeLayout);
 
     // watch changes
     /*
@@ -270,7 +270,7 @@ Template.network.rendered = function() {
         },
         changed: function( _id, fields ) {
             // console.log( 'node changed' );
-            var item = network.net.nodes().filter( function( i, node ) {
+            var item = self.graph.nodes().filter( function( i, node ) {
                 return node.data().data._id == _id;
             } );
             // console.log( item );
@@ -301,5 +301,4 @@ Template.network.rendered = function() {
     } );
     */
     // console.log('network : ', topogramId, nodes .length, 'nodes', edges .length, 'edges' );
-    // console.log(network.net.nodes());
 };

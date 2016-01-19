@@ -7,7 +7,7 @@ Template.labels.helpers({
 Template.labels.events = {
 
   'change #nodeLabelLocation': function(e, template) {
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       var val = $(e.currentTarget).find('option:selected').val();
 
       if (val == 'above') {
@@ -30,7 +30,7 @@ Template.labels.events = {
   },
 
   'change #textSizeParam': function(e, template) {
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       var val = textSizeParam.value;
       net.nodes().style({ 'font-size': val })
   },
@@ -38,13 +38,13 @@ Template.labels.events = {
   'click .toggle-node-labels': function(e, template) {
     var network = template.view.parentView.parentView._templateInstance.network.get();
     network.graphState.showNodesLabels = network.graphState.showNodesLabels ? 0 : 1;
-    network.net.nodes().css({ "text-opacity" : network.graphState.showNodesLabels })
+    network.nodes().css({ "text-opacity" : network.graphState.showNodesLabels })
   },
 
   'click .toggle-edge-labels': function(e, template) {
-    var net = template.view.parentView.parentView._templateInstance.network.get().net;
+    var net = template.view.parentView.parentView._templateInstance.network.get();
     var network = template.view.parentView.parentView._templateInstance.network.get();
     network.graphState.showEdgesLabels = network.graphState.showEdgesLabels ? 0 : 1;
-    network.net.edges().css({ "text-opacity" : network.graphState.showEdgesLabels })
+    network.edges().css({ "text-opacity" : network.graphState.showEdgesLabels })
   }
 }

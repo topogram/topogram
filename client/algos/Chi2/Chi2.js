@@ -1,7 +1,7 @@
 Template.chi2.events = {
     'change #chi2NodeViewParam': function(e, template) {
 
-        var net = template.view.parentView.parentView._templateInstance.network.get().net;
+        var net = template.view.parentView.parentView._templateInstance.network.get();
         //var valEdg = $(e.currentTarget).find('value').val();
         var valchiNode = parseFloat(chi2NodeViewParam.value);
 
@@ -48,7 +48,7 @@ Template.chi2.events = {
         console.log("uniqueNode2", uniqueNode2);
         console.log("distinctNode2", distinctNode2);
 
-            
+
 
 
 
@@ -122,7 +122,7 @@ Template.chi2.events = {
     },
     'change #chi2EdgeViewParam': function(e, template) {
 
-        var net = template.view.parentView.parentView._templateInstance.network.get().net;
+        var net = template.view.parentView.parentView._templateInstance.network.get();
         //var valEdg = $(e.currentTarget).find('value').val();
         var valchiEdge = parseFloat(chi2EdgeViewParam.value);
 

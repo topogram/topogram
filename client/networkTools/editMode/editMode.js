@@ -6,7 +6,7 @@ Template.editMode.rendered = function() {
 Template.editMode.events = {
 
         'change #toggle-edge-edit-mode': function(e,template) {
-            var net = template.view.parentView.parentView._templateInstance.network.get().net;
+            var net = template.view.parentView.parentView._templateInstance.network.get();
             var edgeEditMode = e.target.checked;
 
             if (!edgeEditMode){
