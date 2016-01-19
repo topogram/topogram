@@ -1,27 +1,14 @@
-Template.view.helpers( {
-    topogram: function() {
-        var topogram = Topograms.findOne();
-        return topogram;
-    },
+Template.view.created = function() {
 
-    hasNodes: function() {
-        return Nodes.find().fetch().length > 0;
-    },
+  // reactive var to share across templates
+  this.network = new ReactiveVar();
+  this.changeLayout = new ReactiveVar();
+  this.graphState = new ReactiveVar(); // init graph state (TODO : should be reactiveDict or loaded from somewhere)
 
-    hasEdges: function() {
-        return Edges.find().fetch().length > 0;
-    },
-
-    hasElements: function() {
-        return Nodes.find().fetch().length > 0 || Edges.find().fetch().length > 0;
-    },
-
-    hasNetwork: function() {
-        return Nodes.find().fetch().length > 0 && Edges.find().fetch().length > 0;
-    },
-
-    getJSON: function() {
-        // console.log( cy.json() );
-        // return moment( date ).format( 'ddd. MMM Do YYYY, hh:mm A' );
+  var graphState = { // should be loaded from db
+      showNodesLabels : 1,
+      showEdgesLabels : 0,
+      layout : "circle"
     }
-} );
+  Template.instance().graphState.set(graphState);
+}

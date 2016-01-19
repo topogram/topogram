@@ -12,19 +12,3 @@ Template.single.created = function() {
     }
   Template.instance().graphState.set(graphState);
 }
-
-Template.network.rendered = function() {
-
-}
-
-Template.single.helpers( {
-    topogram: function() {
-        var topogram = Topograms.findOne();
-        // console.log(topogram);
-        return topogram;
-    },
-    graphState: function() {
-      console.log(this);
-      return this.graphState;
-    }
-});
