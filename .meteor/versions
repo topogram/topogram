@@ -58,7 +58,6 @@ localstorage@1.0.5
 logging@1.0.8
 maxkfranz:cytoscape@2.4.9
 maxkfranz:cytoscape-qtip@2.2.5
-maxkfranz:cytoscape-spread@1.0.4
 meteor@1.1.10
 meteor-base@1.0.1
 mikowals:batch-insert@1.1.13

@@ -18,6 +18,7 @@ Template.selectLayout.events = {
     };
 
     var layout = network.makeLayout(layoutConfig);
+    // console.log(network);
     layout.run();
   }
 }
@@ -29,7 +30,10 @@ Template.selectLayout.helpers({
       // add map layout
       if ( hasGeo() ) layouts.push("map");
 
-      layouts.push('cola', 'springy', 'random', 'grid', 'circle', 'cose-bilkent', 'breadthfirst', 'concentric', 'dagre', 'spread')
+      layouts.push('random', 'grid', 'circle',
+        // 'arbor', 'cola', 'cose-bilkent', 'dagre',
+        // 'spread',
+        'breadthfirst', 'concentric')
 
       return layouts.map(function(d) {
             return {
