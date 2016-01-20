@@ -32,7 +32,7 @@ Template.labels.events = {
   'change #textSizeParam': function(e, template) {
       var net = template.view.parentView.parentView._templateInstance.network.get();
       var val = textSizeParam.value;
-      net.nodes().style({ 'font-size': val })
+      net.nodes().css({ 'font-size': val })
   },
 
   'click .toggle-node-labels': function(e, template) {
