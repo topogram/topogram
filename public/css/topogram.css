@@ -51,7 +51,7 @@ svg {
     height: 100%;
 }
 
-.cxtmenu, #network>canvas{
+#network>canvas{
 	z-index: -1 !important;
 }
 

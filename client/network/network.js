@@ -225,13 +225,14 @@ Template.network.rendered = function() {
         }
     });
 
-    if(!this.data.editMode) {
+    // console.log(this);
+    if(!this.editMode) {
       self.graph.autolock(true); // prevent drag
       self.graph.edgehandles("disable");
     }
 
     // context menu (right click)
-    if(!this.data.editMode)
+    if(this.editMode)
       this.graph.cxtmenu({
         selector: 'node',
         commands: [{
