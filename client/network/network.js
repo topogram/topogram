@@ -56,8 +56,8 @@ Template.network.rendered = function() {
                   return e.data('starred') ? 'yellow' : color;
                 },
                 'text-opacity' : 0, // hide label by default
-                'content': function(e) {
-                  return e.data("label") ? e.data("labal") : "";
+                'label': function(e) {
+                  return e.data("name") ? e.data("name") : "";
                 }
               })
             // node with degree zero
@@ -73,8 +73,8 @@ Template.network.rendered = function() {
                   return e.data("weight") ? e.data("weight") : 1;
                 },
                 'text-opacity' : 0, // hide label by default
-                'content': function(e) {
-                  return e.data("label") ? e.data("labal") : "";
+                'label': function(e) {
+                  return e.data("name") ? e.data("name") : "";
                 }
               })
             .selector('.edgehandles-hover')
@@ -130,10 +130,12 @@ Template.network.rendered = function() {
             'opacity': '.1'
         });
         node.style({
-            'opacity': '1'
+            'opacity': '1',
+            'text-opacity': '1'
         });
         node.neighborhood().style({
-            'opacity': '1'
+            'opacity': '1',
+            'text-opacity': '1'
         });
 
         // make only the focus selectable
