@@ -5,12 +5,8 @@ Template.network.created = function() {
   this.graphState = this.view.parentView.parentView._templateInstance.graphState.get()
 
   // constants
-  this.colors = d3.scale.category20c();
+  this.colors = d3.scale.category20b();
   this.editMode = this.data.editMode;
-
-  // fetch data
-  var nodes = Nodes.find().fetch(),
-      edges = Edges.find().fetch();
 
   // init node/edge selector
   $('#infoBox').css('visibility', 'hidden'); // hide infobox by default
@@ -25,6 +21,12 @@ Template.network.created = function() {
 
 Template.network.rendered = function() {
     var self = this;
+
+    // fetch and parse data
+    var edges = Edges.find().fetch(),
+        nodes = Nodes.find().fetch();
+    console.log("nodes", nodes.length)
+    console.log("edges", edges.length)
 
     // init graph
     this.graph = cytoscape({
@@ -47,7 +49,16 @@ Template.network.rendered = function() {
                 'text-max-width': 100,
                 'text-wrap': 'wrap',
                 'min-zoomed-font-size': 0.4,
-                'background-color' : "#CCC"
+                'background-color' : function(e) {
+                  var color = "#CCC"; // default
+                  if (e.data("group")) color = self.colors(e.data("group"));
+                  else if (e.data("color")) color = color;
+                  return e.data('starred') ? 'yellow' : color;
+                },
+                'text-opacity' : 0, // hide label by default
+                'content': function(e) {
+                  return e.data("label") ? e.data("labal") : "";
+                }
               })
             // node with degree zero
             .selector('node[[degree = 0]]')
@@ -56,20 +67,51 @@ Template.network.rendered = function() {
               })
             .selector('edge')
               .style({
-                'background-color' : "#000"
+                'background-color' : "#000",
+                'target-arrow-shape': 'none', // default is undirected graph
+                'width': function(e) {
+                  return e.data("weight") ? e.data("weight") : 1;
+                },
+                'text-opacity' : 0, // hide label by default
+                'content': function(e) {
+                  return e.data("label") ? e.data("labal") : "";
+                }
+              })
+            .selector('.edgehandles-hover')
+              .style({
+                  'background-color': 'red'
+              })
+            .selector('.edgehandles-source')
+            .selector('.edgehandles-target')
+            .selector('.edgehandles-preview, .edgehandles-ghost-edge')
+              .style({
+                  'line-color': 'red',
+                  'target-arrow-color': 'red',
+                  'source-arrow-color': 'red'
               })
       });
 
-    // fetch and parse data
-    var edges = Edges.find().fetch(),
-        nodes = Nodes.find().fetch();
-    console.log("nodes", nodes.length)
-    console.log("edges", edges.length)
+
 
     // init data
     this.graph.elements().remove(); // make sure evything is clean
     this.graph.add(nodes); // prevent edges to be added before nodes
     this.graph.add(edges);
+
+    // apply size
+    var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([4,40]);
+    console.log(this.graph);
+    this.graph.style()
+      .selector('node')
+      .style({
+        'width': function(e) {
+          return degreeDomain(e.degree());
+        },
+        'height': function(e) {
+          return degreeDomain(e.degree());
+        }
+      }).update()
+
     this.graph.reset(); // render layout
 
     // mouse select actions
