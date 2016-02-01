@@ -22,14 +22,6 @@
       <div id="importDatasetFields">
         <div class="row">
           <div class="col s4">
-            {{> importFieldSelector fieldId="timeField" label="Select Column : Time" dataFields=getDataFields optional=0}}
-          </div>
-          <div class="col s4">
-            {{> importFieldSelector fieldId="userField" label="Select Column : User" dataFields=getDataFields optional=0}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s4">
             {{> importFieldSelector fieldId="textField" label="Select Column : Text" dataFields=getDataFields optional=0}}
           </div>
           <div class="col s4">
@@ -37,8 +29,19 @@
           </div>
         </div>
         <div class="row">
+          <div class="col s4">
+            {{> importFieldSelector fieldId="timeField" label="Select Column : Time" dataFields=getDataFields optional=0}}
+          </div>
+          <div class="col s4">
+            {{> importFieldSelector fieldId="userField" label="Select Column : User" dataFields=getDataFields optional=0}}
+          </div>
+        </div>
+        <div class="row">
           {{> importFieldSelector fieldId="additionalInfoField" label="Additional Data" dataFields=getDataFields optional=1}}
         </div>
+      </div>
+      <div class="card-action">
+          <button id="submit-new-layer" type="submit" class="btn btn-primary pull-right">Create layer</button>
       </div>
     {{/if}}
   </form>

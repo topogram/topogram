@@ -5,51 +5,31 @@ Template.createDataset.onCreated( function() {
   var self = this;
 
   this.parseData = function(csvData) {
-    console.log(csvData);
-    var lines = csvData.split( '\n' );
-    console.log(lines);
 
-    //remove empty lines
-    lines = lines.filter( function( line ) {
-        return line != '';
-    } );
+    var parsingOptions = {
+        header: true,
+        skipEmptyLines: true
+    };
 
-    //check all lines have the same nb of datum
-    var nbDatum = lines[ 0 ].split( ',' ).length;
-    // console.log( 'nbDatum:', nbDatum );
-    if ( lines.filter( function( l ) {
-        l.split( ',' ).length != nbDatum;
-    } ).length != 0 ) {
-        console.log( "all lines don't have the same nb of datum" );
-    } else {
-        console.log( "data seems safe" );
+    var data = Papa.parse( csvData, parsingOptions );
+    console.log( data );
 
-        // TODO : make UI for those options
-        var parsingOptions = {
-            header: true,
-            skipEmptyLines: true
-        };
+    if ( data.errors.length ) {
+        for ( var i = 0; i < data.errors.length; i++ ) {
+            self.newLayerDataReady.set(false);
 
-        var data = Papa.parse( csvData, parsingOptions );
-        console.log( data );
-
-        if ( data.errors.length ) {
-            for ( var i = 0; i < data.errors.length; i++ ) {
-                self.newLayerDataReady.set(false);
-
-                var message = 'CSV parsing Error ';
-                if ( data.errors[ i ].row ) message += 'at row: ' + data.errors[ i ].row + ' ';
-                message += data.errors[ i ].message;
-                FlashMessages.sendError( message );
-            }
-        } else {
-            var message = 'CSV parsed succesfully : ' + data.data.length + ' records';
-            FlashMessages.sendSuccess( message );
-
-            // keep data
-            self.newLayerDataReady.set(true );
-            self.dataFields.set(data.meta.fields);
+            var message = 'CSV parsing Error ';
+            if ( data.errors[ i ].row ) message += 'at row: ' + data.errors[ i ].row + ' ';
+            message += data.errors[ i ].message;
+            FlashMessages.sendError( message );
         }
+    } else {
+        var message = 'CSV parsed succesfully : ' + data.data.length + ' records';
+        FlashMessages.sendSuccess( message );
+
+        // keep data
+        self.newLayerDataReady.set(true );
+        self.dataFields.set(data.meta.fields);
     }
   }
 });
@@ -83,5 +63,27 @@ Template.createDataset.events( {
             template.parseData(contents);
         };
         reader.readAsText( file );
+    },
+    'submit #importForm': function( e ) {
+        e.preventDefault();
+        console.log(e);
+
+        // get all active select fields
+        var description = {}
+        $(e.target).find("select.importField").each(function(i, select) {
+          return description[select.id]= select.value
+        });
+
+        console.log(description);
+
+        var datasetDescription = {
+          'text_column' : description.textField,
+          'language' : description.languageField,
+          'time_column' : description.timeField,
+          'source_column' : description.userField,
+          'additional_columns' : [description.additionalInfoField]
+        }
+        console.log(datasetDescription);
+
     }
 });
