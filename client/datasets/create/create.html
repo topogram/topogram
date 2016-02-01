@@ -1,4 +1,45 @@
 <template name="createDataset">
   <h1>New Dataset</h1>
 
+  <form id="importForm">
+    <div id="importFileUpload" class="card row">
+      <div class="card-content col s12">
+        <!-- <p class="card-title">File</p> -->
+        <!-- <i class="material-icons prefix">note_add</i> -->
+        <div class="input-field file-field">
+          <div class="btn">
+            <span>Data file</span>
+            <input type="file" id="file-input" name="importFile"/>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+        <p>Choose a CSV file (first line should be headers, no empty lines)</p>
+      </div>
+    </div>
+    {{#if dataIsReady}}
+      <div id="importDatasetFields">
+        <div class="row">
+          <div class="col s4">
+            {{> importFieldSelector fieldId="timeField" label="Select Column : Time" dataFields=getDataFields optional=0}}
+          </div>
+          <div class="col s4">
+            {{> importFieldSelector fieldId="userField" label="Select Column : User" dataFields=getDataFields optional=0}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            {{> importFieldSelector fieldId="textField" label="Select Column : Text" dataFields=getDataFields optional=0}}
+          </div>
+          <div class="col s4">
+            {{> importFieldSelector fieldId="languageField" label="Select Column : Language" dataFields=availableLanguages optional=0}}
+          </div>
+        </div>
+        <div class="row">
+          {{> importFieldSelector fieldId="additionalInfoField" label="Additional Data" dataFields=getDataFields optional=1}}
+        </div>
+      </div>
+    {{/if}}
+  </form>
 </template>
