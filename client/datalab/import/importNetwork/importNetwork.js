@@ -1,4 +1,4 @@
-Template.import.onCreated( function() {
+Template.importNetwork.onCreated( function() {
     this.newLayerDataReady = new ReactiveVar(false);
     this.dataFields = new ReactiveVar([]);
     this.newLayerType= new ReactiveVar(undefined);
@@ -53,7 +53,7 @@ Template.import.onCreated( function() {
     }
 });
 
-Template.import.helpers( {
+Template.importNetwork.helpers( {
     dataIsReady: function() {
         return Template.instance().newLayerDataReady.get();
     },
@@ -71,7 +71,7 @@ Template.import.helpers( {
     }
 } );
 
-Template.import.events( {
+Template.importNetwork.events( {
 
     'change #file-input': function( e, template ) {
         e.preventDefault();
@@ -143,7 +143,7 @@ Template.import.events( {
 
         // check for errors in vars
 
-        
+
         // if ( type == 'edges' ) {
         //     srcField = e.target.srcField.value;
         //     targetField = e.target.targetField.value;
