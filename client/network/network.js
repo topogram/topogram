@@ -100,7 +100,6 @@ Template.network.rendered = function() {
 
     // apply size
     var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([4,40]);
-    console.log(this.graph);
     this.graph.style()
       .selector('node')
       .style({
