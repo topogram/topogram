@@ -128,7 +128,7 @@ Template.importNetwork.events( {
         console.log( data );
 
         // check for errors in CSV
-        if ( data.errors.length || !Session.get( 'newLayerDataReady' ) ) {
+        if ( data.errors.length || !Template.instance().newLayerDataReady.get() ) {
             FlashMessages.sendError( 'CSV contains errors, please fix before submitting' );
             return; // end function
         }
@@ -143,6 +143,9 @@ Template.importNetwork.events( {
 
         // check for errors in vars
 
+
+        // Navigate to the new graph
+        Router.go( '/topograms/' + self.topogramId );
 
         // if ( type == 'edges' ) {
         //     srcField = e.target.srcField.value;
@@ -275,7 +278,5 @@ Template.importNetwork.events( {
         //     } );
         // }
 
-        // Navigate to the new graph
-        // Router.go( '/topograms/' + self.topogramId );
     }
 } );
