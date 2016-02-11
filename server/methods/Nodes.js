@@ -121,13 +121,35 @@ Meteor.methods( {
         } );
     },
 
+
     // TODO : improve batch update of nodes
     // update coords in DB for bunch of nodes (useful to save topogram layout changes)
-    updateNodesPositions: function( nodes ) {
-        for ( var i = 0; i < nodes.length; i++ ) {
-            var node = nodes[ i ];
-            Meteor.call( 'updateNodePosition', node.id, node.position )
+    updateNodesPositions: function( updatedNodes ) {
+
+      var nodesPosition = {};
+      updatedNodes.forEach(function(d){
+        nodesPosition[d._id] = d.position;
+        return d;
+      });
+
+      var nodes = Nodes.find({
+        "_id" : {
+          "$in": updatedNodes.map(function(d) {return d._id})
         }
+      }).fetch().map(function(d){ // update data
+        d.position = nodesPosition[d._id];
+        return d
+        //  = updatedNodes
+      })
+      console.log(nodes.length);
+      console.log(updatedNodes[0].position,nodes[0].position );
+
+      // bulkCollectionUpdate(Nodes, nodes, {
+      //   primaryKey: "_id",
+      //   callback: function() {
+      //     console.log("Nodes positions updated.");
+      //   }
+      // });
     },
 
     lockNode: function( nodeId, position ) {
