@@ -19,8 +19,8 @@ check
 # meteor++
 reactive-var
 insecure
-meteorhacks:npm
-npm-container
+# meteorhacks:npm
+# npm-container
 cosmos:browserify
 
 # UI
@@ -45,10 +45,13 @@ geojson-utils
 # viz
 d3js:d3
 tdj:cola
+cytoscape:cytoscape
 maxkfranz:cytoscape-qtip
-maxkfranz:cytoscape-spread
-# maxkfranz:cytoscape-cola # broken see https://github.com/cytoscape/cytoscape.js-cola/issues/5
-maxkfranz:cytoscape
+# maxkfranz:cytoscape-spread
+# maxkfranz:cytoscape-cola
+# maxkfranz:cytoscape-springy
+# maxkfranz:cytoscape-arbor
+
 
 # data manipulation
 harrison:papa-parse

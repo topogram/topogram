@@ -9,31 +9,33 @@ var textEdge = false; //TODO
 var mergerNodes = false; //TODO
 var fontSize = 16;
 var fixedWidth = 10;
+
 NetworkGraph = {
     initTopogram: function(containerId, topogramId, editMode) {
+
         // console.log( 'initTopogram' );
         this.containerId = containerId;
         this.topogramId = topogramId;
         this.colors = d3.scale.category20c();
         this.editMode = editMode;
+
         //for searching easily
         var nodes = Nodes.find().fetch(),
             edges = Edges.find().fetch();
-        var self = this;
 
+        var self = this;
         this.net = cytoscape({
             container: document.getElementById(containerId),
             hideLabelsOnViewport: true,
             ready: function() {
 
                 // console.log('topogram ready');
-
+                console.log(self);
                 // add everything
-                self.addQTip();
-                self.addMouseBehaviours();
-
-                if(self.editMode) self.addCxtMenu();
-                if(self.editMode) self.addEdgehandles();
+                // self.addQTip();
+                // self.addMouseBehaviours();
+                  // if(self.editMode) self.addCxtMenu();
+                  // if(self.editMode) self.addEdgehandles();
                 //console.log("repMethodEdge", repMethodWidthEdge);
                 //console.log("repMethodEdge", repMethodEdge);
             },
@@ -345,14 +347,14 @@ NetworkGraph = {
 
       // callback
       var savePositions = function() {
-          // console.log( 'update position ' );
-          var nodesLayout = self.net.nodes().map(function(node) {
-              return {
-                  id: node.id(),
-                  position: node.position()
-              };
-          });
-          Meteor.call('updateNodesPositions', nodesLayout);
+          console.log( 'update position' );
+          // var nodesLayout = self.net.nodes().map(function(node) {
+          //     return {
+          //         id: node.id(),
+          //         position: node.position()
+          //     };
+          // });
+          // Meteor.call('updateNodesPositions', nodesLayout);
       }
 
       console.log("layoutName", layoutName)
@@ -422,18 +424,16 @@ NetworkGraph = {
         layoutConfig.minDist = 40
       }
 
-      // else if (layoutName = "spread") layoutConfig ={}
-      console.log(layoutConfig);
-
       console.log("layoutConfig", layoutConfig)
       var layout = self.net.makeLayout(layoutConfig);
+      console.log(layout);
       layout.run();
 
     },
     // drag behaviour
     addMouseBehaviours: function() {
         var self = this;
-
+        console.log(self, this);
         this.net.on('select', 'node', /*_.debounce(*/ function(e) {
 
             var node = e.cyTarget;

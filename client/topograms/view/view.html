@@ -1,15 +1,10 @@
 <template name="view">
-  <!-- <div id="toolkit" class="row">
-      <div class="toolbox col s3">
-        <div class="card card-small">
-          <div class="card-content">
-            <p class="card-title activator grey-text text-darken-4">
-              {{ topogram.name }}
-            </p>
-          </div>
-        </div>
-        {{> filterbox }}
-      </div>
-    </div> -->
-    {{> networkTemplate topogramId=topogramId topogramName=topogram.name editMode=false}}
+  {{> network editMode=false}}
+  <div id="toolkit" class="row">
+    <div class="toolbox col s3">
+      {{> titlebox editMode=false}}
+    </div>
+  </div>
+
+
 </template>

@@ -20,7 +20,7 @@ Template.edgesOptions.helpers({
 
 Template.edgesOptions.events = {
   'change #edgeWidthMethod': function(e, template) {
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       var val = $(e.currentTarget).find('option:selected').val();
       var self = this;
 
@@ -35,7 +35,7 @@ Template.edgesOptions.events = {
       }
   },
   'change #edgeEndMethod': function(e, template) {
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       var val = $(e.currentTarget).find('option:selected').val();
       var nodes = Nodes.find().fetch(),
           edges = Edges.find().fetch();
@@ -65,7 +65,7 @@ Template.edgesOptions.events = {
       }
   },
   'change #edgesColor': function(e, template) {
-    var net = template.view.parentView.parentView._templateInstance.network.get().net;
+    var net = template.view.parentView.parentView._templateInstance.network.get();
     console.log($(e.currentTarget).find('option:selected'));
     var edgeColorMode = $(e.currentTarget).find('option:selected').val();
     console.log(edgeColorMode);

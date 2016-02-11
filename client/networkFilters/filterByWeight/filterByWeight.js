@@ -41,7 +41,7 @@ Template.filterByWeight.rendered = function() {
             .on('change', function(val) {
                 Session.set('filterEdgeByWeight', [Math.round(val[0]), Math.round(val[1])]);
 
-                var net = self.view.parentView.parentView.parentView._templateInstance.network.get().net;
+                var net = self.view.parentView.parentView.parentView._templateInstance.network.get();
                 // console.log(self.min, self.max);
                 var colorScale = d3.scale.category10().domain([val[0], val[1]]);
 

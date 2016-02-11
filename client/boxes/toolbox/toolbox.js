@@ -64,7 +64,7 @@ Template.toolbox.events = {
 
         // degree
         'click #remove-isolated-nodes': function() {
-            // var topogram = Template.instance().network.get().net;
+            // var topogram = Template.instance().network.get();
             var isolated = topogram.elements('node[[degree = 0]]');
             topogram.remove(isolated);
         }

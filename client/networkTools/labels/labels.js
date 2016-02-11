@@ -7,7 +7,7 @@ Template.labels.helpers({
 Template.labels.events = {
 
   'change #nodeLabelLocation': function(e, template) {
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       var val = $(e.currentTarget).find('option:selected').val();
 
       if (val == 'above') {
@@ -30,21 +30,25 @@ Template.labels.events = {
   },
 
   'change #textSizeParam': function(e, template) {
-      var net = template.view.parentView.parentView._templateInstance.network.get().net;
+      var net = template.view.parentView.parentView._templateInstance.network.get();
       var val = textSizeParam.value;
-      net.nodes().style({ 'font-size': val })
+      net.nodes().css({ 'font-size': val })
   },
 
   'click .toggle-node-labels': function(e, template) {
     var network = template.view.parentView.parentView._templateInstance.network.get();
-    network.graphState.showNodesLabels = network.graphState.showNodesLabels ? 0 : 1;
-    network.net.nodes().css({ "text-opacity" : network.graphState.showNodesLabels })
+    var graphState = template.view.parentView.parentView._templateInstance.graphState.get();
+    graphState.showNodesLabels = graphState.showNodesLabels ? 0 : 1;
+    network.nodes().css({ "text-opacity" : graphState.showNodesLabels });
+    template.view.parentView.parentView._templateInstance.graphState.set(graphState);
   },
 
   'click .toggle-edge-labels': function(e, template) {
-    var net = template.view.parentView.parentView._templateInstance.network.get().net;
     var network = template.view.parentView.parentView._templateInstance.network.get();
-    network.graphState.showEdgesLabels = network.graphState.showEdgesLabels ? 0 : 1;
-    network.net.edges().css({ "text-opacity" : network.graphState.showEdgesLabels })
+    var graphState = template.view.parentView.parentView._templateInstance.graphState.get();
+    graphState.showEdgesLabels = graphState.showEdgesLabels ? 0 : 1;
+    network.edges().css({ "text-opacity" : graphState.showEdgesLabels });
+    template.view.parentView.parentView._templateInstance.graphState.set(graphState);
+
   }
 }

@@ -3,16 +3,16 @@
   var defaults = {
     menuRadius: 100, // the radius of the circular menu in pixels
     selector: 'node', // elements matching this Cytoscape.js selector will trigger cxtmenus
-    commands: [ // an array of commands to list in the menu
+    commands: [ // an array of commands to list in the menu or a function that returns the array
       /*
       { // example command
         content: 'a command name' // html/text content to be displayed in the menu
-        select: function(){ // a function to execute when the command is selected
-          console.log( this.id() ) // `this` holds the reference to the active element
+        select: function(ele){ // a function to execute when the command is selected
+          console.log( ele.id() ) // `ele` holds the reference to the active element
         }
       }
       */
-    ], 
+    ], // function( ele ){ return [ /*...*/ ] }, // example function for commands
     fillColor: 'rgba(0, 0, 0, 0.75)', // the background colour of the menu
     activeFillColor: 'rgba(92, 194, 237, 0.75)', // the colour used to indicate the selected command
     activePadding: 20, // additional size in pixels for the active command
@@ -36,7 +36,7 @@
       var cy = this;
       var $container = $( cy.container() );
       var target;
-      
+
       function getOffset( $ele ){
         var offset = $ele.offset();
 
@@ -48,7 +48,7 @@
 
         return offset;
       }
-      
+
       var data = {
         options: options,
         handlers: []
@@ -56,13 +56,14 @@
       var $wrapper = $('<div class="cxtmenu"></div>'); data.$container = $wrapper;
       var $parent = $('<div></div>');
       var $canvas = $('<canvas></canvas>');
+      var commands = [];
       var c2d = $canvas[0].getContext('2d');
       var r = options.menuRadius;
       var containerSize = (r + options.activePadding)*2;
       var activeCommandI = undefined;
       var offset;
 
-      $container.append( $wrapper );
+      $container.prepend( $wrapper );
       $wrapper.append( $parent );
       $parent.append( $canvas );
 
@@ -83,20 +84,18 @@
       $canvas[0].width = containerSize;
       $canvas[0].height = containerSize;
 
-      var commands = options.commands;
-      var dtheta = 2*Math.PI/(commands.length);
-      var theta1 = commands.length % 2 !== 0 ? Math.PI/2 : 0;
+    function createMenuItems() {
+      $('.cxtmenu-item').remove();
+      var dtheta = 2 * Math.PI / (commands.length);
+      var theta1 = commands.length % 2 !== 0 ? Math.PI / 2 : 0;
       var theta2 = theta1 + dtheta;
-      var $items = [];
 
-      for( var i = 0; i < commands.length; i++ ){
+      for (var i = 0; i < commands.length; i++) {
         var command = commands[i];
 
-        var midtheta = (theta1 + theta2)/2;
-        var rx1 = 0.66 * r * Math.cos( midtheta );
-        var ry1 = 0.66 * r * Math.sin( midtheta );
-
-        // console.log(rx1, ry1, theta1, theta2)
+        var midtheta = (theta1 + theta2) / 2;
+        var rx1 = 0.66 * r * Math.cos(midtheta);
+        var ry1 = 0.66 * r * Math.sin(midtheta);
 
         var $item = $('<div class="cxtmenu-item"></div>');
         $item.css({
@@ -113,9 +112,9 @@
           width: r * 0.66,
           height: r * 0.66,
           marginLeft: rx1 - r * 0.33,
-          marginTop: -ry1 -r * 0.33
+          marginTop: -ry1 - r * 0.33
         });
-        
+
         var $content = $('<div class="cxtmenu-content">' + command.content + '</div>');
         $content.css({
           'width': r * 0.66,
@@ -123,40 +122,24 @@
           'vertical-align': 'middle',
           'display': 'table-cell'
         });
-        
-        $parent.append( $item );
-        $item.append( $content );
+
+        if (command.disabled) {
+          $content.addClass('cxtmenu-disabled');
+        }
+
+        $parent.append($item);
+        $item.append($content);
 
 
         theta1 += dtheta;
         theta2 += dtheta;
       }
-
+    }
       var hideParentOnClick, selectOnClickWrapper;
 
-      function addDomListeners(){
-        // Left click hides menu and triggers command
-        $(document).on('click', hideParentOnClick = function() {
-          $parent.hide();
-        });
-
-        $wrapper.on('click', selectOnClickWrapper = function() {
-          if (activeCommandI !== undefined && !!target) {
-            var select = options.commands[activeCommandI].select;
-
-            if (select) {
-              select.apply(target);
-              activeCommandI = undefined;
-            }
-          }
-        });
+      function queueDrawBg( rspotlight ){
+        redrawQueue.drawBg = [ rspotlight ];
       }
-
-      function removeDomListeners(){
-        $(document).off('click', hideParentOnClick);
-        $wrapper.off('click', selectOnClickWrapper);
-      }
-
 
       function drawBg( rspotlight ){
         rspotlight = rspotlight !== undefined ? rspotlight : rs;
@@ -167,14 +150,13 @@
 
         c2d.fillStyle = options.fillColor;
         c2d.beginPath();
-        c2d.arc(r + options.activePadding, r + options.activePadding, r, 0, Math.PI*2, true); 
+        c2d.arc(r + options.activePadding, r + options.activePadding, r, 0, Math.PI*2, true);
         c2d.closePath();
         c2d.fill();
 
         c2d.globalCompositeOperation = 'destination-out';
         c2d.strokeStyle = 'white';
         c2d.lineWidth = options.separatorWidth;
-        var commands = options.commands;
         var dtheta = 2*Math.PI/(commands.length);
         var theta1 = commands.length % 2 !== 0 ? Math.PI/2 : 0;
         var theta2 = theta1 + dtheta;
@@ -190,50 +172,86 @@
           c2d.closePath();
           c2d.stroke();
 
-          // var rx2 = r * Math.cos(theta2);
-          // var ry2 = r * Math.sin(theta2);
-          // c2d.moveTo(r, r);
-          // c2d.lineTo(r + rx2, r + ry2);
-          // c2d.stroke();
-
           theta1 += dtheta;
           theta2 += dtheta;
         }
-        
+
 
         c2d.fillStyle = 'white';
         c2d.globalCompositeOperation = 'destination-out';
         c2d.beginPath();
-        c2d.arc(r + options.activePadding, r + options.activePadding, rspotlight + options.spotlightPadding, 0, Math.PI*2, true); 
+        c2d.arc(r + options.activePadding, r + options.activePadding, rspotlight + options.spotlightPadding, 0, Math.PI*2, true);
         c2d.closePath();
         c2d.fill();
 
         c2d.globalCompositeOperation = 'source-over';
       }
-      
-      var lastCallTime = 0;
-      var minCallDelta = 1000/30;
-      var endCallTimeout;
-      var firstCall = true;
-      function rateLimitedCall( fn ){
-        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-        var now = +new Date;
 
-        clearTimeout( endCallTimeout );
-
-        if( firstCall || now >= lastCallTime + minCallDelta ){
-          requestAnimationFrame(fn);
-          lastCallTime = now;
-          firstCall = false;
-        } else {
-          endCallTimeout = setTimeout(function(){
-            requestAnimationFrame(fn);
-            lastCallTime = now;
-          }, minCallDelta * 2);
-        }
+      function queueDrawCommands( rx, ry, theta ){
+        redrawQueue.drawCommands = [ rx, ry, theta ];
       }
 
-      var ctrx, ctry, rs;
+      function drawCommands( rx, ry, theta ){
+        var dtheta = 2*Math.PI/(commands.length);
+        var theta1 = commands.length % 2 !== 0 ? Math.PI/2 : 0;
+        var theta2 = theta1 + dtheta;
+
+        theta1 += dtheta * activeCommandI;
+        theta2 += dtheta * activeCommandI;
+
+        c2d.fillStyle = options.activeFillColor;
+        c2d.strokeStyle = 'black';
+        c2d.lineWidth = 1;
+        c2d.beginPath();
+        c2d.moveTo(r + options.activePadding, r + options.activePadding);
+        c2d.arc(r + options.activePadding, r + options.activePadding, r + options.activePadding, 2*Math.PI - theta1, 2*Math.PI - theta2, true);
+        c2d.closePath();
+        c2d.fill();
+
+        c2d.fillStyle = 'white';
+        c2d.globalCompositeOperation = 'destination-out';
+
+        // clear the indicator
+        c2d.beginPath();
+        c2d.translate( r + options.activePadding + rx/r*(rs + options.spotlightPadding - options.indicatorSize/4), r + options.activePadding + ry/r*(rs + options.spotlightPadding - options.indicatorSize/4) );
+        c2d.rotate( Math.PI/4 - theta );
+        c2d.fillRect(-options.indicatorSize/2, -options.indicatorSize/2, options.indicatorSize, options.indicatorSize);
+        c2d.closePath();
+        c2d.fill();
+
+        c2d.setTransform(1, 0, 0, 1, 0, 0);
+
+        // clear the spotlight
+        c2d.beginPath();
+        c2d.arc(r + options.activePadding, r + options.activePadding, rs + options.spotlightPadding, 0, Math.PI*2, true);
+        c2d.closePath();
+        c2d.fill();
+
+        c2d.globalCompositeOperation = 'source-over';
+      }
+
+      var redrawing = true;
+      var redrawQueue = {};
+      var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+      var redraw = function(){
+        if( redrawQueue.drawBg ){
+          drawBg.apply( null, redrawQueue.drawBg );
+        }
+
+        if( redrawQueue.drawCommands ){
+          drawCommands.apply( null, redrawQueue.drawCommands );
+        }
+
+        redrawQueue = {};
+
+        if( redrawing ){
+          raf( redraw );
+        }
+      };
+
+      redraw(); // kick off
+
+      var ctrx, ctry, rs, theta;
       var tapendHandler;
 
       var bindings = {
@@ -262,12 +280,46 @@
         var grabbable;
         var inGesture = false;
         var dragHandler;
+        var zoomEnabled;
+        var panEnabled;
+
+        var restoreZoom = function(){
+          if( zoomEnabled ){
+            cy.userZoomingEnabled( true );
+          }
+        };
+
+        var restoreGrab = function(){
+          if( grabbable ){
+            target.grabify();
+          }
+        };
+
+        var restorePan = function(){
+          if( panEnabled ){
+            cy.userPanningEnabled( true );
+          }
+        };
 
         bindings
           .on('cxttapstart taphold', options.selector, function(e){
             target = this; // Remember which node the context menu is for
             var ele = this;
             var isCy = this === cy;
+
+            if( typeof options.commands === 'function' ){
+              commands = options.commands(target);
+            } else {
+              commands = options.commands;
+            }
+
+            if( !commands || commands.length == 0 ){ return; }
+
+            zoomEnabled = cy.userZoomingEnabled();
+            cy.userZoomingEnabled( false );
+
+            panEnabled = cy.userPanningEnabled();
+            cy.userPanningEnabled( false );
 
             grabbable = target.grabbable &&  target.grabbable();
             if( grabbable ){
@@ -292,6 +344,8 @@
             ctrx = rp.x;
             ctry = rp.y;
 
+            createMenuItems();
+
             $parent.show().css({
               'left': rp.x - r + 'px',
               'top': rp.y - r + 'px'
@@ -301,14 +355,14 @@
             rs = Math.max(rs, options.minSpotlightRadius);
             rs = Math.min(rs, options.maxSpotlightRadius);
 
-            drawBg();
+            queueDrawBg();
 
             activeCommandI = undefined;
 
             inGesture = true;
           })
 
-          .on('cxtdrag tapdrag', options.selector, dragHandler = function(e){ rateLimitedCall(function(){
+          .on('cxtdrag tapdrag', options.selector, dragHandler = function(e){
 
             if( !inGesture ){ return; }
 
@@ -317,6 +371,8 @@
 
             var pageX = isTouch ? origE.touches[0].pageX : origE.pageX;
             var pageY = isTouch ? origE.touches[0].pageY : origE.pageY;
+
+            activeCommandI = undefined;
 
             var dx = pageX - offset.left - ctrx;
             var dy = pageY - offset.top - ctry;
@@ -327,23 +383,20 @@
             var cosTheta = (dy*dy - d*d - dx*dx)/(-2 * d * dx);
             var theta = Math.acos( cosTheta );
 
-            activeCommandI = undefined;
-
             if( d < rs + options.spotlightPadding ){
-              drawBg();
+              queueDrawBg();
               return;
             }
 
-            drawBg();
+            queueDrawBg();
 
             var rx = dx*r / d;
             var ry = dy*r / d;
-            
+
             if( dy > 0 ){
               theta = Math.PI + Math.abs(theta - Math.PI);
             }
 
-            var commands = options.commands;
             var dtheta = 2*Math.PI/(commands.length);
             var theta1 = commands.length % 2 !== 0 ? Math.PI/2 : 0;
             var theta2 = theta1 + dtheta;
@@ -351,27 +404,15 @@
             for( var i = 0; i < commands.length; i++ ){
               var command = commands[i];
 
-
-              // console.log(i, theta1, theta, theta2);
-
               var inThisCommand = theta1 <= theta && theta <= theta2
                 || theta1 <= theta + 2*Math.PI && theta + 2*Math.PI <= theta2;
 
+              if( command.disabled ){
+                inThisCommand = false;
+              }
+
               if( inThisCommand ){
-                // console.log('in command ' + i)
-                
-                c2d.fillStyle = options.activeFillColor;
-                c2d.strokeStyle = 'black';
-                c2d.lineWidth = 1;
-                c2d.beginPath();
-                c2d.moveTo(r + options.activePadding, r + options.activePadding);
-                c2d.arc(r + options.activePadding, r + options.activePadding, r + options.activePadding, 2*Math.PI - theta1, 2*Math.PI - theta2, true);
-                c2d.closePath();
-                c2d.fill();
-                //c2d.stroke();
-
                 activeCommandI = i;
-
                 break;
               }
 
@@ -379,29 +420,8 @@
               theta2 += dtheta;
             }
 
-            c2d.fillStyle = 'white';
-            c2d.globalCompositeOperation = 'destination-out';
-
-            // clear the indicator
-            c2d.beginPath();
-            //c2d.arc(r + rx/r*(rs + options.spotlightPadding), r + ry/r*(rs + options.spotlightPadding), options.indicatorSize, 0, 2*Math.PI, true);
-          
-            c2d.translate( r + options.activePadding + rx/r*(rs + options.spotlightPadding - options.indicatorSize/4), r + options.activePadding + ry/r*(rs + options.spotlightPadding - options.indicatorSize/4) );
-            c2d.rotate( Math.PI/4 - theta );
-            c2d.fillRect(-options.indicatorSize/2, -options.indicatorSize/2, options.indicatorSize, options.indicatorSize);
-            c2d.closePath();
-            c2d.fill();
-
-            c2d.setTransform(1, 0, 0, 1, 0, 0);
-
-            // clear the spotlight
-            c2d.beginPath();
-            c2d.arc(r + options.activePadding, r + options.activePadding, rs + options.spotlightPadding, 0, Math.PI*2, true); 
-            c2d.closePath();
-            c2d.fill();
-
-            c2d.globalCompositeOperation = 'source-over';
-          }) })
+            queueDrawCommands( rx, ry, theta );
+          })
 
           .on('tapdrag', dragHandler)
 
@@ -410,19 +430,19 @@
             $parent.hide();
 
             if( activeCommandI !== undefined ){
-              var select = options.commands[ activeCommandI ].select;
+              var select = commands[ activeCommandI ].select;
 
               if( select ){
-                select.apply( ele );
+                select.apply( ele, [ele] );
                 activeCommandI = undefined;
               }
             }
 
             inGesture = false;
 
-            if( grabbable ){
-              target.grabify();
-            }
+            restoreGrab();
+            restoreZoom();
+            restorePan();
           })
 
           .on('cxttapend tapend', function(e){
@@ -430,9 +450,9 @@
 
             inGesture = false;
 
-            if( grabbable ){
-              target.grabify();
-            }
+            restoreGrab();
+            restoreZoom();
+            restorePan();
           })
         ;
       }
@@ -452,12 +472,13 @@
       }
 
       function destroyInstance(){
+        redrawing = false;
+
         removeEventListeners();
 
-        removeDomListeners();
         $wrapper.remove();
       }
-        
+
       addEventListeners();
 
       return {

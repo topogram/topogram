@@ -1,3 +1,15 @@
 <template name="single">
-  {{> networkTemplate topogramId=topogramId topogramName=topogram.name editMode=true}}
+  {{> network editMode=true}}
+  <div id="toolkit" class="row">
+      <div class="toolbox col s3">
+        {{> titlebox editMode=true}}
+        {{> filterbox }}
+        {{> toolbox }}
+        {{> algobox }}
+      </div>
+    <div class="col offset-s6 s3">
+      {{> infobox}}
+    </div>
+  </div>
+  {{> nodeMerge}}
 </template>

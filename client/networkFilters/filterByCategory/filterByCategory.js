@@ -23,8 +23,9 @@ Template.filterByCategory.events = {
   'change #nodeFilterType select': function(e, template) {
       console.log(e);
       var selectedCategories = $(e.target).find("option:selected").map(function(i, el){ return $(el).val() }).toArray();
-      var net = template.view.parentView.parentView.parentView._templateInstance.network.get().net;
-      console.log(selectedCategories);
+      var net = template.view.parentView.parentView.parentView._templateInstance.network.get();
+      console.log(net);
+      
       if (!selectedCategories.length) {
           net.nodes().style({
               'visibility': 'visible'
