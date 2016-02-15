@@ -6,15 +6,15 @@ Template.selectLayout.helpers({
       if ( hasGeo() ) layouts.push("map");
 
       layouts.push(
+        // 'dagre', // hierarchical ACL display, not useful for us
+        // 'cose-bilkent', // uncaught 'prototype' Error
+        // 'cola', // can not get it to work
+        'spread', // CPU overhead
+        'arbor', // works quite okay
+        'springy', // force rendering
         'random',
-        'grid',
-        'circle',
-        'springy',
-        // 'arbor',
-        // 'cola',
-        // 'cose-bilkent',
-        //'dagre',
-        'spread',
+        // 'grid', // uselss layout
+        // 'circle', // useless as well
         'breadthfirst',
         'concentric'
       )
@@ -46,18 +46,19 @@ Template.selectLayout.events = {
 
 
     var layoutConfig = {
+        animate: false,
         name: layoutName,
         stop: function() {  // callback on layoutstop
             console.log( 'update position' );
-            console.log(network.nodes().length);
-            var nodesLayout = network.nodes().map(function(node) {
-                return {
-                    _id : node.data("_id"),
-                    position: node.position()
-                };
-            });
-            console.log(nodesLayout.length, nodesLayout);
-            Meteor.call('updateNodesPositions', nodesLayout); // save nodes position
+            // console.log(network.nodes().length);
+            // var nodesLayout = network.nodes().map(function(node) {
+            //     return {
+            //         _id : node.data("_id"),
+            //         position: node.position()
+            //     };
+            // });
+            // console.log(nodesLayout.length, nodesLayout);
+            // Meteor.call('updateNodesPositions', nodesLayout); // save nodes position
         }
     };
 
