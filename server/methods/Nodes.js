@@ -68,9 +68,7 @@ Meteor.methods( {
         } )._id;
         Nodes.remove( {
             '_id': _id
-        }, {
-            tx: true
-        } );
+        });
     },
 
     deleteNodeAndConnectedEdges: function( nodeId, edgesId ) {
@@ -81,12 +79,10 @@ Meteor.methods( {
         } )._id;
 
         console.log( nodeId, edgesId, _id );
-        tx.start( "delete node+neighborhood" );
+        // tx.start( "delete node+neighborhood" );
         Nodes.remove( {
             "_id": _id
-        }, {
-            tx: true
-        } );
+        });
         Edges.find( {
             'data.id': {
                 '$in': edgesId
@@ -94,11 +90,9 @@ Meteor.methods( {
         } ).forEach( function( edge ) {
             Edges.remove( {
                 "_id": edge._id
-            }, {
-                tx: true
-            } );
+            });
         } );
-        tx.commit();
+        // tx.commit();
     },
 
     deleteNodesByTopogramId: function( topogramId ) {
