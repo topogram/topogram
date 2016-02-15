@@ -44,11 +44,9 @@ geojson-utils
 
 # viz
 d3js:d3
-tdj:cola
 cytoscape:cytoscape
 maxkfranz:cytoscape-qtip
 # maxkfranz:cytoscape-spread
-# maxkfranz:cytoscape-cola
 # maxkfranz:cytoscape-springy
 # maxkfranz:cytoscape-arbor
 
@@ -68,5 +66,5 @@ babrahams:undo-redo
 
 
 npm-container
-mquandalle:bower
 udondan:bulk-collection-update
+mquandalle:bower
