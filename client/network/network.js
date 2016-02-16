@@ -144,6 +144,7 @@ Template.network.rendered = function() {
 
       self.graph.unFocus();
       $('#infoBox').hide();
+      $('#commentBox').hide();
       Router.go(window.location.pathname);
     }
 
@@ -155,7 +156,6 @@ Template.network.rendered = function() {
       } else if (type == "edge") {
         element = Edges.findOne({"data.id" : el.id()})
       }
-      console.log(element);
       return window.location.pathname + "#"+type+"-"+element._id;
     }
 
@@ -330,16 +330,23 @@ Template.network.rendered = function() {
               var starred = (this.data("starred")) ? false : true;
               this.data("starred", starred)
             }
-        }, {
-            content: '<span><i class="small material-icons">lock</i></span>',
-            select: function() {
-                // console.log( this.position() );
-                Meteor.call('lockNode', this.id(), this.position());
-            },
+        // }, {
+        //     content: '<span><i class="small material-icons">lock</i></span>',
+        //     select: function() {
+        //         // console.log( this.position() );
+        //         Meteor.call('lockNode', this.id(), this.position());
+        //     },
         },{
             content: '<span><i class="small material-icons">comment</i></span>',
             select: function() {
-                Meteor.call('addComment', this.id());
+                self.graph.selectElement(this, "node")
+                $("#commentBox").show()
+            },
+
+        },{
+            content: '<span><i class="small material-icons">turned_in_not</i></span>',
+            select: function() {
+                self.graph.selectElement(this, "node")
             },
 
         }]
