@@ -133,136 +133,61 @@ Template.importNetwork.events( {
             return; // end function
         }
 
+        if( ! $(e.target).find("select.importField").length) {
+          FlashMessages.sendError( 'Please select a type for your data' );
+          return
+        }
+
         // get all active select fields
-        var selected = $(e.target).find("select.importField").map(function(i, select) {
-          return {
-            "id" : select.id,
-            "value" : select.value
-          }
+        var selected = {};
+        $(e.target).find("select.importField").each(function(i, select) {
+          return selected[select.id] = select.value;
         })
 
+        console.log(data, selected);
+
         // check for errors in vars
+        if ( type == 'edges' ) {
+            // check if src and target have been set correctly
+            if ( !selected.targetField || !selected.sourceField || ( selected.targetField == selected.sourceField ) ) {
+                FlashMessages.sendError( 'Please define source and target' );
+                return;
+            }
+        }
+        else if ( type == 'nodes' ) {
+          if ( !selected.idField ) {
+              FlashMessages.sendError( 'Please define ID field for your nodes' );
+              return;
+          }
+        }
+        // TODO Verify optional fields
 
 
-        // Navigate to the new graph
-        Router.go( '/topograms/' + self.topogramId );
 
-        // if ( type == 'edges' ) {
-        //     srcField = e.target.srcField.value;
-        //     targetField = e.target.targetField.value;
-        //     if ( Session.get( 'hasDate' ) ) {
-        //         dateField = e.target.dateField.value;
-        //     }
-        //     if ( Session.get( 'hasWidth' ) ) {
-        //         widthField = e.target.widthField.value;
-        //     }
-        //
-        //     // check if src and target have been set correctly // TODO VERIFY DATEFIELD
-        //     if ( !targetField || !srcField || ( targetField == srcField ) ) {
-        //         FlashMessages.sendError( 'Please define source and target' );
-        //         return;
-        //     }
-        // } else if ( type == 'nodes' ) {
-        //     idField = e.target.idField.value;
-        //
-        //     // parse latitude / longitude
-        //     if ( Session.get( 'hasLatLng' ) ) {
-        //         latField = e.target.latField.value;
-        //         lngField = e.target.lngField.value;
-        //
-        //         // add nodes
-        //         if ( !idField || !latField || !lngField || ( latField == lngField ) ) {
-        //             FlashMessages.sendError( 'Please define lat / lng / ID fields' );
-        //             return;
-        //         }
-        //     }
-        //     if ( Session.get( 'hasDate' ) ) {
-        //         dateField = e.target.dateField.value;
-        //     }
-        //     if ( Session.get( 'hasWidth' ) ) {
-        //         widthField = e.target.widthField.value;
-        //     }
-        //     if ( Session.get( 'hasData2' ) ) {
-        //         Data2Field = e.target.Data2Field.value;
-        //     }
-        //     if ( Session.get( 'hasName' ) ) {
-        //         nameField = e.target.nameField.value;
-        //     }
-        //     if ( Session.get( 'hasArrow' ) ) {
-        //         arrowField = e.target.arrowField.value;
-        //     }
-        //     if ( Session.get( 'hasColor' ) ) {
-        //         colorField = e.target.colorField.value;
-        //     }
-        //     if ( Session.get( 'hasStar' ) ) {
-        //         starField = e.target.starField.value;
-        //     }
-        //     if ( Session.get( 'hasRepMethod' ) ) {
-        //         repMethodField = e.target.repMethodField.value;
-        //     }
-        // }
-        //
-        // // parse data
-        // var parsedData = data.data.map( function( d ) {
-        //     // parse geo coords
-        //     var lat = 0,
-        //         lng = 0;
-        //     if ( Session.get( 'hasLatLng' ) ) {
-        //         lat = d[ e.target.latField.value ];
-        //         lng = d[ e.target.lngField.value ];
-        //     };
-        //     //parse dates
-        //     var date = 0;
-        //     if ( Session.get( 'hasDate' ) ) {
-        //         date = d[ e.target.dateField.value ];
-        //     };
-        //     //parse width
-        //     var width = 0;
-        //     if ( Session.get( 'hasWidth' ) ) {
-        //         width = d[ e.target.widthField.value ];
-        //     };
-        //     //parse data2
-        //     var data2 = 0;
-        //     if ( Session.get( 'hasData2' ) ) {
-        //         data2 = d[ e.target.Data2Field.value ];
-        //     };
-        //     //parse name
-        //     var nameE = 0;
-        //     if ( Session.get( 'hasName' ) ) {
-        //         nameE = d[ e.target.nameField.value ];
-        //     };
-        //     //parse arrow
-        //     var arrow = 0;
-        //     if ( Session.get( 'hasArrow' ) ) {
-        //         arrow = d[ e.target.arrowField.value ];
-        //     };
-        //     //parse color
-        //     var color = 0;
-        //     if ( Session.get( 'hasColor' ) ) {
-        //         color = d[ e.target.colorField.value ];
-        //     };
-        //     //parse star
-        //     var star = 0;
-        //     if ( Session.get( 'hasStar' ) ) {
-        //         star = d[ e.target.starField.value ];
-        //     };
-        //     //parse group
-        //     var group = 0;
-        //     if ( Session.get( 'hasGroup' ) ) {
-        //         group = d[ e.target.groupField.value ];
-        //     };
-        //     //parse repMethod
-        //     var repMethod = "";
-        //     if ( Session.get( 'hasrepMethod' ) ) {
-        //         repMethod = d[ e.target.repMethodField.value ];
-        //     };
-        //
-        //     // parse data
-        //     if ( type == 'nodes' ) return makeNode( self.topogramId, d[ idField ], 0, 0, lat, lng, width,data2, date, nameE, color, repMethod,star,group, d );
-        //     else if ( type == 'edges' ) return makeEdge( self.topogramId, d[ srcField ], d[ targetField ],width,data2, date, nameE, color, repMethod, arrow,group, d );
-        // } );
-        //
-        // /// TODO : display loader
+        // parse data
+        var parsedData = data.data.map(function(d) {
+          console.log(d);
+
+          // parse csv data
+          var cleanData = {}
+          for (key in selected) {
+
+            var cleanKey = key.replace("Field", ""); // get key from field name
+            var csvKey = selected[key]; // proper row name from csv
+            cleanData[cleanKey] = d[ csvKey ]
+          };
+
+          // create nodes and edges
+          if ( type == 'nodes' )
+            return makeNode(self.topogramId, cleanData, d);
+          else if ( type == 'edges' )
+            return makeEdge(self.topogramId, cleanData, d);
+
+        });
+        console.log(parsedData);
+
+        // save data
+        // TODO : display loader
         // if ( type == 'edges' ) {
         //     Meteor.call( 'batchInsertEdges', parsedData, function( edges ) {
         //         console.log( data.data.length, ' edges added' );
@@ -277,6 +202,7 @@ Template.importNetwork.events( {
         //         // Router.go( '/topograms/' + self.topogramId + '/nodes' );
         //     } );
         // }
+
 
     }
 } );
