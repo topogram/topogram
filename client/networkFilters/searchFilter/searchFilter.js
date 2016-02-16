@@ -72,7 +72,12 @@ Template.searchFilter.events( {
 
         if ( event.target.value != '' ) {
           $( "#search-dropdown>li" ).remove(); // clean list
-          var nodes =  Nodes.find( { 'data.data.name' : {$regex: event.target.value+"*"} }, options ).fetch();
+          var nodes =  Nodes.find({
+            'data.data.name' : {
+              $regex: event.target.value+"*",
+              $options : "i"
+            }}, options ).fetch();
+
           nodes.forEach( function( r ) {
               $( "#search-dropdown" ).append( "<li><a href=# data-node-id=" + r.data.data.id + ">" + r.data.data.name + "</a></li>" );
           } );
