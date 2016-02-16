@@ -7,6 +7,8 @@
                 <i class="material-icons right">more_vert</i>
                 {{ currentSelection.name }}
             </span>
+            <h5>Go to</h5>
+            {{> searchBox searchName="targetName" type="target"}}
             <ul class="collection">
                 {{#each objectToPairs currentSelection.additionalInfo }}
                     <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
@@ -17,7 +19,7 @@
             <ul id="comments" class="collection">
                 {{#each comments}}
                     <li class="collection-item avatar">
-                            {{> comment comment=this}}
+                        {{> comment comment=this}}
                     </li>
                 {{/each}}
             </ul>

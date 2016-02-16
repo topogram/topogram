@@ -132,6 +132,21 @@ Template.network.rendered = function() {
         $('#infoBox').css('visibility', 'visible');
     });
 
+    this.graph.drawPath = function( sourceNode, targetNode ) {
+      console.log(self.graph, sourceNode, targetNode);
+      self.graph.unFocus();
+      var path = self.graph.elements().dijkstra(sourceNode).pathTo(targetNode);
+      // self.graph.focusOnNodes(path);
+      self.graph.nodes().style({ 'opacity': '.1' });
+      self.graph.edges().style({ 'opacity': '.1' });
+      path.style({ 'opacity': '1' });
+
+      // make only the focus selectable
+      self.graph.nodes().unselectify();
+      self.graph.edges().unselectify(false);
+      path.selectify();
+    }
+
     // select / unsleselct nodes
     this.graph.focusOnNodes = function(selectedNodes){
       self.graph.nodes().style({
@@ -154,7 +169,7 @@ Template.network.rendered = function() {
       selectedNodes.neighborhood().selectify();
     }
 
-    this.graph.unFocus = function(selectedNodes){
+    this.graph.unFocus = function(){
       self.graph.nodes().style( {
           "opacity": '1'
       } );
