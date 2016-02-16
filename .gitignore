@@ -1,3 +1,4 @@
 .meteor/local
 .meteor/meteorite
 csv
+public/bower_components
