@@ -64,7 +64,8 @@ mikowals:batch-insert
 babrahams:transactions
 babrahams:undo-redo
 
-
 npm-container
 udondan:bulk-collection-update
 mquandalle:bower
+raix:handlebar-helpers
+fortawesome:fontawesome

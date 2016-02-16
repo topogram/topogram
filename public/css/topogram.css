@@ -1,3 +1,7 @@
+body{
+  background: #F5F5F5;
+}
+
 span.badge {
     position: relative !important;
     right: 0 !important;
@@ -15,9 +19,9 @@ nav ul {
     word-wrap: break-word;
 }
 
-#infoBox span.card-title {
+#infoBox p.card-title {
   line-height: 1em;
-  font-size: 1.2em;
+  font-size: 1.4em;
 }
 #closeInfoBox {
     cursor: pointer;
@@ -83,7 +87,7 @@ svg {
   margin-top: 0;
 }
 
-#network-search input[type=search] {
+.network-search input[type=search] {
     padding-left: 0;
     width: inherit;
 }

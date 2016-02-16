@@ -1,0 +1,11 @@
+<template name="importNodes">
+  <div id="importNodesFields">
+      <div class="col s6">
+        {{> importFieldSelector fieldId="idField" label="Node ID" dataFields=getDataFields optional=0}}
+      </div>
+      <!-- Geo Field : only for nodes-->
+        {{> importFieldSelector fieldId="latField" label="Latitude" dataFields=getDataFields optional=1}}
+        {{> importFieldSelector fieldId="lngField" label="Longitude" dataFields=getDataFields optional=1}}
+      <!-- Star Field -->
+  </div>
+</template>

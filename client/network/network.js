@@ -9,9 +9,10 @@ Template.network.created = function() {
   this.editMode = this.data.editMode;
 
   // init node/edge selector
-  $('#infoBox').css('visibility', 'hidden'); // hide infobox by default
+  $('#infoBox').hide(); // hide infobox by default
   Session.set( 'currentId', null );
   Session.set( 'currentType', null );
+  Session.set('pathTargetNodeId', null);
 
   // node merger
   Session.set("mergeSource", null)
@@ -43,10 +44,11 @@ Template.network.rendered = function() {
         style: cytoscape.stylesheet()
             .selector('node')
               .style({
-                'font-size': this.graphState.fontSize,
-                'text-valign': 'top',
+                'font-size': 6,//this.graphState.fontSize,
+                'text-valign': 'center',
+                'text-halign': 'right',
                 'color': 'black',
-                'text-max-width': 100,
+                'text-max-width': 60,
                 'text-wrap': 'wrap',
                 'min-zoomed-font-size': 0.4,
                 'background-color' : function(e) {
@@ -55,9 +57,9 @@ Template.network.rendered = function() {
                   else if (e.data("color")) color = color;
                   return e.data('starred') ? 'yellow' : color;
                 },
-                'text-opacity' : 0, // hide label by default
+                // 'text-opacity' : 0, // hide label by default
                 'label': function(e) {
-                  return e.data("name") ? e.data("name") : "";
+                  return e.data("name") ? e.data("name").trunc(20) : "";
                 }
               })
             // node with degree zero
@@ -99,7 +101,7 @@ Template.network.rendered = function() {
     this.graph.add(edges);
 
     // apply size
-    var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([4,40]);
+    var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([6,40]);
     this.graph.style()
       .selector('node')
       .style({
@@ -115,42 +117,142 @@ Template.network.rendered = function() {
 
     // mouse select actions
     this.graph.on('select', 'node', /*_.debounce(*/ function(e) {
-
         var node = e.cyTarget;
-        console.log(node.data());
-        Session.set('currentType', 'node');
-        Session.set('currentId', node.id());
-
-        // color focus
-        self.graph.nodes().style({
-            'opacity': '.1'
-        });
-        self.graph.edges().style({
-            'opacity': '.1'
-        });
-        node.style({
-            'opacity': '1',
-            'text-opacity': '1'
-        });
-        node.neighborhood().style({
-            'opacity': '1',
-            'text-opacity': '1'
-        });
-
-        // make only the focus selectable
-        self.graph.nodes().unselectify();
-        self.graph.edges().unselectify(false);
-        node.neighborhood().selectify();
-
-        $('#infoBox').css('visibility', 'visible');
+        self.graph.selectElement(e.cyTarget, "node");
     });
 
     this.graph.on('select', 'edge', /*_.debounce(*/ function(e) {
-        var edge = e.cyTarget;
-        Session.set('currentType', 'edge');
-        Session.set('currentId', edge.id());
-        $('#infoBox').css('visibility', 'visible');
+        var node = e.cyTarget;
+        self.graph.selectElement(e.cyTarget, "edge");
     });
+
+    this.graph.selectElement = function(el, type){
+      Session.set('currentType', type);
+      Session.set('currentId', el.id());
+
+      self.graph.focusOnNodes(el)
+      $('#infoBox').show();
+
+      var url = self.graph.getElementUrl(el, type);
+      Router.go(url);
+    }
+
+    this.graph.deselectAll = function(){
+      Session.set('currentType', null);
+      Session.set('currentId', null);
+      Session.set('pathTargetNodeId', null);
+
+      self.graph.unFocus();
+      $('#infoBox').hide();
+      $('#commentBox').hide();
+      Router.go(window.location.pathname);
+    }
+
+    this.graph.getElementUrl = function(el, type) {
+      // get node/edge _id
+      var element;
+      if(type =="node") {
+        element = Nodes.findOne({"data.id" : el.id()})
+      } else if (type == "edge") {
+        element = Edges.findOne({"data.id" : el.id()})
+      }
+      return window.location.pathname + "#"+type+"-"+element._id;
+    }
+
+    this.graph.getElementById = function(id, type){
+      if(type == "node") {
+        return self.graph.nodes().filter("[id='"+id+"']");
+      } else if (type == "edge") {
+        return self.graph.edges().filter("[id='"+id+"']");
+      }
+    }
+
+    // mouse over
+    this.graph.on('mouseover', 'node', /*_.debounce(*/ function(e) {
+        e.cyTarget.style({
+          'border-width': 2,
+          'border-color': '#D84315',
+          'font-size' : 8,
+          'label': function(d) {
+            return d.data("name") ? d.data("name") : "";
+          }
+        })
+    });
+    this.graph.on('mouseout', 'node', /*_.debounce(*/ function(e) {
+        e.cyTarget.style({
+          'border-width': 0,
+          'font-size' : 6,
+          'label': function(d) {
+            return d.data("name") ? d.data("name").trunc(20) : "";
+          }
+        })
+    });
+
+    this.graph.drawPath = function( sourceNode, targetNode ) {
+      console.log(self.graph, sourceNode, targetNode);
+      self.graph.unFocus();
+      var path = self.graph.elements().dijkstra(sourceNode).pathTo(targetNode);
+
+      // self.graph.focusOnNodes(path);
+      self.graph.nodes().style({ 'opacity': '.1' });
+      self.graph.edges().style({ 'opacity': '.1' });
+      path.style({ 'opacity': '1' });
+
+      // make only the focus selectable
+      self.graph.nodes().unselectify();
+      self.graph.edges().unselectify(false);
+      path.selectify();
+    }
+
+    // select / unsleselct nodes
+    this.graph.focusOnNodes = function(selectedNodes){
+      self.graph.nodes().style({
+          'opacity': '.1'
+      });
+      self.graph.edges().style({
+          'opacity': '.1'
+      });
+
+      selectedNodes.style({
+          'opacity': '1'
+      });
+      selectedNodes.neighborhood().style({
+          'opacity': '1'
+      });
+
+      // make only the focus selectable
+      self.graph.nodes().unselectify();
+      self.graph.edges().unselectify(false);
+      selectedNodes.neighborhood().selectify();
+    }
+
+    this.graph.unFocus = function(){
+      self.graph.nodes().style( {
+          "opacity": '1'
+      } );
+      self.graph.edges().style( {
+          "opacity": '1'
+      } );
+      self.graph.nodes().selectify();
+      self.graph.edges().selectify();
+    }
+
+    // load node if hash
+    if(window.location.hash) {
+      var type = window.location.hash.split("-")[0].replace("#","");
+      var elementId = window.location.hash.split("-")[1];
+      var element;
+      console.log(type, elementId);
+      if(type =="node") {
+        element = Nodes.findOne({"_id" : elementId})
+      } else if (type == "edge") {
+        element = Edges.findOne({"_id" : elementId})
+      }
+      console.log(element);
+      var el = self.graph.getElementById(element.data.id, type);
+      console.log(el);
+      if(el) self.graph.selectElement(el, type)
+    }
 
     // drag node
     this.graph.on('free', 'node', /*_.debounce(*/ function(e) {
@@ -199,32 +301,6 @@ Template.network.rendered = function() {
     });
     this.graph.edgehandles("disable"); // disbaled by default
 
-    // qtip
-    this.graph.elements('node:selectable').qtip({
-        content: function() {
-            return this.data().data.type + ' - ' + this.data().data.name;
-        },
-        show: {
-            event: 'mouseover'
-        },
-        hide: {
-            event: 'mouseout'
-        }
-    });
-
-    this.graph.elements('edge:selectable').qtip({
-        content: function() {
-            return this.data().data.type;
-        },
-        show: {
-            event: 'mouseover'
-        },
-        hide: {
-            event: 'mouseout'
-        }
-    });
-
-    // console.log(this);
     if(!this.editMode) {
       self.graph.autolock(true); // prevent drag
       self.graph.edgehandles("disable");
@@ -250,26 +326,28 @@ Template.network.rendered = function() {
         }, {
             content: '<span><i class="small material-icons">star_rate</i></span>',
             select: function() {
-                Meteor.call('starNode', this.id());
-                this.data().starred = (this.data().starred) ? false : true;
-                // console.log("starred", this.data("starred"), this.data("color"));
-                this.style( {
-                  'background-color': function(e){
-                    return e.data("starred") ? "yellow" : e.data("color");
-                  }
-                });
-
+              Meteor.call('starNode', this.id());
+              var starred = (this.data("starred")) ? false : true;
+              this.data("starred", starred)
             }
-        }, {
-            content: '<span><i class="small material-icons">lock</i></span>',
-            select: function() {
-                // console.log( this.position() );
-                Meteor.call('lockNode', this.id(), this.position());
-            },
-        }, {
+        // }, {
+        //     content: '<span><i class="small material-icons">lock</i></span>',
+        //     select: function() {
+        //         // console.log( this.position() );
+        //         Meteor.call('lockNode', this.id(), this.position());
+        //     },
+        },{
             content: '<span><i class="small material-icons">comment</i></span>',
             select: function() {
-                Meteor.call('addComment', this.id());
+                self.graph.selectElement(this, "node")
+                $("#commentBox").show()
+            },
+
+        },{
+            content: '<span><i class="small material-icons">library_books</i></span>',
+            select: function() {
+              // TODO : share to social networks
+              self.graph.selectElement(this, "node")
             },
 
         }]

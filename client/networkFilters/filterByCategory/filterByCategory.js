@@ -12,8 +12,9 @@ Template.filterByCategory.helpers({
 
         var types = [];
         nodes.forEach(function(node) {
-            if (types.indexOf(node.data.data.type) < 0) types.push(node.data.data.type);
+            if (types.indexOf(node.data.group) < 0) types.push(node.data.group);
         });
+
         return types;
     }
 })
@@ -21,18 +22,17 @@ Template.filterByCategory.helpers({
 Template.filterByCategory.events = {
   // filter
   'change #nodeFilterType select': function(e, template) {
-      console.log(e);
+
       var selectedCategories = $(e.target).find("option:selected").map(function(i, el){ return $(el).val() }).toArray();
       var net = template.view.parentView.parentView.parentView._templateInstance.network.get();
-      console.log(net);
-      
+
       if (!selectedCategories.length) {
           net.nodes().style({
               'visibility': 'visible'
           })
       } else {
           var visible = net.nodes().forEach(function(ele) {
-              if (selectedCategories.indexOf(ele.data().data.type) > -1 ) ele.style({
+              if (selectedCategories.indexOf(ele.data("group")) > -1 ) ele.style({
                   'visibility': 'visible'
               })
               else ele.style({
