@@ -23,16 +23,6 @@
                     <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
                 {{/each}}
             </ul>
-            <hr>
-            <p>{{ comments.length }} comments</p>
-            <ul id="comments" class="collection">
-                {{#each comments}}
-                    <li class="collection-item avatar">
-                        {{> comment comment=this}}
-                    </li>
-                {{/each}}
-            </ul>
-            {{> commentForm}}
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">Data<i class="material-icons right">close</i></span>
