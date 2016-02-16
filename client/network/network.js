@@ -326,15 +326,9 @@ Template.network.rendered = function() {
         }, {
             content: '<span><i class="small material-icons">star_rate</i></span>',
             select: function() {
-                Meteor.call('starNode', this.id());
-                this.data().starred = (this.data().starred) ? false : true;
-                // console.log("starred", this.data("starred"), this.data("color"));
-                this.style( {
-                  'background-color': function(e){
-                    return e.data("starred") ? "yellow" : e.data("color");
-                  }
-                });
-
+              Meteor.call('starNode', this.id());
+              var starred = (this.data("starred")) ? false : true;
+              this.data("starred", starred)
             }
         }, {
             content: '<span><i class="small material-icons">lock</i></span>',
@@ -342,7 +336,7 @@ Template.network.rendered = function() {
                 // console.log( this.position() );
                 Meteor.call('lockNode', this.id(), this.position());
             },
-        }, {
+        },{
             content: '<span><i class="small material-icons">comment</i></span>',
             select: function() {
                 Meteor.call('addComment', this.id());
