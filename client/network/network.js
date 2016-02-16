@@ -346,7 +346,8 @@ Template.network.rendered = function() {
         },{
             content: '<span><i class="small material-icons">library_books</i></span>',
             select: function() {
-                self.graph.selectElement(this, "node")
+              // TODO : share to social networks
+              self.graph.selectElement(this, "node")
             },
 
         }]

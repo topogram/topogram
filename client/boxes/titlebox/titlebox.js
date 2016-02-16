@@ -23,5 +23,17 @@ Template.titlebox.events =  {
   },
   'click #toggle-commentbox' : function() {
     $('#commentBox').toggle();
+  },
+  'click #download-png' : function() {
+    console.log(Template.instance());
+    var network = Template.instance().view.parentView.parentView._templateInstance.network.get()
+    var png =  network.png({
+      // 'full' : true
+    });
+    var a = document.createElement("a");
+	  a.download = "network.png";
+	  a.href = png;
+	  a.click();
+
   }
 }
