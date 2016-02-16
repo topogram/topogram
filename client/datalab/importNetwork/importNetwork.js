@@ -30,6 +30,15 @@ Template.importNetwork.onCreated( function() {
           var data = Papa.parse( csvData, parsingOptions );
           console.log( data );
 
+          // check if there is any points in the fields
+          data.meta.fields.forEach(function(fieldName){
+            if(fieldName.split(".").length > 1) {
+              data.errors.push({
+                "message" : "the column name'"+ fieldName + "' contains the forbidden character : '.'"
+              })
+            }
+          })
+
           if ( data.errors.length ) {
               for ( var i = 0; i < data.errors.length; i++ ) {
                   self.newLayerDataReady.set(false);
