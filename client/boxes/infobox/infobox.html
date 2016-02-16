@@ -18,11 +18,6 @@
             {{/if}}
             <hr>
             {{> searchBox searchName="targetName" type="target" placeholder="Go to another node"}}
-            <ul class="collection">
-                {{#each objectToPairs currentSelection.additionalInfo }}
-                    <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
-                {{/each}}
-            </ul>
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">Data<i class="material-icons right">close</i></span>
