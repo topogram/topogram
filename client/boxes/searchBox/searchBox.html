@@ -1,20 +1,20 @@
-<template name="searchFilter">
-  <div id="network-search" class="search input-field">
+<template name="searchBox">
+  <div class="network-search search input-field">
     <i class="material-icons prefix">search</i>
     <!-- <label for="search">Search node or edge</label> -->
       <input
-            id="search"
+            class="search"
             type=search
             name="searchFilter"
-            placeholder="Lookup network"
+            placeholder="{{placeholder}}"
             autocomplete="off"
             spellcheck="off"
-            data-activates="search-dropdown"
+            data-activates="{{searchName}}"
             data-beloworigin="true"
             required
         >
-        <i id="searchClose" class="material-icons">close</i>
-        <ul id="search-dropdown" class="dropdown-content"></ul>
+        <i class="searchClose material-icons">close</i>
+        <ul id="{{searchName}}" class="search-dropdown dropdown-content"></ul>
     </div>
 
 </template>

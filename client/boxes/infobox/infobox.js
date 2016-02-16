@@ -1,43 +1,36 @@
 Template.infobox.rendered = function() {
-  $("#infoBox").css('visibility', 'hidden');
+  $("#infoBox").hide();
 };
 
-Template.infobox.helpers( {
-    comments: function() {
-        var type = Session.get( 'currentType' ) || 'node',
-            id = Session.get( 'currentId' ) || 'node-000';
-        var comments = Comments.find( {
-            'id': id,
-            'type': type
-        } ).fetch();
-        return comments
-    },
-
-    currentSelection: function() {
-        var id = Session.get( 'currentId' ),
-            type = Session.get( 'currentType' ),
-            item = {};
-
-        if ( type == 'node' ) {
-            item = Nodes.findOne( {
-                'data.id': id
-            } );
-        } else if ( type == 'edge' ) {
-            item = Edges.findOne( {
-                'data.id': id
-            } );
-        }
-        return item.data;
+Template.infobox.helpers({
+  network : function(){
+    return Template.instance().view.parentView._templateInstance.network.get();
+  },
+  currentSelection: function() {
+      var item = getCurrentSelection();
+      return item.data;
+  },
+  target : function() {
+    var network = Template.instance().view.parentView._templateInstance.network.get();
+    if( Session.get( 'currentId' ) && Session.get( 'currentType' ) && Session.get('pathTargetNodeId') ){
+      var targetNode = network.nodes().filter("[id='"+Session.get('pathTargetNodeId')+"']");
+      return targetNode.data()
     }
-} )
+  },
+  pathToTarget: function() {
+    var network = Template.instance().view.parentView._templateInstance.network.get();
+    if( Session.get( 'currentId' ) && Session.get( 'currentType' ) && Session.get('pathTargetNodeId') ){
+      var sourceNode = network.nodes().filter("[id='"+Session.get('currentId')+"']");
+      var targetNode = network.nodes().filter("[id='"+Session.get('pathTargetNodeId')+"']");
+      var path = network.elements().dijkstra(sourceNode).pathTo(targetNode);
+      return path.nodes().map(function(d){ return d.data() });
+    }
+  }
+})
 
 Template.infobox.events = {
     'click #closeInfoBox': function( event, template ) {
         var network = template.view.parentView._templateInstance.network.get()
-        network.nodes().style({ "opacity": '1', 'text-opacity': '0' });
-        network.edges().style({ "opacity": '1', 'text-opacity': '0' });
-        network.nodes().selectify();
-        network.edges().selectify();
-        $( "#infoBox" ).css( 'visibility', 'hidden' );
+        network.deselectAll()
     }
 };

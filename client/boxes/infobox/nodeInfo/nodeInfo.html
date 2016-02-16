@@ -1,0 +1,31 @@
+<template name="nodeInfo">
+  <ul class="card-content collapsible" data-collapsible="expandable">
+    <li>
+      <span id="closeInfoBox"><i class="material-icons right">close</i></span>
+      <p class="card-title activator grey-text text-darken-4">
+            <i class="material-icons right">more_vert</i>
+            {{ node.name }}
+      </p>
+    </li>
+    {{#if neighborhood.length }}
+      <li>
+        <div class="collapsible-header"><i class="material-icons">games</i>Neighborhood</div>
+        <ul class="collection collapsible-body">
+          {{#each neighborhood }}
+              <li class="collection-item">{{this.name}}</li>
+          {{/each}}
+        </ul>
+      </li>
+    {{/if}}
+    <li>
+      <div class="collapsible-header"><i class="material-icons">view_list</i>Data</div>
+      <ul class="collection collapsible-body">
+        {{#each objectToPairs node.rawData }}
+          {{#if value}}
+            <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </li>
+  </ul>
+</template>
