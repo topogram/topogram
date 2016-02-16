@@ -75,6 +75,7 @@ npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
 promise@0.5.1
+raix:handlebar-helpers@0.2.5
 random@1.0.5
 rate-limit@1.0.0
 reactive-dict@1.1.3
