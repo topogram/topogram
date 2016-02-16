@@ -12,7 +12,7 @@ Template.filterByCategory.helpers({
 
         var types = [];
         nodes.forEach(function(node) {
-            if (types.indexOf(node.data.data.type) < 0) types.push(node.data.data.type);
+            if (types.indexOf(node.data.group) < 0) types.push(node.data.group);
         });
         return types;
     }

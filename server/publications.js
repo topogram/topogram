@@ -45,6 +45,23 @@ Meteor.publish( 'publicTopogram', function( topogramId ) {
 } );
 
 /*
+ *  DATASETS
+ */
+
+ Meteor.publish( 'datasets', function( userId ) {
+     return Datasets.find( {
+         "owner": this.userId
+     } );
+ });
+
+ Meteor.publish( 'dataset', function( datasetId ) {
+     return Datasets.find( {
+         '_id': topogramId
+     } );
+ });
+
+
+/*
  *  NODES AND EDGES
  */
 
