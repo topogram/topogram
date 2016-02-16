@@ -14,20 +14,18 @@ Template.infobox.helpers( {
     },
 
     currentSelection: function() {
-        var id = Session.get( 'currentId' ),
-            type = Session.get( 'currentType' ),
-            item = {};
-
-        if ( type == 'node' ) {
-            item = Nodes.findOne( {
-                'data.id': id
-            } );
-        } else if ( type == 'edge' ) {
-            item = Edges.findOne( {
-                'data.id': id
-            } );
-        }
+        var item = getCurrentSelection();
         return item.data;
+    },
+    currentNeighborhood: function() {
+      var network = Template.instance().view.parentView._templateInstance.network.get();
+      if(Session.get( 'currentId' ) && Session.get( 'currentType' )) {
+        var selected = getCurrentSelection();
+        var neighborhood = network.nodes().filter("[id='"+selected.data.id+"']").neighborhood()
+        console.log(neighborhood);
+        return neighborhood.nodes().map(function(d){ return d.data() });
+      }
+      else return
     }
 } )
 

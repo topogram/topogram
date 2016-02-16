@@ -3,12 +3,21 @@
 
         <div class="card-content">
             <span id="closeInfoBox"><i class="material-icons right">close</i></span>
-            <span class="card-title activator grey-text text-darken-4">
+            <p class="card-title activator grey-text text-darken-4">
                 <i class="material-icons right">more_vert</i>
                 {{ currentSelection.name }}
-            </span>
-            <h5>Go to</h5>
-            {{> searchBox searchName="targetName" type="target"}}
+            </p>
+            <hr>
+            {{#if currentNeighborhood.length }}
+              <span class="card-title">Neighborhood</span>
+              <ul class="collection">
+                {{#each currentNeighborhood }}
+                    <li class="collection-item">{{this.name}}</li>
+                {{/each}}
+              </ul>
+            {{/if}}
+            <hr>
+            {{> searchBox searchName="targetName" type="target" placeholder="Go to another node"}}
             <ul class="collection">
                 {{#each objectToPairs currentSelection.additionalInfo }}
                     <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>

@@ -6,8 +6,6 @@ Template.searchBox.events( {
     'click .search-dropdown>li': function(e, template) {
         var divName = template.data.searchName
         var searchType = template.data.type;
-        console.log(template);
-        console.log(divName);
 
         // display text
         $("#"+divName+" .search" ).attr("value", $(e.target).text());

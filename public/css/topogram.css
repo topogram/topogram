@@ -15,9 +15,9 @@ nav ul {
     word-wrap: break-word;
 }
 
-#infoBox span.card-title {
+#infoBox p.card-title {
   line-height: 1em;
-  font-size: 1.2em;
+  font-size: 1.4em;
 }
 #closeInfoBox {
     cursor: pointer;
