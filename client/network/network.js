@@ -215,7 +215,7 @@ Template.network.rendered = function() {
     // qtip
     this.graph.elements('node:selectable').qtip({
         content: function() {
-            return this.data().data.type + ' - ' + this.data().data.name;
+            return this.data("name") ? this.data("name") : this.data("id");
         },
         show: {
             event: 'mouseover'
@@ -227,7 +227,7 @@ Template.network.rendered = function() {
 
     this.graph.elements('edge:selectable').qtip({
         content: function() {
-            return this.data().data.type;
+          return this.data("name") ? this.data("name") : this.data("id");
         },
         show: {
             event: 'mouseover'
