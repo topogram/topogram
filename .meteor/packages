@@ -62,5 +62,3 @@ accounts-password
 mikowals:batch-insert
 babrahams:transactions
 babrahams:undo-redo
-sanjo:jasmine
-velocity:html-reporter
