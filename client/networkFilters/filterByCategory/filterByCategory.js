@@ -14,6 +14,7 @@ Template.filterByCategory.helpers({
         nodes.forEach(function(node) {
             if (types.indexOf(node.data.group) < 0) types.push(node.data.group);
         });
+        
         return types;
     }
 })
@@ -25,7 +26,7 @@ Template.filterByCategory.events = {
       var selectedCategories = $(e.target).find("option:selected").map(function(i, el){ return $(el).val() }).toArray();
       var net = template.view.parentView.parentView.parentView._templateInstance.network.get();
       console.log(net);
-      
+
       if (!selectedCategories.length) {
           net.nodes().style({
               'visibility': 'visible'

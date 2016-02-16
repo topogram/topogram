@@ -1,12 +1,12 @@
 <template name="filterByCategory">
-  <div id="nodeFilterType" class="input-field">
-    {{# if nodeTypes.length }}
-    <select class="browser-default" name="nodeFilterType" multiple>
-        <option value="" disabled selected>Filter nodes by type</option>
-        {{#each nodeTypes}}
-          <option value="{{this}}">{{this}}</option>
-        {{/each}}
-    </select>
-    {{/ if}}
-  </div>
+  {{# if $gt nodeTypes.length 1 }}
+    <div id="nodeFilterType" class="input-field">
+      <select class="browser-default" name="nodeFilterType" multiple>
+          <option value="" disabled selected>Filter nodes by type</option>
+          {{#each nodeTypes}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+      </select>
+    </div>
+  {{/ if}}
 </template>
