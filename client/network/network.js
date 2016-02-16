@@ -152,6 +152,30 @@ Template.network.rendered = function() {
         $('#infoBox').css('visibility', 'visible');
     });
 
+    this.graph.focusOnNodes = function(selectedNodes){
+      console.log(this, self.graph);
+      console.log(selectedNodes);
+
+      self.graph.nodes().style({
+          'opacity': '.1'
+      });
+      self.graph.edges().style({
+          'opacity': '.1'
+      });
+
+      selectedNodes.style({
+          'opacity': '1'
+      });
+      selectedNodes.neighborhood().style({
+          'opacity': '1'
+      });
+
+      // make only the focus selectable
+      self.graph.nodes().unselectify();
+      self.graph.edges().unselectify(false);
+      selectedNodes.neighborhood().selectify();
+    }
+
     // drag node
     this.graph.on('free', 'node', /*_.debounce(*/ function(e) {
         var node = e.cyTarget;

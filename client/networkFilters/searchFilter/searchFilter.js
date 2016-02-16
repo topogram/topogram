@@ -5,40 +5,25 @@ Template.searchFilter.rendered = function() {
 
 Template.searchFilter.events( {
     'click #search-dropdown>li': function(e, template) {
-        // console.log($(e.target).data("node-id"), $(e.target).text());
 
         // display text
         document.getElementById( "search" ).value = $(e.target).text();
 
+        // search if a node exists
         if ( !$(e.target).data("node-id") ) return;
 
         var net = template.view.parentView.parentView._templateInstance.network.get();
 
         // get node from cy
-        var node = net.nodes().filter("[id='"+$(e.target).data("node-id")+"']");
-
-        Session.set('currentType', 'node');
-        Session.set('currentId', node.id());
+        var selectedNode = net.nodes().filter("[id='"+$(e.target).data("node-id")+"']");
 
         // color focus
-        net.nodes().style({
-            'opacity': '.1'
-        });
-        net.edges().style({
-            'opacity': '.1'
-        });
-        node.style({
-            'opacity': '1'
-        });
-        node.neighborhood().style({
-            'opacity': '1'
-        });
+        net.focusOnNodes(selectedNode);
 
-        // make only the focus selectable
-        net.nodes().unselectify();
-        net.edges().unselectify(false);
-        node.neighborhood().selectify();
-
+        // display info
+        // TODO : should support multiple nodes
+        Session.set('currentType', 'node');
+        Session.set('currentId', selectedNode.id());
         $('#infoBox').css('visibility', 'visible');
 
     },
@@ -77,9 +62,8 @@ Template.searchFilter.events( {
               $regex: event.target.value+"*",
               $options : "i"
             }}, options ).fetch();
-
           nodes.forEach( function( r ) {
-              $( "#search-dropdown" ).append( "<li><a href=# data-node-id=" + r.data.data.id + ">" + r.data.data.name + "</a></li>" );
+              $( "#search-dropdown" ).append( "<li><a href=# data-node-id=" + r.data.id + ">" + r.data.name + "</a></li>" );
           } );
         } else {
           $( "#search-dropdown>li" ).remove();
