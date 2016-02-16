@@ -87,3 +87,7 @@ svg {
     padding-left: 0;
     width: inherit;
 }
+
+#viz-main {
+  background: #F5F5F5;
+}
