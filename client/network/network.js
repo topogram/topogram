@@ -121,27 +121,7 @@ Template.network.rendered = function() {
         Session.set('currentType', 'node');
         Session.set('currentId', node.id());
 
-        // color focus
-        self.graph.nodes().style({
-            'opacity': '.1'
-        });
-        self.graph.edges().style({
-            'opacity': '.1'
-        });
-        node.style({
-            'opacity': '1',
-            'text-opacity': '1'
-        });
-        node.neighborhood().style({
-            'opacity': '1',
-            'text-opacity': '1'
-        });
-
-        // make only the focus selectable
-        self.graph.nodes().unselectify();
-        self.graph.edges().unselectify(false);
-        node.neighborhood().selectify();
-
+        self.graph.focusOnNodes(node)
         $('#infoBox').css('visibility', 'visible');
     });
 
