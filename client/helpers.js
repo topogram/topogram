@@ -13,14 +13,16 @@ getCurrentSelection = function() {
       type = Session.get( 'currentType' ),
       item = {};
 
-  if ( type == 'node' ) {
-      item = Nodes.findOne( {
-          'data.id': id
-      } );
-  } else if ( type == 'edge' ) {
-      item = Edges.findOne( {
-          'data.id': id
-      } );
+  if(id && type) {
+    if ( type == 'node' ) {
+        item = Nodes.findOne( {
+            'data.id': id
+        } );
+    } else if ( type == 'edge' ) {
+        item = Edges.findOne( {
+            'data.id': id
+        } );
+    }
   }
   return item;
 }

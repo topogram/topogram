@@ -23,6 +23,8 @@ Template.infobox.events = {
     'click #closeInfoBox': function( event, template ) {
         var network = template.view.parentView._templateInstance.network.get()
         network.unFocus();
+        Session.set( 'currentId', null )
+        Session.get( 'currentType', null)
         $( "#infoBox" ).hide();
     }
 };
