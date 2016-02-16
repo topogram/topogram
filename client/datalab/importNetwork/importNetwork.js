@@ -196,13 +196,13 @@ Template.importNetwork.events( {
             Meteor.call( 'batchInsertEdges', parsedData, function( edges ) {
                 console.log( data.data.length, ' edges added' );
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' );
-                // Router.go( '/topograms/' + self.topogramId + '/edges' );
+                Router.go( '/topograms/' + self.topogramId + '/edges' );
             })
         } else if ( type == 'nodes' ) {
             Meteor.call( 'batchInsertNodes', parsedData, function( nodes ) {
                 console.log( data.data.length, ' nodes added' );
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' );
-                // Router.go( '/topograms/' + self.topogramId + '/nodes' );
+                Router.go( '/topograms/' + self.topogramId + '/nodes' );
             });
         }
     }
