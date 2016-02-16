@@ -43,10 +43,11 @@ Template.network.rendered = function() {
         style: cytoscape.stylesheet()
             .selector('node')
               .style({
-                'font-size': this.graphState.fontSize,
-                'text-valign': 'top',
+                'font-size': 4,//this.graphState.fontSize,
+                'text-valign': 'center',
+                'text-halign': 'right',
                 'color': 'black',
-                'text-max-width': 100,
+                'text-max-width': 60,
                 'text-wrap': 'wrap',
                 'min-zoomed-font-size': 0.4,
                 'background-color' : function(e) {
@@ -55,9 +56,9 @@ Template.network.rendered = function() {
                   else if (e.data("color")) color = color;
                   return e.data('starred') ? 'yellow' : color;
                 },
-                'text-opacity' : 0, // hide label by default
+                // 'text-opacity' : 0, // hide label by default
                 'label': function(e) {
-                  return e.data("name") ? e.data("name") : "";
+                  return e.data("name") ? e.data("name").trunc(20) : "";
                 }
               })
             // node with degree zero
@@ -115,7 +116,6 @@ Template.network.rendered = function() {
 
     // mouse select actions
     this.graph.on('select', 'node', /*_.debounce(*/ function(e) {
-
         var node = e.cyTarget;
         console.log(node.data());
         Session.set('currentType', 'node');
@@ -130,6 +130,26 @@ Template.network.rendered = function() {
         Session.set('currentType', 'edge');
         Session.set('currentId', edge.id());
         $('#infoBox').css('visibility', 'visible');
+    });
+
+    this.graph.on('mouseover', 'node', /*_.debounce(*/ function(e) {
+        e.cyTarget.style({
+          'border-width': 2,
+          'border-color': '#D84315',
+          'font-size' : 6,
+          'label': function(d) {
+            return d.data("name") ? d.data("name") : "";
+          }
+        })
+    });
+    this.graph.on('mouseout', 'node', /*_.debounce(*/ function(e) {
+        e.cyTarget.style({
+          'border-width': 0,
+          'font-size' : 4,
+          'label': function(d) {
+            return d.data("name") ? d.data("name").trunc(20) : "";
+          }
+        })
     });
 
     this.graph.drawPath = function( sourceNode, targetNode ) {
@@ -227,32 +247,6 @@ Template.network.rendered = function() {
     });
     this.graph.edgehandles("disable"); // disbaled by default
 
-    // qtip
-    this.graph.elements('node:selectable').qtip({
-        content: function() {
-            return this.data("name") ? this.data("name") : this.data("id");
-        },
-        show: {
-            event: 'mouseover'
-        },
-        hide: {
-            event: 'mouseout'
-        }
-    });
-
-    this.graph.elements('edge:selectable').qtip({
-        content: function() {
-          return this.data("name") ? this.data("name") : this.data("id");
-        },
-        show: {
-            event: 'mouseover'
-        },
-        hide: {
-            event: 'mouseout'
-        }
-    });
-
-    // console.log(this);
     if(!this.editMode) {
       self.graph.autolock(true); // prevent drag
       self.graph.edgehandles("disable");
