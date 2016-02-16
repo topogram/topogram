@@ -156,7 +156,15 @@ Template.network.rendered = function() {
         element = Edges.findOne({"data.id" : el.id()})
       }
       console.log(element);
-      return window.location.pathname + "#"+element._id;
+      return window.location.pathname + "#"+type+"-"+element._id;
+    }
+
+    this.graph.getElementById = function(id, type){
+      if(type == "node") {
+        return self.graph.nodes().filter("[id='"+id+"']");
+      } else if (type == "edge") {
+        return self.graph.edges().filter("[id='"+id+"']");
+      }
     }
 
     // mouse over
@@ -227,6 +235,23 @@ Template.network.rendered = function() {
       } );
       self.graph.nodes().selectify();
       self.graph.edges().selectify();
+    }
+
+    // load node if hash
+    if(window.location.hash) {
+      var type = window.location.hash.split("-")[0].replace("#","");
+      var elementId = window.location.hash.split("-")[1];
+      var element;
+      console.log(type, elementId);
+      if(type =="node") {
+        element = Nodes.findOne({"_id" : elementId})
+      } else if (type == "edge") {
+        element = Edges.findOne({"_id" : elementId})
+      }
+      console.log(element);
+      var el = self.graph.getElementById(element.data.id, type);
+      console.log(el);
+      if(el) self.graph.selectElement(el, type)
     }
 
     // drag node
