@@ -344,7 +344,7 @@ Template.network.rendered = function() {
             },
 
         },{
-            content: '<span><i class="small material-icons">turned_in_not</i></span>',
+            content: '<span><i class="small material-icons">library_books</i></span>',
             select: function() {
                 self.graph.selectElement(this, "node")
             },
