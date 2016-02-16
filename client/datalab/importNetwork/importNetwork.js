@@ -5,9 +5,7 @@ Template.importNetwork.onCreated( function() {
 
     var self = this;
     this.parseData = function(csvData) {
-      console.log(csvData);
       var lines = csvData.split( '\n' );
-      console.log(lines);
 
       //remove empty lines
       lines = lines.filter( function( line ) {
@@ -107,10 +105,7 @@ Template.importNetwork.events( {
     'submit #importForm': function( e ) {
         e.preventDefault();
 
-        console.log(e);
-        // e.target
         var self = this;
-        console.log( self );
 
         // Get value from form elements
         var type = e.target.layerType.value, // nodes or edges
@@ -188,21 +183,18 @@ Template.importNetwork.events( {
 
         // save data
         // TODO : display loader
-        // if ( type == 'edges' ) {
-        //     Meteor.call( 'batchInsertEdges', parsedData, function( edges ) {
-        //         console.log( data.data.length, ' edges added' );
-        //         FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' );
-        //         // Router.go( '/topograms/' + self.topogramId + '/edges' );
-        //     } )
-        // } else if ( type == 'nodes' ) {
-        //     console.log( parsedData );
-        //     Meteor.call( 'batchInsertNodes', parsedData, function( nodes ) {
-        //         console.log( data.data.length, ' nodes added' );
-        //         FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' );
-        //         // Router.go( '/topograms/' + self.topogramId + '/nodes' );
-        //     } );
-        // }
-
-
+        if ( type == 'edges' ) {
+            Meteor.call( 'batchInsertEdges', parsedData, function( edges ) {
+                console.log( data.data.length, ' edges added' );
+                FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' );
+                // Router.go( '/topograms/' + self.topogramId + '/edges' );
+            })
+        } else if ( type == 'nodes' ) {
+            Meteor.call( 'batchInsertNodes', parsedData, function( nodes ) {
+                console.log( data.data.length, ' nodes added' );
+                FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' );
+                // Router.go( '/topograms/' + self.topogramId + '/nodes' );
+            });
+        }
     }
 } );
