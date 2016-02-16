@@ -31,10 +31,6 @@ Template.infobox.helpers({
 Template.infobox.events = {
     'click #closeInfoBox': function( event, template ) {
         var network = template.view.parentView._templateInstance.network.get()
-        network.unFocus();
-        Session.set( 'currentId', null )
-        Session.set( 'currentType', null)
-        Session.set('pathTargetNodeId', null);
-        $( "#infoBox" ).hide();
+        network.deselectAll()
     }
 };

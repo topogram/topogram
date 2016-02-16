@@ -118,21 +118,48 @@ Template.network.rendered = function() {
     // mouse select actions
     this.graph.on('select', 'node', /*_.debounce(*/ function(e) {
         var node = e.cyTarget;
-        console.log(node.data());
-        Session.set('currentType', 'node');
-        Session.set('currentId', node.id());
-
-        self.graph.focusOnNodes(node)
-        $('#infoBox').show();
+        self.graph.selectElement(e.cyTarget, "node");
     });
 
     this.graph.on('select', 'edge', /*_.debounce(*/ function(e) {
-        var edge = e.cyTarget;
-        Session.set('currentType', 'edge');
-        Session.set('currentId', edge.id());
-        $('#infoBox').show();
+        var node = e.cyTarget;
+        self.graph.selectElement(e.cyTarget, "edge");
     });
 
+    this.graph.selectElement = function(el, type){
+      Session.set('currentType', type);
+      Session.set('currentId', el.id());
+
+      self.graph.focusOnNodes(el)
+      $('#infoBox').show();
+
+      var url = self.graph.getElementUrl(el, type);
+      Router.go(url);
+    }
+
+    this.graph.deselectAll = function(){
+      Session.set('currentType', null);
+      Session.set('currentId', null);
+      Session.set('pathTargetNodeId', null);
+
+      self.graph.unFocus();
+      $('#infoBox').hide();
+      Router.go(window.location.pathname);
+    }
+
+    this.graph.getElementUrl = function(el, type) {
+      // get node/edge _id
+      var element;
+      if(type =="node") {
+        element = Nodes.findOne({"data.id" : el.id()})
+      } else if (type == "edge") {
+        element = Edges.findOne({"data.id" : el.id()})
+      }
+      console.log(element);
+      return window.location.pathname + "#"+element._id;
+    }
+
+    // mouse over
     this.graph.on('mouseover', 'node', /*_.debounce(*/ function(e) {
         e.cyTarget.style({
           'border-width': 2,
