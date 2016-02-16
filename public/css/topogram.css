@@ -1,3 +1,7 @@
+body{
+  background: #F5F5F5;
+}
+
 span.badge {
     position: relative !important;
     right: 0 !important;
@@ -86,8 +90,4 @@ svg {
 .network-search input[type=search] {
     padding-left: 0;
     width: inherit;
-}
-
-#viz-main {
-  background: #F5F5F5;
 }
