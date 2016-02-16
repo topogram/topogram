@@ -1,4 +1,4 @@
-Template.commentBox.onRendered = function(){
+Template.commentBox.rendered = function(){
     $("#commentBox").hide();
 }
 
