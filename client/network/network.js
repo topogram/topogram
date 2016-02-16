@@ -9,7 +9,7 @@ Template.network.created = function() {
   this.editMode = this.data.editMode;
 
   // init node/edge selector
-  $('#infoBox').css('visibility', 'hidden'); // hide infobox by default
+  $('#infoBox').hide(); // hide infobox by default
   Session.set( 'currentId', null );
   Session.set( 'currentType', null );
 
@@ -122,14 +122,14 @@ Template.network.rendered = function() {
         Session.set('currentId', node.id());
 
         self.graph.focusOnNodes(node)
-        $('#infoBox').css('visibility', 'visible');
+        $('#infoBox').show();
     });
 
     this.graph.on('select', 'edge', /*_.debounce(*/ function(e) {
         var edge = e.cyTarget;
         Session.set('currentType', 'edge');
         Session.set('currentId', edge.id());
-        $('#infoBox').css('visibility', 'visible');
+        $('#infoBox').show();
     });
 
     this.graph.on('mouseover', 'node', /*_.debounce(*/ function(e) {
