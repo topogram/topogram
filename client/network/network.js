@@ -152,10 +152,8 @@ Template.network.rendered = function() {
         $('#infoBox').css('visibility', 'visible');
     });
 
+    // select / unsleselct nodes
     this.graph.focusOnNodes = function(selectedNodes){
-      console.log(this, self.graph);
-      console.log(selectedNodes);
-
       self.graph.nodes().style({
           'opacity': '.1'
       });
@@ -174,6 +172,17 @@ Template.network.rendered = function() {
       self.graph.nodes().unselectify();
       self.graph.edges().unselectify(false);
       selectedNodes.neighborhood().selectify();
+    }
+
+    this.graph.unFocus = function(selectedNodes){
+      self.graph.nodes().style( {
+          "opacity": '1'
+      } );
+      self.graph.edges().style( {
+          "opacity": '1'
+      } );
+      self.graph.nodes().selectify();
+      self.graph.edges().selectify();
     }
 
     // drag node

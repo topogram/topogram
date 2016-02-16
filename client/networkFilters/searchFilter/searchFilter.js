@@ -34,16 +34,11 @@ Template.searchFilter.events( {
 
         var net = template.view.parentView.parentView._templateInstance.network.get();
 
-        net.nodes().style( {
-            "opacity": '1'
-        } );
-        net.edges().style( {
-            "opacity": '1'
-        } );
-        net.nodes().selectify();
-        net.edges().selectify();
+        // reset display
+        net.unFocus();
 
-      $( "#infoBox" ).css( 'visibility', 'hidden' );
+        // hide info
+        $( "#infoBox" ).css( 'visibility', 'hidden' );
     },
 
     'keyup #search': function( e ) {
