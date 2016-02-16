@@ -135,15 +135,13 @@ Meteor.methods( {
         return d
         //  = updatedNodes
       })
-      console.log(nodes.length);
-      console.log(updatedNodes[0].position,nodes[0].position );
 
-      // bulkCollectionUpdate(Nodes, nodes, {
-      //   primaryKey: "_id",
-      //   callback: function() {
-      //     console.log("Nodes positions updated.");
-      //   }
-      // });
+      bulkCollectionUpdate(Nodes, nodes, {
+        primaryKey: "_id",
+        callback: function() {
+          console.log("Nodes positions updated.");
+        }
+      });
     },
 
     lockNode: function( nodeId, position ) {
