@@ -1,31 +1,29 @@
 <template name="infobox">
-    <div id="infoBox" class="card">
+<div id="infoBox" class="card">
+  {{> nodeInfo node=currentSelection network=network }}
+  <ul class="card-content collapsible" data-collapsible="expandable">
+    <li>
+      {{> searchBox searchName="targetName" type="target" placeholder="Go to another node"}}
+    </li>
+  </ul>
 
-        <div class="card-content">
-            <span id="closeInfoBox"><i class="material-icons right">close</i></span>
-            <p class="card-title activator grey-text text-darken-4">
-                <i class="material-icons right">more_vert</i>
-                {{ currentSelection.name }}
-            </p>
-            <hr>
-            {{#if currentNeighborhood.length }}
-              <span class="card-title">Neighborhood</span>
-              <ul class="collection">
-                {{#each currentNeighborhood }}
-                    <li class="collection-item">{{this.name}}</li>
-                {{/each}}
-              </ul>
-            {{/if}}
-            <hr>
-            {{> searchBox searchName="targetName" type="target" placeholder="Go to another node"}}
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Data<i class="material-icons right">close</i></span>
-            <ul class="collection">
-                {{#each objectToPairs currentSelection.rawData }}
-                    <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
-                {{/each}}
-            </ul>
-        </div>
-    </div>
+    {{#if pathToTarget.length }}
+    <ul class="card-content collapsible" data-collapsible="expandable">
+      <li>
+        <div class="collapsible-header"><i class="material-icons">swap_calls</i>Path</div>
+        <ul class="collection collapsible-body">
+          {{#each pathToTarget }}
+              <li class="collection-item">{{this.name}}</li>
+          {{/each}}
+        </ul>
+      </li>
+    </ul>
+    {{/if}}
+  {{#if target }}
+    {{> nodeInfo node=target network=network }}
+  {{/if}}
+  <div class="card-reveal">
+    <span class="card-title grey-text text-darken-4">Data<i class="material-icons right">close</i></span>
+  </div>
+</div>
 </template>

@@ -33,13 +33,9 @@ Template.searchBox.events( {
 
           // select a second node and draw path
           var nodeOrigin = net.nodes().filter("[id='" + Session.get('currentId') + "']");
-
-          console.log("path",nodeOrigin, selectedNode);
+          Session.set('pathTargetNodeId', selectedNode.data('id'))
           net.drawPath(nodeOrigin, selectedNode);
         }
-
-
-
     },
 
     'click .searchClose': function( e, template ) {

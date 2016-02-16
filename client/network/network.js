@@ -12,6 +12,7 @@ Template.network.created = function() {
   $('#infoBox').hide(); // hide infobox by default
   Session.set( 'currentId', null );
   Session.set( 'currentType', null );
+  Session.set('pathTargetNodeId', null);
 
   // node merger
   Session.set("mergeSource", null)
@@ -156,6 +157,7 @@ Template.network.rendered = function() {
       console.log(self.graph, sourceNode, targetNode);
       self.graph.unFocus();
       var path = self.graph.elements().dijkstra(sourceNode).pathTo(targetNode);
+
       // self.graph.focusOnNodes(path);
       self.graph.nodes().style({ 'opacity': '.1' });
       self.graph.edges().style({ 'opacity': '.1' });

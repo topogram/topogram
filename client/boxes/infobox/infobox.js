@@ -2,20 +2,29 @@ Template.infobox.rendered = function() {
   $("#infoBox").hide();
 };
 
-Template.infobox.helpers( {
+Template.infobox.helpers({
+  network : function(){
+    return Template.instance().view.parentView._templateInstance.network.get();
+  },
   currentSelection: function() {
       var item = getCurrentSelection();
       return item.data;
   },
-  currentNeighborhood: function() {
+  target : function() {
     var network = Template.instance().view.parentView._templateInstance.network.get();
-    if(Session.get( 'currentId' ) && Session.get( 'currentType' )) {
-      var selected = getCurrentSelection();
-      var neighborhood = network.nodes().filter("[id='"+selected.data.id+"']").neighborhood()
-      console.log(neighborhood);
-      return neighborhood.nodes().map(function(d){ return d.data() });
+    if( Session.get( 'currentId' ) && Session.get( 'currentType' ) && Session.get('pathTargetNodeId') ){
+      var targetNode = network.nodes().filter("[id='"+Session.get('pathTargetNodeId')+"']");
+      return targetNode.data()
     }
-    else return
+  },
+  pathToTarget: function() {
+    var network = Template.instance().view.parentView._templateInstance.network.get();
+    if( Session.get( 'currentId' ) && Session.get( 'currentType' ) && Session.get('pathTargetNodeId') ){
+      var sourceNode = network.nodes().filter("[id='"+Session.get('currentId')+"']");
+      var targetNode = network.nodes().filter("[id='"+Session.get('pathTargetNodeId')+"']");
+      var path = network.elements().dijkstra(sourceNode).pathTo(targetNode);
+      return path.nodes().map(function(d){ return d.data() });
+    }
   }
 })
 
@@ -24,7 +33,8 @@ Template.infobox.events = {
         var network = template.view.parentView._templateInstance.network.get()
         network.unFocus();
         Session.set( 'currentId', null )
-        Session.get( 'currentType', null)
+        Session.set( 'currentType', null)
+        Session.set('pathTargetNodeId', null);
         $( "#infoBox" ).hide();
     }
 };
