@@ -34,10 +34,7 @@ Template.infobox.helpers( {
 Template.infobox.events = {
     'click #closeInfoBox': function( event, template ) {
         var network = template.view.parentView._templateInstance.network.get()
-        network.nodes().style({ "opacity": '1', 'text-opacity': '0' });
-        network.edges().style({ "opacity": '1', 'text-opacity': '0' });
-        network.nodes().selectify();
-        network.edges().selectify();
+        network.unFocus();
         $( "#infoBox" ).css( 'visibility', 'hidden' );
     }
 };
