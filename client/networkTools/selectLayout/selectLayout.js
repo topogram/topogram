@@ -37,12 +37,12 @@ Template.selectLayout.events = {
 
     console.log(layoutName);
 
-    if(layoutName == "cola" || layoutName == "arbor" || layoutName == "spread" || layoutName == "springy" || layoutName == "cose-bilkent" ) {
-      // var npmLayoutModule = ("cytoscape-"+layoutName).toCamelCase();
-      // var layout = window[npmLayoutModule]; // get lib from global scope
-      // console.log(network, layout, npmLayoutModule);
-      // layout(network) // register layout
-    }
+    // if(layoutName == "cola" || layoutName == "arbor" || layoutName == "spread" || layoutName == "springy" || layoutName == "cose-bilkent" ) {
+    //   // var npmLayoutModule = ("cytoscape-"+layoutName).toCamelCase();
+    //   // var layout = window[npmLayoutModule]; // get lib from global scope
+    //   // console.log(network, layout, npmLayoutModule);
+    //   // layout(network) // register layout
+    // }
 
 
     var layoutConfig = {
@@ -50,15 +50,15 @@ Template.selectLayout.events = {
         name: layoutName,
         stop: function() {  // callback on layoutstop
             console.log( 'update position' );
-            // console.log(network.nodes().length);
-            // var nodesLayout = network.nodes().map(function(node) {
-            //     return {
-            //         _id : node.data("_id"),
-            //         position: node.position()
-            //     };
-            // });
-            // console.log(nodesLayout.length, nodesLayout);
-            // Meteor.call('updateNodesPositions', nodesLayout); // save nodes position
+            console.log(network.nodes().length);
+            var nodesLayout = network.nodes().map(function(node) {
+                return {
+                    _id : node.data("_id"),
+                    position: node.position()
+                };
+            });
+            console.log(nodesLayout.length, nodesLayout);
+            Meteor.call('updateNodesPositions', nodesLayout); // save nodes position
         }
     };
 

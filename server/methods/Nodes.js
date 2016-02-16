@@ -101,7 +101,7 @@ Meteor.methods( {
         } );
     },
 
-    //update coords in DB
+    //update coord in DB for a single node
     updateNodePosition: function( nodeId, position ) {
         var node = Nodes.findOne( {
             'data.id': nodeId
