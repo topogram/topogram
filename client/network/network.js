@@ -24,8 +24,8 @@ Template.network.rendered = function() {
     var self = this;
 
     // fetch and parse data
-    var edges = Edges.find().fetch(),
-        nodes = Nodes.find().fetch();
+    var edges = Edges.find().fetch().map(function(i){ i.data._id = i._id; return i }), // make _id accessible in the node.data()
+        nodes = Nodes.find().fetch().map(function(i){ i.data._id = i._id; return i });
     console.log("nodes", nodes.length)
     console.log("edges", edges.length)
 
@@ -44,7 +44,7 @@ Template.network.rendered = function() {
         style: cytoscape.stylesheet()
             .selector('node')
               .style({
-                'font-size': 4,//this.graphState.fontSize,
+                'font-size': 6,//this.graphState.fontSize,
                 'text-valign': 'center',
                 'text-halign': 'right',
                 'color': 'black',
@@ -101,7 +101,7 @@ Template.network.rendered = function() {
     this.graph.add(edges);
 
     // apply size
-    var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([4,40]);
+    var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([6,40]);
     this.graph.style()
       .selector('node')
       .style({
@@ -172,7 +172,7 @@ Template.network.rendered = function() {
         e.cyTarget.style({
           'border-width': 2,
           'border-color': '#D84315',
-          'font-size' : 6,
+          'font-size' : 8,
           'label': function(d) {
             return d.data("name") ? d.data("name") : "";
           }
@@ -181,7 +181,7 @@ Template.network.rendered = function() {
     this.graph.on('mouseout', 'node', /*_.debounce(*/ function(e) {
         e.cyTarget.style({
           'border-width': 0,
-          'font-size' : 4,
+          'font-size' : 6,
           'label': function(d) {
             return d.data("name") ? d.data("name").trunc(20) : "";
           }

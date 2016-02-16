@@ -19,7 +19,7 @@ check
 # meteor++
 reactive-var
 insecure
-# meteorhacks:npm
+meteorhacks:npm
 # npm-container
 cosmos:browserify
 
@@ -44,11 +44,9 @@ geojson-utils
 
 # viz
 d3js:d3
-tdj:cola
 cytoscape:cytoscape
 maxkfranz:cytoscape-qtip
 # maxkfranz:cytoscape-spread
-# maxkfranz:cytoscape-cola
 # maxkfranz:cytoscape-springy
 # maxkfranz:cytoscape-arbor
 
@@ -65,5 +63,9 @@ accounts-password
 mikowals:batch-insert
 babrahams:transactions
 babrahams:undo-redo
+
+npm-container
+udondan:bulk-collection-update
+mquandalle:bower
 raix:handlebar-helpers
 fortawesome:fontawesome
