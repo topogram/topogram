@@ -27,14 +27,7 @@ Template.infobox.helpers( {
                 'data.id': id
             } );
         }
-
-        // append
-        if ( item.data ) {
-            if ( item.data ) delete( item.data.url )
-            item.info = item.data;
-        };
-
-        return item;
+        return item.data;
     }
 } )
 

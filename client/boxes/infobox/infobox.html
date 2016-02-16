@@ -5,24 +5,29 @@
             <span id="closeInfoBox"><i class="material-icons right">close</i></span>
             <span class="card-title activator grey-text text-darken-4">
                 <i class="material-icons right">more_vert</i>
-                {{ currentSelection.data.name }}
+                {{ currentSelection.name }}
             </span>
             <ul class="collection">
-              <!-- <li class="collection-item grey lighten-3">Type <span class="badge">{{ currentSelection.group }}</span></li> -->
-                {{#each objectToPairs currentSelection.info }}
+                {{#each objectToPairs currentSelection.additionalInfo }}
                     <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
                 {{/each}}
             </ul>
+            <hr>
             <p>{{ comments.length }} comments</p>
-            {{> commentForm}}
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Comments<i class="material-icons right">close</i></span>
-            <ul class="collection">
+            <ul id="comments" class="collection">
                 {{#each comments}}
                     <li class="collection-item avatar">
                             {{> comment comment=this}}
                     </li>
+                {{/each}}
+            </ul>
+            {{> commentForm}}
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Data<i class="material-icons right">close</i></span>
+            <ul class="collection">
+                {{#each objectToPairs currentSelection.rawData }}
+                    <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
                 {{/each}}
             </ul>
         </div>
