@@ -20,5 +20,8 @@ Template.titlebox.events =  {
   },
   'click #toggle-filterbox' : function() {
     $('#filterbox').toggle();
+  },
+  'click #toggle-commentbox' : function() {
+    $('#commentBox').toggle();
   }
 }
