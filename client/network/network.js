@@ -8,6 +8,9 @@ Template.network.created = function() {
   this.colors = d3.scale.category20b();
   this.editMode = this.data.editMode;
 
+  // delete/add nodes
+  this.advancedEditMode = Session.get('advancedEditMode');
+
   // init node/edge selector
   $('#infoBox').hide(); // hide infobox by default
   Session.set( 'currentId', null );
@@ -270,76 +273,64 @@ Template.network.rendered = function() {
       if(el) self.graph.selectElement(el, type)
     }
 
-    // drag node
-    this.graph.on('free', 'node', /*_.debounce(*/ function(e) {
-        var node = e.cyTarget;
-
-        // update position
-        Meteor.call('updateNodePosition', node.id(), node.position());
-        console.log(this);
-        console.log(self);
-        // Node Merger
-        if(self.editMode) {
-            // check for node merger
-            console.log("check for node merger")
-            Session.set("mergeSource", null)
-            Session.set("mergeTargets", null)
-
-            // hit test
-            var bb = node.boundingbox();
-            var targets = self.graph.nodes().filterFn(function(d){
-                var isPos =
-                  d.position().x > bb.x1
-                  &&
-                  d.position().x < bb.x2
-                  &&
-                  d.position().y > bb.y1
-                  &&
-                  d.position().y < bb.y2;
-                var isSame = (d.id() == node.id());
-                return isPos && !isSame;
-            })
-
-            // console.log(node, targets);
-            if (targets.length) {
-                Session.set("mergeSource", node.id())
-                Session.set("mergeTargets", targets.map(function(d){return d.id()}))
-                $('#modal-merge').openModal();
-            }
-        };
-    });
-
-    // interactive edge creation
-    this.graph.edgehandles({
+    // otions for interactive edge creation
+    self.graph.edgehandles({
         complete: function(source, target, addedEntities) {
             Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'));
         }
     });
-    this.graph.edgehandles("disable"); // disbaled by default
 
-    if(!this.editMode) {
-      self.graph.autolock(true); // prevent drag
-      self.graph.edgehandles("disable");
-    }
+    this.graph.initActions = function() {
 
-    // context menu (right click)
-    if(this.editMode)
-      this.graph.cxtmenu({
-        selector: 'node',
-        commands: [{
-            content: '<span><i class="small material-icons">delete</i></span>',
-            select: function() {
+      var advancedEditMode = Session.get("advancedEditMode")
+      console.log("init actions with advancedEditMode = "+ advancedEditMode);
 
-                // remove the node plus all connected edges
-                Meteor.call('deleteNodeAndConnectedEdges', this.id(), this.neighborhood('edge').map(function(d) {
-                    return d.id()
-                }));
+      // drag node
+      self.graph.off('free', 'node'); // reset
+      self.graph.on('free', 'node', function(e) {
+          var node = e.cyTarget;
 
-                // remove from graph
-                self.graph.remove(this.neighborhood('edge'));
-                self.graph.remove(this);
-            }
-        }, {
+          // update position
+          Meteor.call('updateNodePosition', node.id(), node.position());
+
+          // Node Merger
+          if(advancedEditMode) {
+              // check for node merger
+              console.log("check for node merger")
+              Session.set("mergeSource", null)
+              Session.set("mergeTargets", null)
+
+              // hit test
+              var bb = node.boundingbox();
+              var targets = self.graph.nodes().filterFn(function(d){
+                  var isPos =
+                    d.position().x > bb.x1
+                    &&
+                    d.position().x < bb.x2
+                    &&
+                    d.position().y > bb.y1
+                    &&
+                    d.position().y < bb.y2;
+                  var isSame = (d.id() == node.id());
+                  return isPos && !isSame;
+              })
+
+              // console.log(node, targets);
+              if (targets.length) {
+                  Session.set("mergeSource", node.id())
+                  Session.set("mergeTargets", targets.map(function(d){return d.id()}))
+                  $('#modal-merge').openModal();
+              }
+          };
+      });
+
+      // edge creation: disabled by default
+      if (!advancedEditMode) self.graph.edgehandles("disable")
+      else self.graph.edgehandles("enable");
+
+      // context menu (right click)
+      if(self.editMode) {
+        var commands =  [{
             content: '<span><i class="small material-icons">star_rate</i></span>',
             select: function() {
               Meteor.call('starNode', this.id());
@@ -367,7 +358,41 @@ Template.network.rendered = function() {
             },
 
         }]
-      });
+
+        // add delete only on advanced mode
+        if(advancedEditMode)
+          commands.push({
+            content: '<span><i class="small material-icons">delete</i></span>',
+            select: function() {
+
+                // remove the node plus all connected edges
+                Meteor.call('deleteNodeAndConnectedEdges', this.id(), this.neighborhood('edge').map(function(d) {
+                    return d.id()
+                }));
+
+                // remove from graph
+                self.graph.remove(this.neighborhood('edge'));
+                self.graph.remove(this);
+            }
+        })
+
+        // update ctx menu
+        if (self.graph.cxtMenuAPI) self.graph.cxtMenuAPI.destroy()
+        self.graph.cxtMenuAPI = self.graph.cxtmenu({
+          selector: 'node',
+          commands: commands
+        });
+      }
+    }
+
+    // mode view-only
+    if(!this.editMode) {
+      self.graph.autolock(true); // prevent drag
+      self.graph.edgehandles("disable");
+    }
+
+    // init actions based on existing rights
+    this.graph.initActions(this.advancedEditMode);
 
     // set global var
     this.view.parentView.parentView._templateInstance.network.set(this.graph);
