@@ -1,5 +1,4 @@
 Template.filterByCategory.rendered = function() {
-  console.log(this);
   this.$("select").material_select();
 }
 
