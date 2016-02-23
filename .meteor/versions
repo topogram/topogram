@@ -19,7 +19,7 @@ callback-hook@1.0.4
 check@1.1.0
 coffeescript@1.0.11
 cosmos:browserify@0.9.3
-cytoscape:cytoscape@2.5.5
+cytoscape:cytoscape@2.6.4
 d3js:d3@3.5.8
 dburles:mongo-collection-instances@0.3.4
 ddp@1.2.2

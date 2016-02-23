@@ -24,8 +24,14 @@ Template.network.rendered = function() {
     var self = this;
 
     // fetch and parse data
-    var edges = Edges.find().fetch().map(function(i){ i.data._id = i._id; return i }), // make _id accessible in the node.data()
-        nodes = Nodes.find().fetch().map(function(i){ i.data._id = i._id; return i });
+    // make _id accessible in the el.data()
+    var edges = Edges.find().fetch().map(function(i){ i.data._id = i._id; return i }),
+    nodes = Nodes.find().fetch().map(function(i){
+      i.data._id = i._id;
+      i.parent = "nparent";
+      i.data.parent = "nparent";
+      return i
+    });
     console.log("nodes", nodes.length)
     console.log("edges", edges.length)
 
@@ -287,6 +293,8 @@ Template.network.rendered = function() {
         if(self.editMode) {
             // check for node merger
             console.log("check for node merger")
+            Session.set("mergeSource", null)
+            Session.set("mergeTargets", null)
 
             // hit test
             var bb = node.boundingbox();
