@@ -1,4 +1,4 @@
-Template.slider.helpers({
+Template.menu.helpers({
   topograms : function() {
     return Topograms.find().fetch()
   }
@@ -6,7 +6,7 @@ Template.slider.helpers({
 
 Template.header.rendered = function() {
   // sidebar
-  $('.collapsing').sideNav({
+  $('#menu-trigger').sideNav({
     closeOnClick: true,
     menuWidth: 300, // Default is 240
     edge: 'left' // Choose the horizontal origin
