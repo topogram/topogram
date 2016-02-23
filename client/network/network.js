@@ -257,6 +257,11 @@ Template.network.rendered = function() {
     }
 
     this.graph.resetFilters = function() {
+
+      self.graph.deselectAll();
+
+      $(".network-search input").val("");
+
       self.graph.elements().deselect();
       self.graph.elements().show();
 
@@ -282,6 +287,7 @@ Template.network.rendered = function() {
 
     // show / hide elements
     this.graph.selectElements = function(selectedEls) {
+
       self.graph.elements().hide();
       selectedEls.select();
       selectedEls.show();

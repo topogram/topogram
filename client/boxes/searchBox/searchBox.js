@@ -41,16 +41,13 @@ Template.searchBox.events( {
 
     'click .searchClose': function( e, template ) {
         e.preventDefault();
-        $(".search" ).attr("value", '');
+        $(".search" ).val("");
         $( "ul.search-dropdown li").remove();
 
-        var net = template.view.parentView.parentView._templateInstance.network.get();
+        var net = template.view.parentView.parentView.parentView._templateInstance.network.get();
 
         // reset display
         net.unFocus();
-
-        // hide info
-        $( "#infoBox" ).css( 'visibility', 'hidden' );
     },
 
     'keyup .search': function( e, template ) {
