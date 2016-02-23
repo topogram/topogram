@@ -12,7 +12,7 @@
         <div class="collapsible-header"><i class="material-icons">games</i>Neighborhood</div>
         <ul class="collection collapsible-body">
           {{#each neighborhood }}
-              <li class="collection-item">{{this.name}}</li>
+              <li class="collection-item">{{this.group}}<span class="badge">{{this.name}}</span></li>
           {{/each}}
         </ul>
       </li>
