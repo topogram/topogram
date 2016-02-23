@@ -30,6 +30,8 @@ blaze-html-templates
 spacebars
 jquery
 mrt:flash-messages
+
+materialize:materialize
 useraccounts:materialize
 workman:x-editable-reactive-template
 
