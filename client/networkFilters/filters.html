@@ -1,5 +1,11 @@
 <template name="filters">
-  {{> filterByCategory type="nodes"}}
-  {{> filterByCategory type="edges"}}
-  {{> filterByWeight }}
+  <div class="row">
+    {{> filterByCategory type="nodes"}}
+  </div>
+  <div class="row">
+    {{> filterByCategory type="edges"}}
+  </div>
+  <div class="row">
+    {{> filterByDegree }}
+  </div>
 </template>
