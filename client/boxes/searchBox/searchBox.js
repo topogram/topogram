@@ -22,13 +22,14 @@ Template.searchBox.events( {
         // check if a node is already selected
         if(searchType == 'source') {
 
-          // color focus
-          net.focusOnNodes(selectedNode);
 
           // display info
           Session.set('currentType', 'node');
           Session.set('currentId', selectedNode.id());
-          $('#infoBox').css('visibility', 'visible');
+
+          // color focus
+          net.selectElement(selectedNode, "node");
+
         } else if(searchType == 'target') {
 
           // select a second node and draw path
