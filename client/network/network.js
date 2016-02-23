@@ -213,17 +213,29 @@ Template.network.rendered = function() {
           'opacity': '.1'
       });
 
+      // select
+      var subGraph = selectedNodes.closedNeighborhood();
       selectedNodes.style({
           'opacity': '1'
       });
-      selectedNodes.neighborhood().style({
+      subGraph.style({
           'opacity': '1'
       });
+
 
       // make only the focus selectable
       self.graph.nodes().unselectify();
       self.graph.edges().unselectify(false);
-      selectedNodes.neighborhood().selectify();
+      subGraph.selectify();
+
+      // store actual position
+      subGraph.nodes().forEach(function(d){
+        var prevPos = Object({"x":d.position().x, "y":d.position().y})
+        d.data("prevPos", prevPos);
+      })
+
+      // apply focus layout
+      subGraph.layout({"name":"concentric"})
     }
 
     this.graph.unFocus = function(){
@@ -235,6 +247,15 @@ Template.network.rendered = function() {
       } );
       self.graph.nodes().selectify();
       self.graph.edges().selectify();
+
+      // remove layout focus and re-apply previous positions
+      self.graph.nodes().forEach(function(d){
+        if( d.data("prevPos") ) {
+          d.position(d.data("prevPos"))
+          delete d.removeData("prevPos")
+        }
+      })
+      self.graph.layout({"name":"preset"})
     }
 
     // load node if hash
