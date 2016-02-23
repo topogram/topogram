@@ -1,5 +1,6 @@
 Template.titlebox.created = function() {
     this.editMode = this.data.editMode;
+    $(".collapsible").collapsible();
 }
 
 Template.titlebox.helpers({

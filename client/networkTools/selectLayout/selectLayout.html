@@ -1,5 +1,8 @@
 <template name="selectLayout">
-  <a class='btn dropdown-button' href="#" data-activates="layouts" role="button">Layouts <span class="caret"></span></a>
+  <a class='btn waves-effect waves-light dropdown-button' href="#" data-activates="layouts" data-constrainwidth="false" data-beloworigin="true" role="button">
+    <i class="material-icons left">games</i>
+    Layouts
+  </a>
   <ul id="layouts" class="small dropdown-content">
       {{#each layouts}}
       <li><a class="layout" data-layout-name="{{this.slug}}" href="#">{{ this.name }}</a></li>

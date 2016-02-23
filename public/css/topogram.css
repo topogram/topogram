@@ -91,3 +91,12 @@ svg {
     padding-left: 0;
     width: inherit;
 }
+
+#titlebox.card .card-reveal {
+    overflow: visible !important;
+}
+
+#titlebox.card .card-reveal .card-title {
+    font-size: 1em;
+    font-weight: normal;
+}

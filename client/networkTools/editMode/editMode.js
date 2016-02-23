@@ -10,7 +10,9 @@ Template.advancedEditMode.helpers = {
 Template.advancedEditMode.events = {
 
   'change #toggle-advanced-edit-mode': function(e,template) {
-      var net = template.view.parentView.parentView._templateInstance.network.get();
+      console.log(template);
+
+      var net = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get()
       var advancedEditMode = e.target.checked;
       Session.set('advancedEditMode', advancedEditMode);
 

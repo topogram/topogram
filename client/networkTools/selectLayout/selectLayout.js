@@ -33,7 +33,8 @@ Template.selectLayout.events = {
   // apply layout
   'click .layout': function(e, template) {
     var layoutName = $(e.target).data().layoutName;
-    var network = template.view.parentView.parentView._templateInstance.network.get()
+    console.log(template);
+    var network = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get();
 
     var layoutConfig = {
         animate: false,
