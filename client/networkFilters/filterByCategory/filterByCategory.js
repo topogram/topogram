@@ -26,11 +26,10 @@ Template.filterByCategory.events = {
   'change select': function(e, template) {
 
       var selectedCategories = $(e.target).find("option:selected").map(function(i, el){ return $(el).val() }).toArray();
+
       var net = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get()
 
       var els = (template.data.type=="nodes") ? net.nodes() : net.edges();
-
-      console.log(selectedCategories);
 
       if (!selectedCategories.length) {
           els.show(); // show everything
@@ -38,7 +37,6 @@ Template.filterByCategory.events = {
           var selectedEls = els.filterFn(function(ele) {
               return  selectedCategories.indexOf(ele.data("group")) > -1
           })
-          console.log(selectedEls);
           els.not(selectedEls).hide();
           if(template.data.type=="edges") selectedEls.connectedNodes().show()
       }
