@@ -80,9 +80,10 @@ Template.network.rendered = function() {
                 'width': function(e) {
                   return e.data("weight") ? e.data("weight") : 1;
                 },
+                'font-size':8,
                 'text-opacity' : 0, // hide label by default
                 'label': function(e) {
-                  return e.data("name") ? e.data("name") : "";
+                  return e.data("group") ? e.data("group") : "";
                 }
               })
             .selector('.edgehandles-hover')
@@ -106,6 +107,8 @@ Template.network.rendered = function() {
     this.graph.add(nodes); // prevent edges to be added before nodes
     this.graph.add(edges);
 
+    console.log(this.graph);
+
     // apply size
     var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([6,40]);
     this.graph.style()
@@ -128,9 +131,13 @@ Template.network.rendered = function() {
     });
 
     this.graph.on('select', 'edge', /*_.debounce(*/ function(e) {
-        var node = e.cyTarget;
-        self.graph.selectElement(e.cyTarget, "edge");
+      console.log(e.cyTarget);
+      e.cyTarget.style({
+        'text-opacity' : 100 // hide label by default
+      })
     });
+
+
 
     this.graph.selectElement = function(el, type){
       Session.set('currentType', type);
@@ -212,27 +219,14 @@ Template.network.rendered = function() {
 
     // select / unsleselct nodes
     this.graph.focusOnNodes = function(selectedNodes){
-      self.graph.nodes().style({
-          'opacity': '.1'
-      });
-      self.graph.edges().style({
-          'opacity': '.1'
-      });
 
       // select
       var subGraph = selectedNodes.closedNeighborhood();
-      selectedNodes.style({
-          'opacity': '1'
-      });
-      subGraph.style({
-          'opacity': '1'
-      });
-
 
       // make only the focus selectable
-      self.graph.nodes().unselectify();
-      self.graph.edges().unselectify(false);
-      subGraph.selectify();
+      self.graph.nodes().hide();
+      self.graph.edges().hide();
+      subGraph.show();
 
       // store actual position
       subGraph.nodes().forEach(function(d){
@@ -245,14 +239,6 @@ Template.network.rendered = function() {
     }
 
     this.graph.unFocus = function(){
-      self.graph.nodes().style( {
-          "opacity": '1'
-      } );
-      self.graph.edges().style( {
-          "opacity": '1'
-      } );
-      self.graph.nodes().selectify();
-      self.graph.edges().selectify();
 
       // remove layout focus and re-apply previous positions
       self.graph.nodes().forEach(function(d){
@@ -262,6 +248,9 @@ Template.network.rendered = function() {
         }
       })
       self.graph.layout({"name":"preset"})
+      // shopw everything
+      self.graph.nodes().show();
+      self.graph.edges().show();
     }
 
     // load node if hash

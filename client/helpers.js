@@ -12,7 +12,6 @@ getCurrentSelection = function() {
   var id = Session.get( 'currentId' ),
       type = Session.get( 'currentType' ),
       item = {};
-
   if(id && type) {
     if ( type == 'node' ) {
         item = Nodes.findOne( {
