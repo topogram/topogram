@@ -1,18 +1,20 @@
 Template.filterByCategory.rendered = function() {
-  $("#nodeFilterType select").material_select();
+  console.log(this);
+  this.$("select").material_select();
 }
 
 Template.filterByCategory.helpers({
-    nodeTypes: function() {
-        var nodes = Nodes.find({}, {
+    categories: function() {
+      var coll = (this.type=="nodes") ? Nodes : Edges;
+      var els = coll.find({}, {
             fields: {
                 'data': 1
             }
         }).fetch();
 
         var types = [];
-        nodes.forEach(function(node) {
-            if (types.indexOf(node.data.group) < 0) types.push(node.data.group);
+        els.forEach(function(el) {
+            if (types.indexOf(el.data.group) < 0) types.push(el.data.group);
         });
 
         return types;
@@ -21,24 +23,24 @@ Template.filterByCategory.helpers({
 
 Template.filterByCategory.events = {
   // filter
-  'change #nodeFilterType select': function(e, template) {
+  'change select': function(e, template) {
 
       var selectedCategories = $(e.target).find("option:selected").map(function(i, el){ return $(el).val() }).toArray();
-      var net = template.view.parentView.parentView.parentView._templateInstance.network.get();
+      var net = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get()
+
+      var els = (template.data.type=="nodes") ? net.nodes() : net.edges();
+
+      console.log(selectedCategories);
 
       if (!selectedCategories.length) {
-          net.nodes().style({
-              'visibility': 'visible'
-          })
+          els.show(); // show everything
       } else {
-          var visible = net.nodes().forEach(function(ele) {
-              if (selectedCategories.indexOf(ele.data("group")) > -1 ) ele.style({
-                  'visibility': 'visible'
-              })
-              else ele.style({
-                  'visibility': 'hidden'
-              })
+          var selectedEls = els.filterFn(function(ele) {
+              return  selectedCategories.indexOf(ele.data("group")) > -1
           })
+          console.log(selectedEls);
+          els.not(selectedEls).hide();
+          if(template.data.type=="edges") selectedEls.connectedNodes().show()
       }
   }
 }
