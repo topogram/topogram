@@ -1,5 +1,5 @@
 Template.filterByCategory.rendered = function() {
-  // $("#nodeFilterType select").material_select();
+  $("#nodeFilterType select").material_select();
 }
 
 Template.filterByCategory.helpers({
