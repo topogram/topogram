@@ -36,25 +36,10 @@ Template.filterByDegree.rendered = function() {
 
   $("#filterByDegree")[0].noUiSlider.on('change', function(val) {
     var net = self.view.parentView.parentView.parentView._templateInstance.network.get()
-
-    // update slider min / max
-    // var min = net.nodes().minDegree();
-    // var max = net.nodes().maxDegree();
-    //
-    // $("#filterByDegree")[0].noUiSlider.updateOptions({
-  	// 	range: {
-  	// 		'min': min,
-  	// 		'max': max
-  	// 	}
-  	// });
-
     Session.set("minMaxDegree", val)
 
     var filter = "node[[degree>="+val[0]+"]][[degree<="+val[1]+"]]";
-
-    var selected = net.nodes().filter(filter);
-    selected.show();
-    net.nodes().difference(selected).hide();
+    net.filterGraph(filter);
   })
 
 };

@@ -29,6 +29,7 @@ Template.filterByCategory.events = {
       var net = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get()
 
       var els = (template.data.type=="nodes") ? net.nodes() : net.edges();
+      // var els = net.elements();
 
       if (!selectedCategories.length) {
           els.show(); // show everything
@@ -36,8 +37,8 @@ Template.filterByCategory.events = {
           var selectedEls = els.filterFn(function(ele) {
               return  selectedCategories.indexOf(ele.data("group")) > -1
           })
-          els.not(selectedEls).hide();
-          if(template.data.type=="edges") selectedEls.connectedNodes().show()
+
+          net.selectElements(selectedEls);
       }
   }
 }

@@ -1,6 +1,6 @@
 <template name="filterByCategory">
   {{# if $gt categories.length 1 }}
-    <div class="input-field col s12">
+    <div class="input-field col s12 filterByCategory">
       <select name="categoryFilterType" multiple>
           <option value="" disabled >Choose from types</option>
           {{#each categories}}

@@ -128,13 +128,13 @@ Template.network.rendered = function() {
     this.graph.reset(); // render layout
 
     // mouse select actions
-    this.graph.on('select', 'node', /*_.debounce(*/ function(e) {
+    this.graph.on('tap', 'node', /*_.debounce(*/ function(e) {
         var node = e.cyTarget;
         self.graph.selectElement(e.cyTarget, "node");
     });
 
     // display edge info
-    this.graph.on('select', 'edge', /*_.debounce(*/ function(e) {
+    this.graph.on('tap', 'edge', /*_.debounce(*/ function(e) {
       e.cyTarget.css({
         'text-opacity' : function(d){
           return  op = (d.style('text-opacity') == "1") ? "0" : "1";
@@ -254,6 +254,50 @@ Template.network.rendered = function() {
       // shopw everything
       self.graph.nodes().show();
       self.graph.edges().show();
+    }
+
+    this.graph.resetFilters = function() {
+      self.graph.elements().deselect();
+      self.graph.elements().show();
+
+      // reset selector
+      $(".filterByCategory").find("option:selected").removeAttr("selected");
+      $('.filterByCategory select').material_select('destroy');
+      $('.filterByCategory select').material_select();
+
+      // update slider min / max
+      var min = self.graph.nodes().minDegree();
+      var max = self.graph.nodes().maxDegree();
+
+      $("#filterByDegree")[0].noUiSlider.set([min, max])
+
+      // $("#filterByDegree")[0].noUiSlider.updateOptions({
+    	// 	range: {
+    	// 		'min': min,
+    	// 		'max': max
+    	// 	}
+    	// });
+
+    }
+
+    // show / hide elements
+    this.graph.selectElements = function(selectedEls) {
+      self.graph.elements().hide();
+      selectedEls.select();
+      selectedEls.show();
+      selectedEls.nodes().connectedEdges().show(); // show edge context
+    }
+
+    this.graph.filterGraph = function(filter){
+
+      // init with all elements selected by default
+      var alreadySelected = (self.graph.$(':selected').length) ? self.graph.$(':selected') : self.graph.elements();
+
+      console.log(alreadySelected.length);
+      var newSelection = alreadySelected.filter(filter);
+      console.log(newSelection.nodes().length,newSelection.edges().length);
+
+      self.graph.selectElements(newSelection);
     }
 
     // load node if hash
