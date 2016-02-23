@@ -130,14 +130,14 @@ Template.network.rendered = function() {
         self.graph.selectElement(e.cyTarget, "node");
     });
 
+    // display edge info
     this.graph.on('select', 'edge', /*_.debounce(*/ function(e) {
-      console.log(e.cyTarget);
-      e.cyTarget.style({
-        'text-opacity' : 100 // hide label by default
+      e.cyTarget.css({
+        'text-opacity' : function(d){
+          return  op = (d.style('text-opacity') == "1") ? "0" : "1";
+        }
       })
     });
-
-
 
     this.graph.selectElement = function(el, type){
       Session.set('currentType', type);
