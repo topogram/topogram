@@ -14,7 +14,7 @@ Template.nodeMerge.events( {
 
         console.log(targetId, sourceId, targetGraphId);
 
-        // Meteor.call("mergeNodes", sourceId, targetId);
+        Meteor.call("mergeNodes", sourceId, targetId);
 
         $( '#modal-merge' ).closeModal();
 
