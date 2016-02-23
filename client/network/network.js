@@ -281,37 +281,35 @@ Template.network.rendered = function() {
 
         // update position
         Meteor.call('updateNodePosition', node.id(), node.position());
-
+        console.log(this);
+        console.log(self);
         // Node Merger
-        // if (nodeEditMode == true) {
-        //     // check for node merger
-        //     console.log("check for node merger")
-        //     var bb = node.boundingbox();
-        //
-        //     var targets = Nodes.find({
-        //         "position.x": {
-        //             "$lt": Math.max(bb.x1, bb.x2),
-        //             "$gte": Math.min(bb.x1, bb.x2)
-        //         },
-        //         "position.y": {
-        //             "$lt": Math.max(bb.y1, bb.y2),
-        //             "$gte": Math.min(bb.y1, bb.y2)
-        //         },
-        //         "data.id": {
-        //             "$not": node.id()
-        //         }
-        //     }).fetch();
-        //
-        //     var nodeSource = Nodes.findOne({
-        //         "data.id": node.id()
-        //     });
-        //
-        //     if (targets.length) {
-        //         Session.set("mergeSource", nodeSource)
-        //         Session.set("mergeTargets", targets)
-        //         $('#modal-merge').openModal();
-        //     }
-        // };
+        if(self.editMode) {
+            // check for node merger
+            console.log("check for node merger")
+
+            // hit test
+            var bb = node.boundingbox();
+            var targets = self.graph.nodes().filterFn(function(d){
+                var isPos =
+                  d.position().x > bb.x1
+                  &&
+                  d.position().x < bb.x2
+                  &&
+                  d.position().y > bb.y1
+                  &&
+                  d.position().y < bb.y2;
+                var isSame = (d.id() == node.id());
+                return isPos && !isSame;
+            })
+
+            // console.log(node, targets);
+            if (targets.length) {
+                Session.set("mergeSource", node.id())
+                Session.set("mergeTargets", targets.map(function(d){return d.id()}))
+                $('#modal-merge').openModal();
+            }
+        };
     });
 
     // interactive edge creation

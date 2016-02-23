@@ -1,15 +1,37 @@
 <template name="nodeMerge">
     <!-- Modal Structure -->
     <div id="modal-merge" class="modal">
-        <div class="modal-content">
-            <h4>Merge Nodes</h4>
-            <ul class="collection with-header">
-            <li class="collection-header"><h4>Source : {{ source.data.data.name }}</h4></li>
-                {{#each targets}}
-                    <li class="collection-item"><a href="#"  class="collection-item select-merge-target" data-merge-target-id="{{_id }}" data-merge-source-id="{{source._id }}">{{ data.data.name }}</a></li>
-                {{/each}}
-            </ul>
+        <div class="modal-content row">
+          <h4>Which nodes to you want to merge?</h4>
+              <div class="col s6">
+                <ul class="collection with-header">
+                  <li class="collection-header">Source</li>
+                  <li class="collection-item">{{ source.data.name }}</li>
+                  {{#if source.data.group }}
+                    <li class="collection-item">{{source.data.group}}</li>
+                  {{/if}}
+                </ul>
+              </div>
+              <div class="col s6">
+                <ul class="collection with-header">
+                  <li class="collection-header">Target</li>
+                  {{#each targets}}
+                    <li class="collection-item"><a href="#"
+                      class="collection-item select-merge-target" data-merge-target-id="{{this._id }}" data-merge-source-id="{{source._id }}"
+                      data-node-to-remove={{source.data.id}}>
+                        {{#if this.data.group }}
+                          <span class="badge">
+                            {{this.data.group}}
+                          </span>
+                        {{/if}}
+                          {{ this.data.name }}
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
+              </div>
         </div>
+        <p>Source node will be kept. Target node and all is edges will be merged into source node.</p>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Agree</a>
             <a href="#!" class="modal-merge-close modal-close waves-effect waves-green btn-flat">Cancel</a>
