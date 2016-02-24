@@ -12,7 +12,6 @@ Template.filterByDegree.helpers({
 Template.filterByDegree.rendered = function() {
 
   var self = this;
-  console.log(this);
 
   // TODO : get scale
   var min = 2;

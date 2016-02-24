@@ -33,7 +33,6 @@ Template.selectLayout.events = {
   // apply layout
   'click .layout': function(e, template) {
     var layoutName = $(e.target).data().layoutName;
-    console.log(template);
     var network = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get();
 
     var layoutConfig = {
@@ -49,6 +48,17 @@ Template.selectLayout.events = {
             Meteor.call('updateNodesPositions', nodesLayout); // save nodes position
         }
     };
+
+    if(layoutName == "spread"){
+      layoutConfig.minDist= 50; // Minimum distance between nodes
+      layoutConfig.padding= 80; // Padding
+    } else if (layoutName == "springy") {
+      // springy forces and config
+      layoutConfig.stiffness = 800;
+      layoutConfig.repulsion = 300;
+      layoutConfig.damping= 0.9;
+
+    }
 
     var layout = network.makeLayout(layoutConfig);
     layout.run();
