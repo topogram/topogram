@@ -5,7 +5,6 @@ Template.network.created = function() {
   this.graphState = this.view.parentView.parentView._templateInstance.graphState.get()
 
   // constants
-  this.colors = d3.scale.category20b();
   this.editMode = this.data.editMode;
 
   // delete/add nodes
@@ -56,13 +55,13 @@ Template.network.rendered = function() {
                 'font-size': 6,//this.graphState.fontSize,
                 'text-valign': 'center',
                 'text-halign': 'right',
-                'color': 'black',
+                'color': 'gray',
                 'text-max-width': 60,
                 'text-wrap': 'wrap',
                 'min-zoomed-font-size': 0.4,
                 'background-color' : function(e) {
                   var color = "#CCC"; // default
-                  if (e.data("group")) color = self.colors(e.data("group"));
+                  if (e.data("group")) color = colors(e.data("group"));
                   else if (e.data("color")) color = color;
                   return e.data('starred') ? 'yellow' : color;
                 },
@@ -74,7 +73,8 @@ Template.network.rendered = function() {
             // node with degree zero
             .selector('node[[degree = 0]]')
               .style({
-                  'background-color': '#555'
+                  'background-color': '#555',
+                  'display' :"none"
               })
             .selector('edge')
               .style({
@@ -112,6 +112,9 @@ Template.network.rendered = function() {
 
     console.log(this.graph);
 
+    // remove singletons
+    this.graph.elements('node[[degree = 0]]').remove();
+
     // apply size
     var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([6,40]);
     this.graph.style()
@@ -124,6 +127,7 @@ Template.network.rendered = function() {
           return degreeDomain(e.degree());
         }
       }).update()
+
 
     this.graph.reset(); // render layout
 
@@ -189,6 +193,7 @@ Template.network.rendered = function() {
           'border-width': 2,
           'border-color': '#D84315',
           'font-size' : 8,
+          'color' : 'black',
           'label': function(d) {
             return d.data("name") ? d.data("name") : "";
           }
@@ -198,6 +203,7 @@ Template.network.rendered = function() {
         e.cyTarget.style({
           'border-width': 0,
           'font-size' : 6,
+          'color' : 'gray',
           'label': function(d) {
             return d.data("name") ? d.data("name").trunc(20) : "";
           }

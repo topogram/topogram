@@ -1,10 +1,23 @@
 <template name="filterByCategory">
   {{# if $gt categories.length 1 }}
+    {{# if hasLegend }}
+      <p class="legend">
+        <small>
+          {{#each categories}}
+              <svg data-category="{{this.name}}" height="10" width="10">
+                <circle cx="5" cy="5" r="5" fill="{{this.color}}" stroke-width="0"/>
+              </svg>
+              {{this.name}}
+              <br>
+          {{/each}}
+        </small>
+      </p>
+    {{/ if}}
     <div class="input-field col s12 filterByCategory">
       <select name="categoryFilterType" multiple>
           <option value="" disabled >Choose from types</option>
           {{#each categories}}
-            <option value="{{this}}">{{this}}</option>
+            <option value="{{this.name}}">{{this.name}}</option>
           {{/each}}
       </select>
       <label for="categoryFilterType">Filter {{type}}</label>

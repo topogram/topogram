@@ -1,5 +1,6 @@
 Template.filterByCategory.rendered = function() {
   this.$("select").material_select();
+
 }
 
 Template.filterByCategory.helpers({
@@ -13,11 +14,15 @@ Template.filterByCategory.helpers({
 
         var types = [];
         els.forEach(function(el) {
-            if (types.indexOf(el.data.group) < 0) types.push(el.data.group);
+            if (types.map(function(d){return d.name}).indexOf(el.data.group) < 0) types.push({
+              "name" : el.data.group,
+              "color" : colors(el.data.group)
+            });
         });
 
         return types;
     }
+
 })
 
 Template.filterByCategory.events = {
