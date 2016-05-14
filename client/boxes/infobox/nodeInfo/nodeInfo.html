@@ -9,6 +9,20 @@
     </li>
     {{#if neighborhood.length }}
       <li>
+        <div class="collapsible-header"><i class="material-icons">assessment</i>Partenaires</div>
+        <ul class="collection collapsible-body">
+          {{> pieChart dataCount=neighborhoodTypeCount}}
+          {{#each neighborhoodTypeCount }}
+              <li class="collection-item">{{this.group}}
+                <svg data-category="{{this.name}}" height="10" width="10">
+                  <circle cx="5" cy="5" r="5" fill="{{this.color}}" stroke-width="0"/>
+                </svg>
+                <span class="badge">{{this.count}}</span>
+              </li>
+          {{/each}}
+        </ul>
+      </li>
+      <li>
         <div class="collapsible-header"><i class="material-icons">games</i>Neighborhood</div>
         <ul class="collection collapsible-body">
           {{#each neighborhood }}
