@@ -46,8 +46,8 @@ geojson-utils
 
 # viz
 d3js:d3
-cytoscape:cytoscape
-maxkfranz:cytoscape-qtip
+# cytoscape:cytoscape
+# maxkfranz:cytoscape-qtip
 # maxkfranz:cytoscape-spread
 # maxkfranz:cytoscape-springy
 # maxkfranz:cytoscape-arbor
