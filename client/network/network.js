@@ -20,6 +20,8 @@ Template.network.created = function() {
   Session.set("mergeSource", null)
   Session.set("mergeTargets", null)
 
+
+
 };
 
 Template.network.rendered = function() {
@@ -27,16 +29,20 @@ Template.network.rendered = function() {
     self.topogramId = self.data.topogramId;
 
     // fetch and parse data
-    // make _id accessible in the el.data()
-    var edges = Edges.find().fetch().map(function(i){ i.data._id = i._id; return i }),
-    nodes = Nodes.find().fetch().map(function(i){
-      i.data._id = i._id;
-      i.parent = "nparent";
-      i.data.parent = "nparent";
-      return i
-    });
-    console.log("nodes", nodes.length)
-    console.log("edges", edges.length)
+    var nodes = [],
+      edges = [];
+
+    // var edges = Edges.find().fetch().map(function(i){
+    //   i.data._id = i._id; return i
+    // }),
+    // nodes = Nodes.find().fetch().map(function(i){
+    //   i.data._id = i._id;
+    //   i.parent = "nparent";
+    //   i.data.parent = "nparent";
+    //   return i
+    // });
+    // console.log("nodes", nodes.length)
+    // console.log("edges", edges.length)
 
     // init graph
     this.graph = cytoscape({
@@ -104,12 +110,46 @@ Template.network.rendered = function() {
               })
       });
 
+    // init display
+    // this.graph.elements().remove(); // make sure evything is clean
+
+    Tracker.autorun(function () {
+
+      Nodes.find().observeChanges( {
+        added: function( id, node ) {
+            if(node) {
+              console.log( 'node added' );
+              // parse data correctly
+              node._id=id;
+              node.data._id = id; // make _id accessible in the el.data()
+              node.parent = "nparent";
+              node.data.parent = "nparent";
+              console.log(node);
+              self.graph.add(node); // prevent edges to be added before nodes
+            }
+        },
+        changed: function( _id, fields ) {
+            console.log( 'node changed' );
+            var index;
+            var item = self.graph.nodes().filter( function( i, node ) {
+                index = i
+                return node.data("_id") == _id;
+            });
+
+            console.log(index, item.id() );
+
+            for ( var field in fields ) {
+              console.log(field, fields[field]);
+              if (field == "position") item.position(fields[field])
+            }
+        },
+        removed: function() {
+            console.log( 'node removed' );
+        }
+      })
+    })
 
 
-    // init data
-    this.graph.elements().remove(); // make sure evything is clean
-    this.graph.add(nodes); // prevent edges to be added before nodes
-    this.graph.add(edges);
 
     console.log(this.graph);
 
@@ -152,8 +192,7 @@ Template.network.rendered = function() {
       var x = $("#network").width()/2,
           y = $("#network").height()/2;
 
-      console.log(self.topogramId);
-      var n = makeNode(self.topogramId, { id:"node-"+slugify(id), x:x, y:y, name: id })
+      var n = makeNode(self.topogramId, { x:x, y:y, name: id })
       Meteor.call("addNode", n)
     }
 
@@ -462,46 +501,21 @@ Template.network.rendered = function() {
     this.graph.initActions(this.advancedEditMode);
 
     // set global var
-    this.view.parentView.parentView._templateInstance.network.set(this.graph);
+    console.log(this);
+    this.data.network.set(this.graph);
 
     // watch changes
-    /*
-    nodes.observeChanges( {
-        added: function( id, fields ) {
-            // console.log( 'node added' );
-            // network.addNode
-        },
-        changed: function( _id, fields ) {
-            // console.log( 'node changed' );
-            var item = self.graph.nodes().filter( function( i, node ) {
-                return node.data().data._id == _id;
-            } );
-            // console.log( item );
-            for ( var field in fields ) {
-                var f = fieldFunctionMap[ field ];
-                // console.log( _, f );
-                if ( _.isFunction( f ) ) {
-                    // console.log( 'test' );
-                    f( item, fields[ field ] );
-                }
-            }
-        },
-        removed: function() {
-            // console.log( 'node removed' );
-        }
-    } );
+    // edges.observeChanges( {
+    //     added: function( id, fields ) {
+    //         // console.log( 'edge inserted' );
+    //     },
+    //     changed: function( id, fields ) {
+    //         // console.log( 'edge updated' );
+    //     },
+    //     removed: function() {
+    //         // console.log( 'edge removed' );
+    //     }
+    // } );
 
-    edges.observeChanges( {
-        added: function( id, fields ) {
-            // console.log( 'edge inserted' );
-        },
-        changed: function( id, fields ) {
-            // console.log( 'edge updated' );
-        },
-        removed: function() {
-            // console.log( 'edge removed' );
-        }
-    } );
-    */
     // console.log('network : ', topogramId, nodes .length, 'nodes', edges .length, 'edges' );
 };
