@@ -14,6 +14,10 @@ Template.view.created = function() {
 }
 
 Template.view.helpers({
+  networkInstance : function(){
+    // console.log("ha", Template.instance().network);
+    return Template.instance().network
+  },
   topogramId : function(){
     var t = Topograms.findOne();
     return t._id
