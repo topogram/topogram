@@ -368,9 +368,9 @@ Template.network.rendered = function() {
       // init with all elements selected by default
       var alreadySelected = (self.graph.$(':selected').length) ? self.graph.$(':selected') : self.graph.elements();
 
-      console.log(alreadySelected.length);
+      // console.log(alreadySelected.length);
       var newSelection = alreadySelected.filter(filter);
-      console.log(newSelection.nodes().length,newSelection.edges().length);
+      // console.log(newSelection.nodes().length, newSelection.edges().length);
 
       self.graph.selectElements(newSelection);
     }
@@ -395,6 +395,7 @@ Template.network.rendered = function() {
     // otions for interactive edge creation
     self.graph.edgehandles({
         complete: function(source, target, addedEntities) {
+          console.log(source, target, addedEntities);
             Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'));
         }
     });

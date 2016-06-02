@@ -14,7 +14,7 @@ Template.filterByDegree.rendered = function() {
   var self = this;
 
   // TODO : get scale
-  var min = 2;
+  var min = 0;
   var max = 50;
 
   Session.set("minMaxDegree", [min, max])
@@ -34,7 +34,20 @@ Template.filterByDegree.rendered = function() {
   })
 
   $("#filterByDegree")[0].noUiSlider.on('change', function(val) {
-    var net = self.view.parentView.parentView.parentView._templateInstance.network.get()
+    var net = self.data.network.get();
+
+    // recalculate scale
+    var deg = net.nodes().map(function(d){ return d.degree() });
+    min = Math.max.apply(Math, deg);
+    max = Math.min.apply(Math, deg);
+    // console.log(slider);
+    // slider.updateOptions({
+    //     range: {
+    //         'min': min,
+    //         'max': max
+    //     }
+    // });
+
     Session.set("minMaxDegree", val)
 
     var filter = "node[[degree>="+val[0]+"]][[degree<="+val[1]+"]]";

@@ -3,13 +3,13 @@
     <div class="card-content">
       <a class="close-filters grey-text" href="#"><i class="material-icons right">close</i></a>
       <div class="row">
-        {{> filterByCategory type="nodes" hasLegend="true"}}
+        {{> filterByCategory network=network type="nodes" hasLegend="true"}}
       </div>
       <div class="row">
-        {{> filterByCategory type="edges"}}
+        {{> filterByCategory network=network type="edges"}}
       </div>
       <div class="row">
-        {{> filterByDegree }}
+        {{> filterByDegree network=network }}
       </div>
       <div class="row">
         <div class="col s12">
