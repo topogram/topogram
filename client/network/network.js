@@ -264,7 +264,8 @@ Template.network.rendered = function() {
           'color' : 'black',
           'label': function(d) {
             return d.data("name") ? d.data("name") : "";
-          }
+          },
+          'z-index': 300000
         })
     });
     this.graph.on('mouseout', 'node', /*_.debounce(*/ function(e) {
