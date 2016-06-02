@@ -118,53 +118,49 @@ Template.network.rendered = function() {
     // add data
     this.graph.add(nodes);
     this.graph.add(edges);
-    // var initData = true;
+    var initData = true;
 
     // init display and watch changes
-    // this.autorun(function(){
-    //   // if(self.graph.edges().length) {
-    //     Nodes.find().observe({
-    //       added: function( node ) {
-    //         node.data._id = node._id; // make _id accessible in the el.data()
-    //         var el = self.graph.filter('node[_id = "'+node._id+'"]')
-    //         if(!el.length) self.graph.add(node);
-    //       },
-    //       removed: function( node ) {
-    //         var el = self.graph.filter('node[_id = "'+node._id+'"]');
-    //         self.graph.remove(el);
-    //       }
-    //     })
-    //
-    //     // watch changes diff
-    //     Nodes.find().observeChanges( {
-    //       changed: function( _id, fields ) {
-    //           var item = self.graph.nodes().filter( function( i, node ) {
-    //               return node.data("_id") == _id;
-    //           });
-    //           for ( var field in fields ) {
-    //             if (field == "position") item.position(fields[field])
-    //             // TODO : update all node properties
-    //           }
-    //       }
-    //     })
-    //
-    //     Edges.find().observe( {
-    //         added: function( edge ) {
-    //           edge.data._id = edge._id; // make _id accessible in the el.data()
-    //           var el = self.graph.filter('edge[_id = "'+edge._id+'"]')
-    //           if(!el.length) self.graph.add(edge);
-    //         }
-    //         // ,
-    //         // removed: function() {
-    //         //     // console.log( 'edge removed' );
-    //         // }
-    //     });
-    //   // }
-    // })
+    this.autorun(function(){
+      if(initData) {
+        Nodes.find().observe({
+          added: function( node ) {
+            node.data._id = node._id; // make _id accessible in the el.data()
+            var el = self.graph.filter('node[_id = "'+node._id+'"]')
+            if(!el.length) self.graph.add(node);
+          },
+          removed: function( node ) {
+            var el = self.graph.filter('node[_id = "'+node._id+'"]');
+            self.graph.remove(el);
+          }
+        })
 
+        // watch changes diff
+        Nodes.find().observeChanges( {
+          changed: function( _id, fields ) {
+              var item = self.graph.nodes().filter( function( i, node ) {
+                  return node.data("_id") == _id;
+              });
+              for ( var field in fields ) {
+                if (field == "position") item.position(fields[field])
+                // TODO : update all node properties
+              }
+          }
+        })
 
-
-
+        Edges.find().observe( {
+            added: function( edge ) {
+              edge.data._id = edge._id; // make _id accessible in the el.data()
+              var el = self.graph.filter('edge[_id = "'+edge._id+'"]')
+              if(!el.length) self.graph.add(edge);
+            }
+            // ,
+            // removed: function() {
+            //     // console.log( 'edge removed' );
+            // }
+        });
+      }
+    })
 
 
     console.log(this.graph);
