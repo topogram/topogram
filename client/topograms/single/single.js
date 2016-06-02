@@ -1,8 +1,12 @@
 Template.single.helpers({
-    networkInstance : function(){
-      // console.log("ha", Template.instance().network);
-      return Template.instance().network
-    }
+  networkInstance : function(){
+    // console.log("ha", Template.instance().network);
+    return Template.instance().network
+  },
+  topogramId : function(){
+    var t = Topograms.findOne();
+    return t._id
+  }
 })
 
 Template.single.created = function() {

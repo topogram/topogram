@@ -24,6 +24,7 @@ Template.network.created = function() {
 
 Template.network.rendered = function() {
     var self = this;
+    self.topogramId = self.data.topogramId;
 
     // fetch and parse data
     // make _id accessible in the el.data()
@@ -145,6 +146,16 @@ Template.network.rendered = function() {
         }
       })
     });
+
+    this.graph.createNode = function(id){
+      // get x, y
+      var x = $("#network").width()/2,
+          y = $("#network").height()/2;
+
+      console.log(self.topogramId);
+      var n = makeNode(self.topogramId, { id:"node-"+slugify(id), x:x, y:y, name: id })
+      Meteor.call("addNode", n)
+    }
 
     this.graph.selectElement = function(el, type){
       Session.set('currentType', type);
