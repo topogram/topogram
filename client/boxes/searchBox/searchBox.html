@@ -1,20 +1,23 @@
 <template name="searchBox">
-  <div class="network-search search input-field">
-    <i class="material-icons prefix">search</i>
-    <!-- <label for="search">Search node or edge</label> -->
-      <input
-            class="search"
-            type=search
-            name="searchFilter"
-            placeholder="{{placeholder}}"
-            autocomplete="off"
-            spellcheck="off"
-            data-activates="{{searchName}}"
-            data-beloworigin="true"
-            required
-        >
-        <i class="searchClose material-icons">close</i>
-        <ul id="{{searchName}}" class="search-dropdown dropdown-content"></ul>
+  <div id="searchbox" class="card card-small">
+    <div class="card-content">
+      <div class="network-search search input-field">
+        <i class="material-icons prefix">search</i>
+        <!-- <label for="search">Search node or edge</label> -->
+          <input
+                class="search"
+                type=search
+                name="searchFilter"
+                placeholder="{{placeholder}}"
+                autocomplete="off"
+                spellcheck="off"
+                data-activates="{{searchName}}"
+                data-beloworigin="true"
+                required
+            >
+            <i class="searchClose material-icons">close</i>
+            <ul id="{{searchName}}" class="search-dropdown dropdown-content"></ul>
+        </div>
+      </div>
     </div>
-
 </template>

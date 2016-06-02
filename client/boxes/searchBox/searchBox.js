@@ -14,7 +14,7 @@ Template.searchBox.events( {
         if ( !$(e.target).data("node-id") ) return;
 
         // get network
-        var net = template.view.parentView.parentView.parentView._templateInstance.network.get();
+        var net = template.view.parentView.parentView._templateInstance.network.get();
 
         // get node from cy
         var selectedNode = net.nodes().filter("[id='"+$(e.target).data("node-id")+"']");
