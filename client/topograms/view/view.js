@@ -12,3 +12,10 @@ Template.view.created = function() {
     }
   Template.instance().graphState.set(graphState);
 }
+
+Template.view.helpers({
+  topogramId : function(){
+    var t = Topograms.findOne();
+    return t._id
+  }
+})
