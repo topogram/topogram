@@ -82,7 +82,7 @@ Template.network.rendered = function() {
             // node with degree zero
             .selector('node[[degree = 0]]')
               .style({
-                  'background-color': '#555'
+                  'background-color': '#656565'
                   // 'display' :"none"
               })
             .selector('edge')
@@ -90,8 +90,10 @@ Template.network.rendered = function() {
                 'background-color' : "#000",
                 'target-arrow-shape': 'none', // default is undirected graph
                 'width': function(e) {
-                  return e.data("weight") ? e.data("weight") : 1;
+                  return e.data("weight") ? e.data("weight") : .5;
                 },
+                'line-color' : '#656565',
+                'line-opacity': .7,
                 'font-size':8,
                 'text-opacity' : 0, // hide label by default
                 'label': function(e) {
@@ -152,7 +154,7 @@ Template.network.rendered = function() {
             added: function( edge ) {
               edge.data._id = edge._id; // make _id accessible in the el.data()
               var el = self.graph.filter('edge[_id = "'+edge._id+'"]')
-              if(!el.length) self.graph.add(edge);
+              if(nodeIds.indexOf(edge.data.source) > -1 && nodeIds.indexOf(edge.data.target) > -1 && !el.length) self.graph.add(edge);
             }
             // ,
             // removed: function() {
@@ -195,6 +197,9 @@ Template.network.rendered = function() {
       e.cyTarget.css({
         'text-opacity' : function(d){
           return  op = (d.style('text-opacity') == "1") ? "0" : "1";
+        },
+        'line-color' : function(d) {
+          return d.style('line-color') == "green" ? "#656565" : "green";
         }
       })
     });
