@@ -8,7 +8,10 @@ Template.titlebox.helpers({
       return this.editMode
     },
     topogram: function() {
-        return topogram = Topograms.findOne();
+      console.log(this);
+      var topogram = Topograms.findOne();
+      console.log(topogram);
+      return topogram;
     }
 })
 
