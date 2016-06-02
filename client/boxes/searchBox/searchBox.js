@@ -8,6 +8,9 @@ Template.searchBox.events( {
         var divName = template.data.searchName
         var searchType = template.data.type;
 
+        $("#new-node a").data("node-id", undefined);
+        $("#new-node a span").html(undefined);
+
         // get network
         var net = Template.instance().data.network.get()
 
@@ -50,6 +53,9 @@ Template.searchBox.events( {
         e.preventDefault();
         $(".search" ).val("");
         $( "ul.search-dropdown li").not('#new-node').remove();
+
+        $("#new-node a").data("node-id", "");
+        $("#new-node a span").html("");
 
         var net = Template.instance().data.network.get()
 
