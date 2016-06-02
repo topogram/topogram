@@ -10,5 +10,13 @@ Template.single.created = function() {
       showEdgesLabels : 0,
       layout : "circle"
     }
+
   Template.instance().graphState.set(graphState);
+}
+
+Template.single.rendered = function() {
+
+  $("#filterbox").hide();
+  $("#sharebox").hide();
+
 }
