@@ -92,7 +92,7 @@ Template.network.rendered = function() {
                 'width': function(e) {
                   return e.data("weight") ? e.data("weight") : .5;
                 },
-                'line-color' : '#656565',
+                'line-color' : '#AAAAAA',
                 'line-opacity': .7,
                 'font-size':8,
                 'text-opacity' : 0, // hide label by default
@@ -199,7 +199,7 @@ Template.network.rendered = function() {
           return  op = (d.style('text-opacity') == "1") ? "0" : "1";
         },
         'line-color' : function(d) {
-          return d.style('line-color') == "green" ? "#656565" : "green";
+          return d.style('line-color') == "green" ? "#AAAAAA" : "green";
         }
       })
     });
