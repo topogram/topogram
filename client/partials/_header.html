@@ -1,8 +1,16 @@
 <template name="header">
+  {{#if isLoggedIn }}
   <div>
     <div class="fixed-action-btn">
-      <a id="menu-trigger" href="#" data-activates="slide-out" class="grey button-collapse btn btn-floating waves-effect waves-light right collapsing"><i class="mdi-navigation-menu"></i> Show</a>
+      <a href="/topograms" class="btn-floating btn-large waves-light grey">
+        <i class="fa fa-icon fa-home"></i>
+      </a>
+    <ul>
+      <li><a class="grey btn-floating"><i class="fa fa-icon fa-home"></i></a></li>
+      <li><a id="logout" class="btn-floating"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+
+    </ul>
     </div>
-    {{> menu }}
   </div>
+  {{/if }}
 </template>
