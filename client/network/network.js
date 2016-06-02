@@ -74,8 +74,8 @@ Template.network.rendered = function() {
             // node with degree zero
             .selector('node[[degree = 0]]')
               .style({
-                  'background-color': '#555',
-                  'display' :"none"
+                  'background-color': '#555'
+                  // 'display' :"none"
               })
             .selector('edge')
               .style({
@@ -114,7 +114,7 @@ Template.network.rendered = function() {
     console.log(this.graph);
 
     // remove singletons
-    this.graph.elements('node[[degree = 0]]').remove();
+    // this.graph.elements('node[[degree = 0]]').remove();
 
     // apply size
     var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([6,40]);
