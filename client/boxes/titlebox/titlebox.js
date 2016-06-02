@@ -19,6 +19,9 @@ Template.titlebox.events =  {
   'click #share-icon' : function() {
     $('#sharebox').toggle();
   },
+  'click #toggle-searchbox' : function() {
+    $('#searchbox').toggle();
+  },
   'click #toggle-algobox' : function() {
     $('#algobox').toggle();
   },
