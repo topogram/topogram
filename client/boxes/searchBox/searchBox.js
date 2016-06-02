@@ -50,7 +50,7 @@ Template.searchBox.events( {
     'click .searchClose': function( e, template ) {
         e.preventDefault();
         $(".search" ).val("");
-        $( "ul.search-dropdown li").remove();
+        $( "ul.search-dropdown li").not('#new-node').remove();
 
         var net = Template.instance().data.network.get()
 
