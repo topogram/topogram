@@ -1,3 +1,10 @@
+Template.single.helpers({
+    networkInstance : function(){
+      // console.log("ha", Template.instance().network);
+      return Template.instance().network
+    }
+})
+
 Template.single.created = function() {
 
   // reactive var to share across templates

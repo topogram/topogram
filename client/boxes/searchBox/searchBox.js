@@ -14,7 +14,7 @@ Template.searchBox.events( {
         if ( !$(e.target).data("node-id") ) return;
 
         // get network
-        var net = template.view.parentView.parentView._templateInstance.network.get();
+        var net = Template.instance().data.network.get()
 
         // get node from cy
         var selectedNode = net.nodes().filter("[id='"+$(e.target).data("node-id")+"']");
@@ -44,7 +44,7 @@ Template.searchBox.events( {
         $(".search" ).val("");
         $( "ul.search-dropdown li").remove();
 
-        var net = template.view.parentView.parentView.parentView._templateInstance.network.get();
+        var net = Template.instance().data.network.get()
 
         // reset display
         net.unFocus();

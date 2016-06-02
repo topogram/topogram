@@ -1,7 +1,5 @@
 Template.header.helpers({
   isLoggedIn : function() {
-    console.log(Meteor.userId());
-    console.log("ha");
     return Meteor.userId() ? true : false;
   }
 })
