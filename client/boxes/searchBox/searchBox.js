@@ -23,28 +23,27 @@ Template.searchBox.events( {
         // create new node if it does not exists
         if(!selectedNode.length){
           net.createNode($(e.target).data("node-id"));
+
+        } else {
+
+          // check if a node is already selected
+          if(searchType == 'source') {
+
+            // display info
+            Session.set('currentType', 'node');
+            Session.set('currentId', selectedNode.id());
+
+            // color focus
+            net.selectElement(selectedNode, "node");
+
+          } else if(searchType == 'target') {
+
+            // select a second node and draw path
+            var nodeOrigin = net.nodes().filter("[id='" + Session.get('currentId') + "']");
+            Session.set('pathTargetNodeId', selectedNode.data('id'))
+            net.drawPath(nodeOrigin, selectedNode);
+          }
         }
-
-        // get node from cy
-
-        // // check if a node is already selected
-        // if(searchType == 'source') {
-        //
-        //
-        //   // display info
-        //   Session.set('currentType', 'node');
-        //   Session.set('currentId', selectedNode.id());
-        //
-        //   // color focus
-        //   net.selectElement(selectedNode, "node");
-        //
-        // } else if(searchType == 'target') {
-        //
-        //   // select a second node and draw path
-        //   var nodeOrigin = net.nodes().filter("[id='" + Session.get('currentId') + "']");
-        //   Session.set('pathTargetNodeId', selectedNode.data('id'))
-        //   net.drawPath(nodeOrigin, selectedNode);
-        // }
     },
 
     'click .searchClose': function( e, template ) {
