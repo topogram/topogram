@@ -19,7 +19,6 @@ callback-hook@1.0.4
 check@1.1.0
 coffeescript@1.0.11
 cosmos:browserify@0.9.3
-cytoscape:cytoscape@2.6.4
 d3js:d3@3.5.8
 dburles:mongo-collection-instances@0.3.4
 ddp@1.2.2
@@ -58,8 +57,6 @@ livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
 materialize:materialize@0.97.5
-maxkfranz:cytoscape@2.4.9
-maxkfranz:cytoscape-qtip@2.2.5
 meteor@1.1.10
 meteor-base@1.0.1
 meteorhacks:async@1.0.0

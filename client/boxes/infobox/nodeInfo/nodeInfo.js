@@ -5,7 +5,7 @@ Template.nodeInfo.rendered= function(){
 Template.nodeInfo.helpers({
   neighborhood: function() {
     var node = Template.instance().data.node;
-    var network = Template.instance().data.network
+    var network = Template.instance().data.network.get();
     if(node) {
       var neighborhood = network.nodes().filter("[id='"+node.id+"']").neighborhood();
       return neighborhood.nodes().map(function(d){ return d.data()});
@@ -14,7 +14,7 @@ Template.nodeInfo.helpers({
   neighborhoodTypeCount: function() {
 
     var node = Template.instance().data.node;
-    var network = Template.instance().data.network
+    var network = Template.instance().data.network.get();
 
     if(node) {
       var neighborhood = network.nodes().filter("[id='"+node.id+"']").neighborhood();

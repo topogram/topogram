@@ -1,16 +1,16 @@
 <template name="single">
-  {{> network editMode=true}}
+  {{> network network=networkInstance topogramId=topogramId editMode=true}}
   <div id="toolkit" class="row">
       <div class="toolbox col s3">
         {{> titlebox editMode=true}}
-        {{> searchBox searchName="mainSearch" type="source" placeholder="Lookup a node"}}
+        {{> searchBox network=networkInstance searchName="mainSearch" type="source" placeholder="Lookup a node"}}
         {{> sharebox }}
-        {{> filterbox }}
+        {{> filterbox network=networkInstance }}
         {{> toolbox }}
         {{> algobox }}
       </div>
     <div class="col offset-s6 s3">
-      {{> infobox}}
+      {{> infobox network=networkInstance}}
       {{> commentBox}}
     </div>
   </div>

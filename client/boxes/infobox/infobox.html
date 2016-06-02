@@ -1,11 +1,7 @@
 <template name="infobox">
 <div id="infoBox" class="card">
   {{> nodeInfo node=currentSelection network=network }}
-  <ul class="card-content collapsible" data-collapsible="expandable">
-    <li>
-      {{> searchBox searchName="targetName" type="target" placeholder="Go to another node"}}
-    </li>
-  </ul>
+  {{> searchBox network=network searchName="targetName" type="target" placeholder="Go to another node"}}
 
     {{#if pathToTarget.length }}
     <ul class="card-content collapsible" data-collapsible="expandable">

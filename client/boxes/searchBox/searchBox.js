@@ -1,5 +1,6 @@
 Template.searchBox.rendered = function() {
   $(".search").dropdown();
+  $("#new-node").hide();
 }
 
 Template.searchBox.events( {
@@ -7,48 +8,61 @@ Template.searchBox.events( {
         var divName = template.data.searchName
         var searchType = template.data.type;
 
+        $("#new-node a").data("node-id", undefined);
+        $("#new-node a span").html(undefined);
+
+        // get network
+        var net = Template.instance().data.network.get()
+
         // display text
         $("#"+divName+" .search" ).attr("value", $(e.target).text());
 
-        // search if a node exists
-        if ( !$(e.target).data("node-id") ) return;
+        // check there is a proper data argument
+        if ( !$(e.target).data("node-id") ) return
 
-        // get network
-        var net = template.view.parentView.parentView._templateInstance.network.get();
-
-        // get node from cy
+        // select my nodes
         var selectedNode = net.nodes().filter("[id='"+$(e.target).data("node-id")+"']");
 
-        // check if a node is already selected
-        if(searchType == 'source') {
+        // create new node if it does not exists
+        if(!selectedNode.length){
+          net.createNode($(e.target).data("node-id"));
 
+        } else {
 
-          // display info
-          Session.set('currentType', 'node');
-          Session.set('currentId', selectedNode.id());
+          // check if a node is already selected
+          if(searchType == 'source') {
 
-          // color focus
-          net.selectElement(selectedNode, "node");
+            // display info
+            Session.set('currentType', 'node');
+            Session.set('currentId', selectedNode.id());
 
-        } else if(searchType == 'target') {
+            // color focus
+            net.selectElement(selectedNode, "node");
 
-          // select a second node and draw path
-          var nodeOrigin = net.nodes().filter("[id='" + Session.get('currentId') + "']");
-          Session.set('pathTargetNodeId', selectedNode.data('id'))
-          net.drawPath(nodeOrigin, selectedNode);
+          } else if(searchType == 'target') {
+
+            // select a second node and draw path
+            var nodeOrigin = net.nodes().filter("[id='" + Session.get('currentId') + "']");
+            Session.set('pathTargetNodeId', selectedNode.data('id'))
+            net.drawPath(nodeOrigin, selectedNode);
+          }
         }
     },
 
     'click .searchClose': function( e, template ) {
         e.preventDefault();
         $(".search" ).val("");
-        $( "ul.search-dropdown li").remove();
+        $( "ul.search-dropdown li").not('#new-node').remove();
 
-        var net = template.view.parentView.parentView.parentView._templateInstance.network.get();
+        $("#new-node a").data("node-id", "");
+        $("#new-node a span").html("");
+
+        var net = Template.instance().data.network.get()
 
         // reset display
         net.unFocus();
     },
+
 
     'keyup .search': function( e, template ) {
         var options = options || {};
@@ -61,7 +75,11 @@ Template.searchBox.events( {
         }
 
         if ( event.target.value != '' ) {
-          $( ".search-dropdown>li" ).remove(); // clean list
+          $( ".search-dropdown>li").not('#new-node').remove(); // clean list
+          $("#new-node").show();
+          $("#new-node a").data("node-id", event.target.value);
+          $("#new-node a span").html(event.target.value);
+
           var nodes =  Nodes.find({
             'data.name' : {
               $regex: event.target.value+"*",
@@ -71,8 +89,10 @@ Template.searchBox.events( {
           nodes.forEach( function( r ) {
             $( "ul.search-dropdown" ).append( "<li><a href=# data-node-id=" + r.data.id + ">" + r.data.name + "</a></li>" );
           } );
+
         } else {
-          $( ".search-dropdown>li" ).remove();
+          $("#new-node").hide();
+          $( ".search-dropdown>li").not('#new-node').remove();
         }
     }
 } );

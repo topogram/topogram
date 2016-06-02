@@ -24,10 +24,12 @@ Template.network.created = function() {
 
 Template.network.rendered = function() {
     var self = this;
+    self.topogramId = self.data.topogramId;
 
     // fetch and parse data
-    // make _id accessible in the el.data()
-    var edges = Edges.find().fetch().map(function(i){ i.data._id = i._id; return i }),
+    var edges = Edges.find().fetch().map(function(i){
+      i.data._id = i._id; return i
+    }),
     nodes = Nodes.find().fetch().map(function(i){
       i.data._id = i._id;
       i.parent = "nparent";
@@ -36,6 +38,13 @@ Template.network.rendered = function() {
     });
     console.log("nodes", nodes.length)
     console.log("edges", edges.length)
+
+    //make sure all nodes referenced in edges actually exists
+    var nodeIds = nodes.map(function(n){return n.data.id});
+    edges = edges.filter(function(e){
+      return (nodeIds.indexOf(e.data.source) > -1   && nodeIds.indexOf(e.data.target) > -1);
+    });
+    console.log("connected edges", edges.length);
 
     // init graph
     this.graph = cytoscape({
@@ -73,16 +82,18 @@ Template.network.rendered = function() {
             // node with degree zero
             .selector('node[[degree = 0]]')
               .style({
-                  'background-color': '#555',
-                  'display' :"none"
+                  'background-color': '#656565'
+                  // 'display' :"none"
               })
             .selector('edge')
               .style({
                 'background-color' : "#000",
                 'target-arrow-shape': 'none', // default is undirected graph
                 'width': function(e) {
-                  return e.data("weight") ? e.data("weight") : 1;
+                  return e.data("weight") ? e.data("weight") : .5;
                 },
+                'line-color' : '#AAAAAA',
+                'line-opacity': .7,
                 'font-size':8,
                 'text-opacity' : 0, // hide label by default
                 'label': function(e) {
@@ -103,17 +114,61 @@ Template.network.rendered = function() {
               })
       });
 
+    // clean eveything
+    this.graph.elements().remove();
 
-
-    // init data
-    this.graph.elements().remove(); // make sure evything is clean
-    this.graph.add(nodes); // prevent edges to be added before nodes
+    // add data
+    this.graph.add(nodes);
     this.graph.add(edges);
+    var initData = true;
+
+    // init display and watch changes
+    this.autorun(function(){
+      if(initData) {
+        Nodes.find().observe({
+          added: function( node ) {
+            node.data._id = node._id; // make _id accessible in the el.data()
+            var el = self.graph.filter('node[_id = "'+node._id+'"]')
+            if(!el.length) self.graph.add(node);
+          },
+          removed: function( node ) {
+            var el = self.graph.filter('node[_id = "'+node._id+'"]');
+            self.graph.remove(el);
+          }
+        })
+
+        // watch changes diff
+        Nodes.find().observeChanges( {
+          changed: function( _id, fields ) {
+              var item = self.graph.nodes().filter( function( i, node ) {
+                  return node.data("_id") == _id;
+              });
+              for ( var field in fields ) {
+                if (field == "position") item.position(fields[field])
+                // TODO : update all node properties
+              }
+          }
+        })
+
+        Edges.find().observe( {
+            added: function( edge ) {
+              edge.data._id = edge._id; // make _id accessible in the el.data()
+              var el = self.graph.filter('edge[_id = "'+edge._id+'"]')
+              if(nodeIds.indexOf(edge.data.source) > -1 && nodeIds.indexOf(edge.data.target) > -1 && !el.length) self.graph.add(edge);
+            }
+            // ,
+            // removed: function() {
+            //     // console.log( 'edge removed' );
+            // }
+        });
+      }
+    })
+
 
     console.log(this.graph);
 
     // remove singletons
-    this.graph.elements('node[[degree = 0]]').remove();
+    // this.graph.elements('node[[degree = 0]]').remove();
 
     // apply size
     var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([6,40]);
@@ -142,9 +197,22 @@ Template.network.rendered = function() {
       e.cyTarget.css({
         'text-opacity' : function(d){
           return  op = (d.style('text-opacity') == "1") ? "0" : "1";
+        },
+        'line-color' : function(d) {
+          return d.style('line-color') == "green" ? "#AAAAAA" : "green";
         }
       })
     });
+
+    this.graph.createNode = function(id){
+      // get x, y
+      var x = $("#network").width()/2,
+          y = $("#network").height()/2;
+
+      var n = makeNode(self.topogramId, { x:x, y:y, name: id })
+      console.log("new node",n);
+      Meteor.call("addNode", n)
+    }
 
     this.graph.selectElement = function(el, type){
       Session.set('currentType', type);
@@ -196,7 +264,8 @@ Template.network.rendered = function() {
           'color' : 'black',
           'label': function(d) {
             return d.data("name") ? d.data("name") : "";
-          }
+          },
+          'z-index': 300000
         })
     });
     this.graph.on('mouseout', 'node', /*_.debounce(*/ function(e) {
@@ -305,9 +374,9 @@ Template.network.rendered = function() {
       // init with all elements selected by default
       var alreadySelected = (self.graph.$(':selected').length) ? self.graph.$(':selected') : self.graph.elements();
 
-      console.log(alreadySelected.length);
+      // console.log(alreadySelected.length);
       var newSelection = alreadySelected.filter(filter);
-      console.log(newSelection.nodes().length,newSelection.edges().length);
+      // console.log(newSelection.nodes().length, newSelection.edges().length);
 
       self.graph.selectElements(newSelection);
     }
@@ -332,6 +401,7 @@ Template.network.rendered = function() {
     // otions for interactive edge creation
     self.graph.edgehandles({
         complete: function(source, target, addedEntities) {
+          console.log(source, target, addedEntities);
             Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'));
         }
     });
@@ -451,46 +521,15 @@ Template.network.rendered = function() {
     this.graph.initActions(this.advancedEditMode);
 
     // set global var
-    this.view.parentView.parentView._templateInstance.network.set(this.graph);
+    console.log(this);
+    this.data.network.set(this.graph);
 
     // watch changes
-    /*
-    nodes.observeChanges( {
-        added: function( id, fields ) {
-            // console.log( 'node added' );
-            // network.addNode
-        },
-        changed: function( _id, fields ) {
-            // console.log( 'node changed' );
-            var item = self.graph.nodes().filter( function( i, node ) {
-                return node.data().data._id == _id;
-            } );
-            // console.log( item );
-            for ( var field in fields ) {
-                var f = fieldFunctionMap[ field ];
-                // console.log( _, f );
-                if ( _.isFunction( f ) ) {
-                    // console.log( 'test' );
-                    f( item, fields[ field ] );
-                }
-            }
-        },
-        removed: function() {
-            // console.log( 'node removed' );
-        }
-    } );
 
-    edges.observeChanges( {
-        added: function( id, fields ) {
-            // console.log( 'edge inserted' );
-        },
-        changed: function( id, fields ) {
-            // console.log( 'edge updated' );
-        },
-        removed: function() {
-            // console.log( 'edge removed' );
-        }
-    } );
-    */
     // console.log('network : ', topogramId, nodes .length, 'nodes', edges .length, 'edges' );
+};
+
+
+Template.network.destroyed = function() {
+  console.log("hahah");
 };
