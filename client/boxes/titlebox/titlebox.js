@@ -3,6 +3,11 @@ Template.titlebox.created = function() {
     $(".collapsible").collapsible();
 }
 
+Template.titlebox.rendered = function() {
+    $(".collapsible").collapsible();
+}
+
+
 Template.titlebox.helpers({
     isEditable : function() {
       return this.editMode
