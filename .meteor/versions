@@ -34,6 +34,7 @@ ejson@1.0.7
 email@1.0.8
 fastclick@1.0.7
 fortawesome:fontawesome@4.5.0
+fourseven:scss@3.4.3
 geojson-utils@1.0.4
 harrison:papa-parse@1.1.1
 hot-code-push@1.0.0
@@ -56,7 +57,6 @@ launch-screen@1.0.4
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
-materialize:materialize@0.97.5
 meteor@1.1.10
 meteor-base@1.0.1
 meteorhacks:async@1.0.0
@@ -77,6 +77,7 @@ npm-container@1.2.0
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
+poetic:materialize-scss@1.97.6_1
 promise@0.5.1
 raix:handlebar-helpers@0.2.5
 random@1.0.5

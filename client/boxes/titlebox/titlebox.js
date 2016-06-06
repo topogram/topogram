@@ -1,5 +1,5 @@
 Template.titlebox.created = function() {
-    this.editMode = this.data.editMode;
+    this.editMode = this.data.editMode; 
 }
 
 Template.titlebox.rendered = function() {

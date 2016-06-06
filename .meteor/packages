@@ -31,7 +31,8 @@ spacebars
 jquery
 mrt:flash-messages
 
-materialize:materialize
+fourseven:scss
+poetic:materialize-scss
 useraccounts:materialize
 workman:x-editable-reactive-template
 
