@@ -11,6 +11,7 @@
     "cytoscape-edgehandles": "^2.4.0",
     "cytoscape-spread": "^1.2.0",
     "cytoscape-springy": "^1.2.1",
+    "geojson-tools": "^0.2.2",
     "jquery": "^2.2.4",
     "meteor-node-stubs": "^0.2.3",
     "nouislider": "^8.5.1"
