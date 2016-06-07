@@ -2,10 +2,10 @@
 
 **Topogram (client)** is a web interface to create and publish visualizations and maps of networks.
 
-## Features 
+## Features
 
 * interactive editing of networks
-* time/geo based data 
+* time/geo based data
 * collaborative work
 * CSV import
 
@@ -13,7 +13,13 @@
 
     git clone https://github.com/topogram/topogram-client.git
     cd topogram-client
-    meteor 
+    meteor
+
+### Test
+
+All tests are located in ```specs```
+
+    meteor test --driver-package=practicalmeteor:mocha
 
 #### Dependencies
 
