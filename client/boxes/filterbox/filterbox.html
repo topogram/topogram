@@ -1,17 +1,21 @@
 <template name="filterbox">
   <div id="filterbox" class="card card-small">
     <div class="card-content">
-      {{> searchFilter }}
-      {{> filters }}
+      <a class="close-filters grey-text" href="#"><i class="material-icons right">close</i></a>
+      <div class="row">
+        {{> filterByCategory network=network type="nodes" hasLegend="true"}}
+      </div>
+      <div class="row">
+        {{> filterByCategory network=network type="edges"}}
+      </div>
+      <div class="row">
+        {{> filterByDegree network=network }}
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <a href="#" class="btn btn-xs clear-filters">CLEAR</a>
+        </div>
+      </div>
     </div>
-    <!-- <ul class="collapsible" data-collapsible="expandable">
-      <li>
-          <div class="collapsible-header">
-              <i class="material-icons">sort_by_alpha</i> Filters
-          </div>
-          <div class="collapsible-body">
-          </div>
-      </li>
-    </ul> -->
   </div>
 </template>

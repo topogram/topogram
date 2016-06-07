@@ -1,4 +1,5 @@
 .meteor/local
 .meteor/meteorite
 csv
+npm-debug.log
 node_modules

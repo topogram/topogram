@@ -1,21 +1,22 @@
-Template.editMode.rendered = function() {
-  nodeEditMode = false;
-  edgeEditMode = false;
+Template.advancedEditMode.rendered = function() {
+  Session.set( 'advancedEditMode', false );
 }
 
-Template.editMode.events = {
+Template.advancedEditMode.helpers = {
+  editModeOnOff : function(d) {
+    return Session.get('advancedEditMode');
+  }
+}
+Template.advancedEditMode.events = {
 
-        'change #toggle-edge-edit-mode': function(e,template) {
-            var net = template.view.parentView.parentView._templateInstance.network.get();
-            var edgeEditMode = e.target.checked;
+  'change #toggle-advanced-edit-mode': function(e,template) {
+      console.log(template);
 
-            if (!edgeEditMode){
-                net.edgehandles("disable");
-            }
-            else {
-                net.edgehandles("enable")
-            }
-            return;
+      var net = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get()
+      var advancedEditMode = e.target.checked;
+      Session.set('advancedEditMode', advancedEditMode);
 
-        }
+      // init mouse actions
+      net.initActions()
+  }
 }

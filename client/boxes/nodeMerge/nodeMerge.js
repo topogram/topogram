@@ -8,28 +8,39 @@ Template.nodeMerge.events( {
         $( '#modal-merge' ).closeModal();
     },
     'click .select-merge-target': function( e, template ) {
-        var targetId = $( e.target ).data( 'merge-target-id' );
-        var sourceId = $( e.target ).data( 'merge-source-id' );
-        Meteor.call( "mergeNodes", sourceId, targetId );
+        var targetId = $(e.target).data('merge-target-id');
+        var sourceId = $(e.target).data('merge-source-id');
+        var targetGraphId = $(e.target).data('node-to-remove');
+
+        console.log(targetId, sourceId, targetGraphId);
+
+        Meteor.call("mergeNodes", sourceId, targetId);
+
         $( '#modal-merge' ).closeModal();
 
-        var targetNodeId = Nodes.findOne( {
-            _id: targetId
-        } ).data.id;
-        var net = template.view.parentView._templateInstance.topogram.get().net;
-
+        console.log(template);
+        var net = template.view.parentView._templateInstance.network.get();
+        console.log(net);
         // remove from graph
-        var node = net.filter( 'node[id ="' + targetNodeId + '"]' )
-        net.remove( node.neighborhood( 'edge' ) );
-        net.remove( node );
+        var node = net.filter( 'node[id ="' + targetGraphId + '"]' )
+        console.log(node);
+        // node.neighborhood('edge').remove();
+        net.remove(node); // BUG : throw Error
     }
 } );
 
 Template.nodeMerge.helpers( {
     targets: function() {
-        return Session.get( "mergeTargets" )
+      var targetsId = Session.get( "mergeTargets" );
+      console.log(targetsId);
+      var nodes = [];
+      if (targetsId) nodes = Nodes.find({"data.id" : { "$in" : targetsId }}).fetch();
+      return nodes;
     },
     source: function() {
-        return Session.get( "mergeSource" );
+      var sourceId = Session.get( "mergeSource" );
+      var node = null;
+      if(sourceId) node = Nodes.findOne({"data.id" : sourceId });
+      return node;
     }
 } );

@@ -1,0 +1,11 @@
+<template name="importEdges">
+  <div id="importEdgesFields">
+      <!-- Required -->
+      <div class="col s4">
+        {{> importFieldSelector fieldId="sourceField" label="Select Column : Source" dataFields=getDataFields optional=0}}
+      </div>
+      <div class="col s4">
+        {{> importFieldSelector fieldId="targetField" label="Select Column : Target" dataFields=getDataFields optional=0}}
+      </div>
+  </div>
+</template>

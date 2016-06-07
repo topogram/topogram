@@ -1,14 +1,14 @@
-Template.slider.helpers({
-  topograms : function() {
-    return Topograms.find().fetch()
+Template.header.helpers({
+  isLoggedIn : function() {
+    return Meteor.userId() ? true : false;
   }
 })
 
-Template.header.rendered = function() {
-  // sidebar
-  $('.collapsing').sideNav({
-    closeOnClick: true,
-    menuWidth: 300, // Default is 240
-    edge: 'left' // Choose the horizontal origin
-  });
+Template.header.events = {
+  "click #logout": function() {
+      Meteor.logout(function(err) {
+        // callback
+        console.log("logged out");
+    });
+  }
 }

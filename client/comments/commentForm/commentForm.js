@@ -6,7 +6,7 @@ Template.commentForm.events = {
         var id = Session.get('currentId') || "node-000";
 
         if(body !="")  {
-            Meteor.call("addComment",  id, type, body);
+            Meteor.call("addComment",  id, type, body, Meteor.userId());
             $('#body').val('');  // reset textarea display
         }
     }

@@ -1,16 +1,3 @@
-Template.addTopogram.events( {
-    'submit form': function( event ) {
-        event.preventDefault();
-        var topogramName = $( '[name=topogramName]' ).val();
-        if ( topogramName != '' ) {
-            Meteor.call( 'createTopogram', Meteor.userId(), topogramName );
-            $( '[name=topogramName]' ).val( '' );
-        } else {
-            FlashMessages.sendError( 'TopogramName should not be empty' );
-        }
-    }
-} );
-
 Template.topograms.events( {
     'click .delete': function( e ) {
         e.preventDefault();
@@ -35,10 +22,9 @@ Template.topograms.events( {
 Template.topograms.helpers( {
     topograms: function( e ) {
         return Topograms.find().fetch().map( function( d, i ) {
-            console.log(i);
             d.index = i + 1;
             d.privacy = d.sharedPublic ? 'Public' : 'Private';
-            d.date = moment( d.createdAr ).format( 'MMMM Do YYYY, h:mm:ss a' );
+            d.date = moment( d.createdAt ).format( 'MMMM Do YYYY, h:mm:ss a' );
             return d;
         } );
     }

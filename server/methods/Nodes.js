@@ -14,50 +14,50 @@ Meteor.methods( {
         var target = Nodes.findOne( {
             "_id": targetId
         } ); // will be deleted
-        // console.log( source.data.id, target.data.id );
 
-        tx.start( "merges nodes" );
+        console.log("merging nodes");
+
+        // tx.start( "merges nodes" );
 
         // find and replace all target node edges with source id
-        Edges.find( {
+        Edges.find({
             'data.source': target.data.id
-        } ).forEach( function( edge ) {
-            // console.log( edge.data.source, source.data.id );
-            Edges.update( {
+        }).forEach(function(edge) {
+            Edges.update({
                 "_id": edge._id
-            }, {
+            },{
                 $set: {
                     'data.source': source.data.id
                 }
-            }, {
-                tx: true
-            } )
-        } )
+            // },{
+            //  tx: true
+            })
+        })
 
         Edges.find( {
             'data.target': target.data.id
-        } ).forEach( function( edge ) {
-            Edges.update( {
+        }).forEach( function( edge ) {
+            Edges.update({
                 "_id": edge._id
-            }, {
-                $set: {
-                    'data.target': source.data.id
-                }
-            }, {
-                tx: true
-            } )
-        } );
+            },{
+              $set: {
+                  'data.target': source.data.id
+              }
+
+            // }, {
+            //     tx: true
+            })
+        });
 
         // copy data of target into source (if missing)
         // TODO : node merger startegy
 
         //erase target
-        Nodes.remove( {
-            '_id': targetId
-        }, {
-            tx: true
-        } );
-        tx.commit();
+        Nodes.remove({ '_id': targetId })
+        // , {
+        //     tx: true
+        // } );
+        // tx.commit();
     },
 
     deleteNode: function( nodeId ) {
@@ -68,9 +68,7 @@ Meteor.methods( {
         } )._id;
         Nodes.remove( {
             '_id': _id
-        }, {
-            tx: true
-        } );
+        });
     },
 
     deleteNodeAndConnectedEdges: function( nodeId, edgesId ) {
@@ -81,12 +79,10 @@ Meteor.methods( {
         } )._id;
 
         console.log( nodeId, edgesId, _id );
-        tx.start( "delete node+neighborhood" );
+        // tx.start( "delete node+neighborhood" );
         Nodes.remove( {
             "_id": _id
-        }, {
-            tx: true
-        } );
+        });
         Edges.find( {
             'data.id': {
                 '$in': edgesId
@@ -94,11 +90,9 @@ Meteor.methods( {
         } ).forEach( function( edge ) {
             Edges.remove( {
                 "_id": edge._id
-            }, {
-                tx: true
-            } );
+            });
         } );
-        tx.commit();
+        // tx.commit();
     },
 
     deleteNodesByTopogramId: function( topogramId ) {
@@ -107,7 +101,7 @@ Meteor.methods( {
         } );
     },
 
-    //update coords in DB
+    //update coord in DB for a single node
     updateNodePosition: function( nodeId, position ) {
         var node = Nodes.findOne( {
             'data.id': nodeId
@@ -121,13 +115,33 @@ Meteor.methods( {
         } );
     },
 
+
     // TODO : improve batch update of nodes
     // update coords in DB for bunch of nodes (useful to save topogram layout changes)
-    updateNodesPositions: function( nodes ) {
-        for ( var i = 0; i < nodes.length; i++ ) {
-            var node = nodes[ i ];
-            Meteor.call( 'updateNodePosition', node.id, node.position )
+    updateNodesPositions: function( updatedNodes ) {
+
+      var nodesPosition = {};
+      updatedNodes.forEach(function(d){
+        nodesPosition[d._id] = d.position;
+        return d;
+      });
+
+      var nodes = Nodes.find({
+        "_id" : {
+          "$in": updatedNodes.map(function(d) {return d._id})
         }
+      }).fetch().map(function(d){ // update data
+        d.position = nodesPosition[d._id];
+        return d
+        //  = updatedNodes
+      })
+
+      bulkCollectionUpdate(Nodes, nodes, {
+        primaryKey: "_id",
+        callback: function() {
+          console.log("Nodes positions updated.");
+        }
+      });
     },
 
     lockNode: function( nodeId, position ) {
