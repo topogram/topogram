@@ -1,3 +1,11 @@
+var jquery = require('jquery');
+var cytoscape = require('cytoscape');
+var edgehandles = require('cytoscape-edgehandles');
+var cxtmenu = require('cytoscape-cxtmenu');
+
+edgehandles( cytoscape, jquery ); // register extension
+cxtmenu( cytoscape, jquery ); // register extension
+
 Template.network.created = function() {
   // console.log("init network");
 

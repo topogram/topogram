@@ -1,3 +1,5 @@
+var noUiSlider = require("nouislider");
+
 Template.filterByDegree.helpers({
     hasEdgesWeight: function() {
         var edge = Edges.findOne();
