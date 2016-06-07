@@ -12,7 +12,6 @@
     "cytoscape-spread": "^1.2.0",
     "cytoscape-springy": "^1.2.1",
     "jquery": "^2.2.4",
-    "materialize-css": "^0.97.6",
     "meteor-node-stubs": "^0.2.3",
     "nouislider": "^8.5.1"
   },
