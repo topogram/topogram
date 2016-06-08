@@ -19,7 +19,11 @@
 
 All tests are located in ```specs```
 
-    meteor test --driver-package=practicalmeteor:mocha
+    npm test
+
+Check for ESlint compliance
+
+    npm run lint
 
 #### Dependencies
 
