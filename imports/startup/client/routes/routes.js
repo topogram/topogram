@@ -1,3 +1,7 @@
+// Import to load these templates
+import '../../../ui/layouts/mainLayout.html';
+
+
 // Default routing settings
 Router.configure( {
     layoutTemplate: 'mainLayout',
