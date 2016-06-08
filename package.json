@@ -16,9 +16,38 @@
     "meteor-node-stubs": "^0.2.3",
     "nouislider": "^8.5.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^2.3.0",
+    "eslint-plugin-meteor": "^3.0.1"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "meteor"
+    ],
+    "extends": [
+      "airbnb/base",
+      "plugin:meteor/recommended"
+    ],
+    "rules": {
+      "meteor/eventmap-params": [
+        2,
+        {
+          "eventParamName": "event",
+          "templateInstanceParamName": "instance"
+        }
+      ],
+      "meteor/template-names": [
+        0
+      ]
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "meteor test --driver-package practicalmeteor:mocha",
+    "lint": "eslint .",
     "start": "meteor"
   },
   "repository": {

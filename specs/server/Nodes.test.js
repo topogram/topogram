@@ -1,21 +1,26 @@
 import { chai } from 'meteor/practicalmeteor:chai';
+import { resetDatabase } from 'meteor/xolvio:cleaner';
 chai.should();
 
 describe('Nodes', function() {
 
+  beforeEach(function () {
+    resetDatabase();
+  });
+
   describe('makeNode', function(){
     var node;
 
-    it("should be create a new node", function(){
+    it("should create a new node", function(){
       before(function(){
         node = {}; // makeNode();
         // console.log(node);
       })
+    });
 
-      node.should.equal(1);
-      node.should.be.a("string")
 
-    })
+    // node.should.equal(1);
+    // node.should.be.a("string")
 
   });
 
@@ -24,7 +29,7 @@ describe('Nodes', function() {
     it('should call Mongo insert method', function() {
 
       //Setup a spy to watch for calls to Nodes.insert
-      // spyOn(Nodes,"insert");
+      spyOn(Nodes,"insert").andReturn(1);
 
       //Call workoutInsert Meteor Method
       // Meteor.call('addNode');
