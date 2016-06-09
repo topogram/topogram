@@ -1,3 +1,6 @@
+import './topograms-index.html'
+// import { Topograms } from '../../../api/collections.js'
+
 Template.topograms.events( {
     'click .delete': function( e ) {
         e.preventDefault();

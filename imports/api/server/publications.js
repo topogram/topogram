@@ -1,3 +1,11 @@
+
+import { Meteor } from 'meteor/meteor';
+import { Comments } from './collections.js';
+import { Nodes } from './collections.js';
+import { Edges } from './collections.js';
+import { Topograms } from './collections.js';
+
+
 /*
  *  COMMENTS
  */
@@ -5,60 +13,6 @@
 Meteor.publish( 'comments', function() {
     return Comments.find();
 } );
-
-
-/*
- *  MULTIPLE TOPOGAMS
- */
-// only the topogams that have been publicized
-Meteor.publish( 'topograms', function( userId ) {
-    return Topograms.find( {
-        "owner": this.userId
-    } );
-} );
-
-Meteor.publish( 'publicTopograms', function() {
-    return Topograms.find( {
-        "sharedPublic": 1
-    }, {
-        'sort': {
-            'createdAt': 1
-        },
-        'limit': 500
-    } );
-} );
-
-/*
- *  SINGLE TOPOGRAM
- */
-Meteor.publish( 'topogram', function( topogramId ) {
-    return Topograms.find( {
-        '_id': topogramId
-    } );
-} );
-
-Meteor.publish( 'publicTopogram', function( topogramId ) {
-    return Topograms.find( {
-        '_id': topogramId,
-        'sharedPublic': 1
-    } );
-} );
-
-/*
- *  DATASETS
- */
-
- Meteor.publish( 'datasets', function( userId ) {
-     return Datasets.find( {
-         "owner": this.userId
-     } );
- });
-
- Meteor.publish( 'dataset', function( datasetId ) {
-     return Datasets.find( {
-         '_id': topogramId
-     } );
- });
 
 
 /*

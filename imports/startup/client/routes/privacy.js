@@ -1,4 +1,4 @@
-// user-based privacy  
+// user-based privacy
 Router.plugin('ensureSignedIn', {
   except: ['root', 'showTopogram', 'signIn', 'atSignIn', 'atSignUp', 'atForgotPassword', 'atResetPwd']
 });

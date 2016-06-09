@@ -1,4 +1,4 @@
-makeEdge = function( topogramId, element, data ) {
+export const makeEdge = function( topogramId, element, data ) {
     var el = element || {};
     var rawData = data || {};
     var edge = makeGraphElement(topogramId, el, rawData)
@@ -9,7 +9,7 @@ makeEdge = function( topogramId, element, data ) {
     return edge;
 }
 
-makeNode = function( topogramId, element, data ) {
+export const makeNode = function( topogramId, element, data ) {
     var el = element || {};
     var rawData = data || {};
     var node = makeGraphElement(topogramId, el, rawData)

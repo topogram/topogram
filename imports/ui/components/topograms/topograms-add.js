@@ -1,3 +1,5 @@
+import './topograms-add.html'
+
 Template.addTopogram.events( {
     'submit form': function( event ) {
         event.preventDefault();

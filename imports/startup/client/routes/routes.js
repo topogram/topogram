@@ -1,26 +1,29 @@
-// Import to load these templates
-import '../../../ui/layouts/mainLayout.html';
+import { Meteor } from 'meteor/meteor';
+import { Router } from 'meteor/iron:router';
 
+// Import to load these templates
+import '../../../ui/layouts/mainLayout.js';
+import '../../../ui/pages/404.html';
+import '../../../ui/pages/loading.html';
+import '../../../ui/pages/home.js';
 
 // Default routing settings
 Router.configure( {
     layoutTemplate: 'mainLayout',
     notFoundTemplate: '404'
-} );
-
+});
 
 Router.route( '/', {
-    name: 'root',
-    onBeforeAction : function() {
-      if (!Meteor.user() && this.ready())
-        return this.redirect('/login')
-        this.next()
-    },
-    waitOn: function() {
-        return [
-            Meteor.subscribe( 'publicTopograms' ),
-            Meteor.subscribe( 'topograms', Meteor.userId )
-        ];
+    name: 'homePage',
+    subscriptions: function() {
+      // console.log(Meteor.userId());
+        return  Meteor.subscribe( 'topograms.public' )
+
+        // return Meteor.subscribe( 'topograms.private', Meteor.userId )
+        // return [
+        //     Meteor.subscribe( 'topograms.public' ),
+        //     Meteor.subscribe( 'topograms.private', Meteor.userId )
+        // ];
     },
     action: function() {
         if ( !this.ready() ) this.render( 'loading' );
@@ -29,8 +32,13 @@ Router.route( '/', {
 } );
 
 Router.route( '/login', {
+    name: 'login',
     action: function() {
         // this.render( 'login' );
         this.render( 'fullPageAtForm' );
     }
 } );
+
+// import aditionnal routes
+import './topograms.js'
+import './privacy.js'
