@@ -1,5 +1,5 @@
 import './topograms-index.html'
-// import { Topograms } from '../../../api/collections.js'
+import { Topograms } from '../../../api/collections.js'
 
 Template.topograms.events( {
     'click .delete': function( e ) {
@@ -24,7 +24,9 @@ Template.topograms.events( {
 
 Template.topograms.helpers( {
     topograms: function( e ) {
+        console.log(Topograms);
         return Topograms.find().fetch().map( function( d, i ) {
+
             d.index = i + 1;
             d.privacy = d.sharedPublic ? 'Public' : 'Private';
             d.date = moment( d.createdAt ).format( 'MMMM Do YYYY, h:mm:ss a' );

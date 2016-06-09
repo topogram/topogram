@@ -15,19 +15,9 @@ Router.configure( {
 
 Router.route( '/', {
     name: 'homePage',
-    subscriptions: function() {
-      // console.log(Meteor.userId());
-        return  Meteor.subscribe( 'topograms.public' )
-
-        // return Meteor.subscribe( 'topograms.private', Meteor.userId )
-        // return [
-        //     Meteor.subscribe( 'topograms.public' ),
-        //     Meteor.subscribe( 'topograms.private', Meteor.userId )
-        // ];
-    },
     action: function() {
-        if ( !this.ready() ) this.render( 'loading' );
-        else this.render( 'home' );
+      if ( !this.ready() ) this.render( 'loading' );
+      else this.render( 'home' );
     }
 } );
 

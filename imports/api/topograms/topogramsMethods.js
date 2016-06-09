@@ -1,8 +1,4 @@
 Meteor.methods( {
-    publicTopograms : function() {
-      console.log("public.topograms");
-      return Topograms.find( { "sharedPublic": 1 }, { 'sort': {  'createdAt': 1 } } );
-    },
     topogramListForUser: function( userId ) {
         // console.log(userId);
         return Topograms.find( {
