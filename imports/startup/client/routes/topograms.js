@@ -3,6 +3,7 @@ Router.route( '/topograms', {
         return Meteor.subscribe( 'topograms', Meteor.userId() );
     },
     action: function() {
+      // console.log();
         if ( !this.ready() ) this.render( "loading" );
         else this.render( 'topograms' );
     }

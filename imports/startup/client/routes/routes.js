@@ -15,7 +15,14 @@ Router.configure( {
 
 Router.route( '/', {
     name: 'homePage',
+    waitOn: function() {
+      return [
+        Meteor.subscribe( 'topograms.private' ),
+        Meteor.subscribe('topograms.public')
+      ]
+    },
     action: function() {
+      // console.log(this);
       if ( !this.ready() ) this.render( 'loading' );
       else this.render( 'home' );
     }

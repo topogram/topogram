@@ -7,13 +7,6 @@ import { Topograms } from '../../api/collections.js'
 import '../../ui/components/topograms/topograms-index.js'
 import '../../ui/components/topograms/topograms-add.js'
 
-Template.home.onCreated(function () {
-  this.autorun(() => {
-    this.subscribe('topograms.public', Meteor.userId());
-  });
-  // this.subscribe('topograms.private');
-})
-
 Template.home.helpers( {
     hasPublicTopograms: function() {
         return Topograms.find( { "sharedPublic": 1 }, { 'sort': {  'createdAt': 1 } } ).fetch().length > 0
