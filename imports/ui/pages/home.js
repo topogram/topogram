@@ -4,8 +4,8 @@ import { Topograms } from '../../api/collections.js'
 // import { publicTopograms } from '../../api/topograms/topogramsMethods.js'
 
 // components in the template
-import '../../ui/components/topograms/topograms-index.js'
-import '../../ui/components/topograms/topograms-add.js'
+import './topograms/topograms-index.js'
+import './topograms/topograms-add.js'
 
 Template.home.helpers( {
     hasPublicTopograms: function() {

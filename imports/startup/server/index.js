@@ -8,8 +8,9 @@ import '../../api/edges/edgesMethods.js';
 import '../../api/nodes/nodesMethods.js';
 // import '../../api/users/usersMethods.js';
 
+// topograms
 import '../../api/topograms/topogramsMethods.js';
 import '../../api/topograms/server/publications.js';
 
 // publications
-// import '../../api/server/publications.js';
+import '../../api/server/publications.js';

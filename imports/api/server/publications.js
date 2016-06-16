@@ -1,9 +1,8 @@
 
 import { Meteor } from 'meteor/meteor';
-import { Comments } from './collections.js';
-import { Nodes } from './collections.js';
-import { Edges } from './collections.js';
-import { Topograms } from './collections.js';
+import { Comments } from '../collections.js';
+import { Nodes } from '../collections.js';
+import { Edges } from '../collections.js';
 
 
 /*
@@ -19,13 +18,15 @@ Meteor.publish( 'comments', function() {
  *  NODES AND EDGES
  */
 
-Meteor.publish( 'edges', function( topogramId ) {
-    var edges = Edges.find( {
-        'topogramId': topogramId
-    } );
-    // console.log( edges.count(), "edges" );
-    return edges;
-} );
+
+ Meteor.publish( 'edges', function( topogramId ) {
+     var edges = Edges.find( {
+         'topogramId': topogramId
+     } );
+     // console.log( edges.count(), "edges" );
+     return edges;
+ } );
+
 
 Meteor.publish( 'nodes', function( topogramId ) {
 
