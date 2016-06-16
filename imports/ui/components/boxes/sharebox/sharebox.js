@@ -1,3 +1,9 @@
+import './sharebox.html'
+import { Template } from 'meteor/templating'
+
+import { Topograms } from '../../../../api/collections.js'
+
+
 Template.sharebox.helpers( {
   'sharedPublic' :function() {
     var t = Topograms.findOne();

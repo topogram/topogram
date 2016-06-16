@@ -1,3 +1,6 @@
+import './infobox.html'
+import { Template } from 'meteor/templating'
+
 Template.infobox.rendered = function() {
   $("#infoBox").hide();
 };
@@ -30,7 +33,7 @@ Template.infobox.helpers({
 
 Template.infobox.events = {
     'click #closeInfoBox': function( event, template ) {
-        var network = Template.instance().data.network.get();        
+        var network = Template.instance().data.network.get();
         network.deselectAll()
     }
 };

@@ -1,3 +1,7 @@
+import './selectLayout.html'
+import { Template } from 'meteor/templating'
+
+
 Template.selectLayout.helpers({
 
     layouts: function() {

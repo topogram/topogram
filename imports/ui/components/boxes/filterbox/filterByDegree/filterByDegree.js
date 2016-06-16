@@ -1,4 +1,7 @@
-var noUiSlider = require("nouislider");
+import './filterByDegree.html'
+import { Template } from 'meteor/templating'
+
+import {noUiSlider, wNumb } from "nouislider"
 
 Template.filterByDegree.helpers({
     hasEdgesWeight: function() {

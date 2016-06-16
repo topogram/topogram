@@ -1,3 +1,6 @@
+import './searchbox.html'
+import { Template } from 'meteor/templating' 
+
 Template.searchBox.rendered = function() {
   $(".search").dropdown();
   $("#new-node").hide();

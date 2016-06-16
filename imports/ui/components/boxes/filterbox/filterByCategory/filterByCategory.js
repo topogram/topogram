@@ -1,6 +1,8 @@
+import './filterByCategory.html'
+import { Template } from 'meteor/templating'
+
 Template.filterByCategory.rendered = function() {
   this.$("select").material_select();
-
 }
 
 Template.filterByCategory.helpers({

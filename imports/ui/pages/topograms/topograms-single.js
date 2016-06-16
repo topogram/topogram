@@ -3,6 +3,19 @@ import { Template } from 'meteor/templating'
 import { Topograms } from '../../../api/collections.js'
 import { ReactiveVar } from 'meteor/reactive-var';
 
+import '../../components/network/network.js'
+import '../../components/boxes/titlebox/titlebox.js'
+import '../../components/boxes/searchbox/searchbox.js'
+import '../../components/boxes/sharebox/sharebox.js'
+import '../../components/boxes/filterbox/filterbox.js'
+import '../../components/boxes/infobox/infobox.js'
+
+import '../../components/networkTools/selectLayout/selectLayout.js'
+import '../../components/networkTools/editMode/editMode.js'
+
+// import '../../components/boxes/algobox/algobox.js'
+// import '../../components/boxes/toolbox/toolbox.js'
+
 Template.single.helpers({
   networkInstance : function(){
     // console.log("ha", Template.instance().network);

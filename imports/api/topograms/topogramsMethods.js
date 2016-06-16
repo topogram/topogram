@@ -1,3 +1,5 @@
+import { slugify } from '../../helpers'
+
 Meteor.methods( {
     topogramListForUser: function( userId ) {
         // console.log(userId);

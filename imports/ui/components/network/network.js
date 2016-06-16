@@ -1,3 +1,7 @@
+import './network.html'
+import { Template } from 'meteor/templating'
+
+// TODO: move to ES2015 notation
 var jquery = require('jquery');
 var cytoscape = require('cytoscape');
 var edgehandles = require('cytoscape-edgehandles');
