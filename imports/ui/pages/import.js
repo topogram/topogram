@@ -12,7 +12,7 @@ Template.import.onCreated( function() {
 
     var self = this
     this.parseData = function(csvData) {
-      var lines = csvData.split( '\n' ) 
+      var lines = csvData.split( '\n' )
 
       //remove empty lines
       lines = lines.filter( function( line ) {
@@ -47,7 +47,7 @@ Template.import.onCreated( function() {
           })
 
           if ( data.errors.length ) {
-              for ( var i = 0  i < data.errors.length  i++ ) {
+              for ( var i = 0 ; i < data.errors.length ; i++ ) {
                   self.newLayerDataReady.set(false)
 
                   var message = 'CSV parsing Error '
