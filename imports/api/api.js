@@ -4,12 +4,12 @@
   useDefaultAuth: true,
   prettyJson: true,
   onLoggedIn: function () {
-    console.log(this.user.username + ' (' + this.userId + ') logged in');
+    console.log(this.user.username + ' (' + this.userId + ') logged in') 
   },
   onLoggedOut: function () {
-    console.log(this.user.username + ' (' + this.userId + ') logged out');
+    console.log(this.user.username + ' (' + this.userId + ') logged out') 
   }
- });
+ }) 
 
  // Generates: GET, POST on /api/items and GET, PUT, DELETE on
  // /api/items/:id for the Items collection
@@ -20,11 +20,11 @@
    endpoints: {
      getAll: {
        action: function () {
-         return Topograms.find({ "owner": this.userId}).fetch();
+         return Topograms.find({ "owner": this.userId}).fetch() 
        }
      }
   }
-});
+}) 
 
  // Generates: POST on /api/users and GET, DELETE /api/users/:id for
  // Meteor.users collection
@@ -41,4 +41,4 @@
        roleRequired: 'admin'
      }
    }
- });
+ }) 

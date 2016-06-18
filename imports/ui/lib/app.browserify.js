@@ -1,1 +1,1 @@
-GeoJSONTools = require('geojson-tools');
+GeoJSONTools = require('geojson-tools') 

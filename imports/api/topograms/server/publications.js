@@ -1,6 +1,6 @@
 /* eslint-disable prefer-arrow-callback */
-import { Meteor } from 'meteor/meteor';
-import { Topograms } from '../../collections.js';
+import { Meteor } from 'meteor/meteor' 
+import { Topograms } from '../../collections.js' 
 
 /*
  *  MULTIPLE TOPOGAMS
@@ -8,12 +8,12 @@ import { Topograms } from '../../collections.js';
 // only the topogams that have been publicized
 Meteor.publish( 'topograms.private', function( userId ) {
   if (!this.userId) {
-    return this.ready();
+    return this.ready() 
   }
   return Topograms.find( {
       "owner": this.userId
-  });
-} );
+  }) 
+} ) 
 
 Meteor.publish( 'topograms.public', function() {
     return Topograms.find( {
@@ -23,8 +23,8 @@ Meteor.publish( 'topograms.public', function() {
             'createdAt': 1
         },
         'limit': 500
-    } );
-} );
+    } ) 
+} ) 
 
 /*
  *  SINGLE TOPOGRAM
@@ -32,12 +32,12 @@ Meteor.publish( 'topograms.public', function() {
 Meteor.publish( 'topogram', function( topogramId ) {
     return Topograms.find( {
         '_id': topogramId
-    } );
-} );
+    } ) 
+} ) 
 
 Meteor.publish( 'publicTopogram', function( topogramId ) {
     return Topograms.find( {
         '_id': topogramId,
         'sharedPublic': 1
-    } );
-} );
+    } ) 
+} ) 

@@ -1,31 +1,31 @@
-import { Topograms, Edges, Nodes } from './api/collections.js';
+import { Topograms, Edges, Nodes } from './api/collections.js' 
 
-export const TabularTables = {};
+export const TabularTables = {} 
 TabularTables.TopogramsList = new Tabular.Table( {
     name: "TopogramsList",
     collection: Topograms,
     columns: [ {
         data: 'name',
         title: 'Name',
-        render: function( val, type, doc ) {;
-            return "<a href='/topograms/" + doc._id + "''>" + val + "</a>";
+        render: function( val, type, doc ) { 
+            return "<a href='/topograms/" + doc._id + "''>" + val + "</a>" 
         }
     }, {
         data: 'sharedPublic',
         title: 'Public',
         render: function( val, type, doc ) {
-            return val ? "Public" : "Private";
+            return val ? "Public" : "Private" 
         }
     }, {
         data: 'createdAt',
         title: 'Created At',
         render: function( val, type, doc ) {
-            return moment( val ).format( "MMMM Do YYYY, h:mm:ss a" );
+            return moment( val ).format( "MMMM Do YYYY, h:mm:ss a" ) 
         }
     }, {
         tmpl: Meteor.isClient && Template.deleteCell
     } ]
-} );
+} ) 
 
 TabularTables.NodesList = new Tabular.Table( {
     name: "NodesList",
@@ -52,7 +52,7 @@ TabularTables.NodesList = new Tabular.Table( {
         data: "createdAt",
         title: "Created At"
     } ]
-} );
+} ) 
 
 TabularTables.EdgesList = new Tabular.Table( {
     name: "EdgesList",
@@ -70,4 +70,4 @@ TabularTables.EdgesList = new Tabular.Table( {
         data: "createdAt",
         title: "Created At"
     }, ]
-} );
+} ) 

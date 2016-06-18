@@ -14,4 +14,4 @@ Template.home.helpers( {
     publicTopograms: function() {
         return Topograms.find( { "sharedPublic": 1 }, { 'sort': {  'createdAt': 1 } } )
     }
-} );
+} ) 
