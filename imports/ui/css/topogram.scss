@@ -1,73 +1,73 @@
 
 body{
-  background: #F5F5F5 
+  background: #F5F5F5;
 }
 
 span.badge {
-    position: relative !important 
-    right: 0 !important 
+    position: relative !important;
+    right: 0 !important;
 }
 
 #navTitle {
-    margin-left: 20px 
+    margin-left: 20px;
 }
 
 nav ul {
-    margin-right: 20px !important 
+    margin-right: 20px !important;
 }
 
 .category {
-    word-wrap: break-word 
+    word-wrap: break-word;
 }
 
 #infoBox p.card-title {
-  line-height: 1em 
-  font-size: 1.4em 
+  line-height: 1em;
+  font-size: 1.4em;
 }
 #closeInfoBox {
-    cursor: pointer 
-    cursor: hand 
+    cursor: pointer;
+    cursor: hand;
 }
 
 #nodeFilterType select {
-  height: 150px 
+  height: 150px;
 }
 svg {
-    position: relative 
+    position: relative;
 }
 
 #networkTemplate {
-    position: relative 
+    position: relative;
 }
 
 .card {
-    overflow: visible !important 
+    overflow: visible !important;
 }
 
 #map, #algobox, #toolbox {
-  display: none 
+  display: none;
 }
 
 #map, #network {
-    position: fixed 
-    top: 0px 
-    left: 0 
-    width : 100% 
-    height: 100% 
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width : 100%;
+    height: 100%;
 }
 
 #network>canvas{
-	z-index: -1 !important 
+	z-index: -1 !important;
 }
 
 #viewSelector {
-    margin-bottom: 20px 
+    margin-bottom: 20px;
 }
 
 #footer {
-  position: relative 
-  bottom:0 
-  text-align: center 
+  position: relative;
+  bottom:0;
+  text-align: center;
 }
 
 .main-view {
@@ -75,29 +75,29 @@ svg {
 }
 
 #footer p {
-  color: #555 
+  color: #555;
   font-size: .7em
 }
 
 .side-nav a {
-  height: inherit 
-  line-height: inherit 
+  height: inherit;
+  line-height: inherit;
 }
 
 .side-nav .collection.with-header {
-  margin-top: 0 
+  margin-top: 0;
 }
 
 .network-search input[type=search] {
-    padding-left: 0 
-    width: inherit 
+    padding-left: 0;
+    width: inherit;
 }
 
 #titlebox.card .card-reveal {
-    overflow: visible !important 
+    overflow: visible !important;
 }
 
 #titlebox.card .card-reveal .card-title {
-    font-size: 1em 
-    font-weight: normal 
+    font-size: 1em;
+    font-weight: normal;
 }
