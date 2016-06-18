@@ -1,4 +1,11 @@
-Template.importNetwork.onCreated( function() {
+import './import.html'
+import { Template } from 'meteor/templating'
+import { Topograms } from '../../api/collections.js'
+
+
+//TODO : import ReactiveVar
+
+Template.import.onCreated( function() {
     this.newLayerDataReady = new ReactiveVar(false);
     this.dataFields = new ReactiveVar([]);
     this.newLayerType= new ReactiveVar(undefined);
@@ -60,7 +67,7 @@ Template.importNetwork.onCreated( function() {
     }
 });
 
-Template.importNetwork.helpers( {
+Template.import.helpers( {
     dataIsReady: function() {
         return Template.instance().newLayerDataReady.get();
     },
@@ -78,7 +85,7 @@ Template.importNetwork.helpers( {
     }
 } );
 
-Template.importNetwork.events( {
+Template.import.events( {
 
     'change #file-input': function( e, template ) {
         e.preventDefault();

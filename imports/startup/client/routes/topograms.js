@@ -4,6 +4,8 @@ import '../../../ui/layouts/networkLayout.js';
 import '../../../ui/pages/topograms/topograms-single.js';
 import '../../../ui/pages/topograms/topograms-index.js';
 import '../../../ui/pages/topograms/topograms-view.js';
+import '../../../ui/pages/import.js';
+import '../../../ui/pages/lab.js';
 import '../../../ui/pages/lab.js';
 
 Router.route( '/topograms', {
@@ -78,7 +80,7 @@ Router.route( '/topograms/:topogramId/view', {
 Router.route( '/topograms/:topogramId/import', {
     action: function() {
         if ( !this.ready() ) this.render( "loading" );
-        else this.render( 'importNetwork', {
+        else this.render( 'import', {
             data: {
                 "topogramId": this.params.topogramId,
                 "type": "nodes"
