@@ -1,3 +1,12 @@
+import './lab.html'
+import { Template } from 'meteor/templating'
+
+import { Nodes, Edges, Topograms } from '../../api/collections.js'
+
+import  '../components/datalab/edges/edges.js'
+import  '../components/datalab/nodes/nodes.js'
+
+
 Template.lab.helpers({
 
   topogram: function() {

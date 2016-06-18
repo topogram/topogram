@@ -1,10 +1,6 @@
-import { Nodes } from '../imports/api/collections.js';
-import { Edges } from '../imports/api/collections.js';
-import { Topograms } from '../imports/api/collections.js';
+import { Topograms, Edges, Nodes } from './api/collections.js';
 
-
-TabularTables = {};
-
+export const TabularTables = {};
 TabularTables.TopogramsList = new Tabular.Table( {
     name: "TopogramsList",
     collection: Topograms,

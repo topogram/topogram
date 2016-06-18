@@ -4,6 +4,7 @@ import '../../../ui/layouts/networkLayout.js';
 import '../../../ui/pages/topograms/topograms-single.js';
 import '../../../ui/pages/topograms/topograms-index.js';
 import '../../../ui/pages/topograms/topograms-view.js';
+import '../../../ui/pages/lab.js';
 
 Router.route( '/topograms', {
     waitOn: function() {
