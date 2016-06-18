@@ -1,7 +1,11 @@
+import './map.html'
+import { Template } from 'meteor/templating'
+
+import { Nodes } from '../../../api/collections.js'
 var map, svg;
 
 // global helper to check if network has geo information
-hasGeo = function() {
+export const hasGeo = function() {
   var node = Nodes.findOne({}, {
       fields: {
           'data.data': 1
@@ -14,7 +18,7 @@ hasGeo = function() {
 
 Template.map.rendered = function() {
 
-    // get network
+    // TODO : get network with proper reference
     var network = this.view.parentView.parentView._templateInstance.network.get();
 
     L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';

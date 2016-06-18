@@ -1,5 +1,8 @@
 // get colors
-colors = d3.scale.category20();
+export const colors = d3.scale.category20();
+
+import { Template } from 'meteor/templating'
+import { Nodes } from '../api/collections.js'
 
 Template.registerHelper( 'objectToPairs', function( object ) {
     return _.map( object, function( value, key ) {

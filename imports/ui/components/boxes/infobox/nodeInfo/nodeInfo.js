@@ -1,3 +1,8 @@
+import './nodeInfo.html'
+import { Template } from 'meteor/templating'
+
+import { colors } from '../../../../helpers.js'
+
 Template.nodeInfo.rendered= function(){
   $(".collapsible").collapsible();
 }

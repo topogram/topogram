@@ -1,6 +1,10 @@
 import './filterByCategory.html'
 import { Template } from 'meteor/templating'
 
+import { Edges, Nodes } from  '../../../../../api/collections.js'
+import { colors } from '../../../../../ui/helpers.js'
+
+
 Template.filterByCategory.rendered = function() {
   this.$("select").material_select();
 }

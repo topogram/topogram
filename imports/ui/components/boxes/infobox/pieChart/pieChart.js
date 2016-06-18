@@ -1,3 +1,9 @@
+import './pieChart.html'
+import { Template } from 'meteor/templating'
+
+import { colors } from '../../../../helpers.js'
+// TODO import d3 properly
+
 Template.pieChart.rendered = function() {
 
   var width = 250,

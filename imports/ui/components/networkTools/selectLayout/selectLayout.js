@@ -1,6 +1,7 @@
 import './selectLayout.html'
 import { Template } from 'meteor/templating'
 
+import { hasGeo } from '../../map/map.js'
 
 Template.selectLayout.helpers({
 

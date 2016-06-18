@@ -1,3 +1,6 @@
+import './nodeMerge.html'
+import { Template } from 'meteor/templating'
+
 Template.nodeMerge.onCreated = function() {
     Session.set( "mergeSource", null );
     Session.set( "mergeTargets", null );

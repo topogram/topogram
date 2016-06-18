@@ -1,3 +1,6 @@
+import './commentForm.html'
+import { Template } from 'meteor/templating'
+
 Template.commentForm.events = {
     'click #submit': function(e){
         e.preventDefault();

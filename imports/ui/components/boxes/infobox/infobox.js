@@ -1,6 +1,11 @@
 import './infobox.html'
 import { Template } from 'meteor/templating'
 
+import './nodeInfo/nodeInfo.js'
+import './pieChart/pieChart.js'
+import '../../boxes/commentBox/commentBox.js'
+import '../../boxes/nodeMerge/nodeMerge.js'
+
 Template.infobox.rendered = function() {
   $("#infoBox").hide();
 };

@@ -1,3 +1,9 @@
+import './commentBox.html'
+import { Template } from 'meteor/templating'
+
+import { Comments } from '../../../../api/collections.js'
+import '../../comments/commentForm/commentForm.js'
+
 Template.commentBox.rendered = function(){
     $("#commentBox").hide();
 }

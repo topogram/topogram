@@ -1,6 +1,9 @@
 import './network.html'
 import { Template } from 'meteor/templating'
 
+import { Nodes, Edges } from '../../../api/collections.js'
+import { colors } from '../../helpers.js'
+
 // TODO: move to ES2015 notation
 var jquery = require('jquery');
 var cytoscape = require('cytoscape');
