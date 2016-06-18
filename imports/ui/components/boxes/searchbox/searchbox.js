@@ -1,5 +1,6 @@
 import './searchbox.html'
-import { Template } from 'meteor/templating' 
+import { Template } from 'meteor/templating'
+import { Nodes } from '../../../../api/collections.js'
 
 Template.searchBox.rendered = function() {
   $(".search").dropdown();

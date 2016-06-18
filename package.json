@@ -4,11 +4,11 @@
   "description": "Real-time collaborative social network analysis toolkit",
   "main": "topogram.js",
   "dependencies": {
-    "cytoscape": "^2.7.1",
+    "cytoscape": "2.7.2",
     "cytoscape-arbor": "^1.2.1",
     "cytoscape-cose-bilkent": "^1.3.3",
     "cytoscape-cxtmenu": "^2.7.1",
-    "cytoscape-edgehandles": "^2.4.0",
+    "cytoscape-edgehandles": "2.4.1",
     "cytoscape-spread": "^1.2.0",
     "cytoscape-springy": "^1.2.1",
     "geojson-tools": "^0.2.2",

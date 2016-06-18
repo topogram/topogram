@@ -22,21 +22,21 @@ Template.pieChart.rendered = function() {
   svg.append("g")
     .attr("class", "labels");
 
-      console.log(this);
-      console.log(this.dataCount);
+      // console.log(this);
+      // console.log(this.dataCount);
 
       var radius = 100;
 
       var pie = d3.layout.pie()
           .sort(null)
-          .value(function(d) { console.log(d);return d.count; });
+          .value(function(d) { return d.count; });
 
       var arc = d3.svg.arc()
           .outerRadius(radius - 10)
           .innerRadius(0);
 
       var svg = d3.select("svg.pie-chart");
-      console.log(svg);
+      // console.log(svg);
 
       /* ------- PIE SLICES -------*/
     	var slice = svg.select(".slices")
@@ -48,7 +48,6 @@ Template.pieChart.rendered = function() {
         .attr("class", "slice")
         .attr("d", arc)
         .style("fill", function(d) {
-          console.log(d);
           return colors(d.data.group);
         })
         .on("mouseover", function(d){

@@ -1,3 +1,5 @@
+import { Nodes } from '../collections.js'
+
 Meteor.methods( {
     addNode: function( node ) {
         Nodes.insert( node );

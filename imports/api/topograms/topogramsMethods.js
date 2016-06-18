@@ -1,4 +1,5 @@
 import { slugify } from '../../helpers'
+import { Topograms } from '../collections.js'
 
 Meteor.methods( {
     topogramListForUser: function( userId ) {
