@@ -1,20 +1,21 @@
+import "./importFieldSelector.html"
+
+import { Template } from 'meteor/template'
+import { ReactiveVar } from 'meteor/reactive-var'
+
 Template.importSelectFieldOptional.created = function() {
-  this.showSelectFields = new ReactiveVar(false) 
-} 
+ this.showSelectFields = new ReactiveVar(false)
+}
 
 Template.importSelectFieldOptional.helpers({
-  'showSelectFields' : function() {
-    // console.log(Templace.instance()) 
-    // console.log(Template.instance().showSelectFields.get()) 
-    return Template.instance().showSelectFields.get() 
+  '' : function() {
+    return Template.instance().showSelectFields.get()
   }
 })
 
+
 Template.importSelectFieldOptional.events({
-  'change input[type="checkbox"]' : function(e, template) {
-      // console.log(e.currentTarget.checked) 
-      console.log(template) 
-      template.showSelectFields.set( e.currentTarget.checked) 
-      console.log(template.showSelectFields.get() ) 
-  }
+ 'change input[type="checkbox"]' : function(event, instance) {
+ instance.showSelectFields.set( event.currentTarget.checked)
+ }
 })

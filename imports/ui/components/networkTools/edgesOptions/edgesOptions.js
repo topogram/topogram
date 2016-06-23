@@ -1,6 +1,9 @@
 import './edgesOptions.html'
 import { Template } from 'meteor/templating'
 
+import $ from 'meteor/jquery'
+import { Edges } from '../../../../api/collections.js'
+
 Template.edgesOptions.helpers({
   edgeWeightMethods: function() {
       return ["simple", "weight"]
@@ -16,7 +19,7 @@ Template.edgesOptions.helpers({
   edgeHasProperties : function() {
     if (!edge) return false
     else var edge = Edges.findOne()
-    return (edge.data.width || edge.data.weight || edge.data.type || edge.data.color ) ? true: false
+    return (edge.data.width || edge.data.weight || edge.data.type || edge.data.color ) ?true: false
   }
 
 })
@@ -25,8 +28,6 @@ Template.edgesOptions.events = {
   'change #edgeWidthMethod': function(e, template) {
       var net = template.view.parentView.parentView._templateInstance.network.get()
       var val = $(e.currentTarget).find('option:selected').val()
-      var self = this
-
       if (val == 'simple') {
           net.edges().style({ 'width': 5 })
       } else if (val == 'weight') {
@@ -40,9 +41,6 @@ Template.edgesOptions.events = {
   'change #edgeEndMethod': function(e, template) {
       var net = template.view.parentView.parentView._templateInstance.network.get()
       var val = $(e.currentTarget).find('option:selected').val()
-      var nodes = Nodes.find().fetch(),
-          edges = Edges.find().fetch()
-      var self = this
 
       if (val == 'simple') {
           net.edges().forEach(function(ele) {
@@ -66,35 +64,20 @@ Template.edgesOptions.events = {
               })
           })
       }
-  },
+  }
+  /*
+  ,
   'change #edgesColor': function(e, template) {
     var net = template.view.parentView.parentView._templateInstance.network.get()
-    console.log($(e.currentTarget).find('option:selected'))
     var edgeColorMode = $(e.currentTarget).find('option:selected').val()
-    console.log(edgeColorMode)
-    var self = this
-    if (val == 'file') {
-        // console.log("I'm in edgefile")
-        net.edges().forEach(function(ele) {
-            if (ele.data().color.length > 2 && ele.data().color.slice(0, 1) == '#') {
-                ele.style({
-                    'line-color': ele.data('starred') ? 'yellow' : ele.data().color
-                })
-            } else if (ele.data().color.length > 2 && ele.data().color.slice(0, 1) != '#') {
-                ele.style({
-                    'line-color': ele.data('starred') ? 'yellow' : "#" + ele.data().color
-                })
-            }
-        })
-    } else if (val == 'alphabet') {
-        // console.log("I'm in edge alphabet")
-        net.edges().forEach(function(ele) {
-            ele.style({
 
-                'line-color': ele.data('starred') ? 'yellow' : colorsNode(ele.data().name.slice(0, 1))
-            })
+    if (edgeColorMode == 'file') {
+        net.edges().forEach(function(ele) {
+          ele.style({
+              'line-color': ele.data('starred') ? 'yellow' : ele.data().color
+          })
         })
-    } else if (val == 'group') {
+    } else if (edgeColorMode == 'group') {
        console.log("I'm in!3")
         net.edges().forEach(function(ele) {
             if (ele.data().group == 0) {
@@ -112,7 +95,20 @@ Template.edgesOptions.events = {
                 'line-color': ele.data('starred') ? 'yellow' : colorsEdge(ele.data().group)
             })
         })
-    } else if (val == 'nodesMeanGroup') {
+      }
+    }
+    */
+  }
+        /*
+        else if (edgeColorMode == 'alphabet') {
+            // console.log("I'm in edge alphabet")
+            net.edges().forEach(function(ele) {
+                ele.style({
+
+                    'line-color': ele.data('starred') ? 'yellow' : colorsNode(ele.data().name.slice(0, 1))
+                })
+            })
+    } else if (edgeColorMode == 'nodesMeanGroup') {
         net.edges().forEach(function(ele) {
             var sourceNode = ""
             var targetNode = ""
@@ -140,7 +136,7 @@ Template.edgesOptions.events = {
                 'line-style': "solid"
             })
         })
-    } else if (val == 'nodesMeanColor') {
+    } else if (edgeColorMode == 'nodesMeanColor') {
         net.edges().forEach( function(ele)  {
             var sourceNode = ""
             var targetNode = ""
@@ -168,7 +164,7 @@ Template.edgesOptions.events = {
                 'line-style': "solid"
             })
         })
-    } else if (val == 'nodesDash') {
+    } else if (edgeColorMode == 'nodesDash') {
         net.edges().forEach(function(ele) {
             var sourceNode, targetNode,
                 srcFound = false,
@@ -200,13 +196,13 @@ Template.edgesOptions.events = {
             }
             //MESSAGE///TAUX ETC
         })
-    } else if (val == 'fix') {
+    } else if (edgeColorMode == 'fix') {
         net.edges().forEach(function(ele) {
             ele.style({
                 'line-color': ele.data('starred') ? 'yellow' : '#000000'
             })
         })
-    } else if (val == 'count') {
+    } else if (edgeColorMode == 'count') {
         net.edges().forEach(function(ele) {
             //FIXME:
             ele.data().count = ele.data().width
@@ -264,7 +260,7 @@ Template.edgesOptions.events = {
             }
             var sourceDeg = sourceNode.degree()
             var targetDeg = targetNode.degree()
-
+            var color
             //TODO: D3 SCALE
             // console.log("widthedge", width)
             if (width <= val && (sourceDeg < nodesMeanDeg || targetDeg < nodesMeanDeg)) {
@@ -312,7 +308,7 @@ Template.edgesOptions.events = {
             ele.data().count = ele.data().width
             var width = ele.data().count
             //TODO: D3 SCALE
-
+            var zIndex, color
             if (width <= (average1 - ((val + 4) * standardDeviation1)) || width >= (average1 + ((val + 4) * standardDeviation1))) {
                 color = '#FF1010'
                 zIndex = 10
@@ -343,7 +339,4 @@ Template.edgesOptions.events = {
                 'z-index': ele.data('starred') ? 10 : zIndex
             })
         })
-    }
-  }
-
-}
+        */

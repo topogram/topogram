@@ -14,6 +14,7 @@
     "d3": "^3.5.17",
     "geojson-tools": "^0.2.2",
     "jquery": "^2.2.4",
+    "leaflet": "^0.7.7",
     "lodash": "^4.13.1",
     "meteor-node-stubs": "^0.2.3",
     "moment": "^2.13.0",

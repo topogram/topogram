@@ -1,4 +1,9 @@
+import { Template } from 'meteor/template'
 import { Session } from 'meteor/session'
+
+import { Topograms } from '../../../api/collections.js'
+import d3 from 'd3'
+import moment from 'moment'
 
 Template.timeSlider.created = function() {
     Session.setDefault( "slider", [ 0, 1 ] )

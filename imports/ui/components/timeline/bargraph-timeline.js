@@ -1,5 +1,13 @@
+import './bargraph-timeline.html'
+
+import { Template } from 'meteor/template'
 import { Session } from 'meteor/session'
-import 'moment'
+import { ReactiveVar } from 'meteor/reactive-var'
+
+import moment from 'moment'
+
+import { TimeBarGraph } from './TimeBarGraph.js'
+import { Topograms } from '../../../api/collections.js'
 
 Template.bargraphTimeline.created = function() {
     this.timeBarGraph = new ReactiveVar()
@@ -15,7 +23,7 @@ var parseBarGraphDate = function( gigs, timescale ) {
             return map
         }, {} )
 
-    return data = Object.keys( datesCount ).map( function( date ) {
+    return Object.keys( datesCount ).map( function( date ) {
         return {
             'time': parseInt( date ),
             'count': datesCount[ date ]
@@ -69,14 +77,14 @@ Template.bargraphTimeline.helpers( {
     end: function() {
         if ( Template.instance().timeBarGraph.get() )
             Template.instance().timeBarGraph.get().setEnd( Session.get( 'slider' )[ 1 ] )
-    },
+    }
 } )
 
 Template.bargraphTimeline.events( {
-    'change #timeScale': function( e ) {
+    'change #timeScale': function( event ) {
         //timescale
-        Session.set( "timeScale", e.currentTarget.value )
-        var timescale = e.currentTarget.value
+        Session.set( "timeScale", event.currentTarget.value )
+        var timescale = event.currentTarget.value
 
         // parse data
         var topogram = Topograms.findOne()

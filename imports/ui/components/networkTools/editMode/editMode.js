@@ -7,7 +7,7 @@ Template.advancedEditMode.rendered = function() {
 }
 
 Template.advancedEditMode.helpers = {
-  editModeOnOff : function(d) {
+  editModeOnOff : function() {
     return Session.get('advancedEditMode')
   }
 }
