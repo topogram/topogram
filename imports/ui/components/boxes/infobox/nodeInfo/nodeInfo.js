@@ -1,7 +1,7 @@
 import './nodeInfo.html'
 import { Template } from 'meteor/templating'
 
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 import { colors } from '../../../../helpers/colors.js'
 

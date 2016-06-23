@@ -2,7 +2,9 @@ import { Meteor } from 'meteor/meteor'
 import { Template } from 'meteor/templating'
 import { Topograms, Edges, Nodes } from './api/collections.js'
 import { Tabular } from 'meteor/aldeed:tabular'
-import { moment } from 'moment'
+
+import moment from 'moment'
+
 export const TabularTables = {}
 
 TabularTables.TopogramsList = new Tabular.Table( {

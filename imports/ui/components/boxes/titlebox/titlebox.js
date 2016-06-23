@@ -1,7 +1,7 @@
 import './titlebox.html'
 import { Template } from 'meteor/templating'
 import { Topograms } from '../../../../api/collections.js'
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 Template.titlebox.created = function() {
     this.editMode = this.data.editMode

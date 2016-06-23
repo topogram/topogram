@@ -5,7 +5,7 @@ import { ReactiveVar } from 'meteor/reactive-var'
 import { Papa } from 'papaparse'
 import { FlashMessages } from 'meteor/mrt:flash-messages'
 import { Router } from 'meteor/iron:router'
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 import { makeNode, makeEdge } from '../../api/modelsHelpers.js'
 

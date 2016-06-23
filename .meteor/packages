@@ -19,7 +19,7 @@ check
 reactive-var
 insecure
 
-# UI  
+# UI
 aldeed:tabular@=1.4.1
 mobile-experience
 blaze-html-templates
@@ -34,10 +34,6 @@ workman:x-editable-reactive-template
 
 # js libs
 sergeyt:typeahead
-
-# geo maps
-yauh:turfjs
-geojson-utils
 
 # routing
 useraccounts:iron-routing

@@ -4,7 +4,7 @@ import { Template } from 'meteor/templating'
 import './filterByCategory/filterByCategory.js'
 import './filterByDegree/filterByDegree.js'
 
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 Template.filterbox.events({
   'click .clear-filters' : function(event, instance) {

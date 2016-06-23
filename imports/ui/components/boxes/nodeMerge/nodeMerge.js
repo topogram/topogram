@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { Meteor } from 'meteor/meteor'
 
 import { Session } from 'meteor/session';
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 import { Nodes } from '../../../../api/collections.js'
 
@@ -41,7 +41,6 @@ Template.nodeMerge.events( {
 Template.nodeMerge.helpers( {
     targets: function() {
       var targetsId = Session.get( "mergeTargets" )
-      console.log(targetsId)
       var nodes = []
       if (targetsId) nodes = Nodes.find({"data.id" : { "$in" : targetsId }}).fetch()
       return nodes

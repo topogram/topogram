@@ -115,6 +115,3 @@ webapp@1.2.9
 webapp-hashing@1.0.9
 workman:x-editable-reactive-template@1.0.2
 xolvio:cleaner@0.3.1
-yauh:turfjs@1.0.1
-yauh:turfjs-client@1.0.0
-yauh:turfjs-server@1.0.0

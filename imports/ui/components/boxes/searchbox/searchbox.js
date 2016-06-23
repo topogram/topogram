@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session';
 import { Nodes } from '../../../../api/collections.js'
 
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 
 Template.searchBox.rendered = function() {

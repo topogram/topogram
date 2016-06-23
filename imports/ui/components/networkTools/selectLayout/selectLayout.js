@@ -2,7 +2,7 @@ import './selectLayout.html'
 import { Template } from 'meteor/templating'
 
 import { hasGeo } from '../../map/map.js'
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 import { Meteor } from 'meteor/meteor'
 
 Template.selectLayout.helpers({

@@ -6,7 +6,7 @@ import './pieChart/pieChart.js'
 import '../../boxes/commentBox/commentBox.js'
 import '../../boxes/nodeMerge/nodeMerge.js'
 
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 import { Session } from 'meteor/session';
 import { Nodes, Edges } from '../../../../api/collections.js'

@@ -1,5 +1,5 @@
 import { Template } from 'meteor/templating'
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 Template.labels.helpers({
   nodeLabelLocations: function() {

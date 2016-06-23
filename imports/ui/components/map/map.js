@@ -4,7 +4,7 @@ import { Template } from 'meteor/templating'
 import {  Nodes } from '../../../api/collections.js'
 import { L } from 'leaflet'
 import d3 from 'd3'
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 var map, svg
 

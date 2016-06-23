@@ -2,8 +2,9 @@ import './filterByDegree.html'
 import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session';
 
-import $ from 'meteor/jquery'
-import {noUiSlider, wNumb } from "nouislider"
+import { $ } from 'meteor/jquery'
+import noUiSlider from "nouislider"
+import wNumb from 'wnumb'
 
 import { Edges } from '../../../../../api/collections.js'
 
@@ -37,9 +38,14 @@ Template.filterByDegree.rendered = function() {
           'min': min,
           'max': max
       },
-      format: wNumb({
-          decimals: 0
-      }),
+      format: {
+          from: function(value) {
+              return ~~value;
+          },
+          to: function(value) {
+              return ~~value;
+          }
+      },
       step: 1
   })
 

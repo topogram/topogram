@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { Meteor } from 'meteor/meteor'
 
 import { Topograms } from '../../../../api/collections.js'
-import $ from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 
 Template.sharebox.helpers( {
   'sharedPublic' :function() {

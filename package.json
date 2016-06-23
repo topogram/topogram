@@ -20,7 +20,8 @@
     "moment": "^2.13.0",
     "nouislider": "^8.5.1",
     "papaparse": "^4.1.2",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "wnumb": "^1.0.2"
   },
   "devDependencies": {
     "eslint": "^2.11.1",
