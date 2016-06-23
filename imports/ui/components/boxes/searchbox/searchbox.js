@@ -3,15 +3,18 @@ import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session';
 import { Nodes } from '../../../../api/collections.js'
 
+import $ from 'meteor/jquery'
+
+
 Template.searchBox.rendered = function() {
   $(".search").dropdown()
   $("#new-node").hide()
 }
 
 Template.searchBox.events( {
-    'click .search-dropdown>li': function(e, template) {
-        var divName = template.data.searchName
-        var searchType = template.data.type
+    'click .search-dropdown>li': function(event, instance) {
+        var divName = instance.data.searchName
+        var searchType = instance.data.type
 
         $("#new-node a").data("node-id", undefined)
         $("#new-node a span").html(undefined)
@@ -20,17 +23,17 @@ Template.searchBox.events( {
         var net = Template.instance().data.network.get()
 
         // display text
-        $("#"+divName+" .search" ).attr("value", $(e.target).text())
+        $("#"+divName+" .search" ).attr("value", $(event.target).text())
 
         // check there is a proper data argument
-        if ( !$(e.target).data("node-id") ) return
+        if ( !$(event.target).data("node-id") ) return
 
         // select my nodes
-        var selectedNode = net.nodes().filter("[id='"+$(e.target).data("node-id")+"']")
+        var selectedNode = net.nodes().filter("[id='"+$(event.target).data("node-id")+"']")
 
         // create new node if it does not exists
         if(!selectedNode.length){
-          net.createNode($(e.target).data("node-id"))
+          net.createNode($(event.target).data("node-id"))
 
         } else {
 
@@ -54,8 +57,10 @@ Template.searchBox.events( {
         }
     },
 
-    'click .searchClose': function( e, template ) {
-        e.preventDefault()
+    'click .searchClose': function( event ) {
+        event.preventDefault()
+
+        // TODO : remove ugly jquery here
         $(".search" ).val("")
         $( "ul.search-dropdown li").not('#new-node').remove()
 
@@ -69,10 +74,8 @@ Template.searchBox.events( {
     },
 
 
-    'keyup .search': function( e, template ) {
+    'keyup .search': function( event ) {
         var options = options || {}
-
-        var divName = template.data.searchName
         if ( options.limit ) {
             options.limit = Math.min( 10, Math.abs( options.limit ) )
         } else {

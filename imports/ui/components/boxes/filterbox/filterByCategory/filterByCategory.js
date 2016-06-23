@@ -3,6 +3,7 @@ import { Template } from 'meteor/templating'
 
 import { Edges, Nodes } from  '../../../../../api/collections.js'
 import { colors } from '../../../../../ui/helpers/colors.js'
+import $ from 'meteor/jquery'
 
 
 Template.filterByCategory.rendered = function() {

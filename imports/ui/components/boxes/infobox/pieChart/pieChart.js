@@ -2,13 +2,12 @@ import './pieChart.html'
 import { Template } from 'meteor/templating'
 
 import { colors } from '../../../../helpers/colors.js'
-// TODO import d3 properly
+import d3 from 'd3'
 
 Template.pieChart.rendered = function() {
 
   var width = 250,
-    height = 250,
-    offsetLabel = -50
+    height = 250
 
   var svg = d3.select("svg.pie-chart")
       .attr("width", width)
@@ -35,16 +34,14 @@ Template.pieChart.rendered = function() {
           .outerRadius(radius - 10)
           .innerRadius(0)
 
-      var svg = d3.select("svg.pie-chart")
-      // console.log(svg)
-
+      
       /* ------- PIE SLICES -------*/
-    	var slice = svg.select(".slices")
+      var slice = svg.select(".slices")
         .selectAll("path.slice")
-    		.data(pie(this.data.dataCount))
+        .data(pie(this.data.dataCount))
 
-    	slice.enter()
-    		.append("path")
+      slice.enter()
+        .append("path")
         .attr("class", "slice")
         .attr("d", arc)
         .style("fill", function(d) {
@@ -71,7 +68,7 @@ Template.pieChart.rendered = function() {
           d3.select("#pie-tooltip").classed("hidden", true)
         })
 
-    	slice.exit()
-    		.remove()
+      slice.exit()
+        .remove()
 
 }

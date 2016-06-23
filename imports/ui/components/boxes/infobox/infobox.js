@@ -6,8 +6,10 @@ import './pieChart/pieChart.js'
 import '../../boxes/commentBox/commentBox.js'
 import '../../boxes/nodeMerge/nodeMerge.js'
 
+import $ from 'meteor/jquery'
+
 import { Session } from 'meteor/session';
-import { Nodes, Edges } from '../../../api/collections.js'
+import { Nodes, Edges } from '../../../../api/collections.js'
 
 Template.infobox.rendered = function() {
   $("#infoBox").hide()
@@ -40,7 +42,7 @@ Template.infobox.helpers({
 })
 
 Template.infobox.events = {
-    'click #closeInfoBox': function( event, template ) {
+    'click #closeInfoBox': function( ) {
         var network = Template.instance().data.network.get()
         network.deselectAll()
     }

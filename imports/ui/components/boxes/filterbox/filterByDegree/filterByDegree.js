@@ -1,9 +1,11 @@
 import './filterByDegree.html'
 import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session';
+
+import $ from 'meteor/jquery'
 import {noUiSlider, wNumb } from "nouislider"
 
-import { Nodes, Edges } from '../../../../../api/collections.js'
+import { Edges } from '../../../../../api/collections.js'
 
 Template.filterByDegree.helpers({
     hasEdgesWeight: function() {
@@ -27,7 +29,7 @@ Template.filterByDegree.rendered = function() {
   Session.set("minMaxDegree", [min, max])
 
   // create slider
-  /*
+
   noUiSlider.create($("#filterByDegree")[0], {
       start: [min, max],
       connect: true,
@@ -40,10 +42,7 @@ Template.filterByDegree.rendered = function() {
       }),
       step: 1
   })
-  */
 
-  /*
-  TODO : bring back slider
 
   $("#filterByDegree")[0].noUiSlider.on('change', function(val) {
     var net = self.data.network.get()
@@ -65,6 +64,5 @@ Template.filterByDegree.rendered = function() {
     var filter = "node[[degree>="+val[0]+"]][[degree<="+val[1]+"]]"
     net.filterGraph(filter)
   })
-  */
 
 }

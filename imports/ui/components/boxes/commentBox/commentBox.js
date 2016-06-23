@@ -4,6 +4,8 @@ import { Session } from 'meteor/session';
 import { Comments } from '../../../../api/collections.js'
 import '../../comments/commentForm/commentForm.js'
 
+import $ from 'meteor/jquery'
+
 Template.commentBox.rendered = function(){
     $("#commentBox").hide()
 }
