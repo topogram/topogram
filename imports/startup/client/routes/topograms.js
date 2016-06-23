@@ -1,3 +1,5 @@
+import { Router } from 'meteor/iron:router'
+import { Meteor } from 'meteor/meteor'
 
 // Import to load these templates and layout
 import '../../../ui/layouts/networkLayout.js'
@@ -5,7 +7,6 @@ import '../../../ui/pages/topograms/topograms-single.js'
 import '../../../ui/pages/topograms/topograms-index.js'
 import '../../../ui/pages/topograms/topograms-view.js'
 import '../../../ui/pages/import.js'
-import '../../../ui/pages/lab.js'
 import '../../../ui/pages/lab.js'
 
 Router.route( '/topograms', {
