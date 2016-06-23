@@ -2,7 +2,7 @@ import './topograms-single.html'
 import { Template } from 'meteor/templating'
 import { Topograms } from '../../../api/collections.js'
 import { ReactiveVar } from 'meteor/reactive-var'
-import $ from "meteor/jquery"
+import { $ } from "meteor/jquery"
 
 import '../../components/network/network.js'
 import '../../components/boxes/titlebox/titlebox.js'

@@ -10,16 +10,15 @@ import { Nodes, Edges } from '../../../api/collections.js'
 import { colors } from '../../helpers/colors.js'
 
 
-import { $, jquery }  from 'meteor/jquery'
+import { $ }  from 'meteor/jquery'
 import d3 from 'd3'
 
-// TODO : es6 style imports
-import { cytoscape }  from 'cytoscape'
-import { edgehandles } from 'cytoscape-edgehandles'
-import { cxtmenu } from 'cytoscape-cxtmenu'
+import cytoscape  from 'cytoscape'
+import edgehandles from 'cytoscape-edgehandles'
+import cxtmenu from 'cytoscape-cxtmenu'
 
-edgehandles( cytoscape, jquery )  // register extension
-cxtmenu( cytoscape, jquery )  // register extension
+edgehandles( cytoscape, $ )  // register extension
+cxtmenu( cytoscape, $ )  // register extension
 
 // truncate String to make it shorter
 String.prototype.trunc = String.prototype.trunc ||
