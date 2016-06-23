@@ -7,6 +7,7 @@ import '../../boxes/commentBox/commentBox.js'
 import '../../boxes/nodeMerge/nodeMerge.js'
 
 import { Session } from 'meteor/session';
+import { Nodes, Edges } from '../api/collections.js'
 
 Template.infobox.rendered = function() {
   $("#infoBox").hide()
@@ -43,4 +44,23 @@ Template.infobox.events = {
         var network = Template.instance().data.network.get()
         network.deselectAll()
     }
+}
+
+// get current node
+var getCurrentSelection = function() {
+  var id = Session.get( 'currentId' ),
+      type = Session.get( 'currentType' ),
+      item = {}
+  if(id && type) {
+    if ( type == 'node' ) {
+        item = Nodes.findOne( {
+            'data.id': id
+        } )
+    } else if ( type == 'edge' ) {
+        item = Edges.findOne( {
+            'data.id': id
+        } )
+    }
+  }
+  return item
 }

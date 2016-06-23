@@ -42,9 +42,6 @@ bevanhunt:leaflet
 yauh:turfjs
 geojson-utils
 
-# viz
-d3js:d3
-
 # data manipulation
 harrison:papa-parse
 

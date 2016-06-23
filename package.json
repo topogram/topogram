@@ -11,8 +11,10 @@
     "cytoscape-edgehandles": "2.4.1",
     "cytoscape-spread": "^1.2.0",
     "cytoscape-springy": "^1.2.1",
+    "d3": "^3.5.17",
     "geojson-tools": "^0.2.2",
     "jquery": "^2.2.4",
+    "lodash": "^4.13.1",
     "meteor-node-stubs": "^0.2.3",
     "moment": "^2.13.0",
     "nouislider": "^8.5.1",
@@ -49,7 +51,12 @@
         0
       ],
       "import/no-unresolved": [
-        2, { "ignore": ["^meteor/"] }
+        2,
+        {
+          "ignore": [
+            "^meteor/"
+          ]
+        }
       ]
     }
   },

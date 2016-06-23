@@ -20,7 +20,6 @@ callback-hook@1.0.9
 check@1.2.3
 coffeescript@1.1.2
 cosmos:browserify@0.10.0
-d3js:d3@3.5.8
 dburles:mongo-collection-instances@0.3.5
 ddp@1.2.5
 ddp-client@1.2.8
