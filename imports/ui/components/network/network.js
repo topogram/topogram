@@ -1,5 +1,6 @@
 import './network.html'
 import { Template } from 'meteor/templating'
+import { Session } from 'meteor/session'
 
 import { Nodes, Edges } from '../../../api/collections.js'
 import { colors } from '../../helpers.js'
