@@ -69,7 +69,7 @@
   },
   "scripts": {
     "test": "meteor test --driver-package practicalmeteor:mocha",
-    "lint": "eslint ./imports",
+    "lint": "eslint .",
     "start": "meteor"
   },
   "repository": {

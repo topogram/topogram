@@ -1,6 +1,9 @@
-import { chai } from 'meteor/practicalmeteor:chai';
+import { Meteor } from 'meteor/meteor'
+import { chai, before } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 chai.should();
+
+import { Nodes } from '../../imports/api/collections.js'
 
 describe('Nodes', function() {
 
@@ -9,11 +12,10 @@ describe('Nodes', function() {
   });
 
   describe('makeNode', function(){
-    var node;
 
     it("should create a new node", function(){
       before(function(){
-        node = {}; // makeNode();
+        this.node = {}; // makeNode();
         // console.log(node);
       })
     });
@@ -48,7 +50,6 @@ describe('Nodes', function() {
       Meteor.user = function() { return {} }; // mock user
 
       var node;
-      var starred;
       before(function(){
         node = "ex";//Nodes.findOne();
         // starred = node.data.starred;

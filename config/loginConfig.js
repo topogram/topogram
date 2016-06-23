@@ -1,3 +1,7 @@
+import { AccountsTemplates } from 'meteor/useraccounts:core'
+import { T9n } from 'meteor/softwarerero:accounts-t9n';
+import { Router } from 'meteor/iron:router';
+
 // internationalization
 T9n.setLanguage( 'en' );
 
@@ -23,7 +27,7 @@ AccountsTemplates.configure( {
     negativeValidation: true,
     positiveValidation: true,
     negativeFeedback: false,
-    positiveFeedback: false,
+    positiveFeedback: false
 
     // Privacy Policy and Terms of Use
     //privacyUrl: 'privacy',
@@ -37,19 +41,19 @@ AccountsTemplates.addFields( [ {
         type: 'text',
         displayName: 'username',
         required: true,
-        minLength: 5,
+        minLength: 5
     }, {
         _id: 'email',
         type: 'email',
         required: true,
         displayName: 'email',
         re: /.+@(.+){2,}\.(.+){2,}/,
-        errStr: 'Invalid email',
+        errStr: 'Invalid email'
     },
     pwd
 ] );
 
-var mySubmitFunc = function( error, state ) {
+var mySubmitFunc = function( error ) {
     if ( !error ) {
         Router.go('/');
     }

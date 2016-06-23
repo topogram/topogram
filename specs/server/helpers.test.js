@@ -1,2 +1,2 @@
-import { resetDatabase } from 'meteor/xolvio:cleaner';
+// import { resetDatabase } from 'meteor/xolvio:cleaner';
 // clean db
