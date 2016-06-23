@@ -2,7 +2,7 @@ import './nodes.html'
 
 import { Template } from 'meteor/templating'
 import { Nodes } from '../../../../api/collections.js'
-import { TabularTables } from '../../../../dataTables.js'
+// import { TabularTables } from '../../../../dataTables.js'
 
 // topograms index
 Template.nodesTemplate.helpers( {

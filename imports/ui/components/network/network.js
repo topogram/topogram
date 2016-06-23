@@ -14,9 +14,9 @@ import { $, jquery }  from 'meteor/jquery'
 import d3 from 'd3'
 
 // TODO : es6 style imports
-var cytoscape = require('cytoscape')
-var edgehandles = require('cytoscape-edgehandles')
-var cxtmenu = require('cytoscape-cxtmenu')
+import { cytoscape }  from 'cytoscape'
+import { edgehandles } from 'cytoscape-edgehandles'
+import { cxtmenu } from 'cytoscape-cxtmenu'
 
 edgehandles( cytoscape, jquery )  // register extension
 cxtmenu( cytoscape, jquery )  // register extension

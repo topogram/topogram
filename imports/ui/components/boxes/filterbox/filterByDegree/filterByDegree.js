@@ -4,7 +4,6 @@ import { Session } from 'meteor/session';
 
 import { $ } from 'meteor/jquery'
 import noUiSlider from "nouislider"
-import wNumb from 'wnumb'
 
 import { Edges } from '../../../../../api/collections.js'
 
