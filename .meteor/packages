@@ -34,7 +34,6 @@ workman:x-editable-reactive-template
 
 # js libs
 sergeyt:typeahead
-momentjs:moment
 
 # geo maps
 bevanhunt:leaflet

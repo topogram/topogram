@@ -1,6 +1,9 @@
 import './commentForm.html'
+
+import { Meteor } from 'meteor/meteor'
 import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
+import $ from 'meteor/jquery'
 
 Template.commentForm.events = {
     'click #submit': function(e){

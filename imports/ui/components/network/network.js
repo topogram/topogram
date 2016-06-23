@@ -1,12 +1,19 @@
 import './network.html'
 import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
+import { Meteor } from 'meteor/meteor'
+import { Router } from 'meteor/iron:router'
+
+import { makeNode } from '../../../api/modelsHelpers.js'
 
 import { Nodes, Edges } from '../../../api/collections.js'
 import { colors } from '../../helpers/colors.js'
 
-// TODO: move to ES2015 notation
-var jquery = require('jquery')
+
+import { $, jquery }  from 'meteor/jquery'
+import d3 from 'd3'
+
+// TODO : es6 style imports
 var cytoscape = require('cytoscape')
 var edgehandles = require('cytoscape-edgehandles')
 var cxtmenu = require('cytoscape-cxtmenu')
@@ -95,7 +102,7 @@ Template.network.rendered = function() {
                 'background-color' : function(e) {
                   var color = "#CCC"  // default
                   if (e.data("group")) color = colors(e.data("group"))
-                  else if (e.data("color")) color = color
+                  else if (e.data("color")) color = e.data("color")
                   return e.data('starred') ? 'yellow' : color
                 },
                 // 'text-opacity' : 0, // hide label by default
@@ -213,14 +220,14 @@ Template.network.rendered = function() {
     // mouse select actions
     this.graph.on('tap', 'node', /*_.debounce(*/ function(e) {
         var node = e.cyTarget
-        self.graph.selectElement(e.cyTarget, "node")
+        self.graph.selectElement(node, "node")
     })
 
     // display edge info
     this.graph.on('tap', 'edge', /*_.debounce(*/ function(e) {
       e.cyTarget.css({
         'text-opacity' : function(d){
-          return  op = (d.style('text-opacity') == "1") ? "0" : "1"
+          return  (d.style('text-opacity') == "1") ? "0" : "1"
         },
         'line-color' : function(d) {
           return d.style('line-color') == "green" ? "#AAAAAA" : "green"
@@ -376,11 +383,11 @@ Template.network.rendered = function() {
       $("#filterByDegree")[0].noUiSlider.set([min, max])
 
       // $("#filterByDegree")[0].noUiSlider.updateOptions({
-    	// 	range: {
-    	// 		'min': min,
-    	// 		'max': max
-    	// 	}
-    	// })
+      //   range: {
+      //     'min': min,
+      //     'max': max
+      //   }
+      // })
 
     }
 
@@ -498,14 +505,14 @@ Template.network.rendered = function() {
             select: function() {
                 self.graph.selectElement(this, "node")
                 $("#commentBox").show()
-            },
+            }
 
         },{
             content: '<span><i class="small material-icons">library_books</i></span>',
             select: function() {
               // TODO : share to social networks
               self.graph.selectElement(this, "node")
-            },
+            }
 
         }]
 

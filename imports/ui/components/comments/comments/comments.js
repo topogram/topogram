@@ -1,4 +1,7 @@
 import { Session } from 'meteor/session'
+import { Template } from 'meteor/template'
+import { Comments } from '../../../../api/collections.js'
+
 Template.comments.helpers({
     comments: function() {
         var type = Session.get('currentType') || "nodes",
