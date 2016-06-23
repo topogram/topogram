@@ -1,37 +1,39 @@
+import { Meteor } from 'meteor/meteor'
+
 export const makeEdge = function( topogramId, element, data ) {
-    var el = element || {} 
-    var rawData = data || {} 
+    var el = element || {}
+    var rawData = data || {}
     var edge = makeGraphElement(topogramId, el, rawData)
-    edge.group = 'edges' 
+    edge.group = 'edges'
     edge.id =  el.id || 'edge-' + Math.round( Math.random() * 1000000 ),
-    edge.data.source = el.source 
-    edge.data.target = el.target 
-    return edge 
+    edge.data.source = el.source
+    edge.data.target = el.target
+    return edge
 }
 
 export const makeNode = function( topogramId, element, data ) {
-    var el = element || {} 
-    var rawData = data || {} 
+    var el = element || {}
+    var rawData = data || {}
     var node = makeGraphElement(topogramId, el, rawData)
-    node.group = 'nodes' 
-    node.data.id =  el.id || "node-" + Math.round( Math.random() * 1000000 ) 
+    node.group = 'nodes'
+    node.data.id =  el.id || "node-" + Math.round( Math.random() * 1000000 )
     node.position =  {
         x: el.x || Math.random() * 800,
         y: el.y || Math.random() * 600
     }
-    return node 
-} 
+    return node
+}
 
 var makeGraphElement = function (topogramId, el, rawData){
 
   //check if rawData contains dot
-  for (key in rawData){
+  for (var key in rawData){
     if (key.split(".").length > 1) {
-        var newKey = key.replace(".", "_") 
-        rawData[newKey] = rawData[key] 
-        delete rawData[key] 
+        var newKey = key.replace(".", "_")
+        rawData[newKey] = rawData[key]
+        delete rawData[key]
     }
-  } 
+  }
   return {
       data: {
           lat: el.lat || 0,
@@ -49,5 +51,5 @@ var makeGraphElement = function (topogramId, el, rawData){
       topogramId: topogramId,
       createdAt: new Date(), // current time
       owner: Meteor.userId() // _id of logged in user
-  } 
+  }
 }

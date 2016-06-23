@@ -1,25 +1,28 @@
-import { Nodes } from '../collections.js'
+import { Nodes, Edges } from '../collections.js'
+import { Meteor } from 'meteor/meteor'
+import { bulkCollectionUpdate } from 'meteor/udondan:bulk-collection-update'
+import { logger } from "../../logger.js"
 
 Meteor.methods( {
     addNode: function( node ) {
-        Nodes.insert( node ) 
+        Nodes.insert( node )
     },
 
     batchInsertNodes: function( nodes ) {
-        Nodes.batchInsert( nodes ) 
+        Nodes.batchInsert( nodes )
     },
 
     mergeNodes: function( sourceId, targetId ) {
         var source = Nodes.findOne( {
             "_id": sourceId
-        } ) 
+        } )
         var target = Nodes.findOne( {
             "_id": targetId
         } )  // will be deleted
 
-        console.log("merging nodes") 
+        // console.log("merging nodes")
 
-        // tx.start( "merges nodes" ) 
+        // tx.start( "merges nodes" )
 
         // find and replace all target node edges with source id
         Edges.find({
@@ -49,7 +52,7 @@ Meteor.methods( {
             // }, {
             //     tx: true
             })
-        }) 
+        })
 
         // copy data of target into source (if missing)
         // TODO : node merger startegy
@@ -58,8 +61,8 @@ Meteor.methods( {
         Nodes.remove({ '_id': targetId })
         // , {
         //     tx: true
-        // } ) 
-        // tx.commit() 
+        // } )
+        // tx.commit()
     },
 
     deleteNode: function( nodeId ) {
@@ -67,10 +70,10 @@ Meteor.methods( {
             'data.id': nodeId
         }, {
             "_id": 1
-        } )._id 
+        } )._id
         Nodes.remove( {
             '_id': _id
-        }) 
+        })
     },
 
     deleteNodeAndConnectedEdges: function( nodeId, edgesId ) {
@@ -78,13 +81,12 @@ Meteor.methods( {
             'data.id': nodeId
         }, {
             "_id": 1
-        } )._id 
+        } )._id
 
-        console.log( nodeId, edgesId, _id ) 
-        // tx.start( "delete node+neighborhood" ) 
+        // tx.start( "delete node+neighborhood" )
         Nodes.remove( {
             "_id": _id
-        }) 
+        })
         Edges.find( {
             'data.id': {
                 '$in': edgesId
@@ -92,29 +94,29 @@ Meteor.methods( {
         } ).forEach( function( edge ) {
             Edges.remove( {
                 "_id": edge._id
-            }) 
-        } ) 
-        // tx.commit() 
+            })
+        } )
+        // tx.commit()
     },
 
     deleteNodesByTopogramId: function( topogramId ) {
         return Nodes.remove( {
             'topogramId': topogramId
-        } ) 
+        } )
     },
 
     //update coord in DB for a single node
     updateNodePosition: function( nodeId, position ) {
         var node = Nodes.findOne( {
             'data.id': nodeId
-        } ) 
+        } )
         Nodes.update( {
             _id: node._id
         }, {
             $set: {
                 position: position
             }
-        } ) 
+        } )
     },
 
 
@@ -122,35 +124,35 @@ Meteor.methods( {
     // update coords in DB for bunch of nodes (useful to save topogram layout changes)
     updateNodesPositions: function( updatedNodes ) {
 
-      var nodesPosition = {} 
+      var nodesPosition = {}
       updatedNodes.forEach(function(d){
-        nodesPosition[d._id] = d.position 
-        return d 
-      }) 
+        nodesPosition[d._id] = d.position
+        return d
+      })
 
       var nodes = Nodes.find({
         "_id" : {
           "$in": updatedNodes.map(function(d) {return d._id})
         }
       }).fetch().map(function(d){ // update data
-        d.position = nodesPosition[d._id] 
+        d.position = nodesPosition[d._id]
         return d
         //  = updatedNodes
       })
 
       bulkCollectionUpdate(Nodes, nodes, {
-        primaryKey: "_id",
+        primaryKey : "_id",
         callback: function() {
-          console.log("Nodes positions updated.") 
+          logger.log("Nodes positions updated.")
         }
-      }) 
+      })
     },
 
     lockNode: function( nodeId, position ) {
         var node = Nodes.findOne( {
             'data.id': nodeId
-        } ) 
-        var locked = node.locked ? false : true 
+        } )
+        var locked = node.locked ? false : true
         Nodes.update( {
             _id: node._id
         }, {
@@ -158,21 +160,21 @@ Meteor.methods( {
                 'locked': locked,
                 'position': position
             }
-        } ) 
+        } )
     },
 
     starNode: function( nodeId ) {
         var node = Nodes.findOne( {
             'data.id': nodeId
-        }) 
-        var starred = node.data.starred ? false : true 
+        })
+        var starred = node.data.starred ? false : true
         Nodes.update({
             _id: node._id
         }, {
             $set: {
                 'data.starred': starred
             }
-        }) 
+        })
 
     },
 
@@ -181,12 +183,12 @@ Meteor.methods( {
                 return {
                     source: e.data.source,
                     target: e.data.target
-                } 
-            } )
+                }
+            })
             .reduce( function( map, d, i, context ) {
-                map[ d.id ] = map[ d.id ] ||  d 
-                map[ d.id ].count = ( map[ d.id ].count || 0 ) + 1 
-                return map
-            }, {} ) 
+              map[ d.id ] = map[ d.id ] ||  d
+              map[ d.id ].count = ( map[ d.id ].count || 0 ) + 1
+              return map
+            }, {} )
     }
-} ) 
+} )
