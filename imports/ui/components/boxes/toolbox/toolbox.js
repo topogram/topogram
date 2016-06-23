@@ -81,9 +81,9 @@ function createLinearScale(domain, range) {
     //parse domain TODO ex: [100, 500]
     //parse range TODO ex: [10, 50]
 
-    for (var i = 0  i < scaleForParams.length  i++) {
-        if (!scaleForParams[i]) {
-            scaleForParams[i] = d3.scaleForParams.linear()
+    for (var scale in scaleForParams) {
+        if (!scale) {
+            scale = d3.scaleForParams.linear()
                 .domain(domain)
                 .range(range)
             console.log("i", i)
