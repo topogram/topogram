@@ -14,11 +14,24 @@ import { $ }  from 'meteor/jquery'
 import d3 from 'd3'
 
 import cytoscape  from 'cytoscape'
+
+// cytoscape extensions
 import edgehandles from 'cytoscape-edgehandles'
 import cxtmenu from 'cytoscape-cxtmenu'
+import spread from "cytoscape-spread"
 
-edgehandles( cytoscape, $ )  // register extension
-cxtmenu( cytoscape, $ )  // register extension
+// TODO: currently Cola requires  a build from Grunt...
+// import cycola from "cytoscape-cola"
+// import cola from 'webcola'
+// cycola(cytoscape, webcola)
+
+// register extension
+edgehandles( cytoscape, $ )
+cxtmenu( cytoscape, $ )
+
+// register layouts
+spread(cytoscape)
+
 
 // truncate String to make it shorter
 String.prototype.trunc = String.prototype.trunc ||

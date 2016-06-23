@@ -1,11 +1,13 @@
 <template name="selectLayout">
-  <a class='btn waves-effect waves-light dropdown-button' href="#" data-activates="layouts" data-constrainwidth="false" data-beloworigin="true" role="button">
-    <i class="material-icons left">games</i>
-    Layouts
-  </a>
-  <ul id="layouts" class="small dropdown-content">
-      {{#each layouts}}
-      <li><a class="layout" data-layout-name="{{this.slug}}" href="#">{{ this.name }}</a></li>
-      {{/each}}
-  </ul>
+  <div class="dropdown">
+    <a class='btn waves-effect waves-light dropdown-button' href="#" data-activates="layouts" data-constrainwidth="false" data-beloworigin="true" role="button">
+      <i class="material-icons left">games</i>
+      Layouts
+    </a>
+    <ul id="layouts" class="small dropdown-content">
+        {{#each layouts}}
+        <li><a class="layout" data-layout-name="{{this.slug}}" href="#">{{ this.name }}</a></li>
+        {{/each}}
+    </ul>
+  </div>
 </template>

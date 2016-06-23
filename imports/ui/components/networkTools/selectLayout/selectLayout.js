@@ -5,6 +5,10 @@ import { hasGeo } from '../../map/map.js'
 import { $ } from 'meteor/jquery'
 import { Meteor } from 'meteor/meteor'
 
+Template.selectLayout.rendered = function() {
+  $('.dropdown-button').dropdown()
+}
+
 Template.selectLayout.helpers({
 
     layouts: function() {
@@ -14,11 +18,11 @@ Template.selectLayout.helpers({
 
       layouts.push(
         // 'dagre', // hierarchical ACL display, not useful for us
-        // 'cose-bilkent', // uncaught 'prototype' Error
+        'cose', // uncaught 'prototype' Error
         // 'cola', // can not get it to work
         'spread', // CPU overhead
-        'arbor', // works quite okay
-        'springy', // force rendering
+        // 'arbor', // works quite okay
+        // 'springy', // force rendering
         'random',
         // 'grid', // uselss layout
         // 'circle', // useless as well
