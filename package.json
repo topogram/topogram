@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "eslint": "^2.11.1",
+    "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-meteor": "^3.0.1"
   },
   "eslintConfig": {
@@ -28,6 +29,11 @@
     },
     "plugins": [
       "meteor"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings"
     ],
     "rules": {
       "meteor/eventmap-params": [
