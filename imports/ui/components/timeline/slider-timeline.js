@@ -1,4 +1,4 @@
-import { Template } from 'meteor/template'
+import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
 
 import { Topograms } from '../../../api/collections.js'

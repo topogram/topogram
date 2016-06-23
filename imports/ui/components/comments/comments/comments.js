@@ -1,5 +1,5 @@
 import { Session } from 'meteor/session'
-import { Template } from 'meteor/template'
+import { Template } from 'meteor/templating'
 import { Comments } from '../../../../api/collections.js'
 
 Template.comments.helpers({

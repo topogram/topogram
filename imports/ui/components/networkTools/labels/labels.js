@@ -1,4 +1,4 @@
-import { Template } from 'meteor/template'
+import { Template } from 'meteor/templating'
 import $ from 'meteor/jquery'
 
 Template.labels.helpers({

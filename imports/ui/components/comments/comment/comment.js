@@ -1,4 +1,4 @@
-import { Template } from 'meteor/template'
+import { Template } from 'meteor/templating'
 
 Template.comment.helpers({
     comment: function () {

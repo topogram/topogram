@@ -8,7 +8,6 @@ babel-runtime@0.1.9
 babrahams:transactions@0.7.13
 babrahams:undo-redo@0.2.8
 base64@1.0.9
-bevanhunt:leaflet@2.0.0
 binary-heap@1.0.9
 blaze@2.1.8
 blaze-html-templates@1.0.4
@@ -66,7 +65,6 @@ mobile-experience@1.0.4
 mobile-status-bar@1.0.12
 modules@0.6.4
 modules-runtime@0.6.4
-momentjs:moment@2.13.1
 mongo@1.1.9
 mongo-id@1.0.5
 mongo-livedata@1.0.12

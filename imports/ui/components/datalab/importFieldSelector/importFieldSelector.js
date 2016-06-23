@@ -1,6 +1,6 @@
 import "./importFieldSelector.html"
 
-import { Template } from 'meteor/template'
+import { Template } from 'meteor/templating'
 import { ReactiveVar } from 'meteor/reactive-var'
 
 Template.importSelectFieldOptional.created = function() {

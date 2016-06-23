@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { Template } from 'meteor/template'
+import { Template } from 'meteor/templating'
 import { Topograms, Edges, Nodes } from './api/collections.js'
 import { Tabular } from 'meteor/aldeed:tabular'
 import { moment } from 'moment'

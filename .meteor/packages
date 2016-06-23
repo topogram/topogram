@@ -19,7 +19,7 @@ check
 reactive-var
 insecure
 
-# UI
+# UI  
 aldeed:tabular@=1.4.1
 mobile-experience
 blaze-html-templates
@@ -36,7 +36,6 @@ workman:x-editable-reactive-template
 sergeyt:typeahead
 
 # geo maps
-bevanhunt:leaflet
 yauh:turfjs
 geojson-utils
 
