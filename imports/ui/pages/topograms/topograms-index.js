@@ -1,30 +1,32 @@
 import './topograms-index.html'
+
+import { Meteor } from 'meteor/meteor'
+import { Template } from 'meteor/templating'
 import { Topograms } from '../../../api/collections.js'
 import { Session } from 'meteor/session'
+import $ from "meteor/jquery"
+import { moment } from 'moment'
 
 Template.topograms.events( {
-    'click .delete': function( e ) {
-        e.preventDefault()
-        // console.log( this )
-        // var instance = UI.renderWithData(Template.content, {topogramId: data})
+    'click .delete': function( event ) {
+        event.preventDefault()
         var id = Session.get( 'toDelete' )
-        // console.log( id )
         Meteor.call( 'deleteTopogram', id )
-        var id = Session.set( 'toDelete', '' )
+        Session.set( 'toDelete', '' )
     },
-    'click .modal-delete-open': function( e ) {
+    'click .modal-delete-open': function( event ) {
         $( '#modal-delete' ).openModal()
-        var id = $( e.target ).data( 'modal-template' )
+        var id = $( event.target ).data( 'modal-template' )
         // console.log( id )
         Session.set( 'toDelete', id )
     },
-    'click .modal-delete-close': function( e ) {
+    'click .modal-delete-close': function() {
         $( '#modal-delete' ).closeModal()
     }
 } )
 
 Template.topograms.helpers( {
-    topograms: function( e ) {
+    topograms: function() {
         console.log(Topograms)
         return Topograms.find().fetch().map( function( d, i ) {
 

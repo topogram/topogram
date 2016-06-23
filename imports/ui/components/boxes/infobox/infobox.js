@@ -7,7 +7,7 @@ import '../../boxes/commentBox/commentBox.js'
 import '../../boxes/nodeMerge/nodeMerge.js'
 
 import { Session } from 'meteor/session';
-import { Nodes, Edges } from '../api/collections.js'
+import { Nodes, Edges } from '../../../api/collections.js'
 
 Template.infobox.rendered = function() {
   $("#infoBox").hide()

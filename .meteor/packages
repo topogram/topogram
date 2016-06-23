@@ -41,9 +41,6 @@ bevanhunt:leaflet
 yauh:turfjs
 geojson-utils
 
-# data manipulation
-harrison:papa-parse
-
 # routing
 useraccounts:iron-routing
 iron:router

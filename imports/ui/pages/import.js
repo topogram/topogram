@@ -1,9 +1,13 @@
 import './import.html'
+import { Meteor } from 'meteor/meteor'
 import { Template } from 'meteor/templating'
-import { Topograms } from '../../api/collections.js'
+import { ReactiveVar } from 'meteor/reactive-var'
+import { Papa } from 'papaparse'
+import { FlashMessages } from 'meteor/mrt:flash-messages'
+import { Router } from 'meteor/iron:router'
+import $ from 'meteor/jquery'
 
-
-//TODO : import ReactiveVar
+import { makeNode, makeEdge } from '../../api/modelsHelpers.js'
 
 Template.import.onCreated( function() {
     this.newLayerDataReady = new ReactiveVar(false)
@@ -47,13 +51,13 @@ Template.import.onCreated( function() {
           })
 
           if ( data.errors.length ) {
-              for ( var i = 0 ; i < data.errors.length ; i++ ) {
+              for ( var error in data.errors) {
                   self.newLayerDataReady.set(false)
 
-                  var message = 'CSV parsing Error '
-                  if ( data.errors[ i ].row ) message += 'at row: ' + data.errors[ i ].row + ' '
-                  message += data.errors[ i ].message
-                  FlashMessages.sendError( message )
+                  var msg = 'CSV parsing Error '
+                  if ( error.row ) msg += 'at row: ' + error.row + ' '
+                  message += error.message
+                  FlashMessages.sendError( msg )
               }
           } else {
               var message = 'CSV parsed succesfully : ' + data.data.length + ' records'
@@ -87,9 +91,9 @@ Template.import.helpers( {
 
 Template.import.events( {
 
-    'change #file-input': function( e, template ) {
-        e.preventDefault()
-        var file = e.target.files[ 0 ]
+    'change #file-input': function( event, instance ) {
+        event.preventDefault()
+        var file = event.target.files[ 0 ]
         if ( !file ) {
             return
         }
@@ -100,35 +104,35 @@ Template.import.events( {
             var contents = e.target.result.split( '\n' ).filter( function( d ) {
                 return d !== ''
             } ).join( '\n' )
-            template.parseData(contents)
+            instance.parseData(contents)
             var element = document.getElementById( 'layerData' )
             element.innerHTML = contents
         }
         reader.readAsText( file )
     },
 
-    'click .validateImportData': function( e, template ) {
-        e.preventDefault()
+    'click .validateImportData': function( event, instance ) {
+        event.preventDefault()
         var lines = $("#importFileUpload textarea").val()
-        template.parseData(lines)
+        instance.parseData(lines)
     },
 
-    'change #layerType': function( e, template ) {
-        template.newLayerType.set( e.currentTarget.value )
+    'change #layerType': function( event, instance ) {
+        instance.newLayerType.set( event.currentTarget.value )
         $(".collapsible").collapsible()
     },
 
-    'submit #importForm': function( e ) {
-        e.preventDefault()
+    'submit #importForm': function( event ) {
+        event.preventDefault()
 
         var self = this
 
         // Get value from form elements
-        var type = e.target.layerType.value, // nodes or edges
-            csv = e.target.layerData.value  // csv data
+        var type = event.target.layerType.value, // nodes or edges
+            csv = event.target.layerData.value  // csv data
 
         // init
-        var srcField, targetField, idField, latField, lngField
+        // var srcField, targetField, idField, latField, lngField
 
         // TODO : make UI for those options
         var parsingOptions = {
@@ -144,14 +148,14 @@ Template.import.events( {
             return  // end function
         }
 
-        if( ! $(e.target).find("select.importField").length) {
+        if( ! $(event.target).find("select.importField").length) {
           FlashMessages.sendError( 'Please select a type for your data' )
           return
         }
 
         // get all active select fields
         var selected = {}
-        $(e.target).find("select.importField").each(function(i, select) {
+        $(event.target).find("select.importField").each(function(i, select) {
           return selected[select.id] = select.value
         })
 
@@ -181,7 +185,7 @@ Template.import.events( {
 
           // parse csv data
           var cleanData = {}
-          for (key in selected) {
+          for (var key in selected) {
 
             var cleanKey = key.replace("Field", "")  // get key from field name
             var csvKey = selected[key]  // proper row name from csv
@@ -201,13 +205,14 @@ Template.import.events( {
         // TODO : display loader
         if ( type == 'edges' ) {
             Meteor.call( 'batchInsertEdges', parsedData, function( edges ) {
-                console.log( data.data.length, ' edges added' )
+                console.log(edges.length)
+                console.log( data.data.length, "/", edges.length , ' edges added' )
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' )
                 Router.go( '/topograms/' + self.topogramId + '/lab' )
             })
         } else if ( type == 'nodes' ) {
             Meteor.call( 'batchInsertNodes', parsedData, function( nodes ) {
-                console.log( data.data.length, ' nodes added' )
+                console.log( data.data.length, '/', nodes.length, ' nodes added' )
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' )
                 Router.go( '/topograms/' + self.topogramId + '/lab' )
             })

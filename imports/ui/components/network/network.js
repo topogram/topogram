@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
 
 import { Nodes, Edges } from '../../../api/collections.js'
-import { colors } from '../../helpers.js'
+import { colors } from '../../helpers/colors.js'
 
 // TODO: move to ES2015 notation
 var jquery = require('jquery')

@@ -1,7 +1,8 @@
 import './topograms-single.html'
 import { Template } from 'meteor/templating'
 import { Topograms } from '../../../api/collections.js'
-import { ReactiveVar } from 'meteor/reactive-var' 
+import { ReactiveVar } from 'meteor/reactive-var'
+import $ from "meteor/jquery"
 
 import '../../components/network/network.js'
 import '../../components/boxes/titlebox/titlebox.js'
@@ -18,11 +19,11 @@ import '../../components/networkTools/editMode/editMode.js'
 
 Template.single.helpers({
   networkInstance : function(){
-    // console.log("ha", Template.instance().network) 
+    // console.log("ha", Template.instance().network)
     return Template.instance().network
   },
   topogramId : function(){
-    var t = Topograms.findOne() 
+    var t = Topograms.findOne()
     return t._id
   }
 })
@@ -30,8 +31,8 @@ Template.single.helpers({
 Template.single.created = function() {
 
   // reactive var to share across templates
-  this.network = new ReactiveVar() 
-  this.changeLayout = new ReactiveVar() 
+  this.network = new ReactiveVar()
+  this.changeLayout = new ReactiveVar()
   this.graphState = new ReactiveVar()  // init graph state (TODO : should be reactiveDict or loaded from somewhere)
 
   var graphState = { // should be loaded from db
@@ -40,12 +41,12 @@ Template.single.created = function() {
       layout : "circle"
     }
 
-  Template.instance().graphState.set(graphState) 
+  Template.instance().graphState.set(graphState)
 }
 
 Template.single.rendered = function() {
 
-  $("#filterbox").hide() 
-  $("#sharebox").hide() 
+  $("#filterbox").hide()
+  $("#sharebox").hide()
 
 }
