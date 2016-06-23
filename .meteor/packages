@@ -18,7 +18,6 @@ check
 # meteor++
 reactive-var
 insecure
-cosmos:browserify
 
 # UI
 aldeed:tabular@=1.4.1

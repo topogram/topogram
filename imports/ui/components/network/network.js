@@ -14,6 +14,13 @@ var cxtmenu = require('cytoscape-cxtmenu')
 edgehandles( cytoscape, jquery )  // register extension
 cxtmenu( cytoscape, jquery )  // register extension
 
+// truncate String to make it shorter
+String.prototype.trunc = String.prototype.trunc ||
+  function(n){
+      return (this.length > n) ? this.substr(0,n-1)+'&hellip;' : this;
+};
+
+
 Template.network.created = function() {
   // console.log("init network")
 
