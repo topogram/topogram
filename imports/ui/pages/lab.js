@@ -11,8 +11,8 @@ Template.lab.onCreated( function() {
   console.log(self);
   self.autorun(function() {
     // self.subscribe( 'topogram', this.data.topogramId() )
-    self.subscribe( 'nodes', self.data.topogramId() )
-    self.subscribe( 'edges', self.data.topogramId() )
+    self.subscribe( 'nodes', FlowRouter.getParam('topogramId') )
+    self.subscribe( 'edges', FlowRouter.getParam('topogramId') )
   })
 })
 

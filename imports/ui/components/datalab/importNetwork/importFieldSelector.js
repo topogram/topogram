@@ -8,7 +8,7 @@ Template.importSelectFieldOptional.created = function() {
 }
 
 Template.importSelectFieldOptional.helpers({
-  '' : function() {
+  'showSelectFields' : function() {
     return Template.instance().showSelectFields.get()
   }
 })

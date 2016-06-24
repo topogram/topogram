@@ -1,2 +1,2 @@
-import './importEdges.html'
+import './importNodes.html'
 import './importFieldSelector.js'

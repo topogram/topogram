@@ -7,6 +7,8 @@ import { FlashMessages } from 'meteor/mrt:flash-messages'
 import { Router } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
 
+// import '../../api/edges/edgesMethods.js'
+// import '../../api/nodes/nodesMethods.js'
 import { makeNode, makeEdge } from '../../api/modelsHelpers.js'
 import '../../ui/components/datalab/importNetwork/importOptionalFields.js'
 import '../../ui/components/datalab/importNetwork/importEdges.js'
@@ -130,6 +132,8 @@ Template.import.events( {
 
         var self = this
 
+        self.topogramId =  FlowRouter.getParam('topogramId')
+
         // Get value from form elements
         var type = event.target.layerType.value, // nodes or edges
             csv = event.target.layerData.value  // csv data
@@ -184,7 +188,7 @@ Template.import.events( {
 
         // parse data
         var parsedData = data.data.map(function(d) {
-          console.log(d)
+          // console.log(d)
 
           // parse csv data
           var cleanData = {}
@@ -207,17 +211,20 @@ Template.import.events( {
         // save data
         // TODO : display loader
         if ( type == 'edges' ) {
-            Meteor.call( 'batchInsertEdges', parsedData, function( edges ) {
-                console.log(edges.length)
-                console.log( data.data.length, "/", edges.length , ' edges added' )
-                FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' )
-                FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )
+            Meteor.call( 'batchInsertEdges', parsedData, function( err, edges ) {
+              if (err) throw err
+              console.log(err, edges)
+              console.log(self);
+              // console.log( data.data.length, "/", edges.length , ' edges added' )
+              FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' )
+              FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )
             })
         } else if ( type == 'nodes' ) {
-            Meteor.call( 'batchInsertNodes', parsedData, function( nodes ) {
-                console.log( data.data.length, '/', nodes.length, ' nodes added' )
-                FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' )
-                FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )
+            Meteor.call( 'batchInsertNodes', parsedData, function( err, nodes ) {
+              if (err) throw err
+              // console.log( data.data.length, '/', nodes.length, ' nodes added' )
+              FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' )
+              FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )
             })
         }
     }
