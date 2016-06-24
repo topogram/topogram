@@ -6,6 +6,15 @@ import { Nodes, Edges, Topograms } from '../../api/collections.js'
 import  '../components/datalab/edges/edges.js'
 import  '../components/datalab/nodes/nodes.js'
 
+Template.lab.onCreated( function() {
+  var self = this
+  console.log(self);
+  self.autorun(function() {
+    // self.subscribe( 'topogram', this.data.topogramId() )
+    self.subscribe( 'nodes', self.data.topogramId() )
+    self.subscribe( 'edges', self.data.topogramId() )
+  })
+})
 
 Template.lab.helpers({
 

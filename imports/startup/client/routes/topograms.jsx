@@ -30,3 +30,21 @@ FlowRouter.route( '/topograms/:topogramId/view', {
     BlazeLayout.render( 'networkLayout', { main : "topogramView", "topogramId" : params.topogramId })
   }
 } )
+
+FlowRouter.route( '/topograms/:topogramId/lab', {
+    action(params) {
+        BlazeLayout.render( 'mainLayout', {
+            main: 'lab',
+            'topogramId': params.topogramId
+        } )
+    }
+} )
+
+
+FlowRouter.route( '/topograms/:topogramId/import', {
+  action(params) {
+      BlazeLayout.render( 'mainLayout', { main : 'import',
+                "topogramId": params.topogramId
+        } )
+    }
+} )

@@ -2,12 +2,15 @@ import './import.html'
 import { Meteor } from 'meteor/meteor'
 import { Template } from 'meteor/templating'
 import { ReactiveVar } from 'meteor/reactive-var'
-import { Papa } from 'papaparse'
+import Papa from 'papaparse'
 import { FlashMessages } from 'meteor/mrt:flash-messages'
 import { Router } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
 
 import { makeNode, makeEdge } from '../../api/modelsHelpers.js'
+import '../../ui/components/datalab/importNetwork/importOptionalFields.js'
+import '../../ui/components/datalab/importNetwork/importEdges.js'
+import '../../ui/components/datalab/importNetwork/importNodes.js'
 
 Template.import.onCreated( function() {
     this.newLayerDataReady = new ReactiveVar(false)

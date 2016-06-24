@@ -32,9 +32,7 @@ Template.topograms.events( {
 
 Template.topograms.helpers( {
     topograms: function() {
-        console.log(Topograms)
         return Topograms.find().fetch().map( function( d, i ) {
-
             d.index = i + 1
             d.privacy = d.sharedPublic ? 'Public' : 'Private'
             d.date = moment( d.createdAt ).format( 'MMMM Do YYYY, h:mm:ss a' )
