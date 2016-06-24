@@ -44,7 +44,7 @@ Template.selectLayout.events = {
   'click .layout': function(event, instance) {
     var layoutName = $(event.target).data().layoutName
     var network = instance.data.network.get()
-
+    console.log(layoutName, network);
     var layoutConfig = {
         animate: false,
         name: layoutName,

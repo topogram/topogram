@@ -3,16 +3,20 @@
 // This defines all the collections, publications and methods that the application provides
 // as an API to the client.
 
-import '../../api/comments/commentsMethods.js' 
-import '../../api/edges/edgesMethods.js' 
-import '../../api/nodes/nodesMethods.js' 
+
+// config accounts
+import '../../accounts.js'
+
+import '../../api/comments/commentsMethods.js'
+import '../../api/edges/edgesMethods.js'
+import '../../api/nodes/nodesMethods.js'
 
 // topograms
-import '../../api/topograms/topogramsMethods.js' 
-import '../../api/topograms/server/publications.js' 
+import '../../api/topograms/topogramsMethods.js'
+import '../../api/topograms/server/publications.js'
 
 // publications
-import '../../api/server/publications.js' 
+import '../../api/server/publications.js'
 
 // plugins
-import '../../dataTables.js' 
+import '../../dataTables.js'

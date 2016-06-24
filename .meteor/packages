@@ -29,15 +29,15 @@ mrt:flash-messages
 
 fourseven:scss
 materialize:materialize
-useraccounts:materialize
 workman:x-editable-reactive-template
 
 # js libs
 sergeyt:typeahead
 
 # routing
-# useraccounts:iron-routing
 kadira:flow-router
+useraccounts:flow-routing
+useraccounts:materialize
 
 # db
 accounts-password
