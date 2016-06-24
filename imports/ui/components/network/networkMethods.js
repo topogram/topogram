@@ -189,6 +189,7 @@ export const applyDefaultStyle = function() {
           'text-max-width': 60,
           'text-wrap': 'wrap',
           'min-zoomed-font-size': 0.4,
+          'border-color': '#D84315',
           'background-color' : function(e) {
             var color = "#CCC"  // default
             if (e.data("group")) color = colors(e.data("group"))
@@ -206,6 +207,14 @@ export const applyDefaultStyle = function() {
             'background-color': '#656565'
             // 'display' :"none"
         })
+      .selector('node[group="ghosts"]')
+      .style({
+          'background-opacity': .5,
+          'border-width': '3',
+          'border-color': 'gray',
+          'border-opacity': .6,
+          // 'display' :"none"
+      })
       .selector('edge')
         .style({
           'background-color' : "#000",
@@ -258,7 +267,6 @@ export const mouseActions = function(graph) {
   graph.on('mouseover', 'node', function(e) {
       e.cyTarget.style({
         'border-width': 2,
-        'border-color': '#D84315',
         'font-size' : 8,
         'color' : 'black',
         'label': function(d) {
@@ -269,7 +277,9 @@ export const mouseActions = function(graph) {
   })
   graph.on('mouseout', 'node', function(e) {
       e.cyTarget.style({
-        'border-width': 0,
+        'border-width': function(d) {
+          return (d.data("group") == "ghosts") ? 3 : 0
+        },
         'font-size' : 6,
         'color' : 'gray',
         'label': function(d) {
@@ -326,7 +336,12 @@ export const getGhostNodes = function(nodes, edges) {
 }
 
 const createGhostNode = function(id) {
-  return makeNode(undefined, { 'id' : id}, { 'data' : { 'group' : 'ghosts' } })
+  return makeNode( undefined,
+    {
+      'id' : id,
+      'group' : 'ghosts'
+    }
+  )
 }
 
 export const createNode = function(id){
@@ -343,14 +358,17 @@ export const createNode = function(id){
 export const addBehaviors = function(graph) {
 
   graph.selectElement = function(el, type){
-    Session.set('currentType', type)
-    Session.set('currentId', el.id())
 
     graph.focusOnNodes(el)
     $('#infoBox').show()
 
-    var url = graph.getElementUrl(el, type)
-    FlowRouter.go(url)
+    if(el.data("group") != "ghosts") {
+      Session.set('currentType', type)
+      Session.set('currentId', el.id())
+
+      var url = graph.getElementUrl(el, type)
+      FlowRouter.go(url)
+    }
   }
 
 

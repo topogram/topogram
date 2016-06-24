@@ -93,8 +93,8 @@ Template.network.onCreated( function() {
             self.graph.add(node) // add a node
           console.log("node added");
 
-            // TODO: apply size
-            
+            // TODO: re-apply size (radius)
+
           }
         },
         removed: function( node ) {
@@ -138,24 +138,7 @@ Template.network.onCreated( function() {
 
 Template.network.onRendered(function() {
     var self = this
-
     self.topogramId = self.data.topogramId
-    var domElement = self.find("#network")
-
-    self.graph = {}
-
-    console.log(self)
-
-
-    /*
-
-
-
-    // init actions based on existing rights
-    initActions(self.graph)
-    */
-
-
 })
 
 
