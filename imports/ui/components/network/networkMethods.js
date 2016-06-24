@@ -9,6 +9,8 @@ import edgehandles from 'cytoscape-edgehandles'
 import cxtmenu from 'cytoscape-cxtmenu'
 import spread from "cytoscape-spread"
 
+import * as _ from 'lodash'
+
 import { makeNode } from '../../../api/modelsHelpers.js'
 
 // register extensions
@@ -262,28 +264,27 @@ export const initGraphNodesEdges = function(graph, nodes, edges) {
   //make sure all nodes referenced in edges actually exists
   var nodeIds = nodes.map(function(n){return n.data.id})
 
-  // Add ghost nodes for non-existing nodes
+  // TODO: Add ghost nodes for non-existing nodes
   var ghostsIds = []
   var edges = edges.filter(function(e){
-    if (nodeIds.indexOf(e.data.source) == -1 && ghosts.indexOf(e.data.source) == -1)
+    if (nodeIds.indexOf(e.data.source) == -1)
       ghostsIds.push(e.data.source)
-    if (nodeIds.indexOf(e.data.target) == -1 && ghosts.indexOf(e.data.target) == -1)
+    if (nodeIds.indexOf(e.data.target) == -1)
       ghostsIds.push(e.data.target)
   })
 
-  console.log(ghostsIds);
-  console.log("ghost nodes", ghostsIds.length)
-  var ghosts = ghostsIds.map(function(id){
+  var ghosts = _.uniq(ghostsIds).map(function(id){
     return createGhostNode(id)
   })
+  console.log(ghosts.length, "ghost nodes", ghosts)
 
-  console.log(ghosts);
+  // TODO : style ghosts
+  graph.edges(ghosts)
 
   graph.add(edges)
 
 }
 
 const createGhostNode = function(id) {
-  // TODO : style ghosts
-  return makeNode(undefined, { 'id' : id}, {'group' : 'ghosts'})
+  return makeNode(undefined, { 'id' : id}, { 'data' : { 'group' : 'ghosts' } })
 }

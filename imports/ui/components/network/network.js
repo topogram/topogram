@@ -56,7 +56,7 @@ Template.network.onCreated( function() {
 
   self.autorun(function() {
 
-    if (nodesSubscription.ready() && edgesSubscription.ready()) {
+    if (nodesSubscription.ready() && edgesSubscription.ready() && !nodesEdgesReady) {
 
       // fetch and parse data
       var nodes = Nodes.find().fetch().map(function(i){
@@ -73,9 +73,8 @@ Template.network.onCreated( function() {
 
       console.log("nodes", nodes.length)
       console.log("edges", edges.length)
-      nodesEdgesReady = true;
       initGraphNodesEdges(self.graph, nodes, edges)
-
+      nodesEdgesReady = true;
     }
 
 
@@ -152,29 +151,12 @@ Template.network.onRendered(function() {
 
     self.topogramId = self.data.topogramId
     var domElement = self.find("#network")
-    console.log(domElement);
     if(!self.graph) self.graph = initGraph(domElement)
 
     console.log(self)
 
-
-
-
-
-    // clean eveything
-    // this.graph.elements().remove()
-
-
-    // add data and watch changes
-    this.autorun(function(){
-
-    })
-
-    console.log(self.graph)
-
-
     // Styling
-    // applyDefaultStyle(self.graph)
+    applyDefaultStyle(self.graph)
     self.graph.reset()  // render layout
 
     // mouse select actions
