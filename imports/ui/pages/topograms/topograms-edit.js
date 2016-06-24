@@ -1,4 +1,4 @@
-import './topograms-single.html'
+import './topograms-edit.html'
 import { Template } from 'meteor/templating'
 import { Topograms } from '../../../api/collections.js'
 import { ReactiveVar } from 'meteor/reactive-var'
@@ -17,18 +17,24 @@ import '../../components/networkTools/editMode/editMode.js'
 // import '../../components/boxes/algobox/algobox.js'
 // import '../../components/boxes/toolbox/toolbox.js'
 
-Template.single.helpers({
+Template.topogramEdit.helpers({
   networkInstance : function(){
     // console.log("ha", Template.instance().network)
     return Template.instance().network
   },
   topogramId : function(){
-    var t = Topograms.findOne()
-    return t._id
+    return Template.instance().data.topogramId()
+  },
+  graphState : function() {
+    return Template.instance().graphState
   }
 })
 
-Template.single.created = function() {
+Template.topogramEdit.onCreated( function() {
+  Meteor.subscribe( 'topogram', this.data.topogramId() )
+})
+
+Template.topogramEdit.created = function() {
 
   // reactive var to share across templates
   this.network = new ReactiveVar()
@@ -44,7 +50,7 @@ Template.single.created = function() {
   Template.instance().graphState.set(graphState)
 }
 
-Template.single.rendered = function() {
+Template.topogramEdit.rendered = function() {
 
   $("#filterbox").hide()
   $("#sharebox").hide()

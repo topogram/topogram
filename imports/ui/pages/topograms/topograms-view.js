@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { Topograms } from '../../../api/collections.js'
 import { ReactiveVar } from 'meteor/reactive-var'
 
-Template.view.created = function() {
+Template.topogramView.created = function() {
 
   // reactive var to share across templates
   this.network = new ReactiveVar()
@@ -18,7 +18,7 @@ Template.view.created = function() {
   Template.instance().graphState.set(graphState)
 }
 
-Template.view.helpers({
+Template.topogramView.helpers({
   networkInstance : function(){
     // console.log("ha", Template.instance().network)
     return Template.instance().network

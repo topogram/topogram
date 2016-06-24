@@ -7,6 +7,11 @@ import { Session } from 'meteor/session'
 import $ from "meteor/jquery"
 import moment from 'moment'
 
+Template.topograms.onCreated( function() {
+  this.subscribe('topograms.private')
+})
+
+
 Template.topograms.events( {
     'click .delete': function( event ) {
         event.preventDefault()
