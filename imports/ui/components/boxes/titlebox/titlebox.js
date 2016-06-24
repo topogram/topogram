@@ -19,6 +19,9 @@ Template.titlebox.helpers({
     topogram: function() {
       var topogram = Topograms.findOne()
       return topogram
+    },
+    networkInstance : function(){
+      return Template.instance().data.network
     }
 })
 
@@ -41,9 +44,9 @@ Template.titlebox.events =  {
   'click #toggle-commentbox' : function() {
     $('#commentBox').toggle()
   },
-  'click #download-png' : function() {
-    console.log(Template.instance())
-    var network = Template.instance().view.parentView.parentView._templateInstance.network.get()
+  'click #download-png' : function(event, template) {
+    console.log(template)
+    var network = template.data.network.get()
     var png =  network.png({
       // 'full' : true
     })

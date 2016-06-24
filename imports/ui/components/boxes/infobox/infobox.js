@@ -16,7 +16,7 @@ Template.infobox.rendered = function() {
 }
 
 Template.infobox.helpers({
-  network : function(){
+  networkInstance : function(){
     return Template.instance().data.network
   },
   currentSelection: function() {

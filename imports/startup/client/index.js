@@ -14,5 +14,6 @@ Template.registerHelper( 'objectToPairs', function( object ) {
 
 
 // routes
-
 import './routes/routes.jsx'
+import './routes/topograms.jsx'
+import './routes/privacy.jsx'

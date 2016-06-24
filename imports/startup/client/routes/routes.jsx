@@ -7,19 +7,22 @@ import {Layout, Welcome} from '../../../ui/pages/test.jsx';
 
 import '../../../ui/layouts/mainLayout.js'
 import '../../../ui/pages/home.js'
+import '../../../ui/pages/404.html'
 
 FlowRouter.route( '/', {
     name: 'homePage',
     action () {
       BlazeLayout.render("mainLayout", { main: "home" });
-      // console.log(this)
-      // if ( !this.ready() ) this.render( 'loading' )
-      // else this.render( 'home' )
     }
 } )
 
-import './topograms.jsx'
+//404
 
+FlowRouter.notFound = {
+   action: function() {
+     BlazeLayout.render("mainLayout", { main: "404" });
+   }
+}
 
 // Test to render some React
 // FlowRouter.route("/test", {

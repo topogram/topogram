@@ -10,7 +10,6 @@ Template.selectLayout.rendered = function() {
 }
 
 Template.selectLayout.helpers({
-
     layouts: function() {
       var layouts =  []
       // add map layout
@@ -42,9 +41,9 @@ Template.selectLayout.helpers({
 
 Template.selectLayout.events = {
   // apply layout
-  'click .layout': function(e, template) {
-    var layoutName = $(e.target).data().layoutName
-    var network = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get()
+  'click .layout': function(event, instance) {
+    var layoutName = $(event.target).data().layoutName
+    var network = instance.data.network.get()
 
     var layoutConfig = {
         animate: false,

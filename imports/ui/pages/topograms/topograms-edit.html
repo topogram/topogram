@@ -3,7 +3,7 @@
     {{> network network=networkInstance topogramId=topogramId editMode=true graphState=graphState}}
     <div id="toolkit" class="row">
         <div class="toolbox col s3">
-          {{> titlebox editMode=true}}
+          {{> titlebox network=networkInstance editMode=true}}
           {{> searchBox network=networkInstance searchName="mainSearch" type="source" placeholder="Lookup a node"}}
           {{> sharebox }}
           {{> filterbox network=networkInstance }}
