@@ -1,6 +1,7 @@
 import { Session } from 'meteor/session'
 import { Meteor } from 'meteor/meteor'
 
+import d3 from 'd3'
 import { $ }  from 'meteor/jquery'
 import cytoscape  from 'cytoscape'
 
@@ -11,7 +12,9 @@ import spread from "cytoscape-spread"
 
 import * as _ from 'lodash'
 
+import { Nodes, Edges } from '../../../api/collections.js'
 import { makeNode } from '../../../api/modelsHelpers.js'
+import { colors } from '../../helpers/colors.js'
 
 // register extensions
 edgehandles( cytoscape, $ )
@@ -24,9 +27,21 @@ cxtmenu( cytoscape, $ ) // register extension
 // cycola(cytoscape, webcola)
 spread(cytoscape)
 
-export const initGraph = function(domElement) {
-  // console.log("init network")
+export const initGraph = function(domElement, nodes, edges, _options) {
 
+  var options = _options || {}
+  if (! _options ) _options = {}
+  options.style = _options.style || applyDefaultStyle()
+  options.mouse = _options.mouse || true
+  options.cxtMenu = _options.cxtMenu || true
+  options.edgehandles = _options.edgehandles || true
+
+  // console.log("init network")
+  console.log("nodes", nodes.length)
+  console.log("edges", edges.length)
+
+  var ghosts = getGhostNodes(nodes, edges)
+  var elements = nodes.concat(edges, ghosts);
   var graph = cytoscape({
     container: domElement,
     hideLabelsOnViewport: true,
@@ -35,8 +50,21 @@ export const initGraph = function(domElement) {
     },
     layout: {
         name: 'preset' // load saved positions
-    }
+    },
+    elements : elements,
+    style : options.style
   })
+
+  // if (options.style) applyDefaultStyle(graph)
+  if (options.mouse) mouseActions(graph)
+  if (options.cxtMenu) initActions(graph)
+  if (options.edgehandles) initActions(graph)
+
+  addBehaviors(graph)
+  updateRadiusByDegree(graph) // default is by degree
+  console.log(graph)
+  graph.reset()  // render layout
+
   return graph
 }
 
@@ -150,13 +178,11 @@ export const initActions = function(graph) {
 * Apply a default stylesheet to the Graph
 *
 */
-export const applyDefaultStyle = function(graph) {
-  console.log(graph)
-    graph.style()
-      .resetToDefault()
+export const applyDefaultStyle = function() {
+    return cytoscape.stylesheet()
       .selector('node')
         .style({
-          'font-size': 6,//this.graphState.fontSize,
+          'font-size': 6,//graphState.fontSize,
           'text-valign': 'center',
           'text-halign': 'right',
           'color': 'gray',
@@ -210,6 +236,25 @@ export const applyDefaultStyle = function(graph) {
 }
 
 export const mouseActions = function(graph) {
+
+  // mouse select actions
+  graph.on('tap', 'node', function(e) {
+      var node = e.cyTarget
+      graph.selectElement(node, "node")
+  })
+
+  // display edge info
+  graph.on('tap', 'edge',function(e) {
+    e.cyTarget.css({
+      'text-opacity' : function(d){
+        return  (d.style('text-opacity') == "1") ? "0" : "1"
+      },
+      'line-color' : function(d) {
+        return d.style('line-color') == "green" ? "#AAAAAA" : "green"
+      }
+    })
+  })
+
   graph.on('mouseover', 'node', function(e) {
       e.cyTarget.style({
         'border-width': 2,
@@ -257,14 +302,12 @@ export const removeSingletons = function(graph) {
 * Add a bunch of edges and nodes to the graph
 */
 
-export const initGraphNodesEdges = function(graph, nodes, edges) {
-
-  graph.add(nodes)
+export const getGhostNodes = function(nodes, edges) {
 
   //make sure all nodes referenced in edges actually exists
   var nodeIds = nodes.map(function(n){return n.data.id})
 
-  // TODO: Add ghost nodes for non-existing nodes
+  // Add ghost nodes for non-existing nodes
   var ghostsIds = []
   var edges = edges.filter(function(e){
     if (nodeIds.indexOf(e.data.source) == -1)
@@ -278,13 +321,215 @@ export const initGraphNodesEdges = function(graph, nodes, edges) {
   })
   console.log(ghosts.length, "ghost nodes", ghosts)
 
-  // TODO : style ghosts
-  graph.edges(ghosts)
-
-  graph.add(edges)
+  return ghosts
 
 }
 
 const createGhostNode = function(id) {
   return makeNode(undefined, { 'id' : id}, { 'data' : { 'group' : 'ghosts' } })
+}
+
+export const createNode = function(id){
+  // get x, y
+  var x = $("#network").width()/2,
+      y = $("#network").height()/2
+
+  var n = makeNode(self.topogramId, { x:x, y:y, name: id })
+  console.log("new node",n)
+  Meteor.call("addNode", n)
+}
+
+// TODO : refactor this function properly
+export const addBehaviors = function(graph) {
+
+  graph.selectElement = function(el, type){
+    Session.set('currentType', type)
+    Session.set('currentId', el.id())
+
+    graph.focusOnNodes(el)
+    $('#infoBox').show()
+
+    var url = graph.getElementUrl(el, type)
+    FlowRouter.go(url)
+  }
+
+
+  graph.deselectAll = function(){
+    Session.set('currentType', null)
+    Session.set('currentId', null)
+    Session.set('pathTargetNodeId', null)
+
+    graph.unFocus()
+    $('#infoBox').hide()
+    $('#commentBox').hide()
+    FlowRouter.go(window.location.pathname)
+  }
+
+  graph.getElementUrl = function(el, type) {
+    // get node/edge _id
+    var element
+    if(type =="node") {
+      element = Nodes.findOne({"data.id" : el.id()})
+    } else if (type == "edge") {
+      element = Edges.findOne({"data.id" : el.id()})
+    }
+    return window.location.pathname + "#"+type+"-"+element._id
+  }
+
+  graph.getElById = function(id, type){
+    if(type == "node") {
+      return graph.nodes().filter("[id='"+id+"']")
+    } else if (type == "edge") {
+      return graph.edges().filter("[id='"+id+"']")
+    }
+  }
+
+  graph.drawPath = function( sourceNode, targetNode ) {
+    console.log(graph, sourceNode, targetNode)
+    graph.unFocus()
+    var path = graph.elements().dijkstra(sourceNode).pathTo(targetNode)
+
+    // graph.focusOnNodes(path)
+    graph.nodes().style({ 'opacity': '.1' })
+    graph.edges().style({ 'opacity': '.1' })
+    path.style({ 'opacity': '1' })
+
+    // make only the focus selectable
+    graph.nodes().unselectify()
+    graph.edges().unselectify(false)
+    path.selectify()
+  }
+
+  // select / unselect nodes
+
+  graph.focusOnNodes = function(selectedNodes){
+
+    // select
+    var subGraph = selectedNodes.closedNeighborhood()
+
+    // make only the focus selectable
+    graph.nodes().hide()
+    graph.edges().hide()
+    subGraph.show()
+
+    // store actual position
+    subGraph.nodes().forEach(function(d){
+      var prevPos = Object({"x":d.position().x, "y":d.position().y})
+      d.data("prevPos", prevPos)
+    })
+
+    // apply focus layout
+    subGraph.layout({"name":"concentric"})
+  }
+
+  graph.unFocus = function(){
+
+    // remove layout focus and re-apply previous positions
+    graph.nodes().forEach(function(d){
+      if( d.data("prevPos") ) {
+        d.position(d.data("prevPos"))
+        delete d.removeData("prevPos")
+      }
+    })
+    graph.layout({"name":"preset"})
+    // shopw everything
+    graph.nodes().show()
+    graph.edges().show()
+  }
+
+  graph.resetFilters = function() {
+
+    graph.deselectAll()
+
+    $(".network-search input").val("")
+
+    graph.elements().deselect()
+    graph.elements().show()
+
+    // reset selector
+    $(".filterByCategory").find("option:selected").removeAttr("selected")
+    $('.filterByCategory select').material_select('destroy')
+    $('.filterByCategory select').material_select()
+
+    // update slider min / max
+    var min = graph.nodes().minDegree()
+    var max = graph.nodes().maxDegree()
+
+    $("#filterByDegree")[0].noUiSlider.set([min, max])
+
+    // $("#filterByDegree")[0].noUiSlider.updateOptions({
+    //   range: {
+    //     'min': min,
+    //     'max': max
+    //   }
+    // })
+
+  }
+
+  // show / hide elements
+  graph.selectElements = function(selectedEls) {
+
+    graph.elements().hide()
+    selectedEls.select()
+    selectedEls.show()
+    selectedEls.nodes().connectedEdges().show()  // show edge context
+  }
+
+  graph.filterGraph = function(filter){
+
+    // init with all elements selected by default
+    var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
+
+    // console.log(alreadySelected.length)
+    var newSelection = alreadySelected.filter(filter)
+    // console.log(newSelection.nodes().length, newSelection.edges().length)
+
+    graph.selectElements(newSelection)
+  }
+
+  // load node if hash
+  // TODO : select by nodes is broken...
+  if(window.location.hash) {
+    var type = window.location.hash.split("-")[0].replace("#","")
+    var elementId = window.location.hash.split("-")[1]
+    var element
+    console.log(type, elementId)
+    if(type =="node") {
+      element = Nodes.findOne({"_id" : elementId})
+    } else if (type == "edge") {
+      element = Edges.findOne({"_id" : elementId})
+    }
+    console.log(element)
+    var el = graph.getElById(element.data.id, type)
+    console.log(el)
+    if(el) graph.selectElement(el, type)
+  }
+
+  // mode view-only
+  if(!this.editMode) {
+    graph.autolock(true)  // prevent drag
+    startEdgehandles(graph) // interactive edge creation
+    graph.edgehandles("disable")
+  }
+
+}
+
+export const updateRadiusByDegree = function(graph) {
+  // calculate radius range
+  var degreeDomain = d3.scale.linear().domain([
+    graph.nodes().minDegree(),
+    graph.nodes().maxDegree()
+  ]).range([6,40])
+
+  // apply size
+  graph.style()
+    .selector('node')
+    .style({
+      'width': function(e) {
+        return degreeDomain(e.degree())
+      },
+      'height': function(e) {
+        return degreeDomain(e.degree())
+      }
+    }).update()
 }
