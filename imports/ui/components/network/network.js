@@ -2,36 +2,23 @@ import './network.html'
 import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
 import { Meteor } from 'meteor/meteor'
-import { Router } from 'meteor/iron:router'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 
 import { makeNode } from '../../../api/modelsHelpers.js'
 
 import { Nodes, Edges } from '../../../api/collections.js'
 import { colors } from '../../helpers/colors.js'
 
+import {
+  applyDefaultStyle,
+  initGraph,
+  initActions,
+  mouseActions,
+  initGraphNodesEdges
+} from './networkMethods.js'
 
 import { $ }  from 'meteor/jquery'
 import d3 from 'd3'
-
-import cytoscape  from 'cytoscape'
-
-// cytoscape extensions
-import edgehandles from 'cytoscape-edgehandles'
-import cxtmenu from 'cytoscape-cxtmenu'
-import spread from "cytoscape-spread"
-
-// TODO: currently Cola requires  a build from Grunt...
-// import cycola from "cytoscape-cola"
-// import cola from 'webcola'
-// cycola(cytoscape, webcola)
-
-// register extension
-edgehandles( cytoscape, $ )
-cxtmenu( cytoscape, $ )
-
-// register layouts
-spread(cytoscape)
-
 
 // truncate String to make it shorter
 String.prototype.trunc = String.prototype.trunc ||
@@ -39,12 +26,11 @@ String.prototype.trunc = String.prototype.trunc ||
       return (this.length > n) ? this.substr(0,n-1)+'&hellip;' : this;
 };
 
-
-Template.network.created = function() {
-  // console.log("init network")
+Template.network.onCreated( function() {
+  var self = this;
 
   // get reactive graphState
-  this.graphState = this.view.parentView.parentView._templateInstance.graphState.get()
+  this.graphState = this.data.graphState
 
   // constants
   this.editMode = this.data.editMode
@@ -62,181 +48,143 @@ Template.network.created = function() {
   Session.set("mergeSource", null)
   Session.set("mergeTargets", null)
 
-}
+  var topogramId = FlowRouter.getParam('topogramId')
+  var nodesSubscription = self.subscribe( 'nodes', topogramId )
+  var edgesSubscription = self.subscribe( 'edges', topogramId )
 
-Template.network.rendered = function() {
-    var self = this
-    self.topogramId = self.data.topogramId
+  var nodesEdgesReady = false
 
-    // fetch and parse data
-    var edges = Edges.find().fetch().map(function(i){
-      i.data._id = i._id
-      return i
-    }),
-    nodes = Nodes.find().fetch().map(function(i){
-      i.data._id = i._id
-      i.parent = "nparent"
-      i.data.parent = "nparent"
-      return i
-    })
-    console.log("nodes", nodes.length)
-    console.log("edges", edges.length)
+  self.autorun(function() {
 
-    //make sure all nodes referenced in edges actually exists
-    var nodeIds = nodes.map(function(n){return n.data.id})
-    edges = edges.filter(function(e){
-      return (nodeIds.indexOf(e.data.source) > -1   && nodeIds.indexOf(e.data.target) > -1)
-    })
-    console.log("connected edges", edges.length)
+    if (nodesSubscription.ready() && edgesSubscription.ready()) {
 
-    // init graph
-    this.graph = cytoscape({
-        container: document.getElementById("network"),
-        hideLabelsOnViewport: true,
-        ready: function() {
-          // console.log('topogram ready')
-        },
-        // load existing positions
-        layout: {
-            name: 'preset'
-        },
-        // style
-        style: cytoscape.stylesheet()
-            .selector('node')
-              .style({
-                'font-size': 6,//this.graphState.fontSize,
-                'text-valign': 'center',
-                'text-halign': 'right',
-                'color': 'gray',
-                'text-max-width': 60,
-                'text-wrap': 'wrap',
-                'min-zoomed-font-size': 0.4,
-                'background-color' : function(e) {
-                  var color = "#CCC"  // default
-                  if (e.data("group")) color = colors(e.data("group"))
-                  else if (e.data("color")) color = e.data("color")
-                  return e.data('starred') ? 'yellow' : color
-                },
-                // 'text-opacity' : 0, // hide label by default
-                'label': function(e) {
-                  return e.data("name") ? e.data("name").trunc(20) : ""
-                }
-              })
-            // node with degree zero
-            .selector('node[[degree = 0]]')
-              .style({
-                  'background-color': '#656565'
-                  // 'display' :"none"
-              })
-            .selector('edge')
-              .style({
-                'background-color' : "#000",
-                'target-arrow-shape': 'none', // default is undirected graph
-                'width': function(e) {
-                  return e.data("weight") ? e.data("weight") : .5
-                },
-                'line-color' : '#AAAAAA',
-                'line-opacity': .7,
-                'font-size':8,
-                'text-opacity' : 0, // hide label by default
-                'label': function(e) {
-                  return e.data("group") ? e.data("group") : ""
-                }
-              })
-            .selector('.edgehandles-hover')
-              .style({
-                  'background-color': 'red'
-              })
-            .selector('.edgehandles-source')
-            .selector('.edgehandles-target')
-            .selector('.edgehandles-preview, .edgehandles-ghost-edge')
-              .style({
-                  'line-color': 'red',
-                  'target-arrow-color': 'red',
-                  'source-arrow-color': 'red'
-              })
+      // fetch and parse data
+      var nodes = Nodes.find().fetch().map(function(i){
+        i.data._id = i._id
+        i.parent = "nparent"
+        i.data.parent = "nparent"
+        return i
       })
 
-    // clean eveything
-    this.graph.elements().remove()
+      var edges = Edges.find().fetch().map(function(i){
+        i.data._id = i._id
+        return i
+      })
 
-    // add data
-    this.graph.add(nodes)
-    this.graph.add(edges)
-    var initData = true
+      console.log("nodes", nodes.length)
+      console.log("edges", edges.length)
+      nodesEdgesReady = true;
+      initGraphNodesEdges(self.graph, nodes, edges)
 
-    // init display and watch changes
-    this.autorun(function(){
-      if(initData) {
-        Nodes.find().observe({
-          added: function( node ) {
-            node.data._id = node._id  // make _id accessible in the el.data()
-            var el = self.graph.filter('node[_id = "'+node._id+'"]')
-            if(!el.length) self.graph.add(node)
-          },
-          removed: function( node ) {
-            var el = self.graph.filter('node[_id = "'+node._id+'"]')
-            self.graph.remove(el)
+    }
+
+
+    if (nodesEdgesReady) {
+      Nodes.find().observe({
+        added: function( node ) {
+          node.data._id = node._id  // make _id accessible in the el.data()
+          var el = self.graph.filter('node[_id = "'+node._id+'"]')
+          if(!el.length) {
+            self.graph.add(node) // add a node
+          console.log("node added");
+
+            // TODO: apply size
+            // calculate radius range
+            // var degreeDomain = d3.scale.linear().domain([
+            //   self.graph.nodes().minDegree(),
+            //   self.graph.nodes().maxDegree()
+            // ]).range([6,40])
+            //
+            // // apply size
+            // self.graph.style()
+            //   .selector('node')
+            //   .style({
+            //     'width': function(e) {
+            //       return degreeDomain(e.degree())
+            //     },
+            //     'height': function(e) {
+            //       return degreeDomain(e.degree())
+            //     }
+            //   }).update()
           }
-        })
+        },
+        removed: function( node ) {
+          var el = self.graph.filter('node[_id = "'+node._id+'"]')
+          self.graph.remove(el)
+        }
+      })
 
-        // watch changes diff
-        Nodes.find().observeChanges( {
-          changed: function( _id, fields ) {
-              var item = self.graph.nodes().filter( function( i, node ) {
-                  return node.data("_id") == _id
-              })
-              for ( var field in fields ) {
-                if (field == "position") item.position(fields[field])
-                // TODO : update all node properties
-              }
-          }
-        })
-
-        Edges.find().observe( {
-            added: function( edge ) {
-              edge.data._id = edge._id  // make _id accessible in the el.data()
-              var el = self.graph.filter('edge[_id = "'+edge._id+'"]')
-              if(nodeIds.indexOf(edge.data.source) > -1 && nodeIds.indexOf(edge.data.target) > -1 && !el.length) self.graph.add(edge)
+      // watch changes diff
+      Nodes.find().observeChanges( {
+        changed: function( _id, fields ) {
+            var item = self.graph.nodes().filter( function( i, node ) {
+                return node.data("_id") == _id
+            })
+            for ( var field in fields ) {
+              if (field == "position") item.position(fields[field])
+              // TODO : update all node properties
             }
-            // ,
-            // removed: function() {
-            //     // console.log( 'edge removed' )
-            // }
-        })
-      }
+        }
+      })
+
+      Edges.find().observe( {
+          added: function( edge ) {
+            edge.data._id = edge._id  // make _id accessible in the el.data()
+            var el = self.graph.filter('edge[_id = "'+edge._id+'"]')
+
+            var nodeIds = self.graph.nodes().map( function(n)  { return n.id() })
+            if(nodeIds.indexOf(edge.data.source) > -1 && nodeIds.indexOf(edge.data.target) > -1 && !el.length)
+              self.graph.add(edge)
+          }
+          // ,
+          // removed: function() {
+          //     // console.log( 'edge removed' )
+          // }
+      })
+    }
+  })
+
+
+})
+
+Template.network.onRendered(function() {
+    var self = this
+
+    self.topogramId = self.data.topogramId
+    var domElement = self.find("#network")
+    console.log(domElement);
+    if(!self.graph) self.graph = initGraph(domElement)
+
+    console.log(self)
+
+
+
+
+
+    // clean eveything
+    // this.graph.elements().remove()
+
+
+    // add data and watch changes
+    this.autorun(function(){
+
     })
 
-
-    console.log(this.graph)
-
-    // remove singletons
-    // this.graph.elements('node[[degree = 0]]').remove()
-
-    // apply size
-    var degreeDomain = d3.scale.linear().domain([this.graph.nodes().minDegree(),this.graph.nodes().maxDegree()]).range([6,40])
-    this.graph.style()
-      .selector('node')
-      .style({
-        'width': function(e) {
-          return degreeDomain(e.degree())
-        },
-        'height': function(e) {
-          return degreeDomain(e.degree())
-        }
-      }).update()
+    console.log(self.graph)
 
 
-    this.graph.reset()  // render layout
+    // Styling
+    // applyDefaultStyle(self.graph)
+    self.graph.reset()  // render layout
 
     // mouse select actions
-    this.graph.on('tap', 'node', /*_.debounce(*/ function(e) {
+    this.graph.on('tap', 'node', function(e) {
         var node = e.cyTarget
         self.graph.selectElement(node, "node")
     })
 
     // display edge info
-    this.graph.on('tap', 'edge', /*_.debounce(*/ function(e) {
+    this.graph.on('tap', 'edge',function(e) {
       e.cyTarget.css({
         'text-opacity' : function(d){
           return  (d.style('text-opacity') == "1") ? "0" : "1"
@@ -246,6 +194,8 @@ Template.network.rendered = function() {
         }
       })
     })
+
+
 
     this.graph.createNode = function(id){
       // get x, y
@@ -265,8 +215,9 @@ Template.network.rendered = function() {
       $('#infoBox').show()
 
       var url = self.graph.getElementUrl(el, type)
-      Router.go(url)
+      FlowRouter.go(url)
     }
+
 
     this.graph.deselectAll = function(){
       Session.set('currentType', null)
@@ -276,7 +227,7 @@ Template.network.rendered = function() {
       self.graph.unFocus()
       $('#infoBox').hide()
       $('#commentBox').hide()
-      Router.go(window.location.pathname)
+      FlowRouter.go(window.location.pathname)
     }
 
     this.graph.getElementUrl = function(el, type) {
@@ -290,7 +241,7 @@ Template.network.rendered = function() {
       return window.location.pathname + "#"+type+"-"+element._id
     }
 
-    this.graph.getElementById = function(id, type){
+    this.graph.getElById = function(id, type){
       if(type == "node") {
         return self.graph.nodes().filter("[id='"+id+"']")
       } else if (type == "edge") {
@@ -298,29 +249,9 @@ Template.network.rendered = function() {
       }
     }
 
+
     // mouse over
-    this.graph.on('mouseover', 'node', /*_.debounce(*/ function(e) {
-        e.cyTarget.style({
-          'border-width': 2,
-          'border-color': '#D84315',
-          'font-size' : 8,
-          'color' : 'black',
-          'label': function(d) {
-            return d.data("name") ? d.data("name") : ""
-          },
-          'z-index': 300000
-        })
-    })
-    this.graph.on('mouseout', 'node', /*_.debounce(*/ function(e) {
-        e.cyTarget.style({
-          'border-width': 0,
-          'font-size' : 6,
-          'color' : 'gray',
-          'label': function(d) {
-            return d.data("name") ? d.data("name").trunc(20) : ""
-          }
-        })
-    })
+    mouseActions(self.graph)
 
     this.graph.drawPath = function( sourceNode, targetNode ) {
       console.log(self.graph, sourceNode, targetNode)
@@ -338,7 +269,8 @@ Template.network.rendered = function() {
       path.selectify()
     }
 
-    // select / unsleselct nodes
+    // select / unselect nodes
+
     this.graph.focusOnNodes = function(selectedNodes){
 
       // select
@@ -425,6 +357,7 @@ Template.network.rendered = function() {
     }
 
     // load node if hash
+    // TODO : select by nodes is broken...
     if(window.location.hash) {
       var type = window.location.hash.split("-")[0].replace("#","")
       var elementId = window.location.hash.split("-")[1]
@@ -436,141 +369,24 @@ Template.network.rendered = function() {
         element = Edges.findOne({"_id" : elementId})
       }
       console.log(element)
-      var el = self.graph.getElementById(element.data.id, type)
+      var el = self.graph.getElById(element.data.id, type)
       console.log(el)
       if(el) self.graph.selectElement(el, type)
-    }
-
-    // otions for interactive edge creation
-    self.graph.edgehandles({
-        complete: function(source, target, addedEntities) {
-          console.log(source, target, addedEntities)
-            Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'))
-        }
-    })
-
-    this.graph.initActions = function() {
-
-      var advancedEditMode = Session.get("advancedEditMode")
-      console.log("init actions with advancedEditMode = "+ advancedEditMode)
-
-      // drag node
-      self.graph.off('free', 'node')  // reset
-      self.graph.on('free', 'node', function(e) {
-          var node = e.cyTarget
-
-          // update position
-          Meteor.call('updateNodePosition', node.id(), node.position())
-
-          // Node Merger
-          if(advancedEditMode) {
-              // check for node merger
-              console.log("check for node merger")
-              Session.set("mergeSource", null)
-              Session.set("mergeTargets", null)
-
-              // hit test
-              var bb = node.boundingbox()
-              var targets = self.graph.nodes().filterFn(function(d){
-                  var isPos =
-                    d.position().x > bb.x1
-                    &&
-                    d.position().x < bb.x2
-                    &&
-                    d.position().y > bb.y1
-                    &&
-                    d.position().y < bb.y2
-                  var isSame = (d.id() == node.id())
-                  return isPos && !isSame
-              })
-
-              // console.log(node, targets)
-              if (targets.length) {
-                  Session.set("mergeSource", node.id())
-                  Session.set("mergeTargets", targets.map(function(d){return d.id()}))
-                  $('#modal-merge').openModal()
-              }
-          }
-      })
-
-      // edge creation: disabled by default
-      if (!advancedEditMode) self.graph.edgehandles("disable")
-      else self.graph.edgehandles("enable")
-
-      // context menu (right click)
-      if(self.editMode) {
-        var commands =  [{
-            content: '<span><i class="small material-icons">star_rate</i></span>',
-            select: function() {
-              Meteor.call('starNode', this.id())
-              var starred = (this.data("starred")) ? false : true
-              this.data("starred", starred)
-            }
-        // }, {
-        //     content: '<span><i class="small material-icons">lock</i></span>',
-        //     select: function() {
-        //         // console.log( this.position() )
-        //         Meteor.call('lockNode', this.id(), this.position())
-        //     },
-        },{
-            content: '<span><i class="small material-icons">comment</i></span>',
-            select: function() {
-                self.graph.selectElement(this, "node")
-                $("#commentBox").show()
-            }
-
-        },{
-            content: '<span><i class="small material-icons">library_books</i></span>',
-            select: function() {
-              // TODO : share to social networks
-              self.graph.selectElement(this, "node")
-            }
-
-        }]
-
-        // add delete only on advanced mode
-        if(advancedEditMode)
-          commands.push({
-            content: '<span><i class="small material-icons">delete</i></span>',
-            select: function() {
-
-                // remove the node plus all connected edges
-                Meteor.call('deleteNodeAndConnectedEdges', this.id(), this.neighborhood('edge').map(function(d) {
-                    return d.id()
-                }))
-
-                // remove from graph
-                self.graph.remove(this.neighborhood('edge'))
-                self.graph.remove(this)
-            }
-        })
-
-        // update ctx menu
-        if (self.graph.cxtMenuAPI) self.graph.cxtMenuAPI.destroy()
-        self.graph.cxtMenuAPI = self.graph.cxtmenu({
-          selector: 'node',
-          commands: commands
-        })
-      }
     }
 
     // mode view-only
     if(!this.editMode) {
       self.graph.autolock(true)  // prevent drag
+      startEdgehandles(self.graph) // interactive edge creation
       self.graph.edgehandles("disable")
     }
 
     // init actions based on existing rights
-    this.graph.initActions(this.advancedEditMode)
+    initActions(self.graph)
 
     // set global var
-    console.log(this)
     this.data.network.set(this.graph)
-
-    // watch changes
-
-    // console.log('network : ', topogramId, nodes .length, 'nodes', edges .length, 'edges' )
-}
+})
 
 
 Template.network.destroyed = function() {
