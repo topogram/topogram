@@ -1,7 +1,8 @@
-import { Router } from 'meteor/iron:router'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 import { AccountsTemplates } from 'meteor/useraccounts:core'
 
 // user-based privacy
+/*
 Router.plugin('ensureSignedIn', {
   except: ['root', 'showTopogram', 'signIn', 'atSignIn', 'atSignUp', 'atForgotPassword', 'atResetPwd']
 })
@@ -72,3 +73,4 @@ AccountsTemplates.addFields( [ {
     },
     pwd
 ] );
+*/

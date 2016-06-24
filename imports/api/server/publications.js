@@ -1,6 +1,6 @@
 
 import { Meteor } from 'meteor/meteor'
-import { Edges, Nodes, Comments } from '../collections.js' 
+import { Edges, Nodes, Comments } from '../collections.js'
 
 /*
  *  COMMENTS
@@ -17,7 +17,8 @@ Meteor.publish( 'comments', function() {
 
 
  Meteor.publish( 'edges', function( topogramId ) {
-     var edges = Edges.find( {
+
+    var edges = Edges.find( {
          'topogramId': topogramId
      } )
      // console.log( edges.count(), "edges" )

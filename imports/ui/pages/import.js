@@ -4,7 +4,7 @@ import { Template } from 'meteor/templating'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { Papa } from 'papaparse'
 import { FlashMessages } from 'meteor/mrt:flash-messages'
-import { Router } from 'meteor/iron:router'
+import { Router } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
 
 import { makeNode, makeEdge } from '../../api/modelsHelpers.js'
@@ -208,13 +208,13 @@ Template.import.events( {
                 console.log(edges.length)
                 console.log( data.data.length, "/", edges.length , ' edges added' )
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' )
-                Router.go( '/topograms/' + self.topogramId + '/lab' )
+                FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )
             })
         } else if ( type == 'nodes' ) {
             Meteor.call( 'batchInsertNodes', parsedData, function( nodes ) {
                 console.log( data.data.length, '/', nodes.length, ' nodes added' )
                 FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' )
-                Router.go( '/topograms/' + self.topogramId + '/lab' )
+                FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )
             })
         }
     }

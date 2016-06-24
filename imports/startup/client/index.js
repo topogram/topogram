@@ -15,4 +15,4 @@ Template.registerHelper( 'objectToPairs', function( object ) {
 
 // routes
 
-import './routes/routes.js'
+import './routes/routes.jsx'

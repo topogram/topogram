@@ -2,6 +2,7 @@ import './topograms-view.html'
 import { Template } from 'meteor/templating'
 import { Topograms } from '../../../api/collections.js'
 import { ReactiveVar } from 'meteor/reactive-var'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 
 Template.topogramView.created = function() {
 
@@ -20,11 +21,9 @@ Template.topogramView.created = function() {
 
 Template.topogramView.helpers({
   networkInstance : function(){
-    // console.log("ha", Template.instance().network)
     return Template.instance().network
   },
   topogramId : function(){
-    var t = Topograms.findOne()
-    return t._id
+    return FlowRouter.getParam('topogramId')
   }
 })

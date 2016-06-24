@@ -36,8 +36,8 @@ workman:x-editable-reactive-template
 sergeyt:typeahead
 
 # routing
-useraccounts:iron-routing
-iron:router
+# useraccounts:iron-routing
+kadira:flow-router
 
 # db
 accounts-password
@@ -60,3 +60,4 @@ nimble:restivus
 practicalmeteor:mocha
 xolvio:cleaner
 practicalmeteor:chai
+kadira:blaze-layout

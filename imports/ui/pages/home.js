@@ -7,6 +7,10 @@ import { Topograms } from '../../api/collections.js'
 import './topograms/topograms-index.js'
 import './topograms/topograms-add.js'
 
+Template.home.onCreated( function() {
+  this.subscribe('topograms.public')
+})
+
 Template.home.helpers( {
     hasPublicTopograms: function() {
         return Topograms.find( { "sharedPublic": 1 }, { 'sort': {  'createdAt': 1 } } ).fetch().length > 0
@@ -14,4 +18,4 @@ Template.home.helpers( {
     publicTopograms: function() {
         return Topograms.find( { "sharedPublic": 1 }, { 'sort': {  'createdAt': 1 } } )
     }
-} ) 
+} )
