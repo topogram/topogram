@@ -20,7 +20,7 @@ gulp.task('test-meteor',
   shell.task(['meteor test --once --driver-package=dispatch:mocha-phantomjs'], { verbose : true})
 )
 
-gulp.task('test-components', function() {
+gulp.task('test', function() {
   gulp.src( './tests/*.js', { read: false } )
     .pipe( mocha( {
       reporter:'nyan',
@@ -28,10 +28,6 @@ gulp.task('test-components', function() {
               js: babel
           }
     } ) )
-})
-
-gulp.task( 'test', [], function(next) {
-  runSequence('test-components', 'test-meteor')
 })
 
 /*

@@ -12,4 +12,8 @@ before_install:
   - meteor --version
 install:
   - meteor npm install
-script: gulp test
+script:
+  - gulp test
+  - meteor remove practicalmeteor:mocha
+  - meteor add dispatch:mocha-phantomjs
+  - meteor test --once --driver-package=dispatch:mocha-phantomjs
