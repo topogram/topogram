@@ -11,6 +11,8 @@
 * time/geo based data
 * CSV import
 
+![Screenshot Topogram](http://topogram.io/images/Topogram-Network.png)
+
 Topogram is a node application based on [Meteor JS](https://www.meteor.com/) and [Cytoscape JS](http://js.cytoscape.org).
 
 ## Run
