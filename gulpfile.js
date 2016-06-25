@@ -1,15 +1,27 @@
-var gulp = require('gulp');
-var path = require('path');
-var replace = require('gulp-replace');
-var child_process = require('child_process');
-var fs = require('fs');
-var shell = require('gulp-shell');
-var jshint = require('gulp-jshint');
-var jshStylish = require('jshint-stylish');
-var exec = require('child_process').exec;
-var runSequence = require('run-sequence');
-var prompt = require('gulp-prompt');
-var version;
+var gulp = require('gulp'),
+  path = require('path'),
+  replace = require('gulp-replace'),
+  child_process = require('child_process'),
+  fs = require('fs'),
+  shell = require('gulp-shell'),
+  jshint = require('gulp-jshint'),
+  jshStylish = require('jshint-stylish'),
+  exec = require('child_process').exec,
+  runSequence = require('run-sequence'),
+  prompt = require('gulp-prompt'),
+  mocha = require('gulp-mocha'),
+  babel = require('babel-core/register'),
+  version
+
+gulp.task( 'test', () => {
+    gulp.src( './tests/*.js', { read: false } )
+      .pipe( mocha( {
+        reporter:'nyan',
+        compilers: {
+                js: babel
+            }
+      } ) )
+} )
 
 gulp.task('default', [], function( next ){
   console.log('You must explicitly call `gulp publish` to publish the extension');
