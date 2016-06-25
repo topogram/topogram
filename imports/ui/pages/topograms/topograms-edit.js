@@ -1,6 +1,6 @@
 import './topograms-edit.html'
 import { Template } from 'meteor/templating'
-import { Topograms } from '../../../api/collections.js'
+import { Meteor } from 'meteor/meteor'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { $ } from "meteor/jquery"
 

@@ -1,6 +1,5 @@
 import './topograms-view.html'
 import { Template } from 'meteor/templating'
-import { Topograms } from '../../../api/collections.js'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 

@@ -1,23 +1,12 @@
 import './network.html'
 import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
-import { Meteor } from 'meteor/meteor'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 
-import { makeNode } from '../../../api/modelsHelpers.js'
-
 import { Nodes, Edges } from '../../../api/collections.js'
-
-import {
-  applyDefaultStyle,
-  initGraph,
-  initActions,
-  mouseActions,
-  getGhostNodes
-} from './networkMethods.js'
+import { initGraph } from './networkMethods.js'
 
 import { $ }  from 'meteor/jquery'
-import d3 from 'd3'
 
 // truncate String to make it shorter
 String.prototype.trunc = String.prototype.trunc ||

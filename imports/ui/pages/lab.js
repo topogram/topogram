@@ -1,6 +1,6 @@
 import './lab.html'
 import { Template } from 'meteor/templating'
-
+import { FlowRouter } from 'meteor/kadira:flow-router'
 import { Nodes, Edges, Topograms } from '../../api/collections.js'
 
 import  '../components/datalab/edges/edges.js'

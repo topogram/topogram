@@ -13,6 +13,7 @@ before_install:
 install:
   - meteor npm install
 script:
+  - npm run lint
   - gulp test
   - meteor remove practicalmeteor:mocha
   - meteor add dispatch:mocha-phantomjs

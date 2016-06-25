@@ -1,8 +1,5 @@
 var gulp = require('gulp'),
-  path = require('path'),
   replace = require('gulp-replace'),
-  child_process = require('child_process'),
-  fs = require('fs'),
   shell = require('gulp-shell'),
   jshint = require('gulp-jshint'),
   jshStylish = require('jshint-stylish'),
@@ -50,7 +47,7 @@ gulp.task('version', function( next ){
   if( version ){
     done();
   } else {
-    exec('git rev-parse HEAD', function( error, stdout, stderr ){
+    exec('git rev-parse HEAD', function( error, stdout ){
       var sha = stdout.substring(0, 10); // shorten so not huge filename
 
       version = [ 'snapshot', sha, +now ].join('-');

@@ -4,7 +4,7 @@ import { Template } from 'meteor/templating'
 import { ReactiveVar } from 'meteor/reactive-var'
 import Papa from 'papaparse'
 import { FlashMessages } from 'meteor/mrt:flash-messages'
-import { Router } from 'meteor/kadira:flow-router'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
 
 // import '../../api/edges/edgesMethods.js'
@@ -222,6 +222,7 @@ Template.import.events( {
         } else if ( type == 'nodes' ) {
             Meteor.call( 'batchInsertNodes', parsedData, function( err, nodes ) {
               if (err) throw err
+              console.log(nodes)
               // console.log( data.data.length, '/', nodes.length, ' nodes added' )
               FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' )
               FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )

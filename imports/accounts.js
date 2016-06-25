@@ -1,3 +1,5 @@
+import { AccountsTemplates } from 'meteor/useraccounts:core'
+
 AccountsTemplates.configure( {
     defaultLayout: 'mainLayout',
     defaultContentRegion: 'main',
@@ -20,7 +22,7 @@ AccountsTemplates.configure( {
     negativeValidation: true,
     positiveValidation: true,
     negativeFeedback: false,
-    positiveFeedback: false,
+    positiveFeedback: false
 
     // onSubmitHook: mySubmitFunc
 

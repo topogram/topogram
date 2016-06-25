@@ -1,5 +1,6 @@
 import { Session } from 'meteor/session'
 import { Meteor } from 'meteor/meteor'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 
 import d3 from 'd3'
 import { $ }  from 'meteor/jquery'
@@ -29,9 +30,9 @@ spread(cytoscape)
 
 export const initGraph = function(domElement, nodes, edges, _options) {
 
-  var options = _options || {}
+  var options =_options || {}
   if (! _options ) _options = {}
-  options.style = _options.style || applyDefaultStyle()
+  options.style = _options.style || applyDefaultStyle()
   options.mouse = _options.mouse || true
   options.cxtMenu = _options.cxtMenu || true
   options.edgehandles = _options.edgehandles || true
@@ -58,7 +59,7 @@ export const initGraph = function(domElement, nodes, edges, _options) {
   // if (options.style) applyDefaultStyle(graph)
   if (options.mouse) mouseActions(graph)
   if (options.cxtMenu) initActions(graph)
-  if (options.edgehandles) initActions(graph)
+  if (options.edgehandles) startEdgehandles(graph)
 
   addBehaviors(graph)
   updateRadiusByDegree(graph) // default is by degree
@@ -212,7 +213,7 @@ export const applyDefaultStyle = function() {
           'background-opacity': .5,
           'border-width': '3',
           'border-color': 'gray',
-          'border-opacity': .6,
+          'border-opacity': .6
           // 'display' :"none"
       })
       .selector('edge')
@@ -319,7 +320,7 @@ export const getGhostNodes = function(nodes, edges) {
 
   // Add ghost nodes for non-existing nodes
   var ghostsIds = []
-  var edges = edges.filter(function(e){
+  edges.forEach(function(e){
     if (nodeIds.indexOf(e.data.source) == -1)
       ghostsIds.push(e.data.source)
     if (nodeIds.indexOf(e.data.target) == -1)

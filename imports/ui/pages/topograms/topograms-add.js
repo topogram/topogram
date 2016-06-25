@@ -2,7 +2,7 @@ import './topograms-add.html'
 import { Template } from 'meteor/templating'
 import { $ } from "meteor/jquery"
 import { Meteor } from 'meteor/meteor'
-import { Router } from 'meteor/kadira:flow-router'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 import { FlashMessages } from 'meteor/mrt:flash-messages'
 
 
