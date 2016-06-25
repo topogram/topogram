@@ -25,6 +25,13 @@ Check for ESlint compliance
 
     npm run lint
 
+### Deploy with Docker
+
+We use Docker to run in production.
+
+1. build the Docker topogram/topogram container with `./build.sh`
+1. fetch a mongo Docker container for the DB and run the app with `docker-compose up`
+
 #### Dependencies
 
 Topogram-client is based on [Meteor JS](https://www.meteor.com/). You can install it following the official [Install procedure](https://www.meteor.com/install) for Mac, Windows and Linux.
