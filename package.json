@@ -96,7 +96,8 @@
   "scripts": {
     "start" : "meteor",
     "lint"  : "eslint .",
-    "test" : "meteor test --driver-package=practicalmeteor:mocha"
+    "test" : "grunt test",
+    "test-ui" : "meteor test --driver-package=practicalmeteor:mocha"
   },
   "repository": {
     "type": "git",

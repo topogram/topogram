@@ -26,13 +26,11 @@ There is 2 sorts of tests here :
 1. functional tests for the components in `/tests`
 2. integration tests for the Meteor app located in ```specs```.
 
-You can launch all tests using `gulp`
-
-    gulp test
+You can launch all tests using `gulp test` or `npm test`
 
 You can also run the app in test mode to check integration as you develop
 
-    npm test
+    npm test-ui
 
 Check for ESlint compliance
 
