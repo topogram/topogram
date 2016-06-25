@@ -1,6 +1,6 @@
 {
   "name": "topogram-client",
-  "version": "1.0.0",
+  "version": "1.0.0a",
   "description": "Real-time collaborative social network analysis toolkit",
   "main": "topogram.js",
   "dependencies": {
@@ -31,7 +31,14 @@
     "eslint": "^2.11.1",
     "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-meteor": "^3.0.1",
-    "eslint-plugin-react": "^5.2.2"
+    "eslint-plugin-react": "^5.2.2",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^1.8.5",
+    "gulp-prompt": "^0.1.1",
+    "gulp-replace": "^0.4.0",
+    "gulp-shell": "^0.2.9",
+    "jshint-stylish": "^1.0.0",
+    "run-sequence": "^1.0.0"
   },
   "eslintConfig": {
     "parserOptions": {
