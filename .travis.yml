@@ -1,8 +1,15 @@
+sudo: false
 language: node_js
+cache:
+  directories:
+    - node_modules
 node_js:
   - "0.10.43"
 before_install:
+  - curl https://install.meteor.com | /bin/sh
+  - export PATH="$HOME/.meteor:$PATH"
   - npm install -g gulp-cli
-  - npm install -g meteor
-install: npm install
+  - meteor --version
+install:
+  - meteor npm install
 script: gulp test
