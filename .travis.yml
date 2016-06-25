@@ -5,4 +5,4 @@ before_install:
   - npm install -g gulp-cli
   - npm install -g meteor
 install: npm install
-before_script: gulp build
+script: gulp test
