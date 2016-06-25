@@ -28,3 +28,11 @@ Check for ESlint compliance
 #### Dependencies
 
 Topogram-client is based on [Meteor JS](https://www.meteor.com/). You can install it following the official [Install procedure](https://www.meteor.com/install) for Mac, Windows and Linux.
+
+
+## Publishing instructions
+
+This project is set up to automatically publish to npm. To publish:
+
+1. Set the version number environment variable: export VERSION=1.2.3
+1. Publish: ```gulp publish```
