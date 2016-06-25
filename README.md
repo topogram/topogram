@@ -19,7 +19,16 @@ Topogram is a node application based on [Meteor JS](https://www.meteor.com/) and
 
 ### Test
 
-All tests are located in ```specs```
+There is 2 sorts of tests here :
+
+1. functional tests for the components in `/tests`
+2. integration tests for the Meteor app located in ```specs```.
+
+You can launch all tests using `gulp`
+
+    gulp test
+
+You can also run the app in test mode to check integration as you develop
 
     npm test
 

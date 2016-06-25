@@ -13,21 +13,30 @@ var gulp = require('gulp'),
   babel = require('babel-core/register'),
   version
 
-gulp.task( 'test', () => {
-    gulp.src( './tests/*.js', { read: false } )
-      .pipe( mocha( {
-        reporter:'nyan',
-        compilers: {
-                js: babel
-            }
-      } ) )
-} )
+/*
+* Testing
+*/
+gulp.task('test-meteor',
+  shell.task(['meteor test --once --driver-package=dispatch:mocha-phantomjs'], { verbose : true})
+)
 
-gulp.task('default', [], function( next ){
-  console.log('You must explicitly call `gulp publish` to publish the extension');
-  next();
-});
+gulp.task('test-components', () =>{
+  gulp.src( './tests/*.js', { read: false } )
+    .pipe( mocha( {
+      reporter:'nyan',
+      compilers: {
+              js: babel
+          }
+    } ) )
+})
 
+gulp.task( 'test', [], (next) => {
+  runSequence('test-components', 'test-meteor')
+})
+
+/*
+* Versioning
+*/
 gulp.task('publish', [], function( next ){
   runSequence('confver', 'lint', 'pkgver', 'push', 'tag', next);
 });
@@ -106,4 +115,13 @@ gulp.task('lint', function(){
 
     //.pipe( jshint.reporter('fail') )
   ;
+});
+
+
+/*
+*
+*/
+gulp.task('default', [], function( next ){
+  console.log('You must explicitly call `gulp publish` to publish the extension');
+  next();
 });
