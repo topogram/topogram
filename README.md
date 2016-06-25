@@ -2,6 +2,8 @@
 
 **Topogram** is a web-based app to create and publish collaborative mapping of networks.
 
+https://codeship.com/projects/159966/status?branch=master
+
 ## Features
 
 * interactive editing of networks
