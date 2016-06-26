@@ -4,6 +4,8 @@ import { Meteor } from 'meteor/meteor'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { $ } from "meteor/jquery"
 
+import { Topograms } from '../../../api/collections.js'
+
 import '../../components/network/network.js'
 import '../../components/boxes/titlebox/titlebox.js'
 import '../../components/boxes/searchbox/searchbox.js'
@@ -23,7 +25,11 @@ Template.topogramEdit.helpers({
     return Template.instance().network
   },
   topogramId : function(){
-    return Template.instance().data.topogramId()
+    return FlowRouter.getParam('topogramId')
+  },
+  topogramName : function() {
+    var t = Topograms.findOne()
+    return t.name
   },
   graphState : function() {
     return Template.instance().graphState
@@ -31,7 +37,7 @@ Template.topogramEdit.helpers({
 })
 
 Template.topogramEdit.onCreated( function() {
-  Meteor.subscribe( 'topogram', this.data.topogramId() )
+  Meteor.subscribe( 'topogram', FlowRouter.getParam('topogramId') )
 })
 
 Template.topogramEdit.created = function() {

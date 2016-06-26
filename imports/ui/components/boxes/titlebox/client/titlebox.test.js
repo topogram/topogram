@@ -20,17 +20,19 @@ describe('Titlebox', function () {
     Template.deregisterHelper('_');
   });
 
-  it('renders correctly with simple data', function () {
+  it('displays a h1 title with the name of the topogram', function () {
 
     const data = {
       network : {},
       advancedEditMode : false,
+      topogramName : "myNetwork",
       onEditingChange: () => 0
     }
     withRenderedTemplate('titlebox', data, el => {
       console.log($(el));
       expect( $(el).find('#titlebox').val() ).to.not.be.undefined
       expect( $(el).find('h1').val() ).to.not.be.undefined
+      expect( $(el).find('h1').html() ).to.be.equal("myNetwork")
     });
   });
 });

@@ -1,6 +1,5 @@
 import './titlebox.html'
 import { Template } from 'meteor/templating'
-import { Topograms } from '../../../../api/collections.js'
 import { $ } from 'meteor/jquery'
 
 Template.titlebox.created = function() {
@@ -13,11 +12,10 @@ Template.titlebox.rendered = function() {
 
 Template.titlebox.helpers({
     isEditable : function() {
-      return this.editMode
+      return Template.instance().data.editMode
     },
-    topogram: function() {
-      var topogram = Topograms.findOne()
-      return topogram
+    topogramName: function() {
+      return Template.instance().data.topogramName
     },
     networkInstance : function(){
       return Template.instance().data.network

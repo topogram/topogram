@@ -3,6 +3,8 @@ import { Template } from 'meteor/templating'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 
+import { Topograms } from '../../../api/collections.js'
+
 Template.topogramView.created = function() {
 
   // reactive var to share across templates
@@ -18,9 +20,19 @@ Template.topogramView.created = function() {
   Template.instance().graphState.set(graphState)
 }
 
+Template.topogramView.onCreated( function() {
+
+  console.log(FlowRouter.getParam('topogramId'))
+  Meteor.subscribe( 'topogram', FlowRouter.getParam('topogramId') )
+
+})
+
 Template.topogramView.helpers({
   networkInstance : function(){
     return Template.instance().network
+  },
+  topogramName : function() {
+    return Topograms.findOne().name
   },
   topogramId : function(){
     return FlowRouter.getParam('topogramId')

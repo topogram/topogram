@@ -70,8 +70,7 @@ Template.network.onCreated( function() {
       self.data.network.set(self.graph)
       nodesEdgesReady = true;
     }
-
-    console.log("watch");
+    
     if (nodesEdgesReady) {
 
       Nodes.find().observe({

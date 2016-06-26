@@ -88,7 +88,8 @@ export const initActions = function(graph, viewMode) {
       var node = e.cyTarget
 
       // update position
-      Meteor.call('updateNodePosition', node.id(), node.position())
+      if (node.data("group") != "ghosts")
+        Meteor.call('updateNodePosition', node.id(), node.position())
 
       // Node Merger
       if(advancedEditMode) {

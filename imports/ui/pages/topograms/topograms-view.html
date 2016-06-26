@@ -1,13 +1,17 @@
 <template name="topogramView">
-  {{> network network=networkInstance topogramId=topogramId editMode=false}}
-  <div id="toolkit" class="row">
-    <div class="toolbox col s3">
-      {{> titlebox network=networkInstance advancedEditMode=false}}
-      {{> searchBox network=networkInstance searchName="mainSearch" type="source" placeholder="Lookup a node"}}
-      <!-- {{> filterbox }} -->
+  {{#if Template.subscriptionsReady }}
+    {{> network network=networkInstance topogramId=topogramId readOnlyMode=true}}
+    <div id="toolkit" class="row">
+      <div class="toolbox col s3">
+        {{> titlebox topogramName=topogramName network=networkInstance advancedEditMode=false}}
+        {{> searchBox network=networkInstance searchName="mainSearch" type="source" placeholder="Lookup a node"}}
+        <!-- {{> filterbox }} -->
+      </div>
+      <div class="col offset-s6 s3">
+        {{> infobox network=networkInstance}}
+      </div>
     </div>
-    <div class="col offset-s6 s3">
-      {{> infobox network=networkInstance}}
-    </div>
-  </div>
+  {{else }}
+    Loading…
+  {{/if}}
 </template>
