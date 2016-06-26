@@ -163,6 +163,7 @@ Meteor.methods( {
         } )
     },
 
+    // TODO: pass _id instead of data.id
     starNode: function( nodeId ) {
         var node = Nodes.findOne( {
             'data.id': nodeId

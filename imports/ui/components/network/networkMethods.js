@@ -350,7 +350,7 @@ export const createNode = function(id){
   var x = $("#network").width()/2,
       y = $("#network").height()/2
 
-  var n = makeNode(self.topogramId, { x:x, y:y, name: id })
+  var n = makeNode(self.topogramId, { x:x, y:y, name: id }, {}, Meteor.userId())
   console.log("new node",n)
   Meteor.call("addNode", n)
 }

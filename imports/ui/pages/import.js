@@ -201,9 +201,9 @@ Template.import.events( {
 
           // create nodes and edges
           if ( type == 'nodes' )
-            return makeNode(self.topogramId, cleanData, d)
+            return makeNode(self.topogramId, cleanData, d, Meteor.userId())
           else if ( type == 'edges' )
-            return makeEdge(self.topogramId, cleanData, d)
+            return makeEdge(self.topogramId, cleanData, d, Meteor.userId())
 
         })
         console.log(parsedData)
