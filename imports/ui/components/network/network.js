@@ -21,7 +21,7 @@ Template.network.onCreated( function() {
   this.graphState = this.data.graphState
 
   // constants
-  this.editMode = this.data.editMode
+  var readOnlyMode = this.data.readOnlyMode
 
   // delete/add nodes
   this.advancedEditMode = Session.get('advancedEditMode')
@@ -64,7 +64,7 @@ Template.network.onCreated( function() {
 
       // console.log("nodes", nodes.length)
       // console.log("edges", edges.length)
-      self.graph = initGraph(domElement, nodes, edges)
+      self.graph = initGraph(domElement, nodes, edges, {}, readOnlyMode)
 
       // set global var
       self.data.network.set(self.graph)

@@ -28,7 +28,15 @@ cxtmenu( cytoscape, $ ) // register extension
 // cycola(cytoscape, webcola)
 spread(cytoscape)
 
-export const initGraph = function(domElement, nodes, edges, _options) {
+/*
+*
+* @param domElement DOM the dom element where the graph will be created
+* @param nodes Array array of Nodes
+* @param edges Array array of Edges
+* @param options Object a set of options
+* @param readOnlyMode booelan toggle edit mode
+*/
+export const initGraph = function(domElement, nodes, edges, _options, readOnlyMode) {
 
   var options =_options || {}
   if (! _options ) _options = {}
@@ -58,10 +66,10 @@ export const initGraph = function(domElement, nodes, edges, _options) {
 
   // if (options.style) applyDefaultStyle(graph)
   if (options.mouse) mouseActions(graph)
-  if (options.cxtMenu) initActions(graph)
+  if (options.cxtMenu) initActions(graph, readOnlyMode)
   if (options.edgehandles) startEdgehandles(graph)
 
-  addBehaviors(graph)
+  addBehaviors(graph, readOnlyMode)
   updateRadiusByDegree(graph) // default is by degree
   console.log(graph)
   graph.reset()  // render layout
@@ -69,7 +77,7 @@ export const initGraph = function(domElement, nodes, edges, _options) {
   return graph
 }
 
-export const initActions = function(graph) {
+export const initActions = function(graph, viewMode) {
 
   var advancedEditMode = Session.get("advancedEditMode")
   console.log("init actions with advancedEditMode = "+ advancedEditMode)
@@ -119,7 +127,7 @@ export const initActions = function(graph) {
 
   // context menu (right click)
 
-  if(self.editMode) {
+  if(viewMode) {
     var commands =  [{
         content: '<span><i class="small material-icons">star_rate</i></span>',
         select: function() {
@@ -356,7 +364,7 @@ export const createNode = function(id){
 }
 
 // TODO : refactor this function properly
-export const addBehaviors = function(graph) {
+export const addBehaviors = function(graph, viewMode) {
 
   graph.selectElement = function(el, type){
 
@@ -525,7 +533,7 @@ export const addBehaviors = function(graph) {
   }
 
   // mode view-only
-  if(!this.editMode) {
+  if(! viewMode) {
     graph.autolock(true)  // prevent drag
     startEdgehandles(graph) // interactive edge creation
     graph.edgehandles("disable")
