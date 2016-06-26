@@ -97,7 +97,7 @@
     "start" : "meteor",
     "lint"  : "eslint .",
     "test" : "grunt test",
-    "test-ui" : "meteor test --driver-package=practicalmeteor:mocha"
+    "test-ui" : "meteor test --driver-package=practicalmeteor:mocha --port=3010"
   },
   "repository": {
     "type": "git",

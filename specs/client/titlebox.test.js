@@ -1,5 +1,5 @@
+/*
 import { chai } from 'meteor/practicalmeteor:chai';
-
 chai.should();
 
 describe('Titlebox', function() {
@@ -9,3 +9,4 @@ describe('Titlebox', function() {
     ha.should.equal(1);
   })
 })
+*/
