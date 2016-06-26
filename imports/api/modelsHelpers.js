@@ -50,6 +50,6 @@ var makeGraphElement = function (el, rawData){
           additionalInfo: el.additionalInfo || {},
           rawData : rawData
       },
-      createdAt: new Date(), // current time
+      createdAt: new Date() // current time
   }
 }

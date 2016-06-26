@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor'
-import { chai, before } from 'meteor/practicalmeteor:chai';
+import { chai } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 chai.expect();
 
@@ -61,8 +61,8 @@ describe('Nodes', function() {
       expect(node.data.starred).to.be.equal(false)
 
       Meteor.call("starNode", nodeDataId);
-      var node = Nodes.findOne({"_id" : node._id})
-      expect(node.data.starred).to.be.equal(true)
+      var nodeStarred = Nodes.findOne({"_id" : node._id})
+      expect(nodeStarred.data.starred).to.be.equal(true)
     })
   })
 });

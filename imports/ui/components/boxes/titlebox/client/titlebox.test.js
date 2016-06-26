@@ -1,3 +1,4 @@
+import { Template } from 'meteor/templating'
 import { chai } from 'meteor/practicalmeteor:chai';
 import { $ } from 'meteor/jquery';
 
@@ -24,7 +25,7 @@ describe('Titlebox', function () {
     const data = {
       network : {},
       advancedEditMode : false,
-      onEditingChange: () => 0,
+      onEditingChange: () => 0
     }
     withRenderedTemplate('titlebox', data, el => {
       console.log($(el));
