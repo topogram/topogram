@@ -33,7 +33,7 @@ Template.topogramView.helpers({
   },
   topogramName : function() {
     var t = Topograms.findOne()
-    return t.name
+    return t ? t.name : null
   },
   topogramId : function(){
     return FlowRouter.getParam('topogramId')

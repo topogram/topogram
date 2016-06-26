@@ -29,7 +29,7 @@ Template.topogramEdit.helpers({
   },
   topogramName : function() {
     var t = Topograms.findOne()
-    return t.name
+    return t ? t.name : null
   },
   graphState : function() {
     return Template.instance().graphState
