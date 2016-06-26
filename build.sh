@@ -1,7 +1,7 @@
 #!/bin/bash
 VERSION=latest
 CURRENT_DIR=`basename $PWD`
-BUILD_DIR=/tmp/tmp.LTZxre0Rib/ #`mktemp`
+BUILD_DIR=`mktemp`
 DOCKER_TAG=topogram/topogram
 SERVER=http://example.com
 
