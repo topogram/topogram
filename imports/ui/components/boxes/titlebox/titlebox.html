@@ -9,14 +9,14 @@
     {{#if isEditable}}
     <div class="card-reveal">
         <span class="card-title grey-text text-darken-4">
-          {{> selectLayout network=networkInstance}}
+          {{> selectLayout network=networkInstance }}
          <i class="material-icons right">close</i>
         </span>
         <p>
           <a class="btn" id="import-data" href="/topograms/{{topogram._id}}/lab"><i class="left material-icons">description</i>Data</a>
         </p>
         <p>
-          {{> advancedEditMode }}
+          {{> advancedEditMode network=networkInstance }}
         </p>
         <p>
         </p>

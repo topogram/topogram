@@ -2,6 +2,8 @@ import './editMode.html'
 import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
 
+import { setEdgeHandles } from '../../network/networkMethods.js'
+
 Template.advancedEditMode.rendered = function() {
   Session.set( 'advancedEditMode', false )
 }
@@ -13,15 +15,12 @@ Template.advancedEditMode.helpers = {
 }
 Template.advancedEditMode.events = {
 
-  'change #toggle-advanced-edit-mode': function(e,template) {
-      console.log(template)
+  'change #toggle-advanced-edit-mode': function(event, instance) {
+      var advancedEditMode = event.target.checked
 
-      // TODO : use better reference
-      var net = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get()
-      var advancedEditMode = e.target.checked
+      var graph = instance.data.network.get()
+      setEdgeHandles(graph, advancedEditMode)
+
       Session.set('advancedEditMode', advancedEditMode)
-
-      // init mouse actions
-      net.initActions()
   }
 }

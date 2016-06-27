@@ -78,6 +78,7 @@ export const initGraph = function(domElement, nodes, edges, _options, readOnlyMo
   return graph
 }
 
+
 export const initActions = function(graph, readOnlyMode) {
 
   var advancedEditMode = Session.get("advancedEditMode")
@@ -300,12 +301,14 @@ export const mouseActions = function(graph) {
   })
 }
 
-export const startEdgehandles = function(graph ) {
+export const setEdgeHandles = function(graph, state) {
+    (state) ? graph.edgehandles("enable") : graph.edgehandles("disable")
+}
 
+export const startEdgehandles = function(graph ) {
   graph.edgehandles({
     complete: function(source, target, addedEntities) {
-      console.log(source, target, addedEntities)
-        Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'))
+      Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'))
     }
   })
 }
@@ -538,7 +541,7 @@ export const addBehaviors = function(graph, readOnlyMode) {
   if(readOnlyMode) {
     graph.autolock(true)  // prevent drag
     graph.edgehandles("disable")
-  } 
+  }
 
 }
 
