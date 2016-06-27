@@ -48,9 +48,10 @@ export const initGraph = function(domElement, nodes, edges, _options, readOnlyMo
   // console.log("init network")
   console.log("nodes", nodes.length)
   console.log("edges", edges.length)
+  console.log("readOnlyMode", readOnlyMode)
 
   var ghosts = getGhostNodes(nodes, edges)
-  var elements = nodes.concat(edges, ghosts);
+  var elements = nodes.concat(edges, ghosts)
   var graph = cytoscape({
     container: domElement,
     hideLabelsOnViewport: true,
@@ -77,7 +78,7 @@ export const initGraph = function(domElement, nodes, edges, _options, readOnlyMo
   return graph
 }
 
-export const initActions = function(graph, viewMode) {
+export const initActions = function(graph, readOnlyMode) {
 
   var advancedEditMode = Session.get("advancedEditMode")
   console.log("init actions with advancedEditMode = "+ advancedEditMode)
@@ -123,12 +124,12 @@ export const initActions = function(graph, viewMode) {
   })
 
   // edge creation: disabled by default
-  if (!advancedEditMode) graph.edgehandles("disable")
+  if (!advancedEditMode || readOnlyMode) graph.edgehandles("disable")
   else graph.edgehandles("enable")
 
   // context menu (right click)
 
-  if(viewMode) {
+  if(!readOnlyMode) {
     var commands =  [{
         content: '<span><i class="small material-icons">star_rate</i></span>',
         select: function() {
@@ -365,7 +366,7 @@ export const createNode = function(id){
 }
 
 // TODO : refactor this function properly
-export const addBehaviors = function(graph, viewMode) {
+export const addBehaviors = function(graph, readOnlyMode) {
 
   graph.selectElement = function(el, type){
 
@@ -534,11 +535,10 @@ export const addBehaviors = function(graph, viewMode) {
   }
 
   // mode view-only
-  if(! viewMode) {
+  if(readOnlyMode) {
     graph.autolock(true)  // prevent drag
-    startEdgehandles(graph) // interactive edge creation
     graph.edgehandles("disable")
-  }
+  } 
 
 }
 
