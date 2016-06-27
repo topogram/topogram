@@ -3,7 +3,10 @@ import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session';
 
 import { $ } from 'meteor/jquery'
-import noUiSlider from "nouislider"
+// import * as noUiSlider from "nouislider"
+import * as noUiSlider from "materialize-css/extras/noUiSlider/nouislider"
+import "materialize-css/extras/noUiSlider/nouislider.css"
+console.log(noUiSlider)
 
 import { Edges } from '../../../../../api/collections.js'
 
@@ -18,7 +21,7 @@ Template.filterByDegree.helpers({
     }
 })
 
-Template.filterByDegree.rendered = function() {
+Template.filterByDegree.onRendered(function() {
 
   var self = this
 
@@ -29,7 +32,6 @@ Template.filterByDegree.rendered = function() {
   Session.set("minMaxDegree", [min, max])
 
   // create slider
-
   noUiSlider.create($("#filterByDegree")[0], {
       start: [min, max],
       connect: true,
@@ -70,4 +72,4 @@ Template.filterByDegree.rendered = function() {
     net.filterGraph(filter)
   })
 
-}
+})

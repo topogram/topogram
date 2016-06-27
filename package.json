@@ -16,15 +16,16 @@
     "leaflet": "^0.7.7",
     "lodash": "^4.13.1",
     "material-ui": "^0.15.1",
+    "materialize-css": "^0.97.6",
     "meteor-node-stubs": "^0.2.3",
     "moment": "^2.13.0",
     "nouislider": "^8.5.1",
-    "topogram-plugin-chi2" : "topogram/topogram-plugin-chi2",
     "papaparse": "^4.1.2",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-mounter": "^1.2.0",
     "react-tap-event-plugin": "^1.0.0",
+    "topogram-plugin-chi2": "topogram/topogram-plugin-chi2",
     "webcola": "^3.1.3",
     "winston": "^2.2.0"
   },
@@ -95,10 +96,10 @@
     }
   },
   "scripts": {
-    "start" : "meteor",
-    "lint"  : "eslint .",
-    "test" : "grunt test",
-    "test-ui" : "meteor test --driver-package=practicalmeteor:mocha --port=3010"
+    "start": "meteor",
+    "lint": "eslint .",
+    "test": "grunt test",
+    "test-ui": "meteor test --driver-package=practicalmeteor:mocha --port=3010"
   },
   "repository": {
     "type": "git",

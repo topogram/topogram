@@ -12,7 +12,6 @@ Template.filterByCategory.onRendered( function() {
     if(self.data.network.get()) {
       // TODO : remove ugly fix for materialize (hoping for React / Material-UI to come soon)
       self.$('select').material_select()
-      console.log(self.$('select'));
       $('select.filterByCategorynodes').material_select()
       $('select.filterByCategoryedges').material_select()
       auto.stop()
