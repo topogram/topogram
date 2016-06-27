@@ -4,15 +4,25 @@ import { Session } from 'meteor/session'
 
 import { setEdgeHandles } from '../../network/networkMethods.js'
 
-Template.advancedEditMode.rendered = function() {
+Template.advancedEditMode.onRendered( function() {
   Session.set( 'advancedEditMode', false )
-}
+  var self = this
+  self.autorun(function() {
+    if(self.data.network.get()) {
+      var graph = self.data.network.get()
+      console.log(graph);
+      setEdgeHandles(graph, false)
+
+    }
+  });
+})
 
 Template.advancedEditMode.helpers = {
   editModeOnOff : function() {
     return Session.get('advancedEditMode')
   }
 }
+
 Template.advancedEditMode.events = {
 
   'change #toggle-advanced-edit-mode': function(event, instance) {
@@ -23,4 +33,9 @@ Template.advancedEditMode.events = {
 
       Session.set('advancedEditMode', advancedEditMode)
   }
+}
+
+Template.advancedEditMode.destroyed = function(){
+  console.log("Session.set('advancedEditMode', advancedEditMode)");
+  Session.set('advancedEditMode', false)
 }
