@@ -6,9 +6,19 @@ import { colors } from '../../../../../ui/helpers/colors.js'
 import { $ } from 'meteor/jquery'
 
 
-Template.filterByCategory.rendered = function() {
-  this.$("select").material_select()
-}
+Template.filterByCategory.onRendered( function() {
+  self = this;
+  self.autorun(function(auto) {
+    if(self.data.network.get()) {
+      // TODO : remove ugly fix for materialize (hoping for React / Material-UI to come soon)
+      self.$('select').material_select()
+      console.log(self.$('select'));
+      $('select.filterByCategorynodes').material_select()
+      $('select.filterByCategoryedges').material_select()
+      auto.stop()
+    }
+  });
+})
 
 Template.filterByCategory.helpers({
     categories: function() {
@@ -19,16 +29,16 @@ Template.filterByCategory.helpers({
             }
         }).fetch()
 
-        var types = []
-        els.forEach(function(el) {
-            if (types.map(function(d){return d.name}).indexOf(el.data.group) < 0) types.push({
-              "name" : el.data.group,
-              "color" : colors(el.data.group)
-            })
+    var types = []
+    els.forEach(function(el) {
+        if (types.map(function(d){return d.name}).indexOf(el.data.group) < 0) types.push({
+          "name" : el.data.group,
+          "color" : colors(el.data.group)
         })
+    })
 
-        return types
-    }
+    return types
+}
 
 })
 

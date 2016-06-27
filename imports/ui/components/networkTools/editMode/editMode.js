@@ -7,12 +7,11 @@ import { setEdgeHandles } from '../../network/networkMethods.js'
 Template.advancedEditMode.onRendered( function() {
   Session.set( 'advancedEditMode', false )
   var self = this
-  self.autorun(function() {
+  self.autorun(function(auto) {
     if(self.data.network.get()) {
       var graph = self.data.network.get()
-      console.log(graph);
       setEdgeHandles(graph, false)
-
+      auto.stop()
     }
   });
 })
