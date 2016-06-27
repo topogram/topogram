@@ -44,13 +44,15 @@ Template.filterByCategory.helpers({
 
 Template.filterByCategory.events = {
   // filter
-  'change select': function(e, template) {
+  'change select': function(event, instance) {
 
-      var selectedCategories = $(e.target).find("option:selected").map(function(i, el){ return $(el).val() }).toArray()
+      var selectedCategories = $(event.target).find("option:selected").map(function(i, el){
+        return $(el).val()
+      }).toArray()
 
-      var net = template.view.parentView.parentView.parentView.parentView._templateInstance.network.get()
+      var net = instance.data.network.get()
 
-      var els = (template.data.type=="nodes") ? net.nodes() : net.edges()
+      var els = (instance.data.type == "nodes") ? net.nodes() : net.edges()
       // var els = net.elements()
 
       if (!selectedCategories.length) {
