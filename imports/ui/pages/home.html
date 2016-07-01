@@ -1,14 +1,17 @@
 <template name="home">
-    {{#if hasPublicTopograms}}
-        <h3>Public topograms</h3>
-        <div class="row">
-            {{#each publicTopograms}}
-                <div class="col sc4">
-                    {{> homeCard}}
-                </div>
-            {{/each}}
-        </div>
-    {{/if}}
+
+  {{> homeHeader }}
+
+
+  {{#if hasPublicTopograms}}
+      <div class="row">
+          {{#each publicTopograms}}
+              <div class="col sc4">
+                  {{> homeCard}}
+              </div>
+          {{/each}}
+      </div>
+  {{/if}}
 </template>
 
 <template name="homeCard">

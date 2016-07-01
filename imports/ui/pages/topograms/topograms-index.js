@@ -7,6 +7,8 @@ import { Session } from 'meteor/session'
 import $ from "meteor/jquery"
 import moment from 'moment'
 
+import './topograms-add.js'
+
 Template.topograms.onCreated( function() {
   this.subscribe('topograms.private')
 })

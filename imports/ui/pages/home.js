@@ -5,7 +5,7 @@ import { Topograms } from '../../api/collections.js'
 
 // components in the template
 import './topograms/topograms-index.js'
-import './topograms/topograms-add.js'
+import './home/homeHeader.js'
 
 Template.home.onCreated( function() {
   this.subscribe('topograms.public')

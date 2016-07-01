@@ -13,6 +13,7 @@ Template.addTopogram.events( {
         console.log(topogramName)
         if ( topogramName != '' ) {
             Meteor.call( 'createTopogram', Meteor.userId(), topogramName, function(err, topogram){
+              if(err) throw err
               FlowRouter.go( '/topograms/' + topogram + '/import' )
             })
 
