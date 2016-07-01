@@ -21,18 +21,11 @@ Template.filterByDegree.helpers({
     }
 })
 
-Template.filterByDegree.onRendered(function() {
+var createSlider = function(dom, net, min, max) {
+  var min = min || 0,
+      max = max || 100
 
-  var self = this
-
-  // TODO : get scale
-  var min = 0
-  var max = 50
-
-  Session.set("minMaxDegree", [min, max])
-
-  // create slider
-  noUiSlider.create($("#filterByDegree")[0], {
+  noUiSlider.create(dom, {
       start: [min, max],
       connect: true,
       range: {
@@ -50,26 +43,34 @@ Template.filterByDegree.onRendered(function() {
       step: 1
   })
 
-
-  $("#filterByDegree")[0].noUiSlider.on('change', function(val) {
-    var net = self.data.network.get()
-
-    // recalculate scale
-    var deg = net.nodes().map(function(d){ return d.degree() })
-    min = Math.max.apply(Math, deg)
-    max = Math.min.apply(Math, deg)
-    // console.log(slider)
-    // slider.updateOptions({
-    //     range: {
-    //         'min': min,
-    //         'max': max
-    //     }
-    // })
-
+  dom.noUiSlider.on('change', function(val) {
     Session.set("minMaxDegree", val)
-
+    console.log(val);
     var filter = "node[[degree>="+val[0]+"]][[degree<="+val[1]+"]]"
     net.filterGraph(filter)
   })
+}
+Template.filterByDegree.onRendered(function() {
+
+  var self = this
+  var net = self.data.network.get()
+
+  // recalculate scale
+  self.autorun(function(auto) {
+    if(self.data.network.get()) {
+      var deg = self.data.network.get().nodes().map( function (d){ return d.degree() } )
+      var min = Math.min.apply(Math, deg)
+      var max = Math.max.apply(Math, deg)
+      Session.set("minMaxDegree", [min, max])
+
+      // update slider
+      $("#filterByDegree")[0].noUiSlider.destroy()
+      createSlider( $("#filterByDegree")[0] , self.data.network.get(), min, max)
+      // auto.stop()
+    }
+  });
+
+  // init slider
+  createSlider( $("#filterByDegree")[0] , net)
 
 })

@@ -58,9 +58,8 @@ Template.filterByCategory.events = {
           els.show()  // show everything
       } else {
           var selectedEls = els.filterFn(function(ele) {
-              return  selectedCategories.indexOf(ele.data("group")) > -1
+            return selectedCategories.indexOf(ele.data("group")) > -1
           })
-
           net.selectElements(selectedEls)
       }
   }

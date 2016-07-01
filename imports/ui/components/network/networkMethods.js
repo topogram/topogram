@@ -498,26 +498,21 @@ export const addBehaviors = function(graph, readOnlyMode) {
     graph.edges().show()
   }
 
-
-
   // show / hide elements
   graph.selectElements = function(selectedEls) {
 
+    // init with all elements selected by default
+    var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
+    var els = alreadySelected.intersection(selectedEls)
+
     graph.elements().hide()
-    selectedEls.select()
-    selectedEls.show()
-    selectedEls.nodes().connectedEdges().show()  // show edge context
+    els.select()
+    els.show()
+    els.nodes().connectedEdges().show()  // show edge context
   }
 
   graph.filterGraph = function(filter){
-
-    // init with all elements selected by default
-    var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
-
-    // console.log(alreadySelected.length)
-    var newSelection = alreadySelected.filter(filter)
-    // console.log(newSelection.nodes().length, newSelection.edges().length)
-
+    var newSelection = graph.filter(filter)
     graph.selectElements(newSelection)
   }
 
