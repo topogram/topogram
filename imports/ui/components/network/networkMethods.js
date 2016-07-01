@@ -368,6 +368,35 @@ export const createNode = function(id){
   Meteor.call("addNode", n)
 }
 
+export const resetFilters = function(graph) {
+
+  graph.deselectAll()
+
+  $(".network-search input").val("")
+
+  graph.elements().deselect()
+  graph.elements().show()
+
+  // reset selector
+  $(".filterByCategory").find("option:selected").removeAttr("selected")
+  $('.filterByCategory select').material_select('destroy')
+  $('.filterByCategory select').material_select()
+
+  // update slider min / max
+  var min = graph.nodes().minDegree()
+  var max = graph.nodes().maxDegree()
+
+  $("#filterByDegree")[0].noUiSlider.set([min, max])
+
+  // $("#filterByDegree")[0].noUiSlider.updateOptions({
+  //   range: {
+  //     'min': min,
+  //     'max': max
+  //   }
+  // })
+
+}
+
 // TODO : refactor this function properly
 export const addBehaviors = function(graph, readOnlyMode) {
 
@@ -469,34 +498,7 @@ export const addBehaviors = function(graph, readOnlyMode) {
     graph.edges().show()
   }
 
-  graph.resetFilters = function() {
 
-    graph.deselectAll()
-
-    $(".network-search input").val("")
-
-    graph.elements().deselect()
-    graph.elements().show()
-
-    // reset selector
-    $(".filterByCategory").find("option:selected").removeAttr("selected")
-    $('.filterByCategory select').material_select('destroy')
-    $('.filterByCategory select').material_select()
-
-    // update slider min / max
-    var min = graph.nodes().minDegree()
-    var max = graph.nodes().maxDegree()
-
-    $("#filterByDegree")[0].noUiSlider.set([min, max])
-
-    // $("#filterByDegree")[0].noUiSlider.updateOptions({
-    //   range: {
-    //     'min': min,
-    //     'max': max
-    //   }
-    // })
-
-  }
 
   // show / hide elements
   graph.selectElements = function(selectedEls) {

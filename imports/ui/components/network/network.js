@@ -11,7 +11,7 @@ import { $ }  from 'meteor/jquery'
 // truncate String to make it shorter
 String.prototype.trunc = String.prototype.trunc ||
   function(n){
-      return (this.length > n) ? this.substr(0,n-1)+'&hellip;' : this;
+      return (this.length > n) ? this.substr(0,n-1)+'...' : this;
 };
 
 Template.network.onCreated( function() {
@@ -70,7 +70,7 @@ Template.network.onCreated( function() {
       self.data.network.set(self.graph)
       nodesEdgesReady = true;
     }
-    
+
     if (nodesEdgesReady) {
 
       Nodes.find().observe({
