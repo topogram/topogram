@@ -8,7 +8,7 @@ import { $ } from 'meteor/jquery'
 Template.sharebox.helpers( {
   'sharedPublic' :function() {
     var t = Topograms.findOne()
-    return (t) ? t.sharedPublic : false 
+    return (t) ? t.sharedPublic : false
   }
 })
 
@@ -17,7 +17,7 @@ Template.sharebox.events( {
       $("#sharebox").hide()
     },
     "change #shared-public": function( event ) {
-        console.log(event.target.checked)
+        // console.log(event.target.checked)
         if ( event.target.checked ) Meteor.call( "makePublic", this.topogramId )
         else Meteor.call( "makePrivate", this.topogramId )
     }
