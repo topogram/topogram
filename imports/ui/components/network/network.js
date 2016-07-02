@@ -78,11 +78,10 @@ Template.network.onCreated( function() {
           node.data._id = node._id  // make _id accessible in the el.data()
           var el = self.graph.filter('node[_id = "'+node._id+'"]')
           if(!el.length) {
+            console.log(node);
             self.graph.add(node) // add a node
-          console.log("node added");
-
+            console.log("node added");
             // TODO: re-apply size (radius)
-
           }
         },
         removed: function( node ) {

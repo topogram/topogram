@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor'
 import { Template } from 'meteor/templating'
 import { Topograms } from '../../../api/collections.js'
 import { Session } from 'meteor/session'
-import $ from "meteor/jquery"
+import { $ } from "meteor/jquery"
 import moment from 'moment'
 
 import './topograms-add.js'

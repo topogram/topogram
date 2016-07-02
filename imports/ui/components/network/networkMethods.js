@@ -305,10 +305,11 @@ export const setEdgeHandles = function(graph, state) {
     (state) ? graph.edgehandles("enable") : graph.edgehandles("disable")
 }
 
-export const startEdgehandles = function(graph ) {
+export const startEdgehandles = function( graph ) {
   graph.edgehandles({
     complete: function(source, target, addedEntities) {
-      Meteor.call('addEdgeFromIds', self.topogramId, source.data('id'), target.data('id'))
+      var topogramId = FlowRouter.getParam('topogramId')
+      Meteor.call('addEdgeFromIds', topogramId, source.data('id'), target.data('id'))
     }
   })
 }
@@ -363,7 +364,8 @@ export const createNode = function(id){
   var x = $("#network").width()/2,
       y = $("#network").height()/2
 
-  var n = makeNode(self.topogramId, { x:x, y:y, name: id }, {}, Meteor.userId())
+  var topogramId = FlowRouter.getParam('topogramId')
+  var n = makeNode(topogramId, { x:x, y:y, name: id }, {}, Meteor.userId())
   console.log("new node",n)
   Meteor.call("addNode", n)
 }
@@ -501,6 +503,7 @@ export const addBehaviors = function(graph, readOnlyMode) {
   // show / hide elements
   graph.selectElements = function(els) {
 
+    // TODO: better selection
     // init with all elements selected by default
     // var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
     // var els = alreadySelected.intersection(selectedEls)

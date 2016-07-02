@@ -9,8 +9,12 @@ Meteor.methods( {
     },
 
     addEdgeFromIds: function( topogramId, srcId, targetId ) {
-        var edge = makeEdge( topogramId, srcId, targetId, {} )
-            // console.log(edge)
+        var e = {
+          source: srcId,
+          target : targetId
+        }
+        var edge = makeEdge( topogramId, e, {}, Meteor.userId())
+        console.log(edge)
         return Edges.insert( edge )
     },
 

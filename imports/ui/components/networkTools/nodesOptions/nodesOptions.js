@@ -13,13 +13,14 @@ import {
 
 Template.nodesOptions.helpers({
   nodeColor: function() {
-      if (node) return (node.data.color) ? true : false
-      else return node
+    var node = Nodes.findOne()
+    if (node) return (node.data.color) ? true : false
+    else return node
   },
   nodeSize: function() {
-      var node = Nodes.findOne()
-      if (node) return (node.data.weight) ? true : false
-      else return node
+    var node = Nodes.findOne()
+    if (node) return (node.data.weight) ? true : false
+    else return node
   }
 })
 
