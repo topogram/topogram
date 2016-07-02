@@ -4,7 +4,7 @@ import { Session } from 'meteor/session';
 import { Nodes } from '../../../../api/collections.js'
 
 import { $ } from 'meteor/jquery'
-
+import { createNode } from '../../network/networkMethods.js'
 
 Template.searchBox.rendered = function() {
   $(".search").dropdown()
@@ -33,8 +33,7 @@ Template.searchBox.events( {
 
         // create new node if it does not exists
         if(!selectedNode.length){
-          net.createNode($(event.target).data("node-id"))
-
+          createNode( $(event.target).data("node-id") )
         } else {
 
           // check if a node is already selected
