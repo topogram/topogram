@@ -6,7 +6,6 @@ import { $ } from 'meteor/jquery'
 // import * as noUiSlider from "nouislider"
 import * as noUiSlider from "materialize-css/extras/noUiSlider/nouislider"
 import "materialize-css/extras/noUiSlider/nouislider.css"
-console.log(noUiSlider)
 
 import { Edges } from '../../../../../api/collections.js'
 

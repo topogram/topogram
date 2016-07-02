@@ -1,10 +1,10 @@
 import './filterbox.html'
 import { Template } from 'meteor/templating'
+import { $ } from 'meteor/jquery'
 
 import './filterByCategory/filterByCategory.js'
 import './filterByDegree/filterByDegree.js'
-
-import { $ } from 'meteor/jquery'
+import '../../networkTools/nodesOptions/nodesOptions.js'
 
 import { resetFilters } from '../../network/networkMethods.js'
 

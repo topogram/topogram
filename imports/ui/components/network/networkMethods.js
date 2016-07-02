@@ -499,11 +499,11 @@ export const addBehaviors = function(graph, readOnlyMode) {
   }
 
   // show / hide elements
-  graph.selectElements = function(selectedEls) {
+  graph.selectElements = function(els) {
 
     // init with all elements selected by default
-    var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
-    var els = alreadySelected.intersection(selectedEls)
+    // var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
+    // var els = alreadySelected.intersection(selectedEls)
 
     graph.elements().hide()
     els.select()
@@ -542,7 +542,31 @@ export const addBehaviors = function(graph, readOnlyMode) {
 
 }
 
-export const updateRadiusByDegree = function(graph) {
+export const updateRadiusByWeight = function(graph) {
+  var weights = graph.nodes().map( function (d){ return d.data("weight") })
+  var min = Math.min.apply(Math, weights)
+  var max = Math.max.apply(Math, weights)
+
+  // calculate radius range
+  var degreeDomain = d3.scale.linear().domain([
+    min,
+    max
+  ]).range([6,40])
+
+  // apply size
+  graph.style()
+    .selector('node')
+    .style({
+      'width': function(e) {
+        return degreeDomain(e.data("weight"))
+      },
+      'height': function(e) {
+        return degreeDomain(e.data("weight"))
+      }
+    }).update()
+}
+
+export const updateRadiusByDegree = function(graph ) {
   // calculate radius range
   var degreeDomain = d3.scale.linear().domain([
     graph.nodes().minDegree(),
