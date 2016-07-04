@@ -1,0 +1,20 @@
+<template name="sharebox">
+  <div id="sharebox" class="card card-small">
+    <div class="card-content">
+      <a class="close grey-text" href="#"><i class="material-icons right">close</i></a>
+      {{#if Template.subscriptionsReady}}
+      <div class="switch">
+        <label for="shared-public">
+          Private
+          <input type="checkbox" checked="{{ sharedPublic }}" id="shared-public"  />
+          <span class="lever"></span>
+          Public
+        </label>
+      </div>
+        <!-- (Checked to make your work publicly available.) -->
+      {{else}}
+        Loading…
+      {{/if}}
+    </div>
+  </div>
+</template>

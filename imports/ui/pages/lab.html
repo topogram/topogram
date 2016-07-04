@@ -1,0 +1,41 @@
+<template name="lab">
+
+  <h1><a href="/topograms/{{ topogramId }}">{{ topogram.name }}</a></h1>
+
+    <!-- {{#if hasElements}} -->
+        <div id="viewSelector" class="z-depth-1">
+            <ul class="tabs">
+                <li class="tab"><a class="active" href="#tab1">Options</a></li>
+                {{#if hasNodes}}
+                    <li class="tab"><a href="#tab2">Nodes</a></li>
+                {{/if}}
+                {{#if hasEdges}}
+                    <li class="tab"><a href="#tab3">Edges</a></li>
+                {{/if}}
+            </ul>
+        </div>
+        <br>
+        <div id="view">
+                <div id="tab1">
+                  <p>
+                    <a href="/topograms/{{ topogramId }}/import">Import Data</a>
+                  </p>
+                </div>
+            {{#if hasNodes}}
+                <div id="tab2">
+                    {{> nodesTemplate topogramId=topogramId editMode=true}}
+                </div>
+            {{/if}}
+            {{#if hasEdges}}
+                <div id="tab3">
+                    {{> edgesTemplate topogramId=topogramId editMode=true}}
+                </div>
+            {{/if}}
+        </div>
+        <script>
+            ( function( w, d, u, $ ) {
+                $( 'ul.tabs' ).tabs() 
+            } )( window, document, undefined, jQuery ) 
+        </script>
+<!--     {{/if}} -->
+</template>

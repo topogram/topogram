@@ -18,7 +18,6 @@ check
 # meteor++
 reactive-var
 insecure
-cosmos:browserify
 
 # UI
 aldeed:tabular@=1.4.1
@@ -30,38 +29,35 @@ mrt:flash-messages
 
 fourseven:scss
 materialize:materialize
-useraccounts:materialize
 workman:x-editable-reactive-template
 
 # js libs
 sergeyt:typeahead
-momentjs:moment
-
-# geo maps
-bevanhunt:leaflet
-yauh:turfjs
-geojson-utils
-
-# viz
-d3js:d3
-
-# data manipulation
-harrison:papa-parse
 
 # routing
-useraccounts:iron-routing
-iron:router
+kadira:flow-router
+useraccounts:flow-routing
+useraccounts:materialize
 
 # db
 accounts-password
 mikowals:batch-insert
 babrahams:transactions
 babrahams:undo-redo
-
 udondan:bulk-collection-update
+
 raix:handlebar-helpers
 fortawesome:fontawesome
 standard-minifier-css
 standard-minifier-js
 modules
 ecmascript
+
+# rest API
+nimble:restivus
+
+# testing
+practicalmeteor:mocha
+xolvio:cleaner
+practicalmeteor:chai
+kadira:blaze-layout

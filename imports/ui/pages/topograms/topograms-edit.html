@@ -1,0 +1,20 @@
+<template name="topogramEdit">
+  {{#if Template.subscriptionsReady }}
+    {{> network network=networkInstance topogramId=topogramId readOnlyMode=false graphState=graphState}}
+    <div id="toolkit" class="row">
+        <div class="toolbox col s3">
+          {{> titlebox topogramName=topogramName network=networkInstance editMode=true}}
+          {{> searchBox network=networkInstance searchName="mainSearch" type="source" placeholder="Lookup a node"}}
+          {{> sharebox }}
+          {{> filterbox network=networkInstance }}
+        </div>
+      <div class="col offset-s6 s3">
+        {{> infobox network=networkInstance}}
+        {{> commentBox}}
+      </div>
+    </div>
+    {{> nodeMerge}}
+  {{else }}
+    Loading…
+  {{/if}}
+</template>

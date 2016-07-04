@@ -1,0 +1,17 @@
+ <template name="networkLayout">
+  {{> head}}
+  <body>
+    {{> flashMessages}}
+    {{> header}}
+
+    <div id="viz-main">
+        <div class="row">
+            <div class="col s12">
+                {{>  Template.dynamic template=main }}
+            </div>
+        </div>
+    </div>
+
+    <!-- {{> footer}} -->
+  </body>
+</template>
