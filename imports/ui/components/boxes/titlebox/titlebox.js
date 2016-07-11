@@ -1,5 +1,6 @@
 import './titlebox.html'
 import { Template } from 'meteor/templating'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
 
 Template.titlebox.created = function() {
@@ -16,6 +17,9 @@ Template.titlebox.helpers({
     },
     topogramName: function() {
       return Template.instance().data.topogramName
+    },
+    topogramId: function() {
+      return FlowRouter.getParam('topogramId')
     },
     networkInstance : function(){
       return Template.instance().data.network
