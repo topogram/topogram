@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor'
 import { Restivus } from 'meteor/nimble:restivus'
-import { Topograms } from './collections.js'
+import { Nodes, Edges, Topograms } from './collections.js'
 import { logger } from '../logger.js'
 import { Accounts } from 'meteor/accounts-base'
 
+import { makeNode, makeEdge } from './modelsHelpers.js'
 
 // Global API configuration
  var Api = new Restivus({
@@ -128,3 +129,50 @@ Api.addRoute('topograms/:_id/private', {
      }
    }
  })
+
+
+// nodes
+
+Api.addCollection(Nodes, {
+  routeOptions: {
+    authRequired: true
+  },
+  endpoints: {
+    post: {
+      action: function () {
+        var data = this.bodyParams
+        var node = makeNode(data.topogramId, data.element, data.rawData, this.userId)
+        var _id = Meteor.call( "addNode", node)
+        console.log(_id);
+        return {
+         "status": "success",
+         "data": Nodes.findOne(_id)
+        }
+      }
+    },
+  put : {
+    action : function() {
+      var data = this.bodyParams
+      var node = Nodes.findOne(this.urlParams.id)
+      for (var key in data) {
+        console.log(key)
+        if(key == "x") node.position.x = data.x
+        else if(key == "y") node.position.y = data.y
+        else if(key == "id") node.data.id = data.id
+        else if(key == "data") {
+          for(var k in data.data) {
+            node.data[k] = data.data[k]
+          }
+        }
+      }
+      console.log(node)
+      Nodes.update(this.urlParams.id, node)
+      return {
+       "status": "success",
+       "data": Nodes.findOne(this.urlParams.id)
+      }
+
+    }
+  }
+  }
+})

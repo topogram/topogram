@@ -5,7 +5,7 @@ import { logger } from "../../logger.js"
 
 Meteor.methods( {
     addNode: function( node ) {
-        Nodes.insert( node )
+        return Nodes.insert( node )
     },
 
     batchInsertNodes: function( nodes ) {
