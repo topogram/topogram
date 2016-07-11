@@ -1,3 +1,3 @@
-import './head.html'
+import './head.js'
+import './header.js'
 import './mainLayout.html'
-import './header.html'

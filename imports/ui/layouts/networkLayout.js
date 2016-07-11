@@ -1,4 +1,4 @@
-import './networkLayout.html'
-import './header.html'
-import './head.html'
+import './head.js'
 import '../css/topogram.scss'
+import './networkLayout.html'
+// import './header.js'
