@@ -18,17 +18,17 @@ import { Accounts } from 'meteor/accounts-base'
   }
  })
 
-  Api.addRoute('', {authRequired: false}, {
-    get: function () {
-      return { "message" : "API works"};
-    },
-  })
+Api.addRoute('', {authRequired: false}, {
+  get: function () {
+    return { "message" : "API works"};
+  },
+})
 
-  Api.addRoute('publicTopograms', {authRequired: false}, {
-    get: function () {
-      return Topograms.find({ "sharedPublic": 1}).fetch();
-    },
-  })
+Api.addRoute('publicTopograms', {authRequired: false}, {
+  get: function () {
+    return Topograms.find({ "sharedPublic": 1}).fetch();
+  },
+})
 
  // Generates: GET, POST on /api/items and GET, PUT, DELETE on
  // /api/items/:id for the Items collection
@@ -37,11 +37,60 @@ import { Accounts } from 'meteor/accounts-base'
      authRequired: true
    },
    endpoints: {
+     post: {
+      statusCode : 201,
+      action: function() {
+        var _id = Meteor.call('createTopogram', this.userId, this.bodyParams.name)
+        return {
+         "status": "success",
+         "data" : Topograms.findOne(_id)
+       }
+      }
+     },
      getAll: {
        action: function () {
-         return Topograms.find({ "owner": this.userId}).fetch()
+         return {
+          "status": "success",
+          "data" : Topograms.find({ "owner": this.userId }).fetch()
+        }
        }
      }
+     /*,
+     delete : {
+       action: function() {
+         var _id = Meteor.call("deleteTopogram", this.bodyParams._id)
+         return {
+          "status": "success",
+          "data" : Topograms.findOne(_id)
+        }
+       }
+     }
+     */
+  }
+})
+
+Api.addRoute('topograms/:_id/public', {
+  post: {
+    authRequired: true,
+    action : function () {
+      var _id = this.urlParams._id
+      Meteor.call("makePublic", _id)
+      return {
+         "status": "success",
+         "data" : Topograms.findOne(_id)
+      }
+    }
+  }
+})
+
+Api.addRoute('topograms/:_id/private', {
+  post: function () {
+    var _id = this.urlParams._id
+    Meteor.call("makePrivate", _id)
+    return {
+       "status": "success",
+       "data" : Topograms.findOne(_id)
+    }
   }
 })
 
@@ -58,7 +107,6 @@ import { Accounts } from 'meteor/accounts-base'
        action: function () {
          var data = this.bodyParams
          var user = Meteor.users.find({ "emails.address": data.email}).fetch()
-         console.log(user);
          if (user.length) {
            return {
             "status": "error",
@@ -67,7 +115,6 @@ import { Accounts } from 'meteor/accounts-base'
         } else {
           Accounts.createUser(data)
           var user = Meteor.users.findOne({ "emails.address": data.email})
-          console.log(user);
           return {
            "status": "success",
            "data" : { "_id" : user._id}
