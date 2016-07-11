@@ -132,7 +132,6 @@ Api.addRoute('topograms/:_id/private', {
 
 
 // nodes
-
 Api.addCollection(Nodes, {
   routeOptions: {
     authRequired: true
@@ -141,9 +140,8 @@ Api.addCollection(Nodes, {
     post: {
       action: function () {
         var data = this.bodyParams
-        var node = makeNode(data.topogramId, data.element, data.rawData, this.userId)
+        var node = makeNode(data.topogramId, data.element, data.data, this.userId)
         var _id = Meteor.call( "addNode", node)
-        console.log(_id);
         return {
          "status": "success",
          "data": Nodes.findOne(_id)
@@ -155,7 +153,6 @@ Api.addCollection(Nodes, {
       var data = this.bodyParams
       var node = Nodes.findOne(this.urlParams.id)
       for (var key in data) {
-        console.log(key)
         if(key == "x") node.position.x = data.x
         else if(key == "y") node.position.y = data.y
         else if(key == "id") node.data.id = data.id
@@ -165,11 +162,53 @@ Api.addCollection(Nodes, {
           }
         }
       }
-      console.log(node)
       Nodes.update(this.urlParams.id, node)
       return {
        "status": "success",
        "data": Nodes.findOne(this.urlParams.id)
+      }
+
+    }
+  }
+  }
+})
+
+// Edges
+Api.addCollection(Edges, {
+  routeOptions: {
+    authRequired: true
+  },
+  endpoints: {
+    post: {
+      action: function () {
+        var data = this.bodyParams
+        var edge = makeEdge(data.topogramId, data.element, data.data, this.userId)
+        var _id = Meteor.call( "addEdge", edge)
+        return {
+         "status": "success",
+         "data": Edges.findOne(_id)
+        }
+      }
+    },
+  put : {
+    action : function() {
+      var data = this.bodyParams
+      var edge = Edges.findOne(this.urlParams.id)
+      for (var key in data) {
+        if(key == "source") edge.source = data.source
+        else if(key == "target") edge.target = data.target
+        else if(key == "id") edge.data.id = data.id
+        else if(key == "data") {
+          for(var k in data.data) {
+            edge.data[k] = data.data[k]
+          }
+        }
+      }
+      console.log(edge)
+      Edges.update(this.urlParams.id, edge)
+      return {
+       "status": "success",
+       "data": Edges.findOne(this.urlParams.id)
       }
 
     }
