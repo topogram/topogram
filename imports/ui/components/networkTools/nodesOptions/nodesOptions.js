@@ -2,9 +2,6 @@ import './nodesOptions.html'
 
 import { Template } from 'meteor/templating'
 
-import { $ } from 'meteor/jquery'
-import d3 from 'd3'
-
 import { Nodes } from '../../../../api/collections.js'
 import {
   updateRadiusByDegree,

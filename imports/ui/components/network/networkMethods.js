@@ -307,7 +307,7 @@ export const setEdgeHandles = function(graph, state) {
 
 export const startEdgehandles = function( graph ) {
   graph.edgehandles({
-    complete: function(source, target, addedEntities) {
+    complete: function(source, target) {
       var topogramId = FlowRouter.getParam('topogramId')
       Meteor.call('addEdgeFromIds', topogramId, source.data('id'), target.data('id'))
     }

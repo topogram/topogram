@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { Meteor } from 'meteor/meteor'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { $ } from "meteor/jquery"
-
+import { FlowRouter } from 'meteor/kadira:flow-router'
 import { Topograms } from '../../../api/collections.js'
 
 import '../../components/network/network.js'

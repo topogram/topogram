@@ -1,5 +1,6 @@
 .meteor/local
 .meteor/meteorite
+.meteor/dev_bundle
 csv
 npm-debug.log
 node_modules

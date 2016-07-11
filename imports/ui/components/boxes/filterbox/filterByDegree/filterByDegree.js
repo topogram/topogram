@@ -20,9 +20,9 @@ Template.filterByDegree.helpers({
     }
 })
 
-var createSlider = function(dom, net, min, max) {
-  var min = min || 0,
-      max = max || 100
+var createSlider = function(dom, net, _min, _max) {
+  var min = _min || 0,
+      max = _max || 100
 
   noUiSlider.create(dom, {
       start: [min, max],
@@ -55,7 +55,7 @@ Template.filterByDegree.onRendered(function() {
   var net = self.data.network.get()
 
   // recalculate scale
-  self.autorun(function(auto) {
+  self.autorun(function() {
     if(self.data.network.get()) {
       var deg = self.data.network.get().nodes().map( function (d){ return d.degree() } )
       console.log(deg);

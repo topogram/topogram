@@ -2,7 +2,7 @@ import './topograms-view.html'
 import { Template } from 'meteor/templating'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { FlowRouter } from 'meteor/kadira:flow-router'
-
+import { Meteor } from 'meteor/meteor'
 import { Topograms } from '../../../api/collections.js'
 
 Template.topogramView.created = function() {
