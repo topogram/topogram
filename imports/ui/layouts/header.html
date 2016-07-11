@@ -1,15 +1,18 @@
 <template name="header">
-  {{#if isLoggedIn }}
   <div>
     <div class="fixed-action-btn">
       <a class="btn-floating btn-large waves-light grey">
         <i class="fa fa-icon fa-home"></i>
       </a>
     <ul>
+    {{#if currentUser }}
       <li><a id="logout" class="btn-floating"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
       <li><a href="/topograms" class="grey btn-floating"><i class="fa fa-icon fa-home"></i></a></li>
+    {{ else }}
+      <li><a id="login" class="btn-floating"><i class="fa fa-sign-in" aria-hidden="true"></i></a></li>
+    {{/if }}
     </ul>
     </div>
   </div>
-  {{/if }}
+
 </template>
