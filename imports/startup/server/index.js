@@ -20,3 +20,6 @@ import '../../api/server/publications.js'
 
 // plugins
 import '../../dataTables.js'
+
+// JSON API
+import '../../api/api.js'

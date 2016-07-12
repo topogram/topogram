@@ -5,7 +5,7 @@ import { makeEdge } from '../modelsHelpers.js'
 
 Meteor.methods( {
     addEdge: function( edge ) {
-        Edges.insert( edge )
+        return Edges.insert( edge )
     },
 
     addEdgeFromIds: function( topogramId, srcId, targetId ) {
@@ -20,7 +20,7 @@ Meteor.methods( {
 
     batchInsertEdges: function( edges ) {
         // console.log(edges.length)
-        Edges.batchInsert( edges )
+        return Edges.batchInsert( edges )
     },
 
     deleteEdge: function( edgeId ) {

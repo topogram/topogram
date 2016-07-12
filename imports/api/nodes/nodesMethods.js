@@ -5,11 +5,11 @@ import { logger } from "../../logger.js"
 
 Meteor.methods( {
     addNode: function( node ) {
-        Nodes.insert( node )
+        return Nodes.insert( node )
     },
 
     batchInsertNodes: function( nodes ) {
-        Nodes.batchInsert( nodes )
+        return Nodes.batchInsert( nodes )
     },
 
     mergeNodes: function( sourceId, targetId ) {
