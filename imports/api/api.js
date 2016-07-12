@@ -42,10 +42,15 @@ Api.addRoute('publicTopograms', {authRequired: false}, {
       statusCode : 201,
       action: function() {
         var _id = Meteor.call('createTopogram', this.userId, this.bodyParams.name)
-        return {
-         "status": "success",
-         "data" : Topograms.findOne(_id)
-       }
+        console.log(_id);
+        if (typeof(_id) == String)
+          return {
+           "status": "success",
+           "data" : Topograms.findOne(_id)
+         }
+        else {
+          return _id
+        }
       }
      },
      getAll: {
