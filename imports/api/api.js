@@ -139,12 +139,24 @@ Api.addCollection(Nodes, {
   endpoints: {
     post: {
       action: function () {
-        var data = this.bodyParams
-        var node = makeNode(data.topogramId, data.element, data.data, this.userId)
-        var _id = Meteor.call( "addNode", node)
-        return {
-         "status": "success",
-         "data": Nodes.findOne(_id)
+        var nodes = this.bodyParams.nodes
+        var topogramId = this.bodyParams.topogramId
+        if (nodes.length == 1) {
+          var node = makeNode(topogramId, nodes[0].element, nodes[0].data, this.userId)
+          var _id = Meteor.call( "addNode", node)
+          return {
+           "status": "success",
+           "data": Nodes.findOne(_id)
+          }
+        } else {
+          var self= this
+          var nodesBuilt = nodes.map(function(d){ return makeNode(topogramId, d.element, d.data, self.userId) })
+          var _ids = Meteor.call( "batchInsertNodes", nodesBuilt)
+          return {
+           "status": "success",
+           "data": Nodes.find({"_id" : { $in : _ids }}).fetch()
+          }
+
         }
       }
     },
@@ -181,12 +193,24 @@ Api.addCollection(Edges, {
   endpoints: {
     post: {
       action: function () {
-        var data = this.bodyParams
-        var edge = makeEdge(data.topogramId, data.element, data.data, this.userId)
-        var _id = Meteor.call( "addEdge", edge)
-        return {
-         "status": "success",
-         "data": Edges.findOne(_id)
+        var edges = this.bodyParams.edges
+        var topogramId = this.bodyParams.topogramId
+        if (edges.length == 1) {
+          var edge = makeEdge(topogramId, edges[0].element, edges[0].data, this.userId)
+          var _id = Meteor.call( "addEdge", edge)
+          return {
+           "status": "success",
+           "data": Edges.findOne(_id)
+          }
+        } else {
+          var self= this
+          var edgesBuilt = edges.map(function(d){ return makeEdge(topogramId, d.element, d.data, self.userId) })
+          var _ids = Meteor.call( "batchInsertEdges", edgesBuilt)
+          return {
+           "status": "success",
+           "data": Edges.find({"_id" : { $in : _ids }}).fetch()
+          }
+
         }
       }
     },

@@ -20,7 +20,7 @@ Meteor.methods( {
 
     batchInsertEdges: function( edges ) {
         // console.log(edges.length)
-        Edges.batchInsert( edges )
+        return Edges.batchInsert( edges )
     },
 
     deleteEdge: function( edgeId ) {

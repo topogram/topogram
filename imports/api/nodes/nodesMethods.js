@@ -9,7 +9,7 @@ Meteor.methods( {
     },
 
     batchInsertNodes: function( nodes ) {
-        Nodes.batchInsert( nodes )
+        return Nodes.batchInsert( nodes )
     },
 
     mergeNodes: function( sourceId, targetId ) {
