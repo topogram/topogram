@@ -85,12 +85,15 @@ Api.addRoute('topograms/:_id/public', {
 })
 
 Api.addRoute('topograms/:_id/private', {
-  post: function () {
-    var _id = this.urlParams._id
-    Meteor.call("makePrivate", _id)
-    return {
-       "status": "success",
-       "data" : Topograms.findOne(_id)
+  post: {
+    authRequired: true,
+    action : function () {
+      var _id = this.urlParams._id
+      Meteor.call("makePrivate", _id)
+      return {
+         "status": "success",
+         "data" : Topograms.findOne(_id)
+      }
     }
   }
 })
@@ -130,6 +133,31 @@ Api.addRoute('topograms/:_id/private', {
    }
  })
 
+Api.addRoute('topograms/:_id/nodes', {
+   get: {
+     authRequired: true,
+     action : function () {
+       var _id = this.urlParams._id
+       return {
+          "status": "success",
+          "data" : Nodes.find({"topogramId" : _id }).fetch()
+       }
+     }
+   }
+ })
+
+Api.addRoute('topograms/:_id/edges', {
+  get: {
+    authRequired: true,
+    action : function () {
+      var _id = this.urlParams._id
+      return {
+         "status": "success",
+         "data" : Edges.find({"topogramId" : _id }).fetch()
+      }
+    }
+  }
+})
 
 // nodes
 Api.addCollection(Nodes, {
