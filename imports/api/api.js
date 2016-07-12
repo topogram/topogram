@@ -213,6 +213,20 @@ Api.addCollection(Nodes, {
   }
 })
 
+Api.addRoute('nodes/delete', {
+  post : {
+    authRequired: true,
+    action :function() {
+      var ids = this.bodyParams.nodes
+      Nodes.remove({"_id" : { $in : ids }})
+      return {
+       "status": "success",
+       "data": Nodes.find({"_id" : { $in : ids }}).fetch()
+      }
+    }
+  }
+})
+
 // Edges
 Api.addCollection(Edges, {
   routeOptions: {
@@ -256,14 +270,26 @@ Api.addCollection(Edges, {
           }
         }
       }
-      console.log(edge)
       Edges.update(this.urlParams.id, edge)
       return {
        "status": "success",
        "data": Edges.findOne(this.urlParams.id)
       }
-
     }
   }
+}
+})
+
+Api.addRoute('edges/delete', {
+  post : {
+    authRequired: true,
+    action :function() {
+      var ids = this.bodyParams.edges
+      Edges.remove({"_id" : { $in : ids }})
+      return {
+       "status": "success",
+       "data": Edges.find({"_id" : { $in : ids }}).fetch()
+      }
+    }
   }
 })
