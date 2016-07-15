@@ -1,10 +1,11 @@
 # Topogram
 
-[![Join the chat at https://gitter.im/topogram/topogram](https://badges.gitter.im/topogram/topogram.svg)](https://gitter.im/topogram/topogram?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 **Topogram** is a web-based app to create and publish collaborative mapping of networks.
 
 [![Build Status](https://travis-ci.org/topogram/topogram.svg?branch=api)](https://travis-ci.org/topogram/topogram)
+[![Join the chat at https://gitter.im/topogram/topogram](https://badges.gitter.im/topogram/topogram.svg)](https://gitter.im/topogram/topogram?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 ## Features
 
