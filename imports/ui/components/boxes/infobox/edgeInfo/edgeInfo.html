@@ -1,0 +1,24 @@
+<template name="edgeInfo">
+  <ul class="card-content collapsible" data-collapsible="expandable">
+    <li>
+      <span id="closeInfoBox"><i class="material-icons right">close</i></span>
+      <p class="card-title activator grey-text text-darken-4">
+            <i class="material-icons right">more_vert</i>
+            <span class="editable-text-trigger">
+              title :
+              {{> editableText context=edge collection="edges" field="data.name"}}
+            </span>
+      </p>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">view_list</i>Data</div>
+      <ul class="collection collapsible-body">
+        {{#each objectToPairs edge.rawData }}
+          {{#if value}}
+            <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </li>
+  </ul>
+</template>

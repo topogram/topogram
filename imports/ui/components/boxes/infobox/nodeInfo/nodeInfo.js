@@ -13,7 +13,7 @@ Template.nodeInfo.helpers({
   neighborhood: function() {
     var node = Template.instance().data.node
     var network = Template.instance().data.network.get()
-    if(node) {
+    if(node.data) {
       var neighborhood = network.nodes().filter("[id='"+node.id+"']").neighborhood()
       return neighborhood.nodes().map(function(d){ return d.data()})
     }

@@ -1,6 +1,10 @@
 <template name="infobox">
 <div id="infoBox" class="card">
-  {{> nodeInfo node=currentSelection network=network }}
+  {{#if isNode }}
+    {{> nodeInfo node=currentSelection network=network }}
+  {{ else }}
+    {{> edgeInfo edge=currentSelection network=network }}
+  {{/if }}
   {{> searchBox network=network searchName="targetName" type="target" placeholder="Go to another node"}}
 
     {{#if pathToTarget.length }}
