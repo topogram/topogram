@@ -25,10 +25,10 @@ blaze-html-templates
 spacebars
 jquery
 mrt:flash-messages
+babrahams:editable-text
 
 fourseven:scss
 materialize:materialize
-workman:x-editable-reactive-template
 
 # js libs
 sergeyt:typeahead

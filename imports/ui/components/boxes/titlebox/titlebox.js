@@ -3,6 +3,8 @@ import { Template } from 'meteor/templating'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
 
+import { editableText } from 'meteor/babrahams:editable-text'
+
 Template.titlebox.created = function() {
     this.editMode = this.data.editMode
 }
@@ -14,6 +16,9 @@ Template.titlebox.rendered = function() {
 Template.titlebox.helpers({
     isEditable : function() {
       return Template.instance().data.editMode
+    },
+    topogram: function() {
+      return Template.instance().data.topogram
     },
     topogramName: function() {
       return Template.instance().data.topogramName
