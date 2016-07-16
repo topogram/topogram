@@ -21,7 +21,7 @@ Template.infobox.helpers({
   },
   currentSelection: function() {
       var item = getCurrentSelection()
-      return item.data
+      return item
   },
   target : function() {
     var network = Template.instance().data.network.get()

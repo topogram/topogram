@@ -4,7 +4,7 @@
       <span id="closeInfoBox"><i class="material-icons right">close</i></span>
       <p class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">more_vert</i>
-            {{ node.name }}
+            {{> editableText context=node collection="nodes" field="data.name"}}
       </p>
     </li>
     {{#if neighborhood.length }}
