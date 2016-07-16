@@ -47,7 +47,6 @@ Template.network.onCreated( function() {
     if (nodesSubscription.ready() && edgesSubscription.ready() && !nodesEdgesReady) {
 
       var domElement = self.find("#network")
-      console.log(domElement)
 
       // fetch and parse data
       var nodes = Nodes.find().fetch().map(function(i){
@@ -129,6 +128,6 @@ Template.network.onRendered(function() {
 })
 
 
-Template.network.destroyed = function() {
-  console.log("hahah")
-}
+// Template.network.destroyed = function() {
+//   console.log("hahah")
+// }
