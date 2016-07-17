@@ -1,4 +1,4 @@
-import './filterbox.html'
+import './filterBox.html'
 import { Template } from 'meteor/templating'
 import { $ } from 'meteor/jquery'
 
@@ -8,13 +8,13 @@ import '../../networkTools/nodesOptions/nodesOptions.js'
 
 import { resetFilters } from '../../network/networkMethods.js'
 
-Template.filterbox.events({
+Template.filterBox.events({
   'click .clear-filters' : function(event, instance) {
     var net = instance.data.network.get()
     resetFilters(net)
   },
   "click .close-filters" : function() {
     console.log("close")
-    $("#filterbox").hide()
+    $("#filterBox").hide()
   }
 })

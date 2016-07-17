@@ -1,19 +1,19 @@
-import './titlebox.html'
+import './titleBox.html'
 import { Template } from 'meteor/templating'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
 
 import { editableText } from 'meteor/babrahams:editable-text'
 
-Template.titlebox.created = function() {
+Template.titleBox.created = function() {
     this.editMode = this.data.editMode
 }
 
-Template.titlebox.rendered = function() {
+Template.titleBox.rendered = function() {
     $(".collapsible").collapsible()
 }
 
-Template.titlebox.helpers({
+Template.titleBox.helpers({
     isEditable : function() {
       return Template.instance().data.editMode
     },
@@ -31,21 +31,21 @@ Template.titlebox.helpers({
     }
 })
 
-Template.titlebox.events =  {
+Template.titleBox.events =  {
   'click #toggle-toolbox' : function() {
     $('#toolbox').toggle()
   },
   'click #share-icon' : function() {
-    $('#sharebox').toggle()
+    $('#shareBox').toggle()
   },
-  'click #toggle-searchbox' : function() {
-    $('#searchbox').toggle()
+  'click #toggle-searchBox' : function() {
+    $('#searchBox').toggle()
   },
   'click #toggle-algobox' : function() {
     $('#algobox').toggle()
   },
-  'click #toggle-filterbox' : function() {
-    $('#filterbox').toggle()
+  'click #toggle-filterBox' : function() {
+    $('#filterBox').toggle()
   },
   'click #toggle-commentbox' : function() {
     $('#commentBox').toggle()

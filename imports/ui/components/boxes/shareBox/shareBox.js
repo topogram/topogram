@@ -1,20 +1,20 @@
-import './sharebox.html'
+import './shareBox.html'
 import { Template } from 'meteor/templating'
 import { Meteor } from 'meteor/meteor'
 
 import { Topograms } from '../../../../api/collections.js'
 import { $ } from 'meteor/jquery'
 
-Template.sharebox.helpers( {
+Template.shareBox.helpers( {
   'sharedPublic' :function() {
     var t = Topograms.findOne()
     return (t) ? t.sharedPublic : false
   }
 })
 
-Template.sharebox.events( {
+Template.shareBox.events( {
     "click .close" : function() {
-      $("#sharebox").hide()
+      $("#shareBox").hide()
     },
     "change #shared-public": function( event ) {
         // console.log(event.target.checked)

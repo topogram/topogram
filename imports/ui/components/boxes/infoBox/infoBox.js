@@ -1,4 +1,4 @@
-import './infobox.html'
+import './infoBox.html'
 import { Template } from 'meteor/templating'
 
 import './nodeInfo/nodeInfo.js'
@@ -12,11 +12,11 @@ import { $ } from 'meteor/jquery'
 import { Session } from 'meteor/session';
 import { Nodes, Edges } from '../../../../api/collections.js'
 
-Template.infobox.rendered = function() {
+Template.infoBox.rendered = function() {
   $("#infoBox").hide()
 }
 
-Template.infobox.helpers({
+Template.infoBox.helpers({
   networkInstance : function(){
     return Template.instance().data.network
   },
@@ -45,7 +45,7 @@ Template.infobox.helpers({
   }
 })
 
-Template.infobox.events = {
+Template.infoBox.events = {
     'click #closeInfoBox': function( ) {
         var network = Template.instance().data.network.get()
         network.deselectAll()

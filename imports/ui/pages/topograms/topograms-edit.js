@@ -7,11 +7,11 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import { Topograms } from '../../../api/collections.js'
 
 import '../../components/network/network.js'
-import '../../components/boxes/titlebox/titlebox.js'
-import '../../components/boxes/searchbox/searchbox.js'
-import '../../components/boxes/sharebox/sharebox.js'
-import '../../components/boxes/filterbox/filterbox.js'
-import '../../components/boxes/infobox/infobox.js'
+import '../../components/boxes/titleBox/titleBox.js'
+import '../../components/boxes/searchBox/searchBox.js'
+import '../../components/boxes/shareBox/shareBox.js'
+import '../../components/boxes/filterBox/filterBox.js'
+import '../../components/boxes/infoBox/infoBox.js'
 
 import '../../components/networkTools/selectLayout/selectLayout.js'
 import '../../components/networkTools/editMode/editMode.js'
@@ -55,7 +55,7 @@ Template.topogramEdit.created = function() {
 
 Template.topogramEdit.rendered = function() {
 
-  $("#filterbox").hide()
-  $("#sharebox").hide()
+  $("#filterBox").hide()
+  $("#shareBox").hide()
 
 }

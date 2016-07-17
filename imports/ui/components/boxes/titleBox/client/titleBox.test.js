@@ -6,7 +6,7 @@ var expect = chai.expect
 console.log(expect);
 
 import { withRenderedTemplate } from '../../../../test-helpers.js';
-import '../titlebox.js';
+import '../titleBox.js';
 
 describe('Titlebox', function () {
 
@@ -28,8 +28,8 @@ describe('Titlebox', function () {
       topogramName : "myNetwork",
       onEditingChange: () => 0
     }
-    withRenderedTemplate('titlebox', data, el => {
-      expect( $(el).find('#titlebox').val() ).to.not.be.undefined
+    withRenderedTemplate('titleBox', data, el => {
+      expect( $(el).find('#titleBox').val() ).to.not.be.undefined
       expect( $(el).find('h1').val() ).to.not.be.undefined
       // expect( $(el).find('h1').html() ).to.be.equal("myNetwork")
     });

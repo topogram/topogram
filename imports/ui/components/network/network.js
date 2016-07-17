@@ -27,7 +27,7 @@ Template.network.onCreated( function() {
   this.advancedEditMode = Session.get('advancedEditMode')
 
   // init node/edge selector
-  $('#infoBox').hide()  // hide infobox by default
+  $('#infoBox').hide()  // hide infoBox by default
   Session.set( 'currentId', null )
   Session.set( 'currentType', null )
   Session.set('pathTargetNodeId', null)
