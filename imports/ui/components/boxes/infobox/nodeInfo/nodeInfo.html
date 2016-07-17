@@ -1,52 +1,95 @@
 <template name="nodeInfo">
-  <ul class="card-content collapsible" data-collapsible="expandable">
+  <ul class="card-content collection with-header">
     <li>
       <span id="closeInfoBox"><i class="material-icons right">close</i></span>
-      <p class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">more_vert</i>
-            <span class="editable-text-trigger">
-              {{#if node.data.name }}
-                {{> editableText context=node collection="nodes" field="data.name"}}
-              {{ else }}
-               <em>Click to add a title</em>
-               {{> editableText context=node collection="nodes" field="data.name"}}
-              {{/if}}
-            </span>
+      <p class="activator grey-text text-darken-4">
+        <i class="material-icons right">more_vert</i>
       </p>
     </li>
+    <li class="card-title collection-header">
+      <span class="editable-text-trigger">
+        {{#if node.data.name }}
+          {{> editableText context=node collection="nodes" field="data.name"}}
+        {{ else }}
+         <em>Click to add a title</em>
+         {{> editableText context=node collection="nodes" field="data.name"}}
+        {{/if}}
+      </span>
+    </li>
+    <li class="collection-item">
+        <span class="badge">Group</span>
+        {{#if node.data.group }}
+          {{> editableText context=node collection="nodes" field="data.group"}}
+        {{ else }}
+         <em>Add a group</em>
+         {{> editableText context=node collection="nodes" field="data.group"}}
+        {{/if}}
+    </li>
+    <li class="collection-item">
+        <span class="badge">Weight</span>
+        {{#if node.data.weight }}
+          {{> editableText context=node collection="nodes" field="data.weight"}}
+        {{ else }}
+         <em>Add weight</em>
+         {{> editableText context=node collection="nodes" field="data.weight"}}
+        {{/if}}
+    </li>
+    <li class="collection-item">
+        <span class="badge">Color</span>
+        {{#if node.data.weight }}
+          {{> editableText context=node collection="nodes" field="data.color"}}
+        {{ else }}
+         <em>Add color</em>
+         {{> editableText context=node collection="nodes" field="data.color"}}
+        {{/if}}
+    </li>
+    <li class="collection-item">
+        <span class="badge">Latitude</span>
+        {{#if node.data.lat }}
+          {{> editableText context=node collection="nodes" field="data.lat"}}
+        {{ else }}
+         <em>Add latitude</em>
+         {{> editableText context=node collection="nodes" field="data.lat"}}
+        {{/if}}
+    </li>
+    <li class="collection-item">
+        <span class="badge">Longitude</span>
+        {{#if node.data.lng }}
+          {{> editableText context=node collection="nodes" field="data.lng"}}
+        {{ else }}
+         <em>Add longitude</em>
+         {{> editableText context=node collection="nodes" field="data.lng"}}
+        {{/if}}
+    </li>
+  </ul>
+  <ul class="collapsible" data-collapsible="expandable">
     {{#if neighborhood.length }}
       <li>
-        <div class="collapsible-header"><i class="material-icons">assessment</i>Partenaires</div>
+        <div class="collapsible-header"><i class="material-icons">games</i>Neighborhood</div>
         <ul class="collection collapsible-body">
           {{> pieChart dataCount=neighborhoodTypeCount}}
-          {{#each neighborhoodTypeCount }}
-              <li class="collection-item">{{this.group}}
-                <svg data-category="{{this.name}}" height="10" width="10">
-                  <circle cx="5" cy="5" r="5" fill="{{this.color}}" stroke-width="0"/>
-                </svg>
-                <span class="badge">{{this.count}}</span>
+          {{#each neighborhood }}
+              <li class="collection-item">
+                <span class="badge">
+                  <svg data-category="{{this.name}}" height="10" width="10">
+                    <circle cx="5" cy="5" r="5" fill="{{this.color}}" stroke-width="0"/>
+                  </svg> {{this.group}}
+                </span>
+                {{this.name}}
               </li>
           {{/each}}
         </ul>
       </li>
-      <li>
-        <div class="collapsible-header"><i class="material-icons">games</i>Neighborhood</div>
-        <ul class="collection collapsible-body">
-          {{#each neighborhood }}
-              <li class="collection-item">{{this.group}}<span class="badge">{{this.name}}</span></li>
-          {{/each}}
-        </ul>
-      </li>
     {{/if}}
-    <li>
+    <!-- <li>
       <div class="collapsible-header"><i class="material-icons">view_list</i>Data</div>
       <ul class="collection collapsible-body">
-        {{#each objectToPairs node.rawData }}
+        {{#each objectToPairs node.data.rawData }}
           {{#if value}}
             <li class="collection-item">{{key}} <span class="badge">{{value}}</span></li>
           {{/if}}
         {{/each}}
       </ul>
-    </li>
+    </li> -->
   </ul>
 </template>
