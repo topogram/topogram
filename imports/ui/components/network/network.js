@@ -97,7 +97,9 @@ Template.network.onCreated( function() {
             })
             for ( var field in fields ) {
               if (field == "position") item.position(fields[field])
-              // TODO : update all node properties
+              else if (field == "data") Object.keys(fields[field]).forEach(function(d){
+                item.data(d, fields[field][d])
+              })
             }
         }
       })
@@ -115,6 +117,19 @@ Template.network.onCreated( function() {
           // removed: function() {
           //     // console.log( 'edge removed' )
           // }
+      })
+
+      Edges.find().observeChanges( {
+        changed: function( _id, fields ) {
+            var item = self.graph.edges().filter( function( i, edge ) {
+                return edge.data("_id") == _id
+            })
+            for ( var field in fields ) {
+              if (field == "data") Object.keys(fields[field]).forEach(function(d){
+                item.data(d, fields[field][d])
+              })
+            }
+        }
       })
     }
   })
