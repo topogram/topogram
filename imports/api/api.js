@@ -4,7 +4,7 @@ import { Nodes, Edges, Topograms } from './collections.js'
 import { logger } from '../logger.js'
 import { Accounts } from 'meteor/accounts-base'
 
-import { makeNode, makeEdge } from './modelsHelpers.js'
+import { makeNode,makeEdge } from './modelsHelpers.js'
 
 // Global API configuration
  var Api = new Restivus({
@@ -22,13 +22,13 @@ import { makeNode, makeEdge } from './modelsHelpers.js'
 Api.addRoute('', {authRequired: false}, {
   get: function () {
     return { "message" : "API works"};
-  },
+  }
 })
 
 Api.addRoute('publicTopograms', {authRequired: false}, {
   get: function () {
     return Topograms.find({ "sharedPublic": 1}).fetch();
-  },
+  }
 })
 
  // Generates: GET, POST on /api/items and GET, PUT, DELETE on
@@ -115,7 +115,7 @@ Api.addRoute('topograms/:_id/private', {
        authRequired: false,
        action: function () {
          var data = this.bodyParams
-         var user = Meteor.users.find({ "emails.address": data.email}).fetch()
+         let user = Meteor.users.find({ "emails.address": data.email}).fetch()
          if (user.length) {
            return {
             "status": "error",
@@ -123,7 +123,7 @@ Api.addRoute('topograms/:_id/private', {
           }
         } else {
           Accounts.createUser(data)
-          var user = Meteor.users.findOne({ "emails.address": data.email})
+          let user = Meteor.users.findOne({ "emails.address": data.email})
           return {
            "status": "success",
            "data" : { "_id" : user._id}

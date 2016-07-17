@@ -3,8 +3,6 @@ import { Template } from 'meteor/templating'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
 
-import { editableText } from 'meteor/babrahams:editable-text'
-
 Template.titleBox.created = function() {
     this.editMode = this.data.editMode
 }
