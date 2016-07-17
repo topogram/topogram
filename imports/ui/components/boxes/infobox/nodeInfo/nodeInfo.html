@@ -4,7 +4,14 @@
       <span id="closeInfoBox"><i class="material-icons right">close</i></span>
       <p class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">more_vert</i>
-            {{> editableText context=node collection="nodes" field="data.name"}}
+            <span class="editable-text-trigger">
+              {{#if node.data.name }}
+                {{> editableText context=node collection="nodes" field="data.name"}}
+              {{ else }}
+               <em>Click to add a title</em>
+               {{> editableText context=node collection="nodes" field="data.name"}}
+              {{/if}}
+            </span>
       </p>
     </li>
     {{#if neighborhood.length }}

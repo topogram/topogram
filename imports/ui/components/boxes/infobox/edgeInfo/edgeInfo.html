@@ -5,8 +5,12 @@
       <p class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">more_vert</i>
             <span class="editable-text-trigger">
-              title :
-              {{> editableText context=edge collection="edges" field="data.name"}}
+              {{#if edge.data.name }}
+                {{> editableText context=edge collection="edges" field="data.name"}}
+              {{ else }}
+               <em>Click to add a title</em>
+               {{> editableText context=edge collection="edges" field="data.name"}}
+              {{/if}}
             </span>
       </p>
     </li>
