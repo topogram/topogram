@@ -5,6 +5,7 @@ allow-deny@1.0.5
 autoupdate@1.2.10
 babel-compiler@6.8.3
 babel-runtime@0.1.9_1
+babrahams:editable-text@0.8.18
 babrahams:transactions@0.7.13
 babrahams:undo-redo@0.2.8
 base64@1.0.9
@@ -26,6 +27,7 @@ ddp-rate-limiter@1.0.5
 ddp-server@1.2.8_1
 deps@1.0.12
 diff-sequence@1.0.6
+djedi:sanitize-html@1.11.3
 ecmascript@0.4.6_1
 ecmascript-runtime@0.2.11_1
 ejson@1.0.12
@@ -34,6 +36,7 @@ fastclick@1.0.12
 fortawesome:fontawesome@4.5.0
 fourseven:scss@3.4.3
 geojson-utils@1.0.9
+gwendall:body-events@0.1.6
 hot-code-push@1.0.4
 html-tools@1.0.10
 htmljs@1.0.10
@@ -106,5 +109,4 @@ useraccounts:flow-routing@1.14.2
 useraccounts:materialize@1.14.2
 webapp@1.2.9_1
 webapp-hashing@1.0.9
-workman:x-editable-reactive-template@1.0.2
 xolvio:cleaner@0.3.1

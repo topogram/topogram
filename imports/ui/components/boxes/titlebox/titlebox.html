@@ -2,7 +2,9 @@
   <div id="titlebox" class="card card-small">
     <div class="card-content">
       <p class="card-title activator grey-text text-darken-4">
-        <h1>{{ topogramName }}</h1>
+        <h1>
+          {{> editableText context=topogram collection="topograms" field="name"}}
+        </h1>
       </p>
     </div>
 

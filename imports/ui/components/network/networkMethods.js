@@ -266,14 +266,16 @@ export const mouseActions = function(graph) {
 
   // display edge info
   graph.on('tap', 'edge',function(e) {
-    e.cyTarget.css({
-      'text-opacity' : function(d){
-        return  (d.style('text-opacity') == "1") ? "0" : "1"
-      },
-      'line-color' : function(d) {
-        return d.style('line-color') == "green" ? "#AAAAAA" : "green"
-      }
-    })
+    graph.selectElement(e.cyTarget, "edge")
+    // e.cyTarget.css({
+    //   'text-opacity' : function(d){
+    //     return  (d.style('text-opacity') == "1") ? "0" : "1"
+    //   },
+    //   'line-color' : function(d) {
+    //     return d.style('line-color') == "green" ? "#AAAAAA" : "green"
+    //   }
+    // })
+
   })
 
   graph.on('mouseover', 'node', function(e) {
@@ -404,15 +406,16 @@ export const addBehaviors = function(graph, readOnlyMode) {
 
   graph.selectElement = function(el, type){
 
-    graph.focusOnNodes(el)
-    $('#infoBox').show()
-
     if(el.data("group") != "ghosts") {
       Session.set('currentType', type)
-      Session.set('currentId', el.id())
+      Session.set('currentId', el.data("_id"))
 
       var url = graph.getElementUrl(el, type)
       FlowRouter.go(url)
+
+      if( type == "node") graph.focusOnNodes(el)
+      else if ( type == "edge") graph.focusOnEdges(el)
+      $('#infoBox').show()
     }
   }
 
@@ -430,20 +433,20 @@ export const addBehaviors = function(graph, readOnlyMode) {
 
   graph.getElementUrl = function(el, type) {
     // get node/edge _id
-    var element
+    var element;
     if(type =="node") {
-      element = Nodes.findOne({"data.id" : el.id()})
+      element = Nodes.findOne(el.data("_id"))
     } else if (type == "edge") {
-      element = Edges.findOne({"data.id" : el.id()})
+      element = Edges.findOne(el.data("_id"))
     }
     return window.location.pathname + "#"+type+"-"+element._id
   }
 
   graph.getElById = function(id, type){
     if(type == "node") {
-      return graph.nodes().filter("[id='"+id+"']")
+      return graph.nodes().filter("[_id='"+id+"']")
     } else if (type == "edge") {
-      return graph.edges().filter("[id='"+id+"']")
+      return graph.edges().filter("[_id='"+id+"']")
     }
   }
 
@@ -464,7 +467,6 @@ export const addBehaviors = function(graph, readOnlyMode) {
   }
 
   // select / unselect nodes
-
   graph.focusOnNodes = function(selectedNodes){
 
     // select
@@ -483,6 +485,15 @@ export const addBehaviors = function(graph, readOnlyMode) {
 
     // apply focus layout
     subGraph.layout({"name":"concentric"})
+  }
+
+  graph.focusOnEdges = function(selectedEdges) {
+
+    // show only selected
+    let subGraph = selectedEdges.add(selectedEdges.connectedNodes())
+    graph.nodes().hide()
+    graph.edges().hide()
+    subGraph.show()
   }
 
   graph.unFocus = function(){
@@ -507,7 +518,7 @@ export const addBehaviors = function(graph, readOnlyMode) {
     // init with all elements selected by default
     // var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
     // var els = alreadySelected.intersection(selectedEls)
-
+    console.log(els);
     graph.elements().hide()
     els.select()
     els.show()
@@ -531,8 +542,8 @@ export const addBehaviors = function(graph, readOnlyMode) {
     } else if (type == "edge") {
       element = Edges.findOne({"_id" : elementId})
     }
-    console.log(element)
-    var el = graph.getElById(element.data.id, type)
+    console.log(element.data._id)
+    var el = graph.getElById(element._id, type)
     console.log(el)
     if(el) graph.selectElement(el, type)
   }

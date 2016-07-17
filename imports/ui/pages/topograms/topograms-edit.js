@@ -24,12 +24,9 @@ Template.topogramEdit.helpers({
     // console.log("ha", Template.instance().network)
     return Template.instance().network
   },
-  topogramId : function(){
-    return FlowRouter.getParam('topogramId')
-  },
-  topogramName : function() {
-    var t = Topograms.findOne()
-    return t ? t.name : null
+  topogram : function() {
+    var t = Topograms.findOne({"_id": FlowRouter.getParam('topogramId')})
+    return t
   },
   graphState : function() {
     return Template.instance().graphState

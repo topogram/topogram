@@ -2,6 +2,7 @@ import './infobox.html'
 import { Template } from 'meteor/templating'
 
 import './nodeInfo/nodeInfo.js'
+import './edgeInfo/edgeInfo.js'
 import './pieChart/pieChart.js'
 import '../../boxes/commentBox/commentBox.js'
 import '../../boxes/nodeMerge/nodeMerge.js'
@@ -19,9 +20,12 @@ Template.infobox.helpers({
   networkInstance : function(){
     return Template.instance().data.network
   },
+  isNode  : function() {
+    return Session.get( 'currentType' ) == "node"
+  },
   currentSelection: function() {
       var item = getCurrentSelection()
-      return item.data
+      return item
   },
   target : function() {
     var network = Template.instance().data.network.get()
@@ -55,13 +59,9 @@ var getCurrentSelection = function() {
       item = {}
   if(id && type) {
     if ( type == 'node' ) {
-        item = Nodes.findOne( {
-            'data.id': id
-        } )
+        item = Nodes.findOne( id )
     } else if ( type == 'edge' ) {
-        item = Edges.findOne( {
-            'data.id': id
-        } )
+        item = Edges.findOne( id )
     }
   }
   return item

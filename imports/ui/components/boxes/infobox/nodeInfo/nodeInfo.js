@@ -13,9 +13,13 @@ Template.nodeInfo.helpers({
   neighborhood: function() {
     var node = Template.instance().data.node
     var network = Template.instance().data.network.get()
-    if(node) {
-      var neighborhood = network.nodes().filter("[id='"+node.id+"']").neighborhood()
-      return neighborhood.nodes().map(function(d){ return d.data()})
+    if(node.data) {
+      var neighborhood = network.nodes().filter("[id='"+node.data.id+"']").neighborhood()
+      return neighborhood.nodes().map(function(d){
+        var n = d.data()
+        n.color = colors(d.data("group"))
+        return n
+      })
     }
   },
   neighborhoodTypeCount: function() {
@@ -24,7 +28,7 @@ Template.nodeInfo.helpers({
     var network = Template.instance().data.network.get()
 
     if(node) {
-      var neighborhood = network.nodes().filter("[id='"+node.id+"']").neighborhood()
+      var neighborhood = network.nodes().filter("[id='"+node.data.id+"']").neighborhood()
 
       var count = neighborhood.nodes()
         .map(function(d){ return d.data("group")})

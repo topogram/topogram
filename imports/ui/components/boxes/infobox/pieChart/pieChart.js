@@ -34,7 +34,7 @@ Template.pieChart.rendered = function() {
           .outerRadius(radius - 10)
           .innerRadius(0)
 
-      
+
       /* ------- PIE SLICES -------*/
       var slice = svg.select(".slices")
         .selectAll("path.slice")
@@ -48,6 +48,10 @@ Template.pieChart.rendered = function() {
           return colors(d.data.group)
         })
         .on("mouseover", function(d){
+
+          console.log(d3.event);
+          console.log(d3.mouse(this));
+
           d3.select("#pie-tooltip")
             .style("left", d3.event.pageX + "px")
             .style("top", d3.event.pageY + "px")
@@ -65,7 +69,9 @@ Template.pieChart.rendered = function() {
         })
         .on("mouseout", function() {
           // Hide the tooltip
-          d3.select("#pie-tooltip").classed("hidden", true)
+          d3.select("#pie-tooltip")
+            .classed("hidden", true)
+
         })
 
       slice.exit()
