@@ -6,9 +6,9 @@ import { Edges, Nodes, Comments } from '../collections.js'
  *  COMMENTS
  */
 
-Meteor.publish( 'comments', function() {
-    return Comments.find()
-} )
+Meteor.publish( 'comments', function(topogramId) {
+    return Comments.find({ "topogramId" : topogramId})
+})
 
 
 /*

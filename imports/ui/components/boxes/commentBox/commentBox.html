@@ -1,15 +1,15 @@
 <template name="commentBox">
   <div id="commentBox" class="card card-small">
-      <!-- <span id="closeInfoBox"><i class="material-icons right">close</i></span> -->
       {{#if isSelected }}
         <div class="card-content">
+          <span id="closeCommentBox"><i class="material-icons right">close</i></span>
           <p class="card-title activator grey-text text-darken-4">
               {{ comments.length }} comments
           </p>
           <ul id="comments" class="collection">
               {{#each comments}}
                   <li class="collection-item avatar">
-                      {{> comment comment=this}}
+                    {{> comment comment=this}}
                   </li>
               {{/each}}
           </ul>
@@ -18,7 +18,8 @@
           {{> commentForm}}
         </div>
       {{else}}
-        <div class="card-content card-small">
+        <div class="card-small">
+          <span id="closeCommentBox"><i class="material-icons right">close</i></span>
           <p>
             Select a node or an edge to comment.
           </p>

@@ -547,20 +547,16 @@ export const addBehaviors = function(graph, readOnlyMode) {
   }
 
   // load node if hash
-  // TODO : select by nodes is broken...
   if(window.location.hash) {
     var type = window.location.hash.split("-")[0].replace("#","")
     var elementId = window.location.hash.split("-")[1]
     var element
-    console.log(type, elementId)
     if(type =="node") {
       element = Nodes.findOne({"_id" : elementId})
     } else if (type == "edge") {
       element = Edges.findOne({"_id" : elementId})
     }
-    console.log(element.data._id)
     var el = graph.getElById(element._id, type)
-    console.log(el)
     if(el) graph.selectElement(el, type)
   }
 

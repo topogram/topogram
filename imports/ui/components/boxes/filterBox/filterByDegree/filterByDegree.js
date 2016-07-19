@@ -57,7 +57,6 @@ Template.filterByDegree.onRendered(function() {
   self.autorun(function() {
     if(self.data.network.get()) {
       var deg = self.data.network.get().nodes().map( function (d){ return d.degree() } )
-      console.log(deg);
       var min = (deg.length) ? Math.min.apply(Math, deg) : 0
       var max = (deg.length) ? Math.max.apply(Math, deg) : 100
       Session.set("minMaxDegree", [min, max])

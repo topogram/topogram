@@ -1,6 +1,13 @@
 import './infoBox.html'
 import './infoBox.css'
+
+import { Session } from 'meteor/session';
 import { Template } from 'meteor/templating'
+import { FlowRouter } from 'meteor/kadira:flow-router'
+
+import { $ } from 'meteor/jquery'
+
+import { Comments, Nodes, Edges } from '../../../../api/collections.js'
 
 import './nodeInfo/nodeInfo.js'
 import './edgeInfo/edgeInfo.js'
@@ -8,14 +15,10 @@ import '../../boxes/commentBox/commentBox.js'
 import '../../boxes/nodeMerge/nodeMerge.js'
 import './nodeNeighborhood/nodeNeighborhood.js'
 
-import { $ } from 'meteor/jquery'
-
-import { Session } from 'meteor/session';
-import { Nodes, Edges } from '../../../../api/collections.js'
-
-Template.infoBox.rendered = function() {
-  $("#infoBox").hide()
-}
+Template.commentBox.onCreated( function() {
+  let topogramId = FlowRouter.getParam('topogramId')
+  let commentsSubscription = this.subscribe( 'comments', topogramId )
+})
 
 Template.infoBox.helpers({
   networkInstance : function(){
@@ -27,6 +30,18 @@ Template.infoBox.helpers({
   currentSelection: function() {
       var item = getCurrentSelection()
       return item
+  },
+  commentsCount: function() {
+    let element = getCurrentSelection()
+    let type = Session.get( 'currentType' )
+    let topogramId = FlowRouter.getParam('topogramId')
+
+    return Comments.find( {
+        'topogramId' : topogramId,
+        'elementId': element._id,
+        'type': type
+    } ).count()
+
   },
   hasNeighbors: function() {
     let network = Template.instance().data.network.get()
@@ -52,17 +67,21 @@ Template.infoBox.helpers({
 })
 
 Template.infoBox.events = {
-    'click #closeInfoBox': function( ) {
+    'click #closeInfoBox': function(event) {
+        event.preventDefault()
         var network = Template.instance().data.network.get()
         network.deselectAll()
     },
-    'click #toggle-node-neighborhood': function( ) {
+    'click #toggle-node-neighborhood': function(event) {
+        event.preventDefault()
         $('#node-neighborhood').toggle()
     },
-    'click #toggle-commentBox': function( ) {
+    'click #toggle-commentBox': function(event) {
+        event.preventDefault()
         $("#commentBox").toggle()
     },
-    'click #toggle-targetSearch': function( ) {
+    'click #toggle-targetSearch': function(event) {
+        event.preventDefault()
         $("#targetSearch").toggle()
     },
 

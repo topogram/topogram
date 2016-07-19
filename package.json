@@ -18,7 +18,7 @@
     "material-ui": "^0.15.1",
     "materialize-css": "^0.97.6",
     "meteor-node-stubs": "^0.2.3",
-    "moment": "^2.13.0",
+    "moment": "^2.14.1",
     "nouislider": "^8.5.1",
     "papaparse": "^4.1.2",
     "react": "^15.1.0",

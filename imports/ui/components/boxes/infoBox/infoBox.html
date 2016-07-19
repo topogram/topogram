@@ -11,7 +11,7 @@
     {{/if }}
   </ul>
   <div class="card-action">
-    <a id="toggle-commentBox" title="See comments" href="#"><i class="material-icons">comments</i></a>
+    <a id="toggle-commentBox" title="See comments" href="#">{{ commentsCount }} comments</a>
     <a id="toggle-targetSearch" href="#"><i class="material-icons">navigation</i></a>
     {{#if isNode }}
       {{#if hasNeighbors }}
@@ -46,4 +46,6 @@
     {{/if}}
   {{/if}}
 </div>
+
+{{> commentBox element=currentSelection}}
 </template>
