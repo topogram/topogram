@@ -1,6 +1,7 @@
 import './titleBox.html'
 import { Template } from 'meteor/templating'
 import { FlowRouter } from 'meteor/kadira:flow-router'
+import { Session } from 'meteor/session'
 import { $ } from 'meteor/jquery'
 
 Template.titleBox.created = function() {
@@ -14,6 +15,9 @@ Template.titleBox.rendered = function() {
 Template.titleBox.helpers({
     isEditable : function() {
       return Template.instance().data.editMode
+    },
+    version: function() {
+      return Session.get("version")
     },
     topogram: function() {
       return Template.instance().data.topogram

@@ -1,6 +1,5 @@
 import './commentBox.html'
 import { Template } from 'meteor/templating'
-import { Session } from 'meteor/session';
 import { Comments } from '../../../../api/collections.js'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 
@@ -10,14 +9,9 @@ import '../../comments/commentForm/commentForm.js'
 import { $ } from 'meteor/jquery'
 
 Template.commentBox.onCreated( function() {
-  let self = this
   let topogramId = FlowRouter.getParam('topogramId')
-  let commentsSubscription = self.subscribe( 'comments', topogramId )
-  // self.autorun(function(auto) {
-  //     if (commentsSubscription.ready()) {
-  //       console.log(Comments.find().fetch());
-  //     }
-  // })
+  // subscribe to the topogram only
+  this.subscribe( 'comments', topogramId )
 })
 
 Template.commentBox.rendered = function(){

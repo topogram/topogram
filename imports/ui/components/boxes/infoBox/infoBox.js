@@ -17,7 +17,7 @@ import './nodeNeighborhood/nodeNeighborhood.js'
 
 Template.commentBox.onCreated( function() {
   let topogramId = FlowRouter.getParam('topogramId')
-  let commentsSubscription = this.subscribe( 'comments', topogramId )
+  this.subscribe( 'comments', topogramId )
 })
 
 Template.infoBox.helpers({
@@ -83,8 +83,7 @@ Template.infoBox.events = {
     'click #toggle-targetSearch': function(event) {
         event.preventDefault()
         $("#targetSearch").toggle()
-    },
-
+    }
 }
 
 // get current node
