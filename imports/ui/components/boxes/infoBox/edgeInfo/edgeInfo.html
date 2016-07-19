@@ -27,12 +27,7 @@
     </li>
     <li class="collection-item">
         <span class="badge">Weight</span>
-        {{#if edge.data.weight }}
-          {{> editableText context=edge collection="edges" field="data.weight"}}
-        {{ else }}
-         <em>Add weight</em>
          {{> editableText context=edge collection="edges" field="data.weight"}}
-        {{/if}}
     </li>
   </ul>
 </template>

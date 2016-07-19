@@ -27,39 +27,19 @@
     </li>
     <li class="collection-item">
         <span class="badge">Weight</span>
-        {{#if node.data.weight }}
-          {{> editableText context=node collection="nodes" field="data.weight"}}
-        {{ else }}
-         <em>Add weight</em>
          {{> editableText context=node collection="nodes" field="data.weight"}}
-        {{/if}}
     </li>
     <li class="collection-item">
         <span class="badge">Color</span>
-        {{#if node.data.weight }}
-          {{> editableText context=node collection="nodes" field="data.color"}}
-        {{ else }}
-         <em>Add color</em>
          {{> editableText context=node collection="nodes" field="data.color"}}
-        {{/if}}
     </li>
     <li class="collection-item">
         <span class="badge">Latitude</span>
-        {{#if node.data.lat }}
-          {{> editableText context=node collection="nodes" field="data.lat"}}
-        {{ else }}
-         <em>Add latitude</em>
          {{> editableText context=node collection="nodes" field="data.lat"}}
-        {{/if}}
     </li>
     <li class="collection-item">
         <span class="badge">Longitude</span>
-        {{#if node.data.lng }}
-          {{> editableText context=node collection="nodes" field="data.lng"}}
-        {{ else }}
-         <em>Add longitude</em>
          {{> editableText context=node collection="nodes" field="data.lng"}}
-        {{/if}}
     </li>
   </ul>
   <ul class="collapsible" data-collapsible="expandable">
