@@ -278,6 +278,25 @@ export const mouseActions = function(graph) {
 
   })
 
+  graph.on('mouseover', 'edge', function(e) {
+      e.cyTarget.style({
+        'line-color': '#D84315',
+        'opacity' : '1'
+      })
+  })
+
+  graph.on('mouseout', 'edge', function(e) {
+    e.cyTarget.style({
+      'line-color': 'gray',
+      'opacity' : '.7'
+    })
+  })
+
+  graph.on('mouseover', 'edge', function(e) {
+      e.cyTarget.style({
+        'line-color': "#D84315"
+      })
+  })
   graph.on('mouseover', 'node', function(e) {
 
     e.cyTarget.style({
