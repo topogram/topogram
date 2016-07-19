@@ -24,7 +24,6 @@ mobile-experience
 blaze-html-templates
 spacebars
 jquery
-mrt:flash-messages
 babrahams:editable-text
 
 fourseven:scss

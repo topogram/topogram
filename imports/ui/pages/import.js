@@ -3,9 +3,10 @@ import { Meteor } from 'meteor/meteor'
 import { Template } from 'meteor/templating'
 import { ReactiveVar } from 'meteor/reactive-var'
 import Papa from 'papaparse'
-import { FlashMessages } from 'meteor/mrt:flash-messages'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { $ } from 'meteor/jquery'
+
+import { FlashMessages } from '../flashMessages/flashMessages.js'
 
 // import '../../api/edges/edgesMethods.js'
 // import '../../api/nodes/nodesMethods.js'

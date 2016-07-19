@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { $ } from "meteor/jquery"
 import { Meteor } from 'meteor/meteor'
 import { FlowRouter } from 'meteor/kadira:flow-router'
-import { FlashMessages } from 'meteor/mrt:flash-messages'
+import { FlashMessages } from '../../flashMessages/flashMessages.js'
 
 
 Template.addTopogram.events( {

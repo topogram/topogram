@@ -8,7 +8,6 @@ import { $ } from 'meteor/jquery'
 Template.shareBox.helpers( {
   'sharedPublic' :function() {
     var t = Topograms.findOne()
-    console.log(t)
     return (t) ? t.sharedPublic : false
   }
 })

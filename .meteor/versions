@@ -63,8 +63,6 @@ modules@0.6.4
 modules-runtime@0.6.4_1
 mongo@1.1.9_1
 mongo-id@1.0.5
-mongo-livedata@1.0.12
-mrt:flash-messages@1.0.1
 nimble:restivus@0.8.11
 npm-bcrypt@0.8.6_1
 npm-mongo@1.4.44_1
