@@ -214,11 +214,11 @@ export const applyDefaultStyle = function() {
           }
         })
       // node with degree zero
-      .selector('node[[degree = 0]]')
-        .style({
-            'background-color': '#656565'
-            // 'display' :"none"
-        })
+      // .selector('node[[degree = 0]]')
+      //   .style({
+      //       'background-color': '#656565'
+      //       // 'display' :"none"
+      //   })
       .selector('node[group="ghosts"]')
       .style({
           'background-opacity': .5,
@@ -279,7 +279,8 @@ export const mouseActions = function(graph) {
   })
 
   graph.on('mouseover', 'node', function(e) {
-      e.cyTarget.style({
+
+    e.cyTarget.style({
         'border-width': 2,
         'font-size' : 8,
         'color' : 'black',
@@ -287,23 +288,17 @@ export const mouseActions = function(graph) {
           return d.data("name") ? d.data("name") : ""
         },
         'z-index': 300000
-      })
+    })
 
-      e.cyTarget.connectedEdges().css({
-        'line-color' : function(d) {
-            return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
-          }
-      })
-      //e.cyTarget.css({
-      //   'text-opacity' : function(d){
-      //     return  (d.style('text-opacity') == "1") ? "0" : "1"
-      //   },
-      //   'line-color' : function(d) {
-      //     return d.style('line-color') == "green" ? "#AAAAAA" : "green"
-      //   }
-      // })
+    e.cyTarget.connectedEdges().css({
+      'line-color' : function(d) {
+          return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
+        }
+    })
   })
+
   graph.on('mouseout', 'node', function(e) {
+
       e.cyTarget.style({
         'border-width': function(d) {
           return (d.data("group") == "ghosts") ? 3 : 0
@@ -314,6 +309,7 @@ export const mouseActions = function(graph) {
           return d.data("name") ? d.data("name").trunc(20) : ""
         }
       })
+
       e.cyTarget.connectedEdges().css({
         'line-color' : function(d) {
             return "#AAAAAA"
@@ -321,6 +317,7 @@ export const mouseActions = function(graph) {
       })
   })
 }
+
 
 export const setEdgeHandles = function(graph, state) {
     (state) ? graph.edgehandles("enable") : graph.edgehandles("disable")
