@@ -1,11 +1,12 @@
 import './infoBox.html'
+import './infoBox.css'
 import { Template } from 'meteor/templating'
 
 import './nodeInfo/nodeInfo.js'
 import './edgeInfo/edgeInfo.js'
-import './pieChart/pieChart.js'
 import '../../boxes/commentBox/commentBox.js'
 import '../../boxes/nodeMerge/nodeMerge.js'
+import './nodeNeighborhood/nodeNeighborhood.js'
 
 import { $ } from 'meteor/jquery'
 
@@ -26,6 +27,11 @@ Template.infoBox.helpers({
   currentSelection: function() {
       var item = getCurrentSelection()
       return item
+  },
+  hasNeighbors: function() {
+    let network = Template.instance().data.network.get()
+    let node = getCurrentSelection()
+    if(node.data) return network.nodes().filter("[id='"+node.data.id+"']").neighborhood().length
   },
   target : function() {
     var network = Template.instance().data.network.get()
@@ -49,7 +55,17 @@ Template.infoBox.events = {
     'click #closeInfoBox': function( ) {
         var network = Template.instance().data.network.get()
         network.deselectAll()
-    }
+    },
+    'click #toggle-node-neighborhood': function( ) {
+        $('#node-neighborhood').toggle()
+    },
+    'click #toggle-commentBox': function( ) {
+        $("#commentBox").toggle()
+    },
+    'click #toggle-targetSearch': function( ) {
+        $("#targetSearch").toggle()
+    },
+
 }
 
 // get current node

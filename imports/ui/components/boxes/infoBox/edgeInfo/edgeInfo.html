@@ -1,11 +1,4 @@
 <template name="edgeInfo">
-  <ul class="card-content collection with-header">
-    <li>
-      <span id="closeInfoBox"><i class="material-icons right">close</i></span>
-      <p class="activator grey-text text-darken-4">
-        <i class="material-icons right">more_vert</i>
-      </p>
-    </li>
     <li class="card-title collection-header">
       <span class="editable-text-trigger">
         {{#if edge.data.name }}
@@ -29,5 +22,4 @@
         <span class="badge">Weight</span>
          {{> editableText context=edge collection="edges" field="data.weight"}}
     </li>
-  </ul>
 </template>

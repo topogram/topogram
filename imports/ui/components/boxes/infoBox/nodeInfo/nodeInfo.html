@@ -1,11 +1,4 @@
 <template name="nodeInfo">
-  <ul class="card-content collection with-header">
-    <li>
-      <span id="closeInfoBox"><i class="material-icons right">close</i></span>
-      <p class="activator grey-text text-darken-4">
-        <i class="material-icons right">more_vert</i>
-      </p>
-    </li>
     <li class="card-title collection-header">
       <span class="editable-text-trigger">
         {{#if node.data.name }}
@@ -41,26 +34,6 @@
         <span class="badge">Longitude</span>
          {{> editableText context=node collection="nodes" field="data.lng"}}
     </li>
-  </ul>
-  <ul class="collapsible" data-collapsible="expandable">
-    {{#if neighborhood.length }}
-      <li>
-        <div class="collapsible-header"><i class="material-icons">games</i>Neighborhood</div>
-        <ul class="collection collapsible-body">
-          {{> pieChart dataCount=neighborhoodTypeCount}}
-          {{#each neighborhood }}
-              <li class="collection-item">
-                <span class="badge">
-                  <svg data-category="{{this.name}}" height="10" width="10">
-                    <circle cx="5" cy="5" r="5" fill="{{this.color}}" stroke-width="0"/>
-                  </svg> {{this.group}}
-                </span>
-                {{this.name}}
-              </li>
-          {{/each}}
-        </ul>
-      </li>
-    {{/if}}
     <!-- <li>
       <div class="collapsible-header"><i class="material-icons">view_list</i>Data</div>
       <ul class="collection collapsible-body">
@@ -71,5 +44,4 @@
         {{/each}}
       </ul>
     </li> -->
-  </ul>
 </template>
