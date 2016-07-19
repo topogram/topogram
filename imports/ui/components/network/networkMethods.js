@@ -235,7 +235,7 @@ export const applyDefaultStyle = function() {
             return e.data("weight") ? e.data("weight") : .5
           },
           'line-color' : '#AAAAAA',
-          'line-opacity': .5,
+          'opacity': .7,
           'font-size':8,
           'text-opacity' : 0, // hide label by default
           'label': function(e) {
@@ -290,11 +290,18 @@ export const mouseActions = function(graph) {
         'z-index': 300000
     })
 
-    e.cyTarget.connectedEdges().css({
+    let edges = e.cyTarget.connectedEdges()
+    edges.css({
       'line-color' : function(d) {
           return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
-        }
+        },
+        'opacity' : "1"
     })
+
+    graph.edges().difference( edges ).css({
+      'opacity' : ".2"
+    })
+
   })
 
   graph.on('mouseout', 'node', function(e) {
@@ -315,6 +322,9 @@ export const mouseActions = function(graph) {
             return "#AAAAAA"
           }
       })
+
+      // reset opacity
+      graph.edges().css({ 'opacity' : ".7" })
   })
 }
 
