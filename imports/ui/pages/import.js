@@ -22,57 +22,41 @@ Template.import.onCreated( function() {
 
     var self = this
     this.parseData = function(csvData) {
-      var lines = csvData.split( '\n' )
 
-      //remove empty lines
-      lines = lines.filter( function( line ) {
-          return line != ''
-      } )
+      // TODO : make UI for those options
+      var parsingOptions = {
+          header: true
+      }
 
-      //check all lines have the same nb of datum
-      var nbDatum = lines[ 0 ].split( ',' ).length
-      // console.log( 'nbDatum:', nbDatum )
-      if ( lines.filter( function( l ) {
-          l.split( ',' ).length != nbDatum
-      } ).length != 0 ) {
-          console.log( "all lines don't have the same nb of datum" )
-      } else {
-          console.log( "data seems safe" )
+      var data = Papa.parse( csvData, parsingOptions )
 
-          // TODO : make UI for those options
-          var parsingOptions = {
-              header: true
+      if ( data.meta.fields ) {
+        // check if there is any points in the fields
+        data.meta.fields.forEach(function(fieldName){
+          if(fieldName.split(".").length > 1) {
+            data.errors.push({
+              "message" : "the headers'"+ fieldName + "' contains the forbidden character : '.'"
+            })
           }
+        })
+      }
 
-          var data = Papa.parse( csvData, parsingOptions )
-          console.log( data )
-
-          // check if there is any points in the fields
-          data.meta.fields.forEach(function(fieldName){
-            if(fieldName.split(".").length > 1) {
-              data.errors.push({
-                "message" : "the column name'"+ fieldName + "' contains the forbidden character : '.'"
-              })
-            }
+      if ( data.errors.length ) {
+          data.errors.forEach( error => {
+              self.newLayerDataReady.set(false)
+              console.log(error);
+              var msg = 'CSV Error: '
+              if ( error.row ) msg += '[' + error.row + '] '
+              msg += error.message
+              FlashMessages.sendError( msg )
           })
+      } else {
+          var message = 'CSV parsed succesfully : ' + data.data.length + ' records'
+          FlashMessages.sendSuccess( message )
 
-          if ( data.errors.length ) {
-              for ( var error in data.errors) {
-                  self.newLayerDataReady.set(false)
-
-                  var msg = 'CSV parsing Error '
-                  if ( error.row ) msg += 'at row: ' + error.row + ' '
-                  message += error.message
-                  FlashMessages.sendError( msg )
-              }
-          } else {
-              var message = 'CSV parsed succesfully : ' + data.data.length + ' records'
-              FlashMessages.sendSuccess( message )
-
-              // keep data
-              self.newLayerDataReady.set(true )
-              self.dataFields.set(data.meta.fields)
-          }
+          // keep data
+          self.newLayerDataReady.set(true )
+          self.dataFields.set(data.meta.fields)
       }
     }
 })
