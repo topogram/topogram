@@ -31,11 +31,8 @@ Template.topogramView.helpers({
   networkInstance : function(){
     return Template.instance().network
   },
-  topogramName : function() {
-    var t = Topograms.findOne()
-    return t ? t.name : null
-  },
-  topogramId : function(){
-    return FlowRouter.getParam('topogramId')
+  topogram : function() {
+    var t = Topograms.findOne({"_id": FlowRouter.getParam('topogramId')})
+    return t
   }
 })

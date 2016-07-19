@@ -1,9 +1,9 @@
 <template name="topogramView">
   {{#if Template.subscriptionsReady }}
-    {{> network network=networkInstance topogramId=topogramId readOnlyMode=true}}
+    {{> network network=networkInstance topogramId=topogram.id readOnlyMode=true}}
     <div id="toolkit" class="row">
       <div class="toolbox col s3">
-        {{> titleBox topogramName=topogramName network=networkInstance advancedEditMode=false}}
+        {{> titleBox topogram=topogram network=networkInstance advancedEditMode=false}}
         {{> searchBox network=networkInstance searchName="mainSearch" type="source" placeholder="Lookup a node"}}
         <!-- {{> filterBox }} -->
       </div>
