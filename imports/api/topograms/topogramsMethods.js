@@ -18,6 +18,7 @@ Meteor.methods( {
 
     createTopogram: function( ownerId, name ) {
         // make sure that a topogram with the same name and same user does not already exists
+        console.log(ownerId);
         var t = Topograms.find({ "name" : name, "owner": ownerId }).fetch()
         if (t.length)
           return {
@@ -27,10 +28,11 @@ Meteor.methods( {
           }
 
         return Topograms.insert( {
-            "name": name,
-            "slug": slugify( name ),
-            createdAt: new Date(), // current time
-            owner: ownerId // _id of logged in user
+            'name': name,
+            'slug': slugify( name ),
+            'createdAt': new Date(), // current time
+            'sharedPublic' : false,
+            'owner': ownerId // _id of logged in user
                 // username: Meteor.user().username  // username of logged in user
         } )
     },
@@ -38,7 +40,7 @@ Meteor.methods( {
     makePublic: function( _id ) {
         return Topograms.update( _id, {
             $set: {
-                "sharedPublic": 1
+                "sharedPublic": true
             }
         } )
     },
@@ -46,7 +48,7 @@ Meteor.methods( {
     makePrivate: function( _id ) {
         return Topograms.update( _id, {
             $set: {
-                "sharedPublic": 0
+                "sharedPublic": false
             }
         } )
     },

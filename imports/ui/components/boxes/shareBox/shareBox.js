@@ -8,6 +8,7 @@ import { $ } from 'meteor/jquery'
 Template.shareBox.helpers( {
   'sharedPublic' :function() {
     var t = Topograms.findOne()
+    console.log(t)
     return (t) ? t.sharedPublic : false
   }
 })
@@ -17,8 +18,8 @@ Template.shareBox.events( {
       $("#shareBox").hide()
     },
     "change #shared-public": function( event ) {
-        // console.log(event.target.checked)
-        if ( event.target.checked ) Meteor.call( "makePublic", this.topogramId )
-        else Meteor.call( "makePrivate", this.topogramId )
+        let topogramId = FlowRouter.getParam('topogramId')
+        if ( event.target.checked ) Meteor.call( "makePublic", topogramId )
+        else Meteor.call( "makePrivate", topogramId )
     }
 } )
