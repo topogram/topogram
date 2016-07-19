@@ -32,6 +32,7 @@ Template.import.onCreated( function() {
       if(csvData.slice(-1) ==  '\n') csvData = csvData.slice(0, - 1)
 
       var data = Papa.parse( csvData, parsingOptions )
+      console.log(data)
 
       if ( data.meta.fields ) {
         // check if there is any points in the fields
@@ -44,10 +45,20 @@ Template.import.onCreated( function() {
         })
       }
 
-      if ( data.errors.length ) {
+      // if single row only, the parser lib throw an error, so catch it and parse single row data
+      if ( data.errors.length == "1" && data.errors[0].code == "UndetectableDelimiter" && data.meta.fields.length == 1) {
+
+        var message = 'CSV parsed succesfully : ' + data.data.length + ' records'
+        FlashMessages.sendSuccess( message )
+
+        // keep data
+        self.newLayerDataReady.set(true )
+        self.dataFields.set(data.meta.fields)
+
+      // check for errors
+      } else if (data.errors.length) {
           data.errors.forEach( error => {
               self.newLayerDataReady.set(false)
-              console.log(error);
               var msg = 'CSV Error: '
               if ( error.row ) msg += '[row ' + error.row + '] '
               msg += error.message
