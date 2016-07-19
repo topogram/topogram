@@ -28,6 +28,9 @@ Template.import.onCreated( function() {
           header: true
       }
 
+      // if the last line is empty, remove it to avoid parsing errors
+      if(csvData.slice(-1) ==  '\n') csvData = csvData.slice(0, - 1)
+
       var data = Papa.parse( csvData, parsingOptions )
 
       if ( data.meta.fields ) {
@@ -46,7 +49,7 @@ Template.import.onCreated( function() {
               self.newLayerDataReady.set(false)
               console.log(error);
               var msg = 'CSV Error: '
-              if ( error.row ) msg += '[' + error.row + '] '
+              if ( error.row ) msg += '[row ' + error.row + '] '
               msg += error.message
               FlashMessages.sendError( msg )
           })
