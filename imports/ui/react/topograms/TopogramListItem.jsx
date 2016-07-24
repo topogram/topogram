@@ -3,6 +3,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 
 import { FlowRouter } from 'meteor/kadira:flow-router'
+import moment from 'moment'
 
 const convertDate = (date) => {
   if( typeof(date) == "string" ) return
@@ -16,12 +17,10 @@ const TopogramListItem = React.createClass({
     date: new Date()
    }
   },
-  _onClickItem (e) { FlowRouter.go('topograms/'+this.props._id) },
   render() {
-    console.log(this)
-    console.log("this.props: ", this.props.date)
 
-    let parsedDate = (this.props.date) ?  "this.props.date" : ""
+    let parsedDate = (this.props.date) ?  moment(this.props.date).fromNow() : ""
+    let url = 'topograms/'+this.props._id
 
     return (
     <div className="col s3">
@@ -29,8 +28,14 @@ const TopogramListItem = React.createClass({
       <CardHeader
         title={this.props.title}
         subtitle={parsedDate}
-        onClick={this._onClickItem}
       />
+      <CardActions>
+        <FlatButton
+          label="Browse"
+          secondary={true}
+          href={url}
+        />
+      </CardActions>
      </Card>
     </div>
   )}

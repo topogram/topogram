@@ -2,13 +2,20 @@ import { Router } from 'meteor/kadira:flow-router'
 import { Meteor } from 'meteor/meteor'
 import { AccountsTemplates } from 'meteor/useraccounts:core'
 
+
+import React from 'react';
+import {mount} from 'react-mounter';
+
+import mainLayout from '../../../ui/layouts/mainLayout.jsx'
+import ImportDataPage from '../../../ui/pages/import.jsx'
+
+
 // Import to load these templates and layout
 import '../../../ui/layouts/mainLayout.js'
 import '../../../ui/layouts/networkLayout.js'
 import '../../../ui/pages/topograms/topograms-edit.js'
 import '../../../ui/pages/topograms/topograms-index.js'
 import '../../../ui/pages/topograms/topograms-view.js'
-import '../../../ui/pages/import.js'
 import '../../../ui/pages/lab.js'
 
 FlowRouter.route( '/topograms', {
@@ -48,8 +55,11 @@ FlowRouter.route( '/topograms/:topogramId/lab', {
 FlowRouter.route( '/topograms/:topogramId/import', {
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
-      BlazeLayout.render( 'mainLayout', { main : 'import',
-                "topogramId": params.topogramId
-        } )
+    mount(mainLayout, {
+        content: (<ImportDataPage topogramId={params.topogramId}/>)
+    });
+
+
+
     }
 } )

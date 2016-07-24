@@ -11,6 +11,6 @@ const HomeHeader = ({name}) => (
       <h4>Social network analysis for Humans</h4>
       <p>An open-source toolkit to process, visualize and analyze networks.</p>
   </section>
-);
+)
 
 export default HomeHeader
