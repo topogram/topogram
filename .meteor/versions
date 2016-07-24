@@ -50,7 +50,6 @@ launch-screen@1.0.12
 livedata@1.0.18
 localstorage@1.0.11
 logging@1.0.13_1
-materialize:materialize@0.97.6
 meteor@1.1.15_1
 meteor-base@1.0.4
 mikowals:batch-insert@1.1.13
@@ -77,6 +76,7 @@ promise@0.7.2_1
 raix:handlebar-helpers@0.2.5
 random@1.0.10
 rate-limit@1.0.5
+react-template-helper@0.2.9
 reactive-dict@1.1.8
 reactive-var@1.0.10
 reload@1.1.10
@@ -96,6 +96,7 @@ standard-minifier-css@1.0.7_1
 standard-minifier-js@1.0.7_1
 templating@1.1.12_1
 templating-tools@1.0.4
+tmeasday:check-npm-versions@0.2.0
 tmeasday:test-reporter-helpers@0.2.1
 tracker@1.0.14
 udondan:bulk-collection-update@0.2.0
@@ -104,7 +105,6 @@ underscore@1.0.9
 url@1.0.10
 useraccounts:core@1.14.2
 useraccounts:flow-routing@1.14.2
-useraccounts:materialize@1.14.2
 webapp@1.2.9_1
 webapp-hashing@1.0.9
 xolvio:cleaner@0.3.1

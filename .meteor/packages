@@ -27,7 +27,6 @@ jquery
 babrahams:editable-text
 
 fourseven:scss
-materialize:materialize
 
 # js libs
 sergeyt:typeahead
@@ -35,7 +34,6 @@ sergeyt:typeahead
 # routing
 kadira:flow-router
 useraccounts:flow-routing
-useraccounts:materialize
 
 # db
 accounts-password
@@ -59,3 +57,4 @@ practicalmeteor:mocha
 xolvio:cleaner
 practicalmeteor:chai
 kadira:blaze-layout
+react-template-helper
