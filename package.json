@@ -24,7 +24,6 @@
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-komposer": "^1.13.1",
-    "react-mixin": "^3.0.5",
     "react-mounter": "^1.2.0",
     "react-tap-event-plugin": "^1.0.0",
     "react-toastr": "^2.7.0",
@@ -37,9 +36,9 @@
     "babel-preset-es2015": "^6.9.0",
     "chai": "^3.5.0",
     "daemon": "^1.1.0",
-    "eslint": "^2.11.1",
-    "eslint-plugin-import": "^1.9.2",
-    "eslint-plugin-meteor": "^3.0.1",
+    "eslint": "^3.1.1",
+    "eslint-plugin-import": "^1.11.1",
+    "eslint-plugin-meteor": "^3.6.0",
     "eslint-plugin-react": "^5.2.2",
     "gulp": "^3.9.1",
     "gulp-jshint": "^1.8.5",
@@ -49,54 +48,6 @@
     "gulp-shell": "^0.2.9",
     "jshint-stylish": "^1.0.0",
     "run-sequence": "^1.0.0"
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "meteor",
-      "react"
-    ],
-    "globals": {
-      "React": true
-    },
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "env": {
-      "es6": true,
-      "browser": true,
-      "node": true,
-      "jasmine": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:import/errors",
-      "plugin:import/warnings"
-    ],
-    "rules": {
-      "no-console": 0,
-      "meteor/eventmap-params": [
-        2,
-        {
-          "eventParamName": "event",
-          "templateInstanceParamName": "instance"
-        }
-      ],
-      "meteor/template-names": [
-        0
-      ],
-      "import/no-unresolved": [
-        2,
-        {
-          "ignore": [
-            "^meteor/"
-          ]
-        }
-      ]
-    }
   },
   "scripts": {
     "start": "meteor",
@@ -109,7 +60,7 @@
     "url": "https://github.com/topogram/topogram-client.git"
   },
   "author": "Clément Renaud <hi@clementrenaud.com> (http://clementrenaud.com/)",
-  "license": "GPL",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/topogram/topogram-client/issues"
   },

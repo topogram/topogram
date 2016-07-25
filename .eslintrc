@@ -1,0 +1,85 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "meteor",
+    "react",
+    "jsx-a11y"
+  ],
+  "globals": {
+    "React": true
+  },
+  "ecmaFeatures": {
+    "jsx": true,
+    "blockBindings": true,
+    "forOf": true,
+    "restParams": true
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "meteor" : true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+  ],
+  "rules": {
+    "no-console": 0,
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "keyword-spacing": [2, { "before": true ,  "after": true }],
+    "linebreak-style": [2, "unix"],
+    "no-underscore-dangle": 0,
+    "curly": [2, "multi"],
+    "no-use-before-define": [2, "nofunc"],
+    "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
+
+    "space-before-blocks": [2, "always"],
+    "semi-spacing": [2, {"before": false, "after": true}],
+    "no-var": 2,
+    "object-shorthand": [2, "always"],
+    "prefer-const": 2,
+    "arrow-body-style": [2, "as-needed"],
+
+    "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 2}],
+
+    "react/display-name": 0, // Prevent missing displayName in a React component definition
+    "react/jsx-no-undef": 2, // Disallow undeclared variables in JSX
+    "react/jsx-sort-props": 0, // Enforce props alphabetical sorting
+    "react/jsx-uses-react": 2, // Prevent React to be incorrectly marked as unused
+    "react/jsx-uses-vars": 2, // Prevent variables used in JSX to be incorrectly marked as unused
+    "react/no-did-mount-set-state": 2, // Prevent usage of setState in componentDidMount
+    "react/no-did-update-set-state": 2, // Prevent usage of setState in componentDidUpdate
+    "react/no-multi-comp": 0, // Prevent multiple component definition per file
+    "react/no-unknown-property": 2, // Prevent usage of unknown DOM property
+    "react/prop-types": 2, // Prevent missing props validation in a React component definition
+    "react/react-in-jsx-scope": 2, // Prevent missing React when using JSX
+    "react/self-closing-comp": 2, // Prevent extra closing tags for components without children
+    "react/wrap-multilines": 2, // Prevent missing parentheses around multilines JSX
+
+    "meteor/eventmap-params": [
+      2,
+      {
+        "eventParamName": "event",
+        "templateInstanceParamName": "instance"
+      }
+    ],
+    "meteor/template-names": [
+      0
+    ],
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": [
+          "^meteor/"
+        ]
+      }
+    ]
+  }
+}
