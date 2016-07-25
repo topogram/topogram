@@ -5,9 +5,10 @@ import React from 'react'
 import {mount} from 'react-mounter'
 
 import mainLayout from '../../../ui/layouts/mainLayout.jsx'
+
 import ImportDataPage from '../../../ui/pages/import.jsx'
 import LabPage from '../../../ui/pages/lab.jsx'
-
+import Topograms from '../../../ui/pages/topograms.jsx'
 
 FlowRouter.route( '/topograms/:topogramId/lab', {
   triggersEnter: [AccountsTemplates.ensureSignedIn],
@@ -29,23 +30,17 @@ FlowRouter.route( '/topograms/:topogramId/import', {
 })
 
 
+FlowRouter.route( '/topograms', {
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    mount(mainLayout, {
+      content: (<Topograms />)
+    })
+  }
+})
+
 /*
 // Import to load these templates and layout
-import '../../../ui/layouts/mainLayout.js'
-import '../../../ui/layouts/networkLayout.js'
-import '../../../ui/pages/topograms/topograms-edit.js'
-import '../../../ui/pages/topograms/topograms-index.js'
-import '../../../ui/pages/topograms/topograms-view.js'
-import '../../../ui/pages/lab.js'
-
-
-FlowRouter.route( '/topograms', {
-    triggersEnter: [AccountsTemplates.ensureSignedIn],
-    "name" : "topograms.index",
-    action () {
-        BlazeLayout.render("mainLayout", { main: "topograms" });
-    }
-} )
 
 FlowRouter.route( '/topograms/:topogramId', {
   triggersEnter: [AccountsTemplates.ensureSignedIn],

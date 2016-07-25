@@ -3,7 +3,7 @@ import React from 'react'
 import {mount} from 'react-mounter'
 
 import mainLayout from '../../../ui/layouts/mainLayout.jsx'
-import { Welcome } from '../../../ui/pages/home.jsx'
+import Welcome from '../../../ui/pages/home.jsx'
 import NotFoundPage from '../../../ui/components/NotFoundPage.jsx'
 
 //Render homepage with React

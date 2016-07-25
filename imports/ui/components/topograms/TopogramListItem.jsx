@@ -15,7 +15,8 @@ const TopogramListItem = React.createClass({
   render() {
 
     let parsedDate = (this.props.date) ?  moment(this.props.date).fromNow() : ''
-    let url = 'topograms/'+this.props._id
+    let url = '/topograms/'+this.props._id
+    let dataUrl = '/topograms/' + this.props._id + '/lab'
 
     return (
     <div className={this.props.classNames}>
@@ -27,8 +28,13 @@ const TopogramListItem = React.createClass({
       <CardActions>
         <FlatButton
           label="Browse"
-          secondary={true}
+          primary={true}
           href={url}
+        />
+        <FlatButton
+          label="Data"
+          secondary={true}
+          href={dataUrl}
         />
       </CardActions>
      </Card>
