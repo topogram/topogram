@@ -13,7 +13,7 @@ let buttonStyle = { margin: 12 }
 const TopogramAddForm = React.createClass({
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this);
+    console.log(this)
     const topogramName = this.refs.topogramName.getValue()
     if ( topogramName != '' ) {
       Meteor.call( 'createTopogram', Meteor.userId(), topogramName, function (err, topogram) {
@@ -21,7 +21,8 @@ const TopogramAddForm = React.createClass({
         if (topogram.status == 'error') this.refs.flash.sendError(topogram.message)
         else FlowRouter.go( '/topograms/' + topogram + '/import' )
       })
-    } else {
+    }
+    else {
       this.refs.flash.sendError( 'TopogramName should not be empty' )
     }
   },

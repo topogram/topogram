@@ -2,12 +2,12 @@ import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 // fix material-ui select bug
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
 
 
-import RaisedButton from 'material-ui/RaisedButton';
-import { Card, SelectField, MenuItem } from 'material-ui';
+import RaisedButton from 'material-ui/RaisedButton'
+import { Card, SelectField, MenuItem } from 'material-ui'
 
 import { makeNode, makeEdge } from '../../api/modelsHelpers.js'
 
@@ -53,7 +53,7 @@ const ImportDataPage = React.createClass({
     }
   },
   _setElementType(type) {
-    console.log(type);
+    console.log(type)
     this.setState({ elementType : type })
   },
   _setDataState(dataState, CSVfields, parsedCSVData) {
@@ -65,7 +65,7 @@ const ImportDataPage = React.createClass({
     })
   },
   _submitData(e) {
-    e.preventDefault();
+    e.preventDefault()
     console.log(this.refs)
 
     // map selected fields
@@ -127,7 +127,8 @@ const ImportDataPage = React.createClass({
         this.refs.flash.sendSuccess( 'Success ! : ' + edges.length + ' edges created.' )
         FlowRouter.go( '/topograms/' + topogramId + '/lab' )
       })
-    } else if ( this.state.elementType == 'nodes' ) {
+    }
+    else if ( this.state.elementType == 'nodes' ) {
       Meteor.call( 'batchInsertNodes', parsedData, (err, nodes) => {
         if (err) throw err
         console.log(nodes)
@@ -139,7 +140,7 @@ const ImportDataPage = React.createClass({
   render() {
     let typeSelector,
       element,
-      submitButton;
+      submitButton
 
     if (this.state.dataIsReady) {
       typeSelector = (<ElementTypeSelector
@@ -177,7 +178,7 @@ const ImportDataPage = React.createClass({
     if (this.state.elementType == 'nodes') element = importNodes()
     else if (this.state.elementType == 'edges') element = importEdges()
 
-    let selector;
+    let selector
     if (this.state.dataIsReady) {
       selector = (<Card>
         {typeSelector}

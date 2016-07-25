@@ -18,7 +18,7 @@ Meteor.methods( {
 
   createTopogram( ownerId, name ) {
         // make sure that a topogram with the same name and same user does not already exists
-    console.log(ownerId);
+    console.log(ownerId)
     const t = Topograms.find({ name, 'owner': ownerId }).fetch()
     if (t.length) {
       return {
@@ -68,7 +68,8 @@ Meteor.methods( {
         // guard against client-side DOS: hard limit to 50
     if ( options.limit ) {
       options.limit = Math.min( 50, Math.abs( options.limit ) )
-    } else {
+    }
+    else {
       options.limit = 50
     }
 

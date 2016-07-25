@@ -14,15 +14,16 @@ const renderIfData = ( topograms ) => {
         />
       )
     )
-  } else {
-    return <p>No topograms yet!</p>;
   }
-};
+  else {
+    return <p>No topograms yet!</p>
+  }
+}
 
 const TopogramList = ({topograms}) => (
   <div className="grid-pad">
     { renderIfData( topograms ) }
   </div>
-);
+)
 
 export default TopogramList

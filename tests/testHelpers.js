@@ -7,7 +7,7 @@ describe('The Main Helpers: ', () => {
       expect(slugify('Marie Antoinette')).to.equal('marie-antoinette')
     )
   })
-});
+})
 
 
 /*

@@ -11,9 +11,9 @@ FlowRouter.route('/', {
   action() {
     mount(mainLayout, {
       content: (<Welcome name="Welcome to Topogram"/>)
-    });
+    })
   }
-});
+})
 
 
 //404
@@ -22,6 +22,6 @@ FlowRouter.notFound = {
   action() {
     mount(mainLayout, {
       content: (<NotFoundPage />)
-    });
+    })
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SelectField, MenuItem, Checkbox } from 'material-ui';
+import { SelectField, MenuItem, Checkbox } from 'material-ui'
 
 const ImportFieldSelector = React.createClass({
   getDefaultProps() {
@@ -24,7 +24,7 @@ const ImportFieldSelector = React.createClass({
   },
   render() {
     let checkbox,
-      select;
+      select
 
     let items = this.props.fields.map( (item, i) =>
       <MenuItem

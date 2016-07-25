@@ -21,13 +21,13 @@ const Api = new Restivus({
 
 Api.addRoute('', {authRequired: false}, {
   get() {
-    return { 'message' : 'API works'};
+    return { 'message' : 'API works'}
   }
 })
 
 Api.addRoute('publicTopograms', {authRequired: false}, {
   get() {
-    return Topograms.find({ 'sharedPublic': 1}).fetch();
+    return Topograms.find({ 'sharedPublic': 1}).fetch()
   }
 })
 
@@ -42,7 +42,7 @@ Api.addCollection(Topograms, {
       statusCode : 201,
       action() {
         const _id = Meteor.call('createTopogram', this.userId, this.bodyParams.name)
-        console.log(_id);
+        console.log(_id)
         if (typeof(_id) == String) {
           return {
             'status': 'success',
@@ -181,7 +181,8 @@ Api.addCollection(Nodes, {
             'status': 'success',
             'data': Nodes.findOne(_id)
           }
-        } else {
+        }
+        else {
           const self= this
           const nodesBuilt = nodes.map(function (d) { return makeNode(topogramId, d.element, d.data, self.userId) })
           const _ids = Meteor.call( 'batchInsertNodes', nodesBuilt)
@@ -249,7 +250,8 @@ Api.addCollection(Edges, {
             'status': 'success',
             'data': Edges.findOne(_id)
           }
-        } else {
+        }
+        else {
           const self= this
           const edgesBuilt = edges.map(function (d) { return makeEdge(topogramId, d.element, d.data, self.userId) })
           const _ids = Meteor.call( 'batchInsertEdges', edgesBuilt)

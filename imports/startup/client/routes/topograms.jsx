@@ -1,8 +1,8 @@
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { AccountsTemplates } from 'meteor/useraccounts:core'
 
-import React from 'react';
-import {mount} from 'react-mounter';
+import React from 'react'
+import {mount} from 'react-mounter'
 
 import mainLayout from '../../../ui/layouts/mainLayout.jsx'
 import ImportDataPage from '../../../ui/pages/import.jsx'
@@ -14,7 +14,7 @@ FlowRouter.route( '/topograms/:topogramId/lab', {
   action(params) {
     mount(mainLayout, {
       content: (<LabPage topogramId={params.topogramId}/>)
-    });
+    })
   }
 })
 
@@ -24,7 +24,7 @@ FlowRouter.route( '/topograms/:topogramId/import', {
   action(params) {
     mount(mainLayout, {
       content: (<ImportDataPage topogramId={params.topogramId}/>)
-    });
+    })
   }
 })
 

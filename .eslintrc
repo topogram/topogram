@@ -30,21 +30,23 @@
   "rules": {
     "no-console": 0,
     "indent": [2, 2],
+    "semi" : ["error", "never"],
     "quotes": [2, "single"],
-    "keyword-spacing": [2, { "before": true ,  "after": true }],
     "linebreak-style": [2, "unix"],
+    "brace-style" : [2, "stroustrup", { "allowSingleLine": true }],
+    "keyword-spacing": [2, { "before": true ,  "after": true }],
+    "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
+    "space-before-blocks": [2, "always"],
+
     "no-underscore-dangle": 0,
     "curly": [2, "multi-line"],
     "no-use-before-define": [2, "nofunc"],
-    "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
 
-    "space-before-blocks": [2, "always"],
-    "semi-spacing": [2, {"before": false, "after": true}],
+
     "no-var": 2,
     "object-shorthand": [2, "always"],
     "prefer-const": 2,
     "arrow-body-style": [2, "as-needed"],
-
     "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 2}],
 
     "jsx-quotes": 1,

@@ -48,7 +48,8 @@ const ImportDataFile = React.createClass({
         this.props.onDataChange(true, data.meta.fields, data)
 
       // check for errors
-      } else if (data.errors.length) {
+      }
+      else if (data.errors.length) {
         data.errors.forEach( error => {
           this.props.onDataChange(false)
           let msg = 'CSV Error: '
@@ -56,7 +57,8 @@ const ImportDataFile = React.createClass({
           msg += error.message
           this.refs.flash.sendError( msg )
         })
-      } else {
+      }
+      else {
         const message = 'CSV parsed succesfully : ' + data.data.length + ' records'
         this.refs.flash.sendSuccess( message )
 
@@ -89,8 +91,8 @@ const ImportDataFile = React.createClass({
 
   },
   _openFileDialog() {
-    const fileUploadDom = this.refs.fileUpload;
-    fileUploadDom.click();
+    const fileUploadDom = this.refs.fileUpload
+    fileUploadDom.click()
   },
   render() {
     return (

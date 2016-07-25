@@ -5,7 +5,7 @@ import { Session } from 'meteor/session'
 
 const Version = React.createClass({
   render() {
-    let version = '';
+    let version = ''
     Meteor.call('getVersion', (err, data) => {
       if (err) throw err
       Session.set('version', data)

@@ -29,4 +29,4 @@ AccountsTemplates.configure( {
     // Privacy Policy and Terms of Use
     //privacyUrl: 'privacy',
     //termsUrl: 'terms-of-use',
-} );
+} )

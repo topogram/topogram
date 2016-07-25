@@ -4,11 +4,11 @@ import './animate.css'
 import './toastr.min.css'
 import React from 'react'
 
-const ToastMessageFactory = React.createFactory(ToastMessage.animation);
+const ToastMessageFactory = React.createFactory(ToastMessage.animation)
 
 const FlashMessages = React.createClass({
   sendSuccess(msg, title) {
-    console.log(msg, title);
+    console.log(msg, title)
     this.refs.container.success(msg, title , {
       closeButton: true,
     })
