@@ -6,8 +6,8 @@ import { Edges, Nodes, Comments } from '../collections.js'
  *  COMMENTS
  */
 
-Meteor.publish( 'comments', function(topogramId) {
-    return Comments.find({ "topogramId" : topogramId})
+Meteor.publish( 'comments', function (topogramId) {
+  return Comments.find({ topogramId})
 })
 
 
@@ -16,17 +16,17 @@ Meteor.publish( 'comments', function(topogramId) {
  */
 
 
- Meteor.publish( 'edges', function( topogramId ) {
+Meteor.publish( 'edges', function ( topogramId ) {
 
-    var edges = Edges.find( {
-         'topogramId': topogramId
-     } )
+  const edges = Edges.find( {
+    topogramId
+  } )
      // console.log( edges.count(), "edges" )
-     return edges
- } )
+  return edges
+} )
 
 
-Meteor.publish( 'nodes', function( topogramId ) {
+Meteor.publish( 'nodes', function ( topogramId ) {
 
     // var edges = Edges.find( {
     //     "topogramId": topogramId
@@ -53,15 +53,15 @@ Meteor.publish( 'nodes', function( topogramId ) {
     //     return String(d)
     // }) } })
 
-    var nodes = Nodes.find( {
-        "topogramId": topogramId
-    } )
+  const nodes = Nodes.find( {
+    topogramId
+  } )
     // console.log( nodes.count(), "nodes" )
-    return nodes
+  return nodes
 } )
 
-Meteor.publish( 'nodesLab', function( topogramId ) {
-    return Nodes.find( {
-        "topogramId": topogramId
-    } )
+Meteor.publish( 'nodesLab', function ( topogramId ) {
+  return Nodes.find( {
+    topogramId
+  } )
 } )

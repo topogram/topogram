@@ -1,12 +1,12 @@
 import { AccountsTemplates } from 'meteor/useraccounts:core'
 
 AccountsTemplates.configure( {
-    defaultLayout: 'mainLayout',
-    defaultContentRegion: 'main',
-    showForgotPasswordLink: true,
-    overrideLoginErrors: true,
-    enablePasswordChange: true,
-    sendVerificationEmail: false,
+  defaultLayout: 'mainLayout',
+  defaultContentRegion: 'main',
+  showForgotPasswordLink: true,
+  overrideLoginErrors: true,
+  enablePasswordChange: true,
+  sendVerificationEmail: false,
 
     //enforceEmailVerification: true,
     //confirmPassword: true,
@@ -14,15 +14,15 @@ AccountsTemplates.configure( {
     //displayFormLabels: true,
     //forbidClientAccountCreation: false,
     //formValidationFeedback: true,
-    homeRoutePath: '/',
-    redirectTimeout: 4000,
+  homeRoutePath: '/',
+  redirectTimeout: 4000,
     //showAddRemoveServices: false,
     //showPlaceholders: true,
 
-    negativeValidation: true,
-    positiveValidation: true,
-    negativeFeedback: false,
-    positiveFeedback: false
+  negativeValidation: true,
+  positiveValidation: true,
+  negativeFeedback: false,
+  positiveFeedback: false
 
     // onSubmitHook: mySubmitFunc
 
