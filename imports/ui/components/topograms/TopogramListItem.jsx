@@ -1,13 +1,8 @@
 import React from 'react'
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-import { FlowRouter } from 'meteor/kadira:flow-router'
 import moment from 'moment'
-
-const convertDate = (date) => {
-  if ( typeof(date) == 'string' ) return
-}
 
 const TopogramListItem = React.createClass({
   getDefaultProps() {

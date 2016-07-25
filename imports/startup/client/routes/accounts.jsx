@@ -1,4 +1,3 @@
-import { FlowRouter } from 'meteor/kadira:flow-router'
 import { AccountsTemplates } from 'meteor/useraccounts:core'
 
 //UserAccounts Routes

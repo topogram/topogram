@@ -15,7 +15,7 @@ const ImportElementsForm = React.createClass({
           {this.props.children}
         </CardText>
         <CardActions>
-          <FlatButton type='submit' label="Create"/>
+          <FlatButton type="submit" label="Create"/>
         </CardActions>
       </form>
     </Card>

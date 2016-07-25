@@ -1,7 +1,5 @@
-import { Router } from 'meteor/kadira:flow-router'
-import { Meteor } from 'meteor/meteor'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 import { AccountsTemplates } from 'meteor/useraccounts:core'
-
 
 import React from 'react';
 import {mount} from 'react-mounter';

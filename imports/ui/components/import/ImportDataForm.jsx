@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardHeader, CardText, TextArea, RaisedButton, FlatButton } from 'material-ui'
+import { Card, CardHeader, CardText } from 'material-ui'
 
 import ImportDataFile from './ImportDataFile.jsx'
 

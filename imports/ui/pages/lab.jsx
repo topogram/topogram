@@ -3,6 +3,7 @@ import {Tabs, Tab} from 'material-ui/Tabs'
 
 import TopogramTitle from '../components/topograms/TopogramTitle.jsx'
 import NodesLab from '../components/lab/NodesLab.jsx'
+import EdgesLab from '../components/lab/EdgesLab.jsx'
 
 const LabPage = React.createClass({
   render() {

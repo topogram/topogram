@@ -41,7 +41,7 @@ const ImportDataFile = React.createClass({
       // if single row only, the parser lib throw an error, so catch it and parse single row data
       if ( data.errors.length == '1' && data.errors[0].code == 'UndetectableDelimiter' && data.meta.fields.length == 1) {
 
-        var message =  + data.data.length + ' records'
+        const message =  + data.data.length + ' records'
         this.refs.flash.sendSuccess( 'CSV parsed succesfully', message )
 
         // keep data
@@ -57,7 +57,7 @@ const ImportDataFile = React.createClass({
           this.refs.flash.sendError( msg )
         })
       } else {
-        var message = 'CSV parsed succesfully : ' + data.data.length + ' records'
+        const message = 'CSV parsed succesfully : ' + data.data.length + ' records'
         this.refs.flash.sendSuccess( message )
 
           // keep data
@@ -109,7 +109,7 @@ const ImportDataFile = React.createClass({
         </FlatButton>
         <p>{this.state.fileName}</p>
         <TextField
-          ref='dataText'
+          ref="dataText"
           hintText="Raw Data Field"
           floatingLabelText="Data goes here"
           multiLine={true}
@@ -125,7 +125,7 @@ const ImportDataFile = React.createClass({
           onClick={this._checkData}
         />
         <FlashMessages
-          ref='flash'
+          ref="flash"
         />
       </div>
     )

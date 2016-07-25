@@ -2,8 +2,6 @@ import React from 'react'
 import { TextField, RaisedButton } from 'material-ui'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 
-import { FlashMessages } from '../flashMessages/FlashMessages.jsx'
-
 let formStyle = {
   textAlign : 'center',
   margin : '4em auto',

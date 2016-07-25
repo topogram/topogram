@@ -30,13 +30,13 @@ const ElementTypeSelector = React.createClass({
   render() {
     return (
       <SelectField
-        floatingLabelText='select type'
-        ref='selectField'
+        floatingLabelText="select type"
+        ref="selectField"
         value={this.state.value}
         onChange={this._handleChange}
       >
-        <MenuItem value='nodes' primaryText="Nodes" />
-        <MenuItem value='edges' primaryText="Edges" />
+        <MenuItem value="nodes" primaryText="Nodes" />
+        <MenuItem value="edges" primaryText="Edges" />
       </SelectField>
     )
   }
@@ -71,10 +71,11 @@ const ImportDataPage = React.createClass({
     // map selected fields
     const mapping = {}
     Object.keys(this.refs.elementsFields.refs).forEach( k => {
-      if (k == 'optionalFields')
+      if (k == 'optionalFields') {
         Object.keys(this.refs.elementsFields.refs.optionalFields.refs).forEach(optK =>
           mapping[optK] = this.refs.elementsFields.refs.optionalFields.refs[optK].state.value
         )
+      }
       else mapping[k] = this.refs.elementsFields.refs[k].state.value
     })
     this.setState({ fieldMapping : mapping})
@@ -108,11 +109,12 @@ const ImportDataPage = React.createClass({
       }
 
       // create nodes and edges
-      if ( this.state.elementType == 'nodes' )
+      if ( this.state.elementType == 'nodes' ) {
         return makeNode(topogramId, cleanData, d, Meteor.userId())
-      else if ( this.state.elementType == 'edges' )
+      }
+      else if ( this.state.elementType == 'edges' ) {
         return makeEdge(topogramId, cleanData, d, Meteor.userId())
-
+      }
     })
     console.log(parsedData)
 
@@ -139,11 +141,12 @@ const ImportDataPage = React.createClass({
       element,
       submitButton;
 
-    if (this.state.dataIsReady)
+    if (this.state.dataIsReady) {
       typeSelector = (<ElementTypeSelector
-        ref='elementSelector'
+        ref="elementSelector"
         handleChange={this._setElementType}
         />)
+    }
 
     const importNodes = () => (
       <ImportElementsForm
@@ -153,7 +156,7 @@ const ImportDataPage = React.createClass({
         >
         <ImportNodesFields
           fields={this.state.CSVFields}
-          ref='elementsFields'
+          ref="elementsFields"
         />
       </ImportElementsForm>
     )
@@ -166,7 +169,7 @@ const ImportDataPage = React.createClass({
         >
         <ImportEdgesFields
           fields={this.state.CSVFields}
-          ref='elementsFields'
+          ref="elementsFields"
         />
       </ImportElementsForm>
     )
@@ -195,14 +198,14 @@ const ImportDataPage = React.createClass({
         <p>You can import network data (nodes and edges) or generate it using our data tools. Read more in the <a href="http://topogram.io/HowItWorks" target="_blank">documentation</a></p>
 
         <ImportDataForm
-          ref='importDataForm'
+          ref="importDataForm"
           onDataChange={this._setDataState}
         />
 
         {selector}
 
         <FlashMessages
-          ref='flash'
+          ref="flash"
         />
 
       </section>

@@ -1,12 +1,14 @@
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter } from 'material-ui/Table';
-import { SmartTableRow } from './SmartTableRow.jsx';
+import SmartTableRow from './SmartTableRow.jsx';
 import React, { PropTypes, Component } from 'react';
-import styles from './SmartTable.scss';
 import SortIcon from 'material-ui/svg-icons/action/swap-vert';
 import IconButton from 'material-ui/IconButton';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import './SmartTable.scss'
+const styles= {}
 
 // inspired by https://github.com/callemall/material-ui/issues/1352
 
@@ -32,10 +34,6 @@ function sortFunc(a, b, key) {
 }
 
 class SmartTable extends Component {
-
-  static childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired
-  }
 
   constructor(props, context) {
     super(props, context);

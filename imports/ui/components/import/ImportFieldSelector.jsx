@@ -42,7 +42,7 @@ const ImportFieldSelector = React.createClass({
       />)
     }
 
-    if (!this.props.optional || this.state.checked) {
+    if (!this.props.optional || this.state.checked) {
       select = (<SelectField
         id={this.props.id}
         value={this.state.value}

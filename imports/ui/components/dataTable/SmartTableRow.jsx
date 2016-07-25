@@ -1,7 +1,7 @@
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import React, { PropTypes } from 'react';
 
-const SmartTableRow = ({ index, row, tableHeaders }) => (
+const SmartTableRow = ({ index, tableHeaders }) => (
   <TableRow key={index}>
     {tableHeaders.map((header, propIndex) => (
       <TableRowColumn key={propIndex}>hoho</TableRowColumn>
@@ -14,4 +14,4 @@ SmartTableRow.propTypes = {
   row: PropTypes.object
 };
 
-export default SmartTableRow;
+export default SmartTableRow

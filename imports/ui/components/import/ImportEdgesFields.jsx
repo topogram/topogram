@@ -9,20 +9,20 @@ const ImportEdgesFields = React.createClass({
       <div>
         <ImportFieldSelector
           fields={this.props.fields}
-          label='Source'
-          ref='source'
+          label="Source"
+          ref="source"
           optional={false}
         />
         <ImportFieldSelector
           fields={this.props.fields}
-          label='Target'
-          ref='target'
+          label="Target"
+          ref="target"
           optional={false}
         />
         <hr />
         <ImportOptionalFields
           fields={this.props.fields}
-          ref='optionalFields'
+          ref="optionalFields"
         />
       </div>
     )

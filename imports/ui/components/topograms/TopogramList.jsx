@@ -3,15 +3,17 @@ import TopogramListItem from './TopogramListItem.jsx'
 
 const renderIfData = ( topograms ) => {
   if ( topograms && topograms.length > 0 ) {
-    return topograms.map( ( topogram ) => {
-      return (<TopogramListItem
-        key={ topogram._id }
-        title={ topogram.name }
-        _id={ topogram._id }
-        date={ topogram.createdAt }
-        classNames="col-1-4"
-        />)
-    });
+    return topograms.map( ( topogram ) =>
+      (
+        <TopogramListItem
+          key={ topogram._id }
+          title={ topogram.name }
+          _id={ topogram._id }
+          date={ topogram.createdAt }
+          classNames="col-1-4"
+        />
+      )
+    )
   } else {
     return <p>No topograms yet!</p>;
   }

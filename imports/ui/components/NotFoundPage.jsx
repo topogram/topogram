@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NotFoundPage = ({}) => (
+const NotFoundPage = () => (
     <p className="not-found 404">
       Page Not Found
     </p>
