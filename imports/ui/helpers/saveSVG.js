@@ -1,40 +1,39 @@
-export const saveSvg = function ( svgId ) {
+export const saveSvg = function ( svgId ){
   // saveAs function from https://github.com/eligrey/FileSaver.js/
-  const saveAs = saveAs || (function (view) {
-    'use strict'
+  var saveAs = saveAs || (function(view) {
+    "use strict"
     // IE <10 is explicitly unsupported
-    if (typeof navigator !== 'undefined' && /MSIE [1-9]\./.test(navigator.userAgent)) {
+    if (typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
       return
     }
-    let
-      doc = view.document
+    var doc = view.document
       // only get URL when necessary in case Blob.js hasn't overridden it yet
-      , get_URL = function () {
+      , get_URL = function() {
         return view.URL || view.webkitURL || view
       }
-      , save_link = doc.createElementNS('http://www.w3.org/1999/xhtml', 'a')
-      , can_use_save_link = 'download' in save_link
-      , click = function (node) {
-        const event = new MouseEvent('click')
+      , save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
+      , can_use_save_link = "download" in save_link
+      , click = function(node) {
+        var event = new MouseEvent("click")
         node.dispatchEvent(event)
       }
       , is_safari = /Version\/[\d\.]+.*Safari/.test(navigator.userAgent)
       , webkit_req_fs = view.webkitRequestFileSystem
       , req_fs = view.requestFileSystem || webkit_req_fs || view.mozRequestFileSystem
-      , throw_outside = function (ex) {
-        (view.setImmediate || view.setTimeout)(function () {
+      , throw_outside = function(ex) {
+        (view.setImmediate || view.setTimeout)(function() {
           throw ex
         }, 0)
       }
-      , force_saveable_type = 'application/octet-stream'
+      , force_saveable_type = "application/octet-stream"
       , fs_min_size = 0
       // See https://code.google.com/p/chromium/issues/detail?id=375297#c7 and
       // https://github.com/eligrey/FileSaver.js/commit/485930a#commitcomment-8768047
       // for the reasoning behind the timeout and revocation flow
       , arbitrary_revoke_timeout = 500 // in ms
-      , revoke = function (file) {
-        const revoker = function () {
-          if (typeof file === 'string') { // file is an object URL
+      , revoke = function(file) {
+        var revoker = function() {
+          if (typeof file === "string") { // file is an object URL
             get_URL().revokeObjectURL(file)
           } else { // file is a File
             file.remove()
@@ -46,12 +45,12 @@ export const saveSvg = function ( svgId ) {
           setTimeout(revoker, arbitrary_revoke_timeout)
         }
       }
-      , dispatch = function (filesaver, event_types, event) {
+      , dispatch = function(filesaver, event_types, event) {
         event_types = [].concat(event_types)
-        let i = event_types.length
+        var i = event_types.length
         while (i--) {
-          const listener = filesaver['on' + event_types[i]]
-          if (typeof listener === 'function') {
+          var listener = filesaver["on" + event_types[i]]
+          if (typeof listener === "function") {
             try {
               listener.call(filesaver, event || filesaver)
             } catch (ex) {
@@ -60,35 +59,35 @@ export const saveSvg = function ( svgId ) {
           }
         }
       }
-      , auto_bom = function (blob) {
+      , auto_bom = function(blob) {
         // prepend BOM for UTF-8 XML and text/* types (including HTML)
         if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s* .*charset\s*=\s*utf-8/i.test(blob.type)) {
-          return new Blob(['\ufeff', blob], {type: blob.type})
+          return new Blob(["\ufeff", blob], {type: blob.type})
         }
         return blob
       }
-      , FileSaver = function (blob, name, no_auto_bom) {
+      , FileSaver = function(blob, name, no_auto_bom) {
         if (!no_auto_bom) {
           blob = auto_bom(blob)
         }
         // First try a.download, then web filesystem, then object URLs
-        let
-          filesaver = this
+        var
+            filesaver = this
           , type = blob.type
           , blob_changed = false
           , object_url
           , target_view
-          , dispatch_all = function () {
-            dispatch(filesaver, 'writestart progress write writeend'.split(' '))
+          , dispatch_all = function() {
+            dispatch(filesaver, "writestart progress write writeend".split(" "))
           }
           // on any filesys errors revert to saving with object URLs
-          , fs_error = function () {
-            if (target_view && is_safari && typeof FileReader !== 'undefined') {
+          , fs_error = function() {
+            if (target_view && is_safari && typeof FileReader !== "undefined") {
               // Safari doesn't allow downloading of blob urls
-              const reader = new FileReader()
-              reader.onloadend = function () {
-                const base64Data = reader.result
-                target_view.location.href = 'data:attachment/file' + base64Data.slice(base64Data.search(/[, ]/))
+              var reader = new FileReader()
+              reader.onloadend = function() {
+                var base64Data = reader.result
+                target_view.location.href = "data:attachment/file" + base64Data.slice(base64Data.search(/[, ]/))
                 filesaver.readyState = filesaver.DONE
                 dispatch_all()
               }
@@ -103,7 +102,7 @@ export const saveSvg = function ( svgId ) {
             if (target_view) {
               target_view.location.href = object_url
             } else {
-              const new_tab = view.open(object_url, '_blank')
+              var new_tab = view.open(object_url, "_blank")
               if (new_tab == undefined && is_safari) {
                 //Apple do not allow window.open, see http://bit.ly/1kZffRI
                 view.location.href = object_url
@@ -113,8 +112,8 @@ export const saveSvg = function ( svgId ) {
             dispatch_all()
             revoke(object_url)
           }
-          , abortable = function (func) {
-            return function () {
+          , abortable = function(func) {
+            return function() {
               if (filesaver.readyState !== filesaver.DONE) {
                 return func.apply(this, arguments)
               }
@@ -125,11 +124,11 @@ export const saveSvg = function ( svgId ) {
 
         filesaver.readyState = filesaver.INIT
         if (!name) {
-          name = 'download'
+          name = "download"
         }
         if (can_use_save_link) {
           object_url = get_URL().createObjectURL(blob)
-          setTimeout(function () {
+          setTimeout(function() {
             save_link.href = object_url
             save_link.download = name
             click(save_link)
@@ -152,8 +151,8 @@ export const saveSvg = function ( svgId ) {
         // Since I can't be sure that the guessed media type will trigger a download
         // in WebKit, I append .download to the filename.
         // https://bugs.webkit.org/show_bug.cgi?id=65440
-        if (webkit_req_fs && name !== 'download') {
-          name += '.download'
+        if (webkit_req_fs && name !== "download") {
+          name += ".download"
         }
         if (type === force_saveable_type || webkit_req_fs) {
           target_view = view
@@ -163,28 +162,28 @@ export const saveSvg = function ( svgId ) {
           return
         }
         fs_min_size += blob.size
-        req_fs(view.TEMPORARY, fs_min_size, abortable(function (fs) {
-          fs.root.getDirectory('saved', create_if_not_found, abortable(function (dir) {
-            const save = function () {
-              dir.getFile(name, create_if_not_found, abortable(function (file) {
-                file.createWriter(abortable(function (writer) {
-                  writer.onwriteend = function (event) {
+        req_fs(view.TEMPORARY, fs_min_size, abortable(function(fs) {
+          fs.root.getDirectory("saved", create_if_not_found, abortable(function(dir) {
+            var save = function() {
+              dir.getFile(name, create_if_not_found, abortable(function(file) {
+                file.createWriter(abortable(function(writer) {
+                  writer.onwriteend = function(event) {
                     target_view.location.href = file.toURL()
                     filesaver.readyState = filesaver.DONE
-                    dispatch(filesaver, 'writeend', event)
+                    dispatch(filesaver, "writeend", event)
                     revoke(file)
                   }
-                  writer.onerror = function () {
-                    const error = writer.error
+                  writer.onerror = function() {
+                    var error = writer.error
                     if (error.code !== error.ABORT_ERR) {
                       fs_error()
                     }
                   }
-                  'writestart progress write abort'.split(' ').forEach(function (event) {
-                    writer['on' + event] = filesaver['on' + event]
+                  "writestart progress write abort".split(" ").forEach(function(event) {
+                    writer["on" + event] = filesaver["on" + event]
                   })
                   writer.write(blob)
-                  filesaver.abort = function () {
+                  filesaver.abort = function() {
                     writer.abort()
                     filesaver.readyState = filesaver.DONE
                   }
@@ -192,11 +191,11 @@ export const saveSvg = function ( svgId ) {
                 }), fs_error)
               }), fs_error)
             }
-            dir.getFile(name, {create: false}, abortable(function (file) {
+            dir.getFile(name, {create: false}, abortable(function(file) {
               // delete file if it already exists
               file.remove()
               save()
-            }), abortable(function (ex) {
+            }), abortable(function(ex) {
               if (ex.code === ex.NOT_FOUND_ERR) {
                 save()
               } else {
@@ -207,24 +206,24 @@ export const saveSvg = function ( svgId ) {
         }), fs_error)
       }
       , FS_proto = FileSaver.prototype
-      , saveAs = function (blob, name, no_auto_bom) {
+      , saveAs = function(blob, name, no_auto_bom) {
         return new FileSaver(blob, name, no_auto_bom)
       }
 
     // IE 10+ (native saveAs)
-    if (typeof navigator !== 'undefined' && navigator.msSaveOrOpenBlob) {
-      return function (blob, name, no_auto_bom) {
+    if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+      return function(blob, name, no_auto_bom) {
         if (!no_auto_bom) {
           blob = auto_bom(blob)
         }
-        return navigator.msSaveOrOpenBlob(blob, name || 'download')
+        return navigator.msSaveOrOpenBlob(blob, name || "download")
       }
     }
 
-    FS_proto.abort = function () {
-      const filesaver = this
+    FS_proto.abort = function() {
+      var filesaver = this
       filesaver.readyState = filesaver.DONE
-      dispatch(filesaver, 'abort')
+      dispatch(filesaver, "abort")
     }
     FS_proto.readyState = FS_proto.INIT = 0
     FS_proto.WRITING = 1
@@ -241,18 +240,18 @@ export const saveSvg = function ( svgId ) {
 
     return saveAs
   }(
-    typeof self !== 'undefined' && self
-    || typeof window !== 'undefined' && window
+    typeof self !== "undefined" && self
+    || typeof window !== "undefined" && window
     || this.content
   ))
 
-  document.getElementById( svgId ).getAttribute( { 'version':'1.1' } )
-  document.getElementById( svgId ).getAttribute( { 'xmlns':'http://www.w3.org/2000/svg' } )
-  document.getElementById( svgId ).getAttribute( { 'xmlns:xlink':'http://www.w3.org/1999/xlink' } )
+  document.getElementById( svgId ).getAttribute( { "version":"1.1" } )
+  document.getElementById( svgId ).getAttribute( { "xmlns":"http://www.w3.org/2000/svg" } )
+  document.getElementById( svgId ).getAttribute( { "xmlns:xlink":"http://www.w3.org/1999/xlink" } )
 
-  const svg = document.getElementById( svgId )
-  const data = '<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' + svg.outerHTML
+  var svg = document.getElementById( svgId )
+  var data = '<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' + svg.outerHTML
 
-  const blob = new Blob( [ data ], { type: 'text/plain charset=utf-8' } )
-  saveAs( blob, 'download.svg', false )
+  var blob = new Blob( [ data ], { type: "text/plain charset=utf-8" } )
+  saveAs( blob, "download.svg", false )
 }

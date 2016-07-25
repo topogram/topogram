@@ -1,7 +1,7 @@
 if (typeof Meteor === typeof undefined) {
   // eslint-disable-next-line vars-on-top, no-var
   var r = require
-  let gulp = r('gulp'),
+  var gulp = r('gulp'),
     replace = r('gulp-replace'),
     shell = r('gulp-shell'),
     jshint = r('gulp-jshint'),
@@ -20,52 +20,52 @@ if (typeof Meteor === typeof undefined) {
     shell.task(['meteor test --once --driver-package=dispatch:mocha-phantomjs'], { verbose : true})
   )
 
-  gulp.task('test', function () {
+  gulp.task('test', function() {
     gulp.src( './tests/*.js', { read: false } )
       .pipe( mocha( {
         reporter:'nyan',
         compilers: {
-          js: babel
-        }
+                js: babel
+            }
       } ) )
   })
 
   /*
   * Versioning
   */
-  gulp.task('publish', [], function ( next ) {
+  gulp.task('publish', [], function( next ){
     runSequence('confver', 'lint', 'pkgver', 'push', 'tag', next);
   });
 
-  gulp.task('confver', ['version'], function () {
+  gulp.task('confver', ['version'], function(){
     return gulp.src('.')
       .pipe( prompt.confirm({ message: 'Are you sure version `' + version + '` is OK to publish?' }) )
     ;
   });
 
-  gulp.task('version', function ( next ) {
-    const now = new Date();
+  gulp.task('version', function( next ){
+    var now = new Date();
     version = process.env['VERSION'];
 
-    if ( version ) {
+    if( version ){
       done();
     } else {
-      exec('git rev-parse HEAD', function ( error, stdout ) {
-        const sha = stdout.substring(0, 10); // shorten so not huge filename
+      exec('git rev-parse HEAD', function( error, stdout ){
+        var sha = stdout.substring(0, 10); // shorten so not huge filename
 
         version = [ 'snapshot', sha, +now ].join('-');
         done();
       });
     }
 
-    function done() {
+    function done(){
       console.log('Using version number `%s` for building', version);
       next();
     }
 
   });
 
-  gulp.task('pkgver', ['version'], function () {
+  gulp.task('pkgver', ['version'], function(){
     return gulp.src([
       'package.json',
       'bower.json'
@@ -92,7 +92,7 @@ if (typeof Meteor === typeof undefined) {
   ]));
 
   // http://www.jshint.com/docs/options/
-  gulp.task('lint', function () {
+  gulp.task('lint', function(){
     return gulp.src( 'imports/*.js' )
       .pipe( jshint({
         esversion: 6,
@@ -117,7 +117,7 @@ if (typeof Meteor === typeof undefined) {
   /*
   *
   */
-  gulp.task('default', [], function ( next ) {
+  gulp.task('default', [], function( next ){
     console.log('You must explicitly call `gulp publish` to publish the extension');
     next();
   });

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import TopogramAddForm from '../react/topograms/TopogramAddForm.jsx'
-import TopogramPublicList from '../react/topograms/TopogramPublicList.jsx'
-import HomeHeader from '../react/home/HomeHeader.jsx'
+import TopogramAddForm from '../components/topograms/TopogramAddForm.jsx'
+import TopogramPublicList from '../components/topograms/TopogramPublicList.jsx'
+import HomeHeader from '../components/home/HomeHeader.jsx'
 
 // define and export our Welcome component
 export const Welcome = ({name}) => (

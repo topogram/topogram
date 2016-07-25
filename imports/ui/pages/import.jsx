@@ -11,11 +11,11 @@ import { Card, SelectField, MenuItem } from 'material-ui';
 
 import { makeNode, makeEdge } from '../../api/modelsHelpers.js'
 
-import ImportDataForm from '../react/import/ImportDataForm.jsx'
-import ImportEdgesFields from '../react/import/ImportEdgesFields.jsx'
-import ImportNodesFields from '../react/import/ImportNodesFields.jsx'
-import ImportElementsForm from '../react/import/ImportElementsForm.jsx'
-import FlashMessages from '../react/flashMessages/FlashMessages.jsx'
+import ImportDataForm from '../components/import/ImportDataForm.jsx'
+import ImportEdgesFields from '../components/import/ImportEdgesFields.jsx'
+import ImportNodesFields from '../components/import/ImportNodesFields.jsx'
+import ImportElementsForm from '../components/import/ImportElementsForm.jsx'
+import FlashMessages from '../components/flashMessages/FlashMessages.jsx'
 
 const ElementTypeSelector = React.createClass({
   getInitialState(){

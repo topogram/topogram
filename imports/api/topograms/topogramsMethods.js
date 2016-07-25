@@ -20,12 +20,13 @@ Meteor.methods( {
         // make sure that a topogram with the same name and same user does not already exists
     console.log(ownerId);
     const t = Topograms.find({ name, 'owner': ownerId }).fetch()
-    if (t.length)
+    if (t.length) {
       return {
         'status' : 'error',
         'message' : 'A topogram with the same name already exists',
         'data' : t
       }
+    }
 
     return Topograms.insert( {
       name,

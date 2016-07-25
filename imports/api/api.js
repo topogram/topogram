@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { Restivus } from 'meteor/nimble:restivus'
 import { Nodes, Edges, Topograms } from './collections.js'
-import { logger } from '../logger.js'
+import logger from '../logger.js'
 import { Accounts } from 'meteor/accounts-base'
 
 import { makeNode,makeEdge } from './modelsHelpers.js'
@@ -43,14 +43,13 @@ Api.addCollection(Topograms, {
       action() {
         const _id = Meteor.call('createTopogram', this.userId, this.bodyParams.name)
         console.log(_id);
-        if (typeof(_id) == String)
+        if (typeof(_id) == String) {
           return {
             'status': 'success',
             'data' : Topograms.findOne(_id)
           }
-        else {
-          return _id
         }
+        else return _id
       }
     },
     getAll: {
@@ -121,7 +120,8 @@ Api.addCollection(Meteor.users, {
             'status': 'error',
             'message': 'Unauthorized - Email already exists'
           }
-        } else {
+        }
+        else {
           Accounts.createUser(data)
           const user = Meteor.users.findOne({ 'emails.address': data.email})
           return {

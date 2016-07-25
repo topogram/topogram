@@ -36,7 +36,7 @@
     "keyword-spacing": [2, { "before": true ,  "after": true }],
     "linebreak-style": [2, "unix"],
     "no-underscore-dangle": 0,
-    "curly": [2, "multi"],
+    "curly": [2, "multi-line"],
     "no-use-before-define": [2, "nofunc"],
     "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
 

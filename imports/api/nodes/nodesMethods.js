@@ -1,7 +1,7 @@
 import { Nodes, Edges } from '../collections.js'
 import { Meteor } from 'meteor/meteor'
 import { bulkCollectionUpdate } from 'meteor/udondan:bulk-collection-update'
-import { logger } from '../../logger.js'
+import logger from '../../logger.js'
 
 Meteor.methods( {
   addNode( node ) {

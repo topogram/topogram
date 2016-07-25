@@ -1,31 +1,3 @@
-export const makeEdge = function ( topogramId, element, data, userId ) {
-  const el = element || {}
-  const rawData = data || {}
-  const edge = makeGraphElement(el, rawData)
-  edge.group = 'edges'
-  edge.id =  el.id || 'edge-' + Math.round( Math.random() * 1000000 ),
-    edge.data.source = el.source
-  edge.data.target = el.target
-  edge.owner = userId
-  edge.topogramId = topogramId
-  return edge
-}
-
-export const makeNode = function ( topogramId, element, data, userId ) {
-  const el = element || {}
-  const rawData = data || {}
-  const node = makeGraphElement(el, rawData)
-  node.group = 'nodes'
-  node.data.id =  el.id || 'node-' + Math.round( Math.random() * 1000000 )
-  node.position =  {
-    x: el.x || Math.random() * 800,
-    y: el.y || Math.random() * 600
-  }
-  node.owner = userId
-  node.topogramId = topogramId
-  return node
-}
-
 const makeGraphElement = function (el, rawData) {
 
   //check if rawData contains dot
@@ -52,4 +24,33 @@ const makeGraphElement = function (el, rawData) {
     },
     createdAt: new Date() // current time
   }
+}
+
+
+export const makeEdge = function ( topogramId, element, data, userId ) {
+  const el = element || {}
+  const rawData = data || {}
+  const edge = makeGraphElement(el, rawData)
+  edge.group = 'edges'
+  edge.id =  el.id || 'edge-' + Math.round( Math.random() * 1000000 ),
+    edge.data.source = el.source
+  edge.data.target = el.target
+  edge.owner = userId
+  edge.topogramId = topogramId
+  return edge
+}
+
+export const makeNode = function ( topogramId, element, data, userId ) {
+  const el = element || {}
+  const rawData = data || {}
+  const node = makeGraphElement(el, rawData)
+  node.group = 'nodes'
+  node.data.id =  el.id || 'node-' + Math.round( Math.random() * 1000000 )
+  node.position =  {
+    x: el.x || Math.random() * 800,
+    y: el.y || Math.random() * 600
+  }
+  node.owner = userId
+  node.topogramId = topogramId
+  return node
 }
