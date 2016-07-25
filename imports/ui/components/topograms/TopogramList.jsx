@@ -1,9 +1,10 @@
 import React from 'react'
 import TopogramListItem from './TopogramListItem.jsx'
 
-const renderIfData = ( topograms ) => {
-  if ( topograms && topograms.length > 0 ) {
-    return topograms.map( ( topogram ) =>
+const renderIfData = ( props ) => {
+
+  if ( props.topograms && props.topograms.length > 0 ) {
+    return props.topograms.map( ( topogram ) =>
       (
         <TopogramListItem
           key={ topogram._id }
@@ -11,6 +12,7 @@ const renderIfData = ( topograms ) => {
           _id={ topogram._id }
           date={ topogram.createdAt }
           classNames="col-1-4"
+          editable={props.editable}
         />
       )
     )
@@ -20,10 +22,13 @@ const renderIfData = ( topograms ) => {
   }
 }
 
-const TopogramList = ({topograms}) => (
-  <div className="grid-pad">
-    { renderIfData( topograms ) }
-  </div>
-)
-
+const TopogramList = React.createClass({
+  render() {
+    return (
+      <div className="grid-pad">
+        { renderIfData( this.props ) }
+      </div>
+    )
+  }
+})
 export default TopogramList

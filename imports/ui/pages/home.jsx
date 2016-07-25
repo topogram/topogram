@@ -10,7 +10,7 @@ const Welcome = () => (
       <HomeHeader />
       <TopogramAddForm />
       <h5 className="grey-text text-lighten-2 center">Browse existing topograms</h5>
-      <TopogramPublicList />
+      <TopogramPublicList editable={false} />
     </div>
 )
 

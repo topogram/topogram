@@ -8,8 +8,8 @@ const Topograms = () => (
     <div>
       <TopogramAddForm />
       <h5 className="grey-text text-lighten-2 center">Browse existing topograms</h5>
-      <TopogramPrivateList />
+      <TopogramPrivateList editable={true} />
     </div>
 )
 
-export default Topograms 
+export default Topograms
