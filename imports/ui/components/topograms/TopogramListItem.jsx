@@ -6,20 +6,20 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import moment from 'moment'
 
 const convertDate = (date) => {
-  if( typeof(date) == "string" ) return
+  if ( typeof(date) == 'string' ) return
 }
 
 const TopogramListItem = React.createClass({
   getDefaultProps() {
-   return {
-    title : "",
-    _id : "",
-    date: new Date()
-   }
+    return {
+      title : '',
+      _id : '',
+      date: new Date()
+    }
   },
   render() {
 
-    let parsedDate = (this.props.date) ?  moment(this.props.date).fromNow() : ""
+    let parsedDate = (this.props.date) ?  moment(this.props.date).fromNow() : ''
     let url = 'topograms/'+this.props._id
 
     return (

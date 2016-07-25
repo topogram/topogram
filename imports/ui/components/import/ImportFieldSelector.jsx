@@ -20,7 +20,7 @@ const ImportFieldSelector = React.createClass({
     this.setState({checked: e.target.checked })
   },
   _handleChange(e, k, value) {
-    this.setState({ value : value })
+    this.setState({ value })
   },
   render() {
     let checkbox,
@@ -35,22 +35,22 @@ const ImportFieldSelector = React.createClass({
     )
 
     if (this.props.optional) {
-      checkbox = <Checkbox
+      checkbox = (<Checkbox
         label={this.props.label}
         onCheck={this._onCheck}
         checked={this.state.checked}
-      />
+      />)
     }
 
     if (!this.props.optional || this.state.checked) {
-      select = <SelectField
+      select = (<SelectField
         id={this.props.id}
         value={this.state.value}
         floatingLabelText={this.label}
         onChange={this._handleChange}
       >
         {items}
-      </SelectField>
+      </SelectField>)
     }
 
     return (

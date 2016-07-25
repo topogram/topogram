@@ -3,7 +3,7 @@ import React from 'react'
 import ImportFieldSelector from './ImportFieldSelector.jsx'
 
 const ImportOptionalFields = React.createClass({
-  render(){
+  render() {
     return (
       <div>
         <ImportFieldSelector

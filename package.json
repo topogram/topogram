@@ -52,7 +52,7 @@
   },
   "scripts": {
     "start": "meteor",
-    "lint": "eslint .",
+    "lint": "eslint --ext .jsx --ext .js .",
     "test": "gulp test",
     "test-ui": "meteor test --driver-package=practicalmeteor:mocha --port=3010"
   },

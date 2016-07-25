@@ -1,6 +1,6 @@
 import React from 'react'
 
-var headerStyle = {
+let headerStyle = {
   textAlign : 'center',
   marginTop : '2em'
 }

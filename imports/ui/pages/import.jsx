@@ -18,12 +18,12 @@ import ImportElementsForm from '../components/import/ImportElementsForm.jsx'
 import FlashMessages from '../components/flashMessages/FlashMessages.jsx'
 
 const ElementTypeSelector = React.createClass({
-  getInitialState(){
+  getInitialState() {
     return {
       value: ''
     }
   },
-  _handleChange(e, k, type){
+  _handleChange(e, k, type) {
     this.setState({value : type})
     this.props.handleChange(type)
   },
@@ -43,7 +43,7 @@ const ElementTypeSelector = React.createClass({
 })
 
 const ImportDataPage = React.createClass({
-  getInitialState(){
+  getInitialState() {
     return {
       elementType : null,
       dataIsReady : false,
@@ -52,26 +52,26 @@ const ImportDataPage = React.createClass({
       fieldMapping : {}
     }
   },
-  _setElementType(type){
+  _setElementType(type) {
     console.log(type);
     this.setState({ elementType : type })
   },
-  _setDataState(dataState, CSVfields, parsedCSVData){
+  _setDataState(dataState, CSVfields, parsedCSVData) {
     console.log(dataState, CSVfields, parsedCSVData)
     this.setState({
       dataIsReady : dataState,
       CSVFields : CSVfields,
-      parsedCSVData : parsedCSVData
+      parsedCSVData
     })
   },
-  _submitData(e){
+  _submitData(e) {
     e.preventDefault();
     console.log(this.refs)
 
     // map selected fields
-    let mapping = {}
+    const mapping = {}
     Object.keys(this.refs.elementsFields.refs).forEach( k => {
-      if (k == "optionalFields")
+      if (k == 'optionalFields')
         Object.keys(this.refs.elementsFields.refs.optionalFields.refs).forEach(optK =>
           mapping[optK] = this.refs.elementsFields.refs.optionalFields.refs[optK].state.value
         )
@@ -83,27 +83,27 @@ const ImportDataPage = React.createClass({
     // check for missing values in mapping
     if ( this.state.elementType == 'edges' ) {
         // check if src and target have been set correctly
-        if ( !mapping.target || !mapping.source || ( mapping.target == mapping.source ) ) {
-            this.refs.flash.sendError( 'Please define source and target' )
-            return
-        }
+      if ( !mapping.target || !mapping.source || ( mapping.target == mapping.source ) ) {
+        this.refs.flash.sendError( 'Please define source and target' )
+        return
+      }
     }
     else if ( this.state.elementType == 'nodes' ) {
       if ( !mapping.id ) {
-          this.refs.flash.sendError( 'Please define ID field for your nodes' )
-          return
+        this.refs.flash.sendError( 'Please define ID field for your nodes' )
+        return
       }
     }
     // TODO Verify optional fields
 
     // parse data
-    let topogramId = FlowRouter.getParam('topogramId')
-    var parsedData = this.state.parsedCSVData.data.map((d) => {
+    const topogramId = FlowRouter.getParam('topogramId')
+    const parsedData = this.state.parsedCSVData.data.map((d) => {
 
       // parse csv data
-      var cleanData = {}
-      for (let key in mapping) {
-        let csvKey = mapping[key]  // proper row name from csv
+      const cleanData = {}
+      for (const key in mapping) {
+        const csvKey = mapping[key]  // proper row name from csv
         cleanData[key] = d[csvKey]
       }
 
@@ -119,19 +119,19 @@ const ImportDataPage = React.createClass({
     // save data
     // TODO : display loader
     if ( this.state.elementType == 'edges' ) {
-        Meteor.call( 'batchInsertEdges', parsedData, (err, edges) => {
-          if (err) throw err
-          console.log(err, edges)
-          this.refs.flash.sendSuccess( 'Success ! : ' + edges.length + ' edges created.' )
-          FlowRouter.go( '/topograms/' + topogramId + '/lab' )
-        })
+      Meteor.call( 'batchInsertEdges', parsedData, (err, edges) => {
+        if (err) throw err
+        console.log(err, edges)
+        this.refs.flash.sendSuccess( 'Success ! : ' + edges.length + ' edges created.' )
+        FlowRouter.go( '/topograms/' + topogramId + '/lab' )
+      })
     } else if ( this.state.elementType == 'nodes' ) {
-        Meteor.call( 'batchInsertNodes', parsedData, (err, nodes) => {
-          if (err) throw err
-          console.log(nodes)
-          this.refs.flash.sendSuccess( 'Success ! : ' + nodes.length + ' nodes created.' )
-          FlowRouter.go( '/topograms/' + topogramId + '/lab' )
-        })
+      Meteor.call( 'batchInsertNodes', parsedData, (err, nodes) => {
+        if (err) throw err
+        console.log(nodes)
+        this.refs.flash.sendSuccess( 'Success ! : ' + nodes.length + ' nodes created.' )
+        FlowRouter.go( '/topograms/' + topogramId + '/lab' )
+      })
     }
   },
   render() {
@@ -140,12 +140,12 @@ const ImportDataPage = React.createClass({
       submitButton;
 
     if (this.state.dataIsReady)
-      typeSelector = <ElementTypeSelector
+      typeSelector = (<ElementTypeSelector
         ref='elementSelector'
         handleChange={this._setElementType}
-        />
+        />)
 
-    let importNodes = () => (
+    const importNodes = () => (
       <ImportElementsForm
         handleSubmit={this._submitData}
         title="Nodes"
@@ -158,7 +158,7 @@ const ImportDataPage = React.createClass({
       </ImportElementsForm>
     )
 
-    let importEdges = () => (
+    const importEdges = () => (
       <ImportElementsForm
         handleSubmit={this._submitData}
         title="Edges"
@@ -171,16 +171,16 @@ const ImportDataPage = React.createClass({
       </ImportElementsForm>
     )
 
-    if (this.state.elementType == "nodes") element = importNodes()
-    else if (this.state.elementType == "edges") element = importEdges()
+    if (this.state.elementType == 'nodes') element = importNodes()
+    else if (this.state.elementType == 'edges') element = importEdges()
 
     let selector;
     if (this.state.dataIsReady) {
-      selector = <Card>
+      selector = (<Card>
         {typeSelector}
         {element}
         {submitButton}
-      </Card>
+      </Card>)
     }
 
     return (

@@ -12,20 +12,20 @@ import LabPage from '../../../ui/pages/lab.jsx'
 
 
 FlowRouter.route( '/topograms/:topogramId/lab', {
-    triggersEnter: [AccountsTemplates.ensureSignedIn],
-    action(params) {
-      mount(mainLayout, {
-          content: (<LabPage topogramId={params.topogramId}/>)
-      });
-    }
-  })
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action(params) {
+    mount(mainLayout, {
+      content: (<LabPage topogramId={params.topogramId}/>)
+    });
+  }
+})
 
 
 FlowRouter.route( '/topograms/:topogramId/import', {
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
     mount(mainLayout, {
-        content: (<ImportDataPage topogramId={params.topogramId}/>)
+      content: (<ImportDataPage topogramId={params.topogramId}/>)
     });
   }
 })

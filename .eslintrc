@@ -1,21 +1,19 @@
 {
   "parserOptions": {
     "ecmaVersion": 6,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true,
+        "forOf": true
+    }
   },
   "plugins": [
     "meteor",
-    "react",
-    "jsx-a11y"
+    "react"
   ],
   "globals": {
     "React": true
-  },
-  "ecmaFeatures": {
-    "jsx": true,
-    "blockBindings": true,
-    "forOf": true,
-    "restParams": true
   },
   "env": {
     "es6": true,
@@ -49,6 +47,9 @@
 
     "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 2}],
 
+    "react/jsx-quotes": 1,
+    "react/prefer-es6-class": 1,
+    "react/jsx-max-props-per-line": 1,
     "react/display-name": 0, // Prevent missing displayName in a React component definition
     "react/jsx-no-undef": 2, // Disallow undeclared variables in JSX
     "react/jsx-sort-props": 0, // Enforce props alphabetical sorting

@@ -4,33 +4,33 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 
 import { FlashMessages } from '../flashMessages/FlashMessages.jsx'
 
-var formStyle = {
+let formStyle = {
   textAlign : 'center',
   margin : '4em auto',
   width : '50%'
 }
 
-var buttonStyle = { margin: 12 }
+let buttonStyle = { margin: 12 }
 
 const TopogramAddForm = React.createClass({
   handleSubmit(e) {
     e.preventDefault()
     console.log(this);
-    let topogramName = this.refs.topogramName.getValue()
+    const topogramName = this.refs.topogramName.getValue()
     if ( topogramName != '' ) {
-        Meteor.call( 'createTopogram', Meteor.userId(), topogramName, function(err, topogram){
-          if(err) throw err
-          if(topogram.status == "error") this.refs.flash.sendError(topogram.message)
-          else FlowRouter.go( '/topograms/' + topogram + '/import' )
-        })
+      Meteor.call( 'createTopogram', Meteor.userId(), topogramName, function (err, topogram) {
+        if (err) throw err
+        if (topogram.status == 'error') this.refs.flash.sendError(topogram.message)
+        else FlowRouter.go( '/topograms/' + topogram + '/import' )
+      })
     } else {
-        this.refs.flash.sendError( 'TopogramName should not be empty' )
+      this.refs.flash.sendError( 'TopogramName should not be empty' )
     }
   },
   render() {
     return (
-      <form class="form-inline" style={formStyle} onSubmit={this.handleSubmit}>
-        <div class="form-group">
+      <form className="form-inline" style={formStyle} onSubmit={this.handleSubmit}>
+        <div className="form-group">
           <TextField
             name="topogramName"
             ref="topogramName"

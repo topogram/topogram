@@ -3,12 +3,12 @@ import { Meteor } from 'meteor/meteor'
 import { Session } from 'meteor/session'
 
 
-var Version = React.createClass({
+const Version = React.createClass({
   render() {
-    let version = "";
-    Meteor.call("getVersion", (err, data) => {
+    let version = '';
+    Meteor.call('getVersion', (err, data) => {
       if (err) throw err
-      Session.set("version", data)
+      Session.set('version', data)
       version = data
     })
     return (

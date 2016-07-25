@@ -9,10 +9,10 @@ import { Welcome } from '../../../ui/pages/home.jsx'
 import { NotFoundPage } from '../../../ui/components/NotFoundPage.jsx'
 
 //Render homepage with React
-FlowRouter.route("/", {
+FlowRouter.route('/', {
   action() {
     mount(mainLayout, {
-        content: (<Welcome name="Welcome to Topogram"/>)
+      content: (<Welcome name="Welcome to Topogram"/>)
     });
   }
 });
@@ -21,9 +21,9 @@ FlowRouter.route("/", {
 //404
 
 FlowRouter.notFound = {
-   action() {
-     mount(mainLayout, {
-       content: (<NotFoundPage />)
-     });
-   }
+  action() {
+    mount(mainLayout, {
+      content: (<NotFoundPage />)
+    });
+  }
 }

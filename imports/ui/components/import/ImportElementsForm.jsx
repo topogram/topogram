@@ -3,7 +3,7 @@ import { Card, CardTitle, CardText, CardActions, FlatButton } from 'material-ui'
 
 
 const ImportElementsForm = React.createClass({
-  render(){
+  render() {
     return (
       <Card>
         <CardTitle
