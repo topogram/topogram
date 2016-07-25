@@ -1,5 +1,5 @@
 import React from 'react'
-import {Tabs, Tab} from 'material-ui/Tabs'
+import { Tabs, Tab } from 'material-ui/Tabs'
 
 import TopogramTitle from '../components/topograms/TopogramTitle.jsx'
 import NodesLab from '../components/lab/NodesLab.jsx'

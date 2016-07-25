@@ -3,7 +3,7 @@ import React from 'react'
 
 import '../css/topogram.scss'
 
-const mainLayout = ({content}) =>
+const mainLayout = ({ content }) =>
   (
     <MuiThemeProvider>
       <div className="main-view container">

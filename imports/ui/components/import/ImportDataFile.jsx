@@ -19,7 +19,7 @@ const ImportDataFile = React.createClass({
     this._parseCSVData(this.state.dataText)
   },
   _updateDataText(e) {
-    this.setState({dataText : e.target.value})
+    this.setState({ dataText : e.target.value })
   },
   _parseCSVData(csvData) {
 
@@ -73,7 +73,7 @@ const ImportDataFile = React.createClass({
     e.stopPropagation()
 
     // display file name
-    this.setState({ fileName : e.target.value})
+    this.setState({ fileName : e.target.value })
     const file = e.target.files[ 0 ]
     if ( !file ) {
       return
@@ -84,7 +84,7 @@ const ImportDataFile = React.createClass({
         return d !== ''
       } ).join( '\n' )
 
-      this.setState({dataText : contents}) // add to textarea
+      this.setState({ dataText : contents }) // add to textarea
       this._parseCSVData(contents)
     }
     reader.readAsText( file )
@@ -105,7 +105,7 @@ const ImportDataFile = React.createClass({
           <input
             type="file"
             ref="fileUpload"
-            style={{'display' : 'none'}}
+            style={{ 'display' : 'none' }}
             onChange={this._handleChange}
           />
         </FlatButton>

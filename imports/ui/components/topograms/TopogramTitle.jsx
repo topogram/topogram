@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TopogramTitle = ({topogramName}) => (
+const TopogramTitle = ({ topogramName }) => (
   <h1 className="grid-pad">
     { topogramName }
   </h1>

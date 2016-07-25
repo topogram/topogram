@@ -24,7 +24,7 @@ const ElementTypeSelector = React.createClass({
     }
   },
   _handleChange(e, k, type) {
-    this.setState({value : type})
+    this.setState({ value : type })
     this.props.handleChange(type)
   },
   render() {
@@ -78,7 +78,7 @@ const ImportDataPage = React.createClass({
       }
       else mapping[k] = this.refs.elementsFields.refs[k].state.value
     })
-    this.setState({ fieldMapping : mapping})
+    this.setState({ fieldMapping : mapping })
     console.log(mapping)
 
     // check for missing values in mapping

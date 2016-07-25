@@ -7,7 +7,7 @@ import { Edges, Nodes, Comments } from '../collections.js'
  */
 
 Meteor.publish( 'comments', function (topogramId) {
-  return Comments.find({ topogramId})
+  return Comments.find({ topogramId })
 })
 
 

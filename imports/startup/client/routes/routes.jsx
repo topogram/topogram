@@ -1,6 +1,6 @@
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import React from 'react'
-import {mount} from 'react-mounter'
+import { mount } from 'react-mounter'
 
 import mainLayout from '../../../ui/layouts/mainLayout.jsx'
 import Welcome from '../../../ui/pages/home.jsx'

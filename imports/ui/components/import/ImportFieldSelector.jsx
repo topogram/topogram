@@ -17,7 +17,7 @@ const ImportFieldSelector = React.createClass({
     }
   },
   _onCheck(e) {
-    this.setState({checked: e.target.checked })
+    this.setState({ checked: e.target.checked })
   },
   _handleChange(e, k, value) {
     this.setState({ value })

@@ -19,15 +19,15 @@ const Api = new Restivus({
   }
 })
 
-Api.addRoute('', {authRequired: false}, {
+Api.addRoute('', { authRequired: false }, {
   get() {
-    return { 'message' : 'API works'}
+    return { 'message' : 'API works' }
   }
 })
 
-Api.addRoute('publicTopograms', {authRequired: false}, {
+Api.addRoute('publicTopograms', { authRequired: false }, {
   get() {
-    return Topograms.find({ 'sharedPublic': 1}).fetch()
+    return Topograms.find({ 'sharedPublic': 1 }).fetch()
   }
 })
 
@@ -114,7 +114,7 @@ Api.addCollection(Meteor.users, {
       authRequired: false,
       action() {
         const data = this.bodyParams
-        const user = Meteor.users.find({ 'emails.address': data.email}).fetch()
+        const user = Meteor.users.find({ 'emails.address': data.email }).fetch()
         if (user.length) {
           return {
             'status': 'error',
@@ -123,10 +123,10 @@ Api.addCollection(Meteor.users, {
         }
         else {
           Accounts.createUser(data)
-          const user = Meteor.users.findOne({ 'emails.address': data.email})
+          const user = Meteor.users.findOne({ 'emails.address': data.email })
           return {
             'status': 'success',
-            'data' : { '_id' : user._id}
+            'data' : { '_id' : user._id }
           }
         }
       }
@@ -145,7 +145,7 @@ Api.addRoute('topograms/:_id/nodes', {
       const _id = this.urlParams._id
       return {
         'status': 'success',
-        'data' : Nodes.find({'topogramId' : _id }).fetch()
+        'data' : Nodes.find({ 'topogramId' : _id }).fetch()
       }
     }
   }
@@ -158,7 +158,7 @@ Api.addRoute('topograms/:_id/edges', {
       const _id = this.urlParams._id
       return {
         'status': 'success',
-        'data' : Edges.find({'topogramId' : _id }).fetch()
+        'data' : Edges.find({ 'topogramId' : _id }).fetch()
       }
     }
   }
@@ -188,7 +188,7 @@ Api.addCollection(Nodes, {
           const _ids = Meteor.call( 'batchInsertNodes', nodesBuilt)
           return {
             'status': 'success',
-            'data': Nodes.find({'_id' : { $in : _ids }}).fetch()
+            'data': Nodes.find({ '_id' : { $in : _ids } }).fetch()
           }
 
         }
@@ -224,10 +224,10 @@ Api.addRoute('nodes/delete', {
     authRequired: true,
     action() {
       const ids = this.bodyParams.nodes
-      Nodes.remove({'_id' : { $in : ids }})
+      Nodes.remove({ '_id' : { $in : ids } })
       return {
         'status': 'success',
-        'data': Nodes.find({'_id' : { $in : ids }}).fetch()
+        'data': Nodes.find({ '_id' : { $in : ids } }).fetch()
       }
     }
   }
@@ -257,7 +257,7 @@ Api.addCollection(Edges, {
           const _ids = Meteor.call( 'batchInsertEdges', edgesBuilt)
           return {
             'status': 'success',
-            'data': Edges.find({'_id' : { $in : _ids }}).fetch()
+            'data': Edges.find({ '_id' : { $in : _ids } }).fetch()
           }
 
         }
@@ -292,10 +292,10 @@ Api.addRoute('edges/delete', {
     authRequired: true,
     action() {
       const ids = this.bodyParams.edges
-      Edges.remove({'_id' : { $in : ids }})
+      Edges.remove({ '_id' : { $in : ids } })
       return {
         'status': 'success',
-        'data': Edges.find({'_id' : { $in : ids }}).fetch()
+        'data': Edges.find({ '_id' : { $in : ids } }).fetch()
       }
     }
   }
