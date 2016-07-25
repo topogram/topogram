@@ -1,14 +1,33 @@
-body{
+/*
+* RESET
+*/
+
+@import 'reset';
+
+/*
+* GRID SYSTEM
+*/
+
+@import 'simplegrid';
+
+/*
+* TYPOGRAPHY
+*/
+
+@import 'typo';
+
+
+body {
   background: #F5F5F5;
 }
 
 span.badge {
-    position: relative !important;
-    right: 0 !important;
+  position: relative !important;
+  right: 0 !important;
 }
 
 #navTitle {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 nav ul {
