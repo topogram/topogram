@@ -1,7 +1,7 @@
 import React from 'react'
 import SmartTable from '../dataTable/SmartTableRow.jsx'
 
-const NodesLab = React.createClass({
+const EdgesLab = React.createClass({
   render() {
     return (
       <SmartTable />
@@ -9,4 +9,4 @@ const NodesLab = React.createClass({
   }
 })
 
-export default NodesLab
+export default EdgesLab

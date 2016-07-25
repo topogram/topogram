@@ -2,8 +2,6 @@ import React from 'react'
 import {Tabs, Tab} from 'material-ui/Tabs'
 
 import TopogramTitle from '../react/topograms/TopogramTitle.jsx'
-
-import DataTable from '../react/dataTable/DataTable.jsx'
 import NodesLab from '../react/lab/NodesLab.jsx'
 
 const LabPage = React.createClass({
@@ -18,7 +16,7 @@ const LabPage = React.createClass({
             <NodesLab />
           </Tab>
           <Tab label="Edges" >
-            <DataTable table="Edges" class="table table-striped table-bordered table-condensed"/>
+            <EdgesLab />
           </Tab>
         </Tabs>
       </div>
