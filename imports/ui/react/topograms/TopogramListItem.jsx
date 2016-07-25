@@ -23,7 +23,7 @@ const TopogramListItem = React.createClass({
     let url = 'topograms/'+this.props._id
 
     return (
-    <div className="col s3">
+    <div className={this.props.classNames}>
      <Card>
       <CardHeader
         title={this.props.title}

@@ -1,7 +1,4 @@
-import Meteor from 'meteor/meteor'
 import React from 'react'
-import ReactDOM from 'react-dom';
-import { Topograms } from '../../api/collections.js'
 
 import TopogramAddForm from '../react/topograms/TopogramAddForm.jsx'
 import TopogramPublicList from '../react/topograms/TopogramPublicList.jsx'

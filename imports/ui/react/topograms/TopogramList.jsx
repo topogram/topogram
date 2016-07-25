@@ -9,6 +9,7 @@ const renderIfData = ( topograms ) => {
         title={ topogram.name }
         _id={ topogram._id }
         date={ topogram.createdAt }
+        classNames="col-1-4"
         />
     });
   } else {
@@ -17,8 +18,8 @@ const renderIfData = ( topograms ) => {
 };
 
 const TopogramList = ({topograms}) => (
-  <div className="row">
-      { renderIfData( topograms ) }
+  <div className="grid-pad">
+    { renderIfData( topograms ) }
   </div>
 );
 

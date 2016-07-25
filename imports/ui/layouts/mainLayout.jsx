@@ -6,11 +6,7 @@ const mainLayout = ({content}) =>
   (
     <MuiThemeProvider>
       <div className="main-view container">
-          <div class="row">
-              <div className="col s10 offset-s1">
-                  {content}
-              </div>
-          </div>
+        {content}
       </div>
     </MuiThemeProvider>
   )
