@@ -6,8 +6,7 @@ import {mount} from 'react-mounter'
 
 import mainLayout from '../../../ui/layouts/mainLayout.jsx'
 import { Welcome } from '../../../ui/pages/home.jsx'
-
-import '../../../ui/pages/404.html'
+import { NotFoundPage } from '../../../ui/components/NotFoundPage.jsx'
 
 //Render homepage with React
 FlowRouter.route("/", {
@@ -20,10 +19,11 @@ FlowRouter.route("/", {
 
 
 //404
-/*
+
 FlowRouter.notFound = {
-   action: function() {
-     BlazeLayout.render("mainLayout", { main: "404" });
+   action() {
+     mount(mainLayout, {
+       content: (<NotFoundPage />)
+     });
    }
 }
-*/
