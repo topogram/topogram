@@ -22,6 +22,7 @@ Topogram is a node application based on [Meteor JS](https://www.meteor.com/) and
 
     git clone https://github.com/topogram/topogram-client.git
     cd topogram-client
+    meteor npm install
     meteor
 
 ### Test

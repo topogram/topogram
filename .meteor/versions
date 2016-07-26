@@ -96,7 +96,7 @@ standard-minifier-css@1.0.7_1
 standard-minifier-js@1.0.7_1
 templating@1.1.12_1
 templating-tools@1.0.4
-tmeasday:check-npm-versions@0.2.0
+tmeasday:check-npm-versions@0.3.0
 tmeasday:test-reporter-helpers@0.2.1
 tracker@1.0.14
 udondan:bulk-collection-update@0.2.0
