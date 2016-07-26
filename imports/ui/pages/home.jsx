@@ -1,7 +1,10 @@
 import React from 'react'
+import { composeWithTracker } from 'react-komposer'
+import { Topograms } from '../../api/collections.js'
+import { Meteor } from 'meteor/meteor'
 
+import TopogramList from '../components/topograms/TopogramList.jsx'
 import TopogramAddForm from '../components/topograms/TopogramAddForm.jsx'
-import TopogramPublicList from '../components/topograms/TopogramPublicList.jsx'
 
 let headerStyle = {
   textAlign : 'center',
@@ -18,6 +21,16 @@ const HomeHeader = () => (
     <p>An open-source toolkit to process, visualize and analyze networks.</p>
   </section>
 )
+
+function composer(props, onData) {
+  const handle = Meteor.subscribe('topograms.public')
+  if (handle.ready()) {
+    const topograms = Topograms.find({ 'sharedPublic': true }, { 'sort': {  'createdAt': 1 } }).fetch()
+    onData(null, { topograms })
+  }
+}
+
+const TopogramPublicList = composeWithTracker(composer)(TopogramList)
 
 // define and export our Welcome component
 const Welcome = () => (
