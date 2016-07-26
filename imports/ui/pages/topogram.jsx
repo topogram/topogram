@@ -1,12 +1,16 @@
 import React from 'react'
 
 import TopBar from '../components/topBar/TopBar.jsx'
+import SideNav from '../components/sideNav/SideNav.jsx'
 
 const TopogramPage = ({ topogramId }) => (
-  <p>
+  <div>
     <TopBar />
-    Hello { topogramId }
-  </p>
+    <SideNav />
+    <p>
+      Hello { topogramId }
+    </p>
+  </div>
 )
 
 export default TopogramPage
