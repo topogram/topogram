@@ -12,10 +12,6 @@ class TopBar extends React.Component {
     super(props)
   }
 
-  _toggleSideNav() {
-
-  }
-
   render() {
     return (
       <Toolbar>
@@ -33,5 +29,10 @@ class TopBar extends React.Component {
     )
   }
 }
+
+TopBar.propTypes = {
+  onHomeButtonClick: React.PropTypes.func
+}
+
 
 export default TopBar

@@ -31,7 +31,10 @@ class About extends React.Component {
     ]
     return (
       <div>
-        <MenuItem primaryText="Dialog" onTouchTap={this.handleOpen} />
+        <MenuItem
+          primaryText="About"
+          onTouchTap={this.handleOpen}
+        />
         <Dialog
           title="About Topogram"
           actions={actions}

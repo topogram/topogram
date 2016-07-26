@@ -22,7 +22,6 @@ class UserMenu extends React.Component {
         }
       >
         <MenuItem primaryText="Download" />
-        <MenuItem primaryText="More Info" />
         <About />
       </IconMenu>
     )
