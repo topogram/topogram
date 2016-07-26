@@ -50,7 +50,7 @@
     "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 2}],
 
     "jsx-quotes": 1,
-    "react/prefer-es6-class": 1,
+    "react/prefer-es6-class": 2,
     "react/jsx-max-props-per-line": 1,
     "react/display-name": 0, // Prevent missing displayName in a React component definition
     "react/jsx-no-undef": 2, // Disallow undeclared variables in JSX
