@@ -2,14 +2,14 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import React from 'react'
 import { mount } from 'react-mounter'
 
-import mainLayout from '../../../ui/layouts/mainLayout.jsx'
+import MainLayout from '../../../ui/layouts/MainLayout.jsx'
 import Welcome from '../../../ui/pages/home.jsx'
 import NotFoundPage from '../../../ui/components/NotFoundPage.jsx'
 
 //Render homepage with React
 FlowRouter.route('/', {
   action() {
-    mount(mainLayout, {
+    mount(MainLayout, {
       content: (<Welcome name="Welcome to Topogram"/>)
     })
   }
@@ -20,7 +20,7 @@ FlowRouter.route('/', {
 
 FlowRouter.notFound = {
   action() {
-    mount(mainLayout, {
+    mount(MainLayout, {
       content: (<NotFoundPage />)
     })
   }

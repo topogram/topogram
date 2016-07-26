@@ -3,7 +3,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 // import { AccountsTemplates } from 'meteor/useraccounts:core'
 import { mount } from 'react-mounter'
 
-import mainLayout from '../../../ui/layouts/mainLayout.jsx'
+import MainLayout from '../../../ui/layouts/MainLayout.jsx'
 //
 // //UserAccounts Routes
 // AccountsTemplates.configureRoute('changePwd')

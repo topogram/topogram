@@ -4,7 +4,8 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import React from 'react'
 import { mount } from 'react-mounter'
 
-import mainLayout from '../../../ui/layouts/mainLayout.jsx'
+import MainLayout from '../../../ui/layouts/MainLayout.jsx'
+import FullPageLayout from '../../../ui/layouts/FullPageLayout.jsx'
 
 import ImportDataPage from '../../../ui/pages/import.jsx'
 import LabPage from '../../../ui/pages/lab.jsx'
@@ -14,7 +15,7 @@ import TopogramPage from '../../../ui/pages/topogram.jsx'
 FlowRouter.route( '/topograms/:topogramId/lab', {
   // triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
-    mount(mainLayout, {
+    mount(MainLayout, {
       content: (<LabPage topogramId={params.topogramId}/>)
     })
   }
@@ -24,7 +25,7 @@ FlowRouter.route( '/topograms/:topogramId/lab', {
 FlowRouter.route( '/topograms/:topogramId/import', {
   // triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
-    mount(mainLayout, {
+    mount(MainLayout, {
       content: (<ImportDataPage topogramId={params.topogramId}/>)
     })
   }
@@ -34,7 +35,7 @@ FlowRouter.route( '/topograms/:topogramId/import', {
 FlowRouter.route( '/topograms', {
   // triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
-    mount(mainLayout, {
+    mount(MainLayout, {
       content: (<TopogramsPage />)
     })
   }
@@ -43,7 +44,7 @@ FlowRouter.route( '/topograms', {
 FlowRouter.route( '/topograms/:topogramId', {
   // triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
-    mount(mainLayout, {
+    mount(FullPageLayout, {
       content: (<TopogramPage topogramId={params.topogramId} />)
     })
   }
