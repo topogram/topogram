@@ -8,7 +8,8 @@ import mainLayout from '../../../ui/layouts/mainLayout.jsx'
 
 import ImportDataPage from '../../../ui/pages/import.jsx'
 import LabPage from '../../../ui/pages/lab.jsx'
-import Topograms from '../../../ui/pages/topograms.jsx'
+import TopogramsPage from '../../../ui/pages/topograms.jsx'
+import TopogramPage from '../../../ui/pages/topogram.jsx'
 
 FlowRouter.route( '/topograms/:topogramId/lab', {
   // triggersEnter: [AccountsTemplates.ensureSignedIn],
@@ -34,7 +35,16 @@ FlowRouter.route( '/topograms', {
   // triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     mount(mainLayout, {
-      content: (<Topograms />)
+      content: (<TopogramsPage />)
+    })
+  }
+})
+
+FlowRouter.route( '/topograms/:topogramId', {
+  // triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action(params) {
+    mount(mainLayout, {
+      content: (<TopogramPage topogramId={params.topogramId} />)
     })
   }
 })

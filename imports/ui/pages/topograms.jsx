@@ -4,12 +4,12 @@ import TopogramAddForm from '../components/topograms/TopogramAddForm.jsx'
 import TopogramPrivateList from '../components/topograms/TopogramPrivateList.jsx'
 
 // define and export our Welcome component
-const Topograms = () => (
+const TopogramsPage = () => (
     <div>
       <TopogramAddForm />
-      <h5 className="grey-text text-lighten-2 center">Browse existing topograms</h5>
+      <h5 className="grey-text text-lighten-2 center">Browse your topograms</h5>
       <TopogramPrivateList editable={true} />
     </div>
 )
 
-export default Topograms
+export default TopogramsPage
