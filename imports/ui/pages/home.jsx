@@ -1,8 +1,23 @@
 import React from 'react'
 
-import HomeHeader from '../components/home/HomeHeader.jsx'
 import TopogramAddForm from '../components/topograms/TopogramAddForm.jsx'
 import TopogramPublicList from '../components/topograms/TopogramPublicList.jsx'
+
+let headerStyle = {
+  textAlign : 'center',
+  marginTop : '2em'
+}
+
+const HomeHeader = () => (
+  <section
+    className="home-header"
+    style={headerStyle}
+  >
+    <h1>Topogram</h1>
+    <h4>Social network analysis for Humans</h4>
+    <p>An open-source toolkit to process, visualize and analyze networks.</p>
+  </section>
+)
 
 // define and export our Welcome component
 const Welcome = () => (
