@@ -1,5 +1,5 @@
 import { FlowRouter } from 'meteor/kadira:flow-router'
-import { AccountsTemplates } from 'meteor/useraccounts:core'
+// import { AccountsTemplates } from 'meteor/useraccounts:core'
 
 import React from 'react'
 import { mount } from 'react-mounter'
@@ -11,7 +11,7 @@ import LabPage from '../../../ui/pages/lab.jsx'
 import Topograms from '../../../ui/pages/topograms.jsx'
 
 FlowRouter.route( '/topograms/:topogramId/lab', {
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  // triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
     mount(mainLayout, {
       content: (<LabPage topogramId={params.topogramId}/>)
@@ -21,7 +21,7 @@ FlowRouter.route( '/topograms/:topogramId/lab', {
 
 
 FlowRouter.route( '/topograms/:topogramId/import', {
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  // triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
     mount(mainLayout, {
       content: (<ImportDataPage topogramId={params.topogramId}/>)
@@ -31,7 +31,7 @@ FlowRouter.route( '/topograms/:topogramId/import', {
 
 
 FlowRouter.route( '/topograms', {
-  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  // triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     mount(mainLayout, {
       content: (<Topograms />)

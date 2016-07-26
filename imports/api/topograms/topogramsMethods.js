@@ -16,6 +16,25 @@ Meteor.methods( {
     } )
   },
 
+  createPublicTopogram( name ) {
+        // make sure that a topogram with the same name and same user does not already exists
+    const t = Topograms.find({ name, 'owner': null }).fetch()
+    if (t.length) {
+      name += '-' + (new Date()).toDateString()
+    }
+
+    console.log(name)
+    
+    return Topograms.insert( {
+      name,
+      'slug': slugify( name ),
+      'createdAt': new Date(), // current time
+      'sharedPublic' : true,
+      'owner': null // _id of logged in user
+    })
+
+  },
+
   createTopogram( ownerId, name ) {
         // make sure that a topogram with the same name and same user does not already exists
     console.log(ownerId)
