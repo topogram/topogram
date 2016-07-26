@@ -1,5 +1,4 @@
 import React from 'react'
-import { Meteor } from 'meteor/meteor'
 
 import { Card, CardActions, CardHeader } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'

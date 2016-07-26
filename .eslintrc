@@ -28,9 +28,9 @@
     "plugin:import/warnings",
   ],
   "rules": {
-    "no-console": 0,
+    "no-console": 1,
     "indent": [2, 2],
-    "semi" : ["error", "never"],
+    "semi" : [2, "never"],
     "quotes": [2, "single"],
     "linebreak-style": [2, "unix"],
     "brace-style" : [2, "stroustrup", { "allowSingleLine": true }],
@@ -42,7 +42,6 @@
     "no-underscore-dangle": 0,
     "curly": [2, "multi-line"],
     "no-use-before-define": [2, "nofunc"],
-
 
     "no-var": 2,
     "object-shorthand": [2, "always"],

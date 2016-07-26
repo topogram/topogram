@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton'
 
 const DeleteConfirmationDialog = React.createClass({
 
-  getDefaultProps(){
+  getDefaultProps() {
     return {
       topogramName: '',
       topogramId : ''
