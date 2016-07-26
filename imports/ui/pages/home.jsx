@@ -6,7 +6,7 @@ import { Meteor } from 'meteor/meteor'
 import TopogramList from '../components/topograms/TopogramList.jsx'
 import TopogramAddForm from '../components/topograms/TopogramAddForm.jsx'
 
-let headerStyle = {
+const headerStyle = {
   textAlign : 'center',
   marginTop : '2em'
 }
