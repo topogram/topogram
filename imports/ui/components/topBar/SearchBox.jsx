@@ -7,8 +7,8 @@ const style =  {
 
 const SearchBox = () => (
   <TextField
-      hintText="Search Box"
-      style={style}
+    hintText="Search Box"
+    style={style}
   />
 )
 
