@@ -20,11 +20,11 @@ Meteor.methods( {
         // make sure that a topogram with the same name and same user does not already exists
     const t = Topograms.find({ name, 'owner': null }).fetch()
     if (t.length) {
-      name += '-' + (new Date()).toDateString()
+      name += '-' + (new Date()).toDateString() + ' ' +(new Date()).toLocaleTimeString()
     }
 
     console.log(name)
-    
+
     return Topograms.insert( {
       name,
       'slug': slugify( name ),

@@ -17,13 +17,14 @@ Meteor.publish( 'topograms.private', function () {
 
 Meteor.publish( 'topograms.public', function () {
   return Topograms.find( {
-    'sharedPublic': 1
+    'sharedPublic': true
   }, {
     'sort': {
-      'createdAt': 1
+      'createdAt': -1
     },
-    'limit': 500
+    'limit': 20
   } )
+
 } )
 
 /*
