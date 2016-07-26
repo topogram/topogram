@@ -1,20 +1,21 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor'
-import { Session } from 'meteor/session'
 
+class Version extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { version: '' }
+  }
 
-const Version = React.createClass({
   render() {
-    let version = ''
     Meteor.call('getVersion', (err, data) => {
       if (err) throw err
-      Session.set('version', data)
-      version = data
+      this.setState({ 'version' : data })
     })
     return (
-      <p className="version">{version}</p>
+      <p className="version">Version {this.state.version}</p>
     )
   }
-})
+}
 
 export default Version

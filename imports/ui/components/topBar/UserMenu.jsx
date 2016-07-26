@@ -4,6 +4,8 @@ import IconButton from 'material-ui/IconButton'
 import MenuItem from 'material-ui/MenuItem'
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
 
+import About from '../About.jsx'
+
 class UserMenu extends React.Component {
 
   constructor(props) {
@@ -21,6 +23,7 @@ class UserMenu extends React.Component {
       >
         <MenuItem primaryText="Download" />
         <MenuItem primaryText="More Info" />
+        <About />
       </IconMenu>
     )
   }

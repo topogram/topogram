@@ -27,10 +27,7 @@ class TopBar extends React.Component {
         <ToolbarTitle
           text="Topogram"
         />
-        <ToolbarGroup>
-          <SearchBox />
-        </ToolbarGroup>
-        <ToolbarSeparator />
+        <SearchBox />
         <UserMenu />
       </Toolbar>
     )
