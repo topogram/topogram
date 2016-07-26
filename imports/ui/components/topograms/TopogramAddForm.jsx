@@ -19,20 +19,23 @@ const TopogramAddForm = React.createClass({
       if (Meteor.userId()) {
         Meteor.call( 'createTopogram', Meteor.userId(), topogramName, function (err, topogram) {
           if (err) throw err
-          if (topogram.status == 'error') this.refs.flash.sendError(topogram.message)
-          else FlowRouter.go( '/topograms/' + topogram + '/import' )
+          // Use MaterialUI snackbar
+          // if (topogram.status == 'error') this.refs.flash.sendError(topogram.message)
+          else FlowRouter.go( '/topograms/' + topogram )
         })
       }
       else {
         Meteor.call( 'createPublicTopogram', topogramName, function (err, topogram) {
           if (err) throw err
-          if (topogram.status == 'error') this.refs.flash.sendError(topogram.message)
-          else FlowRouter.go( '/topograms/' + topogram + '/import' )
+          // Use MaterialUI snackbar
+          // if (topogram.status == 'error') this.refs.flash.sendError(topogram.message)
+          else FlowRouter.go( '/topograms/' + topogram )
         })
       }
     }
     else {
-      this.refs.flash.sendError( 'TopogramName should not be empty' )
+      // Use MaterialUI snackbar
+      // this.refs.flash.sendError( 'TopogramName should not be empty' )
     }
   },
   render() {
