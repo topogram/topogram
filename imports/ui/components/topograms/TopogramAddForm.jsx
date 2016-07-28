@@ -9,6 +9,7 @@ class TopogramAddForm extends React.Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+    console.log(this);
   }
 
   handleSubmit(e) {
