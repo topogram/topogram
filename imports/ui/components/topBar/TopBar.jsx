@@ -1,11 +1,17 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton'
-import { Toolbar, ToolbarTitle } from 'material-ui/Toolbar'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
+import { Toolbar } from 'material-ui/Toolbar'
 
 import SearchBox from './SearchBox.jsx'
 import UserMenu from './UserMenu.jsx'
+import InlineEditField from '../inlineEdit/InlineEditField.jsx'
 
+const styles = {
+  TopBar : {
+    backgroundColor : 'none'
+  }
+}
 
 class TopBar extends React.Component {
   constructor(props) {
@@ -14,15 +20,21 @@ class TopBar extends React.Component {
 
   render() {
     return (
-      <Toolbar>
+      <Toolbar style={styles.TopBar} >
         <IconButton
           onClick={this.props.onHomeButtonClick}
         >
           <NavigationMenu />
         </IconButton>
-        <ToolbarTitle
-          text="Topogram"
+
+        <InlineEditField
+          defaultValue="Topogram"
+          _id="uXW8mNfFgWpaMdao6"
+          collection="topograms"
+          field="name"
+          promptSnackbar={this.promptSnackbar}
         />
+
         <SearchBox />
         <UserMenu />
       </Toolbar>
@@ -31,7 +43,8 @@ class TopBar extends React.Component {
 }
 
 TopBar.propTypes = {
-  onHomeButtonClick: React.PropTypes.func
+  onHomeButtonClick: React.PropTypes.func,
+  promptSnackbar: React.PropTypes.func
 }
 
 

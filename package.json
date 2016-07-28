@@ -24,6 +24,7 @@
     "react-dom": "^15.1.0",
     "react-komposer": "^1.13.1",
     "react-mounter": "^1.2.0",
+    "react-remarkable": "^1.1.1",
     "react-tap-event-plugin": "^1.0.0",
     "react-toastr": "^2.7.0",
     "topogram-plugin-chi2": "topogram/topogram-plugin-chi2",
