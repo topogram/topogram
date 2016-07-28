@@ -1,32 +1,55 @@
-import './flashMessages.css'
-import { ToastContainer, ToastMessage } from 'react-toastr'
-import './animate.css'
-import './toastr.min.css'
 import React from 'react'
+import Snackbar from 'material-ui/Snackbar'
 
-const ToastMessageFactory = React.createFactory(ToastMessage.animation)
+class FlashMessages extends React.Component {
 
-const FlashMessages = React.createClass({
-  sendSuccess(msg, title) {
-    console.log(msg, title)
-    this.refs.container.success(msg, title , {
-      closeButton: true,
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false,
+      message: ''
+    }
+    this.promptSnackbar = this.promptSnackbar.bind(this)
+    this.handleRequestClose = this.handleRequestClose.bind(this)
+  }
+
+  promptSnackbar(msg) {
+    this.setState({
+      open: true,
+      message: msg
     })
-  },
-  sendError(msg, title) {
-    this.refs.container.error(msg, title , {
-      closeButton: true,
+  }
+
+  handleRequestClose() {
+    this.setState({
+      open: false,
     })
-  },
+  }
+
+  // sendSuccess(msg, title) {
+  //   console.log(msg, title)
+  //   this.refs.container.success(msg, title , {
+  //     closeButton: true,
+  //   })
+  // }
+  //
+  // sendError(msg, title) {
+  //   this.refs.container.error(msg, title , {
+  //     closeButton: true,
+  //   })
+  // }
+
+
   render() {
     return (
-      <ToastContainer
-        toastMessageFactory={ToastMessageFactory}
-        ref="container"
-        className="toast-top-right"
+      <Snackbar
+        open={this.state.open}
+        message={this.state.message}
+        autoHideDuration={4000}
+        onRequestClose={this.handleRequestClose}
       />
     )
   }
-})
+}
 
 export default FlashMessages
