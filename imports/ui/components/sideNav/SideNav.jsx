@@ -1,7 +1,9 @@
 import React from 'react'
 import Drawer from 'material-ui/Drawer'
-import MenuItem from 'material-ui/MenuItem'
 import AppBar from 'material-ui/AppBar'
+import FlatButton from 'material-ui/FlatButton'
+
+import SideNavItem from './SideNavItem.jsx'
 
 
 class SideNav extends React.Component {
@@ -19,18 +21,28 @@ class SideNav extends React.Component {
     return (
       <Drawer open={this.state.open}>
         <AppBar
-          title="Title"
+          title="Topogram.io"
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           onTouchTap={this.handleToggle}
         />
-        {/*
-          <SideNavItem>
-          </SideNavItem> */}
-        <MenuItem>Menu Item</MenuItem>
-        <MenuItem>Menu Item 2</MenuItem>
+
+        <SideNavItem
+          title="SideNavItem"
+        >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+            Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+            Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+          </p>
+          <FlatButton label="Action1" />
+          <FlatButton label="Action2" />
+        </SideNavItem>
+
       </Drawer>
     )
   }
 }
+
 
 export default SideNav
