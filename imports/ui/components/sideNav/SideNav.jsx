@@ -5,7 +5,6 @@ import AppBar from 'material-ui/AppBar'
 
 
 class SideNav extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = { open: true }
@@ -24,6 +23,9 @@ class SideNav extends React.Component {
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           onTouchTap={this.handleToggle}
         />
+        {/*
+          <SideNavItem>
+          </SideNavItem> */}
         <MenuItem>Menu Item</MenuItem>
         <MenuItem>Menu Item 2</MenuItem>
       </Drawer>

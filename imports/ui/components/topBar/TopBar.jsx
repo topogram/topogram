@@ -1,6 +1,6 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton'
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
+import { Toolbar, ToolbarTitle } from 'material-ui/Toolbar'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 
 import SearchBox from './SearchBox.jsx'
