@@ -15,7 +15,7 @@ const styles = {
 
 /**
  * Inline editable text component
- * Support Mardown
+ * support Mardown
  */
 class InlineEditField extends React.Component {
 
@@ -121,12 +121,20 @@ class InlineEditField extends React.Component {
       )
     }
   }
-
 }
 
 InlineEditField.propTypes = {
+  /**
+  * Select if you want a simple input/text or a multiline markdown/textara field
+  */
   type: React.PropTypes.oneOf(['input', 'textarea']),
-  defaultValue : React.PropTypes.string, // when the textbox is empty
+  /**
+  * Default text to be passed at initialization
+  */
+  defaultValue : React.PropTypes.string,
+  /**
+  * What is displayed when the text box is empty 
+  */
   placeholder: React.PropTypes.string,
   _id : React.PropTypes.string.isRequired,
   collection : React.PropTypes.string.isRequired,

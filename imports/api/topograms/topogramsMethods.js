@@ -3,8 +3,14 @@ import { slugify } from '../../helpers'
 import { Topograms } from '../collections.js'
 
 Meteor.methods( {
+  /**
+  * returns a list of topograms
+  * based on the passed user ID
+  *
+  * @param {String} userId the ID of the user
+  * @return {MongoCursor} collection a Mongo Collection
+  */
   topogramListForUser( userId ) {
-        // console.log(userId)
     return Topograms.find( {
       'owner': userId,
       'name': 1
@@ -16,14 +22,18 @@ Meteor.methods( {
     } )
   },
 
+  /**
+  * create a public topograms (without owner)
+  *
+  * @param {String} name the name of the new topogram
+  * @return {Object} the Topogram object as inserted in Mongo
+  */
   createPublicTopogram( name ) {
         // make sure that a topogram with the same name and same user does not already exists
     const t = Topograms.find({ name, 'owner': null }).fetch()
     if (t.length) {
       name += '-' + (new Date()).toDateString() + ' ' +(new Date()).toLocaleTimeString()
     }
-
-    console.log(name)
 
     return Topograms.insert( {
       name,
@@ -35,6 +45,12 @@ Meteor.methods( {
 
   },
 
+  /**
+  * create a topograms with an owner
+  *
+  * @param {String} name the name of the new topogram
+  * @return {Object} the Topogram object as inserted in Mongo
+  */
   createTopogram( ownerId, name ) {
         // make sure that a topogram with the same name and same user does not already exists
     console.log(ownerId)
@@ -57,6 +73,12 @@ Meteor.methods( {
     } )
   },
 
+  /**
+  * Make a topograms public
+  *
+  * @param {_id} the Mongo _id of the new topogram
+  * @return {Object} the Topogram object as inserted in Mongo
+  */
   makePublic( _id ) {
     return Topograms.update( _id, {
       $set: {
@@ -65,6 +87,12 @@ Meteor.methods( {
     } )
   },
 
+  /**
+  * Make a topograms private
+  *
+  * @param {_id} the Mongo _id of the new topogram
+  * @return {Object} the Topogram object as inserted in Mongo
+  */
   makePrivate( _id ) {
     return Topograms.update( _id, {
       $set: {
