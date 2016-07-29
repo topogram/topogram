@@ -42,6 +42,7 @@ Check for ESlint compliance
 
     npm run lint
 
+
 ### Deploy with Docker
 
 We use Docker to run in production.
@@ -49,6 +50,10 @@ We use Docker to run in production.
 1. build the Docker topogram/topogram container with `./build.sh`
 1. fetch a mongo Docker container for the DB and run the app with `docker-compose up`
 
+
+## Build the docs
+
+    gulp doc
 
 ## Publishing instructions
 
