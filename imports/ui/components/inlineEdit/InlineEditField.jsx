@@ -13,6 +13,10 @@ const styles = {
   }
 }
 
+/**
+ * Inline editable text component
+ * Support Mardown
+ */
 class InlineEditField extends React.Component {
 
   constructor(props) {
@@ -120,7 +124,7 @@ class InlineEditField extends React.Component {
 
 }
 
-InlineEditField.PropTypes = {
+InlineEditField.propTypes = {
   type: React.PropTypes.oneOf(['input', 'textarea']),
   defaultValue : React.PropTypes.string, // when the textbox is empty
   placeholder: React.PropTypes.string,
