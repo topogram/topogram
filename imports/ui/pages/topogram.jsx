@@ -59,6 +59,7 @@ class TopogramPage extends React.Component {
           collection="topograms"
           style={tmpStyle}
           promptSnackbar={this.promptSnackbar}
+          allowEmpty={true}
         />
 
         <InlineEditField

@@ -3,7 +3,8 @@ import TextField from 'material-ui/TextField'
 import grey400 from 'material-ui/styles/colors'
 
 import Markdown from 'react-remarkable'
-import './markdown.scss'
+import 'github-markdown-css'
+import './inlineEdit.scss'
 
 const styles = {
   helpBlock : {
@@ -27,7 +28,10 @@ class InlineEditField extends React.Component {
   }
 
   handleEditToggle() {
-    this.setState({ editing: !this.state.editing })
+    if (!this.props.allowEmpty && this.state.text == '') {
+      this.props.promptSnackbar( 'This field should not be empty' )
+    }
+    else this.setState({ editing: !this.state.editing })
   }
 
   handleChange(e) {
@@ -54,38 +58,37 @@ class InlineEditField extends React.Component {
       }
     }
     else if (e.key === 'Escape') { // esc
-      this.setState({ editing : false, text: this.props.defaultValue })
+      this.setState({ editing : false })
     }
   }
 
   render() {
     let fieldId = 'field'+~~(Math.random()*1000000)
-    let placeholder = this.props.stateholder || 'Click to edit'
-    let type = this.props.type || 'input'
-
     if ( this.state.editing ) {
       return (
         <div style={this.props.style}>
-          {type === 'input' ?
+          {this.props.type === 'input' ?
             <TextField
-              hintText={placeholder}
+              hintText={this.props.placeholder}
               value={this.state.text}
               onChange={this.handleChange}
               onKeyDown={this.handleSave}
               onBlur={this.handleEditToggle}
               name={fieldId}
+              ref="textField"
             />
           : null}
-          {type === 'textarea' ?
+          {this.props.type === 'textarea' ?
             <span>
               <TextField
                 multiLine={true}
-                hintText={placeholder}
+                hintText={this.props.placeholder}
                 value={this.state.text}
                 onChange={this.handleChange}
                 onKeyDown={this.handleSave}
                 onBlur={this.handleEditToggle}
                 name={fieldId}
+                ref="textField"
               />
               <p style={styles.helpBlock}>
                 Format with Markdown. Ctrl + enter to validate.
@@ -96,14 +99,13 @@ class InlineEditField extends React.Component {
       )
     }
     else {
-      let text = this.state.text || this.props.placeholder
+      let text = (this.state.text == '') ? this.props.placeholder : this.state.text
       let className = 'editable'
       if (this.props.type === 'textarea') {
         text =  <Markdown>{this.state.text}</Markdown>
-        className = 'reset-this'
+        className += ' markdown-body'
       }
-
-      console.log(text)
+      if (this.state.text == '') className +=' emptyfield'
       return (
         <span
           className={className}
@@ -129,6 +131,12 @@ InlineEditField.PropTypes = {
   promptSnackbar: React.PropTypes.func
 }
 
+
+InlineEditField.defaultProps = {
+  allowEmpty: false,
+  placeholder : 'Click to edit',
+  type : 'input'
+}
 
 
 export default InlineEditField
