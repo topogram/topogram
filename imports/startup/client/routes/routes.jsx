@@ -7,7 +7,6 @@ import NotFoundPage from '../../../client/components/NotFoundPage.jsx'
 
 import Welcome from '../../../pages/home.jsx'
 
-//Render homepage with React
 FlowRouter.route('/', {
   action() {
     mount(MainLayout, {
@@ -18,7 +17,6 @@ FlowRouter.route('/', {
 
 
 //404
-
 FlowRouter.notFound = {
   action() {
     mount(MainLayout, {

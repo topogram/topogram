@@ -4,6 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { green500, indigo700, redA200 } from 'material-ui/styles/colors'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
+// i18n
+import HotSwappingIntlProvider from './HotSwappingIntlProvider.jsx'
 
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 // injectTapEventPlugin();
@@ -20,9 +22,11 @@ const muiTheme = getMuiTheme({
 const LayoutWrapper = ({ content , classNames}) =>
   (
     <MuiThemeProvider muiTheme={muiTheme}>
-      <div className={ classNames }>
-        {content}
-      </div>
+      <HotSwappingIntlProvider>
+        <div className={ classNames }>
+          {content}
+        </div>
+      </HotSwappingIntlProvider>
     </MuiThemeProvider>
   )
 

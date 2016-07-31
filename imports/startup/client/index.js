@@ -1,6 +1,9 @@
 // config accounts
 import '../../accounts.js'
 
+// i18n
+import '../../i18n.js'
+
 // routes
 import './routes/routes.jsx'
 import './routes/topograms.jsx'

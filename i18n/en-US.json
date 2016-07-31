@@ -1,0 +1,27 @@
+[
+  {
+    "id": "home.tagline",
+    "defaultMessage": "Social Network Analysis for humans.",
+    "message": "Social Network Analysis for humans."
+  },
+  {
+    "id": "home.subtitle",
+    "defaultMessage": "An open-source toolkit to process, visualize and analyze networks.",
+    "message": "An open-source toolkit to process, visualize and analyze networks."
+  },
+  {
+    "id": "home.browseTopograms",
+    "defaultMessage": "Browse publics topograms",
+    "message": "Browse publics topograms"
+  },
+  {
+    "id": "home.topogram.addForm.label",
+    "defaultMessage": "Create a new Topogram",
+    "message": ""
+  },
+  {
+    "id": "home.topogram.addForm.hint",
+    "defaultMessage": "Input a name",
+    "message": ""
+  }
+]

@@ -63,3 +63,7 @@ This project is set up to automatically publish to npm. To publish:
 
 1. Set the version number environment variable: export VERSION=1.2.3
 1. Publish: ```gulp publish```
+
+## Internationalization
+
+We use [`react-intl`](https://github.com/yahoo/react-intl) to bring i18n Internationalization to Topogram. Please feel free to add your own language by translating a file in `./i18n` folder.

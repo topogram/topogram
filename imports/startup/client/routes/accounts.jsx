@@ -3,6 +3,8 @@
 // // import { AccountsTemplates } from 'meteor/useraccounts:core'
 // import { mount } from 'react-mounter'
 
+// import { i18nRoutes } from './routes.jsx'
+
 // import MainLayout from '../../../client/layouts/MainLayout.jsx'
 //
 // //UserAccounts Routes
