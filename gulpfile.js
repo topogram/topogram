@@ -35,13 +35,13 @@ if (typeof Meteor === typeof undefined) {
   * Docs
   */
 
-  var DOC_DEST_FOLDER = './docs';
+  var DOC_DEST_FOLDER = './.docs';
   var API_DOC_DEST_FOLDER = DOC_DEST_FOLDER + '/api';
   var UI_DOC_DEST_FOLDER = DOC_DEST_FOLDER + '/ui';
 
   gulp.task('doc', function(done){
     runSequence('doc:clean', 'doc:react', 'doc:api', 'doc:build', function(){
-      gutil.log(gutil.colors.green('Docs built: OK'))
+      gutil.log(gutil.colors.green('OK : docs built at ', DOC_DEST_FOLDER  ))
       done()
     })
   })
@@ -54,7 +54,7 @@ if (typeof Meteor === typeof undefined) {
       DOC_DEST_FOLDER+'/index.md',
       DOC_DEST_FOLDER+'/api.md',
       DOC_DEST_FOLDER+'/ui.md',
-    ]);
+    ], { force : true});
 });
 
   gulp.task('doc:build', function(cb){

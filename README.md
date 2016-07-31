@@ -53,6 +53,8 @@ We use Docker to run in production.
 
 ## Build the docs
 
+All the docs will be built in the `.docs/` folder.
+
     gulp doc
 
 ## Publishing instructions
