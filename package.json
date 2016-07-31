@@ -58,7 +58,10 @@
     "gulp-util": "^3.0.7",
     "jshint-stylish": "^1.0.0",
     "json-loader": "^0.5.4",
-    "run-sequence": "^1.0.0"
+    "react": "^15.3.0",
+    "react-addons-test-utils": "^15.3.0",
+    "run-sequence": "^1.0.0",
+    "sinon": "^1.17.5"
   },
   "scripts": {
     "start": "meteor",

@@ -23,7 +23,7 @@ class InlineEditField extends React.Component {
     super(props)
 
     this.state = {
-      editing: null,
+      editing: false,
       text : this.props.defaultValue // initial text
     }
     this.handleEditToggle = this.handleEditToggle.bind(this)
