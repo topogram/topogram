@@ -30,7 +30,6 @@ describe('<InlineEditField />', () => {
       defaultValue=""
       placeholder="yo"
     />)
-    console.log(field)
     assert(field.hasClass('emptyfield'))
     assert(field.find('span').text(), 'yo')
 

@@ -4,7 +4,7 @@ import Papa from 'papaparse'
 import { TextField, FlatButton } from 'material-ui'
 import FlashMessages from '../flashMessages/FlashMessages.jsx'
 
-const ImportDataFile = React.createClass({
+const ImportDataFileField = React.createClass({
 
   getInitialState() {
     return {
@@ -134,4 +134,4 @@ const ImportDataFile = React.createClass({
   }
 })
 
-export default ImportDataFile
+export default ImportDataFileField

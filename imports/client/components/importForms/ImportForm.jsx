@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardTitle, CardText, CardActions, FlatButton } from 'material-ui'
 
 
-const ImportElementsForm = React.createClass({
+const ImportForm = React.createClass({
   render() {
     return (
       <Card>
@@ -23,4 +23,4 @@ const ImportElementsForm = React.createClass({
   }
 })
 
-export default ImportElementsForm
+export default ImportForm

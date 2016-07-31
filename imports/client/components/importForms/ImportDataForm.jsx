@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, CardHeader, CardText } from 'material-ui'
 
-import ImportDataFile from './ImportDataFile.jsx'
+import ImportDataFileField from '../importFields/ImportDataFileField.jsx'
 
 const ImportDataForm = React.createClass({
   render() {
@@ -12,7 +12,7 @@ const ImportDataForm = React.createClass({
             title="Upload Data File"
           />
           <CardText>
-            <ImportDataFile onDataChange={this.props.onDataChange}/>
+            <ImportDataFileField onDataChange={this.props.onDataChange}/>
           </CardText>
         </Card>
       </form>

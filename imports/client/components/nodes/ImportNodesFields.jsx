@@ -1,7 +1,7 @@
 import React from 'react'
 
-import ImportFieldSelector from './ImportFieldSelector.jsx'
-import ImportOptionalFields from './ImportOptionalFields.jsx'
+import ImportFieldSelector from '../importFields/ImportFieldSelector.jsx'
+import ImportOptionalFields from '../importFields/ImportOptionalFields.jsx'
 
 const ImportNodesFields = React.createClass({
   render() {

@@ -8,18 +8,18 @@ import MainLayout from '../../../client/layouts/MainLayout.jsx'
 import FullPageLayout from '../../../client/layouts/FullPageLayout.jsx'
 
 import ImportDataPage from '../../../pages/import.jsx'
-import LabPage from '../../../pages/lab.jsx'
+// import LabPage from '../../../pages/lab.jsx'
 import TopogramsPage from '../../../pages/topograms.jsx'
 import TopogramPage from '../../../pages/topogram.jsx'
 
-FlowRouter.route( '/topograms/:topogramId/lab', {
-  // triggersEnter: [AccountsTemplates.ensureSignedIn],
-  action(params) {
-    mount(MainLayout, {
-      content: (<LabPage topogramId={params.topogramId}/>)
-    })
-  }
-})
+// FlowRouter.route( '/topograms/:topogramId/lab', {
+//   // triggersEnter: [AccountsTemplates.ensureSignedIn],
+//   action(params) {
+//     mount(MainLayout, {
+//       content: (<LabPage topogramId={params.topogramId}/>)
+//     })
+//   }
+// })
 
 
 FlowRouter.route( '/topograms/:topogramId/import', {
