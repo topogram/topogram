@@ -1,9 +1,9 @@
 import React from 'react'
 import { Tabs, Tab } from 'material-ui/Tabs'
 
-import TopogramTitle from '../components/topograms/TopogramTitle.jsx'
-import NodesLab from '../components/lab/NodesLab.jsx'
-import EdgesLab from '../components/lab/EdgesLab.jsx'
+import TopogramTitle from '../client/components/topograms/TopogramTitle.jsx'
+import NodesLab from '../client/components/lab/NodesLab.jsx'
+import EdgesLab from '../client/components/lab/EdgesLab.jsx'
 
 const LabPage = React.createClass({
   render() {

@@ -43,7 +43,7 @@ class InlineEditField extends React.Component {
   }
 
   handleSave(e) {
-    let type = this.props.type || 'input'
+    const type = this.props.type || 'input'
     if ( type === 'input' && e.key === 'Enter' || type === 'textarea' && e.key === 'Enter' && e.ctrlKey == true ) {
       if (!this.props.allowEmpty && this.state.text == '') {
         this.props.promptSnackbar( 'This field should not be empty' )
@@ -133,7 +133,7 @@ InlineEditField.propTypes = {
   */
   defaultValue : React.PropTypes.string,
   /**
-  * What is displayed when the text box is empty 
+  * What is displayed when the text box is empty
   */
   placeholder: React.PropTypes.string,
   _id : React.PropTypes.string.isRequired,

@@ -1,10 +1,9 @@
 import React from 'react'
 import Snackbar from 'material-ui/Snackbar'
 
-import TopBar from '../components/topBar/TopBar.jsx'
-import SideNav from '../components/sideNav/SideNav.jsx'
-
-import InlineEditField from '../components/inlineEdit/InlineEditField.jsx'
+import TopBar from '../client/components/topBar/TopBar.jsx'
+import SideNav from '../client/components/sideNav/SideNav.jsx'
+import InlineEditField from '../client/components/inlineEdit/InlineEditField.jsx'
 
 const tmpStyle = { }
 

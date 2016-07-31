@@ -2,9 +2,10 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import React from 'react'
 import { mount } from 'react-mounter'
 
-import MainLayout from '../../../ui/layouts/MainLayout.jsx'
-import Welcome from '../../../ui/pages/home.jsx'
-import NotFoundPage from '../../../ui/components/NotFoundPage.jsx'
+import MainLayout from '../../../client/layouts/MainLayout.jsx'
+import NotFoundPage from '../../../client/components/NotFoundPage.jsx'
+
+import Welcome from '../../../pages/home.jsx'
 
 //Render homepage with React
 FlowRouter.route('/', {

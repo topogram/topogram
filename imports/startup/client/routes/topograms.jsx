@@ -4,13 +4,13 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import React from 'react'
 import { mount } from 'react-mounter'
 
-import MainLayout from '../../../ui/layouts/MainLayout.jsx'
-import FullPageLayout from '../../../ui/layouts/FullPageLayout.jsx'
+import MainLayout from '../../../client/layouts/MainLayout.jsx'
+import FullPageLayout from '../../../client/layouts/FullPageLayout.jsx'
 
-import ImportDataPage from '../../../ui/pages/import.jsx'
-import LabPage from '../../../ui/pages/lab.jsx'
-import TopogramsPage from '../../../ui/pages/topograms.jsx'
-import TopogramPage from '../../../ui/pages/topogram.jsx'
+import ImportDataPage from '../../../pages/import.jsx'
+import LabPage from '../../../pages/lab.jsx'
+import TopogramsPage from '../../../pages/topograms.jsx'
+import TopogramPage from '../../../pages/topogram.jsx'
 
 FlowRouter.route( '/topograms/:topogramId/lab', {
   // triggersEnter: [AccountsTemplates.ensureSignedIn],

@@ -9,13 +9,13 @@ injectTapEventPlugin()
 import RaisedButton from 'material-ui/RaisedButton'
 import { Card, SelectField, MenuItem } from 'material-ui'
 
-import { makeNode, makeEdge } from '../../api/modelsHelpers.js'
+import { makeNode, makeEdge } from '../api/modelsHelpers.js'
 
-import ImportDataForm from '../components/import/ImportDataForm.jsx'
-import ImportEdgesFields from '../components/import/ImportEdgesFields.jsx'
-import ImportNodesFields from '../components/import/ImportNodesFields.jsx'
-import ImportElementsForm from '../components/import/ImportElementsForm.jsx'
-import FlashMessages from '../components/flashMessages/FlashMessages.jsx'
+import ImportDataForm from '../client/components/import/ImportDataForm.jsx'
+import ImportEdgesFields from '../client/components/import/ImportEdgesFields.jsx'
+import ImportNodesFields from '../client/components/import/ImportNodesFields.jsx'
+import ImportElementsForm from '../client/components/import/ImportElementsForm.jsx'
+import FlashMessages from '../client/components/flashMessages/FlashMessages.jsx'
 
 const ElementTypeSelector = React.createClass({
   getInitialState() {

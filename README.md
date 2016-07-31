@@ -36,7 +36,7 @@ You can launch all tests using `gulp test` or `npm test`
 
 You can also run the app in test mode to check integration as you develop
 
-    npm test-ui
+    npm test:ui
 
 Check for ESlint compliance
 

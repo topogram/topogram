@@ -2,9 +2,9 @@ import React from 'react'
 import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 
-import { Topograms } from '../../api/collections.js'
-import TopogramList from '../components/topograms/TopogramList.jsx'
-import TopogramAddForm from '../components/topograms/TopogramAddForm.jsx'
+import { Topograms } from '../api/collections.js'
+import TopogramList from '../client/components/topograms/TopogramList.jsx'
+import TopogramAddForm from '../client/components/topograms/TopogramAddForm.jsx'
 
 
 function composer(props, onData) {
