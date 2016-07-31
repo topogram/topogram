@@ -76,7 +76,7 @@ Meteor.methods( {
   /**
   * Make a topograms public
   *
-  * @param {_id} the Mongo _id of the new topogram
+  * @param {String} _id the Mongo _id of the new topogram
   * @return {Object} the Topogram object as inserted in Mongo
   */
   makePublic( _id ) {
@@ -90,8 +90,8 @@ Meteor.methods( {
   /**
   * Make a topograms private
   *
-  * @param {_id} the Mongo _id of the new topogram
-  * @return {Object} the Topogram object as inserted in Mongo
+  * @param {String} _id the Mongo _id of the new topogram
+  * @return {Object} the Topogram object as updated in Mongo
   */
   makePrivate( _id ) {
     return Topograms.update( _id, {
@@ -101,6 +101,12 @@ Meteor.methods( {
     } )
   },
 
+  /**
+  * Delete a topogram. Will also delete all edges and nodes with this topogramId
+  *
+  * @param {String} _id the Mongo _id of the new topogram
+  * @return {Object} the Topogram object as inserted in Mongo
+  */
   deleteTopogram( _id ) {
     Meteor.call( 'deleteNodesByTopogramId', _id )
     Meteor.call( 'deleteEdgesByTopogramId', _id )
@@ -109,6 +115,14 @@ Meteor.methods( {
     } )
   },
 
+  /**
+  * Search topograms by name or beginning of name.
+  * Useful to build an autocomplete or a search of the indexed documents
+  *
+  * @param {String} query the (partial) name of the new topogram
+  * @param {Object} options options for the Mongo query
+  * @return {Object} the Topogram object as inserted in Mongo
+  */
   search( query, options ) {
     options = options || {}
 
