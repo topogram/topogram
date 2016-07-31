@@ -3,6 +3,8 @@ import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 import Snackbar from 'material-ui/Snackbar'
 
+import { FormattedMessage } from 'react-intl'
+
 import { Topograms } from '../api/collections.js'
 import TopogramList from '../client/components/topograms/TopogramList.jsx'
 import TopogramAddForm from '../client/components/topograms/TopogramAddForm.jsx'
@@ -14,8 +16,10 @@ const HomeHeader = () => (
   >
     <div>
       <h1>Topogram</h1>
-      <h4>Social network analysis for Humans</h4>
-      <p>An open-source toolkit to process, visualize and analyze networks.</p>
+      <h4>
+        <FormattedMessage id="home.tagline" />
+      </h4>
+      <p><FormattedMessage id="home.subtitle" /></p>
     </div>
   </section>
 )
@@ -63,7 +67,9 @@ class Welcome extends React.Component {
         <TopogramAddForm promptSnackbar={this.promptSnackbar} />
 
         <section className="home-public-list">
-          <h5 className="grey-text text-lighten-2 center">Browse publics topograms</h5>
+          <h5 className="grey-text text-lighten-2 center">
+            <FormattedMessage id="home.browseTopograms" />
+          </h5>
           <TopogramPublicList editable={false} />
         </section>
 

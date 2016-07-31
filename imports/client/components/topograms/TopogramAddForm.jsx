@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextField, RaisedButton } from 'material-ui'
 import { FlowRouter } from 'meteor/kadira:flow-router'
+import { defineMessages, injectIntl } from 'react-intl'
 
 let formStyle = { padding : '150px' }
 let buttonStyle = { marginLeft : 12 }
@@ -9,7 +10,6 @@ class TopogramAddForm extends React.Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
-    console.log(this);
   }
 
   handleSubmit(e) {
@@ -39,6 +39,8 @@ class TopogramAddForm extends React.Component {
   }
 
   render() {
+    const { messages, formatMessage } = this.props.intl
+    
     return (
       <section className="home-create-section">
         <form
@@ -48,8 +50,8 @@ class TopogramAddForm extends React.Component {
           <TextField
             name="topogramName"
             ref="topogramName"
-            floatingLabelText="Create a new Topogram"
-            hintText="Input a name..."
+            floatingLabelText={messages['home.topogram.addForm.label']}
+            hintText={messages['home.topogram.addForm.hint']}
           />
 
           <RaisedButton
@@ -68,4 +70,4 @@ TopogramAddForm.propTypes = {
   promptSnackbar: React.PropTypes.func
 }
 
-export default TopogramAddForm
+export default injectIntl(TopogramAddForm)
