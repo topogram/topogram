@@ -1,10 +1,12 @@
 import React from 'react'
+import { injectIntl } from 'react-intl'
 
 import { Card, CardActions, CardHeader } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 
 import DeleteConfirmationDialog from './DeleteConfirmationDialog.jsx'
 import moment from 'moment'
+
 
 const listItemStyle = {
   marginBottom: '2em'
@@ -30,6 +32,8 @@ const TopogramListItem = React.createClass({
       topogramId={this.props._id}
     />
 
+    const { messages } = this.props.intl
+
     return (
     <div
       style={listItemStyle}
@@ -42,12 +46,12 @@ const TopogramListItem = React.createClass({
       />
       <CardActions>
         <FlatButton
-          label="Browse"
+          label={messages['topogram.index.card.button.browse']}
           primary={true}
           href={url}
         />
         <FlatButton
-          label="Data"
+          label={messages['topogram.index.card.button.data']}
           secondary={true}
           href={dataUrl}
         />
@@ -58,4 +62,4 @@ const TopogramListItem = React.createClass({
   )}
 })
 
-export default TopogramListItem
+export default injectIntl(TopogramListItem)

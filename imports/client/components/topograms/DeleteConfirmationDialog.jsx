@@ -1,6 +1,7 @@
 import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import { FormattedMessage, injectIntl } from 'react-intl'
 
 const DeleteConfirmationDialog = React.createClass({
 
@@ -25,14 +26,17 @@ const DeleteConfirmationDialog = React.createClass({
     Meteor.call( 'deleteTopogram', this.props.topogramId )
   },
   render() {
+
+    const { messages } = this.props.intl
+
     const actions = [
       <FlatButton
-        label="Cancel"
+        label={messages['topogram.index.card.button.cancel']}
         primary={true}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label="Delete"
+        label={messages['topogram.index.card.button.delete']}
         primary={true}
         keyboardFocused={true}
         onTouchTap={this._deleteItem}
@@ -41,21 +45,23 @@ const DeleteConfirmationDialog = React.createClass({
     return (
       <div>
         <FlatButton
-          label="Delete"
+          label={messages['topogram.index.card.button.delete']}
           onTouchTap={this.handleOpen}
         />
         <Dialog
-          title="Dialog With Actions"
+          title={this.props.topogramName}
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          Are you sure you want to delete the topogram {this.props.topogramName}
+          <FormattedMessage
+            id="topogram.index.card.deleteDialog.confirmQuestion"
+           />
         </Dialog>
       </div>
     )
   }
 })
 
-export default DeleteConfirmationDialog
+export default injectIntl(DeleteConfirmationDialog)

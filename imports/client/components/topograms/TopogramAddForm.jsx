@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextField, RaisedButton } from 'material-ui'
 import { FlowRouter } from 'meteor/kadira:flow-router'
-import { defineMessages, injectIntl } from 'react-intl'
+import { injectIntl } from 'react-intl'
 
 let formStyle = { padding : '150px' }
 let buttonStyle = { marginLeft : 12 }
@@ -40,7 +40,7 @@ class TopogramAddForm extends React.Component {
 
   render() {
     const { messages, formatMessage } = this.props.intl
-    
+
     return (
       <section className="home-create-section">
         <form
