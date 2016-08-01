@@ -1,11 +1,32 @@
 import React from 'react'
 import Snackbar from 'material-ui/Snackbar'
+import { composeWithTracker } from 'react-komposer'
+import { Meteor } from 'meteor/meteor'
 
 import TopBar from '../client/components/topBar/TopBar.jsx'
 import SideNav from '../client/components/sideNav/SideNav.jsx'
-import InlineEditField from '../client/components/inlineEdit/InlineEditField.jsx'
+import Network from '../client/components/network/Network.jsx'
+
+import { Nodes, Edges } from '../api/collections.js'
+
 
 const tmpStyle = { }
+
+function composer(props, onData) {
+  const
+    edgesSub = Meteor.subscribe('edges', props.topogramId),
+    nodesSub = Meteor.subscribe('nodes', props.topogramId)
+
+  if (edgesSub.ready() && nodesSub.ready()) {
+    const nodes = Nodes.find().fetch()
+    const edges = Edges.find().fetch()
+    const elements = { nodes, edges}
+    console.log(nodes.length, edges.length)
+    onData(null, { elements }) // args: err
+  }
+}
+
+const NetworkSingle = composeWithTracker(composer)(Network)
 
 class TopogramPage extends React.Component {
   constructor(props) {
@@ -40,6 +61,7 @@ class TopogramPage extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <TopBar
@@ -49,27 +71,9 @@ class TopogramPage extends React.Component {
         <SideNav
           ref="sideNav"
         />
-        <p>
-          Hello { this.props.topogramId }
-        </p>
-        <InlineEditField
-          defaultValue="Topogram"
-          _id={ this.props.topogramId }
-          collection="topograms"
-          style={tmpStyle}
-          promptSnackbar={this.promptSnackbar}
-          allowEmpty={true}
+        <NetworkSingle
+          topogramId={ this.props.topogramId }
         />
-
-        <InlineEditField
-          defaultValue="##Topogram"
-          _id={ this.props.topogramId }
-          collection="topograms"
-          type="textarea"
-          style={tmpStyle}
-          promptSnackbar={this.promptSnackbar}
-        />
-
         <Snackbar
           open={this.state.open}
           message={this.state.message}
