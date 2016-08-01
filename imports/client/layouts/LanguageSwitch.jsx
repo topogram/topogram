@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-import { messages } from '../../i18n.js'
+import { appLocales, messages } from '../../i18n.js'
 
 const style = {
   maxWidth : '60px',
@@ -12,7 +12,7 @@ const style = {
   left : '3vh'
 }
 
-class HotSwappingIntlProvider extends React.Component {
+class LanguageSwitch extends React.Component {
   constructor(props) {
     super(props)
 
@@ -57,14 +57,14 @@ class HotSwappingIntlProvider extends React.Component {
   }
 }
 
-HotSwappingIntlProvider.propTypes = {
-  initalLocale: React.PropTypes.oneOf(Object.keys(messages)),
+LanguageSwitch.propTypes = {
+  initalLocale: React.PropTypes.oneOf(appLocales),
   initialMessages: React.PropTypes.object
 }
 
-HotSwappingIntlProvider.defaultProps = {
-  initialLocale: navigator.locale || 'en-US',
-  initialMessages : messages['en-US']
+LanguageSwitch.defaultProps = {
+  initialLocale: navigator.locale || 'en',
+  initialMessages : messages['en']
 }
 
-export default HotSwappingIntlProvider
+export default LanguageSwitch
