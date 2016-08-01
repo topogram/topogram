@@ -34,8 +34,11 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.11.4",
     "babel-core": "^6.10.4",
+    "babel-plugin-react-intl": "^2.1.3",
     "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
     "chai": "^3.5.0",
     "daemon": "^1.1.0",
     "enzyme": "^2.4.1",
@@ -64,11 +67,19 @@
     "run-sequence": "^1.0.0",
     "sinon": "^1.17.5"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0",
+      "react"
+    ]
+  },
   "scripts": {
     "start": "meteor",
     "lint": "eslint --ext .jsx --ext .js --quiet .",
     "test": "gulp test",
-    "test:ui": "meteor test --driver-package=practicalmeteor:mocha --port=3010"
+    "test:ui": "meteor test --driver-package=practicalmeteor:mocha --port=3010",
+    "extract-intl": "babel-node --presets es2015,stage-0 -- ./.scripts/extract-intl.js"
   },
   "repository": {
     "type": "git",
