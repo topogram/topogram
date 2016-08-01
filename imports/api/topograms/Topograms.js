@@ -1,7 +1,5 @@
 import { Mongo } from 'meteor/mongo'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
-import { Factory } from 'meteor/dburles:factory'
-import faker from 'faker'
 
 import { Nodes } from '../nodes/Nodes.js'
 
@@ -56,13 +54,6 @@ Topograms.schema = new SimpleSchema({
 
 Topograms.attachSchema(Topograms.schema)
 
-Factory.define('topogram', Topograms, {
-  createdAt: () => new Date(),
-  name: () => "New Topogram",
-  slug : () => faker.helpers.slugify("New Topogram"),
-  description : () => faker.lorem.paragraph()
-})
-
 Topograms.helpers({
   nodes() {
     return Nodes.find({ topogramId : this._id }).fetch()
@@ -72,6 +63,6 @@ Topograms.helpers({
   },
   editableBy(userId) {
     if (!this.userId) return true
-    return this.userId === userId;
+    return this.userId === userId
   }
 })

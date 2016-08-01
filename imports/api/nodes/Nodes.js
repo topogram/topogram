@@ -1,12 +1,8 @@
 import { Mongo } from 'meteor/mongo'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
-import { Factory } from 'meteor/dburles:factory'
-import faker from 'faker'
-
 import { Topograms } from '../topograms/Topograms.js'
 
 class NodesCollection extends Mongo.Collection {
-
 
 }
 
@@ -110,21 +106,6 @@ Nodes.schema = new SimpleSchema({
 })
 
 Nodes.attachSchema(Nodes.schema)
-
-Factory.define('node', Nodes, {
-  createdAt: () => new Date(),
-  topogramId: Factory.get('topogram'),
-  data : {
-    id : () => faker.random.uuid(),
-    name: () => faker.lorem.sentence(),
-    lat : () => faker.address.latitude(),
-    lon : () => faker.address.longitude(),
-    start : () => faker.date.past(),
-    end : () => faker.date.future(),
-    group : () => faker.hacker.noun(),
-    weight : () => faker.random.number()
-  }
-})
 
 Nodes.helpers({
   topogram() {

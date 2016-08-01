@@ -9,6 +9,8 @@ import { chai, assert } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 chai.expect();
 
+import '../factories.js'
+
 import { Nodes } from './Nodes.js'
 import { nodeCreate, nodeDelete } from './nodesMethods.js'
 import { makeNode } from '../modelsHelpers.js'

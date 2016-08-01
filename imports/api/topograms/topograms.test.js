@@ -9,6 +9,7 @@ import { resetDatabase } from 'meteor/xolvio:cleaner';
 
 chai.expect();
 
+import '../factories.js'
 import { Topograms } from './Topograms.js'
 import { Nodes } from '../nodes/Nodes.js'
 
