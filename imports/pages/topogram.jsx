@@ -67,6 +67,7 @@ class TopogramSingle extends React.Component {
           onHomeButtonClick={this.toggleSideNav}
           promptSnackbar={this.promptSnackbar}
           topogram={ this.props.topogram }
+          elements={this.props.elements}
           />
         <SideNav
           ref="sideNav"

@@ -1,21 +1,18 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
-import { Toolbar, ToolbarTitle, ToolbarGroup } from 'material-ui/Toolbar'
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar'
 
-import SearchBox from './SearchBox.jsx'
+import QueryBox from './QueryBox.jsx'
 import UserMenu from './UserMenu.jsx'
-import InlineEditField from '../inlineEdit/InlineEditField.jsx'
+
 
 const styles = {
-  TopBar : {
-    backgroundColor : 'none'
+  topBar : {
+    backgroundColor : 'rgba(0,0,0,.2)'
   },
-  toolBarTitle : {
-    lineHeight : '1em',
-    fontSize: '1.4em',
-    paddingTop : '.5em',
-    overflow : 'ellipsis'
+  buttonToggleSideNav : {
+    marginRight: '200px'
   }
 }
 
@@ -27,25 +24,22 @@ class TopBar extends React.Component {
 
   render() {
     // console.log(this.props)
-    return (
-      <Toolbar style={styles.TopBar} >
-        <ToolbarGroup firstChild={true}>
-          <IconButton
-            onClick={this.props.onHomeButtonClick}
-          >
-            <NavigationMenu />
-          </IconButton>
-          <InlineEditField
-            defaultValue={this.props.topogram.name}
-            _id={this.props.topogram._id}
-            collection="topograms"
-            field="name"
-            promptSnackbar={this.promptSnackbar}
-            style={styles.toolBarTitle}
-          />
-        </ToolbarGroup>
-        <SearchBox />
+    const
+      nodes = this.props.elements.nodes,
+      edges = this.props.elements.edges
 
+    return (
+      <Toolbar style={styles.topBar} >
+        <IconButton
+          onClick={this.props.onHomeButtonClick}
+          style={styles.buttonToggleSideNav}
+        >
+          <NavigationMenu />
+        </IconButton>
+          <QueryBox
+            nodes={nodes}
+            edges={edges}
+          />
         <UserMenu />
       </Toolbar>
     )
@@ -55,13 +49,13 @@ class TopBar extends React.Component {
 TopBar.propTypes = {
   onHomeButtonClick: React.PropTypes.func,
   promptSnackbar: React.PropTypes.func,
-  topogram : React.PropTypes.object
+  topogram : React.PropTypes.object,
+  elements : React.PropTypes.object
 }
 
 TopBar.defaultProps = {
-  topogram : {
-    _id : ''
-  }
+  topogram : {},
+  elements : { nodes : [], edges : [] }
 }
 
 
