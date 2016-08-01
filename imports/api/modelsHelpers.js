@@ -10,15 +10,15 @@ const makeGraphElement = function (el, rawData) {
   }
   return {
     data: {
-      lat: el.lat || 0,
-      lng: el.lng || 0,
-      weight: el.weight || 0,
-      start: el.start || 0,
-      end: el.end || 0,
+      lat: el.lat || null,
+      lng: el.lng || null,
+      weight: el.weight || null,
+      start: el.start || null,
+      end: el.end || null,
       starred: el.star || false,
       name: el.label || el.name || '',
-      color: el.color || 0,
-      group: el.group || 0,
+      color: el.color || null,
+      group: el.group || null,
       additionalInfo: el.additionalInfo || {},
       rawData
     },
@@ -27,20 +27,19 @@ const makeGraphElement = function (el, rawData) {
 }
 
 
-export const makeEdge = function ( topogramId, element, data, userId ) {
+export const makeEdge = function ( topogramId, element, data ) {
   const el = element || {}
   const rawData = data || {}
   const edge = makeGraphElement(el, rawData)
   edge.group = 'edges'
-  edge.id =  el.id || 'edge-' + Math.round( Math.random() * 1000000 ),
-    edge.data.source = el.source
+  edge.id =  el.id || 'edge-' + Math.round( Math.random() * 1000000 )
+  edge.data.source = el.source
   edge.data.target = el.target
-  edge.owner = userId
   edge.topogramId = topogramId
   return edge
 }
 
-export const makeNode = function ( topogramId, element, data, userId ) {
+export const makeNode = function ( topogramId, element, data ) {
   const el = element || {}
   const rawData = data || {}
   const node = makeGraphElement(el, rawData)
@@ -50,7 +49,6 @@ export const makeNode = function ( topogramId, element, data, userId ) {
     x: el.x || Math.random() * 800,
     y: el.y || Math.random() * 600
   }
-  node.owner = userId
   node.topogramId = topogramId
   return node
 }
