@@ -1,11 +1,11 @@
 import React from 'react'
 
-const EdgesLab = React.createClass({
+class EdgesLab extends React.Component  {
   render() {
     return (
       <p> Edges </p>
     )
   }
-})
+}
 
 export default EdgesLab

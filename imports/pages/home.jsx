@@ -3,12 +3,29 @@ import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 import Snackbar from 'material-ui/Snackbar'
 
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, defineMessages } from 'react-intl'
 
 import { Topograms } from '../api/collections.js'
 import TopogramList from '../client/components/topograms/TopogramList.jsx'
 import TopogramAddForm from '../client/components/topograms/TopogramAddForm.jsx'
 
+const messages = defineMessages({
+  tagline : {
+    'id': 'home.tagline',
+    'defaultMessage': 'Social Network Analysis for humans.',
+    'message': 'Social Network Analysis for humans.'
+  },
+  subtitle : {
+    'id': 'home.subtitle',
+    'defaultMessage': 'An open-source toolkit to process, visualize and analyze networks.',
+    'message': 'An open-source toolkit to process, visualize and analyze networks.'
+  },
+  browseTopograms: {
+    'id': 'home.browseTopograms',
+    'defaultMessage': 'Browse publics topograms',
+    'message': 'Browse publics topograms'
+  }
+})
 
 const HomeHeader = () => (
   <section
@@ -17,9 +34,9 @@ const HomeHeader = () => (
     <div>
       <h1>Topogram</h1>
       <h4>
-        <FormattedMessage id="home.tagline" />
+        <FormattedMessage {...messages.tagline} />
       </h4>
-      <p><FormattedMessage id="home.subtitle" /></p>
+      <p><FormattedMessage {...messages.subtitle} /></p>
     </div>
   </section>
 )
@@ -68,7 +85,7 @@ class Welcome extends React.Component {
 
         <section className="home-public-list">
           <h5 className="grey-text text-lighten-2 center">
-            <FormattedMessage id="home.browseTopograms" />
+            <FormattedMessage {...messages.browseTopograms} />
           </h5>
           <TopogramPublicList editable={false} />
         </section>

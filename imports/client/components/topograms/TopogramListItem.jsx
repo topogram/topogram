@@ -1,5 +1,5 @@
 import React from 'react'
-import { injectIntl } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
 
 import { Card, CardActions, CardHeader } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
@@ -7,6 +7,19 @@ import FlatButton from 'material-ui/FlatButton'
 import DeleteConfirmationDialog from './DeleteConfirmationDialog.jsx'
 import moment from 'moment'
 
+
+const messages = defineMessages({
+  browse : {
+    'id': 'topogram.index.card.button.browse',
+    'defaultMessage': 'Browse',
+    'message': ''
+  },
+  data : {
+    'id': 'topogram.index.card.button.data',
+    'defaultMessage': 'Data',
+    'message': ''
+  },
+})
 
 const listItemStyle = {
   marginBottom: '2em'
@@ -32,7 +45,7 @@ const TopogramListItem = React.createClass({
       topogramId={this.props._id}
     />
 
-    const { messages } = this.props.intl
+    const { formatMessage } = this.props.intl
 
     return (
     <div
@@ -46,12 +59,12 @@ const TopogramListItem = React.createClass({
       />
       <CardActions>
         <FlatButton
-          label={messages['topogram.index.card.button.browse']}
+          label={formatMessage(messages.browse)}
           primary={true}
           href={url}
         />
         <FlatButton
-          label={messages['topogram.index.card.button.data']}
+          label={formatMessage(messages.data)}
           secondary={true}
           href={dataUrl}
         />

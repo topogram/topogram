@@ -2,10 +2,15 @@ import { addLocaleData } from 'react-intl'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 
-import enUSMessages from '../i18n/en-US'
-import frFRMessages from '../i18n/fr-FR'
+import enMessages from '../i18n/en.json'
+import frMessages from '../i18n/fr.json'
 
 addLocaleData([...en, ...fr])
+
+export const appLocales = [
+  'en',
+  'fr',
+]
 
 export const formatTranslationMessages = (messages) => {
   const formattedMessages = {}
@@ -16,6 +21,6 @@ export const formatTranslationMessages = (messages) => {
 }
 
 export const messages = {
-  'en-US' : formatTranslationMessages(enUSMessages),
-  'fr-FR' : formatTranslationMessages(frFRMessages)
+  'en' : formatTranslationMessages(enMessages),
+  'fr' : formatTranslationMessages(frMessages)
 }

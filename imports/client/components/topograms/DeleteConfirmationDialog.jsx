@@ -1,7 +1,25 @@
 import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import { FormattedMessage, injectIntl } from 'react-intl'
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl'
+
+const messages = defineMessages({
+  confirmQuestion : {
+    'id': 'topogram.index.card.deleteDialog.confirmQuestion',
+    'defaultMessage': 'Are you sure you want to delete this topogram ?',
+    'message': ''
+  },
+  cancel : {
+    'id': 'topogram.deleteDialog.button.cancel',
+    'defaultMessage': 'Cancel',
+    'message': ''
+  },
+  delete : {
+    'id': 'topogram.deleteDialog.button.delete',
+    'defaultMessage': 'Delete',
+    'message': ''
+  }
+})
 
 const DeleteConfirmationDialog = React.createClass({
 
@@ -26,17 +44,15 @@ const DeleteConfirmationDialog = React.createClass({
     Meteor.call( 'deleteTopogram', this.props.topogramId )
   },
   render() {
-
-    const { messages } = this.props.intl
-
+    const { formatMessage } = this.props.intl
     const actions = [
       <FlatButton
-        label={messages['topogram.index.card.button.cancel']}
+        label={formatMessage(messages.cancel)}
         primary={true}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label={messages['topogram.index.card.button.delete']}
+        label={formatMessage(messages.delete)}
         primary={true}
         keyboardFocused={true}
         onTouchTap={this._deleteItem}
@@ -45,7 +61,7 @@ const DeleteConfirmationDialog = React.createClass({
     return (
       <div>
         <FlatButton
-          label={messages['topogram.index.card.button.delete']}
+          label={formatMessage(messages.delete)}
           onTouchTap={this.handleOpen}
         />
         <Dialog
@@ -56,7 +72,7 @@ const DeleteConfirmationDialog = React.createClass({
           onRequestClose={this.handleClose}
         >
           <FormattedMessage
-            id="topogram.index.card.deleteDialog.confirmQuestion"
+            {...messages.confirmQuestion}
            />
         </Dialog>
       </div>
