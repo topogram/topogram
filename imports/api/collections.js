@@ -1,10 +1,17 @@
 import { Mongo } from 'meteor/mongo'
 
-// Datasets = new Mongo.Collection( 'datasets' )
-export const Topograms = new Mongo.Collection( 'topograms' )
+import { Topograms } from './topograms/Topograms.js'
+import { Nodes } from './nodes/Nodes.js'
+
+
 export const Comments = new Mongo.Collection( 'comments' )
 export const Edges = new Mongo.Collection( 'edges' )
-export const Nodes = new Mongo.Collection( 'nodes' )
+
+export {
+  Nodes,
+  Topograms
+}
+
 // Users : handle by Meteor.users
 
 // Transactions  config

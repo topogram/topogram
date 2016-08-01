@@ -6,18 +6,22 @@ import { Nodes, Edges, Topograms } from '../../collections.js'
  *  MULTIPLE TOPOGAMS
  */
 // only the topogams that have been publicized
-Meteor.publish( 'topograms.private', function () {
+Meteor.publish( 'topograms.private', function topogramsPrivate() {
   if (!this.userId) {
     return this.ready()
   }
   return Topograms.find( {
-    'owner': this.userId
+    'userId': this.userId
   })
 } )
 
-Meteor.publish( 'topograms.public', function () {
+Meteor.publish( 'topograms.public', function topogramsPrivate() {
   return Topograms.find( {
-    'sharedPublic': true
+
+    $or: [
+      { 'userId' : { $exists: false } },
+      { 'sharedPublic' : true }
+    ]
   }, {
     'sort': {
       'createdAt': -1
@@ -31,17 +35,11 @@ Meteor.publish( 'topograms.public', function () {
  *  SINGLE TOPOGRAM
  */
 Meteor.publish( 'topogram', function ( topogramId ) {
-  console.log(topogramId)
+
+  // TODO : prevent subscribing to private topogram
   return [
     Topograms.find({ '_id': topogramId }),
     Edges.find({ topogramId }),
     Nodes.find({ topogramId })
   ]
-} )
-
-Meteor.publish( 'publicTopogram', function ( topogramId ) {
-  return Topograms.find( {
-    '_id': topogramId,
-    'sharedPublic': 1
-  } )
-} )
+})

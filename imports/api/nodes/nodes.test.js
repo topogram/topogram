@@ -1,68 +1,83 @@
+/* eslint-env mocha */
+/* eslint-disable func-names, prefer-arrow-callback */
+
+import { Factory } from 'meteor/dburles:factory';
 import { Meteor } from 'meteor/meteor'
-import { chai } from 'meteor/practicalmeteor:chai';
+import { Random } from 'meteor/random'
+import { _ } from 'lodash';
+import { chai, assert } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 chai.expect();
 
-import { Nodes } from '../collections.js'
+import { Nodes } from './Nodes.js'
+import { nodeCreate, nodeDelete } from './nodesMethods.js'
 import { makeNode } from '../modelsHelpers.js'
-import "./nodesMethods.js"
 
-describe('Nodes', function() {
+// import "./nodesMethods.js"
 
-  // TODO : make this real using other models !
-  var topogramId = "topogramTestId",
-      userId = "myUser",
-      nodeDataId = "myNode"
+if (Meteor.isServer) {
 
-  beforeEach( () => {
-    resetDatabase();
-  });
+  describe('Nodes', function() {
 
-  describe('makeNode', function(){
-    it("should create a new node", function(){
-      var n = makeNode(topogramId, { id :  nodeDataId }, {}, userId)
-      expect(n.data.id).to.be.equal(nodeDataId)
-      expect(n.owner).to.be.equal(userId)
-      expect(n.topogramId).to.be.equal(topogramId)
-      expect(n.data.starred).to.be.equal(false)
+    describe('mutators', function () {
+      it('builds correctly from factory', function () {
+        const node = Factory.create('node');
+        assert.typeOf(node, 'object');
+        assert.typeOf(node.data.name, 'string');
+        assert.equal(node.group, 'nodes');
+      });
+    })
+
+    let userId = Random.id(),
+      nodeDataId = 'my node',
+      topogramId
+
+    beforeEach( () => {
+      Nodes.remove({});
+      topogramId = Factory.create('topogram')._id
     });
-  });
 
-  describe('addNode', function() {
+    describe('methods', function(){
 
-    it('should call Mongo insert method', function() {
+      // describe('node.create', function(){
+        // it('creates a node based on its _id', function(done) {
+        //   var n = makeNode(topogramId, { id :  nodeDataId }, {}, userId)
+        //   nodeCreate._execute({}, { topogramId });
+        //   assert.equal(Nodes.find().count(), 1)
+        //   assert.equal(Nodes.findOne().data.id, nodeDataId)
+        //   done()
+        // })
+      // })
 
-      // create a new node
-      var n = makeNode(topogramId, { id :  nodeDataId }, {}, userId)
-      Meteor.call("addNode", n)
-
-      var nodes = Nodes.find().fetch()
-      expect(nodes.length).to.be.equal(1)
-
-      var node = nodes[0]
-      expect(node.data.id).to.be.equal(nodeDataId)
-      expect(node.owner).to.be.equal(userId)
-      expect(node._id).not.to.be.an('undefined')
+      describe('node.delete', function(){
+        it('deletes a node based on its _id', function(done) {
+          let nodeId = Factory.create('node', { topogramId })._id
+          assert.equal(Nodes.find().count(), 1)
+          nodeDelete._execute({}, { nodeId });
+          assert.equal(Nodes.find().count(), 0)
+          done()
+        })
+      })
 
     })
 
-  });
+    /*
+    describe("starNode", function(){
+      it("should toggle 'starred' boolean properly when called", function(){
 
-  describe("starNode", function(){
-    it("should toggle 'starred' boolean properly when called", function(){
+        Meteor.user = function() { return {} }; // mock user
 
-      Meteor.user = function() { return {} }; // mock user
+        var n = makeNode(topogramId, { id :  nodeDataId }, {}, userId)
+        Meteor.call("addNode", n)
 
-      var n = makeNode(topogramId, { id :  nodeDataId }, {}, userId)
-      Meteor.call("addNode", n)
+        var node = Nodes.findOne({"data.id" : nodeDataId})
+        expect(node.data.starred).to.be.equal(false)
 
-      var node = Nodes.findOne({"data.id" : nodeDataId})
-      console.log(node);
-      expect(node.data.starred).to.be.equal(false)
-
-      Meteor.call("starNode", nodeDataId);
-      var nodeStarred = Nodes.findOne({"_id" : node._id})
-      expect(nodeStarred.data.starred).to.be.equal(true)
+        Meteor.call("starNode", nodeDataId);
+        var nodeStarred = Nodes.findOne({"_id" : node._id})
+        expect(nodeStarred.data.starred).to.be.equal(true)
+      })
     })
-  })
-});
+    */
+  });
+}
