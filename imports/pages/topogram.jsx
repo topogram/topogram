@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor'
 import TopBar from '../client/components/topBar/TopBar.jsx'
 import SideNav from '../client/components/sideNav/SideNav.jsx'
 import Network from '../client/components/network/Network.jsx'
+import TopogramTitle from '../client/components/topogramTitle/TopogramTitle.jsx'
 
 import { Topograms, Nodes, Edges } from '../api/collections.js'
 
@@ -71,6 +72,10 @@ class TopogramSingle extends React.Component {
           ref="sideNav"
           elements={this.props.elements}
           topogram={this.props.topogram}
+        />
+        <TopogramTitle
+          topogram={this.props.topogram}
+          promptSnackbar={this.promptSnackbar}
         />
         <Network
           topogramId={ this.props.topogramId }
