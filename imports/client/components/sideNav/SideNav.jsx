@@ -4,6 +4,8 @@ import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 
 import SideNavItem from './SideNavItem.jsx'
+import NodesLab from '../nodes/NodesLab.jsx'
+import EdgesLab from '../edges/EdgesLab.jsx'
 
 
 class SideNav extends React.Component {
@@ -18,6 +20,12 @@ class SideNav extends React.Component {
   }
 
   render() {
+    const
+      nodes = this.props.elements.nodes,
+      edges = this.props.elements.edges,
+      importUrl = '/topograms/' + this.props.topogram._id + '/import'
+
+
     return (
       <Drawer open={this.state.open}>
         <AppBar
@@ -25,6 +33,22 @@ class SideNav extends React.Component {
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           onTouchTap={this.handleToggle}
         />
+
+        <SideNavItem
+          title="Data"
+          initiallyExpanded={true}
+        >
+          <NodesLab
+            nodes={nodes}
+          />
+          <EdgesLab
+            edges={edges}
+          />
+          <FlatButton
+            label="Import Data"
+            href={importUrl}
+          />
+        </SideNavItem>
 
         <SideNavItem
           title="SideNavItem"
@@ -44,5 +68,15 @@ class SideNav extends React.Component {
   }
 }
 
+SideNav.propTypes = {
+  topogramId: React.PropTypes.string,
+  elements: React.PropTypes.object,
+  topogram: React.PropTypes.object
+}
+
+SideNav.defaultProps = {
+  elements : { nodes : [], edges : [] },
+  topogram : {}
+}
 
 export default SideNav

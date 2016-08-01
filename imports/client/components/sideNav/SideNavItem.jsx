@@ -17,14 +17,18 @@ class SideNavItem extends React.Component {
 
   render() {
     return (
-      <Card>
+      <Card
+        initiallyExpanded={this.props.initiallyExpanded}
+        >
         <CardHeader
-          title="Without Avatar"
-          subtitle="Subtitle"
+          title={this.props.title}
+          subtitle={this.props.subtitle}
           actAsExpander={true}
           showExpandableButton={true}
         />
-        <CardBody expandable={true}>
+        <CardBody
+          expandable={true}
+          >
           {this.props.children}
         </CardBody>
       </Card>
@@ -34,7 +38,14 @@ class SideNavItem extends React.Component {
 
 SideNavItem.propTypes = {
   title: React.PropTypes.string,
-  children: React.PropTypes.node
+  children: React.PropTypes.node,
+  initiallyExpanded: React.PropTypes.bool
+}
+
+SideNavItem.defaultProps = {
+  title: 'Title',
+  subtitle: '',
+  initiallyExpanded: false
 }
 
 

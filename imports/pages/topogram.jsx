@@ -69,6 +69,8 @@ class TopogramSingle extends React.Component {
           />
         <SideNav
           ref="sideNav"
+          elements={this.props.elements}
+          topogram={this.props.topogram}
         />
         <Network
           topogramId={ this.props.topogramId }
@@ -88,7 +90,7 @@ class TopogramSingle extends React.Component {
 TopogramSingle.propTypes = {
   topogramId: React.PropTypes.string,
   elements: React.PropTypes.object,
-  topogramName: React.PropTypes.string
+  topogram: React.PropTypes.object
 }
 
 const TopogramPage = composeWithTracker(topogramComposer)(TopogramSingle)
