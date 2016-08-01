@@ -66,4 +66,4 @@ This project is set up to automatically publish to npm. To publish:
 
 ## Internationalization
 
-We use [`react-intl`](https://github.com/yahoo/react-intl) to bring i18n Internationalization to Topogram. Please feel free to add your own language by translating a file in `./i18n` folder.
+Topogram supports internationalization. Please read our [i18n guidelines](https://github.com/topogram/topogram/wiki/App-translation) and feel free to add your own language by translating a file in `./i18n` folder!
