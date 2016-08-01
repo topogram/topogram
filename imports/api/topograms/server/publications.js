@@ -1,6 +1,6 @@
 /* eslint-disable prefer-arrow-callback */
 import { Meteor } from 'meteor/meteor'
-import { Topograms } from '../../collections.js'
+import { Nodes, Edges, Topograms } from '../../collections.js'
 
 /*
  *  MULTIPLE TOPOGAMS
@@ -31,9 +31,12 @@ Meteor.publish( 'topograms.public', function () {
  *  SINGLE TOPOGRAM
  */
 Meteor.publish( 'topogram', function ( topogramId ) {
-  return Topograms.find( {
-    '_id': topogramId
-  } )
+  console.log(topogramId)
+  return [
+    Topograms.find({ '_id': topogramId }),
+    Edges.find({ topogramId }),
+    Nodes.find({ topogramId })
+  ]
 } )
 
 Meteor.publish( 'publicTopogram', function ( topogramId ) {

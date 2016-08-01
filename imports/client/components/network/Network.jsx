@@ -13,6 +13,7 @@ const style = {
     position: 'fixed',
     top: '0px',
     left: '0',
+    zIndex : -1
   }
 }
 

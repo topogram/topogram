@@ -68,9 +68,11 @@ class InlineEditField extends React.Component {
 
   render() {
     let fieldId = 'field'+~~(Math.random()*1000000)
+    console.log(this.props.style)
+
     if ( this.state.editing ) {
       return (
-        <div style={this.props.style}>
+        <span>
           {this.props.type === 'input' ?
             <TextField
               hintText={this.props.placeholder}
@@ -80,10 +82,12 @@ class InlineEditField extends React.Component {
               onBlur={this.handleEditToggle}
               name={fieldId}
               ref="textField"
+              style={this.props.style}
+              fullWidth={true}
             />
           : null}
           {this.props.type === 'textarea' ?
-            <span>
+            <span style={this.props.style}>
               <TextField
                 multiLine={true}
                 hintText={this.props.placeholder}
@@ -93,13 +97,14 @@ class InlineEditField extends React.Component {
                 onBlur={this.handleEditToggle}
                 name={fieldId}
                 ref="textField"
+                style={this.props.style}
               />
               <p style={styles.helpBlock}>
                 Format with Markdown. Ctrl + enter to validate.
               </p>
             </span>
           : null}
-        </div>
+        </span>
       )
     }
     else {
