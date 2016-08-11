@@ -1,0 +1,21 @@
+<template name="infoBoxReadOnly">
+  <div id="infoBox" class="card">
+    <ul class="card-content collection with-header">
+      <li>
+        <span id="closeInfoBox"><i class="material-icons right">close</i></span>
+      </li>
+      <li class="card-title collection-header">
+        {{#if currentSelection.data.name }}
+          {{ currentSelection.data.name }}
+        {{ else }}
+          {{ currentSelection.data.id }}
+        {{/if}}
+      </li>
+      {{#if currentSelection.data.group }}
+        <li class="collection-item">
+          <span class="badge">Group</span> {{ currentSelection.data.group }}
+        </li>
+      {{/if}}
+    </ul>
+  </div>
+</template>

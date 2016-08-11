@@ -5,6 +5,8 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import { Meteor } from 'meteor/meteor'
 import { Topograms } from '../../../api/collections.js'
 
+import '../../components/boxes/infoBox/infoBox.readOnly.js'
+
 Template.topogramView.created = function() {
 
   // reactive var to share across templates
