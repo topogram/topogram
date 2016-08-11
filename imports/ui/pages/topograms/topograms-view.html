@@ -3,7 +3,17 @@
     {{> network network=networkInstance topogramId=topogram.id readOnlyMode=true}}
     <div id="toolkit" class="row">
       <div class="toolbox col s3">
-        {{> titleBox topogram=topogram network=networkInstance advancedEditMode=false}}
+        <!-- {{> titleBox topogram=topogram network=networkInstance advancedEditMode=false}} -->
+        <div id="titleBox" class="card card-small">
+          <div class="card-content">
+            <p class="card-title activator grey-text text-darken-4">
+              <h1>
+                {{ topogram.name }}
+              </h1>
+            </p>
+          </div>
+        </div>
+
         {{> searchBox network=networkInstance searchName="mainSearch" type="source" placeholder="Lookup a node"}}
         <!-- {{> filterBox }} -->
       </div>
