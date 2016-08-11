@@ -1,0 +1,14 @@
+{
+  "topogram_view": {
+    "searchbox": "Lookup a node"
+  },
+  "filter" : {
+    "default" : "Choose from type",
+    "title" : "Filter",
+    "byDegree" : "Filter by degree",
+    "clear" : "Clear"
+  },
+  "infobox": {
+    "group" : "group"
+  }
+}

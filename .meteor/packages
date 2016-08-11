@@ -59,3 +59,4 @@ practicalmeteor:mocha
 xolvio:cleaner
 practicalmeteor:chai
 kadira:blaze-layout
+tap:i18n

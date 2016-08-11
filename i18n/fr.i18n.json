@@ -1,0 +1,14 @@
+{
+  "topogram_view": {
+    "searchbox": "Chercher un node"
+  },
+  "filter" : {
+    "default" : "Choix du groupe",
+    "title" : "Filtrer",
+    "byDegree" : "Filtrer par degré",
+    "clear" : "Réinitialiser"
+  },
+  "infobox": {
+    "group" : "Groupe"
+  }
+}

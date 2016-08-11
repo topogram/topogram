@@ -1,6 +1,9 @@
-import { Router } from 'meteor/kadira:flow-router'
-import { Meteor } from 'meteor/meteor'
+import { FlowRouter } from 'meteor/kadira:flow-router'
 import { AccountsTemplates } from 'meteor/useraccounts:core'
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
+
+// translations
+import '../i18n.js'
 
 // Import to load these templates and layout
 import '../../../ui/layouts/mainLayout.js'

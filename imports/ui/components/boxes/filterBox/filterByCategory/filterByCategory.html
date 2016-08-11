@@ -2,7 +2,7 @@
   {{# if $gt categories.length 1 }}
     <div class="input-field col s12 filterByCategory">
       <select name="categoryFilterType" class="filterByCategory{{this.type}}" multiple>
-          <option value="" disabled >Choose from types</option>
+          <option value="" disabled >{{_ 'filter.default' }}</option>
           {{#each categories}}
             <option value="{{this.name}}">
               <svg data-category="{{this.name}}" height="10" width="10">
@@ -12,7 +12,7 @@
             </option>
           {{/each}}
       </select>
-      <label for="categoryFilterType">Filter {{type}}</label>
+      <label for="categoryFilterType">{{_ 'filter.title' }} {{type}}</label>
     </div>
   {{/ if}}
 </template>
