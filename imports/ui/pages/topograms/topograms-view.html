@@ -15,7 +15,7 @@
         </div>
 
         {{> searchBox network=networkInstance searchName="mainSearch" type="source" placeholder="Lookup a node"}}
-        <!-- {{> filterBox }} -->
+        {{> filterBox network=networkInstance }}
       </div>
       <div class="col offset-s6 s3">
         {{> infoBoxReadOnly network=networkInstance }}

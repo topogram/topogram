@@ -48,6 +48,7 @@ var createSlider = function(dom, net, _min, _max) {
     net.filterGraph(filter)
   })
 }
+
 Template.filterByDegree.onRendered(function() {
 
   var self = this
