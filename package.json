@@ -1,6 +1,6 @@
 {
   "name": "topogram-client",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "Real-time collaborative social network analysis toolkit",
   "main": "topogram.js",
   "dependencies": {
