@@ -37,6 +37,18 @@ Meteor.methods( {
         } )
     },
 
+    updateTopogramFields: function( _id, fields ) {
+      var t = Topograms.findOne( _id).fields || {}
+      console.log(t);
+      var f = Object.assign(t, fields)
+      console.log(f)
+      return Topograms.update( _id, {
+          $set: {
+              "fields": f
+          }
+      } )
+    },
+
     makePublic: function( _id ) {
         return Topograms.update( _id, {
             $set: {

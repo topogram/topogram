@@ -207,6 +207,8 @@ Template.import.events( {
         })
         console.log(parsedData)
 
+        console.log(selected)
+        var fields = {}
         // save data
         // TODO : display loader
         if ( type == 'edges' ) {
@@ -214,6 +216,14 @@ Template.import.events( {
               if (err) throw err
               console.log(err, edges)
               console.log(self);
+
+              // parse edges to store
+              fields.edges = {}
+              Object.keys(selected).forEach( function (f) {
+                fields.edges[f.replace('Field', '')] = true
+              })
+              Meteor.call('updateTopogramFields', self.topogramId, fields )
+
               // console.log( data.data.length, "/", edges.length , ' edges added' )
               FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' edges created.' )
               FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )
@@ -222,6 +232,11 @@ Template.import.events( {
             Meteor.call( 'batchInsertNodes', parsedData, function( err, nodes ) {
               if (err) throw err
               console.log(nodes)
+              fields.nodes = {}
+              Object.keys(selected).forEach( function (f) {
+                fields.nodes[f.replace('Field', '')] = true
+              })
+              Meteor.call('updateTopogramFields', self.topogramId, fields )
               // console.log( data.data.length, '/', nodes.length, ' nodes added' )
               FlashMessages.sendSuccess( 'Success ! : ' + data.data.length + ' nodes created.' )
               FlowRouter.go( '/topograms/' + self.topogramId + '/lab' )
