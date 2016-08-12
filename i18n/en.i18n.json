@@ -11,5 +11,6 @@
   "infobox": {
     "group" : "group"
   },
-  "neighborhood" : "neighborhood"
+  "neighborhood" : "neighborhood",
+  "Show Neighbors List" : "Show Neighbors List"
 }

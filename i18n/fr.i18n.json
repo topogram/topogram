@@ -11,5 +11,6 @@
   "infobox": {
     "group" : "Groupe"
   },
-  "neighborhood" : "Entourage"
+  "neighborhood" : "Entourage",
+  "Show Neighbors List" : "Voire la liste complète"
 }
