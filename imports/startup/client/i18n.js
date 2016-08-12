@@ -16,6 +16,5 @@ function switchToLocale() {
   if (localeFromBrowser.match(/en/)) locale = 'en'
   if (localeFromBrowser.match(/fr/)) locale = 'fr'
 
-  locale = 'fr'
   TAPi18n.setLanguage(locale)
 }
