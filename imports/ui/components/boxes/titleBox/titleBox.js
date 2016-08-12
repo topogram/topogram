@@ -64,4 +64,46 @@ Template.titleBox.events =  {
     a.click()
 
   }
+  ,
+  'click #download-csv' : function(event, template) {
+
+    var network = template.data.network.get()
+    var name = template.data.topogramName
+
+    var nodes =  network.json().elements.nodes.map(function(d) { return d.data })
+    var edges =  network.json().elements.edges.map(function(d) { return d.data })
+
+    var nodeCSV = convertToCSV(nodes)
+    downloadCSV(nodeCSV, name+' nodes.csv')
+
+    var edgesCSV = convertToCSV(edges)
+    downloadCSV(edgesCSV, name+' edges.csv')
+
+  }
+}
+
+
+function convertToCSV(jsonArray) {
+  var keys = Object.keys(jsonArray[0]).filter( k => k != "additionalInfo" && k != "rawData")
+  var csv = jsonArray.map(function(row){
+    return keys.map(function(fieldName){
+      return JSON.stringify(row[fieldName] || '');
+    });
+  });
+  csv.unshift(keys); // add header column
+  return csv.join('\r\n')
+}
+
+function downloadCSV(csvString, filename) {
+  var csvData = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
+  var csvURL =  null;
+  if (navigator.msSaveBlob) {
+      csvURL = navigator.msSaveBlob(csvData, 'download.cv');
+  } else {
+      csvURL = window.URL.createObjectURL(csvData);
+  }
+  var tempLink = document.createElement('a');
+  tempLink.href = csvURL;
+  tempLink.setAttribute('download', filename);
+  tempLink.click();
 }
