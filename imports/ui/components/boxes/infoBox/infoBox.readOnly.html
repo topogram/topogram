@@ -17,5 +17,16 @@
         </li>
       {{/if}}
     </ul>
+
+    {{#if isNode }}
+    <style>
+     #node-neighborhood {
+       display: block
+     }
+     </style>
+      {{#if hasNeighbors }}
+        {{> nodeNeighborhood network=network node=currentSelection}}
+      {{/if}}
+    {{/if}}
   </div>
 </template>

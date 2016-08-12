@@ -11,10 +11,7 @@ import { Comments, Nodes, Edges } from '../../../../api/collections.js'
 
 import './nodeInfo/nodeInfo.js'
 import './edgeInfo/edgeInfo.js'
-import '../../boxes/commentBox/commentBox.js'
-import '../../boxes/nodeMerge/nodeMerge.js'
 import './nodeNeighborhood/nodeNeighborhood.js'
-
 
 Template.infoBoxReadOnly.helpers({
   networkInstance : function(){
@@ -42,7 +39,10 @@ Template.infoBoxReadOnly.helpers({
   hasNeighbors: function() {
     let network = Template.instance().data.network.get()
     let node = getCurrentSelection()
-    if(node.data) return network.nodes().filter("[id='"+node.data.id+"']").neighborhood().length
+    if(node.data) {
+      let neighbors = network.nodes().filter("[id='"+node.data.id+"']").neighborhood().length
+      return neighbors
+    }
   },
   target : function() {
     var network = Template.instance().data.network.get()
