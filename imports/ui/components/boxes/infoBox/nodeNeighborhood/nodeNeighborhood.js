@@ -2,8 +2,12 @@ import './nodeNeighborhood.html'
 import { Template } from 'meteor/templating'
 import { colors } from '../../../../helpers/colors.js'
 
+import { $ } from 'meteor/jquery'
 import '../pieChart/pieChart.js'
 
+Template.nodeNeighborhood.rendered = function(){
+    $('.collapsible').collapsible()
+}
 
 Template.nodeNeighborhood.helpers({
   neighborhood: function() {
@@ -15,6 +19,10 @@ Template.nodeNeighborhood.helpers({
         var n = d.data()
         n.color = colors(d.data("group"))
         return n
+      }).sort(function(a, b){
+        var textA = a.group.toUpperCase();
+        var textB = b.group.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
       })
     }
   },

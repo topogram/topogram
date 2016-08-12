@@ -1,32 +1,36 @@
 <template name="infoBoxReadOnly">
-  <div id="infoBox" class="card">
-    <ul class="card-content collection with-header">
-      <li>
-        <span id="closeInfoBox"><i class="material-icons right">close</i></span>
-      </li>
-      <li class="card-title collection-header">
-        {{#if currentSelection.data.name }}
-          {{ currentSelection.data.name }}
-        {{ else }}
-          {{ currentSelection.data.id }}
-        {{/if}}
-      </li>
-      {{#if currentSelection.data.group }}
-        <li class="collection-item">
-          <span class="badge">{{_ 'infobox.group'}}</span> {{ currentSelection.data.group }}
+  <section id="infoBox">
+    <div class="card">
+      <ul class="card-content collection with-header">
+        <li>
+          <span id="closeInfoBox"><i class="material-icons right">close</i></span>
         </li>
-      {{/if}}
-    </ul>
+        <li class="card-title collection-header">
+          {{#if currentSelection.data.name }}
+            {{ currentSelection.data.name }}
+          {{ else }}
+            {{ currentSelection.data.id }}
+          {{/if}}
+        </li>
+        {{#if currentSelection.data.group }}
+          <li class="collection-item">
+            <span class="badge">{{_ 'infobox.group'}}</span> {{ currentSelection.data.group }}
+          </li>
+        {{/if}}
+      </ul>
+    </div>
 
     {{#if isNode }}
-    <style>
-     #node-neighborhood {
-       display: block
-     }
-     </style>
-      {{#if hasNeighbors }}
-        {{> nodeNeighborhood network=network node=currentSelection}}
-      {{/if}}
+    <div class="card">
+      <style>
+       #node-neighborhood {
+         display: block
+       }
+       </style>
+        {{#if hasNeighbors }}
+          {{> nodeNeighborhood network=network node=currentSelection}}
+        {{/if}}
+    </div>
     {{/if}}
-  </div>
+  </section>
 </template>

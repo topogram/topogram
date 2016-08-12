@@ -1,28 +1,32 @@
 <template name="infoBox">
-<div id="infoBox" class="card">
-  <ul class="card-content collection with-header">
-    <li>
-      <span id="closeInfoBox"><i class="material-icons right">close</i></span>
-    </li>
-    {{#if isNode }}
-      {{> nodeInfo node=currentSelection network=network }}
-    {{ else }}
-      {{> edgeInfo edge=currentSelection network=network }}
-    {{/if }}
-  </ul>
-  <div class="card-action">
-    <a id="toggle-commentBox" title="See comments" href="#">{{ commentsCount }} comments</a>
-    <a id="toggle-targetSearch" href="#"><i class="material-icons">navigation</i></a>
-    {{#if isNode }}
-      {{#if hasNeighbors }}
-        <a id="toggle-node-neighborhood" title="Browse node neighborhood" href="#"><i class="material-icons">games</i></a>
+<section id="infoBox">
+  <div class="card">
+    <ul class="card-content collection with-header">
+      <li>
+        <span id="closeInfoBox"><i class="material-icons right">close</i></span>
+      </li>
+      {{#if isNode }}
+        {{> nodeInfo node=currentSelection network=network }}
+      {{ else }}
+        {{> edgeInfo edge=currentSelection network=network }}
+      {{/if }}
+    </ul>
+    <div class="card-action">
+      <a id="toggle-commentBox" title="See comments" href="#">{{ commentsCount }} comments</a>
+      <a id="toggle-targetSearch" href="#"><i class="material-icons">navigation</i></a>
+      {{#if isNode }}
+        {{#if hasNeighbors }}
+          <a id="toggle-node-neighborhood" title="Browse node neighborhood" href="#"><i class="material-icons">games</i></a>
+        {{/if}}
       {{/if}}
-    {{/if}}
+    </div>
   </div>
 
   {{#if isNode }}
     {{#if hasNeighbors }}
-      {{> nodeNeighborhood network=network node=currentSelection}}
+      <div class="card">
+        {{> nodeNeighborhood network=network node=currentSelection}}
+      </div>
     {{/if}}
 
     <div id="targetSearch">
@@ -30,6 +34,7 @@
     </div>
 
     {{#if pathToTarget.length }}
+    <div class="card">
       <ul class="card-content collapsible" data-collapsible="expandable">
         <li>
           <div class="collapsible-header"><i class="material-icons">swap_calls</i>Path</div>
@@ -40,12 +45,15 @@
           </ul>
         </li>
       </ul>
+    </div>
     {{/if}}
+
     {{#if target }}
       {{> nodeInfo node=target network=network }}
     {{/if}}
+
   {{/if}}
-</div>
+</section>
 
 {{> commentBox element=currentSelection}}
 </template>

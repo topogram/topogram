@@ -99,7 +99,7 @@ Template.pieChart.rendered = function() {
   captionG
     .append('span')
     .style('padding', '0 10px')
-    .text(function(d){ console.log(d); return d.group })
+    .text(function(d){ return d.group })
   //.append("text")
   // .attr('x', 15)
 
