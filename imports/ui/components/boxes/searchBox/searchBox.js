@@ -11,6 +11,13 @@ Template.searchBox.rendered = function() {
   $("#new-node").hide()
 }
 
+Template.searchBox.helpers( {
+  isReadOnly() {
+    console.log(Template.instance().data);
+    return Template.instance().data.readOnly != 'true'
+  }
+})
+
 Template.searchBox.events( {
     'click .search-dropdown>li': function(event, instance) {
         var divName = instance.data.searchName

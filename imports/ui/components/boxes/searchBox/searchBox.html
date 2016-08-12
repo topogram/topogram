@@ -17,6 +17,7 @@
             >
             <i class="searchClose material-icons">close</i>
             <ul id="{{searchName}}" class="search-dropdown dropdown-content">
+              {{#if isReadOnly }}
               <li id="new-node">
                 <a href="#" data-node-id="">
                   Create:
@@ -24,6 +25,7 @@
                   </span>
                 </a>
               </li>
+              {{/if}}
               <li class="divider"></li>
             </ul>
         </div>
