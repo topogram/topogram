@@ -13,7 +13,6 @@ Template.searchBox.rendered = function() {
 
 Template.searchBox.helpers( {
   isReadOnly() {
-    console.log(Template.instance().data);
     return Template.instance().data.readOnly != 'true'
   }
 })

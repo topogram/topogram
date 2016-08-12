@@ -1,6 +1,7 @@
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { AccountsTemplates } from 'meteor/useraccounts:core'
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
+import { Session } from 'meteor/session'
 
 // translations
 import '../i18n.js'
@@ -30,9 +31,13 @@ FlowRouter.route( '/topograms/:topogramId', {
   }
 } )
 
+/**
+* Add ?embed=1 params at the end to remove the home menu and share a clean embed version. 
+*/
 FlowRouter.route( '/topograms/:topogramId/view', {
   "name" : "topograms.view",
-  action(params) {
+  action(params, queryParams) {
+    if (queryParams.embed == '1') Session.set('embedView', true)
     BlazeLayout.render( 'networkLayout', { main : "topogramView", "topogramId" : params.topogramId })
   }
 } )
