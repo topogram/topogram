@@ -1,11 +1,11 @@
 {
   "topogram_view": {
-    "searchbox": "Chercher un node"
+    "searchbox": "Chercher un acteur"
   },
   "filter" : {
     "default" : "Choix du groupe",
     "title" : "Filtrer",
-    "byDegree" : "Filtrer par degré",
+    "byDegree" : "Filtrer par nombre de liens (degré)",
     "clear" : "Réinitialiser"
   },
   "infobox": {
