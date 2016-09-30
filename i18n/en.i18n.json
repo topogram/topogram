@@ -3,8 +3,8 @@
     "searchbox": "Lookup a node"
   },
   "filter" : {
-    "default" : "Choose from type",
-    "title" : "Filter",
+    "chose" : "Choose from type",
+    "title" : "Filter nodes by type",
     "byDegree" : "Filter by degree",
     "clear" : "Clear"
   },

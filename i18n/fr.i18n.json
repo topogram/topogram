@@ -3,8 +3,8 @@
     "searchbox": "Chercher un acteur"
   },
   "filter" : {
-    "default" : "Choix du groupe",
-    "title" : "Filtrer",
+    "chose" : "Choix du groupe",
+    "title" : "Filtrer par type d'acteurs ",
     "byDegree" : "Filtrer par nombre de liens (degré)",
     "clear" : "Réinitialiser"
   },

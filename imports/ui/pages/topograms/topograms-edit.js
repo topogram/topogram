@@ -5,6 +5,7 @@ import { ReactiveVar } from 'meteor/reactive-var'
 import { $ } from "meteor/jquery"
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { Topograms } from '../../../api/collections.js'
+import { TAPi18n } from 'meteor/tap:i18n';
 
 import '../../components/network/network.js'
 import '../../components/boxes/titleBox/titleBox.js'
@@ -30,6 +31,9 @@ Template.topogramEdit.helpers({
   },
   graphState : function() {
     return Template.instance().graphState
+  },
+  placeholder : function() {
+    return TAPi18n.__('topogram_view.searchbox')
   }
 })
 
