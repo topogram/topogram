@@ -6,6 +6,7 @@
     "chose" : "Choose from type",
     "title" : "Filter nodes by type",
     "byDegree" : "Filter by degree",
+    "byTime" : "Filter by time",
     "clear" : "Clear"
   },
   "infobox": {

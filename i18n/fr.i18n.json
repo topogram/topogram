@@ -6,6 +6,7 @@
     "chose" : "Choix du groupe",
     "title" : "Filtrer par type d'acteurs ",
     "byDegree" : "Filtrer par nombre de liens (degré)",
+    "byTime" : "Filtrer par année (début-fin)",
     "clear" : "Réinitialiser"
   },
   "infobox": {

@@ -5,13 +5,11 @@
         <li>
           <span id="closeInfoBox"><i class="material-icons right">close</i></span>
         </li>
-        <li class="card-title collection-header">
           {{#if currentSelection.data.name }}
+          <li class="card-title collection-header">
             {{ currentSelection.data.name }}
-          {{ else }}
-            {{ currentSelection.data.id }}
+          </li>
           {{/if}}
-        </li>
         {{#if currentSelection.data.group }}
           <li class="collection-item">
             <span class="badge">{{_ 'infobox.group'}}</span> {{ currentSelection.data.group }}
