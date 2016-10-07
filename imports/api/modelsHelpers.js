@@ -47,7 +47,7 @@ var makeGraphElement = function (el, rawData){
           name: el.label || el.name || "",
           color: el.color || 0,
           group: el.group || 0,
-          additionalInfo: el.additionalInfo || {},
+          additionalInfo: el.additionalInfo || "",
           rawData : rawData
       },
       createdAt: new Date() // current time

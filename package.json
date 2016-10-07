@@ -15,6 +15,7 @@
     "jquery": "^2.2.4",
     "leaflet": "^0.7.7",
     "lodash": "^4.13.1",
+    "markdown": "^0.5.0",
     "material-ui": "^0.15.1",
     "materialize-css": "^0.97.6",
     "meteor-node-stubs": "^0.2.3",

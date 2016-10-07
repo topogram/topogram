@@ -5,6 +5,8 @@ import { Session } from 'meteor/session';
 import { Template } from 'meteor/templating'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 
+import { markdown } from 'markdown'
+
 import { $ } from 'meteor/jquery'
 
 import { Comments, Nodes, Edges } from '../../../../api/collections.js'
@@ -12,6 +14,7 @@ import { Comments, Nodes, Edges } from '../../../../api/collections.js'
 import './nodeInfo/nodeInfo.js'
 import './edgeInfo/edgeInfo.js'
 import './nodeNeighborhood/nodeNeighborhood.js'
+
 
 Template.infoBoxReadOnly.helpers({
   networkInstance : function(){
@@ -22,6 +25,8 @@ Template.infoBoxReadOnly.helpers({
   },
   currentSelection: function() {
       var item = getCurrentSelection()
+      console.log(item)
+      if (item && item.data) item.notes = markdown.toHTML(item.data.additionalInfo)
       return item
   },
   commentsCount: function() {
