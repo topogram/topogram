@@ -4,6 +4,7 @@ import { $ } from 'meteor/jquery'
 
 import './filterByCategory/filterByCategory.js'
 import './filterByDegree/filterByDegree.js'
+import './filterByTime/filterByTime.js'
 import '../../networkTools/nodesOptions/nodesOptions.js'
 
 import { resetFilters } from '../../network/networkMethods.js'

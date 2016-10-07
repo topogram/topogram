@@ -25,7 +25,6 @@ Template.infoBoxReadOnly.helpers({
   },
   currentSelection: function() {
       var item = getCurrentSelection()
-      console.log(item)
       if (item && item.data) item.notes = markdown.toHTML(item.data.additionalInfo)
       return item
   },

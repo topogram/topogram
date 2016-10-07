@@ -431,10 +431,22 @@ export const resetFilters = function(graph) {
   $('.filterByCategory select').material_select('destroy')
   $('.filterByCategory select').material_select()
 
+
+
+  var startEndRange = []
+  self.data.network.get().nodes().forEach( function (d){
+    if(d.data().start) startEndRange.push(d.data().start);
+    if(d.data().end) startEndRange.push(d.data().end);
+  } )
+
+  console.log(startEndRange)
+  var min = (startEndRange.length) ? Math.min.apply(Math, startEndRange) : 0
+  var max = (startEndRange.length) ? Math.max.apply(Math, startEndRange) : 100
+  $("#filterByTime")[0].noUiSlider.set([min, max])
+
   // update slider min / max
   var min = graph.nodes().minDegree()
   var max = graph.nodes().maxDegree()
-
   $("#filterByDegree")[0].noUiSlider.set([min, max])
 
   // $("#filterByDegree")[0].noUiSlider.updateOptions({
@@ -563,7 +575,7 @@ export const addBehaviors = function(graph, readOnlyMode) {
     // init with all elements selected by default
     // var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
     // var els = alreadySelected.intersection(selectedEls)
-    console.log(els);
+    // console.log(els);
     graph.elements().hide()
     els.select()
     els.show()
