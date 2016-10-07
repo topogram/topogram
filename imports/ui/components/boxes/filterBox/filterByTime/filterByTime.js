@@ -8,7 +8,7 @@ import "materialize-css/extras/noUiSlider/nouislider.css"
 
 import { Nodes, Edges } from '../../../../../api/collections.js'
 
-Template.filterByDegree.helpers({
+Template.filterByTime.helpers({
     hasTime: function() {
       var node = Nodes.findOne()
         if (!node) return false
@@ -49,7 +49,7 @@ var createSlider = function(dom, net, _min, _max) {
   })
 }
 
-Template.filterByDegree.onRendered(function() {
+Template.filterByTime.onRendered(function() {
 
   var self = this
   var net = self.data.network.get()
