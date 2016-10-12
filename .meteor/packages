@@ -47,7 +47,6 @@ fortawesome:fontawesome
 standard-minifier-css
 standard-minifier-js
 modules
-ecmascript
 
 # rest API
 nimble:restivus
@@ -64,3 +63,4 @@ aldeed:collection2
 johanbrook:publication-collector
 dburles:collection-helpers
 mdg:validated-method
+ecmascript
