@@ -26,18 +26,14 @@ class FlashMessages extends React.Component {
     })
   }
 
-  // sendSuccess(msg, title) {
-  //   console.log(msg, title)
-  //   this.refs.container.success(msg, title , {
-  //     closeButton: true,
-  //   })
-  // }
-  //
-  // sendError(msg, title) {
-  //   this.refs.container.error(msg, title , {
-  //     closeButton: true,
-  //   })
-  // }
+  sendSuccess(msg, title) {
+    console.log(msg, title)
+    this.promptSnackbar(msg)
+  }
+
+  sendError(msg, title) {
+    this.promptSnackbar(msg)
+  }
 
 
   render() {
