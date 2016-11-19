@@ -283,6 +283,7 @@ export const mouseActions = function(graph) {
         'line-color': '#D84315',
         'opacity' : '1'
       })
+      graph.mouseOverEdges(e.cyTarget)
   })
 
   graph.on('mouseout', 'edge', function(e) {
@@ -290,13 +291,9 @@ export const mouseActions = function(graph) {
       'line-color': 'gray',
       'opacity' : '.7'
     })
+    // graph.mouseOutEdges()
   })
 
-  graph.on('mouseover', 'edge', function(e) {
-      e.cyTarget.style({
-        'line-color': "#D84315"
-      })
-  })
   graph.on('mouseover', 'node', function(e) {
 
     e.cyTarget.style({
@@ -476,7 +473,6 @@ export const addBehaviors = function(graph, readOnlyMode) {
     }
   }
 
-
   graph.deselectAll = function(){
     Session.set('currentType', null)
     Session.set('currentId', null)
@@ -566,6 +562,19 @@ export const addBehaviors = function(graph, readOnlyMode) {
     // shopw everything
     graph.nodes().show()
     graph.edges().show()
+  }
+
+  graph.mouseOverEdges = function(el) {
+    if(el.data("group") != "ghosts") {
+      Session.set('currentType', type)
+      Session.set('currentId', el.data("_id"))
+      // graph.focusOnEdges(el)
+      $('#infoBox').show()
+    }
+  }
+
+  graph.mouseOutEdges = function() {
+    $('#infoBox').hide()
   }
 
   // show / hide elements
