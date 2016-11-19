@@ -19,7 +19,7 @@ check
 reactive-var
 
 # UI
-aldeed:tabular@=1.4.1
+aldeed:tabular@=2.0.2
 mobile-experience
 blaze-html-templates
 spacebars
