@@ -23,7 +23,7 @@
                 </div>
             {{#if hasNodes}}
                 <div id="tab2">
-                    {{> nodesTemplate topogramId=topogramId editMode=true}}
+                    {{> nodesLab topogramId=topogramId editMode=true}}
                 </div>
             {{/if}}
             {{#if hasEdges}}
@@ -34,8 +34,8 @@
         </div>
         <script>
             ( function( w, d, u, $ ) {
-                $( 'ul.tabs' ).tabs() 
-            } )( window, document, undefined, jQuery ) 
+                $( 'ul.tabs' ).tabs()
+            } )( window, document, undefined, jQuery )
         </script>
 <!--     {{/if}} -->
 </template>
