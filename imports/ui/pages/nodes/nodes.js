@@ -3,7 +3,7 @@ import './nodes.html'
 import '../../components/table/table.js'
 
 import { Template } from 'meteor/templating'
-import { Nodes } from '../../../../api/collections.js'
+import { Nodes } from '../../../api/collections.js'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 
 Template.nodesTemplate.created = function() {

@@ -1,0 +1,82 @@
+<template name="table">
+  <div class="row">
+    <div class="input-field col s12">
+     <i class="material-icons prefix">search</i>
+     <input id="search" name="search" class="search" type="search">
+     <i class="searchClose material-icons">close</i>
+     <label for="first_name">Search</label>
+   </div>
+  </div>
+
+
+  {{# if hasSelection}}
+    <a class="merger waves-effect waves-teal btn-flat">Merge selection</a>
+  {{/ if}}
+
+  {{#if searching}}
+     <p>
+       Loading results for {{query}}...
+     </p>
+   {{else}}
+       <table class="stripped">
+         <thead>
+           <tr>
+               <th>Checked</th>
+               <th data-field="data.name" class="sortable">Name</th>
+               <th data-field="data.group" class="sortable">Group</th>
+               <th>Delete</th>
+           </tr>
+         </thead>
+
+         <tbody>
+            {{#each rows}}
+              <tr>
+                <td>
+                  <input data-id={{this._id}} type="checkbox" id="{{this.data.id}}" class="rowCheckbox" />
+                  <label for="{{this.data.id}}"></label>
+                </td>
+                <td>
+                  {{> editableText context=this collection="nodes" field="data.name"}}
+                </td>
+                <td>
+                  {{this.data.group}}
+                </td>
+                <td>
+                  <a class="waves-effect waves-teal btn-floating delete" data-id={{this._id}}>
+                    <i class="material-icons">delete</i>
+                      Delete
+                  </a>
+                </td>
+              </tr>
+            {{else}}
+              <p class="alert alert-warning">
+                 Nothing found for {{query}}.
+            </p>
+           {{/each}}
+         </tbody>
+       </table>
+   {{/if}}
+
+  <p>
+    {{ count }} rows
+  </p>
+  <!--
+    <nav>
+     <ul class="pager">
+       <li class="{{prevPageClass}}">
+         <a id="prevPage" href="{{prevPage}}">
+           <span aria-hidden="true">&larr;</span> Previous
+         </a>
+       </li>
+       <li class="{{nextPageClass}}">
+         <a id="nextPage" href="{{nextPage}}">
+           Next <span aria-hidden="true">&rarr;</span>
+         </a>
+       </li>
+       <li>
+       </li>
+     </ul>
+   </nav>
+  -->
+{{> nodeMerge}}
+</template>

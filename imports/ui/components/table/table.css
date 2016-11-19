@@ -1,0 +1,7 @@
+.arrow-up:after {
+  content: "▼"
+}
+
+.arrow-down:after {
+  content: "▲"
+}
