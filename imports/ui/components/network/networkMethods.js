@@ -589,6 +589,20 @@ export const addBehaviors = function(graph, readOnlyMode) {
     els.nodes().connectedEdges().show()  // show edge context
   }
 
+  graph.filterByTime = function(start, stop){
+
+    let years = d3.range(start,stop)
+
+    var newSelection = graph.nodes().filterFn(function( d ){
+      let nodeYears = d3.range(d.data('start'),d.data('end'))
+      let intersect = nodeYears.filter(function(n) {
+          return years.indexOf(n) != -1;
+      });
+      return intersect.length ? true : false
+    });
+    graph.selectElements(newSelection)
+  }
+
   graph.filterGraph = function(filter){
     var newSelection = graph.filter(filter)
     graph.selectElements(newSelection)

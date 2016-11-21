@@ -44,8 +44,7 @@ var createSlider = function(dom, net, _min, _max) {
 
   dom.noUiSlider.on('change', function(val) {
     Session.set("minMaxTime", val)
-    var filter = "node[start<="+val[1]+"][start>="+val[0]+"][end>="+val[0]+"][end<="+val[1]+"]"
-    net.filterGraph(filter)
+    net.filterByTime(val[0],val[1])
   })
 }
 
@@ -64,7 +63,7 @@ Template.filterByTime.onRendered(function() {
         if(d.data().end) startEndRange.push(d.data().end);
       } )
 
-      console.log(startEndRange)
+      // console.log(startEndRange)
       var min = (startEndRange.length) ? Math.min.apply(Math, startEndRange) : 0
       var max = (startEndRange.length) ? Math.max.apply(Math, startEndRange) : 100
       Session.set("minMaxTime", [min, max])
