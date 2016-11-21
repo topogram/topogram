@@ -1,5 +1,6 @@
 import './table.html'
 import './table.css'
+import './editableMarkdown.js'
 import '../boxes/nodeMerge/nodeMerge.js'
 
 // import './tableRow.js'
@@ -53,7 +54,6 @@ Template.table.events({
       let sortClass = sort[field] == 1 ? "arrow-up" : "arrow-down"
 
       // remove from all sortable columns
-      document.getElementsByClassName("sortable").className = "sortable"
       event.currentTarget.className = "sortable "+sortClass;
   },
   'change [type="checkbox"]' : function(event, instance) {

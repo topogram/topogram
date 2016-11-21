@@ -114,6 +114,16 @@ Meteor.methods( {
         } )
     },
 
+    updateNodeInfo: function( nodeId, notes ) {
+        Nodes.update( {
+          '_id': nodeId
+        }, {
+          '$set' : {
+              additionalInfo : notes
+            }
+        })
+    },
+
 
     // TODO : improve batch update of nodes
     // update coords in DB for bunch of nodes (useful to save topogram layout changes)

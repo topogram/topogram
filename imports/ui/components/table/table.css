@@ -5,3 +5,20 @@
 .arrow-down:after {
   content: "▲"
 }
+
+td {
+  width: 30%
+}
+td.rowCheckbox {
+  width: 10%
+}
+.colGroup {
+  width: 20%
+}
+.colNotes {
+  width: 40%
+}
+
+/*.colNotes textarea {
+  max-width: 30%
+}*/

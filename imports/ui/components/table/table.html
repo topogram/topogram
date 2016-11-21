@@ -25,27 +25,31 @@
        Loading results for {{query}}...
      </p>
    {{else}}
-       <table class="stripped">
+       <table class="striped highlight">
          <thead>
            <tr>
                <th>Checked</th>
                <th data-field="data.name" class="sortable">Name</th>
                <th data-field="data.group" class="sortable">Group</th>
+               <th>Notes</th>
            </tr>
          </thead>
 
          <tbody>
             {{#each rows}}
               <tr>
-                <td>
-                  <input data-id={{this._id}} type="checkbox" id="{{this.data.id}}" class="rowCheckbox" />
+                <td class="rowCheckbox">
+                  <input data-id={{this._id}} type="checkbox" id="{{this.data.id}}"  />
                   <label for="{{this.data.id}}"></label>
                 </td>
-                <td>
+                <td class="colName">
                   {{> editableText context=this collection="nodes" field="data.name"}}
                 </td>
-                <td>
+                <td class="colGroup">
                   {{this.data.group}}
+                </td>
+                <td class="colNotes">
+                  {{> editableMarkdown nodeId=this._id }}
                 </td>
               </tr>
             {{else}}
