@@ -265,18 +265,10 @@ export const mouseActions = function(graph) {
   // display edge info
   graph.on('tap', 'edge',function(e) {
     graph.selectElement(e.cyTarget, "edge")
-    // e.cyTarget.css({
-    //   'text-opacity' : function(d){
-    //     return  (d.style('text-opacity') == "1") ? "0" : "1"
-    //   },
-    //   'line-color' : function(d) {
-    //     return d.style('line-color') == "green" ? "#AAAAAA" : "green"
-    //   }
-    // })
-
   })
 
   graph.on('mouseover', 'edge', function(e) {
+
       e.cyTarget.style({
         'line-color': '#D84315',
         'opacity' : '1'
@@ -290,6 +282,7 @@ export const mouseActions = function(graph) {
         })
 
       graph.mouseOverEdges(e.cyTarget)
+
   })
 
   graph.on('mouseout', 'edge', function(e) {
@@ -301,6 +294,21 @@ export const mouseActions = function(graph) {
     graph.nodes().css({
       'opacity' : "1"
     })
+
+
+    // hide infobox only if no node is selected
+    if (Session.get('currentId') != null && Session.get('currentType') != "node") {
+      Session.set('currentId', null)
+      Session.set('currentType', null)
+    }
+
+    if ( Session.get('prevNode') ) {
+      Session.set('currentId', Session.get('prevNode'))
+      Session.set('currentType', 'node')
+    } else {
+      $("#infoBox").hide()
+    }
+
   })
 
   graph.on('mouseover', 'node', function(e) {
@@ -476,8 +484,12 @@ export const addBehaviors = function(graph, readOnlyMode) {
       var url = graph.getElementUrl(el, type)
       FlowRouter.go(url)
 
-      if( type == "node") graph.focusOnNodes(el)
+      if( type == "node") {
+        Session.set('prevNode', el.data('_id'))
+        graph.focusOnNodes(el)
+      }
       else if ( type == "edge") graph.focusOnEdges(el)
+
       $('#infoBox').show()
     }
   }
@@ -486,11 +498,13 @@ export const addBehaviors = function(graph, readOnlyMode) {
     Session.set('currentType', null)
     Session.set('currentId', null)
     Session.set('pathTargetNodeId', null)
+    Session.set('prevNode', null)
 
     graph.unFocus()
     $('#infoBox').hide()
     $('#commentBox').hide()
     FlowRouter.go(window.location.pathname)
+    window.location.hash=""
   }
 
   graph.getElementUrl = function(el, type) {
@@ -571,6 +585,8 @@ export const addBehaviors = function(graph, readOnlyMode) {
     // shopw everything
     graph.nodes().show()
     graph.edges().show()
+
+    Session.set("")
   }
 
   graph.mouseOverEdges = function(el) {
