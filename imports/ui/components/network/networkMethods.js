@@ -233,7 +233,7 @@ export const applyDefaultStyle = function() {
             return e.data("weight") ? e.data("weight") : .5
           },
           'line-color' : '#AAAAAA',
-          'opacity': .7,
+          'opacity': .2,
           'font-size':8,
           'text-opacity' : 0, // hide label by default
           'label': function(e) {
@@ -281,15 +281,26 @@ export const mouseActions = function(graph) {
         'line-color': '#D84315',
         'opacity' : '1'
       })
+
+      graph.elements()
+        .difference( e.cyTarget )
+        .difference(e.cyTarget.connectedNodes())
+        .css({
+          'opacity' : ".2"
+        })
+
       graph.mouseOverEdges(e.cyTarget)
   })
 
   graph.on('mouseout', 'edge', function(e) {
     e.cyTarget.style({
       'line-color': 'gray',
-      'opacity' : '.7'
+      'opacity' : '.2'
     })
-    // graph.mouseOutEdges()
+
+    graph.nodes().css({
+      'opacity' : "1"
+    })
   })
 
   graph.on('mouseover', 'node', function(e) {
