@@ -96,7 +96,10 @@ var getCurrentSelection = function() {
         item = Nodes.findOne( id )
     } else if ( type == 'edge' ) {
         item = Edges.findOne( id )
+        item.source = Nodes.findOne({ 'data.id' : item.data.source })
+        item.target = Nodes.findOne({ 'data.id' : item.data.target })
     }
   }
+  console.log(item.source, item.target);
   return item
 }

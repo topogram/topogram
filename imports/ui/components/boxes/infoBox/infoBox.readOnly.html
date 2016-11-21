@@ -5,11 +5,19 @@
         <li>
           <span id="closeInfoBox"><i class="material-icons right">close</i></span>
         </li>
-          {{#if currentSelection.data.name }}
+        {{#if currentSelection.source }}
+          <li class="collection-header card-title">
+            {{ currentSelection.source.data.name }}
+            <br />
+            <br />
+            {{ currentSelection.target.data.name }}
+          </li>
+        {{/if}}
+        {{#if currentSelection.data.name }}
           <li class="card-title collection-header">
             {{ currentSelection.data.name }}
           </li>
-          {{/if}}
+        {{/if}}
         {{#if currentSelection.data.group }}
           <li class="collection-item">
             <span class="badge">{{_ 'infobox.group'}}</span> {{ currentSelection.data.group }}
