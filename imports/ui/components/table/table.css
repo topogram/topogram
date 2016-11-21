@@ -9,14 +9,15 @@
 td {
   width: 30%
 }
+
 td.rowCheckbox {
   width: 10%
 }
 .colGroup {
-  width: 20%
+  width: 10%
 }
 .colNotes {
-  width: 40%
+  width: 50%
 }
 
 /*.colNotes textarea {

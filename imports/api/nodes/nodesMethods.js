@@ -119,7 +119,7 @@ Meteor.methods( {
           '_id': nodeId
         }, {
           '$set' : {
-              additionalInfo : notes
+              'data.additionalInfo' : notes
             }
         })
     },

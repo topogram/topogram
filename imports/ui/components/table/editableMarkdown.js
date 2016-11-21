@@ -13,6 +13,7 @@ Template.editableMarkdown.created = function() {
   template.node = Nodes.findOne({ _id : this.data.nodeId})
 
   let text = template.node.data.additionalInfo
+  // console.log(text);
   template.text   = new ReactiveVar(text)
 
 }
@@ -23,10 +24,8 @@ Template.editableMarkdown.events({
   },
   'keyup [name="markdown-input"], focusout [name="markdown-input"]' : function(event, instance) {
     event.preventDefault();
-
     let val = event.currentTarget.value
-    instance.text.set(val)
-    
+
     if(event.type === "keyup" && event.which === 13 ||
              event.type === "focusout") {
       // set tex
@@ -34,7 +33,11 @@ Template.editableMarkdown.events({
 
       // save data
       Meteor.call("updateNodeInfo", instance.node._id, val)
+      instance.text.set(val)
 
+      instance.isEditing.set(false)
+    } else if (event.type === "keyup" && event.which === 27) {
+      // esc to cancel
       instance.isEditing.set(false)
     }
 
@@ -49,6 +52,6 @@ Template.editableMarkdown.helpers({
     return Template.instance().text.get()
   },
   'hasText' : function() {
-    return Template.instance().text.get() ? true : false
+    return Template.instance().text.get() || Template.instance().text.get() != "" ? true : false
   }
 })

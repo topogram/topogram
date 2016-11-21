@@ -1,17 +1,13 @@
 <template name="editableMarkdown">
   {{#if isEditing}}
     <div class="input-field">
-      <textarea name="markdown-input" class="materialize-textarea">
-        {{ text }}
-      </textarea>
+      <textarea name="markdown-input" class="materialize-textarea">{{ text }}</textarea>
       <label for="textarea1">Notes</label>
     </div>
   {{ else }}
     <span class="markdown-trigger">
       {{#if  hasText }}
-        {{#markdown}}
-          {{ text }}
-        {{/markdown}}
+        {{#markdown}}{{ text }}{{/markdown}}
       {{ else }}
         <em>...</em>
       {{/ if }}
