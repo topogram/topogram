@@ -564,7 +564,7 @@ export const addBehaviors = function(graph, readOnlyMode) {
 
   graph.mouseOverEdges = function(el) {
     if(el.data("group") != "ghosts") {
-      Session.set('currentType', type)
+      Session.set('currentType', "edge")
       Session.set('currentId', el.data("_id"))
       // graph.focusOnEdges(el)
       $('#infoBox').show()
