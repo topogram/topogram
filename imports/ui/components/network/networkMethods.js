@@ -167,9 +167,7 @@ export const initActions = function(graph, readOnlyMode) {
         select: function() {
 
             // remove the node plus all connected edges
-            Meteor.call('deleteNodeAndConnectedEdges', this.id(), this.neighborhood('edge').map(function(d) {
-                return d.id()
-            }))
+            Meteor.call('deleteNodeAndConnectedEdges', this.id())
 
             // remove from graph
             graph.remove(this.neighborhood('edge'))

@@ -7,6 +7,7 @@ import '../boxes/nodeMerge/nodeMerge.js'
 import { Session } from 'meteor/session'
 import { Template } from 'meteor/templating'
 import { $ } from 'meteor/jquery'
+import { Meteor } from 'meteor/meteor'
 
 import {EditableText} from 'meteor/babrahams:editable-text'
 import { Nodes } from '../../../api/collections.js'
@@ -23,6 +24,8 @@ Template.table.created = function() {
   template.sorting   = new ReactiveVar()
   template.selected   = new ReactiveVar([])
 
+  template.modalText   = new ReactiveVar("")
+
   Session.set("mergeSource", null)
   Session.set("mergeTargets", null )
 }
@@ -35,18 +38,6 @@ Template.table.events({
   'click .searchClose': function( event, instance ) {
       event.preventDefault();
       instance.searchQuery.set('');
-  },
-  'click .delete': function( event, instance ) {
-      event.preventDefault();
-      let id = event.currentTarget.dataset.id
-  },
-  'click .merger': function( event, instance ) {
-    event.preventDefault();
-    let selected = instance.selected.get()
-    console.log(selected);
-    Session.set("mergeSource", Nodes.findOne(selected[0]))
-    Session.set("mergeTargets", Nodes.find({ "_id" :{ '$in' : selected.shift() }}) )
-    $('#modal-merge').openModal()
   },
   'click .sortable': function( event, instance ) {
       event.preventDefault();
@@ -67,16 +58,57 @@ Template.table.events({
   },
   'change [type="checkbox"]' : function(event, instance) {
 
-    let selected = instance.selected.get(),
-      id = event.currentTarget.dataset.id,
-      i = selected.indexOf(id)
+    // find all selected
+    let selected = $(':checked').map(function(i, el){
+      return el.dataset.id
+    }).toArray()
 
-    if (event.currentTarget.checked && i == -1 )
-      selected.push(id)
-    else if (event.currentTarget.checked && i >= 0 )
-      selected.splice(i, 1)
-
+    console.log(selected);
     instance.selected.set(selected)
+
+  },
+  'click .merger': function( event, instance ) {
+    event.preventDefault();
+    let selected = instance.selected.get()
+
+    // only catch
+    if(selected.length != 2) return
+
+    console.log(selected);
+    let source = Nodes.findOne(selected[0]),
+      target = Nodes.findOne(selected[1])
+
+    let txt = "Merge " + source.data.name + " and " + target.data.name + " into a single node ?"
+
+    instance.modalText.set(txt)
+
+    // TODO : fix merger
+    $('#modal-merge').openModal()
+  },
+  'click #merge-ok' : function(event, instance) {
+    let selected = instance.selected.get()
+    console.log("merge", selected);
+    Meteor.call("mergeNodes", selected[0], selected[1])
+    instance.selected.set([])
+  },
+  'click .delete' : function(event, instance) {
+    event.preventDefault();
+    let selected = instance.selected.get()
+    if (!selected.length) return
+
+    let nodes = Nodes.find({ '_id' : { '$in' : selected }}).fetch()
+    console.log("delete", nodes);
+    let names = nodes.map(d => d.data.name).join(" ,")
+    let txt = "Are you sure you want to delete this "+selected.length+" nodes : "+names
+    instance.modalText.set(txt)
+    $('#modal-delete').openModal()
+
+  },
+  'click #delete-ok' : function(event, instance) {
+    let selected = instance.selected.get()
+    console.log("delete", selected);
+    Meteor.call('deleteNodeAndConnectedEdges', selected)
+    instance.selected.set([])
   }
 })
 
@@ -109,7 +141,13 @@ Template.table.helpers( {
     query : function() {
       return Template.instance().searchQuery.get();
     },
-    hasSelection : function() {
-      return Template.instance().selected.get().length > 1 ? true : false
+    selected : function() {
+      return Template.instance().selected.get()
+    },
+    mergeDisable : function() {
+      return Template.instance().selected.get().length == 2 ? "" : "disable"
+    },
+    modalText : function() {
+      return Template.instance().modalText.get()
     }
 })

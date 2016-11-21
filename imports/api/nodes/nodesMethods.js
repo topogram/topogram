@@ -76,27 +76,22 @@ Meteor.methods( {
         })
     },
 
-    deleteNodeAndConnectedEdges: function( nodeId, edgesId ) {
-        var _id = Nodes.findOne( {
-            'data.id': nodeId
-        }, {
-            "_id": 1
-        } )._id
+    deleteNodeAndConnectedEdges: function( nodeIds ) {
+        if (! nodeIds instanceof Array) nodeIds = [nodeIds]
+        console.log(nodeIds);
 
-        // tx.start( "delete node+neighborhood" )
-        Nodes.remove( {
-            "_id": _id
+        let ids = Nodes.find({ "_id" : { $in : nodeIds }}, { "data.id" : 1})
+          .map(d => d.data.id)
+        console.log(ids);
+
+        Nodes.remove( { "_id": { '$in' : nodeIds } })
+
+        Edges.remove( { '$or' : [
+          { 'data.source': { '$in' : ids } },
+          { 'data.target': { '$in' : ids } }
+        ]}, function(err, count){
+          console.log(err, count);
         })
-        Edges.find( {
-            'data.id': {
-                '$in': edgesId
-            }
-        } ).forEach( function( edge ) {
-            Edges.remove( {
-                "_id": edge._id
-            })
-        } )
-        // tx.commit()
     },
 
     deleteNodesByTopogramId: function( topogramId ) {

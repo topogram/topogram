@@ -9,9 +9,16 @@
   </div>
 
 
-  {{# if hasSelection}}
-    <a class="merger waves-effect waves-teal btn-flat">Merge selection</a>
-  {{/ if}}
+  <p>
+    {{ selected.length }} selected.
+    <a class="merger waves-effect waves-teal btn {{ mergeDisable }}d" {{ mergeDisable }} >
+      Merge
+    </a>
+    <a class="waves-effect waves-teal btn delete" data-id={{this._id}}>
+      <i class="material-icons">delete</i>
+        Delete
+    </a>
+  </p>
 
   {{#if searching}}
      <p>
@@ -24,7 +31,6 @@
                <th>Checked</th>
                <th data-field="data.name" class="sortable">Name</th>
                <th data-field="data.group" class="sortable">Group</th>
-               <th>Delete</th>
            </tr>
          </thead>
 
@@ -40,12 +46,6 @@
                 </td>
                 <td>
                   {{this.data.group}}
-                </td>
-                <td>
-                  <a class="waves-effect waves-teal btn-floating delete" data-id={{this._id}}>
-                    <i class="material-icons">delete</i>
-                      Delete
-                  </a>
                 </td>
               </tr>
             {{else}}
@@ -78,5 +78,27 @@
      </ul>
    </nav>
   -->
-{{> nodeMerge}}
+
+  <div id="modal-merge" class="modal">
+    <div class="modal-content">
+      <h4>Merge nodes</h4>
+      <p>{{ modalText }}</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" id="merge-ok" class="modal-action modal-close waves-effect waves-green btn">Yes</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    </div>
+  </div>
+
+  <div id="modal-delete" class="modal">
+    <div class="modal-content">
+      <h4>Delete</h4>
+      <p>{{ modalText }}</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" id="delete-ok" class=" modal-action modal-close waves-effect waves-green btn">Yes</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    </div>
+  </div>
+
 </template>
