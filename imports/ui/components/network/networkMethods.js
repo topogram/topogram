@@ -99,6 +99,7 @@ export const initActions = function(graph, readOnlyMode) {
           console.log("check for node merger")
           Session.set("mergeSource", null)
           Session.set("mergeTargets", null)
+          Session.set('edgeClicked', null)
 
           // hit test
           var bb = node.boundingbox()
@@ -305,6 +306,9 @@ export const mouseActions = function(graph) {
     if ( Session.get('prevNode') ) {
       Session.set('currentId', Session.get('prevNode'))
       Session.set('currentType', 'node')
+    } else if ( Session.get('edgeClicked') ) {
+      Session.set('currentId', Session.get('edgeClicked'))
+      Session.set('currentType', 'edge')
     } else {
       $("#infoBox").hide()
     }
@@ -483,7 +487,11 @@ export const addBehaviors = function(graph, readOnlyMode) {
         Session.set('prevNode', el.data('_id'))
         graph.focusOnNodes(el)
       }
-      else if ( type == "edge") graph.focusOnEdges(el)
+      else if ( type == "edge") {
+        Session.set('edgeClicked', el.data('_id'))
+        graph.focusOnEdges(el)
+
+      }
 
       $('#infoBox').show()
     }
