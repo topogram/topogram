@@ -488,6 +488,7 @@ export const addBehaviors = function(graph, readOnlyMode) {
         graph.focusOnNodes(el)
       }
       else if ( type == "edge") {
+        Session.set('prevNode', null)
         Session.set('edgeClicked', el.data('_id'))
         graph.focusOnEdges(el)
 
