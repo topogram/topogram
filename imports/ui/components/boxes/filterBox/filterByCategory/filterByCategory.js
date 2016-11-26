@@ -55,7 +55,7 @@ Template.filterByCategory.events = {
         return $(el).val()
       }).toArray()
 
-      Session.set("selectedCategories", selectedCategories)
+      Session.set("selectedCategories", selectedCategories.length ? selectedCategories : null)
       net.filterElements()
   }
 }
