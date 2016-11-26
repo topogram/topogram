@@ -1,4 +1,4 @@
-<template name="table">
+<template name="tableEdges">
   <div class="row">
     <div class="input-field col s12">
      <i class="material-icons prefix">search</i>
@@ -11,9 +11,6 @@
 
   <p>
     {{ selected.length }} selected.
-    <a class="merger waves-effect waves-teal btn {{ mergeDisable }}d" {{ mergeDisable }} >
-      Merge
-    </a>
     <a class="waves-effect waves-teal btn delete" data-id={{this._id}}>
       <i class="material-icons">delete</i>
         Delete
@@ -29,8 +26,8 @@
          <thead>
            <tr>
                <th>Checked</th>
-               <th data-field="data.name" class="sortable">Name</th>
-               <th data-field="data.group" class="sortable">Group</th>
+               <th data-field="data.name" class="sortable">From</th>
+               <th data-field="data.group" class="sortable">To</th>
                <th>Notes</th>
            </tr>
          </thead>
@@ -42,14 +39,14 @@
                   <input data-id={{this._id}} type="checkbox" id="{{this.data.id}}"  />
                   <label for="{{this.data.id}}"></label>
                 </td>
-                <td class="colName">
-                  {{> editableText context=this collection="nodes" field="data.name"}}
+                <td class="colFrom">
+                  {{this.data.from}}
                 </td>
-                <td class="colGroup">
-                  {{this.data.group}}
+                <td class="colTo">
+                  {{this.data.to}}
                 </td>
                 <td class="colNotes">
-                  {{> editableMarkdown nodeId=this._id }}
+                  {{> editableMarkdown edgeId=this._id }}
                 </td>
               </tr>
             {{else}}
@@ -82,17 +79,6 @@
      </ul>
    </nav>
   -->
-
-  <div id="modal-merge" class="modal">
-    <div class="modal-content">
-      <h4>Merge nodes</h4>
-      <p>{{ modalText }}</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" id="merge-ok" class="modal-action modal-close waves-effect waves-green btn">Yes</a>
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    </div>
-  </div>
 
   <div id="modal-delete" class="modal">
     <div class="modal-content">

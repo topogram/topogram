@@ -1,4 +1,4 @@
-import './table.html'
+import './tableNodes.html'
 import './table.css'
 import './editableMarkdown.js'
 import '../boxes/nodeMerge/nodeMerge.js'
@@ -14,7 +14,7 @@ import {EditableText} from 'meteor/babrahams:editable-text'
 import { Nodes } from '../../../api/collections.js'
 import { ReactiveVar } from 'meteor/reactive-var'
 
-Template.table.created = function() {
+Template.tableNodes.created = function() {
   console.log("table")
   let template = Template.instance();
 
@@ -31,7 +31,7 @@ Template.table.created = function() {
   Session.set("mergeTargets", null )
 }
 
-Template.table.events({
+Template.tableNodes.events({
   'keyup [name="search"]' ( event, instance ) {
     let value = event.target.value.trim();
     if ( value !== '' ) { instance.searchQuery.set( value ); }
@@ -112,7 +112,7 @@ Template.table.events({
   }
 })
 
-Template.table.helpers( {
+Template.tableNodes.helpers( {
 
     'count': function() {
       return Nodes.find().count()

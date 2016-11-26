@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { Nodes, Edges, Topograms } from '../../api/collections.js'
 
-import  '../components/datalab/edges/edges.js'
+import  '../components/datalab/edgesLab/edgesLab.js'
 import  '../components/datalab/nodesLab/nodesLab.js'
 
 Template.lab.onCreated( function() {

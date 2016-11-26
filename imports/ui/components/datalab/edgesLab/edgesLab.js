@@ -1,7 +1,7 @@
-import './edges.html'
+import './edgesLab.html'
 import { Template } from 'meteor/templating'
 
-Template.edgesTemplate.helpers( {
+Template.edgesLab.helpers( {
     'query': function() {
         // console.log( this )
         return {

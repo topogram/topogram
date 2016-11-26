@@ -15,6 +15,7 @@ import '../../../ui/pages/topograms/topograms-view.js'
 import '../../../ui/pages/import.js'
 import '../../../ui/pages/lab.js'
 import '../../../ui/pages/nodes/nodes.js'
+import '../../../ui/pages/edges/edges.js'
 
 FlowRouter.route( '/topograms', {
     triggersEnter: [AccountsTemplates.ensureSignedIn],
@@ -57,7 +58,7 @@ FlowRouter.route( '/topograms/:topogramId/nodes', {
     triggersEnter: [AccountsTemplates.ensureSignedIn],
     action(params) {
         BlazeLayout.render( 'mainLayout', {
-            main: 'nodesTemplate',
+            main: 'edgesTemplate',
             'topogramId': params.topogramId
         } )
     }

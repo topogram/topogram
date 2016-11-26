@@ -1,6 +1,6 @@
-import './nodes.html'
+import './edges.html'
 
-import '../../components/table/tableNodes.js'
+import '../../components/table/tableEdges.js'
 
 import { Template } from 'meteor/templating'
 import { Nodes } from '../../../api/collections.js'
