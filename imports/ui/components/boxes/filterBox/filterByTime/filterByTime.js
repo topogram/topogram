@@ -6,7 +6,7 @@ import { $ } from 'meteor/jquery'
 import * as noUiSlider from "materialize-css/extras/noUiSlider/nouislider"
 import "materialize-css/extras/noUiSlider/nouislider.css"
 
-import { Nodes, Edges } from '../../../../../api/collections.js'
+import { Nodes } from '../../../../../api/collections.js'
 
 Template.filterByTime.helpers({
     hasTime: function() {
@@ -44,7 +44,7 @@ var createSlider = function(dom, net, _min, _max) {
 
   dom.noUiSlider.on('change', function(val) {
     Session.set("minMaxTime", val)
-    net.filterByTime(val[0],val[1])
+    net.filterElements()
   })
 }
 

@@ -1,6 +1,7 @@
 import './filterByCategory.html'
 import { Template } from 'meteor/templating'
 
+import { Session } from 'meteor/session'
 import { Edges, Nodes } from  '../../../../../api/collections.js'
 import { colors } from '../../../../../ui/helpers/colors.js'
 import { $ } from 'meteor/jquery'
@@ -8,6 +9,9 @@ import { $ } from 'meteor/jquery'
 
 Template.filterByCategory.onRendered( function() {
   self = this;
+
+  Session.set("selectedCategories", null)
+
   self.autorun(function(auto) {
     if(self.data.network.get()) {
       // TODO : remove ugly fix for materialize (hoping for React / Material-UI to come soon)
@@ -45,22 +49,13 @@ Template.filterByCategory.events = {
   // filter
   'change select': function(event, instance) {
 
+      var net = instance.data.network.get()
+
       var selectedCategories = $(event.target).find("option:selected").map(function(i, el){
         return $(el).val()
       }).toArray()
 
-      var net = instance.data.network.get()
-
-      var els = (instance.data.type == "nodes") ? net.nodes() : net.edges()
-      // var els = net.elements()
-
-      if (!selectedCategories.length) {
-          els.show()  // show everything
-      } else {
-          var selectedEls = els.filterFn(function(ele) {
-            return selectedCategories.indexOf(ele.data("group")) > -1
-          })
-          net.selectElements(selectedEls)
-      }
+      Session.set("selectedCategories", selectedCategories)
+      net.filterElements()
   }
 }

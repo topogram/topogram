@@ -351,7 +351,7 @@ export const mouseActions = function(graph) {
       })
 
       e.cyTarget.connectedEdges().css({
-        'line-color' : function(d) {
+        'line-color' : function() {
             return "#AAAAAA"
           }
       })
@@ -440,35 +440,30 @@ export const resetFilters = function(graph) {
   graph.elements().deselect()
   graph.elements().show()
 
-  // reset selector
+  // reset categories
   $(".filterByCategory").find("option:selected").removeAttr("selected")
   $('.filterByCategory select').material_select('destroy')
   $('.filterByCategory select').material_select()
 
+  Session.set("selectedCategories", null)
 
-
+  // reset time
   var startEndRange = []
   self.data.network.get().nodes().forEach( function (d){
     if(d.data().start) startEndRange.push(d.data().start);
     if(d.data().end) startEndRange.push(d.data().end);
   } )
 
-  console.log(startEndRange)
   var min = (startEndRange.length) ? Math.min.apply(Math, startEndRange) : 0
   var max = (startEndRange.length) ? Math.max.apply(Math, startEndRange) : 100
   $("#filterByTime")[0].noUiSlider.set([min, max])
+  Session.set("minMaxTime", [min, max])
 
   // update slider min / max
-  var min = graph.nodes().minDegree()
-  var max = graph.nodes().maxDegree()
-  $("#filterByDegree")[0].noUiSlider.set([min, max])
-
-  // $("#filterByDegree")[0].noUiSlider.updateOptions({
-  //   range: {
-  //     'min': min,
-  //     'max': max
-  //   }
-  // })
+  let minDeg = graph.nodes().minDegree()
+  let maxDeg = graph.nodes().maxDegree()
+  $("#filterByDegree")[0].noUiSlider.set([minDeg,maxDeg])
+  Session.set("minMaxDegree",[minDeg, maxDeg])
 
 }
 
@@ -603,36 +598,43 @@ export const addBehaviors = function(graph, readOnlyMode) {
   }
 
   // show / hide elements
-  graph.selectElements = function(els) {
+  graph.filterElements = function() {
 
-    // TODO: better selection
-    // init with all elements selected by default
-    // var alreadySelected = (graph.$(':selected').length) ? graph.$(':selected') : graph.elements()
-    // var els = alreadySelected.intersection(selectedEls)
-    // console.log(els);
-    graph.elements().hide()
-    els.select()
-    els.show()
-    els.nodes().connectedEdges().show()  // show edge context
-  }
+    let deg = Session.get("minMaxDegree"),
+      time = Session.get("minMaxTime"),
+      categories = Session.get("selectedCategories")
 
-  graph.filterByTime = function(start, stop){
+    let minDegree=deg[0],
+        maxDegree=deg[1],
+        start=time[0],
+        end=time[1],
+        years = d3.range(start, end)
 
-    let years = d3.range(start,stop)
 
-    var newSelection = graph.nodes().filterFn(function( d ){
+    var els = graph.nodes().filterFn(function( d ){
+
+      // check time
       let nodeYears = d3.range(d.data('start'),d.data('end'))
       let intersect = nodeYears.filter(function(n) {
           return years.indexOf(n) != -1;
       });
-      return intersect.length ? true : false
-    });
-    graph.selectElements(newSelection)
-  }
+      let inYearsRange = intersect.length ? true : false
 
-  graph.filterGraph = function(filter){
-    var newSelection = graph.filter(filter)
-    graph.selectElements(newSelection)
+      // check categories
+      let inCategories = categories ? categories.indexOf(d.data("group")) > -1 : true
+
+      // check degree
+      let inDegreeRange =  (d.degree() >= minDegree && d.degree() <= maxDegree)
+
+      return inYearsRange && inCategories && inDegreeRange
+    });
+
+    console.log(els.length);
+    graph.elements().hide()
+    els.select()
+    els.show()
+    els.nodes().connectedEdges().show()  // show edge context
+
   }
 
   // load node if hash

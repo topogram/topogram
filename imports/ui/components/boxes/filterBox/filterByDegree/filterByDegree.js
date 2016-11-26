@@ -44,8 +44,7 @@ var createSlider = function(dom, net, _min, _max) {
 
   dom.noUiSlider.on('change', function(val) {
     Session.set("minMaxDegree", val)
-    var filter = "node[[degree>="+val[0]+"]][[degree<="+val[1]+"]]"
-    net.filterGraph(filter)
+    net.filterElements()
   })
 }
 

@@ -100,6 +100,5 @@ var getCurrentSelection = function() {
         item.target = Nodes.findOne({ 'data.id' : item.data.target })
     }
   }
-  console.log(item.source, item.target);
   return item
 }
