@@ -102,7 +102,7 @@ Template.tableEdges.helpers( {
 
       if ( search ) {
          let regex = new RegExp( search, 'i' );
-         q = { "data.name" : regex }
+         q = { "data.additionalInfo" : regex }
        }
       return Edges.find(q, projection).fetch()
     },
