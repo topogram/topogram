@@ -58,7 +58,7 @@ FlowRouter.route( '/topograms/:topogramId/nodes', {
     triggersEnter: [AccountsTemplates.ensureSignedIn],
     action(params) {
         BlazeLayout.render( 'mainLayout', {
-            main: 'edgesTemplate',
+            main: 'nodesTemplate',
             'topogramId': params.topogramId
         } )
     }

@@ -3,18 +3,18 @@ import './editableMarkdown.html'
 import { Template } from 'meteor/templating'
 import { Meteor } from 'meteor/meteor'
 import { ReactiveVar } from 'meteor/reactive-var'
-import { Nodes } from '../../../api/collections.js'
+import { Nodes, Edges } from '../../../api/collections.js'
 
 
 Template.editableMarkdown.created = function() {
   let template = Template.instance();
-  template.isEditing   = new ReactiveVar(false)
+  template.isEditing = new ReactiveVar(false)
 
-  template.node = Nodes.findOne({ _id : this.data.nodeId})
+  template.collection = this.data.type === 'node' ? Nodes : Edges
+  template.element = template.collection.findOne({ _id : this.data.id})
+  let text = template.element.data.additionalInfo
 
-  let text = template.node.data.additionalInfo
-  // console.log(text);
-  template.text   = new ReactiveVar(text)
+  template.text = new ReactiveVar(text)
 
 }
 
@@ -32,7 +32,8 @@ Template.editableMarkdown.events({
       console.log("save", instance, val);
 
       // save data
-      Meteor.call("updateNodeInfo", instance.node._id, val)
+      let method = instance.elType === 'node' ? "updateNodeInfo" : "updateEdgeInfo"
+      Meteor.call(method, instance.element._id, val)
       instance.text.set(val)
 
       instance.isEditing.set(false)

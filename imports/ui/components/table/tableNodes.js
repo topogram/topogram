@@ -16,6 +16,8 @@ import { ReactiveVar } from 'meteor/reactive-var'
 
 Template.tableNodes.created = function() {
   console.log("table")
+
+  console.log(Nodes);
   let template = Template.instance();
 
   template.searchQuery = new ReactiveVar()

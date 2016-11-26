@@ -20,7 +20,7 @@ Template.nodesTemplate.events( {
 })
 
 Template.nodesTemplate.helpers( {
-    'Nodes': function() { return Nodes },
+    'nodes': function() { return Nodes },
     'query': function() {
         return { topogramId: this.topogramId }
     },

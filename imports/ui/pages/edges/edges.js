@@ -6,21 +6,21 @@ import { Template } from 'meteor/templating'
 import { Nodes } from '../../../api/collections.js'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 
-Template.nodesTemplate.created = function() {
+Template.edgesTemplate.created = function() {
   let self= this;
   self.autorun(function() {
-    self.subscribe( 'nodes', FlowRouter.getParam('topogramId') )
+    self.subscribe( 'edges', FlowRouter.getParam('topogramId') )
   })
 }
 
-Template.nodesTemplate.events( {
+Template.edgesTemplate.events( {
   'change #search' : function(event, instance) {
     console.log(event, instance);
   }
 })
 
-Template.nodesTemplate.helpers( {
-    'Nodes': function() { return Nodes },
+Template.edgesTemplate.helpers( {
+    'edges': function() { return Nodes },
     'query': function() {
         return { topogramId: this.topogramId }
     },

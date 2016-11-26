@@ -59,9 +59,7 @@ Template.tableEdges.events({
       return el.dataset.id
     }).toArray()
 
-    console.log(selected);
     instance.selected.set(selected)
-
   },
   'click .delete' : function(event, instance) {
     event.preventDefault();
@@ -69,17 +67,19 @@ Template.tableEdges.events({
     if (!selected.length) return
 
     let edges = Edges.find({ '_id' : { '$in' : selected }}).fetch()
-    console.log("delete", edges);
-    let names = edges.map(d => d.data.name).join(" ,")
-    let txt = "Are you sure you want to delete this "+selected.length+" edges : "+names
+    // console.log("delete", edges.length, "edges");
+    let names = edges.map(d =>
+      '<li>' + [d.data.target, d.data.source].join(" --> ") + '</li>'
+    ).join("\n")
+    let txt = "Are you sure you want to delete this "+selected.length+" edges : <ul>"+names+"</ul>"
     instance.modalText.set(txt)
     $('#modal-delete').openModal()
 
   },
   'click #delete-ok' : function(event, instance) {
     let selected = instance.selected.get()
-    console.log("delete", selected);
-    // Meteor.call('deleteNodeAndConnectedEdges', selected)
+    // console.log("delete", selected);
+    Meteor.call('deleteEdges', selected)
     instance.selected.set([])
   }
 })

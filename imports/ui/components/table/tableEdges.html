@@ -26,8 +26,8 @@
          <thead>
            <tr>
                <th>Checked</th>
-               <th data-field="data.name" class="sortable">From</th>
-               <th data-field="data.group" class="sortable">To</th>
+               <th data-field="data.source" class="sortable">From</th>
+               <th data-field="data.target" class="sortable">To</th>
                <th>Notes</th>
            </tr>
          </thead>
@@ -36,17 +36,17 @@
             {{#each rows}}
               <tr>
                 <td class="rowCheckbox">
-                  <input data-id={{this._id}} type="checkbox" id="{{this.data.id}}"  />
-                  <label for="{{this.data.id}}"></label>
+                  <input data-id={{this._id}} type="checkbox" id="{{this._id}}"  />
+                  <label for="{{this._id}}"></label>
                 </td>
                 <td class="colFrom">
-                  {{this.data.from}}
+                  {{this.data.source}}
                 </td>
                 <td class="colTo">
-                  {{this.data.to}}
+                  {{this.data.target}}
                 </td>
                 <td class="colNotes">
-                  {{> editableMarkdown edgeId=this._id }}
+                  {{> editableMarkdown id=this._id type="edge" }}
                 </td>
               </tr>
             {{else}}
@@ -83,7 +83,7 @@
   <div id="modal-delete" class="modal">
     <div class="modal-content">
       <h4>Delete</h4>
-      <p>{{ modalText }}</p>
+      <p>{{{ modalText }}}</p>
     </div>
     <div class="modal-footer">
       <a href="#!" id="delete-ok" class=" modal-action modal-close waves-effect waves-green btn">Yes</a>
