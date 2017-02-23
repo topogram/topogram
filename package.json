@@ -5,6 +5,7 @@
   "main": "topogram.js",
   "dependencies": {
     "babel-preset-stage-0": "^6.16.0",
+    "bcrypt": "^1.0.2",
     "cytoscape": "2.7.2",
     "cytoscape-cola": "^1.4.1",
     "cytoscape-cxtmenu": "^2.7.1",

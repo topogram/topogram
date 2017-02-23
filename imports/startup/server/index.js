@@ -24,4 +24,4 @@ import '../../api/server/publications.js'
 import '../../version.js'
 
 // JSON API
-import '../../api/api.js'
+// import '../../api/api.js'
