@@ -16,14 +16,12 @@ const initialState = {
 export function topograms(state = initialState, action) {
   switch (action.type) {
     case TOPOGRAMS_PUBLIC_SUBSCRIPTION_READY:
-      console.log("haah");
       return {
         ...state,
         ready: action.payload.ready,
         topogramsSubscriptionStopped: false,
       };
     case TOPOGRAMS_PUBLIC_SUBSCRIPTION_CHANGED:
-      console.log(action);
       return {
         ...state,
         topograms: action.payload,

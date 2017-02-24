@@ -1,5 +1,5 @@
 import { stylesheet } from 'cytoscape'
-import { colors } from '../../helpers/colors.js'
+import { colors } from '/imports/client/helpers/colors.js'
 
 const NetworkDefaultStyle = () =>
   stylesheet()
