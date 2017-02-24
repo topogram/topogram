@@ -31,10 +31,6 @@ fourseven:scss
 # js libs
 sergeyt:typeahead
 
-# routing
-kadira:flow-router
-useraccounts:flow-routing
-
 # db
 accounts-password@1.3.4
 mikowals:batch-insert
@@ -55,7 +51,8 @@ nimble:restivus
 practicalmeteor:mocha
 xolvio:cleaner
 practicalmeteor:chai
-kadira:blaze-layout
+
+
 react-template-helper
 aldeed:simple-schema
 dburles:factory
