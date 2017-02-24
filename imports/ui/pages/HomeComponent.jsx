@@ -41,7 +41,7 @@ const HomeHeader = () => (
 )
 
 // define and export our Welcome component
-export class HomePageComponent extends React.Component {
+export class HomeComponent extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

@@ -4,8 +4,8 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import store from '/imports/client/store';
 
-import MainLayout from '/imports/client/layouts/MainLayout';
-import { HomePageContainer } from '/imports/containers/home.jsx'
+import MainLayout from '/imports/ui/layouts/MainLayout';
+import { HomeContainer } from '/imports/ui/HomeContainer.jsx'
 
 
 export const renderRoutes = () => (
