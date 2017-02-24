@@ -1,6 +1,6 @@
 import React from 'react'
-import LayoutWrapper from './LayoutWrapper.jsx'
-import '../css/topogram.scss'
+import LayoutWrapper from '/imports/ui/layouts/LayoutWrapper.jsx'
+import '/imports/css/topogram.scss'
 
 const MainLayout = ({ children }) => (
     <LayoutWrapper

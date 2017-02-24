@@ -3,7 +3,7 @@ import { stopSubscription } from 'meteor-redux-middlewares';
 
 import { loadHomeTopograms, TOPOGRAMS_SUB } from '/imports/client/actions/topograms';
 
-import { HomeComponent } from '/imports/pages/HomeComponent';
+import { HomeComponent } from '/imports/ui/pages/HomeComponent';
 
 const mapStateToProps = state => ({
     ready: state.topograms.ready,
