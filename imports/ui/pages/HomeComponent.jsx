@@ -70,7 +70,6 @@ export class HomeComponent extends React.Component {
   }
 
   render() {
-    console.log("render home")
     return (
       <div>
         <HomeHeader />
@@ -81,7 +80,9 @@ export class HomeComponent extends React.Component {
           <h5 className="grey-text text-lighten-2 center">
             <FormattedMessage {...messages.browseTopograms} />
           </h5>
-          <TopogramList editable={false} />
+          <TopogramList
+            topograms={this.props.topograms}
+            editable={false} />
         </section>
 
         <Snackbar

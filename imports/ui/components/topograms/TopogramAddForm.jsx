@@ -31,14 +31,15 @@ class TopogramAddForm extends React.Component {
 
     const topogramName = this.refs.topogramName.getValue()
 
+    console.log(topogramName);
+
     if ( topogramName != '' ) {
       topogramCreate.call( {
         name : topogramName
       }, (err, topogram) => {
-        console.log(err, topogram)
         if (err) this.props.promptSnackbar(err)
         else if (topogram.status == 'error') this.props.promptSnackbar( topogram.message )
-        else console.log("go( '/topograms/' + topogram )")
+        // else console.log("go( '/topograms/' + topogram )")
       })
     }
     else {

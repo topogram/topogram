@@ -1,5 +1,5 @@
 import React from 'react'
-import TopogramListItem from './TopogramListItem.jsx'
+import TopogramListItem from '/imports/ui/components/topograms/TopogramListItem.jsx'
 
 const renderIfData = ( props ) => {
   if ( props.topograms && props.topograms.length > 0 ) {

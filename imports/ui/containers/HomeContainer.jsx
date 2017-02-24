@@ -7,7 +7,7 @@ import { HomeComponent } from '/imports/ui/pages/HomeComponent';
 
 const mapStateToProps = state => ({
     ready: state.topograms.ready,
-    items: state.topograms.topograms,
+    topograms: state.topograms.topograms,
   })
 
 const mapDispatchToProps = dispatch => ({
