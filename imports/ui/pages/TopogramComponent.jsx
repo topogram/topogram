@@ -3,31 +3,17 @@ import Snackbar from 'material-ui/Snackbar'
 import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 
-import TopBar from '../client/components/topBar/TopBar.jsx'
-import SideNav from '../client/components/sideNav/SideNav.jsx'
-import Network from '../client/components/network/Network.jsx'
-import TopogramTitle from '../client/components/topogramTitle/TopogramTitle.jsx'
+import TopBar from '/imports/ui/components/topBar/TopBar.jsx'
+import SideNav from '/imports/ui/components/sideNav/SideNav.jsx'
+import Network from '/imports/ui/components/network/Network.jsx'
+import TopogramTitle from '/imports/ui/components/topogramTitle/TopogramTitle.jsx'
 
-import { Topograms, Nodes, Edges } from '../api/collections.js'
+import { Topograms, Nodes, Edges } from '/imports/api/collections.js'
 
 
 const tmpStyle = { }
 
-function topogramComposer(props, onData) {
-
-  const topoSub = Meteor.subscribe('topogram', props.topogramId)
-
-  if (topoSub.ready()) {
-    const nodes = Nodes.find().fetch()
-    const edges = Edges.find().fetch()
-    const elements = { nodes, edges }
-
-    const topogram = Topograms.findOne(props.topogramId)
-    onData(null, { elements, topogram }) // args: err
-  }
-}
-
-class TopogramSingle extends React.Component {
+export class TopogramComponent extends React.Component {
   constructor(props) {
     super(props)
     this.toggleSideNav = this.toggleSideNav.bind(this)
@@ -41,10 +27,17 @@ class TopogramSingle extends React.Component {
     this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
+  componentDidMount() {
+    this.props.loadNodes(this.props.params.topogramId);
+    this.props.loadEdges(this.props.params.topogramId);
+  }
+
   toggleSideNav() {
     const toggled = this.refs.sideNav.state.open ? false : true
     this.refs.sideNav.setState({ open : toggled })
   }
+
+
 
   promptSnackbar(msg) {
     this.setState({
@@ -69,7 +62,7 @@ class TopogramSingle extends React.Component {
           topogram={ this.props.topogram }
           elements={this.props.elements}
           />
-        <SideNav
+        {/* <SideNav
           ref="sideNav"
           elements={this.props.elements}
           topogram={this.props.topogram}
@@ -87,17 +80,14 @@ class TopogramSingle extends React.Component {
           message={this.state.message}
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
-        />
+        /> */}
       </div>
     )
   }
 }
 
-TopogramSingle.propTypes = {
+TopogramComponent.propTypes = {
   topogramId: React.PropTypes.string,
   elements: React.PropTypes.object,
   topogram: React.PropTypes.object
 }
-
-const TopogramPage = composeWithTracker(topogramComposer)(TopogramSingle)
-export default TopogramPage
