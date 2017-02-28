@@ -46,6 +46,27 @@ export const nodeDelete = new ValidatedMethod({
   }
 })
 
+
+/**
+* Update node position
+*
+* @instance {ValidatedMethod}
+* @param {String} nodeId _id of the node to be updated
+* @param {Object} position the new position { x : 0, y, 0} of the node
+* @return {Object} the updated Node object as returned by Mongo
+*/
+export const nodeMove = new ValidatedMethod({
+  name: 'node.move',
+  validate: new SimpleSchema({
+    'nodeId': { type: String },
+    'position.x': { type: Number },
+    'position.y': { type: Number }
+  }).validator(), // TODO :check if ID exists,
+  run({ nodeId, position }) {
+    return Nodes.update({ 'data.id': nodeId }, { $set: { position }})
+  }
+})
+
 Meteor.methods( {
 
   batchInsertNodes( nodes ) {

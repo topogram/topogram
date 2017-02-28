@@ -3,6 +3,7 @@ import cytoscape from 'cytoscape'
 
 import NetworkDefaultStyle from './NetworkDefaultStyle'
 
+import {nodeMove} from '/imports/api/nodes/nodesMethods'
 
 const CYTOSCAPE_DIV_ID = 'network'
 
@@ -44,6 +45,15 @@ class Network extends React.Component {
         }
       }
     )
+
+    // drag node
+    network.off('free', 'node')  // reset
+    network.on('free', 'node', function(e) {
+       var node = e.cyTarget
+       nodeMove.call({ nodeId : node.id(), position : node.position()})
+    })
+
+
     this.setState({ network })
   }
 
