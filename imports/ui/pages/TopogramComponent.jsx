@@ -51,7 +51,7 @@ export class TopogramComponent extends React.Component {
   }
 
   render() {
-    // console.log(this.props.elements)
+    console.log(this.props.nodes)
     return (
       <div>
         <TopBar
@@ -66,15 +66,18 @@ export class TopogramComponent extends React.Component {
           topogram={this.props.topogram}
           topogramId={this.props.params.topogramId}
         />
+        <Network
+          topogramId={ this.props.topogramId }
+          nodes={ this.props.nodes }
+          edges={ this.props.edges }
+        />
+
         {/*
         <TopogramTitle
           topogram={this.props.topogram}
           promptSnackbar={this.promptSnackbar}
         />
-        <Network
-          topogramId={ this.props.topogramId }
-          elements={ this.props.elements }
-        />
+
         <Snackbar
           open={this.state.open}
           message={this.state.message}
@@ -88,6 +91,7 @@ export class TopogramComponent extends React.Component {
 
 TopogramComponent.propTypes = {
   topogramId: React.PropTypes.string,
-  elements: React.PropTypes.object,
+  nodes: React.PropTypes.array,
+  edges: React.PropTypes.array,
   topogram: React.PropTypes.object
 }

@@ -23,10 +23,6 @@ class Network extends React.Component {
     super(props)
 
     this.state = {
-      elements : {
-        nodes : this.props.elements.nodes,
-        edges : this.props.elements.edges
-      },
       layoutName : this.props.layoutName,
       style: this.props.style,
       network : null // cytoscape instance
@@ -41,7 +37,7 @@ class Network extends React.Component {
     const network = cytoscape(
       {
         container: document.getElementById(CYTOSCAPE_DIV_ID),
-        elements: this.state.elements,
+        elements: { nodes: this.props.nodes, edges : this.props.edges },
         style: this.props.style,
         layout: {
           name: this.state.layoutName
@@ -53,7 +49,8 @@ class Network extends React.Component {
 
   updateNetwork() {
     console.log('* rendering network...')
-
+    console.log(this.state.network, this.props.nodes);
+    this.state.network.json( { elements : { nodes : this.props.nodes, edges : this.props.edges } } );
   }
 
   componentDidMount() {
@@ -64,6 +61,7 @@ class Network extends React.Component {
     this.updateNetwork()
   }
 
+  // TODO check nodes/edges diff
   // shouldComponentUpdate(nextProps, nextState) {
   //   if (nextProps.networkData.equals(this.props.networkData)) {
   //     console.log('Network unchanged, not updating cytoscapejs')
@@ -86,13 +84,15 @@ class Network extends React.Component {
 
 Network.propTypes = {
   topogramId : React.PropTypes.string,
-  elements : React.PropTypes.object,
+  nodes : React.PropTypes.array,
+  edges : React.PropTypes.array,
   style : React.PropTypes.object,
   layoutName : React.PropTypes.string
 }
 
 Network.defaultProps = {
-  elements : { nodes : [], edges : [] },
+  nodes : [],
+  edges : [],
   style : NetworkDefaultStyle(),
   layoutName : 'preset'
 }

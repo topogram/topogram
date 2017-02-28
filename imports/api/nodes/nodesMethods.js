@@ -24,9 +24,7 @@ export const nodeCreate = new ValidatedMethod({
   name: 'node.create',
   validate: Nodes.simpleSchema().pick(['topogramId']).validator({ clean: true, filter: false }),
   run({ topogramId }) {
-    console.log(topogramId)
     let n = makeNode(topogramId)
-    console.log(n);
     return Nodes.insert( n )
   }
 })
