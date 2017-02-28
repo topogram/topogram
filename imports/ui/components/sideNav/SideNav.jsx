@@ -7,6 +7,7 @@ import SideNavItem from './SideNavItem.jsx'
 import NodesLab from '../nodes/NodesLab.jsx'
 import EdgesLab from '../edges/EdgesLab.jsx'
 
+import {nodeCreate} from '/imports/api/nodes/nodesMethods'
 
 class SideNav extends React.Component {
   constructor(props) {
@@ -17,6 +18,11 @@ class SideNav extends React.Component {
 
   handleToggle() {
     this.setState({ open: !this.state.open })
+  }
+
+  createRandomNode() {
+    console.log('create a node');
+    let node = nodeCreate.call({ topogramId : this.props.topogramId })
   }
 
   render() {
@@ -32,6 +38,12 @@ class SideNav extends React.Component {
           title="Topogram.io"
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           onClick={this.handleToggle}
+        />
+
+
+        <FlatButton
+          label="Create Node"
+          onClick={this.createRandomNode.bind(this)}
         />
 
         <SideNavItem

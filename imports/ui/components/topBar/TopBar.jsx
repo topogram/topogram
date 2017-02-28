@@ -19,11 +19,10 @@ const styles = {
 class TopBar extends React.Component {
   constructor(props) {
     super(props)
-    // console.log(this.props)
   }
 
   render() {
-    // console.log(this.props)
+    
     const
       nodes = this.props.elements.nodes,
       edges = this.props.elements.edges

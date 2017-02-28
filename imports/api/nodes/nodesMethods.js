@@ -5,11 +5,13 @@ import { bulkCollectionUpdate } from 'meteor/udondan:bulk-collection-update'
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 
+import {makeNode} from '/imports/api/modelsHelpers'
+
 import logger from '../../logger.js'
 
-const NODE_ID_ONLY = new SimpleSchema({
-  nodeId: Nodes.simpleSchema().schema('_id'),
-}).validator({ clean: true, filter: false })
+// const NODE_ID_ONLY = new SimpleSchema({
+//   nodeId: Nodes.simpleSchema().schema('_id'),
+// }).validator({ clean: true, filter: false })
 
 /**
 * Create a single node
@@ -20,9 +22,12 @@ const NODE_ID_ONLY = new SimpleSchema({
 */
 export const nodeCreate = new ValidatedMethod({
   name: 'node.create',
-  validate: Nodes.schema.validator(),
-  run({ node }) {
-    return Nodes.insert( node )
+  validate: Nodes.simpleSchema().pick(['topogramId']).validator({ clean: true, filter: false }),
+  run({ topogramId }) {
+    console.log(topogramId)
+    let n = makeNode(topogramId)
+    console.log(n);
+    return Nodes.insert( n )
   }
 })
 
@@ -35,7 +40,9 @@ export const nodeCreate = new ValidatedMethod({
 */
 export const nodeDelete = new ValidatedMethod({
   name: 'node.delete',
-  validate: NODE_ID_ONLY,
+  validate: new SimpleSchema({
+    nodeId: { type: String }
+  }).validator(), // TODO :check if ID exists,
   run({ nodeId }) {
     return Nodes.remove( nodeId )
   }

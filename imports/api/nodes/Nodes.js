@@ -79,8 +79,8 @@ Nodes.schema = new SimpleSchema({
     optional : true
   },
   'data.additionalInfo' : {
-    type : [Object],
-    label : 'An additional array of objects to store some more info about the node',
+    type : String,
+    label : 'A Mardkdown-formatted text to store some more info about the node',
     blackbox: true,
     optional : true
   },

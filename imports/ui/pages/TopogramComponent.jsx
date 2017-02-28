@@ -37,8 +37,6 @@ export class TopogramComponent extends React.Component {
     this.refs.sideNav.setState({ open : toggled })
   }
 
-
-
   promptSnackbar(msg) {
     this.setState({
       open: true,
@@ -62,11 +60,13 @@ export class TopogramComponent extends React.Component {
           topogram={ this.props.topogram }
           elements={this.props.elements}
           />
-        {/* <SideNav
+        <SideNav
           ref="sideNav"
           elements={this.props.elements}
           topogram={this.props.topogram}
+          topogramId={this.props.params.topogramId}
         />
+        {/*
         <TopogramTitle
           topogram={this.props.topogram}
           promptSnackbar={this.promptSnackbar}

@@ -19,8 +19,7 @@ const makeGraphElement = function (el, rawData) {
       name: el.label || el.name || '',
       color: el.color || null,
       group: el.group || null,
-      additionalInfo: el.additionalInfo || {},
-      rawData
+      additionalInfo: el.additionalInfo || ""
     },
     createdAt: new Date() // current time
   }
@@ -46,8 +45,8 @@ export const makeNode = function ( topogramId, element, data ) {
   node.group = 'nodes'
   node.data.id =  el.id || 'node-' + Math.round( Math.random() * 1000000 )
   node.position =  {
-    x: el.x || Math.random() * 800,
-    y: el.y || Math.random() * 600
+    x: el.x || Math.floor(Math.random() * 800),
+    y: el.y || Math.floor(Math.random() * 600)
   }
   node.topogramId = topogramId
   return node
