@@ -110,14 +110,25 @@ if (typeof Meteor === typeof undefined) {
   )
 
   gulp.task('test', function() {
-    gulp.src( './tests/*.js', { read: false } )
+    gulp.src( [
+      './tests/*.js',
+      './imports/ui/components/**/tests/*.spec.js',
+    ], { read: false } )
       .pipe( mocha( {
         reporter:'nyan',
+        require : ['ignore-styles'],
         compilers: {
                 js: babel
             }
       } ) )
   })
+
+  /*
+  * Rebuild and pass tests on watch
+  */
+  gulp.task('watch', function() {
+        gulp.watch(['./tests/*.js', './imports/**/*.js', './imports/**/*.jsx'], ['test']);
+  });
 
   /*
   * Versioning

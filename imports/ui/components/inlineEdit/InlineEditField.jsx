@@ -68,7 +68,7 @@ class InlineEditField extends React.Component {
 
   render() {
     let fieldId = 'field'+~~(Math.random()*1000000)
-    console.log(this.props.style)
+    // console.log(this.props.style)
 
     if ( this.state.editing ) {
       return (

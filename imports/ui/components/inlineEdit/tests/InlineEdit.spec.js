@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 import React from 'react'
 import { shallow } from 'enzyme'
-import { chai } from 'meteor/practicalmeteor:chai'
+import chai  from 'chai'
 
 const assert = chai.assert
-import InlineEditField from './InlineEditField.jsx'
+import InlineEditField from '../InlineEditField.jsx'
 
 describe('<InlineEditField />', () => {
 
