@@ -61,4 +61,5 @@ dburles:collection-helpers
 mdg:validated-method
 ecmascript@0.6.3
 shell-server
+practicalmeteor:mocha
 dispatch:mocha

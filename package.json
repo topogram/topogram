@@ -91,7 +91,7 @@
     "start": "meteor",
     "lint": "eslint --ext .jsx --ext .js --quiet .",
     "test": "gulp test",
-    "test:meteor": "meteor test --driver-package=dispatch:mocha-phantomjs --port=3010",
+    "test:meteor": "meteor test --driver-package=practicalmeteor:mocha --port=3010",
     "watch": "gulp watch",
     "extract-intl": "babel-node --presets es2015,stage-0 -- ./.scripts/extract-intl.js"
   },
