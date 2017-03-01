@@ -26,9 +26,14 @@ Nodes.schema = new SimpleSchema({
     denyUpdate: true,
     label : 'The ID of the topogram the node belongs to'
   },
+  data: {
+    type: Object,
+    optional : true
+  },
   'data.id': {
     type: String,
     label : 'id used by cytoscape',
+    autoValue : function () { return 'node-' + Math.round( Math.random() * 1000000 ) }
   },
   'data.name': {
     type: String,
@@ -89,10 +94,18 @@ Nodes.schema = new SimpleSchema({
     defaultValue : 'nodes'
   },
   'position.x' :  {
-    type : Number
+    type : Number,
+    autoValue : function () {
+      return (this.isInsert && ! this.value) ? Math.floor(Math.random() * 300) : this.value
+    },
+    decimal: true
   },
   'position.y' : {
-    type : Number
+    type : Number,
+    autoValue : function () {
+      return (this.isInsert && ! this.value) ? Math.floor(Math.random() * 300) : this.value
+    },
+    decimal: true
   },
   owner: {
     type: String,
@@ -101,7 +114,8 @@ Nodes.schema = new SimpleSchema({
   },
   createdAt: {
     type: Date,
-    label: 'Time when the node was created'
+    label: 'Time when the node was created',
+    defaultValue: new Date() // current time
   }
 })
 

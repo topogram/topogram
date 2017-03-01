@@ -17,9 +17,6 @@ import {
   nodeDelete,
   nodeMove
 } from '/imports/api/nodes/nodesMethods.js'
-import { makeNode } from '/imports/api//modelsHelpers.js'
-
-// import "./nodesMethods.js"
 
 if (Meteor.isServer) {
 
@@ -46,12 +43,68 @@ if (Meteor.isServer) {
     describe('methods', function(){
 
       describe('node.create', function(){
-        it('creates a simple node', function(done) {
-          nodeCreate._execute({}, { topogramId });
+
+        it('should require absolutely a Topogram Id', function(done) {
+          assert.throws(() => {
+             nodeCreate._execute({ /* user id if required*/}, {/*method params*/});
+             }, Meteor.Error
+          );
+          done()
+        })
+
+        it('creates a simple node without props', function(done) {
+          nodeCreate._execute({}, {topogramId} );
           assert.equal(Nodes.find().count(), 1)
           assert.equal(Nodes.findOne().data.additionalInfo, null)
           done()
         })
+
+        describe('node id (used by cytoscape)', function(){
+          it('should be generated for each node when unspecified', function(done) {
+
+            let n1id = nodeCreate._execute({}, {topogramId} );
+            let n1 = Nodes.findOne(n1id)
+            let n2id = nodeCreate._execute({}, {topogramId} );
+            let n2 = Nodes.findOne(n2id)
+
+            assert.notEqual(n1.data.id, n2.data.id)
+            done()
+          })
+
+          // TODO prevent multiple
+          // it('should be unique', function(done) {
+          //
+          //   nodeCreate._execute({}, {topogramId}, { data : { id : "myid"}} );
+          //
+          //   assert.throws(() => {
+          //      nodeCreate._execute({}, {topogramId}, { data : { id : "myid"}} );
+          //      }, Meteor.Error
+          //   );
+          //
+          //   done()
+          // })
+        })
+
+
+        it('creates a node and store data into it', function(done) {
+
+          let data = {
+            lng : 6.5,
+            lat : 12.3,
+            id : "my-node",
+            additionalInfo : 'some text'
+          }
+
+          // console.log(n);
+          let nodeId = nodeCreate._execute({}, {topogramId, data});
+
+          let node = Nodes.findOne(nodeId)
+          assert.equal(node.data.additionalInfo, 'some text')
+          assert.equal(node.data.lat, 12.3)
+          assert.equal(node.data.lng, 6.5)
+          done()
+        })
+
       })
 
       describe('node.delete', function(){

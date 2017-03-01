@@ -22,10 +22,29 @@ import logger from '../../logger.js'
 */
 export const nodeCreate = new ValidatedMethod({
   name: 'node.create',
-  validate: Nodes.simpleSchema().pick(['topogramId']).validator({ clean: true, filter: false }),
-  run({ topogramId }) {
-    let n = makeNode(topogramId)
-    return Nodes.insert( n )
+  validate: Nodes.simpleSchema()
+            .pick([
+              'topogramId',
+              'data.id',
+              'data.name',
+              'data.color',
+              'data.group',
+              'data.additionalInfo',
+              'data.lat',
+              'data.lng',
+              'data.start',
+              'data.end',
+              'data.starred',
+              'data.weight',
+              'position.x',
+              'position.y'
+            ])
+              .validator(),
+  run(node) {
+
+    console.log(node);
+
+    return Nodes.insert( node )
   }
 })
 
