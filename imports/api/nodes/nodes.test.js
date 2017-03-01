@@ -15,7 +15,10 @@ import { Nodes } from '/imports/api/nodes/Nodes.js'
 import {
   nodeCreate,
   nodeDelete,
-  nodeMove
+  nodeMove,
+  nodeUpdate,
+  nodeCreateMany,
+  nodeDeleteAll
 } from '/imports/api/nodes/nodesMethods.js'
 
 if (Meteor.isServer) {
@@ -40,6 +43,83 @@ if (Meteor.isServer) {
       topogramId = Factory.create('topogram')._id
     });
 
+    describe('properties', function(){
+
+      describe('node id (used by cytoscape)', function(){
+        it('should be generated once for all', function(done) {
+
+          let nodeId = nodeCreate._execute({}, {topogramId} );
+          let n = Nodes.findOne(nodeId)
+          let idBefore = n.data.id
+
+          // and never modified
+          let position = { x : 10, y : 10 }
+          nodeMove._execute({}, { nodeId : n.data.id,  position } );
+
+          assert.equal( Nodes.findOne(nodeId).data.id, idBefore)
+          done()
+
+        })
+
+        it('should be able for user to define it', function(done) {
+
+          let data = { id : 'myId' }
+          let nodeId = nodeCreate._execute({}, { topogramId, data});
+          let n = Nodes.findOne(nodeId)
+          assert.equal( n.data.id, "myId")
+          done()
+
+        })
+
+        it('should be generated for each node when unspecified', function(done) {
+
+          let n1id = nodeCreate._execute({}, {topogramId} );
+          let n1 = Nodes.findOne(n1id)
+          let n2id = nodeCreate._execute({}, {topogramId} );
+          let n2 = Nodes.findOne(n2id)
+
+          assert.notEqual(n1.data.id, n2.data.id)
+          done()
+        })
+      })
+
+      describe('createdAt (timestamp)', function(){
+        it('should be created once and never modified', function(done) {
+          nodeCreate._execute({}, {topogramId} );
+
+          // created once
+          let n = Nodes.findOne()
+          assert.equal( Math.round(n.createdAt.getTime()/ 10000), Math.round( Date.now()/10000 ) );
+
+          // and never modified
+          let position = { x : 10, y : 10 }
+          nodeMove._execute({}, { nodeId : n.data.id,  position } );
+          let nAfter = Nodes.findOne()
+          assert.equal( n.createdAt.getTime(), nAfter.createdAt.getTime())
+          done()
+        })
+      })
+
+      describe('updatedAt (timestamp)', function(){
+        it('should be modified on each action', function(done) {
+          nodeCreate._execute({}, {topogramId} );
+
+          // created once
+          let n = Nodes.findOne()
+          assert.equal( Math.round(n.updatedAt.getTime()/ 10000), Math.round( Date.now()/10000 ) );
+
+          // and never modified
+          let position = { x : 10, y : 10 }
+          nodeMove._execute({}, { nodeId : n.data.id,  position } );
+          let nAfter = Nodes.findOne()
+          assert.notEqual( n.createdAt.getTime(), nAfter.updatedAt.getTime())
+          assert.isAbove( nAfter.updatedAt.getTime(), n.createdAt.getTime())
+          done()
+        })
+      })
+
+    })
+
     describe('methods', function(){
 
       describe('node.create', function(){
@@ -59,32 +139,18 @@ if (Meteor.isServer) {
           done()
         })
 
-        describe('node id (used by cytoscape)', function(){
-          it('should be generated for each node when unspecified', function(done) {
-
-            let n1id = nodeCreate._execute({}, {topogramId} );
-            let n1 = Nodes.findOne(n1id)
-            let n2id = nodeCreate._execute({}, {topogramId} );
-            let n2 = Nodes.findOne(n2id)
-
-            assert.notEqual(n1.data.id, n2.data.id)
-            done()
-          })
-
-          // TODO prevent multiple
-          // it('should be unique', function(done) {
-          //
-          //   nodeCreate._execute({}, {topogramId}, { data : { id : "myid"}} );
-          //
-          //   assert.throws(() => {
-          //      nodeCreate._execute({}, {topogramId}, { data : { id : "myid"}} );
-          //      }, Meteor.Error
-          //   );
-          //
-          //   done()
-          // })
-        })
-
+        // TODO prevent multiple nodes with the same ID
+        // it('should be unique', function(done) {
+        //
+        //   nodeCreate._execute({}, {topogramId}, { data : { id : "myid"}} );
+        //
+        //   assert.throws(() => {
+        //      nodeCreate._execute({}, {topogramId}, { data : { id : "myid"}} );
+        //      }, Meteor.Error
+        //   );
+        //
+        //   done()
+        // })
 
         it('creates a node and store data into it', function(done) {
 
@@ -104,7 +170,6 @@ if (Meteor.isServer) {
           assert.equal(node.data.lng, 6.5)
           done()
         })
-
       })
 
       describe('node.delete', function(){
@@ -132,26 +197,100 @@ if (Meteor.isServer) {
           assert.equal(nodeAfter.position.y, 10)
         })
       })
+      describe("node.update", function(){
+        it('update data in a node', function(done) {
 
-    })
+          let initData = {
+            lng : 6.5,
+            lat : 12.3,
+            id : "my-node",
+            notes : 'some text'
+          }
 
-    /*
-    describe("starNode", function(){
-      it("should toggle 'starred' boolean properly when called", function(){
+          let nodeId = nodeCreate._execute({}, {topogramId, data : initData});
 
-        Meteor.user = function() { return {} }; // mock user
+          let node = Nodes.findOne(nodeId)
+          assert.equal(node.data.lat, 12.3)
 
-        var n = makeNode(topogramId, { id :  nodeDataId }, {}, userId)
-        Meteor.call("addNode", n)
 
-        var node = Nodes.findOne({"data.id" : nodeDataId})
-        expect(node.data.starred).to.be.equal(false)
 
-        Meteor.call("starNode", nodeDataId);
-        var nodeStarred = Nodes.findOne({"_id" : node._id})
-        expect(nodeStarred.data.starred).to.be.equal(true)
+          nodeUpdate._execute({}, {
+            nodeId : node.data.id,
+            data :  {
+              lng : 4.5,
+              lat : 3.3,
+              notes : 'some other text'
+            }});
+
+          let nodeAfter = Nodes.findOne(nodeId)
+
+          assert.equal(nodeAfter.data.notes, 'some other text')
+          assert.equal(nodeAfter.data.lat, 3.3)
+          assert.equal(nodeAfter.data.lng, 4.5)
+
+          done()
+        })
       })
+
+      describe("node.createMany", function(){
+        it('stores a group of nodes', function(done) {
+
+          let nodes = Array(3).fill().map((d,i) => ({
+            data : {
+              lng : i*1.5,
+              lat : i*12.3,
+              id : "node-"+i,
+              notes : 'some text about node '+i
+            }
+          }))
+
+          nodeCreateMany._execute({}, {topogramId, nodes} );
+          assert.equal(Nodes.find().count(), 3)
+          done()
+        })
+      })
+
+      describe("node.deleteAll", function(){
+        it('deletes all nodes in a specific topogram', function(done) {
+
+          let nodes = Array(3).fill().map((d,i) => ({
+            data : {
+              lng : i*1.5,
+              lat : i*12.3,
+              id : "node-"+i,
+              notes : 'some text about node '+i
+            }
+          }))
+
+
+          nodeCreateMany._execute({}, {topogramId, nodes} );
+          assert.equal(Nodes.find().count(), 3)
+
+          nodeDeleteAll._execute({}, {topogramId} );
+          assert.equal(Nodes.find().count(), 0)
+
+          done()
+        })
+      })
+
+      /*
+      describe("starNode", function(){
+        it("should toggle 'starred' boolean properly when called", function(){
+
+          Meteor.user = function() { return {} }; // mock user
+
+          var n = makeNode(topogramId, { id :  nodeDataId }, {}, userId)
+          Meteor.call("addNode", n)
+
+          var node = Nodes.findOne({"data.id" : nodeDataId})
+          expect(node.data.starred).to.be.equal(false)
+
+          Meteor.call("starNode", nodeDataId);
+          var nodeStarred = Nodes.findOne({"_id" : node._id})
+          expect(nodeStarred.data.starred).to.be.equal(true)
+        })
+      })
+      */
     })
-    */
-  });
+  })
 }

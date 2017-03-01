@@ -33,7 +33,9 @@ Nodes.schema = new SimpleSchema({
   'data.id': {
     type: String,
     label : 'id used by cytoscape',
-    autoValue : function () { return 'node-' + Math.round( Math.random() * 1000000 ) }
+    autoValue : function () {
+      return this.isInsert && !this.value ?  'node-' + Math.round( Math.random() * 1000000 ) : this.value
+    }
   },
   'data.name': {
     type: String,
@@ -112,10 +114,16 @@ Nodes.schema = new SimpleSchema({
     regEx: SimpleSchema.RegEx.Id,
     optional: true
   },
+  updatedAt: {
+    type: Date,
+    label: 'Last time the node was updated',
+    autoValue : function () { return new Date() }
+  },
   createdAt: {
     type: Date,
     label: 'Time when the node was created',
-    defaultValue: new Date() // current time
+    autoValue : function () {
+      return this.isInsert ? new Date() : this.value }
   }
 })
 
