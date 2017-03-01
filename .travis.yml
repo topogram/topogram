@@ -21,4 +21,4 @@ install:
   - meteor npm install
 script:
   - npm test
-  - meteor test --once --driver-package=dispatch:mocha-phantomjs
+  - meteor test --once --driver-package=dispatch:mocha
