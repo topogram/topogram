@@ -29,7 +29,7 @@ export const nodeCreate = new ValidatedMethod({
               'data.name',
               'data.color',
               'data.group',
-              'data.additionalInfo',
+              'data.notes',
               'data.lat',
               'data.lng',
               'data.start',

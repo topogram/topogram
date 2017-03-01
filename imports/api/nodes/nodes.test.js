@@ -55,7 +55,7 @@ if (Meteor.isServer) {
         it('creates a simple node without props', function(done) {
           nodeCreate._execute({}, {topogramId} );
           assert.equal(Nodes.find().count(), 1)
-          assert.equal(Nodes.findOne().data.additionalInfo, null)
+          assert.equal(Nodes.findOne().data.notes, null)
           done()
         })
 
@@ -92,14 +92,14 @@ if (Meteor.isServer) {
             lng : 6.5,
             lat : 12.3,
             id : "my-node",
-            additionalInfo : 'some text'
+            notes : 'some text'
           }
 
           // console.log(n);
           let nodeId = nodeCreate._execute({}, {topogramId, data});
 
           let node = Nodes.findOne(nodeId)
-          assert.equal(node.data.additionalInfo, 'some text')
+          assert.equal(node.data.notes, 'some text')
           assert.equal(node.data.lat, 12.3)
           assert.equal(node.data.lng, 6.5)
           done()

@@ -83,7 +83,7 @@ Nodes.schema = new SimpleSchema({
     label : 'Types or groups of the node',
     optional : true
   },
-  'data.additionalInfo' : {
+  'data.notes' : {
     type : String,
     label : 'A Mardkdown-formatted text to store some more info about the node',
     blackbox: true,
