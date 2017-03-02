@@ -1,10 +1,32 @@
 import { Meteor } from 'meteor/meteor'
 import { Restivus } from 'meteor/nimble:restivus'
-import { Nodes, Edges, Topograms } from './collections.js'
-import logger from '../logger.js'
+import { Nodes, Edges, Topograms } from '/imports/api/collections.js'
+import logger from '/imports/logger.js'
 import { Accounts } from 'meteor/accounts-base'
 
-import { makeNode,makeEdge } from './modelsHelpers.js'
+// import { makeNode,makeEdge } from './modelsHelpers.js'
+
+import {
+  topogramCreate,
+  topogramDelete
+} from '/imports/api/topograms/topogramsMethods.js'
+
+import {
+  nodeCreate,
+  nodeDelete,
+  nodeMove,
+  nodeUpdate,
+  nodeCreateMany,
+  nodeDeleteAll
+} from '/imports/api/nodes/nodesMethods.js'
+
+import {
+  edgeCreate,
+  edgeDelete,
+  edgeCreateMany,
+  edgeUpdate,
+  edgeDeleteAll
+} from '/imports/api/edges/edgesMethods.js'
 
 // Global API configuration
 const Api = new Restivus({
@@ -41,7 +63,7 @@ Api.addCollection(Topograms, {
     post: {
       statusCode : 201,
       action() {
-        const _id = Meteor.call('createTopogram', this.userId, this.bodyParams.name)
+        const _id = createTopogram({ name : this.bodyParams.name })
         console.log(_id)
         if (typeof(_id) == String) {
           return {
@@ -74,33 +96,33 @@ Api.addCollection(Topograms, {
   }
 })
 
-Api.addRoute('topograms/:_id/public', {
-  post: {
-    authRequired: true,
-    action() {
-      const _id = this.urlParams._id
-      Meteor.call('makePublic', _id)
-      return {
-        'status': 'success',
-        'data' : Topograms.findOne(_id)
-      }
-    }
-  }
-})
+// Api.addRoute('topograms/:_id/public', {
+//   post: {
+//     authRequired: true,
+//     action() {
+//       const _id = this.urlParams._id
+//       Meteor.call('makePublic', _id)
+//       return {
+//         'status': 'success',
+//         'data' : Topograms.findOne(_id)
+//       }
+//     }
+//   }
+// })
 
-Api.addRoute('topograms/:_id/private', {
-  post: {
-    authRequired: true,
-    action() {
-      const _id = this.urlParams._id
-      Meteor.call('makePrivate', _id)
-      return {
-        'status': 'success',
-        'data' : Topograms.findOne(_id)
-      }
-    }
-  }
-})
+// Api.addRoute('topograms/:_id/private', {
+//   post: {
+//     authRequired: true,
+//     action() {
+//       const _id = this.urlParams._id
+//       Meteor.call('makePrivate', _id)
+//       return {
+//         'status': 'success',
+//         'data' : Topograms.findOne(_id)
+//       }
+//     }
+//   }
+// })
 
  // Generates: POST on /api/users and GET, DELETE /api/users/:id for
  // Meteor.users collection
@@ -175,40 +197,40 @@ Api.addCollection(Nodes, {
         const nodes = this.bodyParams.nodes
         const topogramId = this.bodyParams.topogramId
         if (nodes.length == 1) {
-          const node = makeNode(topogramId, nodes[0].element, nodes[0].data, this.userId)
-          const _id = Meteor.call( 'addNode', node)
+          let data = {...nodes[0].element, ...nodes[0].data, topogramId}
+          const _id = addNode.call(node)
           return {
             'status': 'success',
             'data': Nodes.findOne(_id)
           }
         }
         else {
-          const self= this
-          const nodesBuilt = nodes.map(function (d) { return makeNode(topogramId, d.element, d.data, self.userId) })
-          const _ids = Meteor.call( 'batchInsertNodes', nodesBuilt)
+          const _ids = nodeAddMany.call({
+            topogramId,
+            nodes : nodes.map( n =>  ({ ...d.element, ...d.data }))
+          })
           return {
             'status': 'success',
             'data': Nodes.find({ '_id' : { $in : _ids } }).fetch()
           }
-
         }
       }
     },
     put : {
       action() {
         const data = this.bodyParams
-        const node = Nodes.findOne(this.urlParams.id)
-        for (const key in data) {
-          if (key == 'x') node.position.x = data.x
-          else if (key == 'y') node.position.y = data.y
-        else if (key == 'id') node.data.id = data.id
-        else if (key == 'data') {
-          for (const k in data.data) {
-            node.data[k] = data.data[k]
-          }
-        }
-        }
-        Nodes.update(this.urlParams.id, node)
+        // const node = Nodes.findOne(this.urlParams.id)
+        // for (const key in data) {
+        //   if (key == 'x') node.position.x = data.x
+        //   else if (key == 'y') node.position.y = data.y
+        // else if (key == 'id') node.data.id = data.id
+        // else if (key == 'data') {
+        //   for (const k in data.data) {
+        //     node.data[k] = data.data[k]
+        //   }
+        // }
+        // }
+        nodeUpdate.call({nodeId: this.urlParams.id, data})
         return {
           'status': 'success',
           'data': Nodes.findOne(this.urlParams.id)
@@ -223,8 +245,8 @@ Api.addRoute('nodes/delete', {
   post : {
     authRequired: true,
     action() {
-      const ids = this.bodyParams.nodes
-      Nodes.remove({ '_id' : { $in : ids } })
+      const nodeIds = this.bodyParams.nodes
+      nodeDeleteMany.call(nodeIds)
       return {
         'status': 'success',
         'data': Nodes.find({ '_id' : { $in : ids } }).fetch()
@@ -244,17 +266,18 @@ Api.addCollection(Edges, {
         const edges = this.bodyParams.edges
         const topogramId = this.bodyParams.topogramId
         if (edges.length == 1) {
-          const edge = makeEdge(topogramId, edges[0].element, edges[0].data, this.userId)
-          const _id = Meteor.call( 'addEdge', edge)
+          const _id = addEdge.call( { topogramId, ...edges[0].element, ...edges[0].data })
           return {
             'status': 'success',
             'data': Edges.findOne(_id)
           }
         }
         else {
-          const self= this
-          const edgesBuilt = edges.map(function (d) { return makeEdge(topogramId, d.element, d.data, self.userId) })
-          const _ids = Meteor.call( 'batchInsertEdges', edgesBuilt)
+
+          let _ids = edgeInsertMany.call({
+            topogramId,
+            edges : edges.map(e => ({...e.element, ...e.data }))
+          })
           return {
             'status': 'success',
             'data': Edges.find({ '_id' : { $in : _ids } }).fetch()
@@ -266,18 +289,20 @@ Api.addCollection(Edges, {
     put : {
       action() {
         const data = this.bodyParams
-        const edge = Edges.findOne(this.urlParams.id)
-        for (const key in data) {
-          if (key == 'source') edge.source = data.source
-          else if (key == 'target') edge.target = data.target
-        else if (key == 'id') edge.data.id = data.id
-        else if (key == 'data') {
-          for (const k in data.data) {
-            edge.data[k] = data.data[k]
-          }
-        }
-        }
-        Edges.update(this.urlParams.id, edge)
+        // const edge = Edges.findOne(this.urlParams.id)
+        // for (const key in data) {
+        //   if (key == 'source') edge.source = data.source
+        //   else if (key == 'target') edge.target = data.target
+        // else if (key == 'id') edge.data.id = data.id
+        // else if (key == 'data') {
+        //   for (const k in data.data) {
+        //     edge.data[k] = data.data[k]
+        //   }
+        // }
+        // }
+        edgeUpdate({ edgeId : this.urlParams.id, data})
+        // Edges.update(this.urlParams.id, edge)
+
         return {
           'status': 'success',
           'data': Edges.findOne(this.urlParams.id)
