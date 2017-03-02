@@ -26,21 +26,27 @@ Edges.schema = new SimpleSchema({
     denyUpdate: true,
     label : 'The ID of the topogram the edge belongs to'
   },
+  data: {
+    type: Object,
+    optional : true
+  },
   'data.id': {
     type: String,
     label : 'an id for the edge',
+    denyUpdate: true,
+    autoValue : function () {
+      return this.isInsert && !this.value ?  'edge-' + Math.round( Math.random() * 1000000 ) : this.value
+    }
   },
   'data.source': {
     type: String,
-    regEx: SimpleSchema.RegEx.Id,
     label: 'The source of the edge',
-    optional : true
+    // TODO validate the fact that it exists in the db
   },
   'data.target': {
     type: String,
-    regEx: SimpleSchema.RegEx.Id,
     label: 'The target of the edge',
-    optional : true
+    // TODO validate the fact that it exists in the db
   },
   'data.name': {
     type: String,
@@ -90,8 +96,8 @@ Edges.schema = new SimpleSchema({
     label : 'Type or group of the edge',
     optional : true
   },
-  'data.additionalInfo' : {
-    type : [Object],
+  'data.notes' : {
+    type : String,
     label : 'An additional array of objects to store some more info about the edge',
     blackbox: true,
     optional : true
@@ -100,20 +106,21 @@ Edges.schema = new SimpleSchema({
     type: String,
     defaultValue : 'edges'
   },
-  'position.x' :  {
-    type : Number
-  },
-  'position.y' : {
-    type : Number
-  },
   owner: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
     optional: true
   },
+  updatedAt: {
+    type: Date,
+    label: 'Last time the node was updated',
+    autoValue : function () { return new Date() }
+  },
   createdAt: {
     type: Date,
-    label: 'Time when the edge was created'
+    label: 'Time when the node was created',
+    autoValue : function () {
+      return this.isInsert ? new Date() : this.value }
   }
 })
 

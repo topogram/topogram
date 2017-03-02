@@ -77,9 +77,7 @@ export const nodeCreateMany = new ValidatedMethod({
     'nodes' : { type : [ nodeSchema ], minCount: 1 }
   }).validator(),
   run({topogramId, nodes}) {
-
     let ok = nodes.map( n =>  ({...n, topogramId}) );
-    console.log(ok);
     return Nodes.batchInsert( ok )
   }
 })
@@ -148,12 +146,8 @@ export const nodeUpdate = new ValidatedMethod({
     {'nodeId': { type: String }}
   ]).validator(), // TODO :check if ID exists,
   run( {nodeId, data}) {
-    console.log({data});
-    console.log('---');
-
     let $set = {}
     Object.keys(data).map( d=> $set['data.'+d] = data[d])
-
     return Nodes.update({ 'data.id': nodeId }, { $set: $set })
   }
 })
