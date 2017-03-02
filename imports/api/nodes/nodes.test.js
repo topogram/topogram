@@ -14,10 +14,11 @@ import '../factories.js'
 import { Nodes } from '/imports/api/nodes/Nodes.js'
 import {
   nodeCreate,
-  nodeDelete,
   nodeMove,
   nodeUpdate,
   nodeCreateMany,
+  nodeDelete,
+  nodeDeleteMany,
   nodeDeleteAll
 } from '/imports/api/nodes/nodesMethods.js'
 
@@ -246,6 +247,31 @@ if (Meteor.isServer) {
 
           nodeCreateMany._execute({}, {topogramId, nodes} );
           assert.equal(Nodes.find().count(), 3)
+          done()
+        })
+      })
+
+      describe("node.deleteMany", function(){
+        it('delete multiple nodes based on their _ids', function(done) {
+
+          let nodes = Array(3).fill().map((d,i) => ({
+            data : {
+              lng : i*1.5,
+              lat : i*12.3,
+              id : "node-"+i,
+              notes : 'some text about node '+i
+            }
+          }))
+
+          nodeCreateMany._execute({}, {topogramId, nodes} );
+          assert.equal(Nodes.find().count(), 3)
+
+          let nodesAfter = Nodes.find({ 'data.id' : { $in : nodes.map(d => d.data.id) } }).fetch()
+          assert.equal(nodesAfter.length, 3)
+
+          let nodeIds = nodesAfter.map(d => d._id)
+          nodeDeleteMany._execute({}, { nodeIds } );
+          assert.equal(Nodes.find().count(), 0)
           done()
         })
       })

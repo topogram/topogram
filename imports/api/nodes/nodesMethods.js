@@ -117,6 +117,25 @@ export const nodeDelete = new ValidatedMethod({
 })
 
 /**
+* Delete multiple nodes
+*
+* @instance {ValidatedMethod}
+* @param {Array} nodesId list of node _ids deleted
+* @return {Object} the Node object as inserted in Mongo
+*/
+
+export const nodeDeleteMany = new ValidatedMethod({
+  name: 'node.deleteMany',
+  validate: new SimpleSchema({
+    nodeIds: { type: [String], minCount: 1 }
+  }).validator(), // TODO :check if ID exists,
+  run({nodeIds}) {
+    console.log(nodeIds);
+    return Nodes.remove( { '_id' : { $in : nodeIds } } )
+  }
+})
+
+/**
 * Update node properties
 *
 * @instance {ValidatedMethod}
