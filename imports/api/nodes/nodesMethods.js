@@ -83,10 +83,10 @@ export const nodeCreateMany = new ValidatedMethod({
 })
 
 /**
-* Delete a single node
+* Delete all nodes in a Topogram
 *
 * @instance {ValidatedMethod}
-* @param {String} nodeId _id of the node to be deleted
+* @param {String} topogramId the _id of the topogram
 * @return {Object} the Node object as removed from Mongo
 */
 export const nodeDeleteAll = new ValidatedMethod({
@@ -99,10 +99,10 @@ export const nodeDeleteAll = new ValidatedMethod({
 
 
 /**
-* Delete all nodes in a Topogram
+* Delete a single node
 *
 * @instance {ValidatedMethod}
-* @param {String} topogramId the _id of the topogram
+* @param {String} nodeId _id of the node to be deleted
 * @return {Object} the Node object as inserted in Mongo
 */
 

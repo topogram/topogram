@@ -11,9 +11,16 @@ chai.expect();
 
 import '../factories.js'
 
-import { Edges } from './Edges.js'
-import { edgeCreate, edgeDelete } from './edgesMethods.js'
 import { nodeCreateMany } from '/imports/api/nodes/nodesMethods.js'
+
+import { Edges } from './Edges.js'
+import {
+  edgeCreate,
+  edgeDelete,
+  edgeCreateMany,
+  edgeUpdate,
+  edgeDeleteAll
+} from './edgesMethods.js'
 
 
 if (Meteor.isServer) {
@@ -39,6 +46,54 @@ if (Meteor.isServer) {
       Edges.remove({});
       topogramId = Factory.create('topogram')._id
     });
+
+    describe('properties', function(){
+
+      describe('data.id : edge ID (user-defined)', function(){
+
+        it('should be randomly generated when unspecified', function(done) {
+
+          let n1id = edgeCreate._execute({}, {topogramId, data : { source : "a", target : "b" }} );
+          let n1 = Edges.findOne(n1id)
+
+          let n2id = edgeCreate._execute({}, {topogramId, data : { source : "b", target : "c" }} );
+          let n2 = Edges.findOne(n2id)
+
+          assert.notEqual(n1.data.id, n2.data.id)
+          assert.notEqual(n1.data.id, null)
+          assert.notEqual(n2.data.id, null)
+          done()
+        })
+
+        it('should be generated once for all', function(done) {
+
+          let data = { source : "10", target : "10" }
+          let edgeId = edgeCreate._execute({}, { topogramId, data } );
+          let e = Edges.findOne(edgeId)
+          let idBefore = e.data.id
+
+          // and never modified
+          let dataChange = { source : "12", target : "12" }
+          edgeUpdate._execute({}, { edgeId : e.data.id,  data : dataChange } );
+
+          let edgeAfter = Edges.findOne(edgeId)
+          assert.equal( edgeAfter.data.id, idBefore)
+          assert.equal( edgeAfter.data.source, dataChange.source)
+          assert.equal( edgeAfter.data.target, dataChange.target)
+          done()
+
+        })
+
+        it('user should be able to define it', function(done) {
+
+          let data = { id : 'myId', source : "a", target : "b" }
+          let edgeId = edgeCreate._execute({}, { topogramId, data});
+          let n = Edges.findOne(edgeId)
+          assert.equal( n.data.id, "myId")
+          done()
+        })
+      })
+    })
 
     describe('methods', function(){
 
@@ -70,7 +125,7 @@ if (Meteor.isServer) {
             target : nodes[1].data.id,
             id : "my-edge"
           }
-          console.log(data);
+
           let id = edgeCreate._execute({}, {
             topogramId,
             data
@@ -79,7 +134,6 @@ if (Meteor.isServer) {
           assert.equal(Edges.find().count(), 1);
 
           let edge = Edges.findOne(id)
-          console.log(edge);
           // assert.notEqual(edge, null)
           // assert.equal(Edges.findOne().data.notes, null)
           done()
@@ -91,6 +145,78 @@ if (Meteor.isServer) {
           let edgeId = Factory.create('edge', { topogramId })._id
           assert.equal(Edges.find().count(), 1)
           edgeDelete._execute({}, { edgeId });
+          assert.equal(Edges.find().count(), 0)
+          done()
+        })
+      })
+
+      describe('edge.createMany', function(){
+        it('should create a bunch of edges', function(done) {
+          let edges = Array(3).fill().map((d,i) => ({
+            data : {
+              source : String(i),
+              target : String(i+1)
+            }
+          }))
+
+          edgeCreateMany._execute({}, {topogramId, edges} );
+          assert.equal(Edges.find().count(), 3)
+          done()
+        })
+      })
+
+      describe("edge.update", function(){
+        it('update edge in a node', function(done) {
+
+          let initData = {
+            lng : 6.5,
+            lat : 12.3,
+            id : "my-node",
+            source : "my-source",
+            target : "my-target",
+            notes : 'some text'
+          }
+
+          let edgeId = edgeCreate._execute({}, {topogramId, data : initData});
+
+          let edge = Edges.findOne(edgeId)
+          assert.equal(edge.data.lat, 12.3)
+
+          edgeUpdate._execute({}, {
+            edgeId : edge.data.id,
+            data :  {
+              lng : 4.5,
+              lat : 3.3,
+              source : "my-other-source",
+              target : "my-other-target",
+              notes : 'some other text'
+            }});
+
+          let edgeAfter = Edges.findOne(edgeId)
+
+          assert.equal(edgeAfter.data.source, "my-other-source")
+          assert.equal(edgeAfter.data.target, "my-other-target")
+          assert.equal(edgeAfter.data.notes, 'some other text')
+          assert.equal(edgeAfter.data.lat, 3.3)
+          assert.equal(edgeAfter.data.lng, 4.5)
+
+          done()
+        })
+      })
+
+      describe('edge.deleteAll', function(){
+        it('should delete a bunch of edges', function(done) {
+          let edges = Array(3).fill().map((d,i) => ({
+            data : {
+              source : String(i),
+              target : String(i+1)
+            }
+          }))
+
+          edgeCreateMany._execute({}, {topogramId, edges} );
+          assert.equal(Edges.find().count(), 3)
+
+          edgeDeleteAll._execute({}, {topogramId} );
           assert.equal(Edges.find().count(), 0)
           done()
         })

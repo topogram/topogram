@@ -5,8 +5,6 @@ import { Factory } from 'meteor/dburles:factory';
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 
-import { makeEdge } from '/imports/api/modelsHelpers'
-
 const EDGE_ID_ONLY = new SimpleSchema({
   edgeId: Edges.simpleSchema().schema('_id'),
 }).validator({ clean: true, filter: false })
@@ -59,21 +57,97 @@ export const edgeDelete = new ValidatedMethod({
 })
 
 
+/**
+* Create multiple edges at once
+*
+* @instance {ValidatedMethod}
+* @param {Array} edges an array of edge data
+* @return {Object} the edges as inserted in Mongo
+*/
+
+let edgeSchema = Edges.schema.pick([
+      'data.id',
+      'data.name',
+      'data.color',
+      'data.group',
+      'data.notes',
+      'data.lat',
+      'data.lng',
+      'data.start',
+      'data.end',
+      'data.starred',
+      'data.weight',
+      'data.source',
+      'data.target'
+    ])
+
+export const edgeCreateMany = new ValidatedMethod({
+  name: 'edge.createMany',
+  validate: new SimpleSchema({
+    'topogramId': { type: String },
+    'edges' : { type : [ edgeSchema ], minCount: 1 }
+  }).validator(),
+  run({topogramId, edges}) {
+    let ok = edges.map( e =>  ({...e, topogramId}) );
+    return Edges.batchInsert( ok )
+  }
+})
+
+/**
+* Update edge properties
+*
+* @instance {ValidatedMethod}
+* @param {String} nodeId _id of the node to be updated
+* @param {Object} data the new data to be updated
+* @return {Object} the updated Edge object as returned by Mongo
+*/
+
+
+let edgeUpdateSchema = Edges.schema.pick([
+    'data.name',
+    'data.color',
+    'data.group',
+    'data.notes',
+    'data.lat',
+    'data.lng',
+    'data.start',
+    'data.end',
+    'data.starred',
+    'data.weight',
+    'data.source',
+    'data.target'
+]);
+
+export const edgeUpdate = new ValidatedMethod({
+  name: 'edge.update',
+  validate: new SimpleSchema([
+    edgeUpdateSchema,
+    {'edgeId': { type: String }}
+  ]).validator(), // TODO :check if ID exists,
+  run( {edgeId, data}) {
+    let $set = {}
+    Object.keys(data).map( d=> $set['data.'+d] = data[d])
+    return Edges.update({ 'data.id': edgeId }, { $set: $set })
+  }
+})
+
+/**
+* Delete all edges in a Topogram
+*
+* @instance {ValidatedMethod}
+* @param {String} topogramId the _id of the topogram
+* @return {Object} the Edges object as inserted in Mongo
+*/
+export const edgeDeleteAll = new ValidatedMethod({
+  name: 'edge.deleteAll',
+  validate: new SimpleSchema({ 'topogramId': { type: String } }).validator(),
+  // TODO :check if ID exists
+  run( topogramId ) {
+    return Edges.remove(topogramId)
+  }
+})
 
 Meteor.methods( {
-  addEdge( edge ) {
-    return Edges.insert( edge )
-  },
-
-  addEdgeFromIds( topogramId, srcId, targetId ) {
-    const e = {
-      source: srcId,
-      target : targetId
-    }
-    const edge = makeEdge( topogramId, e, {}, Meteor.userId())
-    console.log(edge)
-    return Edges.insert( edge )
-  },
 
   batchInsertEdges( edges ) {
         // console.log(edges.length)

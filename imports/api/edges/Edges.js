@@ -32,7 +32,8 @@ Edges.schema = new SimpleSchema({
   },
   'data.id': {
     type: String,
-    label : 'an id for the edge',
+    label : 'The user-defined ID of the edge',
+    optional: true,
     denyUpdate: true,
     autoValue : function () {
       return this.isInsert && !this.value ?  'edge-' + Math.round( Math.random() * 1000000 ) : this.value
