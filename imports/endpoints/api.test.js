@@ -6,9 +6,9 @@ import { resetDatabase } from 'meteor/xolvio:cleaner';
 
 import { Topograms, Nodes, Edges } from '/imports/api/collections.js'
 
-import { createNodes, moveNode, updateNode, deleteNodes } from '/imports/api/json/nodes.js'
-import { createEdges, updateEdge, deleteEdges } from '/imports/api/json/edges.js'
-import { getTopograms, createTopogram } from '/imports/api/json/topograms.js'
+import { createNodes, moveNode, updateNode, deleteNodes } from '/imports/endpoints/nodes.js'
+import { createEdges, updateEdge, deleteEdges } from '/imports/endpoints/edges.js'
+import { getTopograms, createTopogram } from '/imports/endpoints/topograms.js'
 
 if (Meteor.isServer) {
 

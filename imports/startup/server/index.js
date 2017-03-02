@@ -22,4 +22,4 @@ import '/imports/api/server/publications.js'
 import '/imports/version.js'
 
 // JSON API
-import '/imports/api/json'
+import '/imports/endpoints'
