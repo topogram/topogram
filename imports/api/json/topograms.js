@@ -4,10 +4,9 @@ import {
   topogramDelete
 } from '/imports/api/topograms/topogramsMethods.js'
 
-export const getTopograms = function() {
-  return Topograms.find().fetch()
-}
+export const getTopograms = () =>
+  Topograms.find().fetch()
 
-export const createTopogram = function({ name}) {
-  return topogramCreate.call({ name })
-}
+
+export const createTopogram = (name) =>
+  topogramCreate.call({ name })

@@ -6,7 +6,6 @@ import { createNodes } from '/imports/api/json/nodes'
 
 import { Topograms, Nodes, Edges } from '/imports/api/collections.js'
 
-
 // Global API configuration
 export const Api = new Restivus({
   apiPath: 'api',

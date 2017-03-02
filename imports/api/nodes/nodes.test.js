@@ -7,7 +7,6 @@ import { Random } from 'meteor/random'
 import { _ } from 'lodash';
 import { chai, assert } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
-chai.expect();
 
 import '../factories.js'
 

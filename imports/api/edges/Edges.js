@@ -42,12 +42,12 @@ Edges.schema = new SimpleSchema({
   'data.source': {
     type: String,
     label: 'The source of the edge',
-    // TODO validate the fact that it exists in the db
+    // TODO validate the fact that the node exists in the db
   },
   'data.target': {
     type: String,
     label: 'The target of the edge',
-    // TODO validate the fact that it exists in the db
+    // TODO validate the fact that the node exists in the db
   },
   'data.name': {
     type: String,

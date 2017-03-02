@@ -9,10 +9,7 @@ import {
 } from '/imports/api/edges/edgesMethods.js'
 
 export const createEdges = (topogramId, edges) =>
-  return edgeAddMany.call({
-    topogramId,
-    edges : edges.map( n =>  ({ ...d.element, ...d.data }))
-  })
+  edgeCreateMany.call({ topogramId, edges })
 
 export const updateEdge = (edgeId, data) =>
   edgeUpdate.call({ edgeId, data })

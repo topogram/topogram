@@ -130,7 +130,6 @@ export const nodeDeleteMany = new ValidatedMethod({
     nodeIds: { type: [String], minCount: 1 }
   }).validator(), // TODO :check if ID exists,
   run({nodeIds}) {
-    console.log(nodeIds);
     return Nodes.remove( { '_id' : { $in : nodeIds } } )
   }
 })

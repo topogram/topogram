@@ -113,16 +113,32 @@ let edgeUpdateSchema = Edges.schema.pick([
     'data.start',
     'data.end',
     'data.starred',
-    'data.weight',
-    'data.source',
-    'data.target'
-]);
+    'data.weight'
+  ])
+
 
 export const edgeUpdate = new ValidatedMethod({
   name: 'edge.update',
   validate: new SimpleSchema([
     edgeUpdateSchema,
-    {'edgeId': { type: String }}
+    {'edgeId': {
+        type: String
+      }
+    },
+    {
+      'data.source': {
+      type: String,
+      label: 'The source of the edge',
+      optional :true
+      }
+    },
+    {
+      'data.target': {
+        type: String,
+        label: 'The target of the edge',
+        optional :true
+      }
+    }
   ]).validator(), // TODO :check if ID exists,
   run( {edgeId, data}) {
     let $set = {}

@@ -7,17 +7,12 @@ import { Nodes, Edges, Topograms } from '../../collections.js'
  */
 // only the topogams that have been publicized
 Meteor.publish( 'topograms.private', function topogramsPrivate() {
-  if (!this.userId) {
-    return this.ready()
-  }
-  return Topograms.find( {
-    'userId': this.userId
-  })
+  if (!this.userId) { return this.ready() }
+  return Topograms.find({ 'userId': this.userId })
 } )
 
 Meteor.publish( 'topograms.public', function topogramsPrivate() {
   return Topograms.find( {
-
     $or: [
       { 'userId' : { $exists: false } },
       { 'sharedPublic' : true }
@@ -29,7 +24,7 @@ Meteor.publish( 'topograms.public', function topogramsPrivate() {
     'limit': 20
   } )
 
-} )
+})
 
 /*
  *  SINGLE TOPOGRAM

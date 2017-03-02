@@ -40,7 +40,7 @@ if (Meteor.isServer) {
         return topogram
       }
 
-      before(function () {
+      beforeEach(function () {
         Topograms.remove({}); // clean everythiog
         _.times(3, () => createTopogram()); // 3 without owners
         _.times(1, () => createTopogram({ userId : Random.id(), sharedPublic : true })); // 1 with owners but shared in public
@@ -51,8 +51,8 @@ if (Meteor.isServer) {
       describe('topograms.public', function () {
         it('sends all public topograms', function (done) {
          const collector = new PublicationCollector();
-        //  console.log(collector, PublicationCollector);
          collector.collect('topograms.public', (collections) => {
+           console.log(collections);
            chai.assert.equal(collections.topograms.length, 4);
            done();
          });
