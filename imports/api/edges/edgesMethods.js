@@ -132,6 +132,25 @@ export const edgeUpdate = new ValidatedMethod({
 })
 
 /**
+* Delete multiple edges
+*
+* @instance {ValidatedMethod}
+* @param {Array} edgesId list of edge _ids deleted
+* @return {Object} the Node object as inserted in Mongo
+*/
+
+export const edgeDeleteMany = new ValidatedMethod({
+  name: 'edge.deleteMany',
+  validate: new SimpleSchema({
+    edgeIds: { type: [String], minCount: 1 }
+  }).validator(), // TODO :check if ID exists,
+  run({edgeIds}) {
+    console.log(edgeIds);
+    return Edges.remove( { '_id' : { $in : edgeIds } } )
+  }
+})
+
+/**
 * Delete all edges in a Topogram
 *
 * @instance {ValidatedMethod}

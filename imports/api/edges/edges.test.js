@@ -16,9 +16,10 @@ import { nodeCreateMany } from '/imports/api/nodes/nodesMethods.js'
 import { Edges } from './Edges.js'
 import {
   edgeCreate,
-  edgeDelete,
   edgeCreateMany,
   edgeUpdate,
+  edgeDelete,
+  edgeDeleteMany,
   edgeDeleteAll
 } from './edgesMethods.js'
 
@@ -200,6 +201,26 @@ if (Meteor.isServer) {
           assert.equal(edgeAfter.data.lat, 3.3)
           assert.equal(edgeAfter.data.lng, 4.5)
 
+          done()
+        })
+      })
+
+      describe("edge.deleteMany", function(){
+        it('delete multiple edges based on their _ids', function(done) {
+
+          let edges = Array(3).fill().map((d,i) => ({
+            data : { source : "node-"+i, target : " node-target-"+i }
+          }))
+
+          edgeCreateMany._execute({}, {topogramId, edges} );
+          assert.equal(Edges.find().count(), 3)
+
+          let edgesAfter = Edges.find({ 'data.id' : { $in : edges.map(d => d.data.id) } }).fetch()
+          assert.equal(edgesAfter.length, 3)
+
+          let edgeIds = edgesAfter.map(d => d._id)
+          edgeDeleteMany._execute({}, { edgeIds } );
+          assert.equal(Edges.find().count(), 0)
           done()
         })
       })
