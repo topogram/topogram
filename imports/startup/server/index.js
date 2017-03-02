@@ -1,27 +1,25 @@
-
 // Register API
 // This defines all the collections, publications and methods that the application provides
 // as an API to the client.
 
-
 // config accounts
-import '../../accounts.js'
+import '/imports/accounts.js'
 
-import '../../api/comments/commentsMethods.js'
-import '../../api/edges/edgesMethods.js'
-import '../../api/nodes/nodesMethods.js'
+// methods
+import '/imports/api/edges/edgesMethods.js'
+import '/imports/api/nodes/nodesMethods.js'
+import '/imports/api/topograms/topogramsMethods.js'
+// import '/imports/api/comments/commentsMethods.js'
 
-import '../../api/helpers.js'
-
-// topograms
-import '../../api/topograms/topogramsMethods.js'
-import '../../api/topograms/server/publications.js'
+// some helpers
+import '/imports/api/helpers.js'
 
 // publications
-import '../../api/server/publications.js'
+import '/imports/api/topograms/server/publications.js'
+import '/imports/api/server/publications.js'
 
 // plugins
-import '../../version.js'
+import '/imports/version.js'
 
 // JSON API
-// import '../../api/api.js'
+import '/imports/api/json'
