@@ -7,7 +7,7 @@ import {
   nodeDeleteAll
 } from '/imports/api/nodes/nodesMethods.js';
 
-export const createNodes = (topogramId, nodes) =>
+export const createNodes = (topogramId, nodes) => 
   nodeCreateMany.call({ topogramId, nodes })
 
 export const updateNode = (nodeId, data) =>

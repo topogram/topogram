@@ -1,8 +1,10 @@
 import { Restivus } from 'meteor/nimble:restivus'
 import logger from '/imports/logger.js'
 
-import { getTopograms, createTopogram } from '/imports/api/json/topograms'
-import { createNodes } from '/imports/api/json/nodes'
+import { createNodes, moveNode, updateNode, deleteNodes } from '/imports/api/json/nodes.js'
+import { createEdges, updateEdge, deleteEdges } from '/imports/api/json/edges.js'
+import { getTopograms, createTopogram } from '/imports/api/json/topograms.js'
+
 
 import { Topograms, Nodes, Edges } from '/imports/api/collections.js'
 
@@ -42,7 +44,7 @@ Api.addCollection(Topograms, {
     post: {
       statusCode : 201,
       action() {
-        let data = createTopogram({ name : this.bodyParams.name })
+        let data = createTopogram(this.bodyParams.name)
         return buildSuccessAnswer(data)
       }
     },
@@ -63,9 +65,9 @@ Api.addCollection(Nodes, {
     post: {
       statusCode : 201,
       action() {
-        const nodes = this.bodyParams.nodes
         const topogramId = this.bodyParams.topogramId
-        createNodes.call({topogramId, nodes})
+        const nodes = this.bodyParams.nodes
+        let data = createNodes(topogramId, nodes)
         return buildSuccessAnswer(data)
       }
     },
@@ -73,7 +75,7 @@ Api.addCollection(Nodes, {
       action() {
         const nodeId = this.urlParams.id
         const data = this.bodyParams
-        let res = updateNode.call({nodeId, data})
+        let res = updateNode(nodeId, data)
         return buildSuccessAnswer(res)
       }
     }
@@ -84,6 +86,8 @@ Api.addRoute('nodes/delete', {
   post : {
     authRequired: false,
     action() {
+      console.log(this);
+
       const nodeIds = this.bodyParams.nodes
       let data = nodeDeleteMany.call(nodeIds)
       // Nodes.find({ '_id' : { $in : ids } }).fetch()
