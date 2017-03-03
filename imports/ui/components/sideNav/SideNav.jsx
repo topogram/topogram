@@ -26,12 +26,6 @@ class SideNav extends React.Component {
   }
 
   render() {
-    const
-      nodes = this.props.elements.nodes,
-      edges = this.props.elements.edges,
-      importUrl = '/topograms/' + this.props.topogram._id + '/import'
-
-
     return (
       <Drawer open={this.state.open}>
         <AppBar
@@ -39,27 +33,21 @@ class SideNav extends React.Component {
           iconClassNameRight="muidocs-icon-navigation-expand-more"
           onClick={this.handleToggle}
         />
-
-
-        <FlatButton
-          label="Create Node"
-          onClick={this.createRandomNode.bind(this)}
-        />
-
+        <h3>{this.props.topogramTitle}</h3>
         <SideNavItem
           title="Data"
           initiallyExpanded={true}
         >
           <NodesLab
-            nodes={nodes}
+            nodes={this.props.nodes}
           />
           <EdgesLab
-            edges={edges}
+            edges={this.props.edges}
           />
-          <FlatButton
+          {/* <FlatButton
             label="Import Data"
             href={importUrl}
-          />
+          /> */}
         </SideNavItem>
       </Drawer>
     )

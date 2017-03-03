@@ -58,9 +58,10 @@ class Network extends React.Component {
   }
 
   updateNetwork() {
-    console.log('* rendering network...')
-    console.log(this.state.network, this.props.nodes);
-    this.state.network.json( { elements : { nodes : this.props.nodes, edges : this.props.edges } } );
+    // TODO : check for missing nodes in edges
+    this.state.network.json({
+      elements : { nodes : this.props.nodes, edges : this.props.edges }
+    })
   }
 
   componentDidMount() {
@@ -95,14 +96,18 @@ class Network extends React.Component {
 Network.propTypes = {
   topogramId : React.PropTypes.string,
   nodes : React.PropTypes.array,
+  nodesReady : React.PropTypes.bool,
   edges : React.PropTypes.array,
+  edgesReady : React.PropTypes.bool,
   style : React.PropTypes.object,
   layoutName : React.PropTypes.string
 }
 
 Network.defaultProps = {
   nodes : [],
+  nodesReady : false,
   edges : [],
+  edgesReady : false,
   style : NetworkDefaultStyle(),
   layoutName : 'preset'
 }

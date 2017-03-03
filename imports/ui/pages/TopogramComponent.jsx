@@ -28,6 +28,7 @@ export class TopogramComponent extends React.Component {
   }
 
   componentDidMount() {
+    this.props.loadTopogram(this.props.params.topogramId);
     this.props.loadNodes(this.props.params.topogramId);
     this.props.loadEdges(this.props.params.topogramId);
   }
@@ -51,20 +52,19 @@ export class TopogramComponent extends React.Component {
   }
 
   render() {
-    console.log(this.props.nodes)
     return (
       <div>
         <TopBar
           onHomeButtonClick={this.toggleSideNav}
           promptSnackbar={this.promptSnackbar}
-          topogram={ this.props.topogram }
           elements={this.props.elements}
           />
         <SideNav
           ref="sideNav"
-          elements={this.props.elements}
-          topogram={this.props.topogram}
-          topogramId={this.props.params.topogramId}
+          topogramId={ this.props.topogramId }
+          topogramTitle={ this.props.topogram.name }
+          nodes={ this.props.nodes }
+          edges={ this.props.edges }
         />
         <Network
           topogramId={ this.props.topogramId }
@@ -73,11 +73,6 @@ export class TopogramComponent extends React.Component {
         />
 
         {/*
-        <TopogramTitle
-          topogram={this.props.topogram}
-          promptSnackbar={this.promptSnackbar}
-        />
-
         <Snackbar
           open={this.state.open}
           message={this.state.message}
