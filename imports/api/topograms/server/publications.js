@@ -30,11 +30,6 @@ Meteor.publish( 'topograms.public', function topogramsPrivate() {
  *  SINGLE TOPOGRAM
  */
 Meteor.publish( 'topogram', function ( topogramId ) {
-
   // TODO : prevent subscribing to private topogram
-  return [
-    Topograms.find({ '_id': topogramId }),
-    Edges.find({ topogramId }),
-    Nodes.find({ topogramId })
-  ]
+  return Topograms.find({ '_id': topogramId })
 })
