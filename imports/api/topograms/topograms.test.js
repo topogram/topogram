@@ -75,7 +75,6 @@ if (Meteor.isServer) {
           const collector = new PublicationCollector();
           collector.collect('topogram', topogram._id, (collections) => {
             chai.assert.equal(collections.topograms.length, 1);
-            chai.assert.equal(collections.nodes.length, 3);
             done();
           });
         });
