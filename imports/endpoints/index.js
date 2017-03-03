@@ -5,7 +5,7 @@ import { createNodes, moveNode, updateNode, deleteNodes } from '/imports/endpoin
 import { createEdges, updateEdge, deleteEdges } from '/imports/endpoints/edges.js'
 import { getTopograms, createTopogram } from '/imports/endpoints/topograms.js'
 
-
+import { buildSuccessAnswer, buildErrorAnswer} from '/imports/api/responses'
 import { Topograms, Nodes, Edges } from '/imports/api/collections.js'
 
 // Global API configuration
@@ -21,14 +21,6 @@ export const Api = new Restivus({
   }
 })
 
-// API Answers
-const buildSuccessAnswer = function (data) {
-  return {
-    status : 'success',
-    data : data
-  }
-}
-
 // Home
 Api.addRoute('',
   { authRequired: false },
@@ -42,16 +34,16 @@ Api.addCollection(Topograms, {
   },
   endpoints: {
     post: {
-      statusCode : 201,
       action() {
         let data = createTopogram(this.bodyParams.name)
-        return buildSuccessAnswer(data)
+        if (data.status === "error") return buildErrorAnswer({statusCode:503, ...data})
+        return buildSuccessAnswer({ statusCode : 201, data})
       }
     },
     getAll: {
       action() {
         let data = Topograms.find().fetch()
-        return buildSuccessAnswer(data)
+        return buildSuccessAnswer({ statusCode : 200, data})
       }
     }
     // ,delete: {}
@@ -63,12 +55,12 @@ Api.addCollection(Nodes, {
   routeOptions: { authRequired: false },
   endpoints: {
     post: {
-      statusCode : 201,
       action() {
         const topogramId = this.bodyParams.topogramId
         const nodes = this.bodyParams.nodes
+        console.log(nodes);
         let data = createNodes(topogramId, nodes)
-        return buildSuccessAnswer(data)
+        return buildSuccessAnswer({ statusCode : 201, data})
       }
     },
     put : {
@@ -76,7 +68,7 @@ Api.addCollection(Nodes, {
         const nodeId = this.urlParams.id
         const data = this.bodyParams
         let res = updateNode(nodeId, data)
-        return buildSuccessAnswer(res)
+        return buildSuccessAnswer({ statusCode : 201, data : res})
       }
     }
   }
@@ -86,12 +78,10 @@ Api.addRoute('nodes/delete', {
   post : {
     authRequired: false,
     action() {
-      console.log(this);
-
       const nodeIds = this.bodyParams.nodes
-      let data = nodeDeleteMany.call(nodeIds)
+      let data = deleteNodes(nodeIds)
       // Nodes.find({ '_id' : { $in : ids } }).fetch()
-      return buildSuccessAnswer(data)
+      return buildSuccessAnswer({statusCode : 201, data})
     }
   }
 })
@@ -102,7 +92,7 @@ Api.addRoute('topograms/:_id/nodes', {
     action() {
       const _id = this.urlParams._id
       const data = Nodes.find({ 'topogramId' : _id }).fetch()
-      return buildSuccessAnswer(data)
+      return buildSuccessAnswer({data})
     }
   }
 })
@@ -116,7 +106,7 @@ Api.addCollection(Edges, {
         const edges = this.bodyParams.edges
         const topogramId = this.bodyParams.topogramId
         const data = createEdges( topogramId, edges )
-        return buildSuccessAnswer(data)
+        return buildSuccessAnswer({statusCode : 201, data})
       }
     },
     put : {
@@ -124,7 +114,7 @@ Api.addCollection(Edges, {
         const edgeId = this.urlParams.id
         const data = this.bodyParams
         let res = updateEdge(nodeId, data)
-        return buildSuccessAnswer(res)
+        return buildSuccessAnswer({statusCode : 201, res})
       }
     }
   }
@@ -137,7 +127,7 @@ Api.addRoute('edges/delete', {
       const edgeIds = this.bodyParams.edges
       let data = deleteEdges(edgeIds)
       // Edges.find({ '_id' : { $in : ids } }).fetch()
-      return buildSuccessAnswer(data)
+      return buildSuccessAnswer({data})
     }
   }
 })
@@ -148,7 +138,7 @@ Api.addRoute('topograms/:_id/edges', {
     action() {
       const _id = this.urlParams._id
       const data = Edges.find({ 'topogramId' : _id }).fetch()
-      return buildSuccessAnswer(data)
+      return buildSuccessAnswer({data})
     }
   }
 })

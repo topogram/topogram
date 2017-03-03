@@ -4,6 +4,9 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 import { Meteor } from 'meteor/meteor'
 
+import { buildSuccessAnswer, buildErrorAnswer} from '/imports/api/responses'
+
+
 const TOPOGRAM_ID_ONLY = new SimpleSchema({
   topogramId: Topograms.simpleSchema().schema('_id'),
 }).validator({ clean: true, filter: false })
@@ -22,21 +25,16 @@ export const topogramCreate = new ValidatedMethod({
   }).validator(),
   run({ name }) {
 
-    const t = Topograms.find({ name, 'userId': this.userId }).fetch()
+    // forbid with the same name
+    const t = Topograms.findOne({ name })
 
-    if (!this.userId && t.length) {
-      // make sure that a topogram with the same name and same user does not already exists
-      name += '-' + (new Date()).toDateString() + ' ' +(new Date()).toLocaleTimeString()
-    }
-    else if ( this.userId && t.length ) {
-      return {
-        'status' : 'error',
+    if (t._id)
+      return buildErrorAnswer({
         'message' : 'A topogram with the same name already exists',
         'data' : t
-      }
-    }
+      })
 
-    const sharedPublic = (this.userId) ? false : true
+    const sharedPublic = this.userId ? false : true
 
     return Topograms.insert( {
       name,

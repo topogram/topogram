@@ -24,6 +24,8 @@ if (Meteor.isServer) {
     })
 
     describe('POST /api/topograms', function() {
+
+
       it('should create a topogram', (done) => {
         request({
             url : 'http://localhost:3000/api/topograms',
@@ -31,6 +33,7 @@ if (Meteor.isServer) {
             json: { name : "topotest" }
           },
           function( err, res, body ) {
+            console.log(body);
             assert.equal(body.status, "success")
             assert.equal(body.data.length, 17)
             done();

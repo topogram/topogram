@@ -4,7 +4,7 @@ import {
   nodeCreateMany,
   nodeUpdate,
   nodeMove,
-  nodeDeleteAll
+  nodeDeleteMany
 } from '/imports/api/nodes/nodesMethods.js';
 
 export const createNodes = (topogramId, nodes) =>
