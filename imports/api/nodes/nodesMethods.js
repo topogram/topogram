@@ -77,8 +77,12 @@ export const nodeCreateMany = new ValidatedMethod({
     'nodes' : { type : [ nodeSchema ], minCount: 1 }
   }).validator(),
   run({topogramId, nodes}) {
-    let ok = nodes.map( n =>  ({...n, topogramId}) );
-    return Nodes.batchInsert( ok )
+    // TODO : use validated "batchInsert'
+    return nodes.map( n =>
+      nodeCreate.call({...n, topogramId})
+    );
+
+    // return Nodes.batchInsert( ok )
   }
 })
 

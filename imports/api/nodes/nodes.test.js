@@ -118,6 +118,15 @@ if (Meteor.isServer) {
         })
       })
 
+      describe('group ("nodes")', function(){
+        it('should be automatically added on creation', function(done) {
+          nodeCreate._execute({}, {topogramId, data : { id : "youpi"}}  );
+          // created once
+          let n = Nodes.findOne()
+          assert.equal(n.group,"nodes")
+          done()
+        })
+      })
     })
 
     describe('methods', function(){
@@ -246,6 +255,8 @@ if (Meteor.isServer) {
 
           nodeCreateMany._execute({}, {topogramId, nodes} );
           assert.equal(Nodes.find().count(), 3)
+          let createdNodes = Nodes.find().fetch()
+          assert.equal(createdNodes[0].group,"nodes")
           done()
         })
       })

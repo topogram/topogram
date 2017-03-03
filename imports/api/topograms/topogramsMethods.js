@@ -26,9 +26,9 @@ export const topogramCreate = new ValidatedMethod({
   run({ name }) {
 
     // forbid with the same name
-    const t = Topograms.findOne({ name })
+    const t = Topograms.findOne({ name, userId : this.userId })
 
-    if (t._id)
+    if (t && t._id)
       return buildErrorAnswer({
         'message' : 'A topogram with the same name already exists',
         'data' : t
