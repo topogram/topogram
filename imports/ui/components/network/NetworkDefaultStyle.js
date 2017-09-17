@@ -5,7 +5,7 @@ const NetworkDefaultStyle = () =>
   stylesheet()
     .selector('node')
       .style({
-        'font-size': 6,//graphState.fontSize,
+        'font-size': 16,//graphState.fontSize,
         'text-valign': 'center',
         'text-halign': 'right',
         'color': 'gray',
@@ -14,7 +14,7 @@ const NetworkDefaultStyle = () =>
         'min-zoomed-font-size': 0.4,
         'border-color': '#D84315',
         'background-color'(e) {
-          let color = '#CCC'  // default
+          let color = 'steelblue';  // default
           if (e.data('group')) color = colors(e.data('group'))
           else if (e.data('color')) color = e.data('color')
           return e.data('starred') ? 'yellow' : color
@@ -25,11 +25,11 @@ const NetworkDefaultStyle = () =>
         }
       })
     // node with degree zero
-    // .selector('node[[degree = 0]]')
-    //   .style({
-    //       'background-color': '#656565'
-    //       // 'display' :"none"
-    //   })
+    .selector('node[[degree = 0]]')
+      .style({
+          'background-color': '#656565'
+          // 'display' :"none"
+      })
     .selector('node[group="ghosts"]')
     .style({
       'background-opacity': .5,
@@ -42,8 +42,8 @@ const NetworkDefaultStyle = () =>
       .style({
         'background-color' : '#000',
         'target-arrow-shape': 'none', // default is undirected graph
-        'width'(e) {
-          return e.data('weight') ? e.data('weight') : .5
+        'line-width'(e) {
+          return e.data('weight') ? e.data('weight') : .3
         },
         'line-color' : '#AAAAAA',
         'opacity': .7,

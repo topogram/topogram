@@ -4,7 +4,7 @@ import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 
 import Network from '/imports/ui/components/network/Network.jsx'
-// import TopogramTitle from '/imports/ui/components/topogramTitle/TopogramTitle.jsx'
+import TopogramTitle from '/imports/ui/components/topogramTitle/TopogramTitle.jsx'
 
 const tmpStyle = { }
 
@@ -49,7 +49,8 @@ export class TopogramViewComponent extends React.Component {
   render() {
     return (
       <div>
-        <p>Coucou</p>
+
+        <h1>{this.props.topogram.name}</h1>
         <Network
           topogramId={ this.props.topogramId }
           nodes={ this.props.nodes }
