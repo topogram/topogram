@@ -37,8 +37,8 @@ const TopogramListItem = React.createClass({
   render() {
 
     let parsedDate = (this.props.date) ?  moment(this.props.date).fromNow() : ''
-    let url = '/topograms/'+this.props._id
-    let dataUrl = '/topograms/' + this.props._id + '/lab'
+    let url = '/topograms/' + this.props._id + '/view'
+    let dataUrl = '/topograms/' + this.props._id
 
     const deleteButton = ( !this.props.editable ) ? '' : <DeleteConfirmationDialog
       topogramName= {this.props.title}

@@ -1,9 +1,9 @@
 /* eslint-disable prefer-arrow-callback */
 import { Meteor } from 'meteor/meteor'
-import { Nodes, Edges, Topograms } from '../../collections.js'
+import { Topograms } from '../../collections.js'
 
 /*
- *  MULTIPLE TOPOGAMS
+ *  MULTIPLE TOPOGRAMS
  */
 // only the topogams that have been publicized
 Meteor.publish( 'topograms.private', function topogramsPrivate() {
@@ -12,18 +12,10 @@ Meteor.publish( 'topograms.private', function topogramsPrivate() {
 } )
 
 Meteor.publish( 'topograms.public', function topogramsPrivate() {
-  return Topograms.find( {
-    $or: [
-      { 'userId' : { $exists: false } },
-      { 'sharedPublic' : true }
-    ]
-  }, {
-    'sort': {
-      'createdAt': -1
-    },
+  return Topograms.find({}, {
+    'sort': { 'createdAt': -1 },
     'limit': 20
-  } )
-
+  })
 })
 
 /*
