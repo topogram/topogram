@@ -67,6 +67,7 @@ const DeleteConfirmationDialog = React.createClass({
     return (
       <div>
         <FlatButton
+          style={{color : 'red'}}
           label={formatMessage(messages.delete)}
           onTouchTap={this.handleOpen}
         />

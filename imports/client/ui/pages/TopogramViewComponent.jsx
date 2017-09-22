@@ -8,19 +8,13 @@ import TopogramTitle from '/imports/client/ui/components/topogramTitle/TopogramT
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
 import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
 
-// default values
-// const minTime = new Date();
-// const maxTime = new Date();
-// minTime.setFullYear(minTime.getFullYear() - 1);
-// minTime.setHours(0, 0, 0, 0);
-// maxTime.setFullYear(maxTime.getFullYear() + 1);
-// maxTime.setHours(0, 0, 0, 0);
-
+// UI state default values
 @ui({
   state: {
     filterPanelIsOpen: true,
-    minTime : null, // minTime,
-    maxTime : null  // maxTime
+    minTime : null,
+    maxTime : null,
+    layoutName : 'preset'
   }
 })
 export class TopogramViewComponent extends React.Component {

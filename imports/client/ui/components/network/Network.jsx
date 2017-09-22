@@ -1,79 +1,40 @@
 import React from 'react'
 import cytoscape from 'cytoscape'
+import ui from 'redux-ui'
 
 import NetworkDefaultStyle from './NetworkDefaultStyle'
 import {nodeMove} from '/imports/api/nodes/nodesMethods'
 
+import Cytoscape from './Cytoscape.jsx'
+
 const CYTOSCAPE_DIV_ID = 'network'
 
 const style = {
-  divNetwork : {
-    height: '100%',
-    width: '100%',
-    position: 'fixed',
-    top: '0px',
-    left: '0',
-    zIndex : -1
-  }
 }
 
+@ui()
 class Network extends React.Component {
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      layoutName : this.props.layoutName,
-      style: this.props.style,
-      network : null // cytoscape instance
-    }
-    this.createNetwork = this.createNetwork.bind(this)
-    this.updateNetwork = this.updateNetwork.bind(this)
-
+  componentDidMount(){
+    // this is a good place for events
+    this.refs.graph.getCy()
+      .off('free', 'node')  // reset
+      .on('free', 'node', function(e) {
+        var node = e.cyTarget
+        nodeMove.call({ nodeId : node.id(), position : node.position()})
+      })
   }
 
-  createNetwork() {
-    console.log('* Cytoscape init...')
-    const network = cytoscape(
-      {
-        container: document.getElementById(CYTOSCAPE_DIV_ID),
-        elements: { nodes: this.props.nodes, edges : this.props.edges },
-        style: this.props.style,
-        layout: {
-          name: this.state.layoutName
-        }
-      }
-    )
-
-    // drag node
-    network.off('free', 'node')  // reset
-    network.on('free', 'node', function(e) {
-       var node = e.cyTarget
-       nodeMove.call({ nodeId : node.id(), position : node.position()})
-    })
-
-
-    this.setState({ network })
-  }
-
-  updateNetwork() {
-    // TODO : check for missing nodes in edges
-    this.state.network.json({
-      elements : { nodes : this.props.nodes, edges : this.props.edges }
-    })
-  }
-
-  componentDidMount() {
-    this.createNetwork()
-  }
-
-  componentDidUpdate() {
-    this.updateNetwork()
-  }
 
   // TODO check nodes/edges diff
   // shouldComponentUpdate(nextProps, nextState) {
-  //   if (nextProps.networkData.equals(this.props.networkData)) {
+  //   console.log(nextProps);
+  //   if (
+  //     nextProps.nodes.length === this.props.nodes.length
+  //     &&
+  //     nextProps.edges.length === this.props.edges.length
+  //   )
+  //   {
   //     console.log('Network unchanged, not updating cytoscapejs')
   //     return false
   //   }
@@ -81,13 +42,20 @@ class Network extends React.Component {
   //   return true
   // }
 
-  render() {
+  render(){
+
+    const {nodes, edges, ui} = this.props
+
+    // make sure nodes & edges are there
+    const elements = nodes.length && edges.length ? {nodes, edges} : {}
+
     return (
-      <div
-        id={CYTOSCAPE_DIV_ID}
-        style={style.divNetwork}
-      >
-      </div>
+        <Cytoscape
+          ref = "graph"
+          elements ={elements}
+          style = {NetworkDefaultStyle}
+          layoutName = {ui.layoutName}
+        />
     )
   }
 }

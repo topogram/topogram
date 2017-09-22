@@ -19,8 +19,8 @@ export default class MainViz extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-    networkVisible: false,
-      mapVisible : true
+    networkVisible: true,
+      mapVisible : false
     }
   }
 

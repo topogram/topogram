@@ -25,7 +25,6 @@ export default class Settings extends React.Component {
       <SideNavItem
         title="Settings"
         subtitle="Tweak stuff"
-        initiallyExpanded={true}
         >
           <TextField
             hintText="Hint Text"

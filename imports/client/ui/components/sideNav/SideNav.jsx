@@ -9,31 +9,23 @@ import { Card, CardHeader } from 'material-ui/Card'
 
 import QueryBox from '../queryBox/QueryBox.jsx'
 import Settings from '../settings/Settings.jsx'
+import NetworkOptions from '../networkOptions/NetworkOptions.jsx'
 import FilterByTime from '../filterByTime/FilterByTime.jsx'
 
 import {nodeCreate} from '/imports/api/nodes/nodesMethods'
 
 @ui()
 class SideNav extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
 
   handleToggle() {
     this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
   }
 
-  // createRandomNode() {
-  //   console.log('create a node');
-  //   let node = nodeCreate.call({ topogramId : this.props.topogramId })
-  // }
-
   render() {
     const { nodes, edges } = this.props;
-    // console.log(this.props);
+
     return (
-      <Drawer open={this.state.open}>
+      <Drawer>
         <Toolbar>
           <QueryBox
               nodes={nodes}
@@ -45,11 +37,14 @@ class SideNav extends React.Component {
             `${nodes.length} nodes, ${edges.length} edges `
           }
           />
+        <NetworkOptions
+          />
         <Settings
           topogramTitle={this.props.topogramTitle}
           topogramId={this.props.topogramId}
           router={this.props.router}
           />
+
         {
           this.props.hasTimeInfo ?
             <FilterByTime />
