@@ -3,7 +3,6 @@ import ui from 'redux-ui'
 import moment from 'moment'
 
 import DatePicker from 'material-ui/DatePicker';
-
 import SideNavItem from '../sideNav/SideNavItem.jsx'
 
 @ui()

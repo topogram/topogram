@@ -11,6 +11,11 @@ const TOPOGRAM_ID_ONLY = new SimpleSchema({
   topogramId: Topograms.simpleSchema().schema('_id'),
 }).validator({ clean: true, filter: false })
 
+const TOPOGRAM_ID_AND_TITLE = new SimpleSchema({
+  topogramId: Topograms.simpleSchema().schema('_id'),
+  title: Topograms.simpleSchema().schema('name'),
+}).validator({ clean: true, filter: false })
+
 /**
 * Create a topogram
 *
@@ -49,7 +54,7 @@ export const topogramCreate = new ValidatedMethod({
 /**
 * Delete a topogram. Will also delete all edges and nodes with this topogramId
 *
-* @param {String} _id the Mongo _id of the new topogram
+* @param {String} _id the Mongo _id of the topogram to delete
 * @return {Object} the Topogram object as inserted in Mongo
 */
 export const topogramDelete = new ValidatedMethod({
@@ -64,6 +69,27 @@ export const topogramDelete = new ValidatedMethod({
 })
 
 
+/**
+* Edit the title of a topogram
+*
+* @instance {ValidatedMethod}
+* @param {String} _id the Mongo _id of the topogram to update
+* @param {String} title the new title of the topogram
+* @return {Object} the Topogram object as inserted in Mongo
+*/
+export const topogramUpdateTitle = new ValidatedMethod({
+  name: 'topogram.updateTitle',
+  validate: TOPOGRAM_ID_AND_TITLE,
+  run({ topogramId, title }) {
+
+    console.log(topogramId, title);
+    return Topograms.update( topogramId,
+      { '$set' : { 'name' : title},
+        'updatedAt' : new Date()
+      }
+    )
+  }
+})
 /**
 * Make a topograms public
 *
