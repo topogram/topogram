@@ -87,7 +87,6 @@ class GeoMap extends React.Component {
 }
 
 GeoMap.propTypes = {
-  topogramId : React.PropTypes.string,
   nodes : React.PropTypes.array,
   nodesReady : React.PropTypes.bool,
   edges : React.PropTypes.array,

@@ -15,8 +15,8 @@ export const renderRoutes = () => (
     <Router history={browserHistory}>
       <Route path="/" component={MainLayout}>
         <IndexRoute component={HomeContainer}/>
-        <Route path="topograms/:topogramId" component={TopogramContainer}/>
-        <Route path="topograms/:topogramId/view" component={TopogramViewContainer}/>
+        <Route path="topograms/:topogramId/edit" component={TopogramContainer}/>
+        <Route path="topograms/:topogramId" component={TopogramViewContainer}/>
         <Route path="*" component={Page404}/>
       </Route>
     </Router>

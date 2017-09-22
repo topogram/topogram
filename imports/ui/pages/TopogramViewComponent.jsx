@@ -3,10 +3,7 @@ import Snackbar from 'material-ui/Snackbar'
 import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 
-import RaisedButton from 'material-ui/RaisedButton';
-
-import Network from '/imports/ui/components/network/Network.jsx'
-import GeoMap from '/imports/ui/components/geoMap/GeoMap.jsx'
+import MainViz from '/imports/ui/components/mainViz/MainViz.jsx'
 import TopogramTitle from '/imports/ui/components/topogramTitle/TopogramTitle.jsx'
 
 const tmpStyle = { }
@@ -19,9 +16,7 @@ export class TopogramViewComponent extends React.Component {
     // snackbar
     this.state = {
       open: false,
-      message: '',
-      networkVisible: false,
-      mapVisible : true
+      message: ''
     }
     this.promptSnackbar = this.promptSnackbar.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
@@ -51,20 +46,6 @@ export class TopogramViewComponent extends React.Component {
     })
   }
 
-  showMap() {
-    this.setState({
-      networkVisible: false,
-      mapVisible : true
-    })
-  }
-
-  showNetwork() {
-    this.setState({
-      networkVisible: true,
-      mapVisible : false
-    })
-  }
-
   render() {
     const { networkVisible, mapVisible } = this.state
 
@@ -73,40 +54,12 @@ export class TopogramViewComponent extends React.Component {
 
         <h1>{this.props.topogram.name}</h1>
 
-        <RaisedButton
-          label="Map"
-          onClick={ () => this.showMap()}
+        <MainViz
+          nodes={ this.props.nodes }
+          edges={ this.props.edges }
         />
-
-        <RaisedButton
-          label="Network"
-          onClick={ () => this.showNetwork()}
-        />
-
-        {
-          networkVisible ?
-            <Network
-              topogramId={ this.props.topogramId }
-              nodes={ this.props.nodes }
-              edges={ this.props.edges }
-            />
-          :
-            null
-        }
-
-        {
-          mapVisible ?
-            <GeoMap
-              topogramId={ this.props.topogramId }
-              nodes={ this.props.nodes }
-              edges={ this.props.edges }
-            />
-          :
-            null
-        }
-
-
         {/*
+
         <Snackbar
           open={this.state.open}
           message={this.state.message}
