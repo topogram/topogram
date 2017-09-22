@@ -13,12 +13,7 @@ const messages = defineMessages({
     'id': 'topogram.index.card.button.browse',
     'defaultMessage': 'Browse',
     'message': ''
-  },
-  data : {
-    'id': 'topogram.index.card.button.edit',
-    'defaultMessage': 'Edit',
-    'message': ''
-  },
+  }
 })
 
 const listItemStyle = {
@@ -61,11 +56,6 @@ const TopogramListItem = React.createClass({
           label={formatMessage(messages.browse)}
           primary={true}
           href={url}
-        />
-        <FlatButton
-          label={formatMessage(messages.data)}
-          secondary={true}
-          href={url+'/edit'}
         />
         {deleteButton}
       </CardActions>

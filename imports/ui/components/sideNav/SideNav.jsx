@@ -1,23 +1,28 @@
 import React from 'react'
+import ui from 'redux-ui'
+
 import Drawer from 'material-ui/Drawer'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
+import {Toolbar} from 'material-ui/Toolbar';
 
 import SideNavItem from './SideNavItem.jsx'
 import NodesLab from '../nodes/NodesLab.jsx'
 import EdgesLab from '../edges/EdgesLab.jsx'
+import QueryBox from '../queryBox/QueryBox.jsx'
+import FilterByTime from '../filterByTime/FilterByTime.jsx'
 
 import {nodeCreate} from '/imports/api/nodes/nodesMethods'
 
+@ui()
 class SideNav extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { open: true }
-    this.handleToggle = this.handleToggle.bind(this)
+    this.state = {}
   }
 
   handleToggle() {
-    this.setState({ open: !this.state.open })
+    this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
   }
 
   createRandomNode() {
@@ -28,15 +33,23 @@ class SideNav extends React.Component {
   render() {
     return (
       <Drawer open={this.state.open}>
-        <AppBar
-          title="Topogram.io"
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-          onClick={this.handleToggle}
-        />
-        <h3>{this.props.topogramTitle}</h3>
+        <Toolbar>
+          <QueryBox
+              nodes={this.props.nodes}
+              edges={this.props.edges}
+            />
+        </Toolbar>
+
         <SideNavItem
           title="Data"
           initiallyExpanded={true}
+        >
+          <FilterByTime />
+        </SideNavItem>
+
+        <SideNavItem
+          title="Data"
+          initiallyExpanded={false}
         >
           <NodesLab
             nodes={this.props.nodes}
@@ -52,17 +65,6 @@ class SideNav extends React.Component {
       </Drawer>
     )
   }
-}
-
-SideNav.propTypes = {
-  topogramId: React.PropTypes.string,
-  elements: React.PropTypes.object,
-  topogram: React.PropTypes.object
-}
-
-SideNav.defaultProps = {
-  elements : { nodes : [], edges : [] },
-  topogram : {}
 }
 
 export default SideNav

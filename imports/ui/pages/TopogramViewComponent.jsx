@@ -1,14 +1,31 @@
 import React from 'react'
+import ui from 'redux-ui'
 import Snackbar from 'material-ui/Snackbar'
 import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 
-import MainViz from '/imports/ui/components/mainViz/MainViz.jsx'
 import TopogramTitle from '/imports/ui/components/topogramTitle/TopogramTitle.jsx'
+import MainViz from '/imports/ui/components/mainViz/MainViz.jsx'
+import SideNav from '/imports/ui/components/sideNav/SideNav.jsx'
 
-const tmpStyle = { }
 
+@ui({
+  state: {
+    filterPanelIsOpen: false,
+    filters: []
+  }
+})
 export class TopogramViewComponent extends React.Component {
+
+  static propTypes = {
+    ui: React.PropTypes.object,
+    updateUI: React.PropTypes.func,
+    topogramId: React.PropTypes.string,
+    nodes: React.PropTypes.array,
+    edges: React.PropTypes.array,
+    topogram: React.PropTypes.object
+  }
+
   constructor(props) {
     super(props)
     this.toggleSideNav = this.toggleSideNav.bind(this)
@@ -52,33 +69,27 @@ export class TopogramViewComponent extends React.Component {
     let topogramName = this.props.topogram.name ?
       this.props.topogram.name : ''
 
+    console.log(this.props);
     return (
       <div>
 
-      <TopogramTitle
-        topogramName={topogramName}
-      />
-
+        <TopogramTitle topogramName={topogramName} />
         <MainViz
           nodes={ this.props.nodes }
           edges={ this.props.edges }
         />
-        {/*
+        { this.props.ui.filterPanelIsOpen ?
+          <SideNav
+            topogramId={ this.props.topogramId }
+            topogramTitle={ this.props.topogram.name }
+            nodes={ this.props.nodes }
+            edges={ this.props.edges }
+          />
+          :
+          null
+        }
 
-        <Snackbar
-          open={this.state.open}
-          message={this.state.message}
-          autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
-        /> */}
       </div>
     )
   }
-}
-
-TopogramViewComponent.propTypes = {
-  topogramId: React.PropTypes.string,
-  nodes: React.PropTypes.array,
-  edges: React.PropTypes.array,
-  topogram: React.PropTypes.object
 }

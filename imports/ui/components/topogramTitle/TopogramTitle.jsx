@@ -1,7 +1,9 @@
 import React from 'react'
+import ui from 'redux-ui'
+import {Card, CardTitle, CardActions} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
-import {Card, CardTitle} from 'material-ui/Card';
-
+console.log(ui);
 const styleCard = {
   maxWidth: '30%',
   margin : '1em',
@@ -9,9 +11,20 @@ const styleCard = {
   right : '0'
 }
 
+@ui()
 class TopogramTitle extends React.Component {
+  static propTypes = {
+    topogramName : React.PropTypes.string,
+    ui: React.PropTypes.object,
+    updateUI: React.PropTypes.func
+  }
+
   constructor(props) {
     super(props)
+  }
+
+  onFilterButtonClick() {
+    this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
   }
 
   render() {
@@ -21,17 +34,15 @@ class TopogramTitle extends React.Component {
           title={this.props.topogramName}
           subtitle="Credits (cc)"
         />
+        <CardActions>
+          <FlatButton
+            label="Filters"
+            onClick={() => this.onFilterButtonClick()}
+          />
+        </CardActions>
       </Card>
     )
   }
-}
-
-TopogramTitle.propTypes = {
-  topogramName : React.PropTypes.string
-}
-
-TopogramTitle.defaultProps = {
-  topogramName : {}
 }
 
 export default TopogramTitle

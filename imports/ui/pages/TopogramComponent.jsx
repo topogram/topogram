@@ -66,7 +66,6 @@ export class TopogramComponent extends React.Component {
           nodes={ this.props.nodes }
           edges={ this.props.edges }
         />
-
         <MainViz
           nodes={ this.props.nodes }
           edges={ this.props.edges }
