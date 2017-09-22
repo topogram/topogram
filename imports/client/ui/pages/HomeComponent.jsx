@@ -74,7 +74,10 @@ export class HomeComponent extends React.Component {
       <div>
         <HomeHeader />
 
-        <TopogramAddForm promptSnackbar={this.promptSnackbar} />
+        <TopogramAddForm
+          promptSnackbar={this.promptSnackbar}
+          router={this.props.router}
+          />
 
         <section className="home-public-list">
           <h5 className="grey-text text-lighten-2 center">

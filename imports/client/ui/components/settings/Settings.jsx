@@ -1,10 +1,11 @@
 import React from 'react'
+
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import SideNavItem from '../sideNav/SideNavItem.jsx'
+import DeleteConfirmationDialog from '../topograms/DeleteConfirmationDialog.jsx'
 import { topogramDelete, topogramUpdateTitle } from '../../../../api/topograms/topogramsMethods.js'
-
-console.log(topogramUpdateTitle);
 
 export default class Settings extends React.Component {
 
@@ -13,11 +14,9 @@ export default class Settings extends React.Component {
   }
 
   handleTitleChange = (event) => {
-    let title = event.target.value;
-    console.log(this.props.topogramId);
     topogramUpdateTitle.call({
       topogramId : this.props.topogramId,
-      title
+      title : event.target.value
     })
   }
 
@@ -30,12 +29,17 @@ export default class Settings extends React.Component {
         >
           <TextField
             hintText="Hint Text"
-            floatingLabelText="Title of the Topogram"
+            floatingLabelText="Title"
             value={this.props.topogramTitle}
             onChange={this.handleTitleChange}
             floatingLabelFixed={true}
             multiLine={true}
             rows={3}
+          />
+          <DeleteConfirmationDialog
+            topogramName= {this.props.topogramTitle}
+            topogramId={this.props.topogramId}
+            router={this.props.router}
           />
       </SideNavItem>
     )

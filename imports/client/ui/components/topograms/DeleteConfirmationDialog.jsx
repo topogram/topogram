@@ -46,6 +46,8 @@ const DeleteConfirmationDialog = React.createClass({
     topogramDelete.call( {
       topogramId : this.props.topogramId
     })
+    this.props.router.push('/')
+
   },
   render() {
     const { formatMessage } = this.props.intl

@@ -114,6 +114,7 @@ export class TopogramViewComponent extends React.Component {
             hasTimeInfo={ this.props.hasTimeInfo }
             nodes={ nodes }
             edges={ edges }
+            router={this.props.router}
           />
           :
           null

@@ -1,12 +1,11 @@
 import React from 'react'
+import moment from 'moment'
 import { defineMessages, injectIntl } from 'react-intl'
 
 import { Card, CardActions, CardHeader } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 
 import DeleteConfirmationDialog from './DeleteConfirmationDialog.jsx'
-import moment from 'moment'
-
 
 const messages = defineMessages({
   browse : {
@@ -34,11 +33,6 @@ const TopogramListItem = React.createClass({
     let parsedDate = (this.props.date) ?  moment(this.props.date).fromNow() : ''
     let url = `/topograms/${this.props._id}`
 
-    const deleteButton = ( !this.props.editable ) ? '' : <DeleteConfirmationDialog
-      topogramName= {this.props.title}
-      topogramId={this.props._id}
-    />
-
     const { formatMessage } = this.props.intl
 
     return (
@@ -57,7 +51,11 @@ const TopogramListItem = React.createClass({
           primary={true}
           href={url}
         />
-        {deleteButton}
+        {/* <DeleteConfirmationDialog
+          topogramName= {this.props.title}
+          topogramId={this.props._id}
+          router={this.props.router}
+        /> */}
       </CardActions>
      </Card>
     </div>

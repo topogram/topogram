@@ -3,18 +3,20 @@ import TopogramListItem from '/imports/client/ui/components/topograms/TopogramLi
 
 const renderIfData = ( props ) => {
   if ( props.topograms && props.topograms.length > 0 ) {
-    return props.topograms.map( ( topogram ) =>
-      (
-        <TopogramListItem
-          key={ topogram._id }
-          title={ topogram.name }
-          _id={ topogram._id }
-          date={ topogram.createdAt }
-          classNames="col-1-4"
-          editable={ props.editable }
-        />
+    return props.topograms
+      .sort( (a, b) => b.createdAt - a.createdAt)
+      .map( ( topogram ) =>
+        (
+          <TopogramListItem
+            key={ topogram._id }
+            title={ topogram.name }
+            _id={ topogram._id }
+            date={ topogram.createdAt }
+            classNames="col-1-4"
+            editable={ props.editable }
+          />
+        )
       )
-    )
   }
   else {
     return <p>No topograms yet!</p>

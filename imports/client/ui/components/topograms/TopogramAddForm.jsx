@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { TextField, RaisedButton } from 'material-ui'
 import { defineMessages, injectIntl } from 'react-intl'
 
@@ -31,15 +32,15 @@ class TopogramAddForm extends React.Component {
 
     const topogramName = this.refs.topogramName.getValue()
 
-    console.log(topogramName);
-
     if ( topogramName != '' ) {
       topogramCreate.call( {
         name : topogramName
       }, (err, topogram) => {
         if (err) this.props.promptSnackbar(err)
         else if (topogram.status == 'error') this.props.promptSnackbar( topogram.message )
-        // else console.log("go( '/topograms/' + topogram )")
+        else {
+          this.props.promptSnackbar("Your new topogram has been created !")
+        }
       })
     }
     else {
@@ -48,6 +49,7 @@ class TopogramAddForm extends React.Component {
   }
 
   render() {
+
     const { formatMessage } = this.props.intl
     return (
       <section className="home-create-section">
