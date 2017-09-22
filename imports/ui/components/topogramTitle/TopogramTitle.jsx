@@ -1,17 +1,12 @@
 import React from 'react'
-import InlineEditField from '../inlineEdit/InlineEditField.jsx'
 
-const styles = {
-  toolBarTitle : {
-    lineHeight : '1em',
-    fontSize: '1.4em',
-    paddingTop : '.5em',
-    overflow : 'ellipsis',
-    position : 'fixed',
-    bottom : '1em',
-    right : '2em',
-    whiteSpace: 'nowrap'
-  }
+import {Card, CardTitle} from 'material-ui/Card';
+
+const styleCard = {
+  maxWidth: '30%',
+  margin : '1em',
+  position: 'absolute',
+  right : '0'
 }
 
 class TopogramTitle extends React.Component {
@@ -21,26 +16,22 @@ class TopogramTitle extends React.Component {
 
   render() {
     return (
-      <h1 style={styles.toolBarTitle}>
-        <InlineEditField
-          defaultValue={this.props.topogram.name}
-          _id={this.props.topogram._id}
-          collection="topograms"
-          field="name"
-          promptSnackbar={this.props.promptSnackbar}
+      <Card style={styleCard}>
+        <CardTitle
+          title={this.props.topogramName}
+          subtitle="Credits (cc)"
         />
-      </h1>
+      </Card>
     )
   }
 }
 
 TopogramTitle.propTypes = {
-  topogram : React.PropTypes.object,
-  promptSnackbar : React.PropTypes.func
+  topogramName : React.PropTypes.string
 }
 
 TopogramTitle.defaultProps = {
-  topogram : {}
+  topogramName : {}
 }
 
 export default TopogramTitle

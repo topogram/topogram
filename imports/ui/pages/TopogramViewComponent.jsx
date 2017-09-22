@@ -49,10 +49,15 @@ export class TopogramViewComponent extends React.Component {
   render() {
     const { networkVisible, mapVisible } = this.state
 
+    let topogramName = this.props.topogram.name ?
+      this.props.topogram.name : ''
+
     return (
       <div>
 
-        <h1>{this.props.topogram.name}</h1>
+      <TopogramTitle
+        topogramName={topogramName}
+      />
 
         <MainViz
           nodes={ this.props.nodes }
