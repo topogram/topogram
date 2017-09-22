@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import cytoscape from 'cytoscape';
+import spread from 'cytoscape-spread';
+
+// register layout
+spread(cytoscape)
 
 let cyStyle = {
   height: '100%',
@@ -37,8 +41,28 @@ class Cytoscape extends Component{
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps);
+    // update
     this.cy.json(nextProps);
+
+    const {layoutName} = nextProps
+
+    // apply new layout if any
+    if( this.props.layoutName !== layoutName) {
+
+      let layoutConfig = {
+        name : layoutName,
+        animate: false,
+      }
+
+      if(layoutName == "spread"){
+        layoutConfig.minDist= 50  // Minimum distance between nodes
+        layoutConfig.padding= 80  // Padding
+      }
+
+      this.cy.layout(layoutConfig)
+    }
+
+    // fit to screen
     this.cy.fit()
   }
 
@@ -51,7 +75,10 @@ class Cytoscape extends Component{
   }
 
   render(){
-    return <div style={cyStyle} ref="cyelement" />
+    return <div
+      style={cyStyle}
+      ref="cyelement"
+    />
   }
 }
 

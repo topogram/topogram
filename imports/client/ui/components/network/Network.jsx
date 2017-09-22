@@ -20,41 +20,25 @@ class Network extends React.Component {
     this.refs.graph.getCy()
       .off('free', 'node')  // reset
       .on('free', 'node', function(e) {
-        var node = e.cyTarget
-        nodeMove.call({ nodeId : node.id(), position : node.position()})
+        // var node = e.cyTarget
+        // nodeMove.call({ nodeId : node.id(), position : node.position()})
       })
   }
 
-
-  // TODO check nodes/edges diff
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(nextProps);
-  //   if (
-  //     nextProps.nodes.length === this.props.nodes.length
-  //     &&
-  //     nextProps.edges.length === this.props.edges.length
-  //   )
-  //   {
-  //     console.log('Network unchanged, not updating cytoscapejs')
-  //     return false
-  //   }
-  //   console.log('Network changed, updating cytoscapejs')
-  //   return true
-  // }
-
   render(){
 
-    const {nodes, edges, ui} = this.props
-
     // make sure nodes & edges are there
+    const {nodes, edges} = this.props
     const elements = nodes.length && edges.length ? {nodes, edges} : {}
 
+    const layoutName = this.props.ui.layoutName
+    console.log(layoutName);
     return (
         <Cytoscape
           ref = "graph"
           elements ={elements}
           style = {NetworkDefaultStyle}
-          layoutName = {ui.layoutName}
+          layoutName = {layoutName}
         />
     )
   }
