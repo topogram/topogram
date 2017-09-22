@@ -42,6 +42,7 @@ class GeoMap extends React.Component {
     let {zoom, position, w, h} = this.state
     let nodesById = {}
 
+    console.log(this.props.nodes, this.props.edges);
     let nodes = this.props.nodes.map( (n,i) => {
       let coords = [n.data.lat,n.data.lng]
       nodesById[n.data.id] = coords; // store for edges

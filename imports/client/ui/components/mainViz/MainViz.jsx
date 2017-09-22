@@ -1,4 +1,5 @@
 import React from 'react'
+import ui from 'redux-ui'
 
 import RaisedButton from 'material-ui/RaisedButton';
 import Network from '/imports/client/ui/components/network/Network.jsx'
@@ -15,64 +16,37 @@ const buttonStyle = {
   margin: 2
 };
 
+@ui()
 export default class MainViz extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-    networkVisible: true,
-      mapVisible : false
-    }
-  }
 
-  showMap() {
-    this.setState({
-      networkVisible: false,
-      mapVisible : true
-    })
-  }
-
-  showNetwork() {
-    this.setState({
-      networkVisible: true,
-      mapVisible : false
-    })
+  switchGeoGraph() {
+    this.props.updateUI( 'isGeoMap', !this.props.ui.isGeoMap )
   }
 
   render() {
-    const { networkVisible, mapVisible } = this.state
+    const { isGeoMap } = this.props.ui
+    const { nodes, edges } = this.props
 
     return (
       <div>
-
         <div style={buttonGroupStyle}>
           <RaisedButton
-            label="Geo"
+            label={ isGeoMap ? "Graph" : "Geo"}
             style={buttonStyle}
-            onClick={ () => this.showMap()}
-          />
-          <RaisedButton
-            label="Graph"
-            style={buttonStyle}
-            onClick={ () => this.showNetwork()}
+            onClick={ () => this.switchGeoGraph()}
           />
         </div>
         {
-          networkVisible ?
-            <Network
-              nodes={ this.props.nodes }
-              edges={ this.props.edges }
-            />
-          :
-            null
-        }
-        {
-          mapVisible ?
+          isGeoMap ?
             <GeoMap
-              nodes={ this.props.nodes }
-              edges={ this.props.edges }
+              nodes={ nodes }
+              edges={ edges }
             />
           :
-            null
+            <Network
+              nodes={ nodes }
+              edges={ edges }
+            />
         }
       </div>
     )

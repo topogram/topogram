@@ -13,6 +13,7 @@ import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
     filterPanelIsOpen: true,
     minTime : null,
     maxTime : null,
+    isGeoMap : false,
     layoutName : 'preset',
     nodeRadius : 'degree'
   }
@@ -82,9 +83,12 @@ export class TopogramViewComponent extends React.Component {
     let topogramName = this.props.topogram.name ?
       this.props.topogram.name : ''
 
-    let nodes = this.props.nodes
-      .filter(n => new Date(this.props.ui.maxTime) >= new Date(n.data.end))
-      .filter(n => new Date(n.data.start) >= new Date(this.props.ui.minTime))
+    let nodes = this.props.hasTimeInfo ?
+      this.props.nodes
+        .filter(n => new Date(this.props.ui.maxTime) >= new Date(n.data.end))
+        .filter(n => new Date(n.data.start) >= new Date(this.props.ui.minTime))
+      :
+      this.props.nodes
 
     let nodeIds = nodes.map(n => n.data.id)
 
