@@ -1,17 +1,10 @@
 import React from 'react'
 
 import { LatLng } from 'leaflet';
-import * as d3 from 'd3';
-import { geoTransform, geoMercator, geoPath } from 'd3-geo';
 import { Map, Pane, CircleMarker, TileLayer, Polyline } from 'react-leaflet';
-
 
 import 'leaflet/dist/leaflet.css'
 import './GeoMap.css'
-
-// import { feature } from 'topojson-client'
-// import worldGeoData from './data/110m.json'
-// const worldData = feature(worldGeoData, worldGeoData.objects.countries).features
 
 const MAP_DIV_ID = "map"
 const style = {
@@ -92,26 +85,6 @@ class GeoMap extends React.Component {
     )
   }
 }
-
-
-//     <g className="countries">
-//       {
-//         worldData.map((d,i) => (
-//           <path
-//             key={ `path-${ i }` }
-//             d={ geoPath().projection(this.projection())(d) }
-//             className="country"
-//             fill={ `rgba(38,50,56,${1 / worldData.length * i})` }
-//             stroke="#FFFFFF"
-//             strokeWidth={ 0.5 }
-//           />
-//         ))
-//       }
-//     </g>
-//     <g className="geoEdges">
-//       {edges}
-//     </g>
-//   </svg>
 
 GeoMap.propTypes = {
   topogramId : React.PropTypes.string,
