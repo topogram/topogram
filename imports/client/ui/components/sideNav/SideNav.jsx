@@ -5,7 +5,7 @@ import Drawer from 'material-ui/Drawer'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import {Toolbar} from 'material-ui/Toolbar';
-import { Card, CardHeader } from 'material-ui/Card'
+import { Card, CardTitle, CardHeader } from 'material-ui/Card'
 
 import QueryBox from '../queryBox/QueryBox.jsx'
 import Settings from '../settings/Settings.jsx'
@@ -26,25 +26,18 @@ class SideNav extends React.Component {
 
     return (
       <Drawer>
+        <CardTitle
+          title={this.props.topogramTitle}
+          titleStyle={{ fontSize : '14pt', lineHeight : '1em' }}
+          subtitle={`${nodes.length} nodes, ${edges.length} edges`}
+        />
         <Toolbar>
           <QueryBox
               nodes={nodes}
               edges={edges}
             />
         </Toolbar>
-        <CardHeader
-          subtitle ={
-            `${nodes.length} nodes, ${edges.length} edges `
-          }
-          />
-        <NetworkOptions
-          />
-        <Settings
-          topogramTitle={this.props.topogramTitle}
-          topogramId={this.props.topogramId}
-          router={this.props.router}
-          />
-
+        <NetworkOptions/>
         {
           this.props.hasTimeInfo ?
             <FilterByTime />
@@ -57,6 +50,11 @@ class SideNav extends React.Component {
               />
             </Card>
         }
+        <Settings
+          topogramTitle={this.props.topogramTitle}
+          topogramId={this.props.topogramId}
+          router={this.props.router}
+          />
       </Drawer>
     )
   }

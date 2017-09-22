@@ -4,7 +4,6 @@ import Snackbar from 'material-ui/Snackbar'
 import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 
-import TopogramTitle from '/imports/client/ui/components/topogramTitle/TopogramTitle.jsx'
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
 import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
 
@@ -15,7 +14,7 @@ import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
     minTime : null,
     maxTime : null,
     layoutName : 'preset',
-    nodeRadius : 'degree' 
+    nodeRadius : 'degree'
   }
 })
 export class TopogramViewComponent extends React.Component {
@@ -97,7 +96,6 @@ export class TopogramViewComponent extends React.Component {
     return (
       <div>
 
-        <TopogramTitle topogramName={topogramName} />
         <MainViz
           nodes={ nodes }
           edges={ edges }

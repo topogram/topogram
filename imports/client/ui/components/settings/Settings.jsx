@@ -28,7 +28,7 @@ export default class Settings extends React.Component {
         >
           <TextField
             hintText="Hint Text"
-            floatingLabelText="Title"
+            floatingLabelText="Edit Title"
             value={this.props.topogramTitle}
             onChange={this.handleTitleChange}
             floatingLabelFixed={true}
