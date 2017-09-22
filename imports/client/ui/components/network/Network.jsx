@@ -2,15 +2,10 @@ import React from 'react'
 import cytoscape from 'cytoscape'
 import ui from 'redux-ui'
 
-import NetworkDefaultStyle from './NetworkDefaultStyle'
-import {nodeMove} from '/imports/api/nodes/nodesMethods'
-
 import Cytoscape from './Cytoscape.jsx'
+import NetworkDefaultStyle from './NetworkDefaultStyle'
 
-const CYTOSCAPE_DIV_ID = 'network'
-
-const style = {
-}
+import {nodeMove} from '/imports/api/nodes/nodesMethods'
 
 @ui()
 class Network extends React.Component {
@@ -19,8 +14,13 @@ class Network extends React.Component {
     // this is a good place for events
     this.refs.graph.getCy()
       .off('free', 'node')  // reset
+      .on('grab', 'node', e => {
+        var node = e.cyTarget
+        console.log('grabbed', node);
+      })
       .on('free', 'node', function(e) {
-        // var node = e.cyTarget
+        var node = e.cyTarget
+        console.log('free', node);
         // nodeMove.call({ nodeId : node.id(), position : node.position()})
       })
   }
@@ -31,14 +31,15 @@ class Network extends React.Component {
     const {nodes, edges} = this.props
     const elements = nodes.length && edges.length ? {nodes, edges} : {}
 
-    const layoutName = this.props.ui.layoutName
-    console.log(layoutName);
+    const {layoutName, nodeRadius} = this.props.ui
+
     return (
         <Cytoscape
           ref = "graph"
           elements ={elements}
-          style = {NetworkDefaultStyle}
+          style = {NetworkDefaultStyle()}
           layoutName = {layoutName}
+          nodeRadius = {nodeRadius}
         />
     )
   }

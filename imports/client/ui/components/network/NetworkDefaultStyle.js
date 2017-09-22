@@ -5,7 +5,7 @@ const NetworkDefaultStyle = () =>
   stylesheet()
     .selector('node')
       .style({
-        'font-size': 16,//graphState.fontSize,
+        'font-size': 8,
         'text-valign': 'center',
         'text-halign': 'right',
         'color': 'gray',
@@ -42,7 +42,7 @@ const NetworkDefaultStyle = () =>
       .style({
         'background-color' : '#000',
         'target-arrow-shape': 'none', // default is undirected graph
-        'line-width'(e) {
+        'width'(e) {
           return e.data('weight') ? e.data('weight') : .3
         },
         'line-color' : '#AAAAAA',

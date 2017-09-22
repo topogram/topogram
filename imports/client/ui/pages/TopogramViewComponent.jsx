@@ -14,7 +14,8 @@ import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
     filterPanelIsOpen: true,
     minTime : null,
     maxTime : null,
-    layoutName : 'preset'
+    layoutName : 'preset',
+    nodeRadius : 'degree' 
   }
 })
 export class TopogramViewComponent extends React.Component {
