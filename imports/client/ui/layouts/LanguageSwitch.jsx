@@ -42,13 +42,13 @@ class LanguageSwitch extends React.Component {
 
     return (
       <div>
-        <SelectField
+        {/* <SelectField
           value={this.state.locale}
           onChange={this.handleChange}
           style={style}
         >
           {menuItems}
-        </SelectField>
+        </SelectField> */}
           <IntlProvider {...this.state}>
               {this.props.children}
           </IntlProvider>

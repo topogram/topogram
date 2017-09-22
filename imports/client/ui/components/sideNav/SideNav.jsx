@@ -6,6 +6,7 @@ import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import {Toolbar} from 'material-ui/Toolbar';
 import { Card, CardTitle, CardHeader } from 'material-ui/Card'
+import CardBody from './CardBody.jsx'
 
 import QueryBox from '../queryBox/QueryBox.jsx'
 import Settings from '../settings/Settings.jsx'
@@ -25,37 +26,44 @@ class SideNav extends React.Component {
     const { nodes, edges } = this.props;
 
     return (
-      <Drawer>
+      <Card
+        style={{maxWidth : '40%'}}
+        >
         <CardTitle
           title={this.props.topogramTitle}
+          showExpandableButton={true}
+          actAsExpander={true}
           titleStyle={{ fontSize : '14pt', lineHeight : '1em' }}
           subtitle={`${nodes.length} nodes, ${edges.length} edges`}
         />
-        <Toolbar>
-          <QueryBox
-              nodes={nodes}
-              edges={edges}
-            />
-        </Toolbar>
-        <NetworkOptions/>
-        {
-          this.props.hasTimeInfo ?
-            <FilterByTime />
-          :
-            <Card>
+        <CardBody
+          expandable={true}
+          >
+          <Toolbar>
+            <QueryBox
+                nodes={nodes}
+                edges={edges}
+              />
+          </Toolbar>
+          <NetworkOptions/>
+          {
+            this.props.hasTimeInfo ?
+              <FilterByTime />
+            :
               <CardHeader
                 title="Time Filtering"
                 subtitle="No items found."
                 style={{color : '#CCC'}}
               />
-            </Card>
-        }
-        <Settings
-          topogramTitle={this.props.topogramTitle}
-          topogramId={this.props.topogramId}
-          router={this.props.router}
-          />
-      </Drawer>
+
+          }
+          <Settings
+            topogramTitle={this.props.topogramTitle}
+            topogramId={this.props.topogramId}
+            router={this.props.router}
+            />
+        </CardBody>
+      </Card>
     )
   }
 }
