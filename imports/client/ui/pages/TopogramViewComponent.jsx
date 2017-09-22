@@ -88,21 +88,32 @@ export class TopogramViewComponent extends React.Component {
     let topogramName = this.props.topogram.name ?
       this.props.topogram.name : ''
 
+    let nodes = this.props.nodes
+      .filter(n => new Date(this.props.ui.maxTime) >= new Date(n.data.end))
+      .filter(n => new Date(n.data.start) >= new Date(this.props.ui.minTime))
+
+    let nodeIds = nodes.map(n => n.data.id)
+
+    let edges = this.props.edges
+      .filter(e =>
+        nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
+      )
+
     return (
       <div>
 
         <TopogramTitle topogramName={topogramName} />
         <MainViz
-          nodes={ this.props.nodes }
-          edges={ this.props.edges }
+          nodes={ nodes }
+          edges={ edges }
         />
         { this.props.ui.filterPanelIsOpen ?
           <SideNav
             topogramId={ this.props.topogramId }
             topogramTitle={ this.props.topogram.name }
             hasTimeInfo={ this.props.hasTimeInfo }
-            nodes={ this.props.nodes }
-            edges={ this.props.edges }
+            nodes={ nodes }
+            edges={ edges }
           />
           :
           null

@@ -14,31 +14,29 @@ export default class FilterByTime extends React.Component {
   }
 
   handleChangeMinTime = (event, date) => {
-    ui.updateUI('minTime', date)
+    console.log(this.props.updateUI);
+    this.props.updateUI('minTime', date)
   };
 
   handleChangeMaxTime = (event, date) => {
-    ui.updateUI('maxTime', date)
+    this.props.updateUI('maxTime', date)
   };
 
   render() {
-
     const {minTime, maxTime} = this.props.ui
-    console.log(minTime, maxTime);
-
     return (
       <SideNavItem
         title="Time Filter"
         subtitle={`${moment(minTime).format("MMM Do YYYY")} > ${moment(maxTime).format("MMM Do YYYY")}`}
         >
         <DatePicker
-          onChange={this.handleChangeMinDate}
+          onChange={this.handleChangeMinTime}
           autoOk={true}
           floatingLabelText="Min Date"
           value={minTime}
         />
         <DatePicker
-          onChange={this.handleChangeMaxDate}
+          onChange={this.handleChangeMaxTime}
           autoOk={true}
           floatingLabelText="Max Date"
           value={maxTime}
