@@ -1,8 +1,8 @@
 import React from 'react'
 
 import RaisedButton from 'material-ui/RaisedButton';
-import Network from '/imports/ui/components/network/Network.jsx'
-import GeoMap from '/imports/ui/components/geoMap/GeoMap.jsx'
+import Network from '/imports/client/ui/components/network/Network.jsx'
+import GeoMap from '/imports/client/ui/components/geoMap/GeoMap.jsx'
 
 
 const buttonGroupStyle = {

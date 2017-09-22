@@ -5,8 +5,8 @@ import Snackbar from 'material-ui/Snackbar'
 
 import { FormattedMessage, defineMessages } from 'react-intl'
 
-import TopogramList from '/imports/ui/components/topograms/TopogramList.jsx'
-import TopogramAddForm from '/imports/ui/components/topograms/TopogramAddForm.jsx'
+import TopogramList from '/imports/client/ui/components/topograms/TopogramList.jsx'
+import TopogramAddForm from '/imports/client/ui/components/topograms/TopogramAddForm.jsx'
 
 const messages = defineMessages({
   tagline : {

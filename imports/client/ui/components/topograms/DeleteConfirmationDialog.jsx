@@ -3,7 +3,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl'
 
-import { topogramDelete } from '../../../api/topograms/topogramsMethods.js'
+import { topogramDelete } from '../../../../api/topograms/topogramsMethods.js'
 
 const messages = defineMessages({
   confirmQuestion : {

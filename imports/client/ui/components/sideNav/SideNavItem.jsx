@@ -17,21 +17,30 @@ class SideNavItem extends React.Component {
 
   render() {
     return (
-      <Card
-        initiallyExpanded={this.props.initiallyExpanded}
-        >
-        <CardHeader
-          title={this.props.title}
-          subtitle={this.props.subtitle}
-          actAsExpander={true}
-          showExpandableButton={true}
-        />
-        <CardBody
-          expandable={true}
+      this.props.disabled ?
+        <Card>
+          <CardHeader
+            title={this.props.title}
+            subtitle="No items founds."
+            style={{color : '#CCC'}}
+          />
+        </Card>
+      :
+        <Card
+          initiallyExpanded={this.props.initiallyExpanded}
           >
-          {this.props.children}
-        </CardBody>
-      </Card>
+          <CardHeader
+            title={this.props.title}
+            subtitle={this.props.subtitle}
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardBody
+            expandable={true}
+            >
+            {this.props.children}
+          </CardBody>
+        </Card>
     )
   }
 }

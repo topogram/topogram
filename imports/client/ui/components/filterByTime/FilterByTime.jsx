@@ -12,6 +12,7 @@ export default class FilterByTime extends React.Component {
   constructor(props) {
     super(props);
 
+    //default
     const minDate = new Date();
     const maxDate = new Date();
     minDate.setFullYear(minDate.getFullYear() - 1);
@@ -20,6 +21,8 @@ export default class FilterByTime extends React.Component {
     maxDate.setHours(0, 0, 0, 0);
 
     this.state = {
+      hasDates : false,
+      setDefault :false,
       minDate: minDate,
       maxDate: maxDate
     };
@@ -37,25 +40,31 @@ export default class FilterByTime extends React.Component {
     });
   };
 
-  handleToggle = (event, toggled) => {
-    this.setState({
-      [event.target.name]: toggled,
-    });
-  };
+  componentWillUpdate(nextProps) {
+
+    // if (this.props.starts.length || this.props.nodes.length) {
+    //
+    //   console.log(minDate, maxDate);
+    //   this.setState({minDate, maxDate, setDefault : true})
+    // }
+  }
 
   render() {
+
     return (
       <div style={optionsStyle}>
         <DatePicker
           onChange={this.handleChangeMinDate}
           autoOk={true}
           floatingLabelText="Min Date"
+          minDate={this.state.minDate}
           defaultDate={this.state.minDate}
         />
         <DatePicker
           onChange={this.handleChangeMaxDate}
           autoOk={true}
           floatingLabelText="Max Date"
+          maxDate={this.state.maxDate}
           defaultDate={this.state.maxDate}
         />
       </div>

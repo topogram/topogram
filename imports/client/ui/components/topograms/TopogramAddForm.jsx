@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, RaisedButton } from 'material-ui'
 import { defineMessages, injectIntl } from 'react-intl'
 
-import { topogramCreate } from '../../../api/topograms/topogramsMethods.js'
+import { topogramCreate } from '../../../../api/topograms/topogramsMethods.js'
 
 let formStyle = { padding : '150px' }
 let buttonStyle = { marginLeft : 12 }

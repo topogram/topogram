@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutWrapper from '/imports/ui/layouts/LayoutWrapper.jsx'
+import LayoutWrapper from '/imports/client/ui/layouts/LayoutWrapper.jsx'
 import '/imports/css/topogram.scss'
 
 const MainLayout = ({ children }) => (

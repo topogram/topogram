@@ -5,7 +5,7 @@ import { loadNodes, NODES_SUB } from '/imports/client/actions/nodes';
 import { loadEdges, EDGES_SUB } from '/imports/client/actions/edges';
 import { loadTopogram, TOPOGRAM_SINGLE_SUB } from '/imports/client/actions/topogram';
 
-import { TopogramComponent } from '/imports/ui/pages/TopogramComponent';
+import { TopogramComponent } from '/imports/client/ui/pages/TopogramComponent';
 
 const mapStateToProps = state => ({
     nodesReady: state.nodes.ready,

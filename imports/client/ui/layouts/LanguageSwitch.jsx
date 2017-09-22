@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
-import { appLocales, messages } from '../../i18n.js'
+import { appLocales, messages } from '../../../i18n.js'
 
 const style = {
   maxWidth : '60px',

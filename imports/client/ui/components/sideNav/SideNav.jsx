@@ -35,6 +35,19 @@ class SideNav extends React.Component {
   render() {
     const { nodes, edges } = this.props;
 
+    const starts = this.props.nodes
+      .filter(n => n.data.start)
+      .map(n => new Date(n.data.start))
+      .sort()
+
+    const ends = this.props.nodes
+      .filter(n => n.data.end)
+      .map(n => new Date(n.data.end))
+      .sort((a,b) => a-b)
+
+    const hasTimeInfo = (starts.length || ends.length)
+
+    console.log(starts, ends);
     return (
       <Drawer open={this.state.open}>
         <Toolbar>
@@ -50,9 +63,13 @@ class SideNav extends React.Component {
           />
         <SideNavItem
           title="Time Filter"
-          initiallyExpanded={true}
+          disabled={!hasTimeInfo}
+          // initiallyExpanded={hasTimeInfo}
         >
-          <FilterByTime />
+          <FilterByTime
+            starts={starts}
+            ends={ends}
+            />
         </SideNavItem>
       </Drawer>
     )
