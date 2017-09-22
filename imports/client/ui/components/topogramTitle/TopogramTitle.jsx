@@ -3,7 +3,6 @@ import ui from 'redux-ui'
 import {Card, CardTitle, CardActions} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-console.log(ui);
 const styleCard = {
   maxWidth: '30%',
   margin : '1em',

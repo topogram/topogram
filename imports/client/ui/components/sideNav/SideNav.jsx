@@ -7,8 +7,6 @@ import FlatButton from 'material-ui/FlatButton'
 import {Toolbar} from 'material-ui/Toolbar';
 import { Card, CardHeader } from 'material-ui/Card'
 
-
-import SideNavItem from './SideNavItem.jsx'
 import NodesLab from '../nodes/NodesLab.jsx'
 import EdgesLab from '../edges/EdgesLab.jsx'
 import QueryBox from '../queryBox/QueryBox.jsx'
@@ -34,20 +32,7 @@ class SideNav extends React.Component {
 
   render() {
     const { nodes, edges } = this.props;
-
-    const starts = this.props.nodes
-      .filter(n => n.data.start)
-      .map(n => new Date(n.data.start))
-      .sort()
-
-    const ends = this.props.nodes
-      .filter(n => n.data.end)
-      .map(n => new Date(n.data.end))
-      .sort((a,b) => a-b)
-
-    const hasTimeInfo = (starts.length || ends.length)
-
-    console.log(starts, ends);
+    console.log(this.props);
     return (
       <Drawer open={this.state.open}>
         <Toolbar>
@@ -61,16 +46,18 @@ class SideNav extends React.Component {
             `${nodes.length} nodes, ${edges.length} edges `
           }
           />
-        <SideNavItem
-          title="Time Filter"
-          disabled={!hasTimeInfo}
-          // initiallyExpanded={hasTimeInfo}
-        >
-          <FilterByTime
-            starts={starts}
-            ends={ends}
-            />
-        </SideNavItem>
+        {
+          this.props.hasTimeInfo ?
+            <FilterByTime />
+          :
+            <Card>
+              <CardHeader
+                title="Time Filtering"
+                subtitle="No items found."
+                style={{color : '#CCC'}}
+              />
+            </Card>
+        }
       </Drawer>
     )
   }

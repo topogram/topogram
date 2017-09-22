@@ -10,6 +10,9 @@ import { TopogramViewComponent } from '/imports/client/ui/pages/TopogramViewComp
 const mapStateToProps = state => ({
     nodesReady: state.nodes.ready,
     nodes: state.nodes.nodes,
+    hasTimeInfo : state.nodes.hasTimeInfo,
+    minTime : state.nodes.minTime,
+    maxTime : state.nodes.maxTime,
     edgesReady: state.edges.ready,
     edges: state.edges.edges,
     topogram : state.topogram.topogram,

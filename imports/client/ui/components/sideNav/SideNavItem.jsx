@@ -1,10 +1,17 @@
 import React from 'react'
 import { Card, CardHeader } from 'material-ui/Card'
-
+import ui from 'redux-ui'
 import CardBody from './CardBody.jsx'
 
-
+@ui()
 class SideNavItem extends React.Component {
+
+  static propTypes = {
+    title: React.PropTypes.string,
+    children: React.PropTypes.node,
+    initiallyExpanded: React.PropTypes.bool
+  }
+
   constructor(props) {
     super(props)
     this.state = { open: true }
@@ -17,15 +24,6 @@ class SideNavItem extends React.Component {
 
   render() {
     return (
-      this.props.disabled ?
-        <Card>
-          <CardHeader
-            title={this.props.title}
-            subtitle="No items founds."
-            style={{color : '#CCC'}}
-          />
-        </Card>
-      :
         <Card
           initiallyExpanded={this.props.initiallyExpanded}
           >
@@ -44,18 +42,5 @@ class SideNavItem extends React.Component {
     )
   }
 }
-
-SideNavItem.propTypes = {
-  title: React.PropTypes.string,
-  children: React.PropTypes.node,
-  initiallyExpanded: React.PropTypes.bool
-}
-
-SideNavItem.defaultProps = {
-  title: 'Title',
-  subtitle: '',
-  initiallyExpanded: false
-}
-
 
 export default SideNavItem

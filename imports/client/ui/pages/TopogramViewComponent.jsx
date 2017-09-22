@@ -8,11 +8,19 @@ import TopogramTitle from '/imports/client/ui/components/topogramTitle/TopogramT
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
 import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
 
+// default values
+// const minTime = new Date();
+// const maxTime = new Date();
+// minTime.setFullYear(minTime.getFullYear() - 1);
+// minTime.setHours(0, 0, 0, 0);
+// maxTime.setFullYear(maxTime.getFullYear() + 1);
+// maxTime.setHours(0, 0, 0, 0);
 
 @ui({
   state: {
     filterPanelIsOpen: true,
-    filters: []
+    minTime : null, // minTime,
+    maxTime : null  // maxTime
   }
 })
 export class TopogramViewComponent extends React.Component {
@@ -21,6 +29,9 @@ export class TopogramViewComponent extends React.Component {
     ui: React.PropTypes.object,
     updateUI: React.PropTypes.func,
     topogramId: React.PropTypes.string,
+    hasTimeInfo: React.PropTypes.bool,
+    maxTime: React.PropTypes.instanceOf(Date),
+    minTime: React.PropTypes.instanceOf(Date),
     nodes: React.PropTypes.array,
     edges: React.PropTypes.array,
     topogram: React.PropTypes.object
@@ -63,13 +74,20 @@ export class TopogramViewComponent extends React.Component {
     })
   }
 
+  componentWillUpdate() {
+    if (this.props.hasTimeInfo && !this.props.ui.minTime && !this.props.ui.maxTime) {
+     // pass value to UI as default
+     this.props.updateUI('minTime', this.props.minTime)
+     this.props.updateUI('maxTime', this.props.maxTime)
+   }
+  }
+
   render() {
     const { networkVisible, mapVisible } = this.state
 
     let topogramName = this.props.topogram.name ?
       this.props.topogram.name : ''
 
-    console.log(this.props);
     return (
       <div>
 
@@ -82,6 +100,7 @@ export class TopogramViewComponent extends React.Component {
           <SideNav
             topogramId={ this.props.topogramId }
             topogramTitle={ this.props.topogram.name }
+            hasTimeInfo={ this.props.hasTimeInfo }
             nodes={ this.props.nodes }
             edges={ this.props.edges }
           />
