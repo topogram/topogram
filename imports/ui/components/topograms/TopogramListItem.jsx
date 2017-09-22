@@ -15,8 +15,8 @@ const messages = defineMessages({
     'message': ''
   },
   data : {
-    'id': 'topogram.index.card.button.data',
-    'defaultMessage': 'Data',
+    'id': 'topogram.index.card.button.edit',
+    'defaultMessage': 'Edit',
     'message': ''
   },
 })
@@ -37,8 +37,7 @@ const TopogramListItem = React.createClass({
   render() {
 
     let parsedDate = (this.props.date) ?  moment(this.props.date).fromNow() : ''
-    let url = '/topograms/' + this.props._id + '/view'
-    let dataUrl = '/topograms/' + this.props._id
+    let url = `/topograms/${this.props._id}`
 
     const deleteButton = ( !this.props.editable ) ? '' : <DeleteConfirmationDialog
       topogramName= {this.props.title}
@@ -66,7 +65,7 @@ const TopogramListItem = React.createClass({
         <FlatButton
           label={formatMessage(messages.data)}
           secondary={true}
-          href={dataUrl}
+          href={url+'/edit'}
         />
         {deleteButton}
       </CardActions>
