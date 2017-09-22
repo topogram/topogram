@@ -47,6 +47,7 @@ class SideNav extends React.Component {
           />
         <Settings
           topogramTitle={this.props.topogramTitle}
+          topogramId={this.props.topogramId}
           />
         {
           this.props.hasTimeInfo ?

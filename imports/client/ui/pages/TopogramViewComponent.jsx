@@ -109,7 +109,7 @@ export class TopogramViewComponent extends React.Component {
         />
         { this.props.ui.filterPanelIsOpen ?
           <SideNav
-            topogramId={ this.props.topogramId }
+            topogramId={ this.props.params.topogramId }
             topogramTitle={ this.props.topogram.name }
             hasTimeInfo={ this.props.hasTimeInfo }
             nodes={ nodes }

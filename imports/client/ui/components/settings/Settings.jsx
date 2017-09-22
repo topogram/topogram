@@ -2,6 +2,9 @@ import React from 'react'
 import TextField from 'material-ui/TextField';
 
 import SideNavItem from '../sideNav/SideNavItem.jsx'
+import { topogramDelete, topogramUpdateTitle } from '../../../../api/topograms/topogramsMethods.js'
+
+console.log(topogramUpdateTitle);
 
 export default class Settings extends React.Component {
 
@@ -10,7 +13,12 @@ export default class Settings extends React.Component {
   }
 
   handleTitleChange = (event) => {
-    console.log(event.target.value);
+    let title = event.target.value;
+    console.log(this.props.topogramId);
+    topogramUpdateTitle.call({
+      topogramId : this.props.topogramId,
+      title
+    })
   }
 
   render() {

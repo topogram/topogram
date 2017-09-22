@@ -137,15 +137,12 @@ if (Meteor.isServer) {
           Factory.create('node', { topogramId });
           let title = "blabla"
           let t_before = Topograms.findOne({ _id : topogramId });
-          console.log(t_before);
-
           topogramUpdateTitle._execute({},{
             topogramId,
             title
           });
           assert.equal(Topograms.find().count(), 1);
           let t = Topograms.findOne({ _id : topogramId });
-          console.log(t);
           assert.equal(t.name, title);
           done();
         })
