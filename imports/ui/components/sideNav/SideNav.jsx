@@ -5,6 +5,8 @@ import Drawer from 'material-ui/Drawer'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import {Toolbar} from 'material-ui/Toolbar';
+import { Card, CardHeader } from 'material-ui/Card'
+
 
 import SideNavItem from './SideNavItem.jsx'
 import NodesLab from '../nodes/NodesLab.jsx'
@@ -31,36 +33,26 @@ class SideNav extends React.Component {
   }
 
   render() {
+    const { nodes, edges } = this.props;
+
     return (
       <Drawer open={this.state.open}>
         <Toolbar>
           <QueryBox
-              nodes={this.props.nodes}
-              edges={this.props.edges}
+              nodes={nodes}
+              edges={edges}
             />
         </Toolbar>
-
+        <CardHeader
+          subtitle ={
+            `${nodes.length} nodes, ${edges.length} edges `
+          }
+          />
         <SideNavItem
-          title="Data"
+          title="Time Filter"
           initiallyExpanded={true}
         >
           <FilterByTime />
-        </SideNavItem>
-
-        <SideNavItem
-          title="Data"
-          initiallyExpanded={false}
-        >
-          <NodesLab
-            nodes={this.props.nodes}
-          />
-          <EdgesLab
-            edges={this.props.edges}
-          />
-          {/* <FlatButton
-            label="Import Data"
-            href={importUrl}
-          /> */}
         </SideNavItem>
       </Drawer>
     )

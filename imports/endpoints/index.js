@@ -57,8 +57,16 @@ Api.addCollection(Nodes, {
     post: {
       action() {
         const topogramId = this.bodyParams.topogramId
+
+        // parse Date object from JSON
         const nodes = this.bodyParams.nodes
-        console.log(nodes);
+          .map( n=> {
+            let {data} = n
+            data.start = new Date(n.data.start),
+            data.end = new Date(n.data.end)
+            return {data}
+          })
+
         let data = createNodes(topogramId, nodes)
         return buildSuccessAnswer({ statusCode : 201, data})
       }

@@ -204,8 +204,6 @@ Meteor.methods( {
       '_id': targetId
     } )  // will be deleted
 
-        // console.log("merging nodes")
-
         // tx.start( "merges nodes" )
 
         // find and replace all target node edges with source id

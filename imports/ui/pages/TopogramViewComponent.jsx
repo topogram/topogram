@@ -11,7 +11,7 @@ import SideNav from '/imports/ui/components/sideNav/SideNav.jsx'
 
 @ui({
   state: {
-    filterPanelIsOpen: false,
+    filterPanelIsOpen: true,
     filters: []
   }
 })
@@ -88,7 +88,6 @@ export class TopogramViewComponent extends React.Component {
           :
           null
         }
-
       </div>
     )
   }

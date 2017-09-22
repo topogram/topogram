@@ -8,7 +8,7 @@ import {
 } from '/imports/api/nodes/nodesMethods.js';
 
 export const createNodes = (topogramId, nodes) =>
-  nodeCreateMany.call({ topogramId, nodes })
+ nodeCreateMany.call({ topogramId, nodes })
 
 export const updateNode = (nodeId, data) =>
   nodeUpdate.call({ nodeId, data })
