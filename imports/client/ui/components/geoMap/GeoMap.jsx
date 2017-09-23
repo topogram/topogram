@@ -37,7 +37,7 @@ class GeoMap extends React.Component {
   }
 
   render() {
-    let {geoMapTile} = this.props.ui
+    let {geoMapTile, selectedElements} = this.props.ui
     let {zoom, position} = this.state
     let nodesById = {}
     let {width} = this.props
@@ -45,28 +45,48 @@ class GeoMap extends React.Component {
     // resize dynamically using d3
     d3.select('.leaflet-container')
       .style('width', width)
-
     const left = width === '50vw' ? '50vw' : 0;
 
-    let nodes = this.props.nodes.map( (n,i) => {
-      let coords = [n.data.lat,n.data.lng]
-      nodesById[n.data.id] = coords; // store for edges
-      return <CircleMarker
-        radius={5}
-        key={`node-${i}`}
-        center={coords}
-        onClick={(e) => this.onClickNode(e)}
-        />
-    })
+    // selection
+    let selectedNodesIndex = []
+    let el = selectedElements[0];
+    if(selectedElements.length === 1) {
+      const subGraph = el.group() === 'nodes' ?
+        el.closedNeighborhood()
+        :
+        el.connectedNodes().add(el)
+      selectedNodesIndex = subGraph.nodes().map(n => n.data('i'))
+    }
 
-    let edges = this.props.edges.map( (e,i) =>
-      <Polyline
-        key={`edge-${i}`}
-        color="purple"
-        positions={[ nodesById[e.data.source], nodesById[e.data.target] ]}
-        onClick={(e) => this.onClickEdge(e)}
-      />
-    )
+    let nodes = this.props.nodes
+      .filter((n,i) => selectedElements.length ?
+          selectedNodesIndex.indexOf(i) > -1
+          : true
+        )
+      .map( (n,i) => {
+        let coords = [n.data.lat,n.data.lng]
+        nodesById[n.data.id] = coords; // store for edges
+        let fillColor = (el && i === el.data('i')) ? 'red' : 'steelblue'
+        return <CircleMarker
+          radius={5}
+          // style={style}
+          key={`node-${i}`}
+          center={coords}
+          color={fillColor}
+          onClick={(e) => this.onClickNode(e)}
+          />
+      })
+
+    let edges = this.props.edges
+      .filter(e => nodesById[e.data.source] && nodesById[e.data.target])
+      .map( (e,i) =>
+        <Polyline
+          key={`edge-${i}`}
+          color="purple"
+          positions={[ nodesById[e.data.source], nodesById[e.data.target] ]}
+          onClick={(e) => this.onClickEdge(e)}
+        />
+      )
 
     let {url, attribution, minZoom, maxZoom, ext} = mapTiles[geoMapTile]
 
