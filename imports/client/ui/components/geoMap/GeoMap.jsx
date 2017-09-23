@@ -28,12 +28,27 @@ class GeoMap extends React.Component {
     }
   }
 
-  onClickNode() {
-    console.log("click node")
+  onGrabNode(e, data, i) {
+    let selected = this.props.ui.cy.nodes()
+      .filter(`node[i=${i}]`)
+    this.props.updateUI('selectedElements', selected)
+    this.props.updateUI( 'selectionPanelVisible', true )
+  }
+  onFreeNode() {
+    this.props.updateUI('selectedElements', [])
+    this.props.updateUI( 'selectionPanelVisible', false )
   }
 
-  onClickEdge() {
-    console.log("click edge")
+  onGrabEdge(e, data, i) {
+    let selected = this.props.ui.cy
+      .filter(`edge[source="${data.source}"][target="${data.target}"]`)
+    this.props.updateUI('selectedElements', selected)
+    this.props.updateUI( 'selectionPanelVisible', true )
+  }
+
+  onFreeEdge() {
+    this.props.updateUI('selectedElements', [])
+    this.props.updateUI( 'selectionPanelVisible', false )
   }
 
   render() {
@@ -73,7 +88,8 @@ class GeoMap extends React.Component {
           key={`node-${i}`}
           center={coords}
           color={fillColor}
-          onClick={(e) => this.onClickNode(e)}
+          onMouseDown={(e) => this.onGrabNode(e, n.data, i)}
+          onMouseUp={(e) => this.onFreeNode()}
           />
       })
 
@@ -84,7 +100,8 @@ class GeoMap extends React.Component {
           key={`edge-${i}`}
           color="purple"
           positions={[ nodesById[e.data.source], nodesById[e.data.target] ]}
-          onClick={(e) => this.onClickEdge(e)}
+          onMouseDown={(evt) => this.onGrabEdge(evt, e.data, i)}
+          onMouseUp={(evt) => this.onFreeEdge()}
         />
       )
 
