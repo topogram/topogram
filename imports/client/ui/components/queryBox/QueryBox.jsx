@@ -7,7 +7,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 const messages = defineMessages({
   hint : {
     'id': 'queryBox.hint',
-    'defaultMessage': 'Input the name of a node',
+    'defaultMessage': 'Search for a node',
     'message': ''
   },
   label : {
@@ -19,7 +19,6 @@ const messages = defineMessages({
 
 const styles = {
   autoComplete : {
-
   }
 }
 

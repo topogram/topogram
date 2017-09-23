@@ -1,8 +1,6 @@
 import React from 'react'
 import ui from 'redux-ui'
 
-import Drawer from 'material-ui/Drawer'
-import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import {Toolbar} from 'material-ui/Toolbar';
 import { Card, CardTitle, CardHeader } from 'material-ui/Card'
@@ -47,13 +45,12 @@ class SideNav extends React.Component {
         <CardBody
           expandable={true}
           >
-          <Toolbar>
-            <QueryBox
-                nodes={nodes}
-                edges={edges}
-              />
-          </Toolbar>
-          <Divider/>
+
+          <QueryBox
+              nodes={nodes}
+              edges={edges}
+            />
+
           {
             this.props.hasTimeInfo ?
               <FilterByTime />
