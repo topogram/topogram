@@ -1,4 +1,5 @@
 import React from 'react'
+import ui from 'redux-ui'
 
 import { LatLng } from 'leaflet';
 import { Map, Pane, CircleMarker, TileLayer, Polyline } from 'react-leaflet';
@@ -18,6 +19,9 @@ const style = {
   }
 }
 
+import mapTiles from './mapTiles'
+
+@ui()
 class GeoMap extends React.Component {
 
   constructor(props) {
@@ -39,10 +43,10 @@ class GeoMap extends React.Component {
   }
 
   render() {
+    let {geoMapTile} = this.props.ui
     let {zoom, position, w, h} = this.state
     let nodesById = {}
 
-    console.log(this.props.nodes, this.props.edges);
     let nodes = this.props.nodes.map( (n,i) => {
       let coords = [n.data.lat,n.data.lng]
       nodesById[n.data.id] = coords; // store for edges
@@ -63,6 +67,8 @@ class GeoMap extends React.Component {
       />
     )
 
+    let {url, attribution, minZoom, maxZoom, ext} = mapTiles[geoMapTile]
+
     return (
       <div style={style.divMap} >
         <div
@@ -77,8 +83,11 @@ class GeoMap extends React.Component {
               {edges}
               {nodes}
             <TileLayer
-              url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url={url}
+              attribution={attribution}
+              minZoom={minZoom}
+              maxZoom={maxZoom}
+              ext={ext}
             />
           </Map>
         </div>

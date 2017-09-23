@@ -11,6 +11,7 @@ import CardBody from './CardBody.jsx'
 import QueryBox from '../queryBox/QueryBox.jsx'
 import Settings from '../settings/Settings.jsx'
 import NetworkOptions from '../networkOptions/NetworkOptions.jsx'
+import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
 import FilterByTime from '../filterByTime/FilterByTime.jsx'
 
 import {nodeCreate} from '/imports/api/nodes/nodesMethods'
@@ -24,6 +25,7 @@ class SideNav extends React.Component {
 
   render() {
     const { nodes, edges } = this.props;
+    const { isGeoMap } = this.props.ui;
 
     return (
       <Card
@@ -45,7 +47,15 @@ class SideNav extends React.Component {
                 edges={edges}
               />
           </Toolbar>
-          <NetworkOptions/>
+          {
+            isGeoMap ?
+            <GeoMapOptions/>
+            :
+            <NetworkOptions/>
+
+
+          }
+
           {
             this.props.hasTimeInfo ?
               <FilterByTime />

@@ -13,9 +13,10 @@ import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
     filterPanelIsOpen: true,
     minTime : null,
     maxTime : null,
-    isGeoMap : false,
+    isGeoMap : true,
     layoutName : 'preset',
-    nodeRadius : 'degree'
+    nodeRadius : 'degree',
+    geoMapTile : 'default'
   }
 })
 export class TopogramViewComponent extends React.Component {
