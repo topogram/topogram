@@ -9,15 +9,11 @@ import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card'
 @ui()
 export default class FocusPanel extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
-
-  handleToggle = () => this.setState({open: !this.state.open});
+  handleToggle = () => this.props.updateUI(
+    'selectionPanelPinned', !this.props.ui.selectionPanelPinned);
 
   render() {
-    const {cy, selectedElements} = this.props.ui;
+    const {cy, selectedElements, selectionPanelVisible, selectionPanelPinned} = this.props.ui;
 
     // console.log(cy, selectedElements);
 
@@ -74,7 +70,7 @@ export default class FocusPanel extends React.Component {
         <Drawer
           width={250}
           openSecondary={true}
-          open={this.props.open} >
+          open={selectionPanelVisible || selectionPanelPinned} >
           {selected}
         </Drawer>
     );

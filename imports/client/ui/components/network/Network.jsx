@@ -26,19 +26,23 @@ class Network extends React.Component {
       .on('grab', 'node', e => {
         let node = e.cyTarget
         this.props.updateUI('selectedElements', [node])
+        this.props.updateUI( 'selectionPanelVisible', true )
       })
       .on('free', 'node', e => {
         let node = e.cyTarget
         console.log('grabbed', node);
         this.props.updateUI('selectedElements', [])
+        this.props.updateUI( 'selectionPanelVisible', false )
       })
       .on('tapstart', 'edge', e => {
         console.log(e.cyTarget);
+        this.props.updateUI( 'selectionPanelVisible', true )
         this.props.updateUI('selectedElements', [e.cyTarget])
       })
       .on('tapend', 'edge', e => {
         console.log("free",e.cyTarget);
         this.props.updateUI('selectedElements', [])
+        this.props.updateUI( 'selectionPanelVisible', false )
       })
       .on('mouseover', 'node', e => {
         let node = e.cyTarget

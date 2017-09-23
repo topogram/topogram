@@ -12,7 +12,7 @@ import GeoMap from '/imports/client/ui/components/geoMap/GeoMap.jsx'
 
 const buttonGroupStyle = {
   bottom : 20,
-  right :20,
+  left :20,
   position : 'absolute',
   display: 'flex', flexDirection: 'row'
 };
@@ -33,21 +33,20 @@ export default class MainViz extends React.Component {
     this.props.updateUI( 'graphVisible', !this.props.ui.graphVisible )
   }
 
-  // toggleSelection() {
-  //   this.props.updateUI( 'selectionPanelVisible', !this.props.ui.selectionPanelVisible )
-  // }
+  toggleSelectionPanel() {
+    this.props.updateUI( 'selectionPanelPinned', !this.props.ui.selectionPanelPinned )
+  }
 
   render() {
 
-    const { geoMapVisible, graphVisible } = this.props.ui
+    const { selectionPanelPinned, geoMapVisible, graphVisible } = this.props.ui
     const { nodes, edges } = this.props
 
-    const width = graphVisible && geoMapVisible ?
-      '50vw'
-        :
-      '100vw'
+    let panelsCount = [geoMapVisible, graphVisible].filter(d => d).length
 
-    console.log(geoMapVisible, graphVisible);
+    let width = '100vw'
+    if (panelsCount === 2) width = '50vw'
+    // if (panelsCount === 3) width = '33vw'
 
     return (
       <div>
@@ -66,11 +65,13 @@ export default class MainViz extends React.Component {
               onClick={ () => this.toggleGraph()}
             />
           </Paper>
-          {/* <RaisedButton
-            label={"Selection"}
-            style={buttonStyle}
-            onClick={ () => this.toggleSelectionPanel()}
-          /> */}
+          <Paper style={buttonStyle}>
+            <Checkbox
+              label={"Selection"}
+              checked={selectionPanelPinned}
+              onClick={ () => this.toggleSelectionPanel()}
+            />
+          </Paper>
         </div>
         {
           geoMapVisible ?

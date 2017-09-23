@@ -68,7 +68,7 @@ class GeoMap extends React.Component {
         nodesById[n.data.id] = coords; // store for edges
         let fillColor = (el && i === el.data('i')) ? 'red' : 'steelblue'
         return <CircleMarker
-          radius={5}
+          radius={10}
           // style={style}
           key={`node-${i}`}
           center={coords}

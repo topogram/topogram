@@ -24,6 +24,8 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     nodeRadius : 'degree',
     geoMapTile : 'default',
     // selection
+    selectionPanelVisible : false,
+    selectionPanelPinned : false,
     selectedElements : [],
     cy : null // cytoscape graph
   }
@@ -127,7 +129,7 @@ export class TopogramViewComponent extends React.Component {
           null
         }
         <SelectionPanel
-          open={!!this.props.ui.selectedElements.length}
+          open={!!this.props.ui.selectionPanelVisible}
           />
       </div>
     )
