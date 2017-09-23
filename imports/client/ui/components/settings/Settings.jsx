@@ -9,14 +9,31 @@ import { topogramDelete, topogramUpdateTitle } from '../../../../api/topograms/t
 
 export default class Settings extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: this.props.topogramTitle
+    }
+  }
+
   static propTypes = {
     topogramTitle : React.PropTypes.string
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('got new props');
+    let {title} = nextProps
+    this.setState({title})
+  }
+
   handleTitleChange = (event) => {
+    this.setState({title : event.target.value})
+  }
+
+  handleClickUpdateTitle = (event) => {
     topogramUpdateTitle.call({
       topogramId : this.props.topogramId,
-      title : event.target.value
+      title : this.state.title
     })
   }
 
@@ -27,14 +44,18 @@ export default class Settings extends React.Component {
         subtitle="Tweak stuff"
         >
           <TextField
-            hintText="Hint Text"
             floatingLabelText="Edit Title"
-            value={this.props.topogramTitle}
+            value={this.state.title}
             onChange={this.handleTitleChange}
             floatingLabelFixed={true}
             multiLine={true}
             rows={3}
           />
+          <RaisedButton
+            label="Update Title"
+            onClick={ e=> this.handleClickUpdateTitle(e)}
+            />
+
           <DeleteConfirmationDialog
             topogramName= {this.props.topogramTitle}
             topogramId={this.props.topogramId}
