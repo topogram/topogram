@@ -15,7 +15,25 @@ export default class FocusPanel extends React.Component {
   handleToggle = () => this.setState({open: !this.state.open});
 
   render() {
-    const {selectedElements} = this.props.ui;
+    const {cy, selectedElements} = this.props.ui;
+
+    console.log(cy, selectedElements);
+    if(cy) {
+      if(selectedElements.length === 1) {
+        // select
+        var subGraph = selectedElements[0].closedNeighborhood()
+
+        // make only the focus selectable
+        cy.nodes().hide()
+        cy.edges().hide()
+        subGraph.show()
+
+      } else {
+        // show everything
+        cy.nodes().show()
+        cy.edges().show()
+      }
+    }
 
     const selected = selectedElements
       .map( (e,i) => {

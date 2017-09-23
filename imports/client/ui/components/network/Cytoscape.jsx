@@ -118,6 +118,7 @@ class Cytoscape extends Component{
       :
       this.updateRadiusByDegree()
   }
+
   componentWillReceiveProps(nextProps){
 
     const {layoutName, nodeRadius} = nextProps
@@ -126,8 +127,10 @@ class Cytoscape extends Component{
     this.cy.json(nextProps);
 
     // apply new layout if any
-    if( this.props.layoutName !== layoutName)
+    if( this.props.layoutName !== layoutName) {
       this.applyLayout(layoutName)
+      this.updateRadius(nodeRadius)
+    }
 
     // apply new node radius if any
     if( this.props.nodeRadius !== nodeRadius)

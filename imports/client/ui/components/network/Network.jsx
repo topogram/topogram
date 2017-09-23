@@ -16,19 +16,65 @@ class Network extends React.Component {
   }
 
   componentDidMount(){
+
+    const cy = this.refs.graph.getCy()
+
     // this is a good place for events
-    this.refs.graph.getCy()
-      .off('free', 'node')  // reset
+
+    cy.off('free', 'node')  // reset
       .on('grab', 'node', e => {
-        var node = e.cyTarget
-        console.log(node);
+        let node = e.cyTarget
         this.props.updateUI('selectedElements', [node])
       })
       .on('free', 'node', e => {
-        var node = e.cyTarget
+        let node = e.cyTarget
         console.log('grabbed', node);
         this.props.updateUI('selectedElements', [])
       })
+      .on('mouseover', 'node', e => {
+        let node = e.cyTarget
+        node.style({
+            'border-width': 2,
+            'font-size' : 8,
+            'color' : 'black',
+            'label': function(d) {
+              return d.data("name") ? d.data("name") : ""
+            },
+            'z-index': 300000
+        })
+        let edges = e.cyTarget.connectedEdges()
+        edges.css({
+          'line-color' : function(d) {
+              return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
+            },
+            'opacity' : "1"
+        })
+        cy.edges().difference( edges ).css({
+          'opacity' : ".2"
+        })
+      })
+      .on('mouseout', 'node', e => {
+        e.cyTarget.style({
+          'border-width': function(d) {
+            return (d.data("group") == "ghosts") ? 3 : 0
+          },
+          'font-size' : 6,
+          'color' : 'gray',
+          'label': function(d) {
+            return d.data("name") ? d.data("name").trunc(20) : ""
+          }
+        })
+        e.cyTarget.connectedEdges().css({
+          'line-color' : function() {
+              return "#AAAAAA"
+            }
+        })
+        // reset opacity
+        cy.edges().css({ 'opacity' : ".7" })
+      })
+
+    // store cytoscape object
+    this.props.updateUI('cy', this.refs.graph.getCy())
   }
 
   shouldComponentUpdate(nextProps) {

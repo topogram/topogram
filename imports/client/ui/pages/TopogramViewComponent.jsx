@@ -21,7 +21,8 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     nodeRadius : 'degree',
     geoMapTile : 'default',
     // selection
-    selectedElements : []
+    selectedElements : [],
+    cy : null // cytoscape graph
   }
 })
 export class TopogramViewComponent extends React.Component {
