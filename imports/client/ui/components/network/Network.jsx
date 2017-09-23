@@ -22,6 +22,7 @@ class Network extends React.Component {
     // this is a good place for events
 
     cy.off('free', 'node')  // reset
+      .off('free', 'edge')  // reset
       .on('grab', 'node', e => {
         let node = e.cyTarget
         this.props.updateUI('selectedElements', [node])
@@ -29,6 +30,14 @@ class Network extends React.Component {
       .on('free', 'node', e => {
         let node = e.cyTarget
         console.log('grabbed', node);
+        this.props.updateUI('selectedElements', [])
+      })
+      .on('tapstart', 'edge', e => {
+        console.log(e.cyTarget);
+        this.props.updateUI('selectedElements', [e.cyTarget])
+      })
+      .on('tapend', 'edge', e => {
+        console.log("free",e.cyTarget);
         this.props.updateUI('selectedElements', [])
       })
       .on('mouseover', 'node', e => {

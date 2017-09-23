@@ -147,7 +147,6 @@ class Cytoscape extends Component{
     this.cy.fit()
   }
 
-
   componentWillUnmount(){
     this.cy.destroy();
   }

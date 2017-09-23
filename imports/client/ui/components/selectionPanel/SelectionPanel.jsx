@@ -1,6 +1,8 @@
 import React from 'react'
 import ui from 'redux-ui'
 
+import Markdown from 'react-remarkable'
+import 'github-markdown-css'
 import Drawer from 'material-ui/Drawer';
 import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card'
 
@@ -17,11 +19,17 @@ export default class FocusPanel extends React.Component {
   render() {
     const {cy, selectedElements} = this.props.ui;
 
-    console.log(cy, selectedElements);
+    // console.log(cy, selectedElements);
+
     if(cy) {
       if(selectedElements.length === 1) {
+
         // select
-        var subGraph = selectedElements[0].closedNeighborhood()
+        let el = selectedElements[0];
+        const subGraph = el.group() === 'nodes' ?
+          el.closedNeighborhood()
+          :
+          el.connectedNodes().add(el)
 
         // make only the focus selectable
         cy.nodes().hide()
@@ -51,6 +59,14 @@ export default class FocusPanel extends React.Component {
               />
             <CardText expandable={true}>
               <p>lat/lng : {`${element.data.lat}/${element.data.lng}`}</p>
+              {
+                element.data.notes ?
+                <Markdown>
+                  {element.data.notes}
+                </Markdown>
+                :
+                null
+              }
             </CardText>
           </Card>
         )
