@@ -111,7 +111,7 @@ class Network extends React.Component {
   render(){
 
     // make sure nodes & edges are there
-    const {nodes, edges} = this.props
+    const {nodes, edges, width} = this.props
     const {layoutName, nodeRadius} = this.props.ui
 
     const elements = !!nodes.length && edges.length ?
@@ -127,9 +127,9 @@ class Network extends React.Component {
         style = {NetworkDefaultStyle()}
         layoutName = {layoutName}
         nodeRadius = {nodeRadius}
+        width = {width}
       />
     )
-
   }
 }
 

@@ -61,9 +61,7 @@ export default class FocusPanel extends React.Component {
               <p>lat/lng : {`${element.data.lat}/${element.data.lng}`}</p>
               {
                 element.data.notes ?
-                <Markdown>
-                  {element.data.notes}
-                </Markdown>
+                <Markdown source={element.data.notes} />
                 :
                 null
               }

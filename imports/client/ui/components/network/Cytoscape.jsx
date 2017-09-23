@@ -50,8 +50,9 @@ class Cytoscape extends Component{
     // console.log(cy);
   }
 
-  shouldComponentUpdate(){
-    return false;
+  shouldComponentUpdate(nextProps){
+    if (nextProps.width !== this.props.width) return true
+    else return false;
   }
 
   applyLayout(layoutName) {
@@ -156,8 +157,9 @@ class Cytoscape extends Component{
   }
 
   render(){
+    const {width} = this.props
     return <div
-      style={cyStyle}
+      style={Object.assign(cyStyle, {width})}
       ref="cyelement"
     />
   }

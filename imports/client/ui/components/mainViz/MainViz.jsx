@@ -19,34 +19,68 @@ const buttonStyle = {
 @ui()
 export default class MainViz extends React.Component {
 
-  switchGeoGraph() {
-    this.props.updateUI( 'isGeoMap', !this.props.ui.isGeoMap )
+  toggleGeo() {
+    this.props.updateUI( 'geoMapVisible', !this.props.ui.geoMapVisible )
   }
 
+  toggleGraph() {
+    this.props.updateUI( 'graphVisible', !this.props.ui.graphVisible )
+  }
+
+  // toggleSelection() {
+  //   this.props.updateUI( 'selectionPanelVisible', !this.props.ui.selectionPanelVisible )
+  // }
+
   render() {
-    const { isGeoMap } = this.props.ui
+
+    const { geoMapVisible, graphVisible } = this.props.ui
     const { nodes, edges } = this.props
+
+    const width = graphVisible && geoMapVisible ?
+      '50vw'
+        :
+      '100vw'
+
+    console.log(width);
 
     return (
       <div>
         <div style={buttonGroupStyle}>
           <RaisedButton
-            label={ isGeoMap ? "Graph" : "Geo"}
+            label={ "Graph"}
             style={buttonStyle}
-            onClick={ () => this.switchGeoGraph()}
+            onClick={ () => this.toggleGeo()}
           />
+          <RaisedButton
+            label={"Geo"}
+            style={buttonStyle}
+            onClick={ () => this.toggleGraph()}
+          />
+          {/* <RaisedButton
+            label={"Selection"}
+            style={buttonStyle}
+            onClick={ () => this.toggleSelectionPanel()}
+          /> */}
         </div>
         {
-          isGeoMap ?
+          geoMapVisible ?
             <GeoMap
               nodes={ nodes }
               edges={ edges }
+              width={ width }
             />
           :
+          null
+        }
+        {
+          graphVisible ?
             <Network
               nodes={ nodes }
               edges={ edges }
+              width={ width }
             />
+          :
+           null
         }
       </div>
     )

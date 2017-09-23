@@ -15,8 +15,11 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     // filters
     minTime : null,
     maxTime : null,
-    // viz settings
-    isGeoMap : false,
+    // viz layout settings
+    graphVisible : true, // default to graph view
+    geoMapVisible : true,
+    // selectionPanelVisible : false,
+    // network/map
     layoutName : 'preset',
     nodeRadius : 'degree',
     geoMapTile : 'default',
