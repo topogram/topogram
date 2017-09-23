@@ -50,7 +50,9 @@ class About extends React.Component {
           <p>
             Please feel free to get in touch with us at <a href="mailto:hi@topogram.io">hi@topogram.io</a> or via <a href="http://twitter.com/topoviz">Twitter</a>.
           </p>
-          <p><small>Clément Renaud (cc), 2015-2017</small></p>
+          <p><small>
+            2015-2017 (cc). Thanks to Clément Renaud, Grégory Bahde and Lionel Radisson.
+          </small></p>
           {/* <Version /> */}
         </Dialog>
       </div>
