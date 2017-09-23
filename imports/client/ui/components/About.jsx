@@ -3,22 +3,20 @@ import Dialog from 'material-ui/Dialog'
 import MenuItem from 'material-ui/MenuItem'
 import FlatButton from 'material-ui/FlatButton'
 
-import Version from './Version.jsx'
+// import Version from './Version.jsx'
 
 class About extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = { open: false }
-    this.handleOpen = this.handleOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
   }
 
-  handleOpen() {
+  handleOpen = () => {
     this.setState({ open: true })
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ open: false })
   }
 
@@ -27,13 +25,14 @@ class About extends React.Component {
       <FlatButton
         label="Close"
         primary={true}
+        onTouchTap={this.handleClose}
       />
     ]
     return (
       <div>
         <MenuItem
           primaryText="About"
-          onTouchTap={this.handleOpen}
+          onClick={this.handleOpen}
         />
         <Dialog
           title="About Topogram"
@@ -42,17 +41,17 @@ class About extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <p>Topogram is a free and open-source software. </p>
-
           <p>
-            Read more on <a href="http://topogram.io">the official website</a>.
+            Topogram is a free and open-source software. Read more at
+            <a href="http://topogram.io">topogram.io</a>.
           </p>
+
 
           <p>
             Please feel free to get in touch with us at <a href="mailto:hi@topogram.io">hi@topogram.io</a> or via <a href="http://twitter.com/topoviz">Twitter</a>.
           </p>
-
-          <Version />
+          <p><small>Clément Renaud (cc), 2015-2017</small></p>
+          {/* <Version /> */}
         </Dialog>
       </div>
     )

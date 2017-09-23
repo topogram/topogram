@@ -15,6 +15,7 @@ import CardBody from './CardBody.jsx'
 import QueryBox from '../queryBox/QueryBox.jsx'
 import Settings from '../settings/Settings.jsx'
 import NetworkOptions from '../networkOptions/NetworkOptions.jsx'
+import About from '../About.jsx'
 import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
 import FilterByTime from '../filterByTime/FilterByTime.jsx'
 
@@ -82,6 +83,7 @@ class SideNav extends React.Component {
             topogramId={this.props.topogramId}
             router={this.props.router}
             />
+          <About />
         </CardBody>
       </Card>
     )
