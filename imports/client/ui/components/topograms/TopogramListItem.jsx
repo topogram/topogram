@@ -5,7 +5,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { Card, CardActions, CardHeader } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 
-import DeleteConfirmationDialog from './DeleteConfirmationDialog.jsx'
+// import DeleteTopogram from './DeleteTopogram.jsx'
 
 const messages = defineMessages({
   browse : {
@@ -51,7 +51,7 @@ const TopogramListItem = React.createClass({
           primary={true}
           href={url}
         />
-        {/* <DeleteConfirmationDialog
+        {/* <DeleteTopogram
           topogramName= {this.props.title}
           topogramId={this.props._id}
           router={this.props.router}

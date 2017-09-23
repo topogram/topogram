@@ -1,7 +1,11 @@
 import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import {ListItem} from 'material-ui/List';
+import RaisedButton from 'material-ui/RaisedButton'
+import Delete from 'material-ui/svg-icons/action/delete';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl'
+import {red500} from 'material-ui/styles/colors';
 
 import { topogramDelete } from '../../../../api/topograms/topogramsMethods.js'
 
@@ -23,7 +27,7 @@ const messages = defineMessages({
   }
 })
 
-const DeleteConfirmationDialog = React.createClass({
+const DeleteTopogram = React.createClass({
 
   getDefaultProps() {
     return {
@@ -66,10 +70,11 @@ const DeleteConfirmationDialog = React.createClass({
     ]
     return (
       <div>
-        <FlatButton
-          style={{color : 'red'}}
-          label={formatMessage(messages.delete)}
+        <ListItem
+          // style={{backgroundColor : 'red', color : 'white'}}
+          primaryText={formatMessage(messages.delete)}
           onTouchTap={this.handleOpen}
+          leftIcon={<Delete color={red500} />}
         />
         <Dialog
           title={this.props.topogramName}
@@ -87,4 +92,4 @@ const DeleteConfirmationDialog = React.createClass({
   }
 })
 
-export default injectIntl(DeleteConfirmationDialog)
+export default injectIntl(DeleteTopogram)

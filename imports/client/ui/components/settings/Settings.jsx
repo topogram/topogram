@@ -1,67 +1,42 @@
 import React from 'react'
 
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader';
+import {ListItem} from 'material-ui/List';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import SideNavItem from '../sideNav/SideNavItem.jsx'
-import DeleteConfirmationDialog from '../topograms/DeleteConfirmationDialog.jsx'
-import { topogramDelete, topogramUpdateTitle } from '../../../../api/topograms/topogramsMethods.js'
+import DeleteTopogram from '../topograms/DeleteTopogram.jsx'
+import EditTopogramTitle from '../topograms/EditTopogramTitle.jsx'
 
 export default class Settings extends React.Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      title: this.props.topogramTitle
-    }
-  }
 
   static propTypes = {
     topogramTitle : React.PropTypes.string
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('got new props');
-    let {title} = nextProps
-    this.setState({title})
-  }
-
-  handleTitleChange = (event) => {
-    this.setState({title : event.target.value})
-  }
-
-  handleClickUpdateTitle = (event) => {
-    topogramUpdateTitle.call({
-      topogramId : this.props.topogramId,
-      title : this.state.title
-    })
-  }
-
   render() {
     return (
-      <SideNavItem
-        title="Settings"
-        subtitle="Tweak stuff"
-        >
-          <TextField
-            floatingLabelText="Edit Title"
-            value={this.state.title}
-            onChange={this.handleTitleChange}
-            floatingLabelFixed={true}
-            multiLine={true}
-            rows={3}
-          />
-          <RaisedButton
-            label="Update Title"
-            onClick={ e=> this.handleClickUpdateTitle(e)}
-            />
-
-          <DeleteConfirmationDialog
+      <ListItem
+        primaryText="Settings"
+        leftIcon={<SettingsIcon />}
+        primaryTogglesNestedList={true}
+        nestedItems={[
+          <EditTopogramTitle
+            topogramTitle= {this.props.topogramTitle}
+            topogramId={this.props.topogramId}
+            key="EditTopogramTitle"
+          />,
+          <DeleteTopogram
             topogramName= {this.props.topogramTitle}
             topogramId={this.props.topogramId}
             router={this.props.router}
+            key="DeleteTopogram"
           />
-      </SideNavItem>
+        ]}
+      />
     )
   }
 }
