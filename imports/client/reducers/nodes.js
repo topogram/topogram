@@ -22,8 +22,14 @@ export function nodes(state = initialState, action) {
         nodesSubscriptionStopped: false,
       };
     case NODES_SUBSCRIPTION_CHANGED:
+
       // convert from Document to plain JS object properly
-      let nodes = action.payload.map(d => JSON.parse(JSON.stringify(d)))
+      let nodes = action.payload
+        .map(d => JSON.parse(JSON.stringify(d)))
+        .map( (n,i) => {
+          n.data.i = i // add index as reference
+          return n
+        })
 
       const starts = nodes
         .filter(n => n.data.start)

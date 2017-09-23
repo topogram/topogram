@@ -6,17 +6,22 @@ import { Meteor } from 'meteor/meteor'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
 import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
+import SelectionPanel from '/imports/client/ui/components/selectionPanel/SelectionPanel.jsx'
 
 // UI state default values
 @ui({
   state: {
     filterPanelIsOpen: true,
+    // filters
     minTime : null,
     maxTime : null,
+    // viz settings
     isGeoMap : false,
     layoutName : 'preset',
     nodeRadius : 'degree',
-    geoMapTile : 'default'
+    geoMapTile : 'default',
+    // selection
+    selectedElements : []
   }
 })
 export class TopogramViewComponent extends React.Component {
@@ -117,6 +122,9 @@ export class TopogramViewComponent extends React.Component {
           :
           null
         }
+        <SelectionPanel
+          open={!!this.props.ui.selectedElements.length}
+          />
       </div>
     )
   }

@@ -19,6 +19,19 @@ let cyStyle = {
 class Cytoscape extends Component{
   cy = null;
 
+  // static propTypes = {
+  //   elements : {
+  //     nodes : React.PropTypes.array,
+  //     edges : React.PropTypes.array
+  //   }
+  // }
+  //
+
+  constructor(props) {
+    super(props)
+    this.state = { init : false }
+  }
+
   componentDidMount(){
 
     const {nodes, edges, style, elements, layoutName} = this.props
@@ -33,10 +46,11 @@ class Cytoscape extends Component{
     });
 
     this.cy = cy;
+
     // console.log(cy);
   }
 
-  shouldComponentUpdate(layoutName){
+  shouldComponentUpdate(){
     return false;
   }
 
@@ -98,25 +112,38 @@ class Cytoscape extends Component{
       }).update()
   }
 
+  updateRadius(nodeRadius) {
+    nodeRadius === "weight" ?
+      this.updateRadiusByWeight()
+      :
+      this.updateRadiusByDegree()
+  }
   componentWillReceiveProps(nextProps){
-    // update
-    this.cy.json(nextProps);
 
-    const {nodeRadius, layoutName} = nextProps
+    const {layoutName, nodeRadius} = nextProps
+
+    // replace elements
+    this.cy.json(nextProps);
 
     // apply new layout if any
     if( this.props.layoutName !== layoutName)
       this.applyLayout(layoutName)
 
-    // if( this.props.nodeRadius !== nodeRadius)
-    nodeRadius === "weight" ?
-      this.updateRadiusByWeight()
-      :
-      this.updateRadiusByDegree()
+    // apply new node radius if any
+    if( this.props.nodeRadius !== nodeRadius)
+      this.updateRadius(nodeRadius)
+
+    // init
+    if(!this.state.init && nextProps.init) {
+      this.updateRadius(nodeRadius)
+      this.applyLayout(layoutName)
+      this.setState({init :true})
+    }
 
     // fit to screen
     this.cy.fit()
   }
+
 
   componentWillUnmount(){
     this.cy.destroy();
