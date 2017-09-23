@@ -13,7 +13,7 @@ import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
     filterPanelIsOpen: true,
     minTime : null,
     maxTime : null,
-    isGeoMap : true,
+    isGeoMap : false,
     layoutName : 'preset',
     nodeRadius : 'degree',
     geoMapTile : 'default'

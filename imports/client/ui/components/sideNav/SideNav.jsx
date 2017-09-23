@@ -6,6 +6,12 @@ import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import {Toolbar} from 'material-ui/Toolbar';
 import { Card, CardTitle, CardHeader } from 'material-ui/Card'
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+
+import MenuItem from 'material-ui/MenuItem';
+import Home from 'material-ui/svg-icons/action/home';
+
 import CardBody from './CardBody.jsx'
 
 import QueryBox from '../queryBox/QueryBox.jsx'
@@ -47,26 +53,33 @@ class SideNav extends React.Component {
                 edges={edges}
               />
           </Toolbar>
+          <Divider/>
+          {
+            this.props.hasTimeInfo ?
+              <FilterByTime />
+            :
+              <MenuItem
+                primaryText="No time info available"
+                disabled={true}
+              />
+
+          }
+
+          <Divider/>
+          <Subheader>Viz Options</Subheader>
           {
             isGeoMap ?
             <GeoMapOptions/>
             :
             <NetworkOptions/>
-
-
           }
 
-          {
-            this.props.hasTimeInfo ?
-              <FilterByTime />
-            :
-              <CardHeader
-                title="Time Filtering"
-                subtitle="No items found."
-                style={{color : '#CCC'}}
-              />
-
-          }
+          <Divider/>
+          <MenuItem
+            primaryText="Home"
+            leftIcon={<Home />}
+            onClick={() => this.props.router.push('/')}
+          />
           <Settings
             topogramTitle={this.props.topogramTitle}
             topogramId={this.props.topogramId}

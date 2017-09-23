@@ -3,8 +3,7 @@ import ui from 'redux-ui'
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-
-import SideNavItem from '../sideNav/SideNavItem.jsx'
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 const layouts = [
   'cose', // uncaught 'prototype' Error
@@ -22,11 +21,11 @@ const layouts = [
 @ui()
 export default class NetworkOptions extends React.Component {
 
-  handleSelectLayout(e, i, value) {
+  handleSelectLayout = (value) => {
     this.props.updateUI('layoutName', value)
   }
 
-  handleSelectNodeRadius(e, i, value) {
+  handleSelectNodeRadius = (value) => {
     this.props.updateUI('nodeRadius', value)
   }
 
@@ -37,6 +36,7 @@ export default class NetworkOptions extends React.Component {
         value={d}
         key={d}
         primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
+        onClick={() => this.handleSelectLayout(d)}
         />
     ))
 
@@ -46,31 +46,27 @@ export default class NetworkOptions extends React.Component {
           value={d}
           key={d}
           primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
+          onClick={() => this.handleSelectNodeRadius(d)}
           />
       ))
 
     return (
-      <SideNavItem
-        title="Network Options"
-        subtitle="Layouts, colors & sizes"
-        initiallyExpanded={true}
-        >
-        <SelectField
-          floatingLabelText="Layout"
+      <div>
+        <MenuItem
+          primaryText="Network Layout"
           onChange={(e, i, value) => this.handleSelectLayout(e, i, value)}
-          value={this.props.ui.nodeRadius}
-        >
-          {layoutMenuItems}
-        </SelectField>
-
-        <SelectField
-          floatingLabelText="Node Radius"
-          onChange={(e, i, value) => this.handleSelectNodeRadius(e, i, value)}
-        >
-          {NodeRadiusMenuItems}
-        </SelectField>
-
-      </SideNavItem>
+          rightIcon={<ArrowDropRight />}
+          // secondaryText={this.props.ui.layoutName}
+          menuItems={layoutMenuItems}
+        />
+        <MenuItem
+            primaryText="Node Radius"
+            onChange={(e, i, value) => this.handleSelectNodeRadius(e, i, value)}
+            rightIcon={<ArrowDropRight />}
+            // secondaryText={this.props.ui.nodeRadius}
+            menuItems={NodeRadiusMenuItems}
+          />
+      </div>
     )
   }
 }

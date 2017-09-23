@@ -3,14 +3,14 @@ import ui from 'redux-ui'
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
-import SideNavItem from '../sideNav/SideNavItem.jsx'
 import mapTiles from '../geoMap/mapTiles'
 
 @ui()
 export default class GeoMapOptions extends React.Component {
 
-  handleSelectGeoMapTile(e, i, value) {
+  handleSelectGeoMapTile = (value) => {
     this.props.updateUI('geoMapTile', value)
   }
 
@@ -20,23 +20,17 @@ export default class GeoMapOptions extends React.Component {
         value={d}
         key={d}
         primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
+        onClick={() => this.handleSelectGeoMapTile(d)}
         />
     ))
 
     return (
-      <SideNavItem
-        title="GeoMap Options"
-        subtitle="Options for map"
-        initiallyExpanded={true}
-        >
-          <SelectField
-            floatingLabelText="Map Background"
-            onChange={(e, i, value) => this.handleSelectGeoMapTile(e, i, value)}
-            value={this.props.ui.geoMapTile}
-          >
-            {mapTilesMenuItems}
-          </SelectField>
-      </SideNavItem>
+      <MenuItem
+        primaryText="Map Background"
+        value={this.props.ui.geoMapTile}
+        menuItems={mapTilesMenuItems}
+        rightIcon={<ArrowDropRight />}
+      />
     )
   }
 }
