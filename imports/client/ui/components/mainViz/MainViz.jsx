@@ -1,7 +1,11 @@
 import React from 'react'
 import ui from 'redux-ui'
 
-import RaisedButton from 'material-ui/RaisedButton';
+
+import Paper from 'material-ui/Paper';
+import Checkbox from 'material-ui/Checkbox';
+// import RaisedButton from 'material-ui/RaisedButton';
+
 import Network from '/imports/client/ui/components/network/Network.jsx'
 import GeoMap from '/imports/client/ui/components/geoMap/GeoMap.jsx'
 
@@ -9,11 +13,13 @@ import GeoMap from '/imports/client/ui/components/geoMap/GeoMap.jsx'
 const buttonGroupStyle = {
   bottom : 20,
   right :20,
-  position : 'absolute'
+  position : 'absolute',
+  display: 'flex', flexDirection: 'row'
 };
 
 const buttonStyle = {
-  margin: 2
+  margin: 2,
+  padding: '10px 20px'
 };
 
 @ui()
@@ -41,21 +47,25 @@ export default class MainViz extends React.Component {
         :
       '100vw'
 
-    console.log(width);
+    console.log(geoMapVisible, graphVisible);
 
     return (
       <div>
         <div style={buttonGroupStyle}>
-          <RaisedButton
-            label={ "Graph"}
-            style={buttonStyle}
-            onClick={ () => this.toggleGeo()}
-          />
-          <RaisedButton
-            label={"Geo"}
-            style={buttonStyle}
-            onClick={ () => this.toggleGraph()}
-          />
+          <Paper style={buttonStyle}>
+            <Checkbox
+              label={"Geo"}
+              checked={geoMapVisible}
+              onClick={ () => this.toggleGeo()}
+            />
+          </Paper>
+          <Paper style={buttonStyle}>
+            <Checkbox
+              label={ "Graph"}
+              checked={graphVisible}
+              onClick={ () => this.toggleGraph()}
+            />
+          </Paper>
           {/* <RaisedButton
             label={"Selection"}
             style={buttonStyle}
