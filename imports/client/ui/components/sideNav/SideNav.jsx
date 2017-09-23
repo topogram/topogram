@@ -65,12 +65,8 @@ class SideNav extends React.Component {
 
           <Divider/>
           <Subheader>Viz Options</Subheader>
-          {
-            isGeoMap ?
-            <GeoMapOptions/>
-            :
-            <NetworkOptions/>
-          }
+          <GeoMapOptions/>
+          <NetworkOptions/>
 
           <Divider/>
           <MenuItem
