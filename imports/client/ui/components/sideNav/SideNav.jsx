@@ -33,7 +33,7 @@ class SideNav extends React.Component {
 
     return (
       <Card
-        style={{ maxWidth : '40%'}}
+        style={{ maxWidth : '40%', float : 'left'}}
         >
         <CardTitle
           title={this.props.topogramTitle}
