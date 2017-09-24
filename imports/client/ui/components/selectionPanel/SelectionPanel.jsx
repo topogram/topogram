@@ -70,6 +70,8 @@ export default class FocusPanel extends React.Component {
         <Drawer
           width={250}
           openSecondary={true}
+          docked={false}
+          overlayStyle={{display:'none'}}
           open={selectionPanelVisible || selectionPanelPinned} >
           {selected}
         </Drawer>

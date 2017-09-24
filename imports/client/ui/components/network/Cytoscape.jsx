@@ -132,10 +132,6 @@ class Cytoscape extends Component{
     if( this.props.layoutName !== layoutName)
       this.applyLayout(layoutName)
 
-    // apply new node radius if any
-    // if( this.props.nodeRadius !== nodeRadius)
-    //   this.updateRadius(nodeRadius)
-
     // init
     if(!this.state.init && nextProps.init) {
       this.applyLayout(layoutName)
@@ -143,9 +139,6 @@ class Cytoscape extends Component{
     }
 
     this.updateRadius(nodeRadius)
-
-    // fit to screen
-    // this.cy.fit()
   }
 
   componentWillUnmount(){
@@ -158,7 +151,6 @@ class Cytoscape extends Component{
 
   render(){
     const {height, width} = this.props
-    console.log(Object.assign({}, cyStyle, {width, height}));
     return <div
       style={Object.assign({}, cyStyle, {width, height})}
       ref="cyelement"
