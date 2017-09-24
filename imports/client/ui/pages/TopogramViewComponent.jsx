@@ -25,8 +25,8 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     nodeRadius : 'degree',
     geoMapTile : 'default',
     // selection
+    selectionModeOn : true,
     selectionPanelVisible : false,
-    selectionPanelPinned : false,
     selectedElements : [],
     cy : null // cytoscape graph
   }

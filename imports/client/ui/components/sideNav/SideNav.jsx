@@ -23,13 +23,13 @@ import {nodeCreate} from '/imports/api/nodes/nodesMethods'
 @ui()
 class SideNav extends React.Component {
 
-  handleToggleSelectionPanel = () => {
-    this.props.updateUI('selectionPanelPinned', !this.props.ui.selectionPanelPinned)
+  handleToggleSelectionMode = () => {
+    this.props.updateUI('selectionModeOn', !this.props.ui.selectionModeOn)
   }
 
   render() {
     const { nodes, edges } = this.props;
-    const { selectionPanelPinned } = this.props.ui;
+    const { selectionModeOn } = this.props.ui;
 
     return (
       <Card
@@ -46,23 +46,21 @@ class SideNav extends React.Component {
           expandable={true}
           >
 
-          <QueryBox
+          {/* <QueryBox
               nodes={nodes}
               edges={edges}
-            />
+            /> */}
 
-          <Divider/>
+          {/* <Divider/> */}
           <Subheader>Viz Options</Subheader>
           <GeoMapOptions/>
           <NetworkOptions/>
+
+          <Subheader>Tools</Subheader>
           <MenuItem
-            primaryText={
-              selectionPanelPinned ?
-              "Selection Visible" :
-              "Show Selection Panel"
-            }
-            onClick={this.handleToggleSelectionPanel}
-            checked={selectionPanelPinned}
+            primaryText="Selection Mode"
+            onClick={this.handleToggleSelectionMode}
+            checked={selectionModeOn}
           />
 
           <Divider/>

@@ -17,7 +17,7 @@ const NetworkDefaultStyle = () =>
           let color = 'steelblue';  // default
           if (e.data('group')) color = colors(e.data('group'))
           else if (e.data('color')) color = e.data('color')
-          return e.data('starred') ? 'yellow' : color
+          return e.data('selected') ? 'yellow' : color
         },
         // 'text-opacity' : 0, // hide label by default
         'label'(e) {
@@ -40,13 +40,16 @@ const NetworkDefaultStyle = () =>
     })
     .selector('edge')
       .style({
-        'background-color' : '#000',
         'target-arrow-shape': 'none', // default is undirected graph
+        'line-color'(e) {
+          return e.data('selected') ? 'yellow' : '#AAAAAA'
+        },
         'width'(e) {
           return e.data('weight') ? e.data('weight') : .3
         },
-        'line-color' : '#AAAAAA',
-        'opacity': .7,
+        'opacity'(e) {
+          return e.data('selected') ? 1 : .7
+        },
         'font-size':8,
         'text-opacity' : 0, // hide label by default
         'label'(e) {

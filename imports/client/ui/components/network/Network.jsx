@@ -15,14 +15,45 @@ class Network extends React.Component {
     this.state = { init : false }
   }
 
-  componentDidMount(){
+  unselectElement = (el) => {
+    el.data('selected', false)
+    const selectedElements = this.props.ui.selectedElements
+      .filter(n => n.data('id') !== el.data('id'))
+    this.props.updateUI('selectedElements', selectedElements)
+  }
 
-    const cy = this.refs.graph.getCy()
+  selectElement = (el) => {
+    el.data('selected', true)
+    this.props.updateUI(
+      'selectedElements',
+      [...this.props.ui.selectedElements, el]
+    )
+  }
 
-    // this is a good place for events
+  handleTapElement(el) {
+    // if already selected, then unselect
+    const {cy, selectedElements} = this.props.ui
+    if(selectedElements.map(d=>d.id()).includes(el.id()))
+      this.unselectElement(el)
+    else
+      this.selectElement(el)
+  }
 
-    cy.off('free', 'node')  // reset
+  setUpClickEvents() {
+    this.refs.graph.getCy()
+      .off('grab', 'node')  // reset
+      .off('free', 'node')  // reset
+      .off('tapstart', 'edge')  // reset
+      .off('tapend', 'edge')  // reset
+      .on('tap', 'node', e => this.handleTapElement(e.cyTarget))
+      .on('tap', 'edge', e => this.handleTapElement(e.cyTarget))
+  }
+
+  setUpGrabFreeEvents() {
+    this.refs.graph.getCy()
+      .off('free', 'node')  // reset
       .off('free', 'edge')  // reset
+      .off('tap', 'node')
       .on('grab', 'node', e => {
         let node = e.cyTarget
         this.props.updateUI('selectedElements', [node])
@@ -41,7 +72,14 @@ class Network extends React.Component {
         this.props.updateUI('selectedElements', [])
         this.props.updateUI( 'selectionPanelVisible', false )
       })
-      .on('mouseover', 'node', e => {
+  }
+
+  componentDidMount(){
+
+    const cy = this.refs.graph.getCy()
+
+    // set default events
+    cy.on('mouseover', 'node', e => {
         let node = e.cyTarget
         node.style({
             'border-width': 2,
@@ -54,9 +92,9 @@ class Network extends React.Component {
         })
         let edges = e.cyTarget.connectedEdges()
         edges.css({
-          'line-color' : function(d) {
-              return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
-            },
+          // 'line-color' : function(d) {
+          //     return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
+          //   },
             'opacity' : "1"
         })
         cy.edges().difference( edges ).css({
@@ -74,35 +112,49 @@ class Network extends React.Component {
             return d.data("name") ? d.data("name").trunc(20) : ""
           }
         })
-        e.cyTarget.connectedEdges().css({
-          'line-color' : function() {
-              return "#AAAAAA"
-            }
-        })
+        // e.cyTarget.connectedEdges().css({
+        //   'line-color' : function() {
+        //       return "#AAAAAA"
+        //     }
+        // })
         // reset opacity
         cy.edges().css({ 'opacity' : ".7" })
       })
 
+    // set grab / free events
+    if(this.props.ui.selectionModeOn)
+      this.setUpClickEvents()
+    else
+      this.setUpGrabFreeEvents()
+
     // store cytoscape object
-    this.props.updateUI('cy', this.refs.graph.getCy())
+    this.props.updateUI('cy', cy)
+    this.cy = cy
   }
 
   shouldComponentUpdate(nextProps) {
 
     let shouldUpdate = false;
 
-    const {nodeRadius, layoutName} = nextProps.ui
+    const {nodeRadius, layoutName, selectionModeOn} = nextProps.ui
     const {nodes, edges} = nextProps
 
     if (nextProps.width !== this.props.width) return true
     if (nextProps.height !== this.props.height) return true
+
+    // selection mode : update events
+    if( this.props.ui.selectionModeOn !== selectionModeOn) {
+      selectionModeOn ?
+        this.setUpClickEvents() // console.log('click mode')
+      :
+        this.setUpGrabFreeEvents() // console.log('grab/free mode')
+    }
 
     // list of checks
     if( this.props.ui.layoutName !== layoutName) shouldUpdate = true
     if( this.props.ui.nodeRadius !== nodeRadius) shouldUpdate = true
     if( this.props.nodes.length !== nodes.length) shouldUpdate = true
     if( this.props.edges.length !== edges.length) shouldUpdate = true
-
 
     if( (!!nodes.length && edges.length) && !this.state.init){
       shouldUpdate = true
