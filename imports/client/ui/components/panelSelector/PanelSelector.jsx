@@ -46,7 +46,7 @@ export default class PanelSelector extends React.Component {
     const { bottom, hasGeoInfo, hasTimeInfo } = this.props
 
     return (
-      <div style={Object.assign(buttonGroupStyle, {bottom})}>
+      <div style={Object.assign({}, buttonGroupStyle, {bottom})}>
         <Paper style={buttonStyle}>
           <Checkbox
             label={ "Graph"}

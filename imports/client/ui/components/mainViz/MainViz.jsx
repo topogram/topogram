@@ -22,8 +22,9 @@ export default class MainViz extends React.Component {
     let panelsCount = [geoMapVisible, graphVisible]
       .filter(d => d).length
 
+    let height = timeLineVisible ? '80vh' : '100vh'
+
     let width = '100vw'
-    let height = '80vh'
     if (panelsCount === 2) width = '50vw'
     // if (panelsCount === 3) width = '33vw'
 

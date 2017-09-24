@@ -30,17 +30,14 @@ class Network extends React.Component {
       })
       .on('free', 'node', e => {
         let node = e.cyTarget
-        console.log('grabbed', node);
         this.props.updateUI('selectedElements', [])
         this.props.updateUI( 'selectionPanelVisible', false )
       })
       .on('tapstart', 'edge', e => {
-        console.log(e.cyTarget);
         this.props.updateUI( 'selectionPanelVisible', true )
         this.props.updateUI('selectedElements', [e.cyTarget])
       })
       .on('tapend', 'edge', e => {
-        console.log("free",e.cyTarget);
         this.props.updateUI('selectedElements', [])
         this.props.updateUI( 'selectionPanelVisible', false )
       })
@@ -97,11 +94,15 @@ class Network extends React.Component {
     const {nodeRadius, layoutName} = nextProps.ui
     const {nodes, edges} = nextProps
 
+    if (nextProps.width !== this.props.width) return true
+    if (nextProps.height !== this.props.height) return true
+
     // list of checks
     if( this.props.ui.layoutName !== layoutName) shouldUpdate = true
     if( this.props.ui.nodeRadius !== nodeRadius) shouldUpdate = true
     if( this.props.nodes.length !== nodes.length) shouldUpdate = true
     if( this.props.edges.length !== edges.length) shouldUpdate = true
+
 
     if( (!!nodes.length && edges.length) && !this.state.init){
       shouldUpdate = true
@@ -112,10 +113,14 @@ class Network extends React.Component {
     return shouldUpdate
   }
 
+  componentDidUpdate() {
+    const cy = this.refs.graph.getCy().resize().fit()
+  }
+
   render(){
 
     // make sure nodes & edges are there
-    const {nodes, edges, width} = this.props
+    const {nodes, height, edges, width} = this.props
     const {layoutName, nodeRadius} = this.props.ui
 
     const elements = !!nodes.length && edges.length ?
@@ -132,6 +137,7 @@ class Network extends React.Component {
         layoutName = {layoutName}
         nodeRadius = {nodeRadius}
         width = {width}
+        height = {height}
       />
     )
   }
