@@ -43,7 +43,7 @@ export default class PanelSelector extends React.Component {
       graphVisible
     } = this.props.ui
 
-    const { bottom } = this.props
+    const { bottom, hasGeoInfo, hasTimeInfo } = this.props
 
     return (
       <div style={Object.assign(buttonGroupStyle, {bottom})}>
@@ -58,6 +58,7 @@ export default class PanelSelector extends React.Component {
           <Checkbox
             label={"Geo"}
             checked={geoMapVisible}
+            disabled={!hasGeoInfo}
             onClick={ () => this.toggleGeo()}
           />
         </Paper>
@@ -65,6 +66,7 @@ export default class PanelSelector extends React.Component {
           <Checkbox
             label={"Time"}
             checked={timeLineVisible}
+            disabled={!hasTimeInfo}
             onClick={ () => this.toggleTimeline()}
           />
         </Paper>

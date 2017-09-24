@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
     nodesReady: state.nodes.ready,
     nodes: state.nodes.nodes,
     hasTimeInfo : state.nodes.hasTimeInfo,
+    hasGeoInfo : state.nodes.hasGeoInfo,
     minTime : state.nodes.minTime,
     maxTime : state.nodes.maxTime,
     edgesReady: state.edges.ready,

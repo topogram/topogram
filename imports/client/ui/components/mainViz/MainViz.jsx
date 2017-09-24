@@ -10,7 +10,7 @@ import PanelSelector from '/imports/client/ui/components/panelSelector/PanelSele
 export default class MainViz extends React.Component {
 
   render() {
-    const { nodes, edges } = this.props
+    const { nodes, edges, hasGeoInfo, hasTimeInfo } = this.props
 
     const {
       timeLineVisible,
@@ -31,9 +31,11 @@ export default class MainViz extends React.Component {
       <div>
         <PanelSelector
           bottom={timeLineVisible ? '21vh' : '1em'}
+          hasTimeInfo={ hasTimeInfo }
+          hasGeoInfo={ hasGeoInfo }
         />
         {
-          geoMapVisible ?
+          geoMapVisible && hasGeoInfo ?
             <GeoMap
               nodes={ nodes }
               edges={ edges }

@@ -43,10 +43,16 @@ export function nodes(state = initialState, action) {
 
       const hasTimeInfo = !!(starts.length || ends.length)
 
+      const latLngs = nodes
+        .filter(n => !!(n.data.lat && n.data.lng))
+
+      const hasGeoInfo = !!latLngs.length
+
       return {
         ...state,
         nodes,
         hasTimeInfo,
+        hasGeoInfo,
         minTime: starts[0],
         maxTime: ends[0]
       };

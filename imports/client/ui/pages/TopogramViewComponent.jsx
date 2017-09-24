@@ -16,9 +16,9 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     minTime : null,
     maxTime : null,
     // viz layout settings
-    graphVisible : false, // default to graph view
-    geoMapVisible : true,
-    timeLineVisible : true,
+    graphVisible : true, // default to graph view
+    geoMapVisible : false,
+    timeLineVisible : false,
     // selectionPanelVisible : false,
     // network/map
     layoutName : 'preset',
@@ -38,6 +38,7 @@ export class TopogramViewComponent extends React.Component {
     updateUI: React.PropTypes.func,
     topogramId: React.PropTypes.string,
     hasTimeInfo: React.PropTypes.bool,
+    hasGeoInfo: React.PropTypes.bool,
     maxTime: React.PropTypes.instanceOf(Date),
     minTime: React.PropTypes.instanceOf(Date),
     nodes: React.PropTypes.array,
@@ -122,6 +123,7 @@ export class TopogramViewComponent extends React.Component {
           nodes={ nodes }
           edges={ edges }
           hasTimeInfo={ this.props.hasTimeInfo }
+          hasGeoInfo={ this.props.hasGeoInfo }
         />
         { this.props.ui.filterPanelIsOpen ?
           <SideNav
