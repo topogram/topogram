@@ -4,13 +4,16 @@ import ui from 'redux-ui'
 import Markdown from 'react-remarkable'
 import 'github-markdown-css'
 import Drawer from 'material-ui/Drawer';
+import ClearIcon from 'material-ui/svg-icons/content/clear';
 import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card'
 
 @ui()
-export default class FocusPanel extends React.Component {
+export default class SelectionPanel extends React.Component {
 
-  handleToggle = () => this.props.updateUI(
-    'selectionPanelPinned', !this.props.ui.selectionPanelPinned);
+  handleExpandChange = () => {
+    this.props.updateUI('selectionPanelVisible', false)
+    this.props.updateUI('selectionPanelPinned', false)
+  }
 
   render() {
     const {cy, selectedElements, selectionPanelVisible, selectionPanelPinned} = this.props.ui;
@@ -43,26 +46,17 @@ export default class FocusPanel extends React.Component {
       .map( (e,i) => {
         let element = e.json()
         return (
-          <Card
-            initiallyExpanded={ i===0 } // expand the first
-            key={i}
-            >
-            <CardHeader
-              title={element.data.name}
-              subtitle={element.group}
-              actAsExpander={true}
-              showExpandableButton={true}
-              />
-            <CardText expandable={true}>
-              <p>lat/lng : {`${element.data.lat}/${element.data.lng}`}</p>
-              {
-                element.data.notes ?
-                <Markdown source={element.data.notes} />
-                :
-                null
-              }
-            </CardText>
-          </Card>
+          <div key={i}>
+                {element.data.name}
+                {element.group}
+                <p>lat/lng : {`${element.data.lat}/${element.data.lng}`}</p>
+                {
+                  element.data.notes ?
+                  <Markdown source={element.data.notes} />
+                  :
+                  null
+                }
+          </div>
         )
     })
 
@@ -72,8 +66,22 @@ export default class FocusPanel extends React.Component {
           openSecondary={true}
           // docked={false}
           // overlayStyle={{display:'none'}}
-          open={selectionPanelVisible || selectionPanelPinned} >
-          {selected}
+          open={selectionPanelVisible || selectionPanelPinned}
+          >
+          <Card
+            expanded={ true }
+            onExpandChange={() => this.handleExpandChange()}
+            >
+            <CardHeader
+              showExpandableButton={true}
+              title="Selected Items"
+              closeIcon={<ClearIcon />}
+              openIcon={<ClearIcon />}
+              />
+              <CardText expandable={true}>
+                {selected}
+              </CardText>
+          </Card>
         </Drawer>
     );
   }

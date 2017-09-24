@@ -23,13 +23,13 @@ import {nodeCreate} from '/imports/api/nodes/nodesMethods'
 @ui()
 class SideNav extends React.Component {
 
-  handleToggle() {
-    this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
+  handleToggleSelectionPanel = () => {
+    this.props.updateUI('selectionPanelPinned', !this.props.ui.selectionPanelPinned)
   }
 
   render() {
     const { nodes, edges } = this.props;
-    const { isGeoMap } = this.props.ui;
+    const { selectionPanelPinned } = this.props.ui;
 
     return (
       <Card
@@ -55,6 +55,15 @@ class SideNav extends React.Component {
           <Subheader>Viz Options</Subheader>
           <GeoMapOptions/>
           <NetworkOptions/>
+          <MenuItem
+            primaryText={
+              selectionPanelPinned ?
+              "Selection Visible" :
+              "Show Selection Panel"
+            }
+            onClick={this.handleToggleSelectionPanel}
+            checked={selectionPanelPinned}
+          />
 
           <Divider/>
           <MenuItem
