@@ -9,7 +9,6 @@ import './GeoMap.css'
 
 const MAP_DIV_ID = "map"
 const divMapStyle = {
-    height: '100vh',
     position: 'fixed',
     top: '0',
     zIndex : -1
@@ -55,7 +54,7 @@ class GeoMap extends React.Component {
     let {geoMapTile, selectedElements} = this.props.ui
     let {zoom, position} = this.state
     let nodesById = {}
-    let {width} = this.props
+    let {width, height} = this.props
 
     // resize dynamically using d3
     d3.select('.leaflet-container')
@@ -110,7 +109,7 @@ class GeoMap extends React.Component {
     return (
         <div
           id={MAP_DIV_ID}
-          style={Object.assign(divMapStyle,{left})}
+          style={Object.assign(divMapStyle,{left, height})}
           >
           <Map
             center={position}

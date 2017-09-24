@@ -13,11 +13,10 @@ import Home from 'material-ui/svg-icons/action/home';
 import CardBody from './CardBody.jsx'
 
 import QueryBox from '../queryBox/QueryBox.jsx'
-import Settings from '../settings/Settings.jsx'
 import NetworkOptions from '../networkOptions/NetworkOptions.jsx'
-import About from '../About.jsx'
 import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
-import FilterByTime from '../filterByTime/FilterByTime.jsx'
+import Settings from '../settings/Settings.jsx'
+import About from '../About.jsx'
 
 import {nodeCreate} from '/imports/api/nodes/nodesMethods'
 
@@ -51,17 +50,6 @@ class SideNav extends React.Component {
               nodes={nodes}
               edges={edges}
             />
-
-          {
-            this.props.hasTimeInfo ?
-              <FilterByTime />
-            :
-              <MenuItem
-                primaryText="No time info available"
-                disabled={true}
-              />
-
-          }
 
           <Divider/>
           <Subheader>Viz Options</Subheader>
