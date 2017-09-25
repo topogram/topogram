@@ -1,9 +1,17 @@
 import React from 'react'
 
+import Markdown from 'react-remarkable'
+import 'github-markdown-css'
+
+import {Card, CardHeader, CardText} from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
+
 export default class SelectedItem extends React.Component {
 
   render() {
+    console.log(this);
     const {name, notes, lat, lng} = this.props.data
+    const {group} = this.props
 
     //     // select
     //     let el = selectedElements[0];
@@ -25,8 +33,11 @@ export default class SelectedItem extends React.Component {
 
     return(
       <div>
-        {this.props.group}
-        {name}
+        <CardHeader
+          title={group === 'nodes' ? name : `${this.props.  data.source.name} -> ${this.props.data.target.name}`}
+          subtitle={group}
+          />
+        <CardText>
         <p>lat/lng : {`${lat}/${lng}`}</p>
         {
             notes ?
@@ -34,6 +45,8 @@ export default class SelectedItem extends React.Component {
             :
             null
           }
+        </CardText>
+        <Divider/>
       </div>
     )
   }

@@ -1,11 +1,10 @@
 import React from 'react'
 import ui from 'redux-ui'
 
-import Markdown from 'react-remarkable'
-import 'github-markdown-css'
 import Drawer from 'material-ui/Drawer';
+import IconButton from 'material-ui/IconButton';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
-import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card'
+import Subheader from 'material-ui/Subheader';
 
 import SelectedItem from './SelectedItem.jsx'
 
@@ -49,20 +48,16 @@ export default class SelectionPanel extends React.Component {
           // overlayStyle={{display:'none'}}
           open={selectionPanelVisible || selectionModeOn}
           >
-          <Card
-            expanded={ true }
-            onExpandChange={() => this.handleExpandChange()}
-            >
-            <CardHeader
-              showExpandableButton={true}
-              title="Selected Items"
-              closeIcon={<ClearIcon />}
-              openIcon={<ClearIcon />}
-              />
-              <CardText expandable={true}>
-                {selected}
-              </CardText>
-          </Card>
+            <Subheader>
+              Selected Items
+              <IconButton
+                onClick={this.handleExpandChange}
+                style={{float:'right'}}
+                >
+                 <ClearIcon />
+               </IconButton>
+             </Subheader>
+            {selected}
         </Drawer>
     );
   }

@@ -44,6 +44,7 @@ const TopogramListItem = React.createClass({
       <CardHeader
         title={this.props.title}
         subtitle={parsedDate}
+        expandable={false}
       />
       <CardActions>
         <FlatButton
