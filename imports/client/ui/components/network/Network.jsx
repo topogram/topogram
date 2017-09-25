@@ -30,24 +30,10 @@ class Network extends React.Component {
       .off('free', 'node')  // reset
       .off('free', 'edge')  // reset
       .off('tap', 'node')
-      .on('grab', 'node', e => {
-        let node = e.cyTarget
-        this.props.updateUI('selectedElements', [node])
-        this.props.updateUI( 'selectionPanelVisible', true )
-      })
-      .on('free', 'node', e => {
-        let node = e.cyTarget
-        this.props.updateUI('selectedElements', [])
-        this.props.updateUI( 'selectionPanelVisible', false )
-      })
-      .on('tapstart', 'edge', e => {
-        this.props.updateUI( 'selectionPanelVisible', true )
-        this.props.updateUI('selectedElements', [e.cyTarget])
-      })
-      .on('tapend', 'edge', e => {
-        this.props.updateUI('selectedElements', [])
-        this.props.updateUI( 'selectionPanelVisible', false )
-      })
+      .on('grab', 'node', e => this.props.selectElement(e.cyTarget))
+      .on('free', 'node', e => this.props.unselectAllElements())
+      .on('tapstart', 'edge', e => this.props.selectElement(e.cyTarget))
+      .on('tapend', 'edge', e => this.props.unselectAllElements())
   }
 
   componentDidMount(){

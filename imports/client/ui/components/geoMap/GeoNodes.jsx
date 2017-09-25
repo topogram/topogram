@@ -24,7 +24,7 @@ export default class GeoNodes extends React.Component {
             null
           }
           onMouseUp={()=> !selectionModeOn ?
-            this.props.unSelectGeoElement()
+            this.props.unselectAllElements()
             :
             null
           }

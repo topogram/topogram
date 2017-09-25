@@ -25,7 +25,7 @@ export default class GeoEdges extends React.Component {
             null
           }
           onMouseUp={()=> !selectionModeOn ?
-            this.props.unSelectAllGeoElement()
+            this.props.unselectAllElements()
             :
             null
           }

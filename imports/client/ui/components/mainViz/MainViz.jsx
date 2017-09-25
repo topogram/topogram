@@ -31,6 +31,7 @@ export default class MainViz extends React.Component {
       'selectedElements',
       [...this.props.ui.selectedElements, el]
     )
+    this.props.updateUI( 'selectionPanelVisible', true )
   }
 
   unselectAllElements = () => {

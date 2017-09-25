@@ -36,7 +36,6 @@ class GeoMap extends React.Component {
   }
 
   selectGeoElement = (filter) => {
-    console.log(this.props);
     const {cy, selectedElements} = this.props.ui
     const selected = cy.filter(filter)
     this.props.selectElement(selected)
