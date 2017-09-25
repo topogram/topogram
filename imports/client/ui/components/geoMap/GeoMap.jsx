@@ -29,8 +29,27 @@ class GeoMap extends React.Component {
     }
   }
 
+  onClickGeoElement = (filter) => {
+    const {cy, selectedElements} = this.props.ui
+    const selected = cy.filter(filter)
+    this.props.onClickElement(selected)
+  }
+
+  selectGeoElement = (filter) => {
+    console.log(this.props);
+    const {cy, selectedElements} = this.props.ui
+    const selected = cy.filter(filter)
+    this.props.selectElement(selected)
+  }
+
+  unselectGeoElement = (filter) => {
+    const {cy, selectedElements} = this.props.ui
+    const selected = cy.filter(filter)
+    this.props.unselectElement(selected)
+  }
+
   render() {
-    let {geoMapTile, selectedElements} = this.props.ui
+    let {geoMapTile, selectedElements, selectionModeOn} = this.props.ui
     let {zoom, position} = this.state
     let nodesById = {}
     let {width, height} = this.props
@@ -52,21 +71,20 @@ class GeoMap extends React.Component {
     }
 
     let nodes = this.props.nodes
-      .filter((n,i) =>
-        selectedElements.length ? selectedNodesIndex.indexOf(i) > -1 : true
-      )
       .map( (n,i) => {
         let coords = [n.data.lat,n.data.lng]
-        nodesById[n.data.id] = coords; // store for edges
-        let fillColor = (el && i === el.data('i')) ? 'red' : 'steelblue'
-        return {...n, coords, fillColor}
+        let node = {...n, coords}
+        nodesById[n.data.id] = node; // store for edges
+        return node
       })
 
     let edges = this.props.edges
-      .filter(e => nodesById[e.data.source] && nodesById[e.data.target])
       .map( (e,i) => {
-        let coords = [nodesById[e.data.source], nodesById[e.data.target]]
-        return {...e, coords}
+        let source = nodesById[e.data.source],
+          target = nodesById[e.data.target],
+          coords = [source.coords, target.coords],
+          selected = e.data.selected
+        return {...e, source, target, coords, selected}
       })
 
     let {url, attribution, minZoom, maxZoom, ext} = mapTiles[geoMapTile]
@@ -81,8 +99,22 @@ class GeoMap extends React.Component {
             zoom={zoom}
             ref='map'
             >
-              <GeoEdges edges={edges}/>
-              <GeoNodes nodes={nodes}/>
+              <GeoEdges
+                edges={edges}
+                selectionModeOn={selectionModeOn}
+                onClickGeoElement={this.onClickGeoElement}
+                selectGeoElement={this.selectGeoElement}
+                unselectGeoElement={this.unselectGeoElement}
+                unselectAllElements={this.props.unselectAllElements}
+              />
+              <GeoNodes
+                nodes={nodes}
+                selectionModeOn={selectionModeOn}
+                onClickGeoElement={this.onClickGeoElement}
+                selectGeoElement={this.selectGeoElement}
+                unselectGeoElement={this.unselectGeoElement}
+                unselectAllElements={this.props.unselectAllElements}
+              />
             <TileLayer
               url={url}
               attribution={attribution}

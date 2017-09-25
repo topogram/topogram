@@ -9,6 +9,36 @@ import PanelSelector from '/imports/client/ui/components/panelSelector/PanelSele
 @ui()
 export default class MainViz extends React.Component {
 
+  onClickElement = (el) => {
+    // if already selected, then unselect
+    const {cy, selectedElements} = this.props.ui
+    if(selectedElements.map(d=>d.id()).includes(el.id()))
+      this.unselectElement(el)
+    else
+      this.selectElement(el)
+  }
+
+  unselectElement = (el) => {
+    el.data('selected', false)
+    const selectedElements = this.props.ui.selectedElements
+      .filter(n => n.data('id') !== el.data('id'))
+    this.props.updateUI('selectedElements', selectedElements)
+  }
+
+  selectElement = (el) => {
+    el.data('selected', true)
+    this.props.updateUI(
+      'selectedElements',
+      [...this.props.ui.selectedElements, el]
+    )
+  }
+
+  unselectAllElements = () => {
+    this.props.ui.selectedElements.forEach(el=>el.data('selected', false))
+    this.props.updateUI('selectedElements', [])
+    this.props.updateUI( 'selectionPanelVisible', false )
+  }
+
   render() {
     const { nodes, edges, hasGeoInfo, hasTimeInfo } = this.props
 
@@ -42,6 +72,10 @@ export default class MainViz extends React.Component {
               edges={ edges }
               width={ width }
               height={ height }
+              onClickElement={this.onClickElement}
+              selectElement={this.selectElement}
+              unselectElement={this.unselectElement}
+              unselectAllElements={this.unselectAllElements}
             />
           :
           null
@@ -53,6 +87,10 @@ export default class MainViz extends React.Component {
               edges={ edges }
               width={ width }
               height={ height }
+              onClickElement={this.onClickElement}
+              selectElement={this.selectElement}
+              unselectElement={this.unselectElement}
+              unselectAllElements={this.unselectAllElements}
             />
           :
            null

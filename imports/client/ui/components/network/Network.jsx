@@ -15,38 +15,14 @@ class Network extends React.Component {
     this.state = { init : false }
   }
 
-  unselectElement = (el) => {
-    el.data('selected', false)
-    const selectedElements = this.props.ui.selectedElements
-      .filter(n => n.data('id') !== el.data('id'))
-    this.props.updateUI('selectedElements', selectedElements)
-  }
-
-  selectElement = (el) => {
-    el.data('selected', true)
-    this.props.updateUI(
-      'selectedElements',
-      [...this.props.ui.selectedElements, el]
-    )
-  }
-
-  handleTapElement(el) {
-    // if already selected, then unselect
-    const {cy, selectedElements} = this.props.ui
-    if(selectedElements.map(d=>d.id()).includes(el.id()))
-      this.unselectElement(el)
-    else
-      this.selectElement(el)
-  }
-
   setUpClickEvents() {
     this.refs.graph.getCy()
       .off('grab', 'node')  // reset
       .off('free', 'node')  // reset
       .off('tapstart', 'edge')  // reset
       .off('tapend', 'edge')  // reset
-      .on('tap', 'node', e => this.handleTapElement(e.cyTarget))
-      .on('tap', 'edge', e => this.handleTapElement(e.cyTarget))
+      .on('tap', 'node', e => this.props.onClickElement(e.cyTarget))
+      .on('tap', 'edge', e => this.props.onClickElement(e.cyTarget))
   }
 
   setUpGrabFreeEvents() {
