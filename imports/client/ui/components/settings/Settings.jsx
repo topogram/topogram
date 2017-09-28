@@ -7,7 +7,6 @@ import Subheader from 'material-ui/Subheader';
 import {ListItem} from 'material-ui/List';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 
-import SideNavItem from '../sideNav/SideNavItem.jsx'
 import DeleteTopogram from '../topograms/DeleteTopogram.jsx'
 import EditTopogramTitle from '../topograms/EditTopogramTitle.jsx'
 

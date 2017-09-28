@@ -30,7 +30,6 @@ export default class SelectedItem extends React.Component {
     //     cy.nodes().show()
     //     cy.edges().show()
     //   }
-
     return(
       <div>
         <CardHeader
@@ -38,7 +37,12 @@ export default class SelectedItem extends React.Component {
           subtitle={group}
           />
         <CardText>
-        <p>lat/lng : {`${lat}/${lng}`}</p>
+        {
+          group === 'nodes' ?
+          <p>lat/lng : {`${lat}/${lng}`}</p>
+          :
+          null
+        }
         {
             notes ?
             <Markdown source={notes} />
