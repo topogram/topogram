@@ -1,47 +1,49 @@
 import React from 'react'
 
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
-import {ListItem} from 'material-ui/List';
-import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import MenuItem from 'material-ui/MenuItem';
 
-import DeleteTopogram from '../topograms/DeleteTopogram.jsx'
-import EditTopogramTitle from '../topograms/EditTopogramTitle.jsx'
-import TogglePublicButton from './TogglePublicButton.jsx'
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
+
+import DeleteTopogram from './DeleteTopogram.jsx'
+import EditTopogramTitle from './EditTopogramTitle.jsx'
+import TogglePublicButton from './TopogramTogglePublicButton.jsx'
+
 
 export default class Settings extends React.Component {
 
   static propTypes = {
-    topogramTitle : React.PropTypes.string
+    topogramTitle : React.PropTypes.string,
+    topogramIsPublic : React.PropTypes.bool
   }
 
   render() {
-    return (
-      <ListItem
-        primaryText="Settings"
-        leftIcon={<SettingsIcon />}
-        primaryTogglesNestedList={true}
-        nestedItems={[
-          <TogglePublicButton
-            topogramId={this.props.topogramId}
-            topogramIsPublic={this.props.topogramIsPublic}
-            key="ToggleTopogramPublicButton"
-          />,
-          <EditTopogramTitle
-            topogramTitle= {this.props.topogramTitle}
-            topogramId={this.props.topogramId}
-            key="EditTopogramTitle"
-          />,
-          <DeleteTopogram
-            topogramName= {this.props.topogramTitle}
-            topogramId={this.props.topogramId}
-            router={this.props.router}
-            key="DeleteTopogram"
-          />
-        ]}
+    const settingsMenuItems = [
+      <TogglePublicButton
+        topogramId={this.props.topogramId}
+        topogramIsPublic={this.props.topogramIsPublic}
+        key="ToggleTopogramPublicButton"
+      />,
+      <EditTopogramTitle
+        topogramTitle= {this.props.topogramTitle}
+        topogramId={this.props.topogramId}
+        key="EditTopogramTitle"
+      />,
+      <DeleteTopogram
+        topogramName= {this.props.topogramTitle}
+        topogramId={this.props.topogramId}
+        router={this.props.router}
+        key="DeleteTopogram"
       />
+    ]
+
+    return (
+      <MenuItem
+        primaryText="Settings"
+        menuItems={settingsMenuItems}
+        rightIcon={<ArrowDropRight />}
+        leftIcon={<SettingsIcon />}
+        />
     )
   }
 }

@@ -5,7 +5,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
-import {ListItem} from 'material-ui/List';
+import MenuItem from 'material-ui/MenuItem'
 
 import { topogramUpdateTitle } from '../../../../api/topograms/topogramsMethods.js'
 
@@ -60,7 +60,7 @@ export default class EditTopogramTitle extends React.Component {
 
     return (
       <div>
-        <ListItem
+        <MenuItem
           primaryText="Update Title"
           onTouchTap={this.handleOpen}
           leftIcon={<ModeEdit />}

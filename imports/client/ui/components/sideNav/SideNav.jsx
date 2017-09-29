@@ -18,7 +18,6 @@ import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
 import Settings from '../settings/Settings.jsx'
 import About from '../About.jsx'
 
-import {nodeCreate} from '/imports/api/nodes/nodesMethods'
 
 @ui()
 class SideNav extends React.Component {
@@ -52,29 +51,28 @@ class SideNav extends React.Component {
             /> */}
 
           {/* <Divider/> */}
-          <Subheader>Viz Options</Subheader>
+          {/* <Subheader>Viz Options</Subheader> */}
           <GeoMapOptions/>
           <NetworkOptions/>
-
-          <Subheader>Tools</Subheader>
           <MenuItem
             primaryText="Selection Mode"
             onClick={this.handleToggleSelectionMode}
             checked={selectionModeOn}
           />
 
-          <Divider/>
+          <Subheader>Settings</Subheader>
+          <Settings
+            topogramId={this.props.topogramId}
+            topogramName= {this.props.topogramTitle}
+            topogramIsPublic={this.props.topogramIsPublic}
+            router={this.props.router}
+            />
+
           <MenuItem
             primaryText="Home"
             leftIcon={<Home />}
             onClick={() => this.props.router.push('/')}
           />
-          <Settings
-            topogramTitle={this.props.topogramTitle}
-            topogramId={this.props.topogramId}
-            topogramIsPublic={this.props.topogramIsPublic}
-            router={this.props.router}
-            />
           <About />
         </CardBody>
       </Card>

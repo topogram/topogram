@@ -5,6 +5,9 @@ import FlatButton from 'material-ui/FlatButton'
 
 // import Version from './Version.jsx'
 
+import InfoIcon from 'material-ui/svg-icons/action/info';
+console.log(InfoIcon);
+
 class About extends React.Component {
 
   constructor(props) {
@@ -33,6 +36,7 @@ class About extends React.Component {
         <MenuItem
           primaryText="About"
           onClick={this.handleOpen}
+          leftIcon={<InfoIcon />}
         />
         <Dialog
           title="About Topogram"

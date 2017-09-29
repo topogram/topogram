@@ -1,7 +1,8 @@
 import React from 'react'
+
+import MenuItem from 'material-ui/MenuItem'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import {ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton'
 import Delete from 'material-ui/svg-icons/action/delete';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl'
@@ -70,7 +71,7 @@ const DeleteTopogram = React.createClass({
     ]
     return (
       <div>
-        <ListItem
+        <MenuItem
           // style={{backgroundColor : 'red', color : 'white'}}
           primaryText={formatMessage(messages.delete)}
           onTouchTap={this.handleOpen}

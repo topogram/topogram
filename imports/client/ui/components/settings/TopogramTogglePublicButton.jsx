@@ -16,7 +16,7 @@ export default class TogglePublicButton extends React.Component {
     return (
       <MenuItem
         checked={this.props.topogramIsPublic}
-        primaryText={this.props.topogramIsPublic ? "Is Shared Publicly" : "Share Publicly"}
+        primaryText={this.props.topogramIsPublic ? "Is Visible Online" : "Share Publicly"}
         onClick={this.handleOnClick}
         />
     )
