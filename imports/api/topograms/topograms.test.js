@@ -54,16 +54,16 @@ if (Meteor.isServer) {
       });
 
       //
-      // describe('topograms.public', function () {
-      //   it('sends all public topograms', function (done) {
-      //    const collector = new PublicationCollector();
-      //    collector.collect('topograms.public', (collections) => {
-      //      console.log(collections);
-      //      chai.assert.equal(collections.topograms.length, 4);
-      //      done();
-      //    });
-      //   });
-      // });
+      describe('topograms.public', function () {
+        it('sends all public topograms', function (done) {
+         const collector = new PublicationCollector();
+         collector.collect('topograms.public', (collections) => {
+           console.log(collections);
+           chai.assert.equal(collections.topograms.length, 1);
+           done();
+         });
+        });
+      });
 
       describe('topograms.private', function () {
         it('sends only owned topograms', function (done) {

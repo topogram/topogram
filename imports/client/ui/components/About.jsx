@@ -1,12 +1,11 @@
 import React from 'react'
+
 import Dialog from 'material-ui/Dialog'
 import MenuItem from 'material-ui/MenuItem'
 import FlatButton from 'material-ui/FlatButton'
-
+import InfoIcon from 'material-ui/svg-icons/action/info';
 // import Version from './Version.jsx'
 
-import InfoIcon from 'material-ui/svg-icons/action/info';
-console.log(InfoIcon);
 
 class About extends React.Component {
 

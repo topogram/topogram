@@ -12,7 +12,9 @@ Meteor.publish( 'topograms.private', function topogramsPrivate() {
 } )
 
 Meteor.publish( 'topograms.public', function topogramsPrivate() {
-  return Topograms.find({}, {
+  return Topograms.find({
+    'sharedPublic' : true
+  }, {
     'sort': { 'createdAt': -1 },
     'limit': 20
   })
