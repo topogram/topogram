@@ -47,7 +47,7 @@ const DeleteTopogram = React.createClass({
     this.setState({ open: false })
   },
   _deleteItem() {
-    topogramDelete.call( {
+    topogramDelete.call({
       topogramId : this.props.topogramId
     })
     this.props.router.push('/')

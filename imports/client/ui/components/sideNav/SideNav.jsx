@@ -72,6 +72,7 @@ class SideNav extends React.Component {
           <Settings
             topogramTitle={this.props.topogramTitle}
             topogramId={this.props.topogramId}
+            topogramIsPublic={this.props.topogramIsPublic}
             router={this.props.router}
             />
           <About />

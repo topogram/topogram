@@ -13,7 +13,12 @@ import '../factories.js'
 import { Topograms } from './Topograms.js'
 import { Nodes } from '../nodes/Nodes.js'
 
-import { topogramCreate, topogramDelete, topogramUpdateTitle } from './topogramsMethods.js'
+import {
+  topogramCreate,
+  topogramDelete,
+  topogramUpdateTitle,
+  topogramTogglePublic
+} from './topogramsMethods.js'
 
 if (Meteor.isServer) {
   describe('Topograms', function() {
@@ -144,6 +149,24 @@ if (Meteor.isServer) {
           assert.equal(Topograms.find().count(), 1);
           let t = Topograms.findOne({ _id : topogramId });
           assert.equal(t.name, title);
+          done();
+        })
+      })
+
+      describe('topograms.togglePublic', function () {
+        it('toggle the visibility (sharedPublic) of a topogram', function(done) {
+
+          Factory.create('node', { topogramId });
+          let t_before = Topograms.findOne({ _id : topogramId });
+          assert.equal(t_before.sharedPublic, false);
+          topogramTogglePublic._execute({},{
+            topogramId
+          });
+          let t = Topograms.findOne({ _id : topogramId });
+          assert.equal(t.sharedPublic, true);
+          done();
+          let t_again = Topograms.findOne({ _id : topogramId });
+          assert.equal(t_again.sharedPublic, false);
           done();
         })
       })

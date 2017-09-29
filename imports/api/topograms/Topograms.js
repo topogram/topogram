@@ -33,7 +33,7 @@ Topograms.schema = new SimpleSchema({
   sharedPublic : {
     type: Boolean,
     label : 'Indicates if a topogram is visible by anonymous users',
-    optional: true
+    defaultValue: false
   },
   description : {
     type: String,

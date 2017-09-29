@@ -90,12 +90,35 @@ export const topogramUpdateTitle = new ValidatedMethod({
     )
   }
 })
+
 /**
 * Make a topograms public
 *
 * @param {String} _id the Mongo _id of the new topogram
 * @return {Object} the Topogram object as inserted in Mongo
 */
+
+/**
+* Edit the title of a topogram
+*
+* @instance {ValidatedMethod}
+* @param {String} _id the Mongo _id of the topogram to update
+* @param {String} title the new title of the topogram
+* @return {Object} the Topogram object as inserted in Mongo
+*/
+export const topogramTogglePublic = new ValidatedMethod({
+  name: 'topogram.togglePublic',
+  validate: TOPOGRAM_ID_ONLY,
+  run({ topogramId }) {
+    let t = Topograms.findOne(topogramId, { sharedPublic : 1})
+    return Topograms.update( topogramId,
+      { '$set' : { 'sharedPublic' : !t.sharedPublic},
+        'updatedAt' : new Date()
+      }
+    )
+  }
+})
+
 /*
 makePublic( _id ) {
   return Topograms.update( _id, {

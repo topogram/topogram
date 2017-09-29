@@ -9,6 +9,7 @@ import SettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import DeleteTopogram from '../topograms/DeleteTopogram.jsx'
 import EditTopogramTitle from '../topograms/EditTopogramTitle.jsx'
+import TogglePublicButton from './TogglePublicButton.jsx'
 
 export default class Settings extends React.Component {
 
@@ -23,6 +24,11 @@ export default class Settings extends React.Component {
         leftIcon={<SettingsIcon />}
         primaryTogglesNestedList={true}
         nestedItems={[
+          <TogglePublicButton
+            topogramId={this.props.topogramId}
+            topogramIsPublic={this.props.topogramIsPublic}
+            key="ToggleTopogramPublicButton"
+          />,
           <EditTopogramTitle
             topogramTitle= {this.props.topogramTitle}
             topogramId={this.props.topogramId}
