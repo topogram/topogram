@@ -40,7 +40,7 @@ export const topogramCreate = new ValidatedMethod({
         'data' : t
       })
 
-    const sharedPublic = userId === null ? false : true
+    const sharedPublic = !userId ? true : false
 
     return Topograms.insert( {
       name,
