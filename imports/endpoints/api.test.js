@@ -30,7 +30,6 @@ if (Meteor.isServer) {
           assert.equal(Nodes.find().count(), 3)
           done()
         })
-
         it('should create a node with data', function(done) {
           assert(true, false)
           let position = { x: 1, y: 2},

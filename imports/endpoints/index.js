@@ -1,9 +1,17 @@
+import { Meteor } from 'meteor/meteor'
+import { Accounts } from 'meteor/accounts-base'
 import { Restivus } from 'meteor/nimble:restivus'
+
 import logger from '/imports/logger.js'
 
 import { createNodes, moveNode, updateNode, deleteNodes } from '/imports/endpoints/nodes.js'
 import { createEdges, updateEdge, deleteEdges } from '/imports/endpoints/edges.js'
-import { getTopograms, createTopogram } from '/imports/endpoints/topograms.js'
+
+import {
+  getTopograms,
+  createTopogram,
+  togglePublicTopogram
+} from '/imports/endpoints/topograms.js'
 
 import { buildSuccessAnswer, buildErrorAnswer} from '/imports/api/responses'
 import { Topograms, Nodes, Edges } from '/imports/api/collections.js'
@@ -27,16 +35,57 @@ Api.addRoute('',
   { get() { return { 'message' : 'API works' } } }
 )
 
+Api.addRoute('topogramsPublic', {authRequired: false}, {
+  get: function () {
+    return Topograms.find({ "sharedPublic": 1}).fetch();
+  }
+})
+
+// Generates: POST on /api/users and GET, DELETE /api/users/:id for
+Api.addCollection(Meteor.users, {
+  excludedEndpoints: [ 'put','delete','patch'],
+  routeOptions: {
+    authRequired: true
+  },
+  endpoints: {
+    post: {
+     authRequired: false,
+     action: function () {
+        var data = this.bodyParams
+        let user = Meteor.users.find({ "emails.address": data.email}).fetch()
+        if (user.length) {
+          let err = buildErrorAnswer({
+            statusCode : 403,
+            message: "Unauthorized - Email already exists"
+          })
+          return err
+        }
+        else {
+          Accounts.createUser(data)
+          let user = Meteor.users.findOne({ "emails.address": data.email})
+          return buildSuccessAnswer({
+            statusCode : 201,
+            data : { "_id" : user._id}
+          })
+        }
+      }
+    },
+    delete: {
+      roleRequired: 'admin'
+    }
+  }
+})
+
 // Topograms
 Api.addCollection(Topograms, {
   routeOptions: {
-    authRequired: false
+    authRequired: true
   },
   endpoints: {
     post: {
       action() {
         let data = createTopogram(this.bodyParams.name)
-        if (data.status === "error") return buildErrorAnswer({statusCode:503, ...data})
+        if (data.body.status === "error") return data
         return buildSuccessAnswer({ statusCode : 201, data})
       }
     },
@@ -50,11 +99,39 @@ Api.addCollection(Topograms, {
   }
 })
 
+Api.addRoute('topograms/getByName', {
+  post: {
+    authRequired: false,
+    action : function () {
+      let name = this.bodyParams.name
+      return buildSuccessAnswer({
+         "statusCode": 200,
+         "data" : Topograms.findOne({name}, {_id : 1})
+      })
+    }
+  }
+})
+
+Api.addRoute('topograms/:_id/togglePublic', {
+  post: {
+    authRequired: true,
+    action : function () {
+      var _id = this.urlParams._id
+      togglePublicTopogram({topogramId : _id})
+      return {
+         "status": "success",
+         "data" : Topograms.findOne(_id)
+      }
+    }
+  }
+})
+
 // Nodes
 Api.addCollection(Nodes, {
   routeOptions: { authRequired: false },
   endpoints: {
     post: {
+      authRequired: true,
       action() {
         const topogramId = this.bodyParams.topogramId
 
@@ -62,8 +139,8 @@ Api.addCollection(Nodes, {
         const nodes = this.bodyParams.nodes
           .map( n=> {
             let {data} = n
-            data.start = new Date(n.data.start),
-            data.end = new Date(n.data.end)
+            if(data.start) data.start = new Date(n.data.start)
+            if(data.end) data.end = new Date(n.data.end)
             return {data}
           })
 
@@ -72,6 +149,7 @@ Api.addCollection(Nodes, {
       }
     },
     put : {
+      authRequired: true,
       action() {
         const nodeId = this.urlParams.id
         const data = this.bodyParams
@@ -84,7 +162,7 @@ Api.addCollection(Nodes, {
 
 Api.addRoute('nodes/delete', {
   post : {
-    authRequired: false,
+    authRequired: true,
     action() {
       const nodeIds = this.bodyParams.nodes
       let data = deleteNodes(nodeIds)
@@ -110,6 +188,7 @@ Api.addCollection(Edges, {
   routeOptions: { authRequired: false },
   endpoints: {
     post: {
+      authRequired: true,
       action() {
         const edges = this.bodyParams.edges
         const topogramId = this.bodyParams.topogramId
@@ -118,6 +197,7 @@ Api.addCollection(Edges, {
       }
     },
     put : {
+      authRequired: true,
       action() {
         const edgeId = this.urlParams.id
         const data = this.bodyParams
@@ -130,7 +210,7 @@ Api.addCollection(Edges, {
 
 Api.addRoute('edges/delete', {
   post : {
-    authRequired: false,
+    authRequired: true,
     action() {
       const edgeIds = this.bodyParams.edges
       let data = deleteEdges(edgeIds)

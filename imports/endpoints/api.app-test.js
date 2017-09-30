@@ -24,8 +24,6 @@ if (Meteor.isServer) {
     })
 
     describe('POST /api/topograms', function() {
-
-
       it('should create a topogram', (done) => {
         request({
             url : 'http://localhost:3000/api/topograms',
