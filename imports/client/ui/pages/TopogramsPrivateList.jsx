@@ -21,15 +21,11 @@ export default class TopogramsPrivateList extends React.Component {
           promptSnackbar={this.promptSnackbar}
           router={this.props.router}
           />
-
-        <section className="home-private-list">
-          {/* <h5 className="grey-text text-lighten-2 center">
-            <FormattedMessage {...messages.browseTopograms} />
-          </h5> */}
-          <TopogramList
-            topograms={this.props.topograms}
-            editable={false} />
-        </section>
+        <TopogramList
+          topograms={this.props.topograms}
+          title="My Topograms"
+          showFilters={false}
+          />
       </div>
     )
   }

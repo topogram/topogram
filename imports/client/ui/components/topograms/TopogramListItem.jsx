@@ -2,9 +2,12 @@ import React from 'react'
 import moment from 'moment'
 import { defineMessages, injectIntl } from 'react-intl'
 
-import { Card, CardActions, CardHeader } from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton'
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 
+import FlatButton from 'material-ui/FlatButton';
+import EyeIcon from 'material-ui/svg-icons/action/visibility';
+
+// import FlatButton from 'material-ui/FlatButton'
 // import DeleteTopogram from './DeleteTopogram.jsx'
 
 const messages = defineMessages({
@@ -15,52 +18,26 @@ const messages = defineMessages({
   }
 })
 
-const listItemStyle = {
+const style = {
   marginBottom: '2em'
 }
 
-const TopogramListItem = React.createClass({
-  getDefaultProps() {
-    return {
-      title : '',
-      _id : '',
-      date: new Date(),
-      editable : false
-    }
-  },
-  render() {
-
-    let parsedDate = (this.props.date) ?  moment(this.props.date).fromNow() : ''
-    let url = `/topograms/${this.props._id}`
-
-    const { formatMessage } = this.props.intl
-
-    return (
-    <div
-      style={listItemStyle}
-      className={this.props.classNames}
-    >
-     <Card>
-      <CardHeader
-        title={this.props.title}
-        subtitle={parsedDate}
-        expandable={false}
+const TopogramListItem = ({title, topogramId, lastModified}) => (
+  <Card>
+    <CardTitle
+    title={title}
+    titleStyle={{fontSize:'13pt', lineHeight:'1.1em', paddingBottom : '.2em'}}
+    subtitle={<span>{moment(lastModified).fromNow()}</span>}
+    />
+    <CardActions>
+      <FlatButton
+        href={`/topograms/${topogramId}`}
+        labelPosition="before"
+        label="Browse"
+        icon={<EyeIcon />}
       />
-      <CardActions>
-        <FlatButton
-          label={formatMessage(messages.browse)}
-          primary={true}
-          href={url}
-        />
-        {/* <DeleteTopogram
-          topogramName= {this.props.title}
-          topogramId={this.props._id}
-          router={this.props.router}
-        /> */}
-      </CardActions>
-     </Card>
-    </div>
-  )}
-})
+    </CardActions>
+  </Card>
+)
 
-export default injectIntl(TopogramListItem)
+export default TopogramListItem

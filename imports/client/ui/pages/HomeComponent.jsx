@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 import { Meteor } from 'meteor/meteor'
 import Snackbar from 'material-ui/Snackbar'
 
@@ -48,18 +49,16 @@ export class HomeComponent extends React.Component {
       open: false,
       message: ''
     }
-    this.promptSnackbar = this.promptSnackbar.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
-  promptSnackbar(msg) {
+  promptSnackbar = (msg) => {
     this.setState({
       open: true,
       message: msg
     })
   }
 
-  handleRequestClose() {
+  handleRequestClose = () =>{
     this.setState({
       open: false,
     })
@@ -73,24 +72,24 @@ export class HomeComponent extends React.Component {
     this.props.stopTopogramsSubscription()
   }
 
+
+
   render() {
     return (
       <div>
         <HomeHeader />
 
-        <TopogramAddForm
+        {/* <TopogramAddForm
           promptSnackbar={this.promptSnackbar}
           router={this.props.router}
-          />
+          /> */}
 
-        <section className="home-public-list">
-          <h5 className="grey-text text-lighten-2 center">
-            <FormattedMessage {...messages.browseTopograms} />
-          </h5>
-          <TopogramList
-            topograms={this.props.topograms}
-            editable={false} />
-        </section>
+
+        <TopogramList
+          topograms={this.props.topograms}
+          title={<FormattedMessage {...messages.browseTopograms} />}
+          showFilters={false}
+          />
 
         <Snackbar
           open={this.state.open}
