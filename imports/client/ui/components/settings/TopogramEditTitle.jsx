@@ -9,7 +9,7 @@ import MenuItem from 'material-ui/MenuItem'
 
 import { topogramUpdateTitle } from '../../../../api/topograms/topogramsMethods.js'
 
-export default class EditTopogramTitle extends React.Component {
+export default class TopogramEditTitle extends React.Component {
 
   constructor(props) {
     super(props)

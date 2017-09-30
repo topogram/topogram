@@ -81,7 +81,7 @@ export class HomeComponent extends React.Component {
 
         {/* <TopogramAddForm
           promptSnackbar={this.promptSnackbar}
-          router={this.props.router}
+
           /> */}
 
 
@@ -89,6 +89,7 @@ export class HomeComponent extends React.Component {
           topograms={this.props.topograms}
           title={<FormattedMessage {...messages.browseTopograms} />}
           showFilters={false}
+          router={this.props.router}
           />
 
         <Snackbar

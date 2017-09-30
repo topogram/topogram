@@ -13,10 +13,7 @@ import QueryBox from './queryBox/QueryBox.jsx'
 import NetworkOptions from './networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from './geoMapOptions/GeoMapOptions.jsx'
 
-import DeleteTopogram from './settings/DeleteTopogram.jsx'
-import EditTopogramTitle from './settings/EditTopogramTitle.jsx'
-import TogglePublicButton from './settings/TopogramTogglePublicButton.jsx'
-
+import Settings from './settings/Settings.jsx'
 
 @ui()
 class SideNav extends React.Component {
@@ -41,25 +38,12 @@ class SideNav extends React.Component {
 
     const settings =
       authorIsLoggedIn ?
-        <span>
-          <Subheader>Settings</Subheader>
-          <TogglePublicButton
-            topogramId={this.props.topogramId}
-            topogramIsPublic={this.props.topogramIsPublic}
-            key="ToggleTopogramPublicButton"
-          />
-          <EditTopogramTitle
-            topogramTitle= {this.props.topogramTitle}
-            topogramId={this.props.topogramId}
-            key="EditTopogramTitle"
-          />
-          <DeleteTopogram
-            topogramName= {this.props.topogramTitle}
-            topogramId={this.props.topogramId}
-            router={this.props.router}
-            key="DeleteTopogram"
-          />
-        </span>
+      <Settings
+        topogramId={this.props.topogramId}
+        topogramTitle= {this.props.topogramTitle}
+        topogramSharedPublic={this.props.topogramIsPublic}
+        router={this.props.router}
+        />
       :
       null
 

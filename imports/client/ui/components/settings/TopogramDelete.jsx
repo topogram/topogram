@@ -28,7 +28,7 @@ const messages = defineMessages({
   }
 })
 
-const DeleteTopogram = React.createClass({
+const TopogramDelete = React.createClass({
 
   getDefaultProps() {
     return {
@@ -93,4 +93,4 @@ const DeleteTopogram = React.createClass({
   }
 })
 
-export default injectIntl(DeleteTopogram)
+export default injectIntl(TopogramDelete)

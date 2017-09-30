@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 import Toggle from 'material-ui/Toggle';
 import SubHeader from 'material-ui/Subheader';
 import {GridList, GridTile} from 'material-ui/GridList';
@@ -30,8 +29,10 @@ export default class TopogramList extends React.Component {
       .map( ( topogram, i ) => (
         <TopogramListItem
           key={ topogram._id }
-          title={ topogram.name }
           topogramId={ topogram._id }
+          topogramTitle={ topogram.name }
+          topogramSharedPublic={topogram.sharedPublic}
+          router={this.props.router}
           lastModified={ topogram.createdAt }
         />
       ))
