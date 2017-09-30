@@ -1,7 +1,7 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor'
 
-class Version extends React.Component {
+export default class Version extends React.Component {
   constructor(props) {
     super(props)
     this.state = { version: '' }
@@ -17,5 +17,3 @@ class Version extends React.Component {
     )
   }
 }
-
-export default Version
