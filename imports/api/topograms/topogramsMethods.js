@@ -84,7 +84,7 @@ export const topogramUpdateTitle = new ValidatedMethod({
 
     console.log(topogramId, title);
     return Topograms.update( topogramId,
-      { '$set' : { 'name' : title},
+      { '$set' : { 'name' : title, 'slug': slugify( title ) },
         'updatedAt' : new Date()
       }
     )
