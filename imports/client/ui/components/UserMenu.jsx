@@ -3,15 +3,18 @@ import { Link } from 'react-router';
 
 import { appLocales, messages } from '../../../i18n.js'
 
+import Divider from 'material-ui/Divider';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
+import Home from 'material-ui/svg-icons/action/home';
+
+import About from '../components/About.jsx'
 
 const style = {
-  maxWidth : '60px',
   position : 'fixed',
   top : '3vh',
   right : '1vw'
@@ -29,6 +32,14 @@ export default class UserMenu extends React.Component {
       if (err) console.log(err)
       else console.log('logout')
     });
+  }
+
+  handleRequestChange() {
+    console.log('haha');
+  }
+
+  handleChangeSingle(e) {
+    console.log(e);
   }
 
   render() {
@@ -49,25 +60,37 @@ export default class UserMenu extends React.Component {
     return (
       <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-        touchTapCloseDelay={250}
+        // touchTapCloseDelay={250}
         style={style}
+        onChange={this.handleChangeSingle}
+        onRequestChange={(e) => this.handleRequestChange(e)}
       >
+        <MenuItem
+          primaryText="Home"
+          leftIcon={<Home />}
+          onClick={() => this.props.router.push('/')}
+        />
+        <About />
+
+        <Divider />
         <MenuItem
           primaryText="Language"
           rightIcon={<ArrowDropRight />}
           menuItems={languageMenuItems}
         />
+
+        <Divider />
         {
           !isLoggedIn
           ?
           <span>
             <MenuItem
               primaryText='Login'
-              onClick={() => this.props.router.push('/login')}
+              onClick={(e) => this.props.router.push('/login')}
               />
             <MenuItem
               primaryText='Sign Up'
-              onClick={() => this.props.router.push('/signup')}
+              onClick={(e) => this.props.router.push('/signup')}
               />
           </span>
           :
@@ -76,6 +99,8 @@ export default class UserMenu extends React.Component {
             onClick={() => this.logout()}
           />
         }
+
+
       </IconMenu>
     )
   }

@@ -8,7 +8,6 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 
 import MenuItem from 'material-ui/MenuItem';
-import Home from 'material-ui/svg-icons/action/home';
 
 import CardBody from './CardBody.jsx'
 
@@ -16,7 +15,6 @@ import QueryBox from '../queryBox/QueryBox.jsx'
 import NetworkOptions from '../networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
 import Settings from '../settings/Settings.jsx'
-import About from '../About.jsx'
 
 
 @ui()
@@ -68,12 +66,6 @@ class SideNav extends React.Component {
             router={this.props.router}
             />
 
-          <MenuItem
-            primaryText="Home"
-            leftIcon={<Home />}
-            onClick={() => this.props.router.push('/')}
-          />
-          <About />
         </CardBody>
       </Card>
     )

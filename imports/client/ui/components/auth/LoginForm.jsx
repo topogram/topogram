@@ -1,9 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Card, CardText } from 'material-ui/Card';
+
+import { CardActions, CardHeader, CardText } from 'material-ui/Card';
+// import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
 
+import AuthLayout from './AuthLayout.jsx'
 
 const LoginForm = ({
   onSubmit,
@@ -11,40 +15,50 @@ const LoginForm = ({
   errors,
   user
 }) => (
-  <Card className="container">
+  <AuthLayout>
     <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Login</h2>
 
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+      <CardHeader
+        title="Login"
+        subtitle="Welcome to Topogram"
+      />
 
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Email"
-          name="email"
-          errorText={errors.email}
-          onChange={onChange}
-          value={user.email}
-        />
-      </div>
+      <CardText>
+        {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Password"
-          type="password"
-          name="password"
-          onChange={onChange}
-          errorText={errors.password}
-          value={user.password}
-        />
-      </div>
+        <div className="field-line">
+          <TextField
+            floatingLabelText="Email"
+            name="email"
+            errorText={errors.email}
+            onChange={onChange}
+            value={user.email}
+          />
+        </div>
 
-      <div className="button-line">
-        <RaisedButton type="submit" label="Log in" primary />
-      </div>
-
-      <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
+        <div className="field-line">
+          <TextField
+            floatingLabelText="Password"
+            type="password"
+            name="password"
+            onChange={onChange}
+            errorText={errors.password}
+            value={user.password}
+          />
+        </div>
+      </CardText>
+      <CardActions>
+        <RaisedButton
+          type="submit"
+          label="Log in"
+          primary={true}
+         />
+      </CardActions>
     </form>
-  </Card>
+    <CardText>
+      Don't have an account? <Link to={'/signup'}>Create one</Link>
+    </CardText>
+  </AuthLayout>
 );
 
 LoginForm.propTypes = {

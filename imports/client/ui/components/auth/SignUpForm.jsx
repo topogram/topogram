@@ -1,9 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Card, CardText } from 'material-ui/Card';
+
+import { CardActions, CardHeader, CardText } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+import AuthLayout from './AuthLayout.jsx'
 
 const SignUpForm = ({
   onSubmit,
@@ -11,10 +14,13 @@ const SignUpForm = ({
   errors,
   user,
 }) => (
-  <Card className="container">
+  <AuthLayout>
     <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Sign Up</h2>
-
+      <CardHeader
+        title="Sign Up"
+        subtitle="Welcome to Topogram"
+      />
+      <CardText>
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
       <div className="field-line">
@@ -59,13 +65,19 @@ const SignUpForm = ({
         />
       </div> */}
 
-      <div className="button-line">
-        <RaisedButton type="submit" label="Create New Account" primary />
-      </div>
-
-      <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
-    </form>
-  </Card>
+    </CardText>
+    <CardActions>
+      <RaisedButton
+        type="submit"
+        label="Create New Account"
+        primary={true}
+       />
+    </CardActions>
+  </form>
+  <CardText>
+    Already have an account? <Link to={'/login'}>Log in</Link>
+  </CardText>
+</AuthLayout>
 );
 
 SignUpForm.propTypes = {

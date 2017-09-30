@@ -9,14 +9,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { green500, indigo700, redA200 } from 'material-ui/styles/colors'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-// i18n
-// import LanguageSwitch from './LanguageSwitch.jsx'
-
-import LoginButtons from '../components/UserMenu.jsx'
-import LanguageSwitch from '../components/LanguageSwitch.jsx'
-
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
+
+import UserMenu from '../components/UserMenu.jsx'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -33,12 +29,11 @@ const App = ({ children, classNames, locale, messages, user, loadUser, router}) 
     <IntlProvider locale={locale} messages={messages}>
       <MuiThemeProvider muiTheme={muiTheme}>
           <div className={ classNames }>
-            <LoginButtons
+            <UserMenu
               user={user}
               loadUser={loadUser}
               router={router}
               />
-            {/* <LanguageSwitch /> */}
             {children}
           </div>
       </MuiThemeProvider>
