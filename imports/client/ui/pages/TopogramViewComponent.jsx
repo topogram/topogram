@@ -5,7 +5,7 @@ import { composeWithTracker } from 'react-komposer'
 import { Meteor } from 'meteor/meteor'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
-import SideNav from '/imports/client/ui/components/sideNav/SideNav.jsx'
+import SideNav from '/imports/client/ui/components/SideNav.jsx'
 import SelectionPanel from '/imports/client/ui/components/selectionPanel/SelectionPanel.jsx'
 
 // UI state default values
