@@ -20,7 +20,6 @@ const style = {
   right : '1vw'
 }
 
-
 export default class UserMenu extends React.Component {
 
   componentDidMount() {
@@ -71,13 +70,23 @@ export default class UserMenu extends React.Component {
           onClick={() => this.props.router.push('/')}
         />
         <About />
-
+{/*
         <Divider />
         <MenuItem
           primaryText="Language"
           rightIcon={<ArrowDropRight />}
           menuItems={languageMenuItems}
-        />
+        /> */}
+
+        {
+          isLoggedIn ?
+          <MenuItem
+            primaryText='My Topograms'
+            onClick={(e) => this.props.router.push('/topograms')}
+            />
+          :
+          null
+        }
 
         <Divider />
         {

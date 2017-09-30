@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 import { stopSubscription } from 'meteor-redux-middlewares';
 
-import { loadHomeTopograms, TOPOGRAMS_SUB } from '/imports/client/actions/topograms';
+import { loadHomeTopograms, TOPOGRAMS_PUBLIC_SUB } from '/imports/client/actions/topograms';
 
 import { HomeComponent } from '/imports/client/ui/pages/HomeComponent';
 
 const mapStateToProps = state => ({
-    ready: state.topograms.ready,
-    topograms: state.topograms.topograms,
+    ready: state.topogramsPublic.ready,
+    topograms: state.topogramsPublic.topograms
   })
 
 const mapDispatchToProps = dispatch => ({
   loadTopograms: () => dispatch(loadHomeTopograms()),
-  stopTopogramsSubscription: () => dispatch(stopSubscription(HOME_POSTS_SUB)),
+  stopTopogramsSubscription: () => dispatch(stopSubscription(TOPOGRAMS_PUBLIC_SUB)),
 });
 
 

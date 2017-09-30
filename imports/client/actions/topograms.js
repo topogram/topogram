@@ -17,3 +17,19 @@ export const loadHomeTopograms = () =>
       return topograms
     },
   });
+
+// private (user only)
+export const TOPOGRAMS_PRIVATE_SUBSCRIPTION_READY = 'TOPOGRAMS_PRIVATE_SUBSCRIPTION_READY';
+export const TOPOGRAMS_PRIVATE_SUBSCRIPTION_CHANGED = 'TOPOGRAMS_PRIVATE_SUBSCRIPTION_CHANGED';
+export const TOPOGRAMS_PRIVATE_SUB = 'topograms.private';
+
+export const loadPrivateTopograms = () =>
+  startSubscription({
+    key: TOPOGRAMS_PRIVATE_SUB,
+    subscribe: () => Meteor.subscribe(TOPOGRAMS_PRIVATE_SUB),
+    get: () => {
+      let topograms = Topograms.find().fetch()
+      let topogramIds = topograms.map( d => d._id)
+      return topograms
+    },
+  });

@@ -8,8 +8,9 @@ import store from '/imports/client/store';
 import { HomeContainer } from '/imports/client/ui/containers/HomeContainer.jsx'
 import App from '/imports/client/ui/containers/App.jsx';
 
-// import { TopogramContainer } from '/imports/client/ui/containers/TopogramContainer.jsx'
 import { TopogramViewContainer } from '/imports/client/ui/containers/TopogramViewContainer.jsx'
+
+import { TopogramsPrivateListContainer } from '/imports/client/ui/containers/TopogramsPrivateListContainer.jsx'
 
 import { SignUpPage } from '/imports/client/ui/pages/SignUpPage.jsx'
 import { LoginPage } from '/imports/client/ui/pages/LoginPage.jsx'
@@ -20,7 +21,7 @@ export const renderRoutes = () => (
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={HomeContainer}/>
-        {/* <Route path="topograms/:topogramId/edit" component={TopogramContainer}/> */}
+        <Route path="topograms" component={TopogramsPrivateListContainer}/>
         <Route path="topograms/:topogramId" component={TopogramViewContainer}/>
         <Route path="/signup" component={SignUpPage}/>
         <Route path="/login" component={LoginPage}/>

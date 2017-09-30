@@ -69,6 +69,10 @@ export class HomeComponent extends React.Component {
     this.props.loadTopograms()
   }
 
+  componentWillUnmount() {
+    this.props.stopTopogramsSubscription()
+  }
+
   render() {
     return (
       <div>
