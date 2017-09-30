@@ -159,14 +159,19 @@ if (Meteor.isServer) {
           Factory.create('node', { topogramId });
           let t_before = Topograms.findOne({ _id : topogramId });
           assert.equal(t_before.sharedPublic, false);
+
           topogramTogglePublic._execute({},{
             topogramId
           });
           let t = Topograms.findOne({ _id : topogramId });
           assert.equal(t.sharedPublic, true);
-          done();
+
+          topogramTogglePublic._execute({},{
+            topogramId
+          });
           let t_again = Topograms.findOne({ _id : topogramId });
           assert.equal(t_again.sharedPublic, false);
+
           done();
         })
       })
