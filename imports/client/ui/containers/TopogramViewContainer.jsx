@@ -18,6 +18,8 @@ const mapStateToProps = state => ({
     edges: state.edges.edges,
     topogram : state.topogram.topogram,
     topogramReady : state.topogram.ready,
+    userId : state.user._id,
+    isLoggedIn : state.user.isLoggedIn
   })
 
 const mapDispatchToProps = dispatch => ({

@@ -36,14 +36,16 @@ export class TopogramViewComponent extends React.Component {
   static propTypes = {
     ui: React.PropTypes.object,
     updateUI: React.PropTypes.func,
-    topogramId: React.PropTypes.string,
     hasTimeInfo: React.PropTypes.bool,
     hasGeoInfo: React.PropTypes.bool,
     maxTime: React.PropTypes.instanceOf(Date),
     minTime: React.PropTypes.instanceOf(Date),
     nodes: React.PropTypes.array,
     edges: React.PropTypes.array,
-    topogram: React.PropTypes.object
+    topogram: React.PropTypes.object,
+    topogramId: React.PropTypes.string,
+    isLoggedIn : React.PropTypes.bool,
+    userId: React.PropTypes.string
   }
 
   constructor(props) {
@@ -63,6 +65,12 @@ export class TopogramViewComponent extends React.Component {
     this.props.loadTopogram(this.props.params.topogramId);
     this.props.loadNodes(this.props.params.topogramId);
     this.props.loadEdges(this.props.params.topogramId);
+  }
+
+  componentWillUnmount() {
+    this.props.stopNodesSubscription()
+    this.props.stopEdgesSubscription()
+    this.props.stopTopogramSubscription()
   }
 
   toggleSideNav() {
@@ -116,6 +124,9 @@ export class TopogramViewComponent extends React.Component {
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
       )
 
+    console.log(this.props.userId, this.props.topogram.userId, this.props.isLoggedIn);
+    console.log(this.props.userId === this.props.topogram.userId && this.props.isLoggedIn);
+
     return (
       <div>
 
@@ -128,6 +139,8 @@ export class TopogramViewComponent extends React.Component {
         { this.props.ui.filterPanelIsOpen ?
           <SideNav
             topogramId={ this.props.params.topogramId }
+            topogramTitle={ this.props.topogram.name }
+            authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
             topogramTitle={ this.props.topogram.name }
             topogramIsPublic={ this.props.topogram.sharedPublic }
             nodes={ nodes }

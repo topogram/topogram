@@ -36,8 +36,32 @@ class SideNav extends React.Component {
   }
 
   render() {
-    const { nodes, edges } = this.props;
+    const { nodes, edges, authorIsLoggedIn, userId } = this.props;
     const { selectionModeOn } = this.props.ui;
+
+    const settings =
+      authorIsLoggedIn ?
+        <span>
+          <Subheader>Settings</Subheader>
+          <TogglePublicButton
+            topogramId={this.props.topogramId}
+            topogramIsPublic={this.props.topogramIsPublic}
+            key="ToggleTopogramPublicButton"
+          />
+          <EditTopogramTitle
+            topogramTitle= {this.props.topogramTitle}
+            topogramId={this.props.topogramId}
+            key="EditTopogramTitle"
+          />
+          <DeleteTopogram
+            topogramName= {this.props.topogramTitle}
+            topogramId={this.props.topogramId}
+            router={this.props.router}
+            key="DeleteTopogram"
+          />
+        </span>
+      :
+      null
 
     return (
       <Card
@@ -64,24 +88,7 @@ class SideNav extends React.Component {
               onClick={this.handleToggleSelectionMode}
               checked={selectionModeOn}
             />
-
-            <Subheader>Settings</Subheader>
-            <TogglePublicButton
-              topogramId={this.props.topogramId}
-              topogramIsPublic={this.props.topogramIsPublic}
-              key="ToggleTopogramPublicButton"
-            />
-            <EditTopogramTitle
-              topogramTitle= {this.props.topogramTitle}
-              topogramId={this.props.topogramId}
-              key="EditTopogramTitle"
-            />
-            <DeleteTopogram
-              topogramName= {this.props.topogramTitle}
-              topogramId={this.props.topogramId}
-              router={this.props.router}
-              key="DeleteTopogram"
-            />
+            {settings}
           </span>
           :
           null

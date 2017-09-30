@@ -3,7 +3,7 @@ import { STOP_SUBSCRIPTION } from 'meteor-redux-middlewares';
 import {
   TOPOGRAM_SUBSCRIPTION_READY,
   TOPOGRAM_SUBSCRIPTION_CHANGED,
-  TOPOGRAM_SUB,
+  TOPOGRAM_SINGLE_SUB,
 } from '/imports/client/actions/topogram';
 
 const initialState = {
@@ -29,7 +29,7 @@ export function topogram(state = initialState, action) {
         topogram : action.payload,
       };
     case STOP_SUBSCRIPTION:
-      return action.payload === TOPOGRAM_SUB
+      return action.payload === TOPOGRAM_SINGLE_SUB
         ? { ...state, topogramSubscriptionStopped: true }
         : state;
     default:
