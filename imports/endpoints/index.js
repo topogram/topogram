@@ -84,7 +84,10 @@ Api.addCollection(Topograms, {
   endpoints: {
     post: {
       action() {
-        let data = createTopogram(this.bodyParams.name)
+        let data = createTopogram({
+          name : this.bodyParams.name,
+          userId: this.userId
+        })
         if (data.body.status === "error") return data
         return buildSuccessAnswer({ statusCode : 201, data})
       }

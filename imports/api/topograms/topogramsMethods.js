@@ -16,6 +16,7 @@ const TOPOGRAM_ID_AND_TITLE = new SimpleSchema({
   title: Topograms.simpleSchema().schema('name'),
 }).validator({ clean: true, filter: false })
 
+
 /**
 * Create a topogram
 *
@@ -26,27 +27,27 @@ const TOPOGRAM_ID_AND_TITLE = new SimpleSchema({
 export const topogramCreate = new ValidatedMethod({
   name: 'topogram.create',
   validate: new SimpleSchema({
-    name: { type: String }
-  }).validator(),
-  run({ name }) {
+    name: Topograms.simpleSchema().schema('name'),
+    userId: Topograms.simpleSchema().schema('userId')
+  }).validator({ clean: true, filter: false }),
+  run({ name, userId=this.userId }) {
 
     // forbid with the same name
-    const t = Topograms.findOne({ name, userId : this.userId })
-
+    const t = Topograms.findOne({ name, userId : userId })
     if (t && t._id)
       return buildErrorAnswer({
         'message' : 'A topogram with the same name already exists',
         'data' : t
       })
 
-    const sharedPublic = this.userId ? false : true
+    const sharedPublic = userId === null ? false : true
 
     return Topograms.insert( {
       name,
       'slug': slugify( name ),
       'createdAt': new Date(), // current time
       sharedPublic,
-      userId : this.userId // _id of logged in user
+      userId : userId // _id of logged in user
     })
   }
 })
@@ -81,8 +82,6 @@ export const topogramUpdateTitle = new ValidatedMethod({
   name: 'topogram.updateTitle',
   validate: TOPOGRAM_ID_AND_TITLE,
   run({ topogramId, title }) {
-
-    console.log(topogramId, title);
     return Topograms.update( topogramId,
       { '$set' : { 'name' : title, 'slug': slugify( title ) },
         'updatedAt' : new Date()

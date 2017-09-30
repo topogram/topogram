@@ -8,8 +8,8 @@ import {
 export const getTopograms = () =>
   Topograms.find().fetch()
 
-export const createTopogram = (name) =>
-  topogramCreate.call({ name })
+export const createTopogram = (data) =>
+  topogramCreate.call(data)
 
 export const togglePublicTopogram = (name) =>
   topogramCreate.call({ name })
