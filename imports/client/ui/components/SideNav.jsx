@@ -49,7 +49,7 @@ class SideNav extends React.Component {
 
     return (
       <Card
-        style={{ maxWidth : '30%'}}
+        style={{ maxWidth : '30%', minWidth : '25%', float : 'left'}}
         onExpandChange={this.handleExpandChange}
         >
         <CardTitle

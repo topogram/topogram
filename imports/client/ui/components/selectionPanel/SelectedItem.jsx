@@ -1,5 +1,6 @@
 import React from 'react'
-import {Card, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardTitle, CardText, CardActions} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 import Markdown from 'react-remarkable'
 import 'github-markdown-css'
