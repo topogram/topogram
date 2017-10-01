@@ -6,3 +6,8 @@ csv
 npm-debug.log
 node_modules
 updates
+oldies
+
+.apiDocs
+update.log
+_docpress

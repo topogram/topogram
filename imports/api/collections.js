@@ -1,14 +1,15 @@
 import { Mongo } from 'meteor/mongo'
 
-// Datasets = new Mongo.Collection( 'datasets' )
-export const Topograms = new Mongo.Collection( 'topograms' )
-export const Comments = new Mongo.Collection( 'comments' )
-export const Edges = new Mongo.Collection( 'edges' )
-export const Nodes = new Mongo.Collection( 'nodes' )
-// Users : handle by Meteor.users
+import { Topograms } from '/imports/api/topograms/Topograms.js'
+import { Nodes } from '/imports/api/nodes/Nodes.js'
+import { Edges } from '/imports/api/edges/Edges.js'
 
-// Transactions  config
-// tx.collectionIndex = {
-//     'nodes': Nodes,
-//     'edges': Edges
-// }
+export const Comments = new Mongo.Collection( 'comments' )
+
+export {
+  Nodes,
+  Edges,
+  Topograms
+}
+
+// Users : handle by Meteor.users

@@ -4,7 +4,15 @@ cache:
   directories:
     - node_modules
 node_js:
-  - "0.10.43"
+  - "6.2.1"
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
 before_install:
   - curl https://install.meteor.com | /bin/sh
   - export PATH="$HOME/.meteor:$PATH"
@@ -12,7 +20,5 @@ before_install:
 install:
   - meteor npm install
 script:
-  - gulp test
-  - meteor remove practicalmeteor:mocha
-  - meteor add dispatch:mocha-phantomjs
-  - meteor test --once --driver-package=dispatch:mocha-phantomjs
+  - npm test
+  - meteor test --once --driver-package=dispatch:mocha

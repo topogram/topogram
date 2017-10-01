@@ -1,30 +1,31 @@
 # Topogram
 
-
-**Topogram** is a web-based app to create and publish collaborative mapping of networks.
+**Topogram** is a web-based app to visualize the evolution of networks over time and space.
 
 [![Build Status](https://travis-ci.org/topogram/topogram.svg?branch=api)](https://travis-ci.org/topogram/topogram)
-[![Join the chat at https://gitter.im/topogram/topogram](https://badges.gitter.im/topogram/topogram.svg)](https://gitter.im/topogram/topogram?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+For more information, please [read the docs ](http://topogram.io)
 
 ## Features
 
-* interactive editing of networks
-* real-time collaboration
-* time/geo based data
-* CSV import
+* time-based navigation in graph
+* network layouts + geographic data
+* online/real-time data update via API
 
-![Screenshot Topogram](http://topogram.io/images/Topogram-Network.png)
+![Screenshot Topogram](http://topogram.io/img/Topogram-Network.png)
 
-Topogram is a node application based on [Meteor JS](https://www.meteor.com/) and [Cytoscape JS](http://js.cytoscape.org).
 
-## Run
+## Download & Install
+
+You need [Meteor JS](https://www.meteor.com/) to install Topogram.
 
     git clone https://github.com/topogram/topogram-client.git
     cd topogram-client
+    meteor npm install
     meteor
 
-### Test
+
+### Test & Code quality
 
 There is 2 sorts of tests here :
 
@@ -35,7 +36,7 @@ You can launch all tests using `gulp test` or `npm test`
 
 You can also run the app in test mode to check integration as you develop
 
-    npm test-ui
+    npm test:meteor
 
 Check for ESlint compliance
 
@@ -43,15 +44,25 @@ Check for ESlint compliance
 
 ### Deploy with Docker
 
-We use Docker to run in production.
+You can use Docker to run in production.
 
 1. build the Docker topogram/topogram container with `./build.sh`
 1. fetch a mongo Docker container for the DB and run the app with `docker-compose up`
 
 
-## Publishing instructions
+### Build the docs
+
+All the docs will be built in the `.docs/` folder.
+
+    gulp doc
+
+### Publishing instructions
 
 This project is set up to automatically publish to npm. To publish:
 
 1. Set the version number environment variable: export VERSION=1.2.3
 1. Publish: ```gulp publish```
+
+### Internationalization
+
+Topogram supports internationalization. Please read our [i18n guidelines](https://github.com/topogram/topogram/wiki/App-translation) and feel free to add your own language by translating a file in `./i18n` folder!

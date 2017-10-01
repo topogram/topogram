@@ -1,2 +1,8 @@
 *.test.js
 imports/plugins
+oldies
+imports/ui/pages/**/*.js
+gulpfile.js
+package.json
+saveSVG.js
+version.js
