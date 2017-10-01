@@ -34,12 +34,12 @@ export function nodes(state = initialState, action) {
       const starts = nodes
         .filter(n => n.data.start)
         .map(n => new Date(n.data.start))
-        .sort()
+        .sort((a,b) => a.getTime() -b.getTime())
 
       const ends = nodes
         .filter(n => n.data.end)
         .map(n => new Date(n.data.end))
-        .sort((a,b) => b-a)
+        .sort((a,b) => b.getTime()-a.getTime())
 
       const hasTimeInfo = !!(starts.length || ends.length)
 

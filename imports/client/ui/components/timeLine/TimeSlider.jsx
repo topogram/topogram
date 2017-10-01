@@ -18,7 +18,6 @@ function dateFormatter(v) {
 export default class TimeSlider extends React.Component {
 
   onSliderChange = (value) => {
-    console.log(value );
     this.props.updateUI({ currentSliderTime : value });
   }
 
@@ -29,9 +28,7 @@ export default class TimeSlider extends React.Component {
     const minYear = moment(minTime).year(),
       maxYear = moment(maxTime).year()
 
-    console.log(currentSliderTime);
-    
-    // generate list of years
+    // generate list of years (in ms)
     const marksYears = {}
     Array(maxYear-minYear+1)
       .fill(0)
