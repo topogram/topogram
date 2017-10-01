@@ -1,11 +1,10 @@
-import React from 'react'
-import cytoscape from 'cytoscape'
+import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import Cytoscape from './Cytoscape.jsx'
 import NetworkDefaultStyle from './NetworkDefaultStyle'
 
-import { nodeMove } from '/imports/api/nodes/nodesMethods'
+// import { nodeMove } from '/imports/api/nodes/nodesMethods'
 
 @ui()
 class Network extends React.Component {
@@ -31,9 +30,9 @@ class Network extends React.Component {
       .off('free', 'edge')  // reset
       .off('tap', 'node')
       .on('grab', 'node', e => this.props.selectElement(e.cyTarget))
-      .on('free', 'node', e => this.props.unselectAllElements())
+      .on('free', 'node', () => this.props.unselectAllElements())
       .on('tapstart', 'edge', e => this.props.selectElement(e.cyTarget))
-      .on('tapend', 'edge', e => this.props.unselectAllElements())
+      .on('tapend', 'edge', () => this.props.unselectAllElements())
   }
 
   componentDidMount() {
@@ -126,7 +125,7 @@ class Network extends React.Component {
   }
 
   componentDidUpdate() {
-    const cy = this.refs.graph.getCy().resize().fit()
+    this.refs.graph.getCy().resize().fit()
   }
 
   render() {
@@ -155,12 +154,17 @@ class Network extends React.Component {
 }
 
 Network.propTypes = {
-  nodes : React.PropTypes.array,
-  nodesReady : React.PropTypes.bool,
-  edges : React.PropTypes.array,
-  edgesReady : React.PropTypes.bool,
-  style : React.PropTypes.object,
-  layoutName : React.PropTypes.string
+  nodes : PropTypes.array,
+  nodesReady : PropTypes.bool,
+  edges : PropTypes.array,
+  edgesReady : PropTypes.bool,
+  style : PropTypes.object,
+  layoutName : PropTypes.string,
+  onClickElement: PropTypes.func.isRequired,
+  selectElement: PropTypes.func.isRequired,
+  unselectAllElements: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.height.isRequired
 }
 
 Network.defaultProps = {

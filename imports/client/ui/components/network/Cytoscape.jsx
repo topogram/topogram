@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import cytoscape from 'cytoscape'
 import spread from 'cytoscape-spread'
 
@@ -34,7 +34,7 @@ class Cytoscape extends Component {
 
   componentDidMount() {
 
-    const { nodes, edges, style, elements, layoutName } = this.props
+    const { style, elements } = this.props
 
     const cy = cytoscape({
       container: this.refs.cyelement,
@@ -155,6 +155,16 @@ class Cytoscape extends Component {
       ref="cyelement"
     />)
   }
+}
+
+Cytoscape.propTypes = {
+  elements : PropTypes.object.isRequired,
+  width : PropTypes.number.isRequired,
+  height : PropTypes.number.isRequired,
+  layoutName : PropTypes.func.isRequired,
+  nodeRadius : PropTypes.string.isRequired,
+  init : PropTypes.bool.isRequired,
+  style : PropTypes.object
 }
 
 export default Cytoscape

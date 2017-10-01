@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import Toggle from 'material-ui/Toggle'
 import SubHeader from 'material-ui/Subheader'
-import { GridList, GridTile } from 'material-ui/GridList'
-import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
+import { GridList } from 'material-ui/GridList'
 
 import TopogramListItem from './TopogramListItem.jsx'
 
-export default class TopogramList extends React.Component {
+class TopogramList extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = { anonymousOnly : false }
+  }
+
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    showFilters : PropTypes.bool.isRequired,
+    topograms: PropTypes.string.isRequired,
+    router: PropTypes.func.isRequired
   }
 
   handleOnToggle = () => {
@@ -26,7 +32,7 @@ export default class TopogramList extends React.Component {
     const topogramItems = topograms
       .filter(d => anonymousOnly ? d.userId === null : true)
       .sort( (a, b) => b.createdAt - a.createdAt)
-      .map( ( topogram, i ) => (
+      .map( topogram => (
         <TopogramListItem
           key={ topogram._id }
           topogramId={ topogram._id }
@@ -70,3 +76,6 @@ export default class TopogramList extends React.Component {
     )
   }
 }
+
+
+export default TopogramList

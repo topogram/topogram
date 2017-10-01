@@ -61,7 +61,11 @@
     "react/no-did-mount-set-state": 2, // Prevent usage of setState in componentDidMount
     "react/no-did-update-set-state": 2, // Prevent usage of setState in componentDidUpdate
     "react/no-multi-comp": 0, // Prevent multiple component definition per file
-    "react/prop-types": 1, // Prevent missing props validation in a React component definition
+    "react/prop-types": [
+        1,
+        { "ignore" : [ "ui", "updateUI"] }
+      ],
+    // Prevent missing props validation in a React component definition
     "react/no-unknown-property": 2, // Prevent usage of unknown DOM property
     "react/react-in-jsx-scope": 2, // Prevent missing React when using JSX
     "react/self-closing-comp": 2, // Prevent extra closing tags for components without children

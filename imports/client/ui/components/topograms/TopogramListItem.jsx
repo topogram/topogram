@@ -1,38 +1,31 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import moment from 'moment'
 import { defineMessages, injectIntl } from 'react-intl'
 
-import { Link } from 'react-router'
+import { Card, CardActions, CardTitle } from 'material-ui/Card'
 
-import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
+// import IconMenu from 'material-ui/IconMenu'
+// import IconButton from 'material-ui/IconButton'
+// import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+// import Settings from '../settings/Settings.jsx'
 
-import IconMenu from 'material-ui/IconMenu'
-import IconButton from 'material-ui/IconButton'
 import FlatButton from 'material-ui/FlatButton'
 
-import EyeIcon from 'material-ui/svg-icons/action/visibility'
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+// const messages = defineMessages({
+//   browse : {
+//     'id': 'topogram.index.card.button.browse',
+//     'defaultMessage': 'Browse',
+//     'message': ''
+//   }
+// })
 
-import Settings from '../settings/Settings.jsx'
-
-const messages = defineMessages({
-  browse : {
-    'id': 'topogram.index.card.button.browse',
-    'defaultMessage': 'Browse',
-    'message': ''
-  }
-})
-
-const style = {
-  marginBottom: '2em'
-}
 
 const TopogramListItem = ({
   topogramTitle,
   topogramId,
-  topogramSharedPublic,
   lastModified,
-  router
+  // topogramSharedPublic,
+  // router
 }) => (
   <Card>
     <CardTitle
@@ -62,5 +55,12 @@ const TopogramListItem = ({
     </CardActions>
   </Card>
 )
+
+TopogramListItem.propTypes = {
+  topogramTitle: PropTypes.string.isRequired,
+  topogramId: PropTypes.string.isRequired,
+  lastModified: PropTypes.instanceOf(Date).isRequired
+}
+
 
 export default TopogramListItem
