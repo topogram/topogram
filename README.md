@@ -12,7 +12,7 @@ For more information, please [read the docs ](http://topogram.io)
 * network layouts + geographic data
 * online/real-time data update via API
 
-![Screenshot Topogram](./.docs/img/Topogram-Network.png)
+![Screenshot Topogram](http:/topogram.io/img/Topogram-Network.png)
 
 
 ## Download & Install
