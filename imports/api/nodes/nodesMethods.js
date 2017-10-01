@@ -5,8 +5,6 @@ import { bulkCollectionUpdate } from 'meteor/udondan:bulk-collection-update'
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 
-import { makeNode } from '/imports/api/modelsHelpers'
-
 import logger from '../../logger.js'
 
 // const NODE_ID_ONLY = new SimpleSchema({

@@ -1,6 +1,5 @@
 import { Edges } from '../collections.js'
 import { Meteor } from 'meteor/meteor'
-import { Factory } from 'meteor/dburles:factory'
 
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
@@ -161,7 +160,6 @@ export const edgeDeleteMany = new ValidatedMethod({
     edgeIds: { type: [String], minCount: 1 }
   }).validator(), // TODO :check if ID exists,
   run({ edgeIds }) {
-    console.log(edgeIds)
     return Edges.remove( { '_id' : { $in : edgeIds } } )
   }
 })

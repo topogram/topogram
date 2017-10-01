@@ -2,10 +2,8 @@ import { slugify } from '../../helpers'
 import { Topograms, Nodes } from '../collections.js'
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
-import { Meteor } from 'meteor/meteor'
 
-import { buildSuccessAnswer, buildErrorAnswer } from '/imports/api/responses'
-
+import { buildErrorAnswer } from '/imports/api/responses'
 
 const TOPOGRAM_ID_ONLY = new SimpleSchema({
   topogramId: Topograms.simpleSchema().schema('_id'),
