@@ -1,7 +1,7 @@
 import { Topograms } from '/imports/api/collections.js'
 import {
   topogramCreate,
-  topogramDelete,
+  // topogramDelete,
   topogramTogglePublic
 } from '/imports/api/topograms/topogramsMethods.js'
 
@@ -12,4 +12,4 @@ export const createTopogram = (data) =>
   topogramCreate.call(data)
 
 export const togglePublicTopogram = (name) =>
-  topogramCreate.call({ name })
+  topogramTogglePublic.call({ name })

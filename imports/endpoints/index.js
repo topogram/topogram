@@ -4,11 +4,10 @@ import { Restivus } from 'meteor/nimble:restivus'
 
 import logger from '/imports/logger.js'
 
-import { createNodes, moveNode, updateNode, deleteNodes } from '/imports/endpoints/nodes.js'
+import { createNodes, updateNode, deleteNodes } from '/imports/endpoints/nodes.js'
 import { createEdges, updateEdge, deleteEdges } from '/imports/endpoints/edges.js'
 
 import {
-  getTopograms,
   createTopogram,
   togglePublicTopogram
 } from '/imports/endpoints/topograms.js'
@@ -204,7 +203,7 @@ Api.addCollection(Edges, {
       action() {
         const edgeId = this.urlParams.id
         const data = this.bodyParams
-        const res = updateEdge(nodeId, data)
+        const res = updateEdge(edgeId, data)
         return buildSuccessAnswer({ statusCode : 201, res })
       }
     }

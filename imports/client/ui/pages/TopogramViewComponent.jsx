@@ -1,8 +1,5 @@
 import React from 'react'
 import ui from 'redux-ui'
-import Snackbar from 'material-ui/Snackbar'
-import { composeWithTracker } from 'react-komposer'
-import { Meteor } from 'meteor/meteor'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
 import SideNav from '/imports/client/ui/components/SideNav.jsx'
@@ -106,10 +103,6 @@ export class TopogramViewComponent extends React.Component {
   }
 
   render() {
-    const { networkVisible, mapVisible } = this.state
-
-    const topogramName = this.props.topogram.name ?
-      this.props.topogram.name : ''
 
     const nodes = this.props.hasTimeInfo ?
       this.props.nodes

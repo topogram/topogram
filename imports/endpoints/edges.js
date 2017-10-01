@@ -1,5 +1,3 @@
-import { Edges } from '/imports/api/collections.js'
-
 import {
   edgeCreateMany,
   edgeUpdate,

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Accounts } from 'meteor/accounts-base'
+
 import Snackbar from 'material-ui/Snackbar'
 import SignUpForm from '/imports/client/ui/components/auth/SignUpForm.jsx'
 
@@ -60,7 +61,7 @@ export class SignUpPage extends React.Component {
 
     const { email, username, password } = this.state.user
 
-    Accounts.createUser({ email, name, password }, (err, user) => {
+    Accounts.createUser({ email, username, password }, err => {
       if (err) {
         this.promptSnackbar( `Error ${err.error} : ${err.reason}`)
       }

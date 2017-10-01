@@ -1,5 +1,3 @@
-import { Nodes } from '/imports/api/collections.js'
-
 import {
   nodeCreateMany,
   nodeUpdate,

@@ -4,8 +4,6 @@
 import { assert } from 'meteor/practicalmeteor:chai'
 import request  from 'request'
 
-import { Topograms, Nodes, Edges } from '/imports/api/collections.js'
-
 if (Meteor.isServer) {
 
   const topogramId = 'topogramId'
@@ -31,7 +29,6 @@ if (Meteor.isServer) {
           json: { name : 'topotest' }
         },
         function ( err, res, body ) {
-          console.log(body)
           assert.equal(body.status, 'success')
           assert.equal(body.data.length, 17)
           done()
@@ -64,7 +61,6 @@ if (Meteor.isServer) {
           json: { topogramId, edges }
         },
         function ( err, res, body ) {
-          console.log(body)
           assert.equal(body.status, 'success')
           assert.equal(body.data.length, 3)
           done()
