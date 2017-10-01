@@ -170,9 +170,8 @@ if (Meteor.isServer) {
         it('update source, target and other info', function(done) {
 
           let initData = {
-            lng : 6.5,
-            lat : 12.3,
-            id : "my-node",
+            id : "my-edge",
+            weight : 6.5,
             source : "my-source",
             target : "my-target",
             notes : 'some text'
@@ -181,14 +180,13 @@ if (Meteor.isServer) {
           let edgeId = edgeCreate._execute({}, {topogramId, data : initData});
 
           let edge = Edges.findOne(edgeId)
-          assert.equal(edge.data.lat, 12.3)
+          assert.equal(edge.data.weight, 6.5)
 
           edgeUpdate._execute({}, {
             edgeId : edge.data.id,
             data :  {
-              lng : 4.5,
-              lat : 3.3,
               source : "my-other-source",
+              weight : 4.5,
               target : "my-other-target",
               notes : 'some other text'
             }});
@@ -198,8 +196,7 @@ if (Meteor.isServer) {
           assert.equal(edgeAfter.data.source, "my-other-source")
           assert.equal(edgeAfter.data.target, "my-other-target")
           assert.equal(edgeAfter.data.notes, 'some other text')
-          assert.equal(edgeAfter.data.lat, 3.3)
-          assert.equal(edgeAfter.data.lng, 4.5)
+          assert.equal(edgeAfter.data.weight, 4.5)
 
           done()
         })
