@@ -8,4 +8,6 @@ updates
 oldies
 
 .docs/**/*.md
+!.docs/faq.md
+!.docs/howto.md
 update.log

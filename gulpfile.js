@@ -58,15 +58,16 @@ if (typeof Meteor === typeof undefined) {
       API_DOC_DEST_FOLDER,
       UI_DOC_DEST_FOLDER,
       DOC_DEST_FOLDER+'/index.md',
-      DOC_DEST_FOLDER+'/api.md',
+      DOC_DEST_FOLDER+'/reference.md',
       DOC_DEST_FOLDER+'/ui.md',
     ], { force : true});
-});
+  });
 
   gulp.task('doc:build', function(cb){
-    return gulp.src(['./README.md', DOC_DEST_FOLDER+'/api.md', DOC_DEST_FOLDER+'/ui.md'])
+    return gulp.src('./README.md')
       .pipe(concat('index.md'))
-      .pipe(gulp.dest(DOC_DEST_FOLDER));
+      .pipe(insert.prepend("---\nlayout: home\ntitle : Topogram\n---\n"))
+      .pipe(gulp.dest(DOC_DEST_FOLDER))
   })
 
   gulp.task('doc:react', function() {
@@ -103,12 +104,12 @@ if (typeof Meteor === typeof undefined) {
         }))
         .pipe(debug())
         .pipe(gulp.dest(API_DOC_DEST_FOLDER))
-        .pipe(concat('api.md'))
+        .pipe(concat('reference.md'))
         .pipe(insert.prepend('# API Methods\n'))
+        .pipe(insert.prepend("---\nlayout: main\ntitle : API Reference\n---\n"))
         .pipe(gulp.dest(DOC_DEST_FOLDER));
 
   });
-
 
 
   /*
