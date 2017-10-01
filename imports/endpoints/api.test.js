@@ -113,7 +113,7 @@ if (Meteor.isServer) {
         it('should create a Topogram based on its name', function(done){
           createTopogram({title : "My Superb Topogram"})
           assert.equal(Topograms.find().count(), 1)
-          assert.equal(Topograms.findOne().name, "My Superb Topogram")
+          assert.equal(Topograms.findOne().title, "My Superb Topogram")
           done()
         })
       })
