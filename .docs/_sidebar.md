@@ -1,0 +1,3 @@
+- [Home](/)
+- [FAQ](faq.md)
+- [API](reference.md)

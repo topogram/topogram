@@ -1,5 +1,5 @@
 {
-  "name": "topogram-client",
+  "name": "topogram",
   "version": "0.9.5",
   "description": "Real-time collaborative social network analysis toolkit",
   "main": "topogram.js",
@@ -63,12 +63,14 @@
     "chai": "^3.5.0",
     "daemon": "^1.1.0",
     "del": "^3.0.0",
+    "docpress": "^0.7.1",
     "enzyme": "^2.7.1",
     "eslint": "^3.1.1",
     "eslint-plugin-import": "^1.11.1",
     "eslint-plugin-meteor": "^3.6.0",
     "eslint-plugin-react": "^5.2.2",
     "faker": "^3.1.0",
+    "flatdoc": "^0.9.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^2.1.2",
@@ -103,19 +105,20 @@
     "start": "meteor",
     "lint": "eslint --ext .jsx --ext .js --quiet .",
     "test": "gulp test",
-    "docs": "gulp doc",
+    "docs": "docsify",
+    "docs:dev": "docpress s --port 3010",
     "test:meteor": "meteor test --driver-package=practicalmeteor:mocha --port=3010",
     "watch": "gulp watch",
     "extract-intl": "babel-node --presets es2015,stage-0 -- ./.scripts/extract-intl.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/topogram/topogram-client.git"
+    "url": "https://github.com/topogram/topogram.git"
   },
   "author": "Clément Renaud <hi@clementrenaud.com> (http://clementrenaud.com/)",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/topogram/topogram-client/issues"
+    "url": "https://github.com/topogram/topogram/issues"
   },
-  "homepage": "https://github.com/topogram/topogram-client"
+  "homepage": "https://topogram.github.io"
 }

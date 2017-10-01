@@ -1,31 +1,38 @@
----
-layout: main
-title: FAQ
----
+# Frequently Asked Questions
 
 *You will find here answers to commonly ask questions about Topogram*
 
+:100:
+
 ### What is Topogram ?
-*Topogram* is a web-based and open-source toolkit to represent and explore networks and relationships.
+
+*Topogram* is a web-based and open-source toolkit to represent and explore networks and relationships. It aims at representing *dynamic* networks to allow observation of changes over time. Also, it includes a *geo-visualisation* to see spatial existence of networks.
+
+### How is it different from Gephi and other visualization libraries ?
+
+Topogram is based on web technologies and run on all modern browsers (computers, tablets, etc.)
+
+Besides oberving the overall structure of large networks, we often want to explore some specific regions or details. Here, the interaction provided by the browser offers a perfect environment to manipulate network elements.
+
+Topogram provides a toolkit to explore graphs and visualize their *changes over time and space*. Instead of providing a single state of the network, it aims at enabling the observation of transforming networks.  
+
+Topogram is built on a real-time data architecture and reactive interface, which can allow instant collaboration and annotation of larger graphs in the browser.
+
+Topogram provides a minimum data model that can be reused over time.
 
 ### What is it used for ?
 
-People use Topogram to understand organizations and arrangements of places, words, people and things.
+Topogram is used to explore complex graphs (like organizations, ecosystems, etc) that includes places, words, people or things. It can be used to observe the changes that are happening in a network made of multiple entities.
 
-For instance :
+* *Social Media* : conversations on social media, email lists, file transfers logs, etc.
+* *Events and Geo-data* : The visualization interface allow to explore social, semantic and spatio-temporal aspects of the data with complex queries.
+* *Team Investigation*: All the graphs can be annotated, augmented and shared within a team to produce solids representations of facts.
 
-* What does the French professional network of car manufacturers looks like ?
-* How does startup communities in Myanmar relates to the idea of sustainable development ?
-* What are the keywords that links volunteers of my organization together ?
-* etc.  
+### What are the technologies used by Topogram ?
 
-### How is it possible ?
+Topogram is written entirely in Javascript.
 
-Topogram relies on complementaries approaches :
 
-* **Data Analysis** : Topogram offers tools to create networks from large data sets (ex. conversations on social media, email lists, file transfers logs, etc.)
-* **Exploration** : The visualization interface allow to explore social, semantic and spatio-temporal aspects of the data with complex queries.
-* **Investigation**: All the graphs can be edited, annotated, augmented and shared within a team to produce solids representations of facts.
 
 #### Why Topogram ?
 

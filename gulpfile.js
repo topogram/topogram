@@ -43,7 +43,7 @@ if (typeof Meteor === typeof undefined) {
     runSequence(
       'doc:clean',
       // 'doc:react',
-      'doc:api',
+      // 'doc:api',
       'doc:build',
       function(){
         gutil.log(gutil.colors.green('OK : docs built at ', DOC_DEST_FOLDER  ))
