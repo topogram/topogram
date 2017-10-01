@@ -6,7 +6,8 @@ import IconButton from 'material-ui/IconButton';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 import Subheader from 'material-ui/Subheader';
 
-import SelectedItem from './SelectedItem.jsx'
+import SelectedEdge from './SelectedEdge.jsx'
+import SelectedNode from './SelectedNode.jsx'
 
 @ui()
 export default class SelectionPanel extends React.Component {
@@ -32,12 +33,21 @@ export default class SelectionPanel extends React.Component {
 
     const selected = !cy ? null :
       selectedElements.map( (el,i) =>(
-        <SelectedItem
-          key={`selected-item-${i}`}
-          id={el.id()}
-          data={el.data()}
-          group={el.group()}
-          />
+        el.group() === 'nodes' ?
+          <SelectedNode
+            key={`selected-item-${i}`}
+            name={el.data('name')}
+            lat={el.data('lat')}
+            lng={el.data('lng')}
+            notes={el.data('notes')}
+            />
+          :
+          <SelectedEdge
+            key={`selected-item-${i}`}
+            source={cy.filter(`node[id="${el.data('source')}"]`)}
+            target={cy.filter(`node[id="${el.data('target')}"]`)}
+            notes={el.data('notes')}
+            />
       ))
 
     return (
