@@ -1,8 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import { loadUser } from '/imports/client/actions/user';
-import App  from '/imports/client/ui/components/App.jsx';
+import { loadUser } from '/imports/client/actions/user'
+import App  from '/imports/client/ui/components/App.jsx'
 
 function mapStateToProps(state) {
   return {
@@ -12,9 +12,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   loadUser: () => dispatch(loadUser())
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(App)

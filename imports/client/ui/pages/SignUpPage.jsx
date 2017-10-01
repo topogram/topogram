@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { Accounts } from 'meteor/accounts-base';
+import { Accounts } from 'meteor/accounts-base'
 import Snackbar from 'material-ui/Snackbar'
 import SignUpForm from '/imports/client/ui/components/auth/SignUpForm.jsx'
 
 export class SignUpPage extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     // set the initial component state
     this.state = {
@@ -36,36 +36,36 @@ export class SignUpPage extends React.Component {
   }
 
   handleChangeUser(event) {
-    const field = event.target.name;
-    const {user} = this.state;
-    user[field] = event.target.value;
+    const field = event.target.name
+    const { user } = this.state
+    user[field] = event.target.value
 
     this.setState({
       user
-    });
+    })
 
     // validate data
-    let errors = {}
-    if(!user.username) errors.username = "Username is required"
-    if(!user.password) errors.password = "Password is required"
-    if(!!user.email && !validateEmail(user.email)) errors.email = "Invalid email"
+    const errors = {}
+    if (!user.username) errors.username = 'Username is required'
+    if (!user.password) errors.password = 'Password is required'
+    if (!!user.email && !validateEmail(user.email)) errors.email = 'Invalid email'
     this.setState({ errors })
   }
 
   handleSubmitForm(event) {
-    event.preventDefault();
+    event.preventDefault()
 
-    const {errors} = this.state
-    if(!!Object.keys(errors).length) return
+    const { errors } = this.state
+    if (Object.keys(errors).length) return
 
-    const {email, username, password} = this.state.user
+    const { email, username, password } = this.state.user
 
-    Accounts.createUser({email, name, password}, (err, user) => {
+    Accounts.createUser({ email, name, password }, (err, user) => {
       if (err) {
         this.promptSnackbar( `Error ${err.error} : ${err.reason}`)
       }
       else {
-        this.promptSnackbar("User created !")
+        this.promptSnackbar('User created !')
         this.props.router.push('/')
       }
     })
@@ -74,7 +74,7 @@ export class SignUpPage extends React.Component {
 
 
   render() {
-    let {errors, user} = this.state
+    const { errors, user } = this.state
     return (
       <div>
         <SignUpForm
@@ -95,6 +95,6 @@ export class SignUpPage extends React.Component {
 }
 
 function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return re.test(email)
 }

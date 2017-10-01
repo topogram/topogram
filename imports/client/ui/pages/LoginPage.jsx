@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { Accounts } from 'meteor/accounts-base';
+import { Accounts } from 'meteor/accounts-base'
 import Snackbar from 'material-ui/Snackbar'
 import LoginForm from '/imports/client/ui/components/auth/LoginForm.jsx'
 
 export class LoginPage extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     // set the initial component state
     this.state = {
@@ -34,43 +34,44 @@ export class LoginPage extends React.Component {
   }
 
   handleChangeUser(event) {
-    const field = event.target.name;
-    const {user} = this.state;
-    user[field] = event.target.value;
+    const field = event.target.name
+    const { user } = this.state
+    user[field] = event.target.value
 
     this.setState({
       user
-    });
+    })
 
     // validate data
-    let errors = {}
-    if(!user.email) errors.username = "Username is required"
-    if(!user.password) errors.password = "Password is required"
-    if(!!user.email && !validateEmail(user.email)) errors.email = "Invalid email"
+    const errors = {}
+    if (!user.email) errors.username = 'Username is required'
+    if (!user.password) errors.password = 'Password is required'
+    if (!!user.email && !validateEmail(user.email)) errors.email = 'Invalid email'
     this.setState({ errors })
   }
 
   handleSubmitForm(event) {
-    event.preventDefault();
+    event.preventDefault()
 
-    const {errors} = this.state
-    if(!!Object.keys(errors).length) return
+    const { errors } = this.state
+    if (Object.keys(errors).length) return
 
-    const {email, password} = this.state.user
-    console.log(email, password);
+    const { email, password } = this.state.user
+    console.log(email, password)
     Meteor.loginWithPassword(email, password, (err) => {
-      if(err){
+      if (err) {
         this.promptSnackbar( `Error ${err.error} : ${err.reason}`)
-      } else {
-        this.promptSnackbar('You are logged in')
-        this.props.router.push('/');
       }
-    });
+      else {
+        this.promptSnackbar('You are logged in')
+        this.props.router.push('/')
+      }
+    })
   }
 
 
   render() {
-    let {errors, user} = this.state
+    const { errors, user } = this.state
     return (
       <div>
         <LoginForm
@@ -91,6 +92,6 @@ export class LoginPage extends React.Component {
 }
 
 function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return re.test(email)
 }

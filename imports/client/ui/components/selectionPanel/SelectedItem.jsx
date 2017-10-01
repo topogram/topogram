@@ -1,17 +1,17 @@
 import React from 'react'
-import {Card, CardTitle, CardText, CardActions} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card'
+import FlatButton from 'material-ui/FlatButton'
 
 import Markdown from 'react-remarkable'
 import 'github-markdown-css'
 
 
-const SelectedItem = ({title, group, children, notes}) => (
+const SelectedItem = ({ title, group, children, notes }) => (
   <Card>
     <CardTitle
       title={title}
       subtitle={group}
-      titleStyle={{fontSize : '1.2em'}}
+      titleStyle={{ fontSize : '1.2em' }}
       actAsExpander={true}
       showExpandableButton={true}
     />

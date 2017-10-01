@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 
-import { Card } from 'material-ui/Card';
+import { Card } from 'material-ui/Card'
 
 const style = {
   maxWidth: '50%',

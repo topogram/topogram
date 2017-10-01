@@ -1,9 +1,9 @@
 import React from 'react'
 import ui from 'redux-ui'
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 
 import mapTiles from '../geoMap/mapTiles'
 
@@ -21,7 +21,7 @@ export default class GeoMapOptions extends React.Component {
         key={d}
         primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
         onClick={() => this.handleSelectGeoMapTile(d)}
-        />
+      />
     ))
 
     return (

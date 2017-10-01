@@ -1,14 +1,14 @@
-import { Nodes } from '/imports/api/collections.js';
+import { Nodes } from '/imports/api/collections.js'
 
 import {
   nodeCreateMany,
   nodeUpdate,
   nodeMove,
   nodeDeleteMany
-} from '/imports/api/nodes/nodesMethods.js';
+} from '/imports/api/nodes/nodesMethods.js'
 
 export const createNodes = (topogramId, nodes) =>
- nodeCreateMany.call({ topogramId, nodes })
+  nodeCreateMany.call({ topogramId, nodes })
 
 export const updateNode = (nodeId, data) =>
   nodeUpdate.call({ nodeId, data })

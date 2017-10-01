@@ -1,11 +1,11 @@
 import React from 'react'
-import { FeatureGroup, CircleMarker } from 'react-leaflet';
+import { FeatureGroup, CircleMarker } from 'react-leaflet'
 
 export default class GeoNodes extends React.Component {
 
   render() {
-    const {selectionModeOn} = this.props
-    let nodes = this.props.nodes.map((n,i) => {
+    const { selectionModeOn } = this.props
+    const nodes = this.props.nodes.map((n,i) => {
       const filter = `node[i=${i}]`
       return (
         <CircleMarker
@@ -28,12 +28,13 @@ export default class GeoNodes extends React.Component {
             :
             null
           }
-          />
+        />
       )
     })
 
     return (
-      <FeatureGroup name="Nodes" ref="nodesGroup">
+      <FeatureGroup name="Nodes"
+        ref="nodesGroup">
         {nodes}
       </FeatureGroup>
     )

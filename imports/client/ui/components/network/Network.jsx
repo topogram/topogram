@@ -5,7 +5,7 @@ import ui from 'redux-ui'
 import Cytoscape from './Cytoscape.jsx'
 import NetworkDefaultStyle from './NetworkDefaultStyle'
 
-import {nodeMove} from '/imports/api/nodes/nodesMethods'
+import { nodeMove } from '/imports/api/nodes/nodesMethods'
 
 @ui()
 class Network extends React.Component {
@@ -36,42 +36,42 @@ class Network extends React.Component {
       .on('tapend', 'edge', e => this.props.unselectAllElements())
   }
 
-  componentDidMount(){
+  componentDidMount() {
 
     const cy = this.refs.graph.getCy()
 
     // set default events
     cy.on('mouseover', 'node', e => {
-        let node = e.cyTarget
-        node.style({
-            'border-width': 2,
-            'font-size' : 8,
-            'color' : 'black',
-            'label': function(d) {
-              return d.data("name") ? d.data("name") : ""
-            },
-            'z-index': 300000
-        })
-        let edges = e.cyTarget.connectedEdges()
-        edges.css({
-          // 'line-color' : function(d) {
-          //     return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
-          //   },
-            'opacity' : "1"
-        })
-        cy.edges().difference( edges ).css({
-          'opacity' : ".2"
-        })
+      const node = e.cyTarget
+      node.style({
+        'border-width': 2,
+        'font-size' : 8,
+        'color' : 'black',
+        'label'(d) {
+          return d.data('name') ? d.data('name') : ''
+        },
+        'z-index': 300000
       })
+      const edges = e.cyTarget.connectedEdges()
+      edges.css({
+        // 'line-color' : function(d) {
+        //     return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
+        //   },
+        'opacity' : '1'
+      })
+      cy.edges().difference( edges ).css({
+        'opacity' : '.2'
+      })
+    })
       .on('mouseout', 'node', e => {
         e.cyTarget.style({
-          'border-width': function(d) {
-            return (d.data("group") == "ghosts") ? 3 : 0
+          'border-width'(d) {
+            return (d.data('group') == 'ghosts') ? 3 : 0
           },
           'font-size' : 6,
           'color' : 'gray',
-          'label': function(d) {
-            return d.data("name") ? d.data("name").trunc(20) : ""
+          'label'(d) {
+            return d.data('name') ? d.data('name').trunc(20) : ''
           }
         })
         // e.cyTarget.connectedEdges().css({
@@ -80,14 +80,12 @@ class Network extends React.Component {
         //     }
         // })
         // reset opacity
-        cy.edges().css({ 'opacity' : ".7" })
+        cy.edges().css({ 'opacity' : '.7' })
       })
 
     // set grab / free events
-    if(this.props.ui.selectionModeOn)
-      this.setUpClickEvents()
-    else
-      this.setUpGrabFreeEvents()
+    if (this.props.ui.selectionModeOn) {this.setUpClickEvents()}
+    else {this.setUpGrabFreeEvents()}
 
     // store cytoscape object
     this.props.updateUI('cy', cy)
@@ -96,31 +94,31 @@ class Network extends React.Component {
 
   shouldComponentUpdate(nextProps) {
 
-    let shouldUpdate = false;
+    let shouldUpdate = false
 
-    const {nodeRadius, layoutName, selectionModeOn} = nextProps.ui
-    const {nodes, edges} = nextProps
+    const { nodeRadius, layoutName, selectionModeOn } = nextProps.ui
+    const { nodes, edges } = nextProps
 
     if (nextProps.width !== this.props.width) return true
     if (nextProps.height !== this.props.height) return true
 
     // selection mode : update events
-    if( this.props.ui.selectionModeOn !== selectionModeOn) {
+    if ( this.props.ui.selectionModeOn !== selectionModeOn) {
       selectionModeOn ?
         this.setUpClickEvents() // console.log('click mode')
-      :
+        :
         this.setUpGrabFreeEvents() // console.log('grab/free mode')
     }
 
     // list of checks
-    if( this.props.ui.layoutName !== layoutName) shouldUpdate = true
-    if( this.props.ui.nodeRadius !== nodeRadius) shouldUpdate = true
-    if( this.props.nodes.length !== nodes.length) shouldUpdate = true
-    if( this.props.edges.length !== edges.length) shouldUpdate = true
+    if ( this.props.ui.layoutName !== layoutName) shouldUpdate = true
+    if ( this.props.ui.nodeRadius !== nodeRadius) shouldUpdate = true
+    if ( this.props.nodes.length !== nodes.length) shouldUpdate = true
+    if ( this.props.edges.length !== edges.length) shouldUpdate = true
 
-    if( (!!nodes.length && edges.length) && !this.state.init){
+    if ( (!!nodes.length && edges.length) && !this.state.init) {
       shouldUpdate = true
-      this.setState({init : true})
+      this.setState({ init : true })
     }
 
     // TODO : proper nodes/edges diff...
@@ -131,15 +129,15 @@ class Network extends React.Component {
     const cy = this.refs.graph.getCy().resize().fit()
   }
 
-  render(){
+  render() {
 
     // make sure nodes & edges are there
-    const {nodes, height, edges, width} = this.props
-    const {layoutName, nodeRadius} = this.props.ui
+    const { nodes, height, edges, width } = this.props
+    const { layoutName, nodeRadius } = this.props.ui
 
     const elements = {}
-    if (!!nodes.length) elements.nodes = nodes
-    if (!!edges.length) elements.edges = edges
+    if (nodes.length) elements.nodes = nodes
+    if (edges.length) elements.edges = edges
 
     return (
       <Cytoscape

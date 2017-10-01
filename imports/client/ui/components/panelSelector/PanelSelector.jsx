@@ -1,20 +1,20 @@
 import React from 'react'
 import ui from 'redux-ui'
 
-import Paper from 'material-ui/Paper';
-import Checkbox from 'material-ui/Checkbox';
+import Paper from 'material-ui/Paper'
+import Checkbox from 'material-ui/Checkbox'
 
 const buttonGroupStyle = {
   left :20,
   position : 'absolute',
   display: 'flex',
   flexDirection: 'row'
-};
+}
 
 const buttonStyle = {
   margin: 2,
   padding: '10px 20px'
-};
+}
 
 @ui()
 export default class PanelSelector extends React.Component {
@@ -46,17 +46,17 @@ export default class PanelSelector extends React.Component {
     const { bottom, hasGeoInfo, hasTimeInfo } = this.props
 
     return (
-      <div style={Object.assign({}, buttonGroupStyle, {bottom})}>
+      <div style={Object.assign({}, buttonGroupStyle, { bottom })}>
         <Paper style={buttonStyle}>
           <Checkbox
-            label={ "Graph"}
+            label={ 'Graph'}
             checked={graphVisible}
             onClick={ () => this.toggleGraph()}
           />
         </Paper>
         <Paper style={buttonStyle}>
           <Checkbox
-            label={"Geo"}
+            label={'Geo'}
             checked={geoMapVisible}
             disabled={!hasGeoInfo}
             onClick={ () => this.toggleGeo()}
@@ -64,7 +64,7 @@ export default class PanelSelector extends React.Component {
         </Paper>
         <Paper style={buttonStyle}>
           <Checkbox
-            label={"Time"}
+            label={'Time'}
             checked={timeLineVisible}
             disabled={!hasTimeInfo}
             onClick={ () => this.toggleTimeline()}

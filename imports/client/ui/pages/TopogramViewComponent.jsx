@@ -63,9 +63,9 @@ export class TopogramViewComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadTopogram(this.props.params.topogramId);
-    this.props.loadNodes(this.props.params.topogramId);
-    this.props.loadEdges(this.props.params.topogramId);
+    this.props.loadTopogram(this.props.params.topogramId)
+    this.props.loadNodes(this.props.params.topogramId)
+    this.props.loadEdges(this.props.params.topogramId)
   }
 
   componentWillUnmount() {
@@ -100,18 +100,18 @@ export class TopogramViewComponent extends React.Component {
 
     if (this.props.hasTimeInfo && !this.props.ui.minTime && !this.props.ui.maxTime) {
       // pass value to UI as default
-     this.props.updateUI('minTime', this.props.minTime)
-     this.props.updateUI('maxTime', this.props.maxTime)
-   }
+      this.props.updateUI('minTime', this.props.minTime)
+      this.props.updateUI('maxTime', this.props.maxTime)
+    }
   }
 
   render() {
     const { networkVisible, mapVisible } = this.state
 
-    let topogramName = this.props.topogram.name ?
+    const topogramName = this.props.topogram.name ?
       this.props.topogram.name : ''
 
-    let nodes = this.props.hasTimeInfo ?
+    const nodes = this.props.hasTimeInfo ?
       this.props.nodes
         .filter(n => new Date(this.props.ui.maxTime) >= new Date(n.data.end))
         .filter(n => new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end))
@@ -119,9 +119,9 @@ export class TopogramViewComponent extends React.Component {
       :
       this.props.nodes
 
-    let nodeIds = nodes.map(n => n.data.id)
+    const nodeIds = nodes.map(n => n.data.id)
 
-    let edges = this.props.edges
+    const edges = this.props.edges
       .filter(e =>
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
       )
@@ -154,7 +154,7 @@ export class TopogramViewComponent extends React.Component {
         }
         <SelectionPanel
           open={!!this.props.ui.selectionPanelVisible}
-          />
+        />
       </div>
     )
   }

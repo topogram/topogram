@@ -1,29 +1,29 @@
-import 'rc-slider/assets/index.css';
-import './timeline.css';
+import 'rc-slider/assets/index.css'
+import './timeline.css'
 
 import React from 'react'
 import ui from 'redux-ui'
 import moment from 'moment'
 
 
-import Slider, { createSliderWithTooltip } from 'rc-slider';
+import Slider, { createSliderWithTooltip } from 'rc-slider'
 
-const SliderWithTooltip = createSliderWithTooltip(Slider);
+const SliderWithTooltip = createSliderWithTooltip(Slider)
 
 function dateFormatter(v) {
-  return moment(v).format("MMM D, YYYY")
+  return moment(v).format('MMM D, YYYY')
 }
 
 @ui()
 export default class TimeSlider extends React.Component {
 
   onSliderChange = (value) => {
-    this.props.updateUI({ currentSliderTime : value });
+    this.props.updateUI({ currentSliderTime : value })
   }
 
   render() {
-    const {minTime, maxTime} = this.props
-    const {currentSliderTime} = this.props.ui
+    const { minTime, maxTime } = this.props
+    const { currentSliderTime } = this.props.ui
 
     const minYear = moment(minTime).year(),
       maxYear = moment(maxTime).year()
@@ -49,6 +49,6 @@ export default class TimeSlider extends React.Component {
           onChange={this.onSliderChange}
         />
       </div>
-    );
+    )
   }
 }

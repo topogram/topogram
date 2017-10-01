@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 
 import '/imports/css/topogram.scss'
 
@@ -9,8 +9,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { green500, indigo700, redA200 } from 'material-ui/styles/colors'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
 
 import UserMenu from '../components/UserMenu.jsx'
 
@@ -24,18 +24,19 @@ const muiTheme = getMuiTheme({
 })
 
 
-const App = ({ children, classNames, locale, messages, user, loadUser, router}) =>
+const App = ({ children, classNames, locale, messages, user, loadUser, router }) =>
   (
-    <IntlProvider locale={locale} messages={messages}>
+    <IntlProvider locale={locale}
+      messages={messages}>
       <MuiThemeProvider muiTheme={muiTheme}>
-          <div className={ classNames }>
-            <UserMenu
-              user={user}
-              loadUser={loadUser}
-              router={router}
-              />
-            {children}
-          </div>
+        <div className={ classNames }>
+          <UserMenu
+            user={user}
+            loadUser={loadUser}
+            router={router}
+          />
+          {children}
+        </div>
       </MuiThemeProvider>
     </IntlProvider>
   )

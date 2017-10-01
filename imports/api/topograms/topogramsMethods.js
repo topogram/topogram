@@ -4,7 +4,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 import { Meteor } from 'meteor/meteor'
 
-import { buildSuccessAnswer, buildErrorAnswer} from '/imports/api/responses'
+import { buildSuccessAnswer, buildErrorAnswer } from '/imports/api/responses'
 
 
 const TOPOGRAM_ID_ONLY = new SimpleSchema({
@@ -33,12 +33,13 @@ export const topogramCreate = new ValidatedMethod({
   run({ name, userId=this.userId }) {
 
     // forbid with the same name
-    const t = Topograms.findOne({ name, userId : userId })
-    if (t && t._id)
+    const t = Topograms.findOne({ name, userId })
+    if (t && t._id) {
       return buildErrorAnswer({
         'message' : 'A topogram with the same name already exists',
         'data' : t
       })
+    }
 
     const sharedPublic = !userId ? true : false
 
@@ -47,7 +48,7 @@ export const topogramCreate = new ValidatedMethod({
       'slug': slugify( name ),
       'createdAt': new Date(), // current time
       sharedPublic,
-      userId : userId // _id of logged in user
+      userId // _id of logged in user
     })
   }
 })
@@ -109,9 +110,9 @@ export const topogramTogglePublic = new ValidatedMethod({
   name: 'topogram.togglePublic',
   validate: TOPOGRAM_ID_ONLY,
   run({ topogramId }) {
-    let t = Topograms.findOne(topogramId, { sharedPublic : 1})
+    const t = Topograms.findOne(topogramId, { sharedPublic : 1 })
     return Topograms.update( topogramId,
-      { '$set' : { 'sharedPublic' : !t.sharedPublic},
+      { '$set' : { 'sharedPublic' : !t.sharedPublic },
         'updatedAt' : new Date()
       }
     )
@@ -143,7 +144,6 @@ makePrivate( _id ) {
   } )
 }
 */
-
 
 
 /**

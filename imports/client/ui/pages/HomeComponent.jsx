@@ -73,7 +73,6 @@ export class HomeComponent extends React.Component {
   }
 
 
-
   render() {
     return (
       <div>
@@ -90,7 +89,7 @@ export class HomeComponent extends React.Component {
           title={<FormattedMessage {...messages.browseTopograms} />}
           showFilters={false}
           router={this.props.router}
-          />
+        />
 
         <Snackbar
           open={this.state.open}

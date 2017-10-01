@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 
-import { CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { CardActions, CardHeader, CardText } from 'material-ui/Card'
 // import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+import Divider from 'material-ui/Divider'
 
 import AuthLayout from './AuthLayout.jsx'
 
@@ -16,7 +16,8 @@ const LoginForm = ({
   user
 }) => (
   <AuthLayout>
-    <form action="/" onSubmit={onSubmit}>
+    <form action="/"
+      onSubmit={onSubmit}>
 
       <CardHeader
         title="Login"
@@ -52,20 +53,20 @@ const LoginForm = ({
           type="submit"
           label="Log in"
           primary={true}
-         />
+        />
       </CardActions>
     </form>
     <CardText>
       Don't have an account? <Link to={'/signup'}>Create one</Link>
     </CardText>
   </AuthLayout>
-);
+)
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
-};
+}
 
-export default LoginForm;
+export default LoginForm

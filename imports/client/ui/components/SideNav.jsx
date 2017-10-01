@@ -2,12 +2,12 @@ import React from 'react'
 import ui from 'redux-ui'
 
 import FlatButton from 'material-ui/FlatButton'
-import {Toolbar} from 'material-ui/Toolbar';
+import { Toolbar } from 'material-ui/Toolbar'
 import { Card, CardTitle, CardHeader } from 'material-ui/Card'
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader'
+import Divider from 'material-ui/Divider'
 
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from 'material-ui/MenuItem'
 
 import QueryBox from './queryBox/QueryBox.jsx'
 import NetworkOptions from './networkOptions/NetworkOptions.jsx'
@@ -28,30 +28,30 @@ class SideNav extends React.Component {
   }
 
   handleExpandChange = () => {
-    const {open} = this.state
-    this.setState({open : !open});
+    const { open } = this.state
+    this.setState({ open : !open })
   }
 
   render() {
-    const { nodes, edges, authorIsLoggedIn, userId } = this.props;
-    const { selectionModeOn } = this.props.ui;
+    const { nodes, edges, authorIsLoggedIn, userId } = this.props
+    const { selectionModeOn } = this.props.ui
 
     const settings =
       authorIsLoggedIn ?
-      <Settings
-        topogramId={this.props.topogramId}
-        topogramTitle= {this.props.topogramTitle}
-        topogramSharedPublic={this.props.topogramIsPublic}
-        router={this.props.router}
-        />
-      :
-      null
+        (<Settings
+          topogramId={this.props.topogramId}
+          topogramTitle= {this.props.topogramTitle}
+          topogramSharedPublic={this.props.topogramIsPublic}
+          router={this.props.router}
+        />)
+        :
+        null
 
     return (
       <Card
-        style={{ maxWidth : '30%', minWidth : '25%', float : 'left'}}
+        style={{ maxWidth : '30%', minWidth : '25%', float : 'left' }}
         onExpandChange={this.handleExpandChange}
-        >
+      >
         <CardTitle
           showExpandableButton={true}
           title={this.props.topogramTitle}
@@ -76,7 +76,7 @@ class SideNav extends React.Component {
           </span>
           :
           null
-      }
+        }
 
       </Card>
     )

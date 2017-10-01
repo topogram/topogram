@@ -19,7 +19,7 @@ const makeGraphElement = function (el, rawData) {
       name: el.label || el.name || '',
       color: el.color || null, 
       group: el.group || null,
-      additionalInfo: el.additionalInfo || ""
+      additionalInfo: el.additionalInfo || ''
     },
     createdAt: new Date() // current time
   }
@@ -39,7 +39,7 @@ export const makeEdge = function ( topogramId, element, data ) {
 }
 
 export const makeNode = function ( topogramId, element, data ) {
-  console.log(topogramId, element, data);
+  console.log(topogramId, element, data)
   const el = element || {}
   const rawData = data || {}
   const node = makeGraphElement(el, rawData)

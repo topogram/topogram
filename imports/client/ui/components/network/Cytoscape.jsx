@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import cytoscape from 'cytoscape';
-import spread from 'cytoscape-spread';
+import React, { Component } from 'react'
+import cytoscape from 'cytoscape'
+import spread from 'cytoscape-spread'
 
-import {scaleLinear} from 'd3-scale'
+import { scaleLinear } from 'd3-scale'
 
 // register force layout
 spread(cytoscape)
 
-let cyStyle = {
+const cyStyle = {
   height: '100%',
   width: '100%',
   position: 'fixed',
@@ -16,7 +16,7 @@ let cyStyle = {
   zIndex : -1
 }
 
-class Cytoscape extends Component{
+class Cytoscape extends Component {
   cy = null;
 
   // static propTypes = {
@@ -32,37 +32,37 @@ class Cytoscape extends Component{
     this.state = { init : false }
   }
 
-  componentDidMount(){
+  componentDidMount() {
 
-    const {nodes, edges, style, elements, layoutName} = this.props
+    const { nodes, edges, style, elements, layoutName } = this.props
 
-    let cy = cytoscape({
+    const cy = cytoscape({
       container: this.refs.cyelement,
       layout: {
-          name: 'preset' // load saved positions
+        name: 'preset' // load saved positions
       },
-      style : style,
-      elements: elements
-    });
+      style,
+      elements
+    })
 
-    this.cy = cy;
+    this.cy = cy
 
     // console.log(cy);
   }
 
-  shouldComponentUpdate(nextProps){
+  shouldComponentUpdate(nextProps) {
     if (nextProps.width !== this.props.width) return true
     else if (nextProps.height !== this.props.height) return true
-    else return false;
+    else return false
   }
 
   applyLayout(layoutName) {
-    let layoutConfig = {
+    const layoutConfig = {
       name : layoutName,
       animate: false,
     }
 
-    if(layoutName == "spread"){
+    if (layoutName == 'spread') {
       layoutConfig.minDist= 50  // Minimum distance between nodes
       layoutConfig.padding= 80  // Padding
     }
@@ -72,31 +72,31 @@ class Cytoscape extends Component{
 
   updateRadiusByWeight() {
     // calculate radius range
-    let weights = this.cy.nodes().map( d => d.data("weight") )
-    let min = Math.min.apply(Math, weights)
-    let max = Math.max.apply(Math, weights)
+    const weights = this.cy.nodes().map( d => d.data('weight') )
+    const min = Math.min.apply(Math, weights)
+    const max = Math.max.apply(Math, weights)
 
     // calculate radius range
-    let weightDomain = scaleLinear()
+    const weightDomain = scaleLinear()
       .domain([ min, max ])
       .range([6,40])
 
-     // apply size
+    // apply size
     this.cy.style()
       .selector('node')
       .style({
-        'width': function(e) {
-          return weightDomain(e.data("weight"))
+        'width'(e) {
+          return weightDomain(e.data('weight'))
         },
-        'height': function(e) {
-          return weightDomain(e.data("weight"))
+        'height'(e) {
+          return weightDomain(e.data('weight'))
         }
       }).update()
   }
 
   updateRadiusByDegree() {
     // calculate radius range
-    let degreeDomain = scaleLinear().domain([
+    const degreeDomain = scaleLinear().domain([
       this.cy.nodes().minDegree(),
       this.cy.nodes().maxDegree()
     ]).range([6,40])
@@ -105,57 +105,56 @@ class Cytoscape extends Component{
     this.cy.style()
       .selector('node')
       .style({
-        'width': function(e) {
+        'width'(e) {
           return degreeDomain(e.degree())
         },
-        'height': function(e) {
+        'height'(e) {
           return degreeDomain(e.degree())
         }
       }).update()
   }
 
   updateRadius(nodeRadius) {
-    nodeRadius === "weight" ?
+    nodeRadius === 'weight' ?
       this.updateRadiusByWeight()
       :
       this.updateRadiusByDegree()
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
 
-    const {layoutName, nodeRadius} = nextProps
+    const { layoutName, nodeRadius } = nextProps
 
     // replace elements
-    this.cy.json(nextProps);
+    this.cy.json(nextProps)
 
     // apply new layout if any
-    if( this.props.layoutName !== layoutName)
-      this.applyLayout(layoutName)
+    if ( this.props.layoutName !== layoutName) {this.applyLayout(layoutName)}
 
     // init
-    if(!this.state.init && nextProps.init) {
+    if (!this.state.init && nextProps.init) {
       this.applyLayout(layoutName)
-      this.setState({init :true})
+      this.setState({ init :true })
     }
 
     this.updateRadius(nodeRadius)
   }
 
-  componentWillUnmount(){
-    this.cy.destroy();
+  componentWillUnmount() {
+    this.cy.destroy()
   }
 
-  getCy(){
-    return this.cy;
+  getCy() {
+    return this.cy
   }
 
-  render(){
-    const {height, width} = this.props
-    return <div
-      style={Object.assign({}, cyStyle, {width, height})}
+  render() {
+    const { height, width } = this.props
+    return (<div
+      style={Object.assign({}, cyStyle, { width, height })}
       ref="cyelement"
-    />
+    />)
   }
 }
 
-export default Cytoscape;
+export default Cytoscape

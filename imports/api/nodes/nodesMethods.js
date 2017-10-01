@@ -5,7 +5,7 @@ import { bulkCollectionUpdate } from 'meteor/udondan:bulk-collection-update'
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 
-import {makeNode} from '/imports/api/modelsHelpers'
+import { makeNode } from '/imports/api/modelsHelpers'
 
 import logger from '../../logger.js'
 
@@ -23,23 +23,23 @@ import logger from '../../logger.js'
 export const nodeCreate = new ValidatedMethod({
   name: 'node.create',
   validate: Nodes.simpleSchema()
-            .pick([
-              'topogramId',
-              'data.id',
-              'data.name',
-              'data.color',
-              'data.group',
-              'data.notes',
-              'data.lat',
-              'data.lng',
-              'data.start',
-              'data.end',
-              'data.starred',
-              'data.weight',
-              'position.x',
-              'position.y'
-            ])
-              .validator(),
+    .pick([
+      'topogramId',
+      'data.id',
+      'data.name',
+      'data.color',
+      'data.group',
+      'data.notes',
+      'data.lat',
+      'data.lng',
+      'data.start',
+      'data.end',
+      'data.starred',
+      'data.weight',
+      'position.x',
+      'position.y'
+    ])
+    .validator(),
   run(node) {
     return Nodes.insert( node )
   }
@@ -54,21 +54,21 @@ export const nodeCreate = new ValidatedMethod({
 * @return {Object} the Node object as inserted in Mongo
 */
 
-let nodeSchema = Nodes.schema.pick([
-            'data.id',
-            'data.name',
-            'data.color',
-            'data.group',
-            'data.notes',
-            'data.lat',
-            'data.lng',
-            'data.start',
-            'data.end',
-            'data.starred',
-            'data.weight',
-            'position.x',
-            'position.y'
-          ])
+const nodeSchema = Nodes.schema.pick([
+  'data.id',
+  'data.name',
+  'data.color',
+  'data.group',
+  'data.notes',
+  'data.lat',
+  'data.lng',
+  'data.start',
+  'data.end',
+  'data.starred',
+  'data.weight',
+  'position.x',
+  'position.y'
+])
 
 export const nodeCreateMany = new ValidatedMethod({
   name: 'node.createMany',
@@ -76,11 +76,11 @@ export const nodeCreateMany = new ValidatedMethod({
     'topogramId': { type: String },
     'nodes' : { type : [ nodeSchema ], minCount: 1 }
   }).validator(),
-  run({topogramId, nodes}) {
+  run({ topogramId, nodes }) {
     // TODO : use validated "batchInsert'
     return nodes.map( n =>
-      nodeCreate.call({...n, topogramId})
-    );
+      nodeCreate.call({ ...n, topogramId })
+    )
 
     // return Nodes.batchInsert( ok )
   }
@@ -133,7 +133,7 @@ export const nodeDeleteMany = new ValidatedMethod({
   validate: new SimpleSchema({
     nodeIds: { type: [String], minCount: 1 }
   }).validator(), // TODO :check if ID exists,
-  run({nodeIds}) {
+  run({ nodeIds }) {
     return Nodes.remove( { '_id' : { $in : nodeIds } } )
   }
 })
@@ -148,29 +148,29 @@ export const nodeDeleteMany = new ValidatedMethod({
 */
 
 
-let nodeUpdateSchema = Nodes.schema.pick([
-            'data.name',
-            'data.color',
-            'data.group',
-            'data.notes',
-            'data.lat',
-            'data.lng',
-            'data.start',
-            'data.end',
-            'data.starred',
-            'data.weight'
-]);
+const nodeUpdateSchema = Nodes.schema.pick([
+  'data.name',
+  'data.color',
+  'data.group',
+  'data.notes',
+  'data.lat',
+  'data.lng',
+  'data.start',
+  'data.end',
+  'data.starred',
+  'data.weight'
+])
 
 export const nodeUpdate = new ValidatedMethod({
   name: 'node.update',
   validate: new SimpleSchema([
     nodeUpdateSchema,
-    {'nodeId': { type: String }}
+    { 'nodeId': { type: String } }
   ]).validator(), // TODO :check if ID exists,
-  run( {nodeId, data}) {
-    let $set = {}
+  run( { nodeId, data }) {
+    const $set = {}
     Object.keys(data).map( d=> $set['data.'+d] = data[d])
-    return Nodes.update({ 'data.id': nodeId }, { $set: $set })
+    return Nodes.update({ 'data.id': nodeId }, { $set })
   }
 })
 
@@ -190,7 +190,7 @@ export const nodeMove = new ValidatedMethod({
     'position.y': { type: Number }
   }).validator(), // TODO :check if ID exists,
   run({ nodeId, position }) {
-    return Nodes.update({ 'data.id': nodeId }, { $set: { position }})
+    return Nodes.update({ 'data.id': nodeId }, { $set: { position } })
   }
 })
 
@@ -204,9 +204,9 @@ Meteor.methods( {
       '_id': targetId
     } )  // will be deleted
 
-        // tx.start( "merges nodes" )
+    // tx.start( "merges nodes" )
 
-        // find and replace all target node edges with source id
+    // find and replace all target node edges with source id
     Edges.find({
       'data.source': target.data.id
     }).forEach(function (edge) {
@@ -216,8 +216,8 @@ Meteor.methods( {
         $set: {
           'data.source': source.data.id
         }
-            // },{
-            //  tx: true
+        // },{
+        //  tx: true
       })
     })
 
@@ -231,20 +231,20 @@ Meteor.methods( {
           'data.target': source.data.id
         }
 
-            // }, {
-            //     tx: true
+        // }, {
+        //     tx: true
       })
     })
 
-        // copy data of target into source (if missing)
-        // TODO : node merger startegy
+    // copy data of target into source (if missing)
+    // TODO : node merger startegy
 
-        //erase target
+    //erase target
     Nodes.remove({ '_id': targetId })
-        // , {
-        //     tx: true
-        // } )
-        // tx.commit()
+    // , {
+    //     tx: true
+    // } )
+    // tx.commit()
   },
 
   deleteNodeAndConnectedEdges( nodeId, edgesId ) {
@@ -254,7 +254,7 @@ Meteor.methods( {
       '_id': 1
     } )._id
 
-        // tx.start( "delete node+neighborhood" )
+    // tx.start( "delete node+neighborhood" )
     Nodes.remove( {
       _id
     })
@@ -267,7 +267,7 @@ Meteor.methods( {
         '_id': edge._id
       })
     } )
-        // tx.commit()
+    // tx.commit()
   },
 
   deleteNodesByTopogramId( topogramId ) {
@@ -276,7 +276,7 @@ Meteor.methods( {
     } )
   },
 
-    //update coord in DB for a single node
+  //update coord in DB for a single node
   updateNodePosition( nodeId, position ) {
     const node = Nodes.findOne( {
       'data.id': nodeId
@@ -291,8 +291,8 @@ Meteor.methods( {
   },
 
 
-    // TODO : improve batch update of nodes
-    // update coords in DB for bunch of nodes (useful to save topogram layout changes)
+  // TODO : improve batch update of nodes
+  // update coords in DB for bunch of nodes (useful to save topogram layout changes)
   updateNodesPositions( updatedNodes ) {
 
     const nodesPosition = {}
@@ -308,7 +308,7 @@ Meteor.methods( {
     }).fetch().map(function (d) { // update data
       d.position = nodesPosition[d._id]
       return d
-        //  = updatedNodes
+      //  = updatedNodes
     })
 
     bulkCollectionUpdate(Nodes, nodes, {
@@ -334,7 +334,7 @@ Meteor.methods( {
     } )
   },
 
-    // TODO: pass _id instead of data.id
+  // TODO: pass _id instead of data.id
   starNode( nodeId ) {
     const node = Nodes.findOne( {
       'data.id': nodeId
@@ -357,10 +357,10 @@ Meteor.methods( {
         target: e.data.target
       }
     })
-            .reduce( function ( map, d ) {
-              map[ d.id ] = map[ d.id ] || d
-              map[ d.id ].count = ( map[ d.id ].count || 0 ) + 1
-              return map
-            }, {} )
+      .reduce( function ( map, d ) {
+        map[ d.id ] = map[ d.id ] || d
+        map[ d.id ].count = ( map[ d.id ].count || 0 ) + 1
+        return map
+      }, {} )
   }
 } )

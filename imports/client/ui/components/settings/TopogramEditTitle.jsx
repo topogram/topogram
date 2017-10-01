@@ -1,10 +1,10 @@
 import React from 'react'
 
-import ModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import ModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField';
+import TextField from 'material-ui/TextField'
 import MenuItem from 'material-ui/MenuItem'
 
 import { topogramUpdateTitle } from '../../../../api/topograms/topogramsMethods.js'
@@ -20,7 +20,7 @@ export default class TopogramEditTitle extends React.Component {
   }
 
   handleTitleChange = (event) => {
-    this.setState({title : event.target.value})
+    this.setState({ title : event.target.value })
   }
 
   handleClickUpdateTitle = () => {

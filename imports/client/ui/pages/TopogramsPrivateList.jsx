@@ -20,13 +20,13 @@ export default class TopogramsPrivateList extends React.Component {
         <TopogramAddForm
           promptSnackbar={this.promptSnackbar}
           router={this.props.router}
-          />
+        />
         <TopogramList
           topograms={this.props.topograms}
           router={this.props.router}
           title="My Topograms"
           showFilters={false}
-          />
+        />
       </div>
     )
   }

@@ -17,9 +17,9 @@ Meteor.publish( 'comments', function (topogramId) {
 
 Meteor.publish( 'edges', function ( topogramId ) {
   return Edges.find({ topogramId })
-});
+})
 
 
 Meteor.publish( 'nodes', function ( topogramId ) {
   return Nodes.find({ topogramId })
-});
+})

@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 
-import Subheader from 'material-ui/Subheader';
+import Subheader from 'material-ui/Subheader'
 
 import TopogramTogglePublic from './TopogramTogglePublic.jsx'
 import TopogramEditTitle from './TopogramEditTitle.jsx'
@@ -38,6 +38,6 @@ Settings.propTypes = {
   topogramTitle: PropTypes.string.isRequired,
   topogramSharedPublic: PropTypes.bool.isRequired,
   router: PropTypes.object.isRequired
-};
+}
 
 export default Settings

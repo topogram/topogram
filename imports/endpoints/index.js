@@ -13,7 +13,7 @@ import {
   togglePublicTopogram
 } from '/imports/endpoints/topograms.js'
 
-import { buildSuccessAnswer, buildErrorAnswer} from '/imports/api/responses'
+import { buildSuccessAnswer, buildErrorAnswer } from '/imports/api/responses'
 import { Topograms, Nodes, Edges } from '/imports/api/collections.js'
 
 // Global API configuration
@@ -35,9 +35,9 @@ Api.addRoute('',
   { get() { return { 'message' : 'API works' } } }
 )
 
-Api.addRoute('topogramsPublic', {authRequired: false}, {
-  get: function () {
-    return Topograms.find({ "sharedPublic": 1}).fetch();
+Api.addRoute('topogramsPublic', { authRequired: false }, {
+  get() {
+    return Topograms.find({ 'sharedPublic': 1 }).fetch()
   }
 })
 
@@ -49,23 +49,23 @@ Api.addCollection(Meteor.users, {
   },
   endpoints: {
     post: {
-     authRequired: false,
-     action: function () {
-        var data = this.bodyParams
-        let user = Meteor.users.find({ "emails.address": data.email}).fetch()
+      authRequired: false,
+      action() {
+        const data = this.bodyParams
+        const user = Meteor.users.find({ 'emails.address': data.email }).fetch()
         if (user.length) {
-          let err = buildErrorAnswer({
+          const err = buildErrorAnswer({
             statusCode : 403,
-            message: "Unauthorized - Email already exists"
+            message: 'Unauthorized - Email already exists'
           })
           return err
         }
         else {
           Accounts.createUser(data)
-          let user = Meteor.users.findOne({ "emails.address": data.email})
+          const user = Meteor.users.findOne({ 'emails.address': data.email })
           return buildSuccessAnswer({
             statusCode : 201,
-            data : { "_id" : user._id}
+            data : { '_id' : user._id }
           })
         }
       }
@@ -84,18 +84,18 @@ Api.addCollection(Topograms, {
   endpoints: {
     post: {
       action() {
-        let data = createTopogram({
+        const data = createTopogram({
           name : this.bodyParams.name,
           userId: this.userId
         })
-        if (data.body.status === "error") return data
-        return buildSuccessAnswer({ statusCode : 201, data})
+        if (data.body.status === 'error') return data
+        return buildSuccessAnswer({ statusCode : 201, data })
       }
     },
     getAll: {
       action() {
-        let data = Topograms.find().fetch()
-        return buildSuccessAnswer({ statusCode : 200, data})
+        const data = Topograms.find().fetch()
+        return buildSuccessAnswer({ statusCode : 200, data })
       }
     }
     // ,delete: {}
@@ -105,11 +105,11 @@ Api.addCollection(Topograms, {
 Api.addRoute('topograms/getByName', {
   post: {
     authRequired: false,
-    action : function () {
-      let name = this.bodyParams.name
+    action() {
+      const name = this.bodyParams.name
       return buildSuccessAnswer({
-         "statusCode": 200,
-         "data" : Topograms.findOne({name}, {_id : 1})
+        'statusCode': 200,
+        'data' : Topograms.findOne({ name }, { _id : 1 })
       })
     }
   }
@@ -118,12 +118,12 @@ Api.addRoute('topograms/getByName', {
 Api.addRoute('topograms/:_id/togglePublic', {
   post: {
     authRequired: true,
-    action : function () {
-      var _id = this.urlParams._id
-      togglePublicTopogram({topogramId : _id})
+    action() {
+      const _id = this.urlParams._id
+      togglePublicTopogram({ topogramId : _id })
       return {
-         "status": "success",
-         "data" : Topograms.findOne(_id)
+        'status': 'success',
+        'data' : Topograms.findOne(_id)
       }
     }
   }
@@ -141,14 +141,14 @@ Api.addCollection(Nodes, {
         // parse Date object from JSON
         const nodes = this.bodyParams.nodes
           .map( n=> {
-            let {data} = n
-            if(data.start) data.start = new Date(n.data.start)
-            if(data.end) data.end = new Date(n.data.end)
-            return {data}
+            const { data } = n
+            if (data.start) data.start = new Date(n.data.start)
+            if (data.end) data.end = new Date(n.data.end)
+            return { data }
           })
 
-        let data = createNodes(topogramId, nodes)
-        return buildSuccessAnswer({ statusCode : 201, data})
+        const data = createNodes(topogramId, nodes)
+        return buildSuccessAnswer({ statusCode : 201, data })
       }
     },
     put : {
@@ -156,8 +156,8 @@ Api.addCollection(Nodes, {
       action() {
         const nodeId = this.urlParams.id
         const data = this.bodyParams
-        let res = updateNode(nodeId, data)
-        return buildSuccessAnswer({ statusCode : 201, data : res})
+        const res = updateNode(nodeId, data)
+        return buildSuccessAnswer({ statusCode : 201, data : res })
       }
     }
   }
@@ -168,9 +168,9 @@ Api.addRoute('nodes/delete', {
     authRequired: true,
     action() {
       const nodeIds = this.bodyParams.nodes
-      let data = deleteNodes(nodeIds)
+      const data = deleteNodes(nodeIds)
       // Nodes.find({ '_id' : { $in : ids } }).fetch()
-      return buildSuccessAnswer({statusCode : 201, data})
+      return buildSuccessAnswer({ statusCode : 201, data })
     }
   }
 })
@@ -181,7 +181,7 @@ Api.addRoute('topograms/:_id/nodes', {
     action() {
       const _id = this.urlParams._id
       const data = Nodes.find({ 'topogramId' : _id }).fetch()
-      return buildSuccessAnswer({data})
+      return buildSuccessAnswer({ data })
     }
   }
 })
@@ -196,7 +196,7 @@ Api.addCollection(Edges, {
         const edges = this.bodyParams.edges
         const topogramId = this.bodyParams.topogramId
         const data = createEdges( topogramId, edges )
-        return buildSuccessAnswer({statusCode : 201, data})
+        return buildSuccessAnswer({ statusCode : 201, data })
       }
     },
     put : {
@@ -204,8 +204,8 @@ Api.addCollection(Edges, {
       action() {
         const edgeId = this.urlParams.id
         const data = this.bodyParams
-        let res = updateEdge(nodeId, data)
-        return buildSuccessAnswer({statusCode : 201, res})
+        const res = updateEdge(nodeId, data)
+        return buildSuccessAnswer({ statusCode : 201, res })
       }
     }
   }
@@ -216,9 +216,9 @@ Api.addRoute('edges/delete', {
     authRequired: true,
     action() {
       const edgeIds = this.bodyParams.edges
-      let data = deleteEdges(edgeIds)
+      const data = deleteEdges(edgeIds)
       // Edges.find({ '_id' : { $in : ids } }).fetch()
-      return buildSuccessAnswer({data})
+      return buildSuccessAnswer({ data })
     }
   }
 })
@@ -229,7 +229,7 @@ Api.addRoute('topograms/:_id/edges', {
     action() {
       const _id = this.urlParams._id
       const data = Edges.find({ 'topogramId' : _id }).fetch()
-      return buildSuccessAnswer({data})
+      return buildSuccessAnswer({ data })
     }
   }
 })

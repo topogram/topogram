@@ -35,7 +35,7 @@ Edges.schema = new SimpleSchema({
     label : 'The user-defined ID of the edge',
     optional: true,
     denyUpdate: true,
-    autoValue : function () {
+    autoValue() {
       return this.isInsert && !this.value ?  'edge-' + Math.round( Math.random() * 1000000 ) : this.value
     }
   },
@@ -115,13 +115,14 @@ Edges.schema = new SimpleSchema({
   updatedAt: {
     type: Date,
     label: 'Last time the node was updated',
-    autoValue : function () { return new Date() }
+    autoValue() { return new Date() }
   },
   createdAt: {
     type: Date,
     label: 'Time when the node was created',
-    autoValue : function () {
-      return this.isInsert ? new Date() : this.value }
+    autoValue() {
+      return this.isInsert ? new Date() : this.value 
+    }
   }
 })
 

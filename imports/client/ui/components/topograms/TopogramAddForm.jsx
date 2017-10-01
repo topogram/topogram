@@ -5,8 +5,8 @@ import { defineMessages, injectIntl } from 'react-intl'
 
 import { topogramCreate } from '../../../../api/topograms/topogramsMethods.js'
 
-let formStyle = { padding : '150px' }
-let buttonStyle = { marginLeft : 12 }
+const formStyle = { padding : '150px' }
+const buttonStyle = { marginLeft : 12 }
 
 const messages = defineMessages({
   label :{
@@ -39,7 +39,7 @@ class TopogramAddForm extends React.Component {
         if (err) this.props.promptSnackbar(err)
         else if (topogram.status == 'error') this.props.promptSnackbar( topogram.message )
         else {
-          this.props.promptSnackbar("Your new topogram has been created !")
+          this.props.promptSnackbar('Your new topogram has been created !')
         }
       })
     }

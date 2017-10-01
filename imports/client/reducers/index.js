@@ -1,11 +1,11 @@
-import { combineReducers } from 'redux';
-import { reducer as uiReducer } from 'redux-ui';
-import { topogramsPublic } from './topogramsPublic';
-import { topogram } from './topogram';
-import { topogramsPrivate } from './topogramsPrivate';
-import { nodes } from './nodes';
-import { edges } from './edges';
-import { user } from './user';
+import { combineReducers } from 'redux'
+import { reducer as uiReducer } from 'redux-ui'
+import { topogramsPublic } from './topogramsPublic'
+import { topogram } from './topogram'
+import { topogramsPrivate } from './topogramsPrivate'
+import { nodes } from './nodes'
+import { edges } from './edges'
+import { user } from './user'
 
 const rootReducer = combineReducers({
   topogram,
@@ -15,6 +15,6 @@ const rootReducer = combineReducers({
   edges,
   user,
   ui: uiReducer
-});
+})
 
-export default rootReducer;
+export default rootReducer

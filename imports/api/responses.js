@@ -1,15 +1,15 @@
 // API Answers
 
-export const buildSuccessAnswer = ({statusCode=200, data}) => ({
+export const buildSuccessAnswer = ({ statusCode=200, data }) => ({
   statusCode,
-  status : "success",
+  status : 'success',
   data
 })
 
-export const buildErrorAnswer = ({statusCode=500, message, data}) => ({
+export const buildErrorAnswer = ({ statusCode=500, message, data }) => ({
   statusCode,
   body : {
-    status : "error",
+    status : 'error',
     data,
     message
   }

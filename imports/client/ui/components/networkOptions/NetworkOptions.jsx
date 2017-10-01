@@ -1,9 +1,9 @@
 import React from 'react'
 import ui from 'redux-ui'
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 
 const layouts = [
   'cose', // uncaught 'prototype' Error
@@ -12,11 +12,11 @@ const layouts = [
   'breadthfirst',
   'concentric'
 ]
-  // 'cola', // can not get it to work
-  // 'arbor', // works quite okay
-  // 'springy', // force rendering
-  // 'grid', // uselss layout
-  // 'circle', // useless as well
+// 'cola', // can not get it to work
+// 'arbor', // works quite okay
+// 'springy', // force rendering
+// 'grid', // uselss layout
+// 'circle', // useless as well
 
 @ui()
 export default class NetworkOptions extends React.Component {
@@ -37,7 +37,7 @@ export default class NetworkOptions extends React.Component {
         key={d}
         primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
         onClick={() => this.handleSelectLayout(d)}
-        />
+      />
     ))
 
     const NodeRadiusMenuItems = ['degree', 'weight']
@@ -47,7 +47,7 @@ export default class NetworkOptions extends React.Component {
           key={d}
           primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
           onClick={() => this.handleSelectNodeRadius(d)}
-          />
+        />
       ))
 
     return (
@@ -60,12 +60,12 @@ export default class NetworkOptions extends React.Component {
           menuItems={layoutMenuItems}
         />
         <MenuItem
-            primaryText="Node Radius"
-            onChange={(e, i, value) => this.handleSelectNodeRadius(e, i, value)}
-            rightIcon={<ArrowDropRight />}
-            // secondaryText={this.props.ui.nodeRadius}
-            menuItems={NodeRadiusMenuItems}
-          />
+          primaryText="Node Radius"
+          onChange={(e, i, value) => this.handleSelectNodeRadius(e, i, value)}
+          rightIcon={<ArrowDropRight />}
+          // secondaryText={this.props.ui.nodeRadius}
+          menuItems={NodeRadiusMenuItems}
+        />
       </div>
     )
   }

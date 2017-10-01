@@ -6,7 +6,7 @@ import { topogramTogglePublic } from '../../../../api/topograms/topogramsMethods
 export default class TopogramTogglePublic extends React.Component {
 
   handleOnClick = () => {
-    console.log("click", this.props);
+    console.log('click', this.props)
     topogramTogglePublic.call({
       topogramId : this.props.topogramId
     })
@@ -16,9 +16,9 @@ export default class TopogramTogglePublic extends React.Component {
     return (
       <MenuItem
         checked={this.props.topogramSharedPublic}
-        primaryText={this.props.topogramSharedPublic ? "Is Visible Online" : "Share Publicly"}
+        primaryText={this.props.topogramSharedPublic ? 'Is Visible Online' : 'Share Publicly'}
         onClick={this.handleOnClick}
-        />
+      />
     )
   }
 }

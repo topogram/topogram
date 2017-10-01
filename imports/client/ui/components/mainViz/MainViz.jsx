@@ -11,11 +11,9 @@ export default class MainViz extends React.Component {
 
   onClickElement = (el) => {
     // if already selected, then unselect
-    const {cy, selectedElements} = this.props.ui
-    if(selectedElements.map(d=>d.id()).includes(el.id()))
-      this.unselectElement(el)
-    else
-      this.selectElement(el)
+    const { cy, selectedElements } = this.props.ui
+    if (selectedElements.map(d=>d.id()).includes(el.id())) {this.unselectElement(el)}
+    else {this.selectElement(el)}
   }
 
   unselectElement = (el) => {
@@ -50,10 +48,10 @@ export default class MainViz extends React.Component {
       graphVisible
     } = this.props.ui
 
-    let panelsCount = [geoMapVisible, graphVisible]
+    const panelsCount = [geoMapVisible, graphVisible]
       .filter(d => d).length
 
-    let height = timeLineVisible ? '80vh' : '100vh'
+    const height = timeLineVisible ? '80vh' : '100vh'
 
     let width = '100vw'
     if (panelsCount === 2) width = '50vw'
@@ -78,8 +76,8 @@ export default class MainViz extends React.Component {
               unselectElement={this.unselectElement}
               unselectAllElements={this.unselectAllElements}
             />
-          :
-          null
+            :
+            null
         }
         {
           graphVisible ?
@@ -93,16 +91,16 @@ export default class MainViz extends React.Component {
               unselectElement={this.unselectElement}
               unselectAllElements={this.unselectAllElements}
             />
-          :
-           null
+            :
+            null
         }
         {
           this.props.ui.timeLineVisible ?
-          <TimeLine
-            hasTimeInfo={this.props.hasTimeInfo}
-          />
-          :
-          null
+            <TimeLine
+              hasTimeInfo={this.props.hasTimeInfo}
+            />
+            :
+            null
         }
       </div>
     )

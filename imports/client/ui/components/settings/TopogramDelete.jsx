@@ -4,9 +4,9 @@ import MenuItem from 'material-ui/MenuItem'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import Delete from 'material-ui/svg-icons/action/delete';
+import Delete from 'material-ui/svg-icons/action/delete'
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl'
-import {red500} from 'material-ui/styles/colors';
+import { red500 } from 'material-ui/styles/colors'
 
 import { topogramDelete } from '../../../../api/topograms/topogramsMethods.js'
 
@@ -86,7 +86,7 @@ const TopogramDelete = React.createClass({
         >
           <FormattedMessage
             {...messages.confirmQuestion}
-           />
+          />
         </Dialog>
       </div>
     )

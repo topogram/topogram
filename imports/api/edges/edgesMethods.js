@@ -1,6 +1,6 @@
 import { Edges } from '../collections.js'
 import { Meteor } from 'meteor/meteor'
-import { Factory } from 'meteor/dburles:factory';
+import { Factory } from 'meteor/dburles:factory'
 
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
@@ -20,22 +20,22 @@ const EDGE_ID_ONLY = new SimpleSchema({
 export const edgeCreate = new ValidatedMethod({
   name: 'edge.create',
   validate: Edges.simpleSchema()
-            .pick([
-              'topogramId',
-              'data.id',
-              'data.name',
-              'data.color',
-              'data.group',
-              'data.notes',
-              'data.lat',
-              'data.lng',
-              'data.start',
-              'data.end',
-              'data.starred',
-              'data.weight',
-              'data.source',
-              'data.target',
-            ]).validator(),
+    .pick([
+      'topogramId',
+      'data.id',
+      'data.name',
+      'data.color',
+      'data.group',
+      'data.notes',
+      'data.lat',
+      'data.lng',
+      'data.start',
+      'data.end',
+      'data.starred',
+      'data.weight',
+      'data.source',
+      'data.target',
+    ]).validator(),
   run(edge) {
     return Edges.insert( edge )
   }
@@ -65,21 +65,21 @@ export const edgeDelete = new ValidatedMethod({
 * @return {Object} the edges as inserted in Mongo
 */
 
-let edgeSchema = Edges.schema.pick([
-      'data.id',
-      'data.name',
-      'data.color',
-      'data.group',
-      'data.notes',
-      'data.lat',
-      'data.lng',
-      'data.start',
-      'data.end',
-      'data.starred',
-      'data.weight',
-      'data.source',
-      'data.target'
-    ])
+const edgeSchema = Edges.schema.pick([
+  'data.id',
+  'data.name',
+  'data.color',
+  'data.group',
+  'data.notes',
+  'data.lat',
+  'data.lng',
+  'data.start',
+  'data.end',
+  'data.starred',
+  'data.weight',
+  'data.source',
+  'data.target'
+])
 
 export const edgeCreateMany = new ValidatedMethod({
   name: 'edge.createMany',
@@ -87,8 +87,8 @@ export const edgeCreateMany = new ValidatedMethod({
     'topogramId': { type: String },
     'edges' : { type : [ edgeSchema ], minCount: 1 }
   }).validator(),
-  run({topogramId, edges}) {
-    let ok = edges.map( e =>  ({...e, topogramId}) );
+  run({ topogramId, edges }) {
+    const ok = edges.map( e =>  ({ ...e, topogramId }) )
     return Edges.batchInsert( ok )
   }
 })
@@ -103,33 +103,33 @@ export const edgeCreateMany = new ValidatedMethod({
 */
 
 
-let edgeUpdateSchema = Edges.schema.pick([
-    'data.name',
-    'data.color',
-    'data.group',
-    'data.notes',
-    'data.lat',
-    'data.lng',
-    'data.start',
-    'data.end',
-    'data.starred',
-    'data.weight'
-  ])
+const edgeUpdateSchema = Edges.schema.pick([
+  'data.name',
+  'data.color',
+  'data.group',
+  'data.notes',
+  'data.lat',
+  'data.lng',
+  'data.start',
+  'data.end',
+  'data.starred',
+  'data.weight'
+])
 
 
 export const edgeUpdate = new ValidatedMethod({
   name: 'edge.update',
   validate: new SimpleSchema([
     edgeUpdateSchema,
-    {'edgeId': {
-        type: String
-      }
+    { 'edgeId': {
+      type: String
+    }
     },
     {
       'data.source': {
-      type: String,
-      label: 'The source of the edge',
-      optional :true
+        type: String,
+        label: 'The source of the edge',
+        optional :true
       }
     },
     {
@@ -140,10 +140,10 @@ export const edgeUpdate = new ValidatedMethod({
       }
     }
   ]).validator(), // TODO :check if ID exists,
-  run( {edgeId, data}) {
-    let $set = {}
+  run( { edgeId, data }) {
+    const $set = {}
     Object.keys(data).map( d=> $set['data.'+d] = data[d])
-    return Edges.update({ 'data.id': edgeId }, { $set: $set })
+    return Edges.update({ 'data.id': edgeId }, { $set })
   }
 })
 
@@ -160,8 +160,8 @@ export const edgeDeleteMany = new ValidatedMethod({
   validate: new SimpleSchema({
     edgeIds: { type: [String], minCount: 1 }
   }).validator(), // TODO :check if ID exists,
-  run({edgeIds}) {
-    console.log(edgeIds);
+  run({ edgeIds }) {
+    console.log(edgeIds)
     return Edges.remove( { '_id' : { $in : edgeIds } } )
   }
 })
@@ -185,7 +185,7 @@ export const edgeDeleteAll = new ValidatedMethod({
 Meteor.methods( {
 
   batchInsertEdges( edges ) {
-        // console.log(edges.length)
+    // console.log(edges.length)
     return Edges.batchInsert( edges )
   },
 

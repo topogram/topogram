@@ -1,16 +1,16 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 
 import { appLocales, messages } from '../../../i18n.js'
 
-import Divider from 'material-ui/Divider';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
+import Divider from 'material-ui/Divider'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import IconButton from 'material-ui/IconButton'
 
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
-import Home from 'material-ui/svg-icons/action/home';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
+import Home from 'material-ui/svg-icons/action/home'
 
 import About from '../components/About.jsx'
 
@@ -30,22 +30,22 @@ export default class UserMenu extends React.Component {
     Meteor.logout(err => {
       if (err) console.log(err)
       else console.log('logout')
-    });
+    })
   }
 
   handleRequestChange() {
-    console.log('haha');
+    console.log('haha')
   }
 
   handleChangeSingle(e) {
-    console.log(e);
+    console.log(e)
   }
 
   render() {
-    const {isLoggedIn} = this.props.user
+    const { isLoggedIn } = this.props.user
     const currentLanguage = 'en'
     const languageMenuItems = Object.keys(messages).map( l => {
-      let abbr = l.split('-')[0]
+      const abbr = l.split('-')[0]
       return (
         <MenuItem
           value={l}
@@ -70,7 +70,7 @@ export default class UserMenu extends React.Component {
           onClick={() => this.props.router.push('/')}
         />
         <About />
-{/*
+        {/*
         <Divider />
         <MenuItem
           primaryText="Language"
@@ -80,33 +80,33 @@ export default class UserMenu extends React.Component {
 
         {
           isLoggedIn ?
-          <MenuItem
-            primaryText='My Topograms'
-            onClick={(e) => this.props.router.push('/topograms')}
+            <MenuItem
+              primaryText="My Topograms"
+              onClick={(e) => this.props.router.push('/topograms')}
             />
-          :
-          null
+            :
+            null
         }
 
         <Divider />
         {
           !isLoggedIn
-          ?
-          <span>
-            <MenuItem
-              primaryText='Login'
-              onClick={(e) => this.props.router.push('/login')}
+            ?
+            <span>
+              <MenuItem
+                primaryText="Login"
+                onClick={(e) => this.props.router.push('/login')}
               />
-            <MenuItem
-              primaryText='Sign Up'
-              onClick={(e) => this.props.router.push('/signup')}
+              <MenuItem
+                primaryText="Sign Up"
+                onClick={(e) => this.props.router.push('/signup')}
               />
-          </span>
-          :
-          <MenuItem
-            primaryText="Sign out"
-            onClick={() => this.logout()}
-          />
+            </span>
+            :
+            <MenuItem
+              primaryText="Sign out"
+              onClick={() => this.logout()}
+            />
         }
 
 
