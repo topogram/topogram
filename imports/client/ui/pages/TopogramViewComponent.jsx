@@ -15,6 +15,7 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     // filters
     minTime : null,
     maxTime : null,
+    currentSliderTime : (state) => new Date().getTime(), // TODO set default to minTime
     // viz layout settings
     graphVisible : true, // default to graph view
     geoMapVisible : false,
@@ -113,6 +114,7 @@ export class TopogramViewComponent extends React.Component {
     let nodes = this.props.hasTimeInfo ?
       this.props.nodes
         .filter(n => new Date(this.props.ui.maxTime) >= new Date(n.data.end))
+        .filter(n => new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end))
         .filter(n => new Date(n.data.start) >= new Date(this.props.ui.minTime))
       :
       this.props.nodes
@@ -124,8 +126,8 @@ export class TopogramViewComponent extends React.Component {
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
       )
 
-    console.log(this.props.userId, this.props.topogram.userId, this.props.isLoggedIn);
-    console.log(this.props.userId === this.props.topogram.userId && this.props.isLoggedIn);
+    // console.log(this.props.userId, this.props.topogram.userId, this.props.isLoggedIn);
+    // console.log(this.props.userId === this.props.topogram.userId && this.props.isLoggedIn);
 
     return (
       <div>
