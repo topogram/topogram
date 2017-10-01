@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { startSubscription } from 'meteor-redux-middlewares'
 
-import { Nodes, Edges, Topograms } from '/imports/api/collections'
+import { Topograms } from '/imports/api/collections'
 
 export const TOPOGRAMS_PUBLIC_SUBSCRIPTION_READY = 'TOPOGRAMS_PUBLIC_SUBSCRIPTION_READY'
 export const TOPOGRAMS_PUBLIC_SUBSCRIPTION_CHANGED = 'TOPOGRAMS_PUBLIC_SUBSCRIPTION_CHANGED'
@@ -13,7 +13,6 @@ export const loadHomeTopograms = () =>
     subscribe: () => Meteor.subscribe(TOPOGRAMS_PUBLIC_SUB),
     get: () => {
       const topograms = Topograms.find().fetch()
-      const topogramIds = topograms.map( d => d._id)
       return topograms
     },
   })
@@ -29,7 +28,6 @@ export const loadPrivateTopograms = () =>
     subscribe: () => Meteor.subscribe(TOPOGRAMS_PRIVATE_SUB),
     get: () => {
       const topograms = Topograms.find().fetch()
-      const topogramIds = topograms.map( d => d._id)
       return topograms
     },
   })

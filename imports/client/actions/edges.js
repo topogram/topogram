@@ -6,13 +6,9 @@ export const EDGES_SUBSCRIPTION_READY = 'EDGES_SUBSCRIPTION_READY'
 export const EDGES_SUBSCRIPTION_CHANGED = 'EDGES_SUBSCRIPTION_CHANGED'
 export const EDGES_SUB = 'edges'
 
-export const loadEdges = (topogramId) => {
-
-  console.log('subscribed to nodes :', topogramId)
-
-  return startSubscription({
+export const loadEdges = (topogramId) =>
+  startSubscription({
     key: EDGES_SUB,
     subscribe: () => Meteor.subscribe(EDGES_SUB, topogramId),
     get: () => Edges.find().fetch(),
   })
-}
