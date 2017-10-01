@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
@@ -12,7 +12,7 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     // filters
     minTime : null,
     maxTime : null,
-    currentSliderTime : (state) => new Date().getTime(), // TODO set default to minTime
+    currentSliderTime : () => new Date().getTime(), // TODO set default to minTime
     // viz layout settings
     graphVisible : true, // default to graph view
     geoMapVisible : false,
@@ -32,18 +32,28 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
 export class TopogramViewComponent extends React.Component {
 
   static propTypes = {
-    ui: React.PropTypes.object,
-    updateUI: React.PropTypes.func,
-    hasTimeInfo: React.PropTypes.bool,
-    hasGeoInfo: React.PropTypes.bool,
-    maxTime: React.PropTypes.instanceOf(Date),
-    minTime: React.PropTypes.instanceOf(Date),
-    nodes: React.PropTypes.array,
-    edges: React.PropTypes.array,
-    topogram: React.PropTypes.object,
-    topogramId: React.PropTypes.string,
-    isLoggedIn : React.PropTypes.bool,
-    userId: React.PropTypes.string
+    ui: PropTypes.object,
+    updateUI: PropTypes.func,
+    hasTimeInfo: PropTypes.bool,
+    hasGeoInfo: PropTypes.bool,
+    maxTime: PropTypes.instanceOf(Date),
+    minTime: PropTypes.instanceOf(Date),
+    nodes: PropTypes.array,
+    edges: PropTypes.array,
+    topogram: PropTypes.object,
+    topogramId: PropTypes.string,
+    isLoggedIn : PropTypes.bool,
+    userId: PropTypes.string,
+    loadTopogram : PropTypes.func.isRequired,
+    loadNodes : PropTypes.func.isRequired,
+    loadEdges : PropTypes.func.isRequired,
+    stopNodesSubscription : PropTypes.func.isRequired,
+    stopEdgesSubscription : PropTypes.func.isRequired,
+    stopTopogramSubscription : PropTypes.func.isRequired,
+    router : PropTypes.object.isRequired,
+    params : PropTypes.shape({
+      topogramId : PropTypes.string.isRequired
+    })
   }
 
   constructor(props) {

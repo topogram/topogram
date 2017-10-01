@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import { Accounts } from 'meteor/accounts-base'
 
@@ -21,6 +21,10 @@ export class SignUpPage extends React.Component {
         passwordConfirm: ''
       }
     }
+  }
+
+  static propTypes = {
+    router: PropTypes.func.isRequired
   }
 
   promptSnackbar(msg) {

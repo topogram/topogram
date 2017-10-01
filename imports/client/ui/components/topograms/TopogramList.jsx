@@ -16,8 +16,8 @@ class TopogramList extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     showFilters : PropTypes.bool.isRequired,
-    topograms: PropTypes.string.isRequired,
-    router: PropTypes.func.isRequired
+    topograms: PropTypes.array.isRequired,
+    router: PropTypes.object.isRequired
   }
 
   handleOnToggle = () => {

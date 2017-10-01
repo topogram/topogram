@@ -21,7 +21,7 @@ export function nodes(state = initialState, action) {
       ready: action.payload.ready,
       nodesSubscriptionStopped: false,
     }
-  case NODES_SUBSCRIPTION_CHANGED:
+  case NODES_SUBSCRIPTION_CHANGED: {
 
     // convert from Document to plain JS object properly
     const nodes = action.payload
@@ -56,6 +56,7 @@ export function nodes(state = initialState, action) {
       minTime: starts[0],
       maxTime: ends[0]
     }
+  }
   case STOP_SUBSCRIPTION:
     return action.payload === NODES_SUB
       ? { ...state, nodesSubscriptionStopped: true }

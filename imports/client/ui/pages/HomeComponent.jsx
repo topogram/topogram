@@ -1,13 +1,8 @@
 import React from 'react'
-
-
-import { Meteor } from 'meteor/meteor'
 import Snackbar from 'material-ui/Snackbar'
 
 import { FormattedMessage, defineMessages } from 'react-intl'
-
 import TopogramList from '/imports/client/ui/components/topograms/TopogramList.jsx'
-import TopogramAddForm from '/imports/client/ui/components/topograms/TopogramAddForm.jsx'
 
 const messages = defineMessages({
   tagline : {
@@ -50,6 +45,14 @@ export class HomeComponent extends React.Component {
       message: ''
     }
   }
+
+  static propTypes = {
+    topograms: React.PropTypes.array.isRequired,
+    loadTopograms: React.PropTypes.func.isRequired,
+    stopTopogramsSubscription: React.PropTypes.func.isRequired,
+    router: React.PropTypes.object.isRequired
+  }
+
 
   promptSnackbar = (msg) => {
     this.setState({

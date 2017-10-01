@@ -159,9 +159,9 @@ class Cytoscape extends Component {
 
 Cytoscape.propTypes = {
   elements : PropTypes.object.isRequired,
-  width : PropTypes.number.isRequired,
-  height : PropTypes.number.isRequired,
-  layoutName : PropTypes.func.isRequired,
+  width : PropTypes.string.isRequired,
+  height : PropTypes.string.isRequired,
+  layoutName : PropTypes.string.isRequired,
   nodeRadius : PropTypes.string.isRequired,
   init : PropTypes.bool.isRequired,
   style : PropTypes.object

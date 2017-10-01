@@ -1,4 +1,4 @@
-import { STOP_SUBSCRIPTION } from 'meteor-redux-middlewares'
+// import { STOP_SUBSCRIPTION } from 'meteor-redux-middlewares'
 
 import {
   USER_REACTIVE_SOURCE_CHANGED
@@ -10,13 +10,14 @@ const initialState = {
 
 export function user(state = initialState, action) {
   switch (action.type) {
-  case USER_REACTIVE_SOURCE_CHANGED:
+  case USER_REACTIVE_SOURCE_CHANGED: {
     const isLoggedIn = action.payload._id ? true : false
     return {
       ...action.payload,
       isLoggedIn,
       ready: true
     }
+  }
   default:
     return state
   }

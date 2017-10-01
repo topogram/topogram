@@ -163,8 +163,8 @@ Network.propTypes = {
   onClickElement: PropTypes.func.isRequired,
   selectElement: PropTypes.func.isRequired,
   unselectAllElements: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.height.isRequired
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired
 }
 
 Network.defaultProps = {

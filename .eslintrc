@@ -38,6 +38,7 @@
     "keyword-spacing": [2, { "before": true ,  "after": true }],
     "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
     "space-before-blocks": [2, "always"],
+    "no-useless-escape" : 0,
 
     "object-curly-spacing": [2, "always"],
     "no-underscore-dangle": 0,

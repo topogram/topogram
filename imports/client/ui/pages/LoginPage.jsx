@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
-import { Accounts } from 'meteor/accounts-base'
 import Snackbar from 'material-ui/Snackbar'
 import LoginForm from '/imports/client/ui/components/auth/LoginForm.jsx'
 
@@ -19,6 +18,13 @@ export class LoginPage extends React.Component {
       }
     }
   }
+
+  static propTypes = {
+    router: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    })
+  }
+
 
   promptSnackbar(msg) {
     this.setState({
@@ -57,7 +63,6 @@ export class LoginPage extends React.Component {
     if (Object.keys(errors).length) return
 
     const { email, password } = this.state.user
-    console.log(email, password)
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
         this.promptSnackbar( `Error ${err.error} : ${err.reason}`)

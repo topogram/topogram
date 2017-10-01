@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import TopogramList from '/imports/client/ui/components/topograms/TopogramList.jsx'
 import TopogramAddForm from '/imports/client/ui/components/topograms/TopogramAddForm.jsx'
@@ -12,6 +12,13 @@ export default class TopogramsPrivateList extends React.Component {
 
   componentWillUnmount() {
     this.props.stopTopogramsSubscription()
+  }
+
+  static propTypes = {
+    router : PropTypes.object.isRequired,
+    loadPrivateTopograms : PropTypes.func.isRequired,
+    stopTopogramsSubscription : PropTypes.func.isRequired,
+    topograms : PropTypes.array.isRequired
   }
 
   render() {
