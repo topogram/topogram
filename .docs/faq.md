@@ -39,18 +39,18 @@ Topogram is written entirely in Javascript and use different libraries and frame
 - [Leaflet](http://leafletjs.com) to draw maps
 
 
-#### Why Topogram ?
+### Why Topogram ?
 
 It answers the growing need for interactive mapping of complex online and offline interactions. Also because you need to be able to make sense of a bunch of text data without hours of development. Finally, because you may want to own your research environment and still be able to use it in your web browser so you can share results and analysis process easily.
 
-#### How can I start to use Topogram ?
+### How can I start to use Topogram ?
 
 Download and install Topogram on your own computer by following the instructions on the [Get Started](/get-started)
 
-#### Where does Topogram come from ?
+### Where does Topogram come from ?
 *Topogram* was originally conceived by [Clément Renaud](http://clementrenaud.com) during its phD research about Internet memes on the Chinese social network Sina Weibo. You can read the [thesis](http://clementrenaud.com/uploads/phD/thesis.pdf) for some more background on the project.
 
-#### How can I get in touch with you and/or contribute to Topogram ?
+### How can I get in touch with you and/or contribute to Topogram ?
 
 * Drop us an email at [hi@topogram.io](mailto:hi@topogram.io)
 * Open an issue on [Github](http://github.com/topogram/topogram/issues)

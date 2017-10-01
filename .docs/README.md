@@ -4,7 +4,6 @@
 
 [![Build Status](https://travis-ci.org/topogram/topogram.svg?branch=api)](https://travis-ci.org/topogram/topogram)
 
-
 ### Features
 
 - Time-based navigation in graph
@@ -14,8 +13,6 @@
 
 ![Screenshot Topogram](img/Topogram-Network.png)
 
-
-# How To Use
 
 ## Input data
 
@@ -42,25 +39,25 @@ r = topogram.create_edges(topogram_ID, [...edges])
 
 You can add geographic and time information to the nodes.
 
-| Name | Type | Description |
-|---|---|---|
-| id | String | Id of the node (optional : will be generated). This will be used by the edges to recognize the node |
-| name | String | The name of the node |
-| lat | Float | Latitude (in degrees) |
-| lng | Float | Longitude (in degrees)|
-| start | Date | Date when the node started existing |
-| end | Date | Date when the node stopped existing |
-| color | String | Color of the node |
-| weight | Float | Weight of the node |
-| group | String | Some category to classify the node |
-| notes | String | (Markdown) Additional info about the nodes |
+| Name  | Type   |  | Description | Example |
+|---    |---     |---  |--- |--- |
+| id    | String | required | Id of the node. Should match node Id provided to the edges | 'My node 1' |
+| name  | String | optional | The name of the node | 'Michael' |
+| lat   | Float  | optional | Latitude (in degrees) | -6.7589 |
+| lng   | Float  | optional | Longitude (in degrees)| 105.8671 |
+| start | Date   | optional | Date when the node started existing | 2015 |
+| end   | Date   | optional | Date when the node stopped existing | 2012 |
+| color | String | optional | Color of the node | '#555000'|
+| weight| Float  | optional | Weight of the node | 4 |
+| group | String | optional | Some category to classify the node | 'male'|
+| notes | String | optional | (Markdown) Additional info about the nodes | '# Title' |
 
 See the model in [/imports/api/nodes/Nodes.js]()
 
 
 Example of mapping using the Python API Client :
 
-```
+```python
   node = {
     "id" : str,
     "name" : str,
@@ -77,25 +74,25 @@ Example of mapping using the Python API Client :
 
 Edges require a source and target. When source node or target node are absent from the data, the edge will be ignored.
 
-| Name | Type | Description |
-|---|---|---|
-| id | String | Id of the edge (optional : will be generated) |
-| source | String | Id of the source node (required)|
-| target | String | Id of the target node (required)|
-| name | String | The name/label of the edge |
-| start | Date | Date when the edge started existing |
-| end | Date | Date when the edge stopped existing |
-| color | String | Color of the node |
-| weight | Float | Weight of the node |
-| group | String | Some category to classify the node |
-| notes | String | (Markdown) Additional info about the nodes |
+| Name  | Type   |  | Description | Example |
+|---      |---      |---  |---    |
+| source  | String  | required  | Id of the source node (required) | 'My node 1' |
+| target  | String  | required  | Id of the target node (required) | 'My node 2' |
+| id      | String  | optional | Id of the edge | 'My edge 1' |
+| name    | String  | optional | The name/label of the edge | 'Loves' |
+| start | Date   | optional | Date when the edge started existing | 2015 |
+| end   | Date   | optional | Date when the edge stopped existing | 2012 |
+| color | String | optional | Color of the edge | '#555000'|
+| weight| Float  | optional | Weight of the edge | 4 |
+| group | String | optional | Some category to classify the edge | 'male'|
+| notes | String | optional | (Markdown) Additional info about the edge | '# Title' |
 
 See the model in [/imports/api/edges/Edges.js]()
 
 
 Example of mapping using the Python API Client :
 
-```
+```python
   edge = {
     "source" : str,
     "target" : str,
@@ -145,52 +142,9 @@ When the selection mode is activated, you can click to highlight specific elemen
 
 ## Download & Install
 
-You will [Meteor JS](https://www.meteor.com/) to install Topogram.
+You need [Meteor JS](https://www.meteor.com/) to install Topogram.
 
     git clone https://github.com/topogram/topogram-client.git
     cd topogram-client
     meteor npm install
     meteor
-
-### Test
-
-There is 2 sorts of tests here :
-
-1. functional tests for the components in `/tests`
-2. integration tests for the Meteor app located in ```specs```.
-
-You can launch all tests using `gulp test` or `npm test`
-
-You can also run the app in test mode to check integration as you develop
-
-    npm test:ui
-
-Check for ESlint compliance
-
-    npm run lint
-
-
-### Deploy with Docker
-
-We use Docker to run in production.
-
-1. build the Docker topogram/topogram container with `./build.sh`
-1. fetch a mongo Docker container for the DB and run the app with `docker-compose up`
-
-
-## Build the docs
-
-All the docs will be built in the `.docs/` folder.
-
-    gulp doc
-
-## Publishing instructions
-
-This project is set up to automatically publish to npm. To publish:
-
-1. Set the version number environment variable: export VERSION=1.2.3
-1. Publish: ```gulp publish```
-
-## Internationalization
-
-Topogram supports internationalization. Please read our [i18n guidelines](https://github.com/topogram/topogram/wiki/App-translation) and feel free to add your own language by translating a file in `./i18n` folder!
