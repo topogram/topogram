@@ -1,7 +1,7 @@
 import 'rc-slider/assets/index.css'
 import './timeline.css'
 
-import React from 'react'
+import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import moment from 'moment'
 
@@ -16,6 +16,11 @@ function dateFormatter(v) {
 
 @ui()
 export default class TimeSlider extends React.Component {
+
+  static propTypes = {
+    minTime : PropTypes.instanceOf(Date),
+    maxTime : PropTypes.instanceOf(Date)
+  }
 
   onSliderChange = (value) => {
     this.props.updateUI({ currentSliderTime : value })

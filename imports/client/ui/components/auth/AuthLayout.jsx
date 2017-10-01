@@ -13,5 +13,7 @@ const AuthLayout = ({ children }) => (
     {children}
   </Card>
 )
-
+AuthLayout.propTypes = {
+  children : PropTypes.node
+}
 export default AuthLayout

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import Paper from 'material-ui/Paper'
@@ -19,6 +19,12 @@ const buttonStyle = {
 @ui()
 export default class PanelSelector extends React.Component {
 
+  static propTypes = {
+    bottom : PropTypes.string,
+    hasGeoInfo : PropTypes.bool,
+    hasTimeInfo : PropTypes.bool
+  }
+
   toggleGeo() {
     this.props.updateUI( 'geoMapVisible', !this.props.ui.geoMapVisible )
   }
@@ -38,7 +44,6 @@ export default class PanelSelector extends React.Component {
   render() {
     const {
       timeLineVisible,
-      selectionPanelPinned,
       geoMapVisible,
       graphVisible
     } = this.props.ui

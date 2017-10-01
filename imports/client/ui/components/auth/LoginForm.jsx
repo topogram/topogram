@@ -5,7 +5,6 @@ import { CardActions, CardHeader, CardText } from 'material-ui/Card'
 // import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
-import Divider from 'material-ui/Divider'
 
 import AuthLayout from './AuthLayout.jsx'
 

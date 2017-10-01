@@ -1,7 +1,6 @@
 import React from 'react'
 import ui from 'redux-ui'
 
-import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 

@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import d3 from 'd3'
-import { LatLng } from 'leaflet'
-import { Map, FeatureGroup, TileLayer, CircleMarker,  Polyline } from 'react-leaflet'
+import { Map, TileLayer } from 'react-leaflet'
 
 import 'leaflet/dist/leaflet.css'
 import './GeoMap.css'
@@ -29,26 +28,35 @@ class GeoMap extends React.Component {
     }
   }
 
+  static propTypes = {
+    onClickElement : PropTypes.func.isRequired,
+    selectElement : PropTypes.func.isRequired,
+    unselectElement : PropTypes.func.isRequired,
+    unselectAllElements : PropTypes.func.isRequired,
+    width : PropTypes.string.isRequired,
+    height : PropTypes.string.isRequired
+  }
+
   onClickGeoElement = (filter) => {
-    const { cy, selectedElements } = this.props.ui
+    const { cy } = this.props.ui
     const selected = cy.filter(filter)
     this.props.onClickElement(selected)
   }
 
   selectGeoElement = (filter) => {
-    const { cy, selectedElements } = this.props.ui
+    const { cy } = this.props.ui
     const selected = cy.filter(filter)
     this.props.selectElement(selected)
   }
 
   unselectGeoElement = (filter) => {
-    const { cy, selectedElements } = this.props.ui
+    const { cy } = this.props.ui
     const selected = cy.filter(filter)
     this.props.unselectElement(selected)
   }
 
   render() {
-    const { geoMapTile, selectedElements, selectionModeOn } = this.props.ui
+    const { geoMapTile, selectionModeOn } = this.props.ui
     const { zoom, position } = this.state
     const nodesById = {}
     const { width, height } = this.props
@@ -58,19 +66,8 @@ class GeoMap extends React.Component {
       .style('width', width)
     const left = width === '50vw' ? '50vw' : 0
 
-    // selection
-    let selectedNodesIndex = []
-    const el = selectedElements[0]
-    if (selectedElements.length === 1) {
-      const subGraph = el.group() === 'nodes' ?
-        el.closedNeighborhood()
-        :
-        el.connectedNodes().add(el)
-      selectedNodesIndex = subGraph.nodes().map(n => n.data('i'))
-    }
-
     const nodes = this.props.nodes
-      .map( (n,i) => {
+      .map( n => {
         const coords = [n.data.lat,n.data.lng]
         const node = { ...n, coords }
         nodesById[n.data.id] = node // store for edges
@@ -78,8 +75,8 @@ class GeoMap extends React.Component {
       })
 
     const edges = this.props.edges
-      .map( (e,i) => {
-        let source = nodesById[e.data.source],
+      .map( e => {
+        const source = nodesById[e.data.source],
           target = nodesById[e.data.target],
           coords = [source.coords, target.coords],
           selected = e.data.selected

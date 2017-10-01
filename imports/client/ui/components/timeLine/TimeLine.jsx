@@ -1,14 +1,11 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import moment from 'moment'
 
 import { Card, CardText, CardHeader } from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton'
 import DatePicker from 'material-ui/DatePicker'
 
 import TimeSlider from './TimeSlider.jsx'
-
-// import FilterByTime from '../filterByTime/FilterByTime.jsx'
 
 const styleTimeLine = {
   height: '20vh',
@@ -19,6 +16,10 @@ const styleTimeLine = {
 
 @ui()
 export default class TimeLine extends React.Component {
+
+  static propTypes = {
+    hasTimeInfo : PropTypes.bool
+  }
 
   handleChangeMinTime = (event, date) => {
     this.props.updateUI('minTime', date)

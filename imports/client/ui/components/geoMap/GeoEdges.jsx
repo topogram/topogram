@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { FeatureGroup, Polyline } from 'react-leaflet'
 import ui from 'redux-ui'
 
 @ui()
 export default class GeoEdges extends React.Component {
+  static propTypes = {
+    edges : PropTypes.array.isRequired,
+    selectionModeOn : PropTypes.bool,
+    onClickGeoElement : PropTypes.func.isRequired,
+    selectGeoElement : PropTypes.func.isRequired,
+    unselectGeoElement : PropTypes.func.isRequired,
+    unselectAllElements : PropTypes.func.isRequired
+  }
 
   render() {
     const { selectionModeOn } = this.props
