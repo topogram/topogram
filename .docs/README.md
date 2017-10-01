@@ -145,9 +145,7 @@ When the selection mode is activated, you can click to highlight specific elemen
 
 ## Download & Install
 
-Topogram is a node/JS application based on [Meteor](https://www.meteor.com/), [Cytoscape JS](http://js.cytoscape.org), [Leaflet](http://leafletjs.com) and React/Redux.
-
-### Run
+You will [Meteor JS](https://www.meteor.com/) to install Topogram.
 
     git clone https://github.com/topogram/topogram-client.git
     cd topogram-client
