@@ -25,7 +25,7 @@ You need [Meteor JS](https://www.meteor.com/) to install Topogram.
     meteor
 
 
-### Test
+### Test & Code quality
 
 There is 2 sorts of tests here :
 
@@ -36,16 +36,15 @@ You can launch all tests using `gulp test` or `npm test`
 
 You can also run the app in test mode to check integration as you develop
 
-    npm test:ui
+    npm test:meteor
 
 Check for ESlint compliance
 
     npm run lint
 
-
 ### Deploy with Docker
 
-We use Docker to run in production.
+You can use Docker to run in production.
 
 1. build the Docker topogram/topogram container with `./build.sh`
 1. fetch a mongo Docker container for the DB and run the app with `docker-compose up`
