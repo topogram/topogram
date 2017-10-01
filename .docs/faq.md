@@ -52,8 +52,6 @@ Download and install Topogram on your own computer by following the instructions
 
 ### How can I get in touch with you and/or contribute to Topogram ?
 
-* Drop us an email at [hi@topogram.io](mailto:hi@topogram.io)
-* Open an issue on [Github](http://github.com/topogram/topogram/issues)
-* By tweet [@topoviz](http://topogram/topoviz)
+Please refer to the [contact](/contact) section.
 
 Talk to you soon !

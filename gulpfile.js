@@ -36,7 +36,7 @@ if (typeof Meteor === typeof undefined) {
   */
 
   var DOC_DEST_FOLDER = './.docs';
-  var API_DOC_DEST_FOLDER = DOC_DEST_FOLDER + '/api';
+  var API_DOC_DEST_FOLDER = './.apiDocs';
   var UI_DOC_DEST_FOLDER = DOC_DEST_FOLDER + '/ui';
 
   gulp.task('doc', function(done){
@@ -44,7 +44,7 @@ if (typeof Meteor === typeof undefined) {
       'doc:clean',
       // 'doc:react',
       // 'doc:api',
-      'doc:build',
+      // 'doc:build',
       function(){
         gutil.log(gutil.colors.green('OK : docs built at ', DOC_DEST_FOLDER  ))
         done()
@@ -58,7 +58,7 @@ if (typeof Meteor === typeof undefined) {
       API_DOC_DEST_FOLDER,
       UI_DOC_DEST_FOLDER,
       DOC_DEST_FOLDER+'/index.md',
-      DOC_DEST_FOLDER+'/reference.md',
+      DOC_DEST_FOLDER+'/api.md',
       DOC_DEST_FOLDER+'/ui.md',
     ], { force : true});
   });
@@ -66,7 +66,6 @@ if (typeof Meteor === typeof undefined) {
   gulp.task('doc:build', function(cb){
     return gulp.src('./README.md')
       .pipe(concat('index.md'))
-      .pipe(insert.prepend("---\nlayout: home\ntitle : Topogram\n---\n"))
       .pipe(gulp.dest(DOC_DEST_FOLDER))
   })
 
@@ -104,9 +103,8 @@ if (typeof Meteor === typeof undefined) {
         }))
         .pipe(debug())
         .pipe(gulp.dest(API_DOC_DEST_FOLDER))
-        .pipe(concat('reference.md'))
+        .pipe(concat('api.md'))
         .pipe(insert.prepend('# API Methods\n'))
-        .pipe(insert.prepend("---\nlayout: main\ntitle : API Reference\n---\n"))
         .pipe(gulp.dest(DOC_DEST_FOLDER));
 
   });

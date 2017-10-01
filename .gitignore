@@ -7,8 +7,6 @@ node_modules
 updates
 oldies
 
-# .docs/**/*.md
-!.docs/faq.md
-!.docs/howto.md
+.apiDocs
 update.log
 _docpress

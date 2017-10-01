@@ -1,4 +1,4 @@
 - [Home](/)
 - [Get Started](get-started.md)
 - [FAQ](faq.md)
-- [API](reference.md)
+- [Get In Touch](contact.md)
