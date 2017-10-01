@@ -61,6 +61,7 @@
     "babel-register": "^6.23.0",
     "chai": "^3.5.0",
     "daemon": "^1.1.0",
+    "del": "^3.0.0",
     "enzyme": "^2.7.1",
     "eslint": "^3.1.1",
     "eslint-plugin-import": "^1.11.1",
@@ -101,6 +102,7 @@
     "start": "meteor",
     "lint": "eslint --ext .jsx --ext .js --quiet .",
     "test": "gulp test",
+    "docs": "gulp doc",
     "test:meteor": "meteor test --driver-package=practicalmeteor:mocha --port=3010",
     "watch": "gulp watch",
     "extract-intl": "babel-node --presets es2015,stage-0 -- ./.scripts/extract-intl.js"

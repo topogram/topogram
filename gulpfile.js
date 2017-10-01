@@ -40,10 +40,16 @@ if (typeof Meteor === typeof undefined) {
   var UI_DOC_DEST_FOLDER = DOC_DEST_FOLDER + '/ui';
 
   gulp.task('doc', function(done){
-    runSequence('doc:clean', 'doc:react', 'doc:api', 'doc:build', function(){
-      gutil.log(gutil.colors.green('OK : docs built at ', DOC_DEST_FOLDER  ))
-      done()
-    })
+    runSequence(
+      'doc:clean',
+      // 'doc:react',
+      'doc:api',
+      'doc:build',
+      function(){
+        gutil.log(gutil.colors.green('OK : docs built at ', DOC_DEST_FOLDER  ))
+        done()
+      }
+    )
   })
 
   gulp.task('doc:clean', function() {
@@ -64,7 +70,7 @@ if (typeof Meteor === typeof undefined) {
   })
 
   gulp.task('doc:react', function() {
-      return gulp.src('./imports/ui/components/**/*.jsx')
+      return gulp.src('./imports/client/ui/components/**/*.jsx')
           .pipe(gulpReactDocs())
           // .pipe(insert.prepend('#')) // make h3
           .pipe(insert.transform(function(contents, file) {
@@ -75,7 +81,7 @@ if (typeof Meteor === typeof undefined) {
               var header = link + '\n'
               return header  + contents;
           }))
-          // .pipe(debug())
+          .pipe(debug())
           .pipe(gulp.dest(UI_DOC_DEST_FOLDER))
           .pipe(concat('ui.md'))
           .pipe(insert.prepend('# UI Components\n'))
@@ -84,7 +90,10 @@ if (typeof Meteor === typeof undefined) {
 
   gulp.task('doc:api', function (cb) {
 
-      return gulp.src('./imports/api/**/*.js')
+      return gulp.src([
+          './imports/api/**/*.js',
+          '!./imports/api/**/*.test.js'
+        ])
         .pipe(gulpJsdoc2md())
         .on('error', function (err) {
           gutil.log(gutil.colors.red('jsdoc2md failed'), err.message)
@@ -92,7 +101,7 @@ if (typeof Meteor === typeof undefined) {
         .pipe(rename(function (path) {
           path.extname = '.md'
         }))
-        // .pipe(debug())
+        .pipe(debug())
         .pipe(gulp.dest(API_DOC_DEST_FOLDER))
         .pipe(concat('api.md'))
         .pipe(insert.prepend('# API Methods\n'))

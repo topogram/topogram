@@ -16,7 +16,7 @@
 
 ![Screenshot Topogram](http://topogram.io/images/Topogram-Network.png)
 
-Topogram is a node application based on [Meteor JS](https://www.meteor.com/) and [Cytoscape JS](http://js.cytoscape.org).
+Topogram is a node/JS application based on [Meteor](https://www.meteor.com/), [Cytoscape JS](http://js.cytoscape.org), [Leaflet](http://leafletjs.com) and React/Redux.
 
 ## Run
 
