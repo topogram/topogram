@@ -18,8 +18,8 @@ function dateFormatter(v) {
 export default class TimeSlider extends React.Component {
 
   static propTypes = {
-    minTime : PropTypes.instanceOf(Date),
-    maxTime : PropTypes.instanceOf(Date)
+    minTime : PropTypes.number,
+    maxTime : PropTypes.number
   }
 
   onSliderChange = (value) => {

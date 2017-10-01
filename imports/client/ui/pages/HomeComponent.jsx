@@ -89,7 +89,8 @@ export class HomeComponent extends React.Component {
 
         <TopogramList
           topograms={this.props.topograms}
-          title={<FormattedMessage {...messages.browseTopograms} />}
+          // title={<FormattedMessage {...messages.browseTopograms} />}
+          title="Browse publics topograms"
           showFilters={false}
           router={this.props.router}
         />

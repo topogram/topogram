@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import '/imports/css/topogram.scss'
 
 import { IntlProvider } from 'react-intl'
-import { appLocales, messages } from '../../../i18n.js'
+import { messages } from '../../../i18n.js'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { green500, indigo700, redA200 } from 'material-ui/styles/colors'
@@ -40,6 +40,16 @@ const App = ({ children, classNames, locale, messages, user, loadUser, router })
       </MuiThemeProvider>
     </IntlProvider>
   )
+
+App.propTypes = {
+  children : PropTypes.node,
+  classNames : PropTypes.string,
+  locale : PropTypes.string,
+  messages : PropTypes.object,
+  user : PropTypes.object,
+  router : PropTypes.object,
+  loadUser : PropTypes.func
+}
 
 App.defaultProps = {
   locale: 'en',

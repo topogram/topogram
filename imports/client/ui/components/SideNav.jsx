@@ -1,15 +1,10 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
-import FlatButton from 'material-ui/FlatButton'
-import { Toolbar } from 'material-ui/Toolbar'
-import { Card, CardTitle, CardHeader } from 'material-ui/Card'
-import Subheader from 'material-ui/Subheader'
-import Divider from 'material-ui/Divider'
-
+import { Card, CardTitle } from 'material-ui/Card'
 import MenuItem from 'material-ui/MenuItem'
 
-import QueryBox from './queryBox/QueryBox.jsx'
+// import QueryBox from './queryBox/QueryBox.jsx'
 import NetworkOptions from './networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from './geoMapOptions/GeoMapOptions.jsx'
 
@@ -17,6 +12,18 @@ import Settings from './settings/Settings.jsx'
 
 @ui()
 class SideNav extends React.Component {
+
+
+  static propTypes = {
+    nodes : PropTypes.array,
+    edges : PropTypes.array,
+    authorIsLoggedIn : PropTypes.bool,
+    userId : PropTypes.string,
+    topogramId : PropTypes.string,
+    topogramTitle : PropTypes.string,
+    topogramIsPublic : PropTypes.bool,
+    router : PropTypes.object
+  }
 
   constructor(props) {
     super(props)
@@ -33,15 +40,22 @@ class SideNav extends React.Component {
   }
 
   render() {
-    const { nodes, edges, authorIsLoggedIn, userId } = this.props
+    const {
+      nodes,
+      edges,
+      authorIsLoggedIn,
+      topogramId,
+      topogramTitle,
+      topogramIsPublic
+    } = this.props
     const { selectionModeOn } = this.props.ui
 
     const settings =
       authorIsLoggedIn ?
         (<Settings
-          topogramId={this.props.topogramId}
-          topogramTitle= {this.props.topogramTitle}
-          topogramSharedPublic={this.props.topogramIsPublic}
+          topogramId={topogramId}
+          topogramTitle= {topogramTitle}
+          topogramSharedPublic={topogramIsPublic}
           router={this.props.router}
         />)
         :

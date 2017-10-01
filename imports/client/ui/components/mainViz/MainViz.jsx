@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import Network from '/imports/client/ui/components/network/Network.jsx'
@@ -11,7 +11,7 @@ export default class MainViz extends React.Component {
 
   onClickElement = (el) => {
     // if already selected, then unselect
-    const { cy, selectedElements } = this.props.ui
+    const { selectedElements } = this.props.ui
     if (selectedElements.map(d=>d.id()).includes(el.id())) {this.unselectElement(el)}
     else {this.selectElement(el)}
   }
@@ -43,7 +43,6 @@ export default class MainViz extends React.Component {
 
     const {
       timeLineVisible,
-      selectionPanelPinned,
       geoMapVisible,
       graphVisible
     } = this.props.ui
@@ -108,6 +107,8 @@ export default class MainViz extends React.Component {
 }
 
 MainViz.propTypes = {
-  nodes: React.PropTypes.array,
-  edges: React.PropTypes.array
+  nodes: PropTypes.array,
+  edges: PropTypes.array,
+  hasGeoInfo : PropTypes.bool,
+  hasTimeInfo :  PropTypes.bool
 }

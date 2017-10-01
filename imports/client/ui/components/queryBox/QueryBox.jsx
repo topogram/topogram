@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 // import TextField from 'material-ui/TextField'
 import AutoComplete from 'material-ui/AutoComplete'
-import MenuItem from 'material-ui/MenuItem'
+
 import { defineMessages, injectIntl } from 'react-intl'
 
 const messages = defineMessages({
@@ -17,10 +17,6 @@ const messages = defineMessages({
   }
 })
 
-const styles = {
-  autoComplete : {
-  }
-}
 
 class QueryBox extends React.Component {
 
@@ -35,13 +31,13 @@ class QueryBox extends React.Component {
     this.handleUpdateInput = this.handleUpdateInput.bind(this)
   }
 
-  handleNewRequest(chosenRequest, index) {
-    console.log(chosenRequest, index)
-  }
-
-  handleUpdateInput(searchText, dataSource) {
-    // console.log(this.state.currentValue);
-  }
+  // handleNewRequest(chosenRequest, index) {
+  //   console.log(chosenRequest, index)
+  // }
+  //
+  // handleUpdateInput(searchText, dataSource) {
+  //   console.log(this.state.currentValue);
+  // }
 
   render() {
     const { formatMessage } = this.props.intl
@@ -55,8 +51,8 @@ class QueryBox extends React.Component {
         style={this.props.style}
         hintText={formatMessage(messages.hint)}
         //floatingLabelText={formatMessage(messages.label)}
-        onNewRequest={this.handleNewRequest}
-        onUpdateInput={this.handleUpdateInput}
+        // onNewRequest={this.handleNewRequest}
+        // onUpdateInput={this.handleUpdateInput}
       />
 
     )
@@ -64,10 +60,14 @@ class QueryBox extends React.Component {
 }
 
 QueryBox.propTypes = {
-  promptSnackbar: React.PropTypes.func,
-  topogram : React.PropTypes.object,
-  nodes : React.PropTypes.array,
-  edges : React.PropTypes.array,
+  promptSnackbar: PropTypes.func,
+  topogram : PropTypes.object,
+  nodes : PropTypes.array,
+  edges : PropTypes.array,
+  style : PropTypes.object,
+  intl : PropTypes.shape({
+    formatMessage : PropTypes.func
+  })
 }
 
 QueryBox.defaultProps = {
