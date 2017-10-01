@@ -31,7 +31,7 @@ const TopogramDelete = React.createClass({
 
   getDefaultProps() {
     return {
-      topogramName: '',
+      topogramTitle: '',
       topogramId : ''
     }
   },
@@ -77,7 +77,7 @@ const TopogramDelete = React.createClass({
           leftIcon={<Delete color={red500} />}
         />
         <Dialog
-          title={this.props.topogramName}
+          title={this.props.topogramTitle}
           actions={actions}
           modal={false}
           open={this.state.open}

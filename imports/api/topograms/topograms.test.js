@@ -16,6 +16,7 @@ import { Nodes } from '../nodes/Nodes.js'
 import {
   topogramCreate,
   topogramDelete,
+  topogramUpdate,
   topogramUpdateTitle,
   topogramTogglePublic
 } from './topogramsMethods.js'
@@ -29,7 +30,7 @@ if (Meteor.isServer) {
       it('builds correctly from factory', function () {
         const topogram = Factory.create('topogram');
         assert.typeOf(topogram, 'object');
-        assert.match(topogram.name, /New Topogram/);
+        assert.match(topogram.title, /New Topogram/);
         assert.match(topogram.slug, /New-Topogram/);
       });
     })
@@ -105,21 +106,21 @@ if (Meteor.isServer) {
       describe('topograms.create', function () {
 
         it('creates a public topogram with a name by default', function (done) {
-          topogramCreate._execute({}, { name :'test name' });
+          topogramCreate._execute({}, { title :'test name' });
           // assert.isUndefined(Topograms.findOne(topogramId).userId);
           assert.equal(Topograms.find().count(), 2);
           let t = Topograms.findOne({ _id : { $ne : topogramId }})
-          assert.equal(t.name, 'test name');
+          assert.equal(t.title, 'test name');
           assert.equal(t.userId, undefined);
           assert.equal(t.sharedPublic, true);
           done()
         })
 
         it('creates a private topogram with a logged in user ', function (done) {
-          topogramCreate._execute({ userId }, { name :'test name' });
+          topogramCreate._execute({ userId }, { title :'test name' });
           assert.equal(Topograms.find().count(), 2);
           let t = Topograms.findOne({ _id : { $ne : topogramId }})
-          assert.equal(t.name, 'test name');
+          assert.equal(t.title, 'test name');
           assert.equal(t.slug, 'test-name');
           assert.equal(t.userId, userId);
           assert.equal(t.sharedPublic, false);
@@ -148,7 +149,31 @@ if (Meteor.isServer) {
           });
           assert.equal(Topograms.find().count(), 1);
           let t = Topograms.findOne({ _id : topogramId });
-          assert.equal(t.name, title);
+          assert.equal(t.title, title);
+          done();
+        })
+      })
+
+      describe('topograms.update', function () {
+        it('update the topogram based on its _id', function(done) {
+
+          Factory.create('node', { topogramId });
+
+          let title = "blabla"
+          let description = "Some awesome description"
+          let t_before = Topograms.findOne({ _id : topogramId });
+
+          topogramUpdate._execute({},{
+            topogramId,
+            title,
+            description
+          });
+
+          assert.equal(Topograms.find().count(), 1);
+
+          let t = Topograms.findOne({ _id : topogramId });
+          assert.equal(t.title, title);
+          assert.equal(t.description, description);
           done();
         })
       })

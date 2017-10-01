@@ -111,7 +111,7 @@ if (Meteor.isServer) {
     describe('topograms', function() {
       describe('createTopogram', function() {
         it('should create a Topogram based on its name', function(done){
-          createTopogram({name : "My Superb Topogram"})
+          createTopogram({title : "My Superb Topogram"})
           assert.equal(Topograms.find().count(), 1)
           assert.equal(Topograms.findOne().name, "My Superb Topogram")
           done()
@@ -119,8 +119,8 @@ if (Meteor.isServer) {
       })
       describe('getTopograms', function() {
         it('should get the list of existing topograms', function(done){
-          createTopogram({name : "My Superb Topogram"})
-          createTopogram({name : "My Other Superb Topogram"})
+          createTopogram({title : "My Superb Topogram"})
+          createTopogram({title : "My Other Superb Topogram"})
           assert.equal(Topograms.find().count(), 2)
           assert.equal(getTopograms().length, 2)
           done()

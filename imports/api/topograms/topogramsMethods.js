@@ -11,27 +11,26 @@ const TOPOGRAM_ID_ONLY = new SimpleSchema({
 
 const TOPOGRAM_ID_AND_TITLE = new SimpleSchema({
   topogramId: Topograms.simpleSchema().schema('_id'),
-  title: Topograms.simpleSchema().schema('name'),
+  title: Topograms.simpleSchema().schema('title'),
 }).validator({ clean: true, filter: false })
-
 
 /**
 * Create a topogram
 *
 * @instance {ValidatedMethod}
-* @param {String} name the name of the new topogram
+* @param {String} title the title of the new topogram
 * @return {Object} the Topogram object as inserted in Mongo
 */
 export const topogramCreate = new ValidatedMethod({
   name: 'topogram.create',
   validate: new SimpleSchema({
-    name: Topograms.simpleSchema().schema('name'),
+    title: Topograms.simpleSchema().schema('title'),
     userId: Topograms.simpleSchema().schema('userId')
   }).validator({ clean: true, filter: false }),
-  run({ name, userId=this.userId }) {
+  run({ title, userId=this.userId }) {
 
     // forbid with the same name
-    const t = Topograms.findOne({ name, userId })
+    const t = Topograms.findOne({ title, userId })
     if (t && t._id) {
       return buildErrorAnswer({
         'message' : 'A topogram with the same name already exists',
@@ -42,8 +41,8 @@ export const topogramCreate = new ValidatedMethod({
     const sharedPublic = !userId ? true : false
 
     return Topograms.insert( {
-      name,
-      'slug': slugify( name ),
+      title,
+      'slug': slugify( title ),
       'createdAt': new Date(), // current time
       sharedPublic,
       userId // _id of logged in user
@@ -68,6 +67,37 @@ export const topogramDelete = new ValidatedMethod({
   }
 })
 
+/**
+* Edit the title of a topogram
+*
+* @instance {ValidatedMethod}
+* @param {String} _id the Mongo _id of the topogram to update
+* @param {String} title the new title of the topogram
+* @param {String} description the description of the topogram
+* @return {Object} the Topogram object as inserted in Mongo
+*/
+
+export const topogramUpdate = new ValidatedMethod({
+  name: 'topogram.update',
+  validate: new SimpleSchema({
+      topogramId: Topograms.simpleSchema().schema('_id'),
+      title: Topograms.simpleSchema().schema('title'),
+      description: Topograms.simpleSchema().schema('description')
+    })
+    .validator({ clean: true, filter: false }),
+  run({ topogramId, title, description }) {
+    return Topograms.update( topogramId,
+      { '$set' : {
+        'title': title,
+        'description': description,
+        'slug': slugify( title )
+      },
+        'updatedAt' : new Date()
+      }
+    )
+  }
+})
+
 
 /**
 * Edit the title of a topogram
@@ -82,7 +112,7 @@ export const topogramUpdateTitle = new ValidatedMethod({
   validate: TOPOGRAM_ID_AND_TITLE,
   run({ topogramId, title }) {
     return Topograms.update( topogramId,
-      { '$set' : { 'name' : title, 'slug': slugify( title ) },
+      { '$set' : { 'title' : title, 'slug': slugify( title ) },
         'updatedAt' : new Date()
       }
     )
@@ -92,18 +122,10 @@ export const topogramUpdateTitle = new ValidatedMethod({
 /**
 * Make a topograms public
 *
-* @param {String} _id the Mongo _id of the new topogram
+* @param {String} topogramId the Mongo _id of the new topogram
 * @return {Object} the Topogram object as inserted in Mongo
 */
 
-/**
-* Edit the title of a topogram
-*
-* @instance {ValidatedMethod}
-* @param {String} _id the Mongo _id of the topogram to update
-* @param {String} title the new title of the topogram
-* @return {Object} the Topogram object as inserted in Mongo
-*/
 export const topogramTogglePublic = new ValidatedMethod({
   name: 'topogram.togglePublic',
   validate: TOPOGRAM_ID_ONLY,
@@ -117,15 +139,6 @@ export const topogramTogglePublic = new ValidatedMethod({
   }
 })
 
-/*
-makePublic( _id ) {
-  return Topograms.update( _id, {
-    $set: {
-      'sharedPublic': true
-    }
-  } )
-}
-*/
 
 /**
 * Make a topograms private
@@ -145,7 +158,7 @@ makePrivate( _id ) {
 
 
 /**
-* Search topograms by name or beginning of name.
+* Search topograms by title or beginning of title.
 * Useful to build an autocomplete or a search of the indexed documents
 *
 * @param {String} query the (partial) name of the new topogram

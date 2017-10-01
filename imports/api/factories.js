@@ -7,7 +7,7 @@ import { Edges } from './edges/Edges.js'
 
 Factory.define('topogram', Topograms, {
   createdAt: () => new Date(),
-  name: () => 'New Topogram',
+  title: () => 'New Topogram',
   slug : () => faker.helpers.slugify('New Topogram'),
   description : () => faker.lorem.paragraph()
 })

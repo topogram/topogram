@@ -21,7 +21,7 @@ Topograms.schema = new SimpleSchema({
     type: String,
     regEx: SimpleSchema.RegEx.Id
   },
-  name : {
+  title : {
     type: String,
     label: 'The name of the topogram',
     optional: false

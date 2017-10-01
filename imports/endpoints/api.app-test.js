@@ -26,7 +26,7 @@ if (Meteor.isServer) {
         request({
           url : 'http://localhost:3000/api/topograms',
           method: 'POST',
-          json: { name : 'topotest' }
+          json: { title : 'topotest' }
         },
         function ( err, res, body ) {
           assert.equal(body.status, 'success')
