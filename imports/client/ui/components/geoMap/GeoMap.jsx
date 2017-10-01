@@ -86,6 +86,9 @@ class GeoMap extends React.Component {
         return {...e, source, target, coords, selected}
       })
 
+    // console.log(nodes);
+    // console.log(edges);
+
     let {url, attribution, minZoom, maxZoom, ext} = mapTiles[geoMapTile]
 
     return (
@@ -98,22 +101,32 @@ class GeoMap extends React.Component {
             zoom={zoom}
             ref='map'
             >
-              <GeoEdges
-                edges={edges}
-                selectionModeOn={selectionModeOn}
-                onClickGeoElement={this.onClickGeoElement}
-                selectGeoElement={this.selectGeoElement}
-                unselectGeoElement={this.unselectGeoElement}
-                unselectAllElements={this.props.unselectAllElements}
-              />
-              <GeoNodes
-                nodes={nodes}
-                selectionModeOn={selectionModeOn}
-                onClickGeoElement={this.onClickGeoElement}
-                selectGeoElement={this.selectGeoElement}
-                unselectGeoElement={this.unselectGeoElement}
-                unselectAllElements={this.props.unselectAllElements}
-              />
+              {
+                !!edges.length ?
+                <GeoEdges
+                  edges={edges}
+                  selectionModeOn={selectionModeOn}
+                  onClickGeoElement={this.onClickGeoElement}
+                  selectGeoElement={this.selectGeoElement}
+                  unselectGeoElement={this.unselectGeoElement}
+                  unselectAllElements={this.props.unselectAllElements}
+                />
+                :
+                null
+              }
+              {
+                !!nodes.length ?
+                <GeoNodes
+                  nodes={nodes}
+                  selectionModeOn={selectionModeOn}
+                  onClickGeoElement={this.onClickGeoElement}
+                  selectGeoElement={this.selectGeoElement}
+                  unselectGeoElement={this.unselectGeoElement}
+                  unselectAllElements={this.props.unselectAllElements}
+                />
+                :
+                null
+              }
             <TileLayer
               url={url}
               attribution={attribution}

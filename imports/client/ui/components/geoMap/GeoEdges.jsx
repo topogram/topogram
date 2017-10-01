@@ -35,7 +35,7 @@ export default class GeoEdges extends React.Component {
   )
 
     return (
-      <FeatureGroup name="Nodes" ref="nodesGroup">
+      <FeatureGroup name="GeoEdges" ref="edgesGroup">
         {edges}
       </FeatureGroup>
     )
