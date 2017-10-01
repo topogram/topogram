@@ -137,10 +137,9 @@ class Network extends React.Component {
     const {nodes, height, edges, width} = this.props
     const {layoutName, nodeRadius} = this.props.ui
 
-    const elements = !!nodes.length && edges.length ?
-      {nodes, edges}
-      :
-      {}
+    const elements = {}
+    if (!!nodes.length) elements.nodes = nodes
+    if (!!edges.length) elements.edges = edges
 
     return (
       <Cytoscape
