@@ -3,56 +3,126 @@ layout: main
 title: How To Use Topogram
 ---
 
-*You will find here answers to commonly ask questions about Topogram*
+# How To Use
 
-### What is Topogram ?
-*Topogram* is a web-based and open-source toolkit to represent and explore networks and relationships.
+## Input data
 
-### What is it used for ?
+Currently, the simplest way is to input data is to use the [Python API client](https://github.com/topogram/topogram-api-client) to push data directly into the database.
 
-People use Topogram to understand organizations and arrangements of places, words, people and things.
 
-For instance :
+```python
+from topogram-python-client import TopogramAPIClient
 
-* What does the French professional network of car manufacturers looks like ?
-* How does startup communities in Myanmar relates to the idea of sustainable development ?
-* What are the keywords that links volunteers of my organization together ?
-* etc.  
+topogram = TopogramAPIClient("http://localhost:3000")
 
-### How is it possible ?
+# create a new network
+topogram.create_topogram("Awesome viz of geo-time network")
 
-Topogram relies on complementaries approaches :
+# add data
+r = topogram.create_nodes(topogram_ID, [...nodes])
+r = topogram.create_edges(topogram_ID, [...edges])
 
-* **Data Analysis** : Topogram offers tools to create networks from large data sets (ex. conversations on social media, email lists, file transfers logs, etc.)
-* **Exploration** : The visualization interface allow to explore social, semantic and spatio-temporal aspects of the data with complex queries.
-* **Investigation**: All the graphs can be edited, annotated, augmented and shared within a team to produce solids representations of facts.
+```
 
-#### Why Topogram ?
+## Data format
 
-It answers the growing need for interactive mapping of complex online and offline interactions. Also because you need to be able to make sense of a bunch of text data without hours of development. Finally, because you may want to own your research environment and still be able to use it in your web browser so you can share results and analysis process easily.
+### Nodes
 
-#### How does it work ?
-See the [How It Works](/HowItWorks) section.
+You can add geographic and time information to the nodes.
 
-#### How can I start to use Topogram ?
-Download and install Topogram on your own computer by following the instructions on the [Github rep](http://github.com/topogram/topogram)
+| Name | Type | Description |
+|---|---|---|
+| id | String | Id of the node (optional : will be generated). This will be used by the edges to recognize the node |
+| name | String | The name of the node |
+| lat | Float | Latitude (in degrees) |
+| lng | Float | Longitude (in degrees)|
+| start | Date | Date when the node started existing |
+| end | Date | Date when the node stopped existing |
+| color | String | Color of the node |
+| weight | Float | Weight of the node |
+| group | String | Some category to classify the node |
+| notes | String | (Markdown) Additional info about the nodes |
 
-#### Which technology does Topogram use ?
-Topogram is written in Javascript and make use of different frameworks for real-time data manipulations and visualization, such as : [Meteor JS](http://meteor.com), [Cytoscape](http://js.cytoscape.org), [d3.js](http://d3js.org) or [Leaflet](http://leaflet.org).
+See the model in [/imports/api/nodes/Nodes.js]()
 
-#### Where does Topogram come from ?
-*Topogram* is evolved from the phD research of [Clément Renaud](http://clementrenaud.com) about Internet memes on the Chinese social network Sina Weibo. You can read the [thesis](http://clementrenaud.com/uploads/phD/thesis.pdf) for more background on the project.
 
-#### How can I quote Topogram in my paper ?
-For now, you can quote this conference paper using this [Bibtex entry](/uploads/topogram.bib)
+Example of mapping using the Python API Client :
 
-    Renaud, C. (2014). Meme observation and classification on a large corpus of tweets from Sina Weibo Memes on Sina Weibo. In *Chinese Internet Research Conference (CIRC14)* (pp. 1–9). HK.
+```
+  node = {
+    "id" : str,
+    "name" : str,
+    "lat" : float,
+    "lng" : float,
+    "weight" : float,
+    "start" : datetime,
+    "end" : datetime,
+    "notes" : str
+    }
+```
 
-#### How can I get in touch with you and/or contribute to Topogram ?
+### Edges
 
-* Drop us an email at [hi@topogram.io](mailto:hi@topogram.io)
-* Open an issue on [Github](http://topogram/topogram)
-* Join the conversation on [Gitter](http://gitter.com/topogram/topogram)
-* By tweet [@topoviz](http://topogram/topoviz)
+Edges require a source and target. When source node or target node are absent from the data, the edge will be ignored.
 
-Talk to you soon !
+| Name | Type | Description |
+|---|---|---|
+| id | String | Id of the edge (optional : will be generated) |
+| source | String | Id of the source node (required)|
+| target | String | Id of the target node (required)|
+| name | String | The name/label of the edge |
+| start | Date | Date when the edge started existing |
+| end | Date | Date when the edge stopped existing |
+| color | String | Color of the node |
+| weight | Float | Weight of the node |
+| group | String | Some category to classify the node |
+| notes | String | (Markdown) Additional info about the nodes |
+
+See the model in [/imports/api/edges/Edges.js]()
+
+
+Example of mapping using the Python API Client :
+
+```
+  edge = {
+    "source" : str,
+    "target" : str,
+    "weight" : float,
+    "notes" : str
+    }
+```
+
+## Visualization
+
+Once you have created your topogram, it will be available at the list at the address [/topograms]() of your server. You can click on the title to access
+
+
+### Panel Selector
+
+The main visualization is divided between 3 panels :
+
+* network graph
+* geographical map
+* timeline
+
+You can toggle each of these panels by using the panel selector. When no geo or time element are detected, the checkboxes are disabled automatically.
+
+### Side menu
+
+By clicking on the title, you can access the main menu to manipulate and edit your topogram.
+
+#### Map background
+
+Change the tiles of the map according to your needs.
+
+#### Network layout
+
+Different layouts are available to display your graph. Try different options to see what fits you best.
+
+#### Node Radius
+
+Different options are available to display the nodes. It can used the degree of the node in the graph or a user-defined weight (if you assigned it in the data).
+
+### Selection mode
+
+When the selection mode is activated, you can click to highlight specific elements of the graphs.

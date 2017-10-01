@@ -69,18 +69,6 @@ Edges.schema = new SimpleSchema({
     label : 'Date when the edge stopped existing',
     optional : true
   },
-  'data.lat' : {
-    type : Number,
-    decimal: true,
-    label : 'latitude',
-    optional : true
-  },
-  'data.lng' : {
-    type : Number,
-    decimal: true,
-    label : 'longitude',
-    optional : true
-  },
   'data.weight' : {
     type : Number,
     decimal: true,
@@ -121,7 +109,7 @@ Edges.schema = new SimpleSchema({
     type: Date,
     label: 'Time when the node was created',
     autoValue() {
-      return this.isInsert ? new Date() : this.value 
+      return this.isInsert ? new Date() : this.value
     }
   }
 })
