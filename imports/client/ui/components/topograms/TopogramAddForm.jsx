@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import { TextField, RaisedButton } from 'material-ui'
 import { defineMessages, injectIntl } from 'react-intl'
@@ -77,7 +77,10 @@ class TopogramAddForm extends React.Component {
 }
 
 TopogramAddForm.propTypes = {
-  promptSnackbar: React.PropTypes.func
+  promptSnackbar: PropTypes.func,
+  intl: PropTypes.shape({
+    formatMessage: PropTypes.func
+  })
 }
 
 export default injectIntl(TopogramAddForm)

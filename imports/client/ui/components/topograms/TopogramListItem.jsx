@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
-import { defineMessages, injectIntl } from 'react-intl'
+// import { defineMessages, injectIntl } from 'react-intl'
 
 import { Card, CardActions, CardTitle } from 'material-ui/Card'
 

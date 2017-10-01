@@ -25,7 +25,7 @@ const Settings = ({
       key="EditTopogramTitle"
     />
     <TopogramDelete
-      topogramName= {topogramTitle}
+      topogramTitle= {topogramTitle}
       topogramId={topogramId}
       router={router}
       key="DeleteTopogram"

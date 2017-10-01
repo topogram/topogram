@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import ModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import MenuItem from 'material-ui/MenuItem'
 
@@ -17,6 +16,11 @@ export default class TopogramEditTitle extends React.Component {
       title: this.props.topogramTitle,
       open: false
     }
+  }
+
+  static propTypes = {
+    topogramTitle : PropTypes.string,
+    topogramId : PropTypes.string
   }
 
   handleTitleChange = (event) => {
@@ -66,7 +70,7 @@ export default class TopogramEditTitle extends React.Component {
           leftIcon={<ModeEdit />}
         />
         <Dialog
-          title={this.props.topogramName}
+          title={this.props.topogramTitle}
           actions={actions}
           modal={false}
           open={this.state.open}

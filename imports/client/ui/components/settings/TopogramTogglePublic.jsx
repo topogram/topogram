@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import MenuItem from 'material-ui/MenuItem'
 import { topogramTogglePublic } from '../../../../api/topograms/topogramsMethods.js'
 
 export default class TopogramTogglePublic extends React.Component {
 
-  handleOnClick = () => {
-    console.log('click', this.props)
+  static propTypes = {
+    topogramId : PropTypes.string.isRequired,
+    topogramSharedPublic : PropTypes.bool.isRequired
+  }
+
+  handleOnClick = () =>
     topogramTogglePublic.call({
       topogramId : this.props.topogramId
     })
-  }
 
   render() {
     return (
