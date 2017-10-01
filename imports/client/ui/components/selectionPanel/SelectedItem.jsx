@@ -1,6 +1,5 @@
-import React from 'react'
-import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton'
+import React, { PropTypes } from 'react'
+import { Card, CardTitle, CardText } from 'material-ui/Card'
 
 import Markdown from 'react-remarkable'
 import 'github-markdown-css'
@@ -26,5 +25,12 @@ const SelectedItem = ({ title, group, children, notes }) => (
     </CardText>
   </Card>
 )
+
+SelectedItem.propTypes = {
+  title : PropTypes.string,
+  notes : PropTypes.string,
+  children : PropTypes.node,
+  group : PropTypes.string
+}
 
 export default SelectedItem
