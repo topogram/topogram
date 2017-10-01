@@ -36,7 +36,7 @@ class TopogramList extends React.Component {
         <TopogramListItem
           key={ topogram._id }
           topogramId={ topogram._id }
-          topogramTitle={ topogram.name }
+          topogramTitle={ topogram.title }
           topogramSharedPublic={topogram.sharedPublic}
           router={this.props.router}
           lastModified={ topogram.createdAt }

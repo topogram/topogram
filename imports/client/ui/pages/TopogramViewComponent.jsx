@@ -144,9 +144,8 @@ export class TopogramViewComponent extends React.Component {
         { this.props.ui.filterPanelIsOpen ?
           <SideNav
             topogramId={ this.props.params.topogramId }
-            topogramTitle={ this.props.topogram.name }
+            topogramTitle={ this.props.topogram.title }
             authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
-            topogramTitle={ this.props.topogram.name }
             topogramIsPublic={ this.props.topogram.sharedPublic }
             nodes={ nodes }
             edges={ edges }

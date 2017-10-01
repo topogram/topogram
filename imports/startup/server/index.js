@@ -3,7 +3,7 @@
 // as an API to the client.
 
 // config accounts
-import '/imports/accounts.js'
+// import '/imports/accounts.js'
 
 // methods
 import '/imports/api/edges/edgesMethods.js'
