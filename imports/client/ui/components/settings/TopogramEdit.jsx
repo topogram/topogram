@@ -6,8 +6,7 @@ import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import MenuItem from 'material-ui/MenuItem'
 
-import Markdown from 'react-remarkable'
-import 'github-markdown-css'
+import Markdown from '../markdown/Markdown.jsx'
 
 import { topogramUpdate } from '../../../../api/topograms/topogramsMethods.js'
 
@@ -66,7 +65,7 @@ export default class TopogramEditTitle extends React.Component {
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label="Preview"
+        label={this.state.previewOpen ? "Back to Edit" : "Preview"}
         key="preview"
         secondary={true}
         onTouchTap={this.togglePreview}
@@ -97,7 +96,10 @@ export default class TopogramEditTitle extends React.Component {
         >
           {
             this.state.previewOpen?
-              <h1>{this.state.title}</h1>
+              <span>
+                <h3>{this.state.title}</h3>
+                <hr />
+              </span>
             :
               <TextField
                 floatingLabelText="Edit Title"
