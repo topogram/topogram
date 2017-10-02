@@ -36,10 +36,12 @@ const TopogramListItem = ({
       // title={<Link to={`/topograms/${topogramId}`}>{title}</Link>}
       titleStyle={{ fontSize:'13pt', lineHeight:'1.1em', paddingBottom : '.2em' }}
       subtitle={<span>{moment(lastModified).fromNow()}</span>}
+      actAsExpander={true}
+      showExpandableButton={!!topogramDescription}
     />
     {
       topogramDescription?
-      <CardText>
+      <CardText expandable={true}>
         <Markdown source={topogramDescription} />
       </CardText>
       :
