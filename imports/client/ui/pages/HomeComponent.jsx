@@ -4,6 +4,8 @@ import Snackbar from 'material-ui/Snackbar'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import TopogramList from '/imports/client/ui/components/topograms/TopogramList.jsx'
 
+import Particles from '../components/home/Particles.jsx'
+
 const messages = defineMessages({
   tagline : {
     'id': 'home.tagline',
@@ -33,6 +35,7 @@ const HomeHeader = () => (
       </h4>
       <p><FormattedMessage {...messages.subtitle} /></p>
     </div>
+    <Particles />
   </section>
 )
 
