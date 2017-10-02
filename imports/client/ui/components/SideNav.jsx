@@ -48,7 +48,10 @@ class SideNav extends React.Component {
       topogramTitle,
       topogramIsPublic
     } = this.props
-    const { selectionModeOn } = this.props.ui
+    const {
+      selectionModeOn,
+      geoMapVisible
+    } = this.props.ui
 
     const settings =
       authorIsLoggedIn ?
@@ -79,7 +82,7 @@ class SideNav extends React.Component {
               nodes={nodes}
               edges={edges}
             /> */}
-            <GeoMapOptions/>
+            { geoMapVisible ? <GeoMapOptions/> : null }
             <NetworkOptions/>
             <MenuItem
               primaryText="Selection Mode"
