@@ -16,6 +16,7 @@
     "d3-scale": "^1.0.6",
     "geojson-tools": "^0.2.2",
     "github-markdown-css": "^2.4.1",
+    "indexof": "0.0.1",
     "jquery": "^2.2.4",
     "leaflet": "^1.2.0",
     "lodash": "^4.13.1",
