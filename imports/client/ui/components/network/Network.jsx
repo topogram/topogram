@@ -121,6 +121,12 @@ class Network extends React.Component {
     }
 
     // TODO : proper nodes/edges diff...
+    this.props.nodes.forEach((el, ix) => {
+                                if ( JSON.stringify(el) != JSON.stringify(nodes[ix]) ) {
+                                  shouldUpdate = true
+                                }
+    })
+
     return shouldUpdate
   }
 
