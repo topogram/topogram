@@ -105,10 +105,10 @@ Api.addRoute('topograms/getByName', {
   post: {
     authRequired: false,
     action() {
-      const name = this.bodyParams.name
+      const title = this.bodyParams.name
       return buildSuccessAnswer({
         'statusCode': 200,
-        'data' : Topograms.findOne({ "title":name });
+        'data' : Topograms.findOne({ "title":title })
       })
     }
   }
