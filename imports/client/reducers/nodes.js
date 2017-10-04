@@ -28,6 +28,7 @@ export function nodes(state = initialState, action) {
       .map(d => JSON.parse(JSON.stringify(d)))
       .map( (n,i) => {
         n.data.i = i // add index as reference
+        n.storedPosition = Object.assign({}, n.position) // backup position from the db
         return n
       })
 

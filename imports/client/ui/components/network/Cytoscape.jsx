@@ -59,12 +59,18 @@ class Cytoscape extends Component {
   applyLayout(layoutName) {
     const layoutConfig = {
       name : layoutName,
-      animate: false,
+      animate: false
     }
 
     if (layoutName == 'spread') {
       layoutConfig.minDist= 50  // Minimum distance between nodes
       layoutConfig.padding= 80  // Padding
+    }
+
+    if (layoutName == 'preset') {
+      const {nodes} = this.props.elements
+      // get positions from the db
+      layoutConfig.positions = (n) => (nodes[n.data('i')].storedPosition)
     }
 
     this.cy.layout(layoutConfig)
