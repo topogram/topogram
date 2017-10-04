@@ -1,15 +1,5 @@
 import React from 'react'
-
 import particles from 'particles.js'
-/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-
-
-{/* <script>
-  {
-
-  }
-</script> */}
-
 
 const style = {
   display: 'flex',
