@@ -44,6 +44,8 @@ export function nodes(state = initialState, action) {
 
     const hasTimeInfo = !!(starts.length || ends.length)
 
+    const nodeCategories = [...new Set(nodes.map(n => n.data.group))]
+
     const latLngs = nodes
       .filter(n => !!(n.data.lat && n.data.lng))
 
@@ -54,6 +56,7 @@ export function nodes(state = initialState, action) {
       nodes,
       hasTimeInfo,
       hasGeoInfo,
+      nodeCategories,
       minTime: starts[0],
       maxTime: ends[0]
     }

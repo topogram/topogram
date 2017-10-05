@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem'
 // import QueryBox from './queryBox/QueryBox.jsx'
 import NetworkOptions from './networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from './geoMapOptions/GeoMapOptions.jsx'
+import NodeCategoriesMenu from './filters/NodeCategoriesMenu.jsx'
 
 import Settings from './settings/Settings.jsx'
 
@@ -84,6 +85,9 @@ class SideNav extends React.Component {
             /> */}
             { geoMapVisible ? <GeoMapOptions/> : null }
             <NetworkOptions/>
+            <NodeCategoriesMenu
+              nodeCategories={this.props.nodeCategories}
+              />
             <MenuItem
               primaryText="Selection Mode"
               onClick={this.handleToggleSelectionMode}

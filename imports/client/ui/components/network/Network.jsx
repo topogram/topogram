@@ -95,8 +95,15 @@ class Network extends React.Component {
 
     let shouldUpdate = false
 
-    const { nodeRadius, layoutName, selectionModeOn } = nextProps.ui
+    const {
+      nodeRadius,
+      layoutName,
+      selectionModeOn,
+      selectedNodeCategories
+    } = nextProps.ui
     const { nodes, edges } = nextProps
+
+    console.log('ui', this.props.ui);
 
     if (nextProps.width !== this.props.width) return true
     if (nextProps.height !== this.props.height) return true
@@ -114,6 +121,10 @@ class Network extends React.Component {
     if ( this.props.ui.nodeRadius !== nodeRadius) shouldUpdate = true
     if ( this.props.nodes.length !== nodes.length) shouldUpdate = true
     if ( this.props.edges.length !== edges.length) shouldUpdate = true
+
+    // selected CATEGORIES
+    console.log(selectedNodeCategories.length, this.props.ui.selectedNodeCategories.length);
+    if ( this.props.ui.selectedNodeCategories.length !== selectedNodeCategories.length) shouldUpdate = true
 
     if ( (!!nodes.length && edges.length) && !this.state.init) {
       shouldUpdate = true

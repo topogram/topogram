@@ -13,6 +13,7 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     minTime : null,
     maxTime : null,
     currentSliderTime : () => new Date().getTime(), // TODO set default to minTime
+    selectedNodeCategories: [],
     // viz layout settings
     graphVisible : true, // default to graph view
     geoMapVisible : false,
@@ -38,6 +39,7 @@ export class TopogramViewComponent extends React.Component {
     hasGeoInfo: PropTypes.bool,
     maxTime: PropTypes.instanceOf(Date),
     minTime: PropTypes.instanceOf(Date),
+    nodeCategories: PropTypes.array,
     nodes: PropTypes.array,
     edges: PropTypes.array,
     topogram: PropTypes.object,
@@ -104,12 +106,22 @@ export class TopogramViewComponent extends React.Component {
     // // show timeline if time info
     // if (this.props.hasTimeInfo)
     //   this.props.updateUI('timeLineVisible', true)
+    const {
+      ui,
+      hasTimeInfo,
+      minTime,
+      maxTime,
+      nodeCategories
+    } = this.props
 
-    if (this.props.hasTimeInfo && !this.props.ui.minTime && !this.props.ui.maxTime) {
+    if (hasTimeInfo && !ui.minTime && !ui.maxTime) {
       // pass value to UI as default
-      this.props.updateUI('minTime', this.props.minTime)
-      this.props.updateUI('maxTime', this.props.maxTime)
+      this.props.updateUI('minTime', minTime)
+      this.props.updateUI('maxTime', maxTime)
     }
+    if (nodeCategories && !ui.selectedNodeCategories.length)
+      this.props.updateUI('selectedNodeCategories', nodeCategories)
+
   }
 
   render() {
@@ -119,6 +131,9 @@ export class TopogramViewComponent extends React.Component {
         .filter(n => new Date(this.props.ui.maxTime) >= new Date(n.data.end))
         .filter(n => new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end))
         .filter(n => new Date(n.data.start) >= new Date(this.props.ui.minTime))
+        .filter(n =>
+           this.props.ui.selectedNodeCategories.includes(n.data.group)
+         )
       :
       this.props.nodes
 
@@ -149,6 +164,7 @@ export class TopogramViewComponent extends React.Component {
             topogramIsPublic={ this.props.topogram.sharedPublic }
             nodes={ nodes }
             edges={ edges }
+            nodeCategories={this.props.nodeCategories}
             router={this.props.router}
           />
           :
