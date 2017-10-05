@@ -14,13 +14,13 @@ export default class NodeCategoriesMenu extends React.Component {
   }
 
   handleSelectNodeCategory = (category) => {
-    const {selectedNodeCategories} = this.props.ui
+    const selectedNodeCategories = [... this.props.ui.selectedNodeCategories]
 
     let i = selectedNodeCategories.indexOf(category)
     if (i > -1) selectedNodeCategories.splice(i, 1)
     else selectedNodeCategories.push(category)
 
-    this.props.updateUI('selectedNodeCategories', [...selectedNodeCategories])
+    this.props.updateUI('selectedNodeCategories', selectedNodeCategories)
   }
 
   render() {

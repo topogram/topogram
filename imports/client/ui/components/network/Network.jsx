@@ -103,8 +103,6 @@ class Network extends React.Component {
     } = nextProps.ui
     const { nodes, edges } = nextProps
 
-    console.log('ui', this.props.ui);
-
     if (nextProps.width !== this.props.width) return true
     if (nextProps.height !== this.props.height) return true
 
@@ -123,7 +121,6 @@ class Network extends React.Component {
     if ( this.props.edges.length !== edges.length) shouldUpdate = true
 
     // selected CATEGORIES
-    console.log(selectedNodeCategories.length, this.props.ui.selectedNodeCategories.length);
     if ( this.props.ui.selectedNodeCategories.length !== selectedNodeCategories.length) shouldUpdate = true
 
     if ( (!!nodes.length && edges.length) && !this.state.init) {

@@ -101,11 +101,12 @@ export class TopogramViewComponent extends React.Component {
     })
   }
 
-  componentWillUpdate() {
+  componentWillUpdate(nextProps) {
 
     // // show timeline if time info
     // if (this.props.hasTimeInfo)
     //   this.props.updateUI('timeLineVisible', true)
+
     const {
       ui,
       hasTimeInfo,
@@ -119,6 +120,8 @@ export class TopogramViewComponent extends React.Component {
       this.props.updateUI('minTime', minTime)
       this.props.updateUI('maxTime', maxTime)
     }
+
+    // default value to all
     if (nodeCategories && !ui.selectedNodeCategories.length)
       this.props.updateUI('selectedNodeCategories', nodeCategories)
 
