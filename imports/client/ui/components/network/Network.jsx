@@ -150,7 +150,10 @@ class Network extends React.Component {
       nodeRadius
     } = this.props.ui
 
-    const elements = {}
+    const elements = {
+      nodes: [],
+      edges : []
+    }
     if (nodes.length) elements.nodes = nodes
     if (edges.length) elements.edges = edges
 

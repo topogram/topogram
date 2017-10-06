@@ -49,7 +49,8 @@ class SideNav extends React.Component {
       nodeCategories,
       topogramId,
       topogramTitle,
-      topogramIsPublic
+      topogramIsPublic,
+      selectElement
     } = this.props
 
     const {
@@ -70,8 +71,6 @@ class SideNav extends React.Component {
         :
         null
 
-
-    console.log(nodeCategories);
     return (
       <Card
         style={{ maxWidth : '30%', minWidth : '25%', float : 'left' }}
@@ -98,6 +97,7 @@ class SideNav extends React.Component {
             <MenuItem>
               <QueryBox
                 nodes={nodes}
+                selectElement={selectElement}
                 />
             </MenuItem>
             <MenuItem

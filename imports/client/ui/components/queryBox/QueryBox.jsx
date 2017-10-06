@@ -28,16 +28,21 @@ class QueryBox extends React.Component {
     }
   }
 
-  handleNewRequest = (chosenRequest, index) => {
-    console.log(chosenRequest, index)
-    // selectElement
+  handleNewRequest = ({value, text, node}, index) => {
+    const {selectElement} = this.props
+    console.log(node)
+    selectElement(node)
   }
 
   render() {
     const { formatMessage } = this.props.intl
 
     const dataSource = this.props.nodes.map( n => (
-      { value : n.data.id, text : n.data.name }
+      {
+        value : n.data.id,
+        text : n.data.name,
+        node :n
+      }
     ))
 
     return (

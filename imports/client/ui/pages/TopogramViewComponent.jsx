@@ -93,16 +93,16 @@ export class TopogramViewComponent extends React.Component {
       {this.selectElement(el)}
   }
 
-  unselectElement = (el) => {
-    el.data.selected = false
-    const selectedElements = this.props.ui.selectedElements
-      .filter(n => n.id !== el.data.id) // TODO filter by group
-    this.props.updateUI('selectedElements', selectedElements)
-  }
 
   selectElement = (el) => {
 
+
     el.data.selected = true
+
+    const { cy } = this.props.ui
+    let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
+    console.log(cy,filter);
+    cy.filter(filter).data('selected', true)
 
     this.props.updateUI(
       'selectedElements',
@@ -111,8 +111,25 @@ export class TopogramViewComponent extends React.Component {
     this.props.updateUI( 'selectionPanelVisible', true )
   }
 
+  unselectElement = (el) => {
+
+    el.data.selected = false
+
+    const { cy } = this.props.ui
+    let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
+    cy.elements.filter(filter).data('selected', false)
+
+    const selectedElements = this.props.ui.selectedElements
+      .filter(n => n.id !== el.data.id) // TODO filter by group
+    this.props.updateUI('selectedElements', selectedElements)
+  }
+
   unselectAllElements = () => {
-    this.props.ui.selectedElements.forEach(el=> el.data.selected = false)
+    const { cy, selectedElements } = this.props.ui
+
+    cy.elements().data('selected', false)
+    selectedElements.forEach(el=> el.data.selected = false)
+
     this.props.updateUI('selectedElements', [])
     this.props.updateUI( 'selectionPanelVisible', false )
   }
@@ -220,6 +237,7 @@ export class TopogramViewComponent extends React.Component {
             edges={ edges }
             nodeCategories={this.props.nodeCategories}
             router={this.props.router}
+            selectElement={this.selectElement}
           />
           :
           null
