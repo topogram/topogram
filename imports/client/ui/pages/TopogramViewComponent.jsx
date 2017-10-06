@@ -151,6 +151,7 @@ export class TopogramViewComponent extends React.Component {
     cy.nodes().positions((i,n) => prevPositions[n.id()])
     this.props.updateUI('prevPositions', null)
 
+    cy.fit()
   }
 
 
