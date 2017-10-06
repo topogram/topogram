@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react'
 import ui from 'redux-ui'
 
 import MenuItem from 'material-ui/MenuItem'
+import Badge from 'material-ui/Badge';
+
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 import LensIcon from 'material-ui/svg-icons/image/lens'
 import { colors } from '/imports/client/helpers/colors.js'
@@ -41,7 +43,16 @@ export default class NodeCategoriesMenu extends React.Component {
 
     return (
       <MenuItem
-        primaryText="Node Categories"
+        primaryText={
+          <span>
+            Node Categories
+            <Badge
+              badgeContent={selectedNodeCategories.length}
+              primary={true}
+              />
+          </span>
+        }
+        // secondaryText={}
         menuItems={menuItems}
         rightIcon={<ArrowDropRight />}
         />
