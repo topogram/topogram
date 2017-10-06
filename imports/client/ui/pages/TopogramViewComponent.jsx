@@ -2,8 +2,11 @@ import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
-import SideNav from '/imports/client/ui/components/SideNav.jsx'
-import SelectionPanel from '/imports/client/ui/components/selectionPanel/SelectionPanel.jsx'
+import TitleBox from '/imports/client/ui/components/TitleBox.jsx'
+import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
+
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 // UI state default values
 @ui({
@@ -24,6 +27,7 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     geoMapTile : 'default',
     // selection
     selectedElements : [],
+    focusElement: null,
     cy : null // cytoscape graph
   }
 })
@@ -57,7 +61,7 @@ export class TopogramViewComponent extends React.Component {
 
   constructor(props) {
     super(props)
-    this.toggleSideNav = this.toggleSideNav.bind(this)
+    this.toggleTitleBox = this.toggleTitleBox.bind(this)
 
     // snackbar
     this.state = {
@@ -80,12 +84,54 @@ export class TopogramViewComponent extends React.Component {
     this.props.stopTopogramSubscription()
   }
 
-  focusElement = (el) => {
-    this.props.updateUI('focusElement', el)
+  handleToggleSelectionMode = () => {
+    this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
   }
 
-  unFocusElement = () => {
+  onFocusElement = (el) => {
+    console.log('focus');
+    this.props.updateUI('focusElement', el)
+
+
+    const { cy } = this.props.ui
+    let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
+    let focusedNodes = cy.filter(filter) //.data('selected', true)
+
+    // cy.nodes().style({ 'opacity': '.1' });
+    // cy.edges().style({ 'opacity': '.1' });
+    //
+    // // select
+    // var subGraph = focusedNodes.closedNeighborhood();
+    // focusedNodes.style({ 'opacity': '1' });
+    // subGraph.style({ 'opacity': '1'});
+    //
+    // // store previous positions
+    // subGraph.nodes().forEach( d => d.data("prevPos", { ...d.position() }))
+    //
+    // // apply focus layout
+    // subGraph.layout({"name":"concentric"})
+
+  }
+
+  onUnfocusElement = () => {
+
     this.props.updateUI('focusElement', null)
+
+    const { cy } = this.props.ui
+
+    // cy.nodes().style({ "opacity": '1' });
+    // cy.edges().style({"opacity": '1'});
+    //
+    // // bring back previous positions
+    // cy.nodes().forEach(d => {
+    //   if( d.data("prevPos") ) {
+    //     d.position(d.data("prevPos"))
+    //     delete d.removeData("prevPos")
+    //   }
+    // })
+    //
+    // cy.layout({"name":"preset"})
+
   }
 
   selectElement = (el) => {
@@ -130,12 +176,10 @@ export class TopogramViewComponent extends React.Component {
 
   }
 
-  toggleSideNav() {
+  toggleTitleBox() {
     const toggled = this.refs.sideNav.state.open ? false : true
     this.refs.sideNav.setState({ open : toggled })
   }
-
-
 
   promptSnackbar(msg) {
     this.setState({
@@ -213,36 +257,51 @@ export class TopogramViewComponent extends React.Component {
     return (
       <div>
 
+        <FloatingActionButton
+          style={{
+            position: 'fixed',
+            right: '20px',
+            top: '20px'
+          }}
+          onClick={this.handleToggleSelectionMode}
+          >
+          <ContentAdd />
+        </FloatingActionButton>
+
         <MainViz
           nodes={ nodes }
           edges={ edges }
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
-          focusElement={this.focusElement}
-          unFocusElement={this.unFocusElement}
+          focusElement={this.onFocusElement}
+          unFocusElement={this.onUnfocusElement}
           onClickElement={this.onClickElement}
           selectElement={this.selectElement}
           unselectElement={this.unselectElement}
           unselectAllElements={this.unselectAllElements}
         />
 
-        <SideNav
-          topogramId={ this.props.params.topogramId }
+        <TitleBox
           topogramTitle={ this.props.topogram.title }
-          authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
-          topogramIsPublic={ this.props.topogram.sharedPublic }
-          nodes={ nodes }
-          edges={ edges }
-          router={this.props.router}
-          selectElement={this.selectElement}
         />
 
-        <SelectionPanel
-          open={this.props.ui.filterPanelIsOpen}
+        <SidePanel
+          nodes={ nodes }
+          edges={ edges }
+          topogram={ this.props.topogram }
           nodeCategories={this.props.nodeCategories}
+
+          open={this.props.ui.filterPanelIsOpen}
+
+          router={this.props.router}
+          authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
+
+          onFocusElement={this.onFocusElement}
+          onUnfocusElement={this.onUnfocusElement}
           selectElement={this.selectElement}
           unselectAllElements={this.unselectAllElements}
-          nodes={ nodes }
+          unselectElement={this.unselectElement}
+
         />
       </div>
     )

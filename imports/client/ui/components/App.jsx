@@ -12,7 +12,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
-import UserMenu from '../components/UserMenu.jsx'
+// import UserMenu from '../components/UserMenu.jsx'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -30,12 +30,13 @@ const App = ({ children, classNames, locale, messages, user, loadUser, router })
       messages={messages}>
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={ classNames }>
-          <UserMenu
+          {/* <UserMenu
             user={user}
             loadUser={loadUser}
             router={router}
-          />
+          /> */}
           {children}
+
         </div>
       </MuiThemeProvider>
     </IntlProvider>
