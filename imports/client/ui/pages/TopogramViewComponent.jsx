@@ -6,7 +6,8 @@ import TitleBox from '/imports/client/ui/components/TitleBox.jsx'
 import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import ExploreIcon from 'material-ui/svg-icons/action/explore';
+
 
 // UI state default values
 @ui({
@@ -263,7 +264,7 @@ export class TopogramViewComponent extends React.Component {
           }}
           onClick={this.handleToggleSelectionMode}
           >
-          <ContentAdd />
+          <ExploreIcon />
         </FloatingActionButton>
 
         <MainViz

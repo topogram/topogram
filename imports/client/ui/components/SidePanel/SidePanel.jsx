@@ -20,7 +20,7 @@ export default class SidePanel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      panelName : 'home'
+      panelName : 'main'
     }
   }
 
@@ -89,22 +89,24 @@ export default class SidePanel extends React.Component {
           />
 
         {
-          panelName === 'home' ?
-            <PanelDescription
-              topogram={topogram}
-              nodesCount={nodes.length}
-              edgesCount={edges.length}
-              />
+          panelName === 'main' ?
+            <span>
+              <PanelFilters
+                nodes={nodes}
+                nodeCategories={nodeCategories}
+                selectElement={selectElement}
+                />
+            </span>
             :
             null
         }
 
         {
-          panelName === 'filters' ?
-            <PanelFilters
-              nodes={nodes}
-              nodeCategories={nodeCategories}
-              selectElement={selectElement}
+          panelName === 'about' ?
+            <PanelDescription
+              topogram={topogram}
+              nodesCount={nodes.length}
+              edgesCount={edges.length}
               />
             :
             null

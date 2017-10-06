@@ -1,8 +1,12 @@
 import React, {PropTypes} from 'react'
 import ui from 'redux-ui'
 
-import SelectField from 'material-ui/SelectField';
+// import SelectField from 'material-ui/SelectField';
+
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader'
 
 import LensIcon from 'material-ui/svg-icons/image/lens'
 import { colors } from '/imports/client/helpers/colors.js'
@@ -37,19 +41,25 @@ export default class NodeCategoriesMenu extends React.Component {
         primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
         onClick={() => this.handleSelectNodeCategory(d)}
         leftIcon={<LensIcon color={colors(d)}/>}
+        style={
+          !selectedNodeCategories.includes(d) ? { color : '#ccc'} : {}
+        }
       />
     ))
 
     return (
-        <SelectField
-          multiple={true}
-          value={selectedNodeCategories}
-          floatingLabelText={`Selected categories (${selectedNodeCategories.length}/${nodeCategories.length})`}
-          floatingLabelFixed={true}
+        <Menu
+          desktop={true}
           style={{maxWidth : '100%'}}
-          >
-        {menuItems}
-        </SelectField>
+          // multiple={true}
+          // value={selectedNodeCategories}
+          // floatingLabelText={`Selected categories (${selectedNodeCategories.length}/${nodeCategories.length})`}
+          // floatingLabelFixed={true}
+        >
+          <Subheader>Categories</Subheader>
+            {menuItems}
+          <Divider/>
+        </Menu>
     )
   }
 }

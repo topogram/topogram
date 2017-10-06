@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 
 import { CardText } from 'material-ui/Card'
-import Subheader from 'material-ui/Subheader'
 
 import NodeCategoriesMenu from '../filters/NodeCategoriesMenu.jsx'
 import QueryBox from '../queryBox/QueryBox.jsx'
@@ -12,7 +11,10 @@ const PanelFilters = ({
   selectElement
 }) => (
   <CardText>
-    <Subheader>Filters</Subheader>
+    <QueryBox
+      nodes={nodes}
+      selectElement={selectElement}
+      />
     {
       !!nodeCategories.length ?
         <NodeCategoriesMenu
@@ -21,10 +23,6 @@ const PanelFilters = ({
         :
         null
     }
-    <QueryBox
-      nodes={nodes}
-      selectElement={selectElement}
-      />
   </CardText>
 )
 

@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton'
 
 import ActionHome from 'material-ui/svg-icons/action/home';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
-import ContentFilterIcon from 'material-ui/svg-icons/content/filter-list';
+import InfoIcon from 'material-ui/svg-icons/action/info';
 
 const SidePanelActions = ({
   setPanelName
@@ -21,12 +21,12 @@ const SidePanelActions = ({
       bottom : 0
     }}
     >
-    <IconButton onClick={() => setPanelName('home')}>
+    <IconButton onClick={() => setPanelName('main')}>
       <ActionHome />
     </IconButton>
 
-    <IconButton onClick={() => setPanelName('filters')}>
-      <ContentFilterIcon />
+    <IconButton onClick={() => setPanelName('about')}>
+      <InfoIcon />
     </IconButton>
 
     <IconButton onClick={() => setPanelName('edit')}>
