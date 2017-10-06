@@ -8,7 +8,7 @@ import NetworkOptions from '../networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
 import Settings from '../settings/Settings.jsx'
 
-const PanelEdit = ({
+const PanelSettings = ({
   geoMapVisible,
   authorIsLoggedIn,
   topogramId,
@@ -43,4 +43,4 @@ const PanelEdit = ({
   </span>
 )
 
-export default PanelEdit
+export default PanelSettings

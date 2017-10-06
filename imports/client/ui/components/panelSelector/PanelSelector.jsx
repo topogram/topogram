@@ -16,8 +16,8 @@ export default class PanelSelector extends React.Component {
 
   static propTypes = {
     bottom : PropTypes.string,
-    hasGeoInfo : PropTypes.bool,
-    hasTimeInfo : PropTypes.bool
+    hasGeoInfo : PropTypes.bool.isRequired,
+    hasTimeInfo : PropTypes.bool.isRequired
   }
 
   toggleGeo() {
@@ -43,7 +43,13 @@ export default class PanelSelector extends React.Component {
       graphVisible
     } = this.props.ui
 
-    const { bottom, hasGeoInfo, hasTimeInfo } = this.props
+    const {
+      bottom,
+      hasGeoInfo,
+      hasTimeInfo
+    } = this.props
+
+    console.log(hasGeoInfo, hasTimeInfo );
 
     return (
       <Menu

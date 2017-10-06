@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton'
 import SidePanelActions from './SidePanelActions.jsx'
 import PanelDescription from './PanelDescription.jsx'
 import PanelFilters from './PanelFilters.jsx'
-import PanelEdit from './PanelEdit.jsx'
+import PanelSettings from './PanelSettings.jsx'
 
 import TitleBox from '../TitleBox.jsx'
 import UserMenu from '../UserMenu.jsx'
@@ -59,19 +59,6 @@ export default class SidePanel extends React.Component {
       geoMapVisible
     } = this.props.ui
 
-    // const selected = !cy ? null :
-    //   selectedElements.map( (el,i) =>(
-    //     <Chip
-    //       key={`selected-item-${i}`}
-    //       onRequestDelete={() => unselectElement(el)}
-    //       backgroundColor={colors(el.data.group)}
-    //       onClick={() => onFocusElement(el)}
-    //       >
-    //         {textEllipsis(el.data.name, 20)}
-    //     </Chip>
-    //
-    //   ))
-
     return (
       <Drawer
         width={250}
@@ -116,7 +103,7 @@ export default class SidePanel extends React.Component {
 
         {
           panelName === 'edit' ?
-            <PanelEdit
+            <PanelSettings
               geoMapVisible={geoMapVisible}
               hasTimeInfo={hasTimeInfo}
               hasGeoInfo={hasGeoInfo}
