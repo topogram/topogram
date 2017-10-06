@@ -9,7 +9,6 @@ export const Comments = new Mongo.Collection( 'comments' )
 export {
   Nodes,
   Edges,
+  Users,
   Topograms
 }
-
-// Users : handle by Meteor.users
