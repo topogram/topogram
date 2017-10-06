@@ -39,7 +39,7 @@ export default class MainViz extends React.Component {
   }
 
   render() {
-    const { nodes, edges, hasGeoInfo, hasTimeInfo } = this.props
+    const { topogramId, nodes, edges, hasGeoInfo, hasTimeInfo } = this.props
 
     const {
       timeLineVisible,
@@ -81,6 +81,7 @@ export default class MainViz extends React.Component {
         {
           graphVisible ?
             <Network
+              topogramId={ topogramId }
               nodes={ nodes }
               edges={ edges }
               width={ width }
@@ -107,6 +108,7 @@ export default class MainViz extends React.Component {
 }
 
 MainViz.propTypes = {
+  topogramId: PropTypes.string.isRequired,
   nodes: PropTypes.array,
   edges: PropTypes.array,
   hasGeoInfo : PropTypes.bool,

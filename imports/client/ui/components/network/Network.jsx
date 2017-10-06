@@ -4,7 +4,7 @@ import ui from 'redux-ui'
 import Cytoscape from './Cytoscape.jsx'
 import NetworkDefaultStyle from './NetworkDefaultStyle'
 
-// import { nodeMove } from '/imports/api/nodes/nodesMethods'
+import { nodeMove } from '/imports/api/nodes/nodesMethods'
 
 @ui()
 class Network extends React.Component {
@@ -33,6 +33,15 @@ class Network extends React.Component {
       .on('free', 'node', () => this.props.unselectAllElements())
       .on('tapstart', 'edge', e => this.props.selectElement(e.cyTarget))
       .on('tapend', 'edge', () => this.props.unselectAllElements())
+      .on('free','node', e => {
+        let node = e.cyTarget
+        let position = node.position()
+        const topogramId = this.props.topogramId
+
+        // Truncate postion values to integers
+        Object.keys(position).map( n => position[n] = Math.trunc(position[n]))
+        nodeMove.call({ topogramId : topogramId, nodeId : node.id(), position : position})
+      })
   }
 
   componentDidMount() {
@@ -160,6 +169,7 @@ class Network extends React.Component {
 }
 
 Network.propTypes = {
+  topogramId : PropTypes.string.isRequired,
   nodes : PropTypes.array,
   nodesReady : PropTypes.bool,
   edges : PropTypes.array,

@@ -136,6 +136,7 @@ export class TopogramViewComponent extends React.Component {
       <div>
 
         <MainViz
+          topogramId={ this.props.params.topogramId }
           nodes={ nodes }
           edges={ edges }
           hasTimeInfo={ this.props.hasTimeInfo }
