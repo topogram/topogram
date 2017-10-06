@@ -177,23 +177,27 @@ export class TopogramViewComponent extends React.Component {
 
     el.data.selected = false
 
-    const { cy } = this.props.ui
+    const { cy, isolateMode } = this.props.ui
     let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
     cy.filter(filter).data('selected', false)
 
     const {selectedElements} = this.props.ui
 
-    this.props.updateUI('selectedElements',
-      [...
-          selectedElements.filter(n =>
-            !(
-              n.data.id === el.data.id
-              &&
-              n.group === el.group
-            )
+    const remainingElements = [...
+        selectedElements.filter(n =>
+          !(
+            n.data.id === el.data.id
+            &&
+            n.group === el.group
           )
-      ]
-    )
+        )
+    ]
+
+    this.props.updateUI('selectedElements', remainingElements)
+    console.log(remainingElements, isolateMode);
+
+    if(!remainingElements.length && isolateMode)
+      this.handleExitIsolateMode()
   }
 
   unselectAllElements = () => {

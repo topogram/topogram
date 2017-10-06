@@ -49,8 +49,6 @@ export default class PanelSelector extends React.Component {
       hasTimeInfo
     } = this.props
 
-    console.log(hasGeoInfo, hasTimeInfo );
-
     return (
       <Menu
         desktop={true}
