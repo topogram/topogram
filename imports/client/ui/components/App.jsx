@@ -24,23 +24,33 @@ const muiTheme = getMuiTheme({
 })
 
 
-const App = ({ children, classNames, locale, messages, user, loadUser, router }) =>
-  (
-    <IntlProvider locale={locale}
-      messages={messages}>
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div className={ classNames }>
-          {/* <UserMenu
-            user={user}
-            loadUser={loadUser}
-            router={router}
-          /> */}
-          {children}
+export class App extends React.Component {
 
-        </div>
-      </MuiThemeProvider>
-    </IntlProvider>
-  )
+  componentDidMount = () => {
+    this.props.loadUser() // load current user
+  }
+
+  render = () => {
+    const {
+     children,
+     classNames,
+     locale,
+     messages,
+     user,
+     router
+   } = this.props
+    return (
+      <IntlProvider locale={locale}
+        messages={messages}>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <div className={ classNames }>
+            {React.cloneElement(children, {user, router})}
+          </div>
+        </MuiThemeProvider>
+      </IntlProvider>
+    )
+  }
+}
 
 App.propTypes = {
   children : PropTypes.node,

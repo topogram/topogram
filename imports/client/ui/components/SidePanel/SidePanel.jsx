@@ -47,6 +47,7 @@ export default class SidePanel extends React.Component {
       selectElement,
       unselectElement,
       authorIsLoggedIn,
+      user,
       router,
       nodeCategories
     } = this.props
@@ -75,6 +76,8 @@ export default class SidePanel extends React.Component {
 
         <SidePanelActions
           setPanelName={this.setPanelName}
+          user={user}
+          router={router}
           />
 
         {

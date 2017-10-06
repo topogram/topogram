@@ -8,7 +8,6 @@ import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ExploreIcon from 'material-ui/svg-icons/action/explore';
 
-
 // UI state default values
 @ui({
   state: {
@@ -258,7 +257,9 @@ export class TopogramViewComponent extends React.Component {
 
     const {
       hasTimeInfo,
-      nodeCategories
+      nodeCategories,
+      user,
+      router
     } = this.props
 
     const filterTime = (n) => hasTimeInfo ?
@@ -335,6 +336,9 @@ export class TopogramViewComponent extends React.Component {
           edges={ edges }
           topogram={ this.props.topogram }
           nodeCategories={this.props.nodeCategories}
+
+          user={user}
+          router={router}
 
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }

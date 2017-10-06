@@ -10,8 +10,12 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import InfoIcon from 'material-ui/svg-icons/action/info';
 
+import UserMenu from '../UserMenu.jsx'
+
 const SidePanelActions = ({
-  setPanelName
+  setPanelName,
+  user,
+  router
 }) => (
 
   <Toolbar
@@ -32,6 +36,11 @@ const SidePanelActions = ({
     <IconButton onClick={() => setPanelName('edit')}>
       <SettingsIcon />
     </IconButton>
+
+    <UserMenu
+      user={user}
+      router={router}
+      />
   </Toolbar>
 )
 

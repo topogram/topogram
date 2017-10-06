@@ -22,7 +22,6 @@ export default class UserMenu extends React.Component {
 
 
     static propTypes = {
-      loadUser : PropTypes.func,
       router : PropTypes.shape({
         push : PropTypes.func
       }),
@@ -31,24 +30,12 @@ export default class UserMenu extends React.Component {
       })
     }
 
-    componentDidMount() {
-      this.props.loadUser() // init User
-    }
-
     logout() {
       Meteor.logout(err => {
         if (err) throw err
         // else TODO : snackbar console.log('logout')
       })
     }
-
-  // handleRequestChange() {
-  //   console.log('haha')
-  // }
-  //
-  // handleChangeSingle(e) {
-  //   console.log(e)
-  // }
 
     render() {
       const { isLoggedIn } = this.props.user
@@ -69,7 +56,7 @@ export default class UserMenu extends React.Component {
         <IconMenu
           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
           // touchTapCloseDelay={250}
-          style={style}
+          // style={style}
           onChange={this.handleChangeSingle}
           onRequestChange={(e) => this.handleRequestChange(e)}
         >
