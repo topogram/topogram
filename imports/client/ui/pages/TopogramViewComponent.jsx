@@ -89,9 +89,7 @@ export class TopogramViewComponent extends React.Component {
   }
 
   onFocusElement = (el) => {
-    console.log('focus');
     this.props.updateUI('focusElement', el)
-
 
     const { cy } = this.props.ui
     let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`

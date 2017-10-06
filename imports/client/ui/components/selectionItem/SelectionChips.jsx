@@ -20,8 +20,8 @@ const styles = {
 };
 
 const SelectionChips = ({
+  cy,
   selectedElements,
-  selectElement,
   unselectElement,
   onFocusElement
 }) => (
@@ -31,11 +31,22 @@ const SelectionChips = ({
         <Chip
           key={`selected-item-${i}`}
           onRequestDelete={() => unselectElement(el)}
-          backgroundColor={colors(el.data.group)}
+          backgroundColor={
+            el.group === "nodes" ?
+              colors(el.data.group)
+            :
+              null
+          }
           onClick={() => onFocusElement(el)}
           style={styles.chip}
           >
-            {textEllipsis(el.data.name, 20)}
+            {
+              el.group === "nodes" ?
+                textEllipsis(el.data.name, 20)
+              :
+                textEllipsis(cy.filter(`node[id="${el.data.source}"]`).data('name'), 10) + '->' + textEllipsis(cy.filter(`node[id="${el.data.target}"]`).data('name'), 10)
+
+            }
         </Chip>
       ))
     }

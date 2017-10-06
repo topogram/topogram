@@ -29,7 +29,7 @@ const SelectedItem = ({
         title={title}
         titleStyle={{
           lineHeight :'1.3em',
-          fontSize:'.9em'
+          fontSize:'1.1em'
         }}
         subtitle={el.group}
         closeIcon={<ClearIcon />}

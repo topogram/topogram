@@ -26,9 +26,9 @@ class Network extends React.Component {
         this.props.selectElement(e.cyTarget.json())
       )
       .on('tap', 'edge', e => e.cyTarget.data('selected') ?
-        this.props.onUnfocusElement(e.cyTarget.json())
+        this.props.unselectElement(e.cyTarget.json())
         :
-        this.props.onFocusElement(e.cyTarget.json())
+        this.props.selectElement(e.cyTarget.json())
       )
   }
 

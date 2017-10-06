@@ -35,6 +35,7 @@ const TitleBox = ({
     {
       !!selectedElements.length ?
       <SelectionChips
+        cy={cy}
         selectedElements={selectedElements}
         unselectElement={unselectElement}
         onFocusElement={onFocusElement}
