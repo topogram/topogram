@@ -49,6 +49,7 @@ class Network extends React.Component {
 
     // set default events
     cy.on('mouseover', 'node', e => {
+
       const node = e.cyTarget
       node.style({
         'border-width': 2,
@@ -59,18 +60,20 @@ class Network extends React.Component {
         },
         'z-index': 300000
       })
-      const edges = e.cyTarget.connectedEdges()
-      edges.css({
-        // 'line-color' : function(d) {
-        //     return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
-        //   },
-        'opacity' : '1'
-      })
-      cy.edges().difference( edges ).css({
-        'opacity' : '.2'
-      })
+      if (!this.props.ui.isolateMode) {
+        const edges = e.cyTarget.connectedEdges()
+        edges.css({
+          // 'line-color' : function(d) {
+          //     return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
+          //   },
+          'opacity' : '1'
+        })
+        cy.edges().difference( edges ).css({
+          'opacity' : '.2'
+        })
+      }
     })
-      .on('mouseout', 'node', e => {
+    .on('mouseout', 'node', e => {
         e.cyTarget.style({
           'border-width'(d) {
             return (d.data('group') == 'ghosts') ? 3 : 0
@@ -87,8 +90,10 @@ class Network extends React.Component {
         //     }
         // })
         // reset opacity
+      if(!this.props.ui.isolateMode) {
         cy.edges().css({ 'opacity' : '.7' })
-      })
+      }
+    })
 
     // set grab / free events
     if (this.props.ui.filterPanelIsOpen) {this.setUpClickEvents()}
