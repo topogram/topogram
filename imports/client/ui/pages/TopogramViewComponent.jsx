@@ -29,7 +29,10 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     // selection
     selectedElements : [],
     focusElement: null,
-    cy : null // cytoscape graph
+    cy : null, // cytoscape graph
+    // isolate
+    isolateMode : false,
+    prevPositions : null
   }
 })
 export class TopogramViewComponent extends React.Component {
@@ -85,38 +88,76 @@ export class TopogramViewComponent extends React.Component {
     this.props.stopTopogramSubscription()
   }
 
-  handleToggleSelectionMode = () => {
+  handleToggleSelectionMode = () =>
     this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
+
+  handleEnterIsolateMode = () => {
+
+    const {
+      cy,
+      selectedElements,
+      isolateMode
+    } = this.props.ui
+
+    // store previous nodes position
+    const prevPositions = {}
+    if (!isolateMode) {
+      cy.nodes().forEach(n =>
+        prevPositions[n.id()] = {...n.position()}
+      )
+      this.props.updateUI('prevPositions', {...prevPositions})
+    }
+
+    // isolate mode ON
+    this.props.updateUI('isolateMode', true)
+
+    // get my nodes/edges
+    const selectedIds = selectedElements.map(e => e.data.id)
+    const focusedNodes = cy.filter((i, e) =>
+      selectedIds.includes(e.id())
+    )
+
+    cy.nodes().style({ 'opacity': '0' });
+    cy.edges().style({ 'opacity': '0' });
+
+    // select
+    var subGraph = focusedNodes.openNeighborhood();
+    focusedNodes.style({ 'opacity': '1' });
+    subGraph.style({ 'opacity': '1'});
+
+    // apply focus layout
+    subGraph.layout({"name":"concentric"})
   }
 
-  onFocusElement = (el) => {
+  handleExitIsolateMode = () => {
+
+    const {
+      cy,
+      prevPositions
+    } = this.props.ui
+
+    // isolate mode ON
+    this.props.updateUI('isolateMode', false)
+
+    // show all again
+    cy.nodes().style({ 'opacity': '1' });
+    cy.edges().style({ 'opacity': '1' });
+
+    // bring back positions
+    cy.nodes().positions((i,n) => prevPositions[n.id()])
+    this.props.updateUI('prevPositions', null)
+
+  }
+
+
+  onFocusElement = (el) =>
     this.props.updateUI('focusElement', el)
 
-    const { cy } = this.props.ui
-    let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
-    let focusedNodes = cy.filter(filter) //.data('selected', true)
 
-    // cy.nodes().style({ 'opacity': '.1' });
-    // cy.edges().style({ 'opacity': '.1' });
-    //
-    // // select
-    // var subGraph = focusedNodes.closedNeighborhood();
-    // focusedNodes.style({ 'opacity': '1' });
-    // subGraph.style({ 'opacity': '1'});
-    //
-    // // store previous positions
-    // subGraph.nodes().forEach( d => d.data("prevPos", { ...d.position() }))
-    //
-    // // apply focus layout
-    // subGraph.layout({"name":"concentric"})
-
-  }
-
-  onUnfocusElement = () => {
-
+  onUnfocusElement = () =>
     this.props.updateUI('focusElement', null)
 
-    const { cy } = this.props.ui
+    // const { cy } = this.props.ui
 
     // cy.nodes().style({ "opacity": '1' });
     // cy.edges().style({"opacity": '1'});
@@ -131,7 +172,6 @@ export class TopogramViewComponent extends React.Component {
     //
     // cy.layout({"name":"preset"})
 
-  }
 
   selectElement = (el) => {
 
@@ -287,6 +327,9 @@ export class TopogramViewComponent extends React.Component {
           cy={this.props.ui.cy}
           onFocusElement={this.onFocusElement}
           onUnfocusElement={this.onUnfocusElement}
+          isolateMode={this.props.ui.isolateMode}
+          handleEnterIsolateMode={this.handleEnterIsolateMode}
+          handleExitIsolateMode={this.handleExitIsolateMode}
           selectElement={this.selectElement}
           unselectAllElements={this.unselectAllElements}
           unselectElement={this.unselectElement}

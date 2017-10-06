@@ -2,7 +2,9 @@ import React, { PropTypes } from 'react'
 
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
+import FocusIcon from 'material-ui/svg-icons/image/center-focus-strong'
 
 import SelectionChips from './selectionItem/SelectionChips.jsx'
 import SelectedItem from './selectionItem/SelectedItem.jsx'
@@ -15,6 +17,10 @@ const TitleBox = ({
   selectedElements,
   unselectElement,
   unselectAllElements,
+
+  isolateMode,
+  handleEnterIsolateMode,
+  handleExitIsolateMode,
 
   focusElement,
   onFocusElement,
@@ -46,12 +52,22 @@ const TitleBox = ({
     {
       !! selectedElements.length ?
       <CardActions>
-        <FlatButton
-          label="Clear All"
-          labelPosition="before"
-          icon={<ClearIcon />}
-          onClick={unselectAllElements}
-          />
+        {
+          isolateMode ?
+            <FlatButton
+              label="Clear"
+              labelPosition="before"
+              icon={<ClearIcon />}
+              onClick={handleExitIsolateMode}
+              />
+            :
+            <RaisedButton
+              label="Focus"
+              labelPosition="before"
+              icon={<FocusIcon />}
+              onClick={handleEnterIsolateMode}
+              />
+          }
       </CardActions>
       :
       null
