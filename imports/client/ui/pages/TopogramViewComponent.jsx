@@ -154,28 +154,8 @@ export class TopogramViewComponent extends React.Component {
   }
 
 
-  onFocusElement = (el) =>
-    this.props.updateUI('focusElement', el)
-
-
-  onUnfocusElement = () =>
-    this.props.updateUI('focusElement', null)
-
-    // const { cy } = this.props.ui
-
-    // cy.nodes().style({ "opacity": '1' });
-    // cy.edges().style({"opacity": '1'});
-    //
-    // // bring back previous positions
-    // cy.nodes().forEach(d => {
-    //   if( d.data("prevPos") ) {
-    //     d.position(d.data("prevPos"))
-    //     delete d.removeData("prevPos")
-    //   }
-    // })
-    //
-    // cy.layout({"name":"preset"})
-
+  onFocusElement = (el) => this.props.updateUI('focusElement', el)
+  onUnfocusElement = () => this.props.updateUI('focusElement', null)
 
   selectElement = (el) => {
 
@@ -203,9 +183,15 @@ export class TopogramViewComponent extends React.Component {
     const {selectedElements} = this.props.ui
 
     this.props.updateUI('selectedElements',
-      selectedElements.filter(n =>
-        n.data.id !== el.data.id && n.group === el.group
-      )
+      [...
+          selectedElements.filter(n =>
+            !(
+              n.data.id === el.data.id
+              &&
+              n.group === el.group
+            )
+          )
+      ]
     )
   }
 
