@@ -1,12 +1,18 @@
 import React, { PropTypes } from 'react'
-import { CardTitle } from 'material-ui/Card'
+
+import { CardText } from 'material-ui/Card'
 import Subheader from 'material-ui/Subheader'
 
 import NodeCategoriesMenu from '../filters/NodeCategoriesMenu.jsx'
+import QueryBox from '../queryBox/QueryBox.jsx'
 
-const PanelFilters = ({nodeCategories}) => (
-  <span>
-  <Subheader>Filters</Subheader>
+const PanelFilters = ({
+  nodes,
+  nodeCategories,
+  selectElement
+}) => (
+  <CardText>
+    <Subheader>Filters</Subheader>
     {
       !!nodeCategories.length ?
         <NodeCategoriesMenu
@@ -15,7 +21,11 @@ const PanelFilters = ({nodeCategories}) => (
         :
         null
     }
-  </span>
+    <QueryBox
+      nodes={nodes}
+      selectElement={selectElement}
+      />
+  </CardText>
 )
 
 export default PanelFilters

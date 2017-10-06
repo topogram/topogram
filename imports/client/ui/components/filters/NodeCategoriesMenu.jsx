@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react'
 import ui from 'redux-ui'
 
-import MenuItem from 'material-ui/MenuItem'
 import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import LensIcon from 'material-ui/svg-icons/image/lens'
 import { colors } from '/imports/client/helpers/colors.js'
@@ -41,7 +41,6 @@ export default class NodeCategoriesMenu extends React.Component {
     ))
 
     return (
-      <MenuItem>
         <SelectField
           multiple={true}
           value={selectedNodeCategories}
@@ -51,7 +50,6 @@ export default class NodeCategoriesMenu extends React.Component {
           >
         {menuItems}
         </SelectField>
-      </MenuItem>
     )
   }
 }

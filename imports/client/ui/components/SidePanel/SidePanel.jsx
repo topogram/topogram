@@ -9,9 +9,7 @@ import SidePanelActions from './SidePanelActions.jsx'
 import PanelDescription from './PanelDescription.jsx'
 import PanelFilters from './PanelFilters.jsx'
 import PanelEdit from './PanelEdit.jsx'
-import PanelSelection from './PanelSelection.jsx'
 
-import QueryBox from '../queryBox/QueryBox.jsx'
 import TitleBox from '../TitleBox.jsx'
 import UserMenu from '../UserMenu.jsx'
 
@@ -104,7 +102,9 @@ export default class SidePanel extends React.Component {
         {
           panelName === 'filters' ?
             <PanelFilters
+              nodes={nodes}
               nodeCategories={nodeCategories}
+              selectElement={selectElement}
               />
             :
             null
