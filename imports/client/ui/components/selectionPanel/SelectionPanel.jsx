@@ -18,11 +18,6 @@ export default class SelectionPanel extends React.Component {
     this.unselectAll()
   }
 
-  unselectAll() {
-    this.props.ui.selectedElements.map(el => el.data('selected', false))
-    this.props.updateUI('selectedElements', [])
-  }
-
   render() {
     const {
       cy,
@@ -33,20 +28,20 @@ export default class SelectionPanel extends React.Component {
 
     const selected = !cy ? null :
       selectedElements.map( (el,i) =>(
-        el.group() === 'nodes' ?
+        el.group === 'nodes' ?
           <SelectedNode
             key={`selected-item-${i}`}
-            name={el.data('name')}
-            lat={el.data('lat')}
-            lng={el.data('lng')}
-            notes={el.data('notes')}
+            name={el.data.name}
+            lat={el.data.lat}
+            lng={el.data.lng}
+            notes={el.data.notes}
           />
           :
           <SelectedEdge
             key={`selected-item-${i}`}
-            source={cy.filter(`node[id="${el.data('source')}"]`)}
-            target={cy.filter(`node[id="${el.data('target')}"]`)}
-            notes={el.data('notes')}
+            source={cy.filter(`node[id="${el.data.source}"]`)}
+            target={cy.filter(`node[id="${el.data.target}"]`)}
+            notes={el.data.notes}
           />
       ))
 
@@ -61,7 +56,7 @@ export default class SelectionPanel extends React.Component {
         <Subheader>
               Selected Items
           <IconButton
-            onClick={this.handleExpandChange}
+            onClick={this.props.unselectAllElements}
             style={{ float:'right' }}
           >
             <ClearIcon />

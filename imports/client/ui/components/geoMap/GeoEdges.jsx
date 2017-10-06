@@ -7,28 +7,27 @@ export default class GeoEdges extends React.Component {
   static propTypes = {
     edges : PropTypes.array.isRequired,
     selectionModeOn : PropTypes.bool,
-    onClickGeoElement : PropTypes.func.isRequired,
-    selectGeoElement : PropTypes.func.isRequired,
-    unselectGeoElement : PropTypes.func.isRequired,
+    onClickElement : PropTypes.func.isRequired,
+    selectElement : PropTypes.func.isRequired,
+    unselectElement : PropTypes.func.isRequired,
     unselectAllElements : PropTypes.func.isRequired
   }
 
   render() {
     const { selectionModeOn } = this.props
     const edges = this.props.edges.map( (e,i) => {
-      const filter = `edge[source="${e.data.source}"][target="${e.data.target}"]`
       return (
         <Polyline
           key={`edge-${i}`}
           color={e.selected ? 'yellow' : 'purple'}
           positions={e.coords}
           onClick={() => selectionModeOn ?
-            this.props.onClickGeoElement(filter)
+            this.props.onClickElement(e)
             :
             null
           }
           onMouseDown={() => !selectionModeOn ?
-            this.props.selectGeoElement(filter)
+            this.props.selectElement(e)
             :
             null
           }

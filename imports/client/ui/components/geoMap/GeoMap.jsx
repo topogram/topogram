@@ -37,29 +37,18 @@ class GeoMap extends React.Component {
     height : PropTypes.string.isRequired
   }
 
-  onClickGeoElement = (filter) => {
-    const { cy } = this.props.ui
-    const selected = cy.filter(filter)
-    this.props.onClickElement(selected)
-  }
-
-  selectGeoElement = (filter) => {
-    const { cy } = this.props.ui
-    const selected = cy.filter(filter)
-    this.props.selectElement(selected)
-  }
-
-  unselectGeoElement = (filter) => {
-    const { cy } = this.props.ui
-    const selected = cy.filter(filter)
-    this.props.unselectElement(selected)
-  }
-
   render() {
     const { geoMapTile, selectionModeOn } = this.props.ui
     const { zoom, position } = this.state
     const nodesById = {}
-    const { width, height } = this.props
+    const {
+      width,
+      height,
+      onClickElement,
+      selectElement,
+      unselectElement,
+      unselectAllElements
+    } = this.props
 
     // resize dynamically using d3
     d3.select('.leaflet-container')
@@ -103,10 +92,10 @@ class GeoMap extends React.Component {
               <GeoEdges
                 edges={edges}
                 selectionModeOn={selectionModeOn}
-                onClickGeoElement={this.onClickGeoElement}
-                selectGeoElement={this.selectGeoElement}
-                unselectGeoElement={this.unselectGeoElement}
-                unselectAllElements={this.props.unselectAllElements}
+                onClickElement={onClickElement}
+                selectElement={selectElement}
+                unselectElement={unselectElement}
+                unselectAllElements={unselectAllElements}
               />
               :
               null
@@ -116,10 +105,10 @@ class GeoMap extends React.Component {
               <GeoNodes
                 nodes={nodes}
                 selectionModeOn={selectionModeOn}
-                onClickGeoElement={this.onClickGeoElement}
-                selectGeoElement={this.selectGeoElement}
-                unselectGeoElement={this.unselectGeoElement}
-                unselectAllElements={this.props.unselectAllElements}
+                onClickElement={onClickElement}
+                selectElement={selectElement}
+                unselectElement={unselectElement}
+                unselectAllElements={unselectAllElements}
               />
               :
               null
@@ -137,12 +126,6 @@ class GeoMap extends React.Component {
   }
 }
 
-GeoMap.propTypes = {
-  nodes : React.PropTypes.array,
-  nodesReady : React.PropTypes.bool,
-  edges : React.PropTypes.array,
-  edgesReady : React.PropTypes.bool
-}
 
 GeoMap.defaultProps = {
   nodes : [],

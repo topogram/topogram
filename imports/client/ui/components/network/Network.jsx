@@ -20,8 +20,8 @@ class Network extends React.Component {
       .off('free', 'node')  // reset
       .off('tapstart', 'edge')  // reset
       .off('tapend', 'edge')  // reset
-      .on('tap', 'node', e => this.props.onClickElement(e.cyTarget))
-      .on('tap', 'edge', e => this.props.onClickElement(e.cyTarget))
+      .on('tap', 'node', e => this.props.onClickElement(e.cyTarget.json()))
+      .on('tap', 'edge', e => this.props.onClickElement(e.cyTarget.json()))
   }
 
   setUpGrabFreeEvents() {
@@ -29,9 +29,9 @@ class Network extends React.Component {
       .off('free', 'node')  // reset
       .off('free', 'edge')  // reset
       .off('tap', 'node')
-      .on('grab', 'node', e => this.props.selectElement(e.cyTarget))
+      .on('grab', 'node', e => this.props.selectElement(e.cyTarget.json()))
       .on('free', 'node', () => this.props.unselectAllElements())
-      .on('tapstart', 'edge', e => this.props.selectElement(e.cyTarget))
+      .on('tapstart', 'edge', e => this.props.selectElement(e.cyTarget.json()))
       .on('tapend', 'edge', () => this.props.unselectAllElements())
   }
 
@@ -138,9 +138,17 @@ class Network extends React.Component {
 
   render() {
 
-    // make sure nodes & edges are there
-    const { nodes, height, edges, width } = this.props
-    const { layoutName, nodeRadius } = this.props.ui
+    const {
+      nodes,
+      height,
+      edges,
+      width
+    } = this.props
+
+    const {
+      layoutName,
+      nodeRadius
+    } = this.props.ui
 
     const elements = {}
     if (nodes.length) elements.nodes = nodes

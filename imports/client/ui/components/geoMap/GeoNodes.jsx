@@ -6,9 +6,9 @@ export default class GeoNodes extends React.Component {
   static propTypes = {
     nodes : PropTypes.array.isRequired,
     selectionModeOn : PropTypes.bool,
-    onClickGeoElement : PropTypes.func.isRequired,
-    selectGeoElement : PropTypes.func.isRequired,
-    unselectGeoElement : PropTypes.func.isRequired,
+    onClickElement : PropTypes.func.isRequired,
+    selectElement : PropTypes.func.isRequired,
+    unselectElement : PropTypes.func.isRequired,
     unselectAllElements : PropTypes.func.isRequired
   }
 
@@ -23,12 +23,12 @@ export default class GeoNodes extends React.Component {
           center={n.coords}
           color={n.data.selected ? 'yellow' : 'steelblue'}
           onClick={() => selectionModeOn ?
-            this.props.onClickGeoElement(filter)
+            this.props.onClickElement(n)
             :
             null
           }
           onMouseDown={() => !selectionModeOn ?
-            this.props.selectGeoElement(filter)
+            this.props.selectElement(n)
             :
             null
           }

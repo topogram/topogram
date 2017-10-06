@@ -84,21 +84,26 @@ export class TopogramViewComponent extends React.Component {
   }
 
   onClickElement = (el) => {
-    // if already selected, then unselect
     const { selectedElements } = this.props.ui
-    if (selectedElements.map(d=>d.id()).includes(el.id())) {this.unselectElement(el)}
-    else {this.selectElement(el)}
+
+    // if already selected, then unselect
+    if (selectedElements.map(d=>d.id).includes(el.data.id))
+      {this.unselectElement(el)}
+    else
+      {this.selectElement(el)}
   }
 
   unselectElement = (el) => {
-    el.data('selected', false)
+    el.data.selected = false
     const selectedElements = this.props.ui.selectedElements
-      .filter(n => n.data('id') !== el.data('id'))
+      .filter(n => n.id !== el.data.id) // TODO filter by group
     this.props.updateUI('selectedElements', selectedElements)
   }
 
   selectElement = (el) => {
-    el.data('selected', true)
+
+    el.data.selected = true
+
     this.props.updateUI(
       'selectedElements',
       [...this.props.ui.selectedElements, el]
@@ -107,7 +112,7 @@ export class TopogramViewComponent extends React.Component {
   }
 
   unselectAllElements = () => {
-    this.props.ui.selectedElements.forEach(el=>el.data('selected', false))
+    this.props.ui.selectedElements.forEach(el=> el.data.selected = false)
     this.props.updateUI('selectedElements', [])
     this.props.updateUI( 'selectionPanelVisible', false )
   }
@@ -210,6 +215,7 @@ export class TopogramViewComponent extends React.Component {
         }
         <SelectionPanel
           open={!!this.props.ui.selectionPanelVisible}
+          unselectAllElements={this.unselectAllElements}
         />
       </div>
     )
