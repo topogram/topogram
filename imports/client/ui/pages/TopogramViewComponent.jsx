@@ -126,7 +126,11 @@ export class TopogramViewComponent extends React.Component {
     subGraph.style({ 'opacity': '1'});
 
     // apply focus layout
-    subGraph.layout({"name":"concentric"})
+    subGraph.layout({
+      'name':"spread",
+      'minDist' : 30,
+      'padding' : 50
+    })
   }
 
   handleExitIsolateMode = () => {
