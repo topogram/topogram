@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { CardTitle } from 'material-ui/Card'
 import Subheader from 'material-ui/Subheader'
 
+import PanelSelector from '../panelSelector/PanelSelector.jsx'
 
 import NetworkOptions from '../networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
@@ -13,10 +14,18 @@ const PanelEdit = ({
   topogramId,
   topogramTitle,
   topogramIsPublic,
+  hasTimeInfo,
+  hasGeoInfo,
   router
 }) => (
   <span>
     <Subheader>Settings</Subheader>
+
+    <PanelSelector
+      // bottom={timeLineVisible ? '21vh' : '1em'}
+      hasTimeInfo={ hasTimeInfo }
+      hasGeoInfo={ hasGeoInfo }
+    />
 
     { geoMapVisible ? <GeoMapOptions/> : null }
     <NetworkOptions/>

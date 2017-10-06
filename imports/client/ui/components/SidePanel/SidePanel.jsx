@@ -40,6 +40,8 @@ export default class SidePanel extends React.Component {
       topogram,
       nodes,
       edges,
+      hasTimeInfo,
+      hasGeoInfo,
       onFocusElement,
       onUnfocusElement,
       selectElement,
@@ -116,6 +118,8 @@ export default class SidePanel extends React.Component {
           panelName === 'edit' ?
             <PanelEdit
               geoMapVisible={geoMapVisible}
+              hasTimeInfo={hasTimeInfo}
+              hasGeoInfo={hasGeoInfo}
               authorIsLoggedIn={authorIsLoggedIn}
               topogramId={topogram._id}
               topogramTitle={topogram.title}

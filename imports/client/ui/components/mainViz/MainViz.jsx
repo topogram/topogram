@@ -4,7 +4,6 @@ import ui from 'redux-ui'
 import Network from '/imports/client/ui/components/network/Network.jsx'
 import GeoMap from '/imports/client/ui/components/geoMap/GeoMap.jsx'
 import TimeLine from '/imports/client/ui/components/timeLine/TimeLine.jsx'
-import PanelSelector from '/imports/client/ui/components/panelSelector/PanelSelector.jsx'
 
 @ui()
 export default class MainViz extends React.Component {
@@ -41,11 +40,6 @@ export default class MainViz extends React.Component {
 
     return (
       <div>
-        <PanelSelector
-          bottom={timeLineVisible ? '21vh' : '1em'}
-          hasTimeInfo={ hasTimeInfo }
-          hasGeoInfo={ hasGeoInfo }
-        />
         {
           geoMapVisible && hasGeoInfo ?
             <GeoMap
