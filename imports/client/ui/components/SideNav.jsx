@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem'
 import NetworkOptions from './networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from './geoMapOptions/GeoMapOptions.jsx'
 import NodeCategoriesMenu from './filters/NodeCategoriesMenu.jsx'
+import QueryBox from './queryBox/QueryBox.jsx'
 
 import Settings from './settings/Settings.jsx'
 
@@ -56,12 +57,14 @@ class SideNav extends React.Component {
 
     const settings =
       authorIsLoggedIn ?
-        (<Settings
+        (
+          <Settings
           topogramId={topogramId}
           topogramTitle= {topogramTitle}
           topogramSharedPublic={topogramIsPublic}
           router={this.props.router}
-        />)
+          />
+        )
         :
         null
 
@@ -79,15 +82,16 @@ class SideNav extends React.Component {
 
         { this.state.open ?
           <span>
-            {/* <QueryBox
-              nodes={nodes}
-              edges={edges}
-            /> */}
             { geoMapVisible ? <GeoMapOptions/> : null }
             <NetworkOptions/>
             <NodeCategoriesMenu
               nodeCategories={this.props.nodeCategories}
               />
+            <MenuItem>
+              <QueryBox
+                nodes={nodes}
+                />
+            </MenuItem>
             <MenuItem
               primaryText="Selection Mode"
               onClick={this.handleToggleSelectionMode}

@@ -83,10 +83,41 @@ export class TopogramViewComponent extends React.Component {
     this.props.stopTopogramSubscription()
   }
 
+  onClickElement = (el) => {
+    // if already selected, then unselect
+    const { selectedElements } = this.props.ui
+    if (selectedElements.map(d=>d.id()).includes(el.id())) {this.unselectElement(el)}
+    else {this.selectElement(el)}
+  }
+
+  unselectElement = (el) => {
+    el.data('selected', false)
+    const selectedElements = this.props.ui.selectedElements
+      .filter(n => n.data('id') !== el.data('id'))
+    this.props.updateUI('selectedElements', selectedElements)
+  }
+
+  selectElement = (el) => {
+    el.data('selected', true)
+    this.props.updateUI(
+      'selectedElements',
+      [...this.props.ui.selectedElements, el]
+    )
+    this.props.updateUI( 'selectionPanelVisible', true )
+  }
+
+  unselectAllElements = () => {
+    this.props.ui.selectedElements.forEach(el=>el.data('selected', false))
+    this.props.updateUI('selectedElements', [])
+    this.props.updateUI( 'selectionPanelVisible', false )
+  }
+
   toggleSideNav() {
     const toggled = this.refs.sideNav.state.open ? false : true
     this.refs.sideNav.setState({ open : toggled })
   }
+
+
 
   promptSnackbar(msg) {
     this.setState({
@@ -158,6 +189,10 @@ export class TopogramViewComponent extends React.Component {
           edges={ edges }
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
+          onClickElement={this.onClickElement}
+          selectElement={this.selectElement}
+          unselectElement={this.unselectElement}
+          unselectAllElements={this.unselectAllElements}
         />
         { this.props.ui.filterPanelIsOpen ?
           <SideNav

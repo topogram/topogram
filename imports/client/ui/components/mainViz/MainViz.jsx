@@ -9,37 +9,18 @@ import PanelSelector from '/imports/client/ui/components/panelSelector/PanelSele
 @ui()
 export default class MainViz extends React.Component {
 
-  onClickElement = (el) => {
-    // if already selected, then unselect
-    const { selectedElements } = this.props.ui
-    if (selectedElements.map(d=>d.id()).includes(el.id())) {this.unselectElement(el)}
-    else {this.selectElement(el)}
-  }
-
-  unselectElement = (el) => {
-    el.data('selected', false)
-    const selectedElements = this.props.ui.selectedElements
-      .filter(n => n.data('id') !== el.data('id'))
-    this.props.updateUI('selectedElements', selectedElements)
-  }
-
-  selectElement = (el) => {
-    el.data('selected', true)
-    this.props.updateUI(
-      'selectedElements',
-      [...this.props.ui.selectedElements, el]
-    )
-    this.props.updateUI( 'selectionPanelVisible', true )
-  }
-
-  unselectAllElements = () => {
-    this.props.ui.selectedElements.forEach(el=>el.data('selected', false))
-    this.props.updateUI('selectedElements', [])
-    this.props.updateUI( 'selectionPanelVisible', false )
-  }
 
   render() {
-    const { nodes, edges, hasGeoInfo, hasTimeInfo } = this.props
+    const {
+      nodes,
+      edges,
+      hasGeoInfo,
+      hasTimeInfo,
+      onClickElement,
+      selectElement,
+      unselectElement,
+      unselectAllElements
+     } = this.props
 
     const {
       timeLineVisible,
@@ -70,10 +51,10 @@ export default class MainViz extends React.Component {
               edges={ edges }
               width={ width }
               height={ height }
-              onClickElement={this.onClickElement}
-              selectElement={this.selectElement}
-              unselectElement={this.unselectElement}
-              unselectAllElements={this.unselectAllElements}
+              onClickElement={onClickElement}
+              selectElement={selectElement}
+              unselectElement={unselectElement}
+              unselectAllElements={unselectAllElements}
             />
             :
             null
@@ -85,10 +66,10 @@ export default class MainViz extends React.Component {
               edges={ edges }
               width={ width }
               height={ height }
-              onClickElement={this.onClickElement}
-              selectElement={this.selectElement}
-              unselectElement={this.unselectElement}
-              unselectAllElements={this.unselectAllElements}
+              onClickElement={onClickElement}
+              selectElement={selectElement}
+              unselectElement={unselectElement}
+              unselectAllElements={unselectAllElements}
             />
             :
             null
@@ -96,7 +77,7 @@ export default class MainViz extends React.Component {
         {
           this.props.ui.timeLineVisible ?
             <TimeLine
-              hasTimeInfo={this.props.hasTimeInfo}
+              hasTimeInfo={hasTimeInfo}
             />
             :
             null
@@ -110,5 +91,9 @@ MainViz.propTypes = {
   nodes: PropTypes.array,
   edges: PropTypes.array,
   hasGeoInfo : PropTypes.bool,
-  hasTimeInfo :  PropTypes.bool
+  hasTimeInfo :  PropTypes.bool,
+  onClickElement : PropTypes.func.isRequired,
+  selectElement : PropTypes.func.isRequired,
+  unselectElement : PropTypes.func.isRequired,
+  unselectAllElements : PropTypes.func.isRequired
 }
