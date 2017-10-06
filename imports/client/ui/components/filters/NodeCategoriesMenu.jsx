@@ -2,9 +2,8 @@ import React, {PropTypes} from 'react'
 import ui from 'redux-ui'
 
 import MenuItem from 'material-ui/MenuItem'
-import Badge from 'material-ui/Badge';
+import SelectField from 'material-ui/SelectField';
 
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 import LensIcon from 'material-ui/svg-icons/image/lens'
 import { colors } from '/imports/client/helpers/colors.js'
 
@@ -34,28 +33,24 @@ export default class NodeCategoriesMenu extends React.Component {
       <MenuItem
         value={d}
         key={d}
+        insetChildren={true}
         primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
         onClick={() => this.handleSelectNodeCategory(d)}
-        checked={selectedNodeCategories.includes(d)}
-        rightIcon={<LensIcon color={colors(d)}/>}
+        leftIcon={<LensIcon color={colors(d)}/>}
       />
     ))
 
     return (
-      <MenuItem
-        primaryText={
-          <span>
-            Node Categories
-            <Badge
-              badgeContent={selectedNodeCategories.length}
-              primary={true}
-              />
-          </span>
-        }
-        // secondaryText={}
-        menuItems={menuItems}
-        rightIcon={<ArrowDropRight />}
-        />
+      <MenuItem>
+        <SelectField
+          multiple={true}
+          value={selectedNodeCategories}
+          floatingLabelText={`Nodes categories (${selectedNodeCategories.length})`}
+          floatingLabelFixed={true}
+          >
+        {menuItems}
+        </SelectField>
+      </MenuItem>
     )
   }
 }
