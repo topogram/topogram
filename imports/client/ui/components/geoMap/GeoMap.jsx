@@ -38,7 +38,7 @@ class GeoMap extends React.Component {
   }
 
   render() {
-    const { geoMapTile, selectionModeOn } = this.props.ui
+    const { geoMapTile, filterPanelIsOpen } = this.props.ui
     const { zoom, position } = this.state
     const nodesById = {}
     const {
@@ -91,7 +91,7 @@ class GeoMap extends React.Component {
             edges.length ?
               <GeoEdges
                 edges={edges}
-                selectionModeOn={selectionModeOn}
+                filterPanelIsOpen={filterPanelIsOpen}
                 onClickElement={onClickElement}
                 selectElement={selectElement}
                 unselectElement={unselectElement}
@@ -104,7 +104,7 @@ class GeoMap extends React.Component {
             nodes.length ?
               <GeoNodes
                 nodes={nodes}
-                selectionModeOn={selectionModeOn}
+                filterPanelIsOpen={filterPanelIsOpen}
                 onClickElement={onClickElement}
                 selectElement={selectElement}
                 unselectElement={unselectElement}

@@ -16,6 +16,8 @@ export default class MainViz extends React.Component {
       edges,
       hasGeoInfo,
       hasTimeInfo,
+      focusElement,
+      unFocusElement,
       onClickElement,
       selectElement,
       unselectElement,
@@ -66,7 +68,8 @@ export default class MainViz extends React.Component {
               edges={ edges }
               width={ width }
               height={ height }
-              onClickElement={onClickElement}
+              focusElement={focusElement}
+              unFocusElement={unFocusElement}
               selectElement={selectElement}
               unselectElement={unselectElement}
               unselectAllElements={unselectAllElements}
@@ -92,7 +95,8 @@ MainViz.propTypes = {
   edges: PropTypes.array,
   hasGeoInfo : PropTypes.bool,
   hasTimeInfo :  PropTypes.bool,
-  onClickElement : PropTypes.func.isRequired,
+  focusElement : PropTypes.func.isRequired,
+  unFocusElement : PropTypes.func.isRequired,
   selectElement : PropTypes.func.isRequired,
   unselectElement : PropTypes.func.isRequired,
   unselectAllElements : PropTypes.func.isRequired

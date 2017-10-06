@@ -5,7 +5,7 @@ export default class GeoNodes extends React.Component {
 
   static propTypes = {
     nodes : PropTypes.array.isRequired,
-    selectionModeOn : PropTypes.bool,
+    filterPanelIsOpen : PropTypes.bool,
     onClickElement : PropTypes.func.isRequired,
     selectElement : PropTypes.func.isRequired,
     unselectElement : PropTypes.func.isRequired,
@@ -13,7 +13,7 @@ export default class GeoNodes extends React.Component {
   }
 
   render() {
-    const { selectionModeOn } = this.props
+    const { filterPanelIsOpen } = this.props
     const nodes = this.props.nodes.map((n,i) => {
       const filter = `node[i=${i}]`
       return (
@@ -22,17 +22,17 @@ export default class GeoNodes extends React.Component {
           key={`node-${i}`}
           center={n.coords}
           color={n.data.selected ? 'yellow' : 'steelblue'}
-          onClick={() => selectionModeOn ?
+          onClick={() => filterPanelIsOpen ?
             this.props.onClickElement(n)
             :
             null
           }
-          onMouseDown={() => !selectionModeOn ?
+          onMouseDown={() => !filterPanelIsOpen ?
             this.props.selectElement(n)
             :
             null
           }
-          onMouseUp={()=> !selectionModeOn ?
+          onMouseUp={()=> !filterPanelIsOpen ?
             this.props.unselectAllElements()
             :
             null

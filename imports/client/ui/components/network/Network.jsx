@@ -20,8 +20,16 @@ class Network extends React.Component {
       .off('free', 'node')  // reset
       .off('tapstart', 'edge')  // reset
       .off('tapend', 'edge')  // reset
-      .on('tap', 'node', e => this.props.onClickElement(e.cyTarget.json()))
-      .on('tap', 'edge', e => this.props.onClickElement(e.cyTarget.json()))
+      .on('tap', 'node', e => e.cyTarget.data('selected') ?
+        this.props.unselectElement(e.cyTarget.json())
+        :
+        this.props.selectElement(e.cyTarget.json())
+      )
+      .on('tap', 'edge', e => e.cyTarget.data('selected') ?
+        this.props.unselectElement(e.cyTarget.json())
+        :
+        this.props.selectElement(e.cyTarget.json())
+      )
   }
 
   setUpGrabFreeEvents() {
@@ -29,10 +37,10 @@ class Network extends React.Component {
       .off('free', 'node')  // reset
       .off('free', 'edge')  // reset
       .off('tap', 'node')
-      .on('grab', 'node', e => this.props.selectElement(e.cyTarget.json()))
-      .on('free', 'node', () => this.props.unselectAllElements())
-      .on('tapstart', 'edge', e => this.props.selectElement(e.cyTarget.json()))
-      .on('tapend', 'edge', () => this.props.unselectAllElements())
+      .on('grab', 'node', e => this.props.focusElement(e.cyTarget.json()))
+      .on('free', 'node', () => this.props.unFocusElement())
+      .on('tapstart', 'edge', e => this.props.focusElement(e.cyTarget.json()))
+      .on('tapend', 'edge', () => this.props.unFocusElement())
   }
 
   componentDidMount() {
@@ -83,7 +91,7 @@ class Network extends React.Component {
       })
 
     // set grab / free events
-    if (this.props.ui.selectionModeOn) {this.setUpClickEvents()}
+    if (this.props.ui.filterPanelIsOpen) {this.setUpClickEvents()}
     else {this.setUpGrabFreeEvents()}
 
     // store cytoscape object
@@ -98,7 +106,7 @@ class Network extends React.Component {
     const {
       nodeRadius,
       layoutName,
-      selectionModeOn,
+      filterPanelIsOpen,
       selectedNodeCategories
     } = nextProps.ui
     const { nodes, edges } = nextProps
@@ -107,8 +115,8 @@ class Network extends React.Component {
     if (nextProps.height !== this.props.height) return true
 
     // selection mode : update events
-    if ( this.props.ui.selectionModeOn !== selectionModeOn) {
-      selectionModeOn ?
+    if ( this.props.ui.filterPanelIsOpen !== filterPanelIsOpen) {
+      filterPanelIsOpen ?
         this.setUpClickEvents() // console.log('click mode')
         :
         this.setUpGrabFreeEvents() // console.log('grab/free mode')
@@ -179,8 +187,10 @@ Network.propTypes = {
   edgesReady : PropTypes.bool,
   style : PropTypes.object,
   layoutName : PropTypes.string,
-  onClickElement: PropTypes.func.isRequired,
+  focusElement : PropTypes.func.isRequired,
+  unFocusElement : PropTypes.func.isRequired,
   selectElement: PropTypes.func.isRequired,
+  unselectElement: PropTypes.func.isRequired,
   unselectAllElements: PropTypes.func.isRequired,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired

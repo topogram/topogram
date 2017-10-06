@@ -18,14 +18,11 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     graphVisible : true, // default to graph view
     geoMapVisible : false,
     timeLineVisible : false,
-    // selectionPanelVisible : false,
     // network/map
     layoutName : 'preset',
     nodeRadius : 'degree',
     geoMapTile : 'default',
     // selection
-    selectionModeOn : false,
-    selectionPanelVisible : false,
     selectedElements : [],
     cy : null // cytoscape graph
   }
@@ -83,32 +80,27 @@ export class TopogramViewComponent extends React.Component {
     this.props.stopTopogramSubscription()
   }
 
-  onClickElement = (el) => {
-    const { selectedElements } = this.props.ui
-
-    // if already selected, then unselect
-    if (selectedElements.map(d=>d.id).includes(el.data.id))
-      {this.unselectElement(el)}
-    else
-      {this.selectElement(el)}
+  focusElement = (el) => {
+    this.props.updateUI('focusElement', el)
   }
 
+  unFocusElement = () => {
+    this.props.updateUI('focusElement', null)
+  }
 
   selectElement = (el) => {
-
 
     el.data.selected = true
 
     const { cy } = this.props.ui
     let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
-    console.log(cy,filter);
     cy.filter(filter).data('selected', true)
 
     this.props.updateUI(
       'selectedElements',
       [...this.props.ui.selectedElements, el]
     )
-    this.props.updateUI( 'selectionPanelVisible', true )
+
   }
 
   unselectElement = (el) => {
@@ -117,11 +109,15 @@ export class TopogramViewComponent extends React.Component {
 
     const { cy } = this.props.ui
     let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
-    cy.elements.filter(filter).data('selected', false)
+    cy.filter(filter).data('selected', false)
 
-    const selectedElements = this.props.ui.selectedElements
-      .filter(n => n.id !== el.data.id) // TODO filter by group
-    this.props.updateUI('selectedElements', selectedElements)
+    const {selectedElements} = this.props.ui
+
+    this.props.updateUI('selectedElements',
+      selectedElements.filter(n =>
+        n.data.id !== el.data.id && n.group === el.group
+      )
+    )
   }
 
   unselectAllElements = () => {
@@ -131,7 +127,7 @@ export class TopogramViewComponent extends React.Component {
     selectedElements.forEach(el=> el.data.selected = false)
 
     this.props.updateUI('selectedElements', [])
-    this.props.updateUI( 'selectionPanelVisible', false )
+
   }
 
   toggleSideNav() {
@@ -222,29 +218,31 @@ export class TopogramViewComponent extends React.Component {
           edges={ edges }
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
+          focusElement={this.focusElement}
+          unFocusElement={this.unFocusElement}
           onClickElement={this.onClickElement}
           selectElement={this.selectElement}
           unselectElement={this.unselectElement}
           unselectAllElements={this.unselectAllElements}
         />
-        { this.props.ui.filterPanelIsOpen ?
-          <SideNav
-            topogramId={ this.props.params.topogramId }
-            topogramTitle={ this.props.topogram.title }
-            authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
-            topogramIsPublic={ this.props.topogram.sharedPublic }
-            nodes={ nodes }
-            edges={ edges }
-            nodeCategories={this.props.nodeCategories}
-            router={this.props.router}
-            selectElement={this.selectElement}
-          />
-          :
-          null
-        }
+
+        <SideNav
+          topogramId={ this.props.params.topogramId }
+          topogramTitle={ this.props.topogram.title }
+          authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
+          topogramIsPublic={ this.props.topogram.sharedPublic }
+          nodes={ nodes }
+          edges={ edges }
+          router={this.props.router}
+          selectElement={this.selectElement}
+        />
+
         <SelectionPanel
-          open={!!this.props.ui.selectionPanelVisible}
+          open={this.props.ui.filterPanelIsOpen}
+          nodeCategories={this.props.nodeCategories}
+          selectElement={this.selectElement}
           unselectAllElements={this.unselectAllElements}
+          nodes={ nodes }
         />
       </div>
     )

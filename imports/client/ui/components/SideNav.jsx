@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
-import { Card, CardTitle } from 'material-ui/Card'
-import MenuItem from 'material-ui/MenuItem'
+import { Card, CardActions, CardTitle } from 'material-ui/Card'
+
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ContentFilterIcon from 'material-ui/svg-icons/content/filter-list';
 
 // import QueryBox from './queryBox/QueryBox.jsx'
 import NetworkOptions from './networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from './geoMapOptions/GeoMapOptions.jsx'
-import NodeCategoriesMenu from './filters/NodeCategoriesMenu.jsx'
-import QueryBox from './queryBox/QueryBox.jsx'
 
 import Settings from './settings/Settings.jsx'
 
@@ -33,7 +34,7 @@ class SideNav extends React.Component {
   }
 
   handleToggleSelectionMode = () => {
-    this.props.updateUI('selectionModeOn', !this.props.ui.selectionModeOn)
+    this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
   }
 
   handleExpandChange = () => {
@@ -54,7 +55,7 @@ class SideNav extends React.Component {
     } = this.props
 
     const {
-      selectionModeOn,
+      filterPanelIsOpen,
       geoMapVisible
     } = this.props.ui
 
@@ -62,10 +63,10 @@ class SideNav extends React.Component {
       authorIsLoggedIn ?
         (
           <Settings
-          topogramId={topogramId}
-          topogramTitle= {topogramTitle}
-          topogramSharedPublic={topogramIsPublic}
-          router={this.props.router}
+            topogramId={topogramId}
+            topogramTitle= {topogramTitle}
+            topogramSharedPublic={topogramIsPublic}
+            router={this.props.router}
           />
         )
         :
@@ -87,30 +88,22 @@ class SideNav extends React.Component {
           <span>
             { geoMapVisible ? <GeoMapOptions/> : null }
             <NetworkOptions/>
-            { !!nodeCategories.length ?
-              <NodeCategoriesMenu
-              nodeCategories={nodeCategories}
-              />
-              :
-              null
-            }
-            <MenuItem>
-              <QueryBox
-                nodes={nodes}
-                selectElement={selectElement}
-                />
-            </MenuItem>
-            <MenuItem
-              primaryText="Selection Mode"
-              onClick={this.handleToggleSelectionMode}
-              checked={selectionModeOn}
-            />
             {settings}
           </span>
           :
           null
         }
 
+        <CardActions>
+          <IconButton>
+            <ActionHome />
+          </IconButton>
+          <IconButton
+            onClick={this.handleToggleSelectionMode}
+            >
+            <ContentFilterIcon />
+          </IconButton>
+        </CardActions>
       </Card>
     )
   }

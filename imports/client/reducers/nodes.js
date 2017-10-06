@@ -10,6 +10,7 @@ const initialState = {
   ready: false,
   nodes: [],
   nodesSubscriptionStopped: false,
+  nodeCategories : []
 }
 
 

@@ -45,7 +45,7 @@ export default class NodeCategoriesMenu extends React.Component {
         <SelectField
           multiple={true}
           value={selectedNodeCategories}
-          floatingLabelText={`Nodes categories (${selectedNodeCategories.length})`}
+          floatingLabelText={`Selected categories (${selectedNodeCategories.length}/${nodeCategories.length})`}
           floatingLabelFixed={true}
           >
         {menuItems}

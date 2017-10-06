@@ -2,9 +2,15 @@ import React from 'react'
 import ui from 'redux-ui'
 
 import Drawer from 'material-ui/Drawer'
+import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
 import Subheader from 'material-ui/Subheader'
+import Divider from 'material-ui/Divider'
+
+
+import NodeCategoriesMenu from '../filters/NodeCategoriesMenu.jsx'
+import QueryBox from '../queryBox/QueryBox.jsx'
 
 import SelectedEdge from './SelectedEdge.jsx'
 import SelectedNode from './SelectedNode.jsx'
@@ -13,17 +19,25 @@ import SelectedNode from './SelectedNode.jsx'
 export default class SelectionPanel extends React.Component {
 
   handleExpandChange = () => {
-    this.props.updateUI('selectionPanelVisible', false)
-    this.props.updateUI('selectionModeOn', false)
-    this.unselectAll()
+    this.props.updateUI('filterPanelIsOpen', false)
+  }
+
+  handleClearSelection = () => {
+    this.props.unselectAllElements()
   }
 
   render() {
+
+    const {
+      selectElement,
+      nodes,
+      nodeCategories
+    } = this.props
+
     const {
       cy,
       selectedElements,
-      selectionPanelVisible,
-      selectionModeOn,
+      filterPanelIsOpen,
     } = this.props.ui
 
     const selected = !cy ? null :
@@ -51,17 +65,46 @@ export default class SelectionPanel extends React.Component {
         openSecondary={true}
         // docked={false}
         // overlayStyle={{display:'none'}}
-        open={selectionPanelVisible || selectionModeOn}
-      >
+        open={filterPanelIsOpen}
+        >
         <Subheader>
-              Selected Items
+            Filter & Selections
           <IconButton
-            onClick={this.props.unselectAllElements}
+            onClick={this.handleExpandChange}
             style={{ float:'right' }}
           >
             <ClearIcon />
           </IconButton>
         </Subheader>
+
+        { !!nodeCategories.length ?
+          <NodeCategoriesMenu
+          nodeCategories={nodeCategories}
+          />
+          :
+          null
+        }
+
+        <Divider />
+        <MenuItem
+          primaryText="Clear Selection"
+          onClick={this.handleClearSelection}
+          />
+        <MenuItem
+          animation={() => null}
+          primaryText={
+            <QueryBox
+            nodes={nodes}
+            selectElement={selectElement}
+            />
+          }
+          />
+
+      {/* <MenuItem
+        primaryText="Selection Mode"
+        checked={filterPanelIsOpen}
+      /> */}
+
         {selected}
       </Drawer>
     )
