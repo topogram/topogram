@@ -283,6 +283,14 @@ export class TopogramViewComponent extends React.Component {
 
         <TitleBox
           topogramTitle={ this.props.topogram.title }
+          selectedElements={this.props.ui.selectedElements}
+          focusElement={this.props.ui.focusElement}
+          cy={this.props.ui.cy}
+          onFocusElement={this.onFocusElement}
+          onUnfocusElement={this.onUnfocusElement}
+          selectElement={this.selectElement}
+          unselectAllElements={this.unselectAllElements}
+          unselectElement={this.unselectElement}
         />
 
         <SidePanel
@@ -301,7 +309,6 @@ export class TopogramViewComponent extends React.Component {
           selectElement={this.selectElement}
           unselectAllElements={this.unselectAllElements}
           unselectElement={this.unselectElement}
-
         />
       </div>
     )

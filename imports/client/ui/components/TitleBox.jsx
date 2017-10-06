@@ -1,8 +1,21 @@
 import React, { PropTypes } from 'react'
 
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
+import FlatButton from 'material-ui/FlatButton'
+import ClearIcon from 'material-ui/svg-icons/content/clear'
 
-const TitleBox = ({topogramTitle}) => (
+import SelectionChips from './selectionItem/SelectionChips.jsx'
+import SelectedItem from './selectionItem/SelectedItem.jsx'
+
+
+const TitleBox = ({
+  cy,
+  topogramTitle,
+  selectedElements,
+  focusElement,
+  onUnfocusElement,
+  unselectAllElements
+}) => (
   <Card
     style={{
       bottom: 10,
@@ -15,6 +28,39 @@ const TitleBox = ({topogramTitle}) => (
       title={topogramTitle}
       titleStyle={{ fontSize : '14pt', lineHeight : '1em' }}
     />
+    {
+      !!selectedElements.length ?
+      <SelectionChips
+        selectedElements={selectedElements}
+        />
+        :
+        null
+    }
+    {
+      !! selectedElements.length ?
+      <CardActions>
+        <FlatButton
+          label="Clear Selection"
+          labelPosition="before"
+          icon={<ClearIcon />}
+          onClick={unselectAllElements}
+          />
+      </CardActions>
+      :
+      null
+    }
+    {
+      !!focusElement ?
+      <SelectedItem
+        key={focusElement.data.id}
+        el={focusElement}
+        cy={cy}
+        onUnfocusElement={onUnfocusElement}
+      />
+      :
+      null
+    }
+
   </Card>
 )
 

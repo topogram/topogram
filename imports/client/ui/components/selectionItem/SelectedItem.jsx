@@ -12,16 +12,13 @@ const SelectedItem = ({
   onUnfocusElement
 }) => {
 
-  if(el.group === 'edges') {
-    const source= cy.filter(`node[id="${el.data.source}"]`),
-      target=cy.filter(`node[id="${el.data.target}"]`)
-  }
+  const source= cy.filter(`node[id="${el.data.source}"]`),
+    target=cy.filter(`node[id="${el.data.target}"]`)
 
   const title = el.group === 'nodes' ?
     el.data.name
     :
     `${source.data('name')} -> ${target.data('name')}`
-
 
   return (
     <Card

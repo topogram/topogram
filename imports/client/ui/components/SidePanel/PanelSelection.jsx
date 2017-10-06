@@ -23,44 +23,9 @@ const PanelSelection = ({
     nodes={nodes}
     selectElement={selectElement}
     />
-  {
-    selectedElements.map( (el,i) =>(
-      <Chip
-        key={`selected-item-${i}`}
-        onRequestDelete={() => unselectElement(el)}
-        backgroundColor={colors(el.data.group)}
-        onClick={() => onFocusElement(el)}
-        >
-          {textEllipsis(el.data.name, 20)}
-      </Chip>
-    ))
-  }
-  {
-    !! selectedElements.length ?
-    <MenuItem
-      primaryText="Clear Selection"
-      leftIcon={<ClearIcon />}
-      onClick={handleClearSelection}
-      style={{
-        bottom:0,
-        position: 'fixed',
-        width: '100%'
-      }}
-      />
-    :
-    null
-  }
-  {
-    !!focusElement ?
-    <SelectedItem
-      key={focusElement.data.id}
-      el={focusElement}
-      cy={cy}
-      onUnfocusElement={onUnfocusElement}
-    />
-    :
-    null
-  }
+
+
+
   </Card>
 )
 
