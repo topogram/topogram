@@ -12,12 +12,6 @@ import Home from 'material-ui/svg-icons/action/home'
 
 import About from '../components/About.jsx'
 
-const style = {
-  position : 'fixed',
-  top : '3vh',
-  right : '1vw'
-}
-
 export default class UserMenu extends React.Component {
 
 
@@ -27,7 +21,8 @@ export default class UserMenu extends React.Component {
       }),
       user : PropTypes.shape({
         isLoggedIn : PropTypes.bool
-      })
+      }),
+      style : PropTypes.object
     }
 
     logout() {
@@ -56,7 +51,7 @@ export default class UserMenu extends React.Component {
         <IconMenu
           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
           // touchTapCloseDelay={250}
-          // style={style}
+          style={this.props.style}
           onChange={this.handleChangeSingle}
           onRequestChange={(e) => this.handleRequestChange(e)}
         >

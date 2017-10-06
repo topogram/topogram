@@ -2,6 +2,9 @@ import React from 'react'
 import Snackbar from 'material-ui/Snackbar'
 
 import { FormattedMessage, defineMessages } from 'react-intl'
+
+import TopogramsLayout from './TopogramsLayout.jsx'
+
 import TopogramList from '/imports/client/ui/components/topograms/TopogramList.jsx'
 
 const messages = defineMessages({
@@ -77,8 +80,18 @@ export class HomeComponent extends React.Component {
 
 
   render() {
+
+    const {
+      user,
+      router,
+      topograms
+    } = this.props
+
     return (
-      <div>
+      <TopogramsLayout
+        user={user}
+        router={router}
+        >
         <HomeHeader />
 
         {/* <TopogramAddForm
@@ -88,11 +101,11 @@ export class HomeComponent extends React.Component {
 
 
         <TopogramList
-          topograms={this.props.topograms}
+          topograms={topograms}
           // title={<FormattedMessage {...messages.browseTopograms} />}
           title="Browse publics topograms"
           showFilters={false}
-          router={this.props.router}
+          router={router}
         />
 
         <Snackbar
@@ -101,7 +114,7 @@ export class HomeComponent extends React.Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
-      </div>
+      </TopogramsLayout>
     )
   }
 }
