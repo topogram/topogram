@@ -68,7 +68,7 @@ Topograms.helpers({
       {}
         :
       Users.findOne(
-        {_id : this.userId}, { fields: { createdAt :1 } }
+        {_id : this.userId}, { fields: { username : 1, createdAt :1 } }
       )
   },
   editableBy(userId) {
