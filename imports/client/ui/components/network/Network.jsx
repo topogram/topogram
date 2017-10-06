@@ -96,7 +96,7 @@ class Network extends React.Component {
     })
 
     // set grab / free events
-    if (this.props.ui.filterPanelIsOpen) {this.setUpClickEvents()}
+    if (!this.props.ui.isolateMode) {this.setUpClickEvents()}
     else {this.setUpGrabFreeEvents()}
 
     // store cytoscape object
@@ -112,16 +112,19 @@ class Network extends React.Component {
       nodeRadius,
       layoutName,
       filterPanelIsOpen,
-      selectedNodeCategories
+      selectedNodeCategories,
+      isolateMode
     } = nextProps.ui
+
     const { nodes, edges } = nextProps
 
     if (nextProps.width !== this.props.width) return true
     if (nextProps.height !== this.props.height) return true
 
     // selection mode : update events
-    if ( this.props.ui.filterPanelIsOpen !== filterPanelIsOpen) {
-      filterPanelIsOpen ?
+    // if ( this.props.ui.filterPanelIsOpen !== filterPanelIsOpen) {
+    if ( this.props.ui.isolateMode !== isolateMode) {
+      !isolateMode ?
         this.setUpClickEvents() // console.log('click mode')
         :
         this.setUpGrabFreeEvents() // console.log('grab/free mode')
@@ -196,7 +199,6 @@ Network.propTypes = {
   onUnfocusElement : PropTypes.func.isRequired,
   selectElement: PropTypes.func.isRequired,
   unselectElement: PropTypes.func.isRequired,
-  unselectAllElements: PropTypes.func.isRequired,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired
 }
