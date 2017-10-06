@@ -146,9 +146,9 @@ export class TopogramViewComponent extends React.Component {
     const {
       ui,
       hasTimeInfo,
+      nodeCategories,
       minTime,
-      maxTime,
-      nodeCategories
+      maxTime
     } = this.props
 
     if (hasTimeInfo && !ui.minTime && !ui.maxTime) {
@@ -165,16 +165,27 @@ export class TopogramViewComponent extends React.Component {
 
   render() {
 
-    const nodes = this.props.hasTimeInfo ?
-      this.props.nodes
-        .filter(n => new Date(this.props.ui.maxTime) >= new Date(n.data.end))
-        .filter(n => new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end))
-        .filter(n => new Date(n.data.start) >= new Date(this.props.ui.minTime))
-        .filter(n =>
-           this.props.ui.selectedNodeCategories.includes(n.data.group)
-         )
+    const {
+      hasTimeInfo,
+      nodeCategories
+    } = this.props
+
+    const filterTime = (n) => hasTimeInfo ?
+      new Date(this.props.ui.maxTime) >= new Date(n.data.end)
+      && new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end)
+      && new Date(n.data.start) >= new Date(this.props.ui.minTime)
       :
-      this.props.nodes
+      true
+
+    const filterCategories = (n) => !!nodeCategories.length ?
+      this.props.ui.selectedNodeCategories.includes(n.data.group)
+      :
+      true
+
+    const nodes =  this.props.nodes.filter(n =>
+        filterTime(n)
+        && filterCategories(n)
+      )
 
     const nodeIds = nodes.map(n => n.data.id)
 

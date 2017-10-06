@@ -46,10 +46,12 @@ class SideNav extends React.Component {
       nodes,
       edges,
       authorIsLoggedIn,
+      nodeCategories,
       topogramId,
       topogramTitle,
       topogramIsPublic
     } = this.props
+
     const {
       selectionModeOn,
       geoMapVisible
@@ -68,6 +70,8 @@ class SideNav extends React.Component {
         :
         null
 
+
+    console.log(nodeCategories);
     return (
       <Card
         style={{ maxWidth : '30%', minWidth : '25%', float : 'left' }}
@@ -84,9 +88,13 @@ class SideNav extends React.Component {
           <span>
             { geoMapVisible ? <GeoMapOptions/> : null }
             <NetworkOptions/>
-            <NodeCategoriesMenu
-              nodeCategories={this.props.nodeCategories}
+            { !!nodeCategories.length ?
+              <NodeCategoriesMenu
+              nodeCategories={nodeCategories}
               />
+              :
+              null
+            }
             <MenuItem>
               <QueryBox
                 nodes={nodes}
