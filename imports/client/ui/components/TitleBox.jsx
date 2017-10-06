@@ -11,10 +11,14 @@ import SelectedItem from './selectionItem/SelectedItem.jsx'
 const TitleBox = ({
   cy,
   topogramTitle,
+
   selectedElements,
+  unselectElement,
+  unselectAllElements,
+
   focusElement,
-  onUnfocusElement,
-  unselectAllElements
+  onFocusElement,
+  onUnfocusElement
 }) => (
   <Card
     style={{
@@ -32,6 +36,8 @@ const TitleBox = ({
       !!selectedElements.length ?
       <SelectionChips
         selectedElements={selectedElements}
+        unselectElement={unselectElement}
+        onFocusElement={onFocusElement}
         />
         :
         null
@@ -40,7 +46,7 @@ const TitleBox = ({
       !! selectedElements.length ?
       <CardActions>
         <FlatButton
-          label="Clear Selection"
+          label="Clear All"
           labelPosition="before"
           icon={<ClearIcon />}
           onClick={unselectAllElements}

@@ -273,8 +273,8 @@ export class TopogramViewComponent extends React.Component {
           edges={ edges }
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
-          focusElement={this.onFocusElement}
-          unFocusElement={this.onUnfocusElement}
+          onFocusElement={this.onFocusElement}
+          onUnfocusElement={this.onUnfocusElement}
           onClickElement={this.onClickElement}
           selectElement={this.selectElement}
           unselectElement={this.unselectElement}

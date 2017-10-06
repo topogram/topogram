@@ -22,6 +22,7 @@ const styles = {
 const SelectionChips = ({
   selectedElements,
   selectElement,
+  unselectElement,
   onFocusElement
 }) => (
   <CardText style={styles.wrapper}>

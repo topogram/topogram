@@ -26,9 +26,9 @@ class Network extends React.Component {
         this.props.selectElement(e.cyTarget.json())
       )
       .on('tap', 'edge', e => e.cyTarget.data('selected') ?
-        this.props.unselectElement(e.cyTarget.json())
+        this.props.onUnfocusElement(e.cyTarget.json())
         :
-        this.props.selectElement(e.cyTarget.json())
+        this.props.onFocusElement(e.cyTarget.json())
       )
   }
 
@@ -37,10 +37,10 @@ class Network extends React.Component {
       .off('free', 'node')  // reset
       .off('free', 'edge')  // reset
       .off('tap', 'node')
-      .on('grab', 'node', e => this.props.focusElement(e.cyTarget.json()))
-      .on('free', 'node', () => this.props.unFocusElement())
-      .on('tapstart', 'edge', e => this.props.focusElement(e.cyTarget.json()))
-      .on('tapend', 'edge', () => this.props.unFocusElement())
+      .on('grab', 'node', e => this.props.onFocusElement(e.cyTarget.json()))
+      .on('free', 'node', () => this.props.onUnfocusElement())
+      .on('tapstart', 'edge', e => this.props.onFocusElement(e.cyTarget.json()))
+      .on('tapend', 'edge', () => this.props.onUnfocusElement())
   }
 
   componentDidMount() {
@@ -187,8 +187,8 @@ Network.propTypes = {
   edgesReady : PropTypes.bool,
   style : PropTypes.object,
   layoutName : PropTypes.string,
-  focusElement : PropTypes.func.isRequired,
-  unFocusElement : PropTypes.func.isRequired,
+  onFocusElement : PropTypes.func.isRequired,
+  onUnfocusElement : PropTypes.func.isRequired,
   selectElement: PropTypes.func.isRequired,
   unselectElement: PropTypes.func.isRequired,
   unselectAllElements: PropTypes.func.isRequired,
