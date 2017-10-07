@@ -38,7 +38,7 @@ const TopogramListItem = ({
       titleStyle={{ fontSize:'13pt', lineHeight:'1.1em', paddingBottom : '.2em' }}
       subtitle={<span>{moment(lastModified).fromNow()}</span>}
       actAsExpander={true}
-      showExpandableButton={!!topogramDescription}
+      // showExpandableButton={!!topogramDescription}
       subtitle={
         <span>
           { author ? `By ${author ? author : 'Author'}` : 'Anonymous' } &bull; {moment(lastModified).fromNow()}
@@ -46,12 +46,12 @@ const TopogramListItem = ({
       }
     />
     {
-      topogramDescription?
-      <CardText expandable={true}>
-        <Markdown source={topogramDescription} />
-      </CardText>
-      :
-      null
+      // topogramDescription?
+      // <CardText expandable={true}>
+      //   <Markdown source={topogramDescription} />
+      // </CardText>
+      // :
+      // null
     }
     <CardActions>
       <FlatButton
