@@ -68,7 +68,7 @@ if (Meteor.isServer) {
           assert.equal(Nodes.findOne().position.y,2)
 
           const position = { x: 2, y: 3}
-          moveNode("myid", position)
+          moveNode("myid", position, topogramId)
           assert.equal(Nodes.findOne().position.x, 2)
           assert.equal(Nodes.findOne().position.y, 3)
 

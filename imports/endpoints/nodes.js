@@ -11,8 +11,8 @@ export const createNodes = (topogramId, nodes) =>
 export const updateNode = (nodeId, data) =>
   nodeUpdate.call({ nodeId, data })
 
-export const moveNode = (nodeId, position) =>
-  nodeMove.call({ nodeId, position })
+export const moveNode = (nodeId, position, topogramId) =>
+  nodeMove.call({ nodeId, position, topogramId })
 
 export const deleteNodes = (nodeIds) =>
   nodeDeleteMany.call({ nodeIds })
