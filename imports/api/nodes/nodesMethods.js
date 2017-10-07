@@ -5,7 +5,7 @@ import { bulkCollectionUpdate } from 'meteor/udondan:bulk-collection-update'
 import { ValidatedMethod } from 'meteor/mdg:validated-method'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 
-import logger from '../../logger.js'
+// import logger from '../../logger.js'
 
 // const NODE_ID_ONLY = new SimpleSchema({
 //   nodeId: Nodes.simpleSchema().schema('_id'),
@@ -313,7 +313,7 @@ Meteor.methods( {
     bulkCollectionUpdate(Nodes, nodes, {
       primaryKey : '_id',
       callback() {
-        logger.log('Nodes positions updated.')
+        // logger.log('Nodes positions updated.')
       }
     })
   },
