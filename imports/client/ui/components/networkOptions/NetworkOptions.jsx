@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/MenuItem'
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 
 const layouts = [
+  'preset',
   'cose', // uncaught 'prototype' Error
   'spread', // CPU overhead
   'random',

@@ -27,6 +27,7 @@ const TopogramListItem = ({
   topogramDescription,
   topogramId,
   lastModified,
+  author
   // topogramSharedPublic,
   // router
 }) => (
@@ -38,6 +39,11 @@ const TopogramListItem = ({
       subtitle={<span>{moment(lastModified).fromNow()}</span>}
       actAsExpander={true}
       showExpandableButton={!!topogramDescription}
+      subtitle={
+        <span>
+          { author ? `By ${author ? author : 'Author'}` : 'Anonymous' } &bull; {moment(lastModified).fromNow()}
+        </span>
+      }
     />
     {
       topogramDescription?
@@ -70,6 +76,7 @@ const TopogramListItem = ({
 )
 
 TopogramListItem.propTypes = {
+  author : PropTypes.string,
   topogramTitle: PropTypes.string.isRequired,
   topogramDescription: PropTypes.string,
   topogramId: PropTypes.string.isRequired,

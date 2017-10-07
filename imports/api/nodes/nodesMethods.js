@@ -183,12 +183,13 @@ export const nodeUpdate = new ValidatedMethod({
 export const nodeMove = new ValidatedMethod({
   name: 'node.move',
   validate: new SimpleSchema({
-    'nodeId': { type: String },
+    'topogramId': { type: String },
+    'nodeId'    : { type: String },
     'position.x': { type: Number },
     'position.y': { type: Number }
   }).validator(), // TODO :check if ID exists,
-  run({ nodeId, position }) {
-    return Nodes.update({ 'data.id': nodeId }, { $set: { position } })
+  run({ topogramId, nodeId, position }) {
+    return Nodes.update({ 'topogramId': topogramId,'data.id': nodeId }, { $set: { position } })
   }
 })
 

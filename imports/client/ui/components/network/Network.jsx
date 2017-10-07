@@ -4,7 +4,7 @@ import ui from 'redux-ui'
 import Cytoscape from './Cytoscape.jsx'
 import NetworkDefaultStyle from './NetworkDefaultStyle'
 
-// import { nodeMove } from '/imports/api/nodes/nodesMethods'
+import { nodeMove } from '/imports/api/nodes/nodesMethods'
 
 @ui()
 class Network extends React.Component {
@@ -20,8 +20,25 @@ class Network extends React.Component {
       .off('free', 'node')  // reset
       .off('tapstart', 'edge')  // reset
       .off('tapend', 'edge')  // reset
-      .on('tap', 'node', e => this.props.onClickElement(e.cyTarget))
-      .on('tap', 'edge', e => this.props.onClickElement(e.cyTarget))
+      .on('tap', 'node', e => e.cyTarget.data('selected') ?
+        this.props.unselectElement(e.cyTarget.json())
+        :
+        this.props.selectElement(e.cyTarget.json())
+      )
+      .on('tap', 'edge', e => e.cyTarget.data('selected') ?
+        this.props.unselectElement(e.cyTarget.json())
+        :
+        this.props.selectElement(e.cyTarget.json())
+      )
+      .on('free','node', e => {
+        let node = e.cyTarget
+        let position = node.position()
+        const topogramId = this.props.topogramId
+
+        // Truncate postion values to integers
+        Object.keys(position).map( n => position[n] = Math.trunc(position[n]))
+        nodeMove.call({ topogramId : topogramId, nodeId : node.id(), position : position})
+      })
   }
 
   setUpGrabFreeEvents() {
@@ -29,10 +46,10 @@ class Network extends React.Component {
       .off('free', 'node')  // reset
       .off('free', 'edge')  // reset
       .off('tap', 'node')
-      .on('grab', 'node', e => this.props.selectElement(e.cyTarget))
-      .on('free', 'node', () => this.props.unselectAllElements())
-      .on('tapstart', 'edge', e => this.props.selectElement(e.cyTarget))
-      .on('tapend', 'edge', () => this.props.unselectAllElements())
+      .on('grab', 'node', e => this.props.onFocusElement(e.cyTarget.json()))
+      .on('free', 'node', () => this.props.onUnfocusElement())
+      .on('tapstart', 'edge', e => this.props.onFocusElement(e.cyTarget.json()))
+      .on('tapend', 'edge', () => this.props.onUnfocusElement())
   }
 
   componentDidMount() {
@@ -41,6 +58,7 @@ class Network extends React.Component {
 
     // set default events
     cy.on('mouseover', 'node', e => {
+
       const node = e.cyTarget
       node.style({
         'border-width': 2,
@@ -51,18 +69,20 @@ class Network extends React.Component {
         },
         'z-index': 300000
       })
-      const edges = e.cyTarget.connectedEdges()
-      edges.css({
-        // 'line-color' : function(d) {
-        //     return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
-        //   },
-        'opacity' : '1'
-      })
-      cy.edges().difference( edges ).css({
-        'opacity' : '.2'
-      })
+      if (!this.props.ui.isolateMode) {
+        const edges = e.cyTarget.connectedEdges()
+        edges.css({
+          // 'line-color' : function(d) {
+          //     return d.style('line-color') == "#D84315" ? "#AAAAAA" : "#D84315"
+          //   },
+          'opacity' : '1'
+        })
+        cy.edges().difference( edges ).css({
+          'opacity' : '.2'
+        })
+      }
     })
-      .on('mouseout', 'node', e => {
+    .on('mouseout', 'node', e => {
         e.cyTarget.style({
           'border-width'(d) {
             return (d.data('group') == 'ghosts') ? 3 : 0
@@ -79,11 +99,13 @@ class Network extends React.Component {
         //     }
         // })
         // reset opacity
+      if(!this.props.ui.isolateMode) {
         cy.edges().css({ 'opacity' : '.7' })
-      })
+      }
+    })
 
     // set grab / free events
-    if (this.props.ui.selectionModeOn) {this.setUpClickEvents()}
+    if (!this.props.ui.isolateMode) {this.setUpClickEvents()}
     else {this.setUpGrabFreeEvents()}
 
     // store cytoscape object
@@ -95,15 +117,23 @@ class Network extends React.Component {
 
     let shouldUpdate = false
 
-    const { nodeRadius, layoutName, selectionModeOn } = nextProps.ui
+    const {
+      nodeRadius,
+      layoutName,
+      filterPanelIsOpen,
+      selectedNodeCategories,
+      isolateMode
+    } = nextProps.ui
+
     const { nodes, edges } = nextProps
 
     if (nextProps.width !== this.props.width) return true
     if (nextProps.height !== this.props.height) return true
 
     // selection mode : update events
-    if ( this.props.ui.selectionModeOn !== selectionModeOn) {
-      selectionModeOn ?
+    // if ( this.props.ui.filterPanelIsOpen !== filterPanelIsOpen) {
+    if ( this.props.ui.isolateMode !== isolateMode) {
+      !isolateMode ?
         this.setUpClickEvents() // console.log('click mode')
         :
         this.setUpGrabFreeEvents() // console.log('grab/free mode')
@@ -115,12 +145,21 @@ class Network extends React.Component {
     if ( this.props.nodes.length !== nodes.length) shouldUpdate = true
     if ( this.props.edges.length !== edges.length) shouldUpdate = true
 
+    // selected CATEGORIES
+    if ( this.props.ui.selectedNodeCategories.length !== selectedNodeCategories.length) shouldUpdate = true
+
     if ( (!!nodes.length && edges.length) && !this.state.init) {
       shouldUpdate = true
       this.setState({ init : true })
     }
 
     // TODO : proper nodes/edges diff...
+    this.props.nodes.forEach((el, ix) => {
+                                if ( JSON.stringify(el) != JSON.stringify(nodes[ix]) ) {
+                                  shouldUpdate = true
+                                }
+    })
+
     return shouldUpdate
   }
 
@@ -130,11 +169,22 @@ class Network extends React.Component {
 
   render() {
 
-    // make sure nodes & edges are there
-    const { nodes, height, edges, width } = this.props
-    const { layoutName, nodeRadius } = this.props.ui
+    const {
+      nodes,
+      height,
+      edges,
+      width
+    } = this.props
 
-    const elements = {}
+    const {
+      layoutName,
+      nodeRadius
+    } = this.props.ui
+
+    const elements = {
+      nodes: [],
+      edges : []
+    }
     if (nodes.length) elements.nodes = nodes
     if (edges.length) elements.edges = edges
 
@@ -154,15 +204,17 @@ class Network extends React.Component {
 }
 
 Network.propTypes = {
+  topogramId : PropTypes.string.isRequired,
   nodes : PropTypes.array,
   nodesReady : PropTypes.bool,
   edges : PropTypes.array,
   edgesReady : PropTypes.bool,
   style : PropTypes.object,
   layoutName : PropTypes.string,
-  onClickElement: PropTypes.func.isRequired,
+  onFocusElement : PropTypes.func.isRequired,
+  onUnfocusElement : PropTypes.func.isRequired,
   selectElement: PropTypes.func.isRequired,
-  unselectAllElements: PropTypes.func.isRequired,
+  unselectElement: PropTypes.func.isRequired,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired
 }

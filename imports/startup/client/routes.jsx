@@ -26,6 +26,8 @@ export const renderRoutes = () => (
           component={TopogramsPrivateListContainer}/>
         <Route path="topograms/:topogramId"
           component={TopogramViewContainer}/>
+        <Route path="topograms/:topogramId/view"
+          component={TopogramViewContainer}/>
         <Route path="/signup"
           component={SignUpPage}/>
         <Route path="/login"

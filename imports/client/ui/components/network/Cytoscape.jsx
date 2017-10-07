@@ -59,7 +59,7 @@ class Cytoscape extends Component {
   applyLayout(layoutName) {
     const layoutConfig = {
       name : layoutName,
-      animate: false,
+      animate: false
     }
 
     if (layoutName == 'spread') {

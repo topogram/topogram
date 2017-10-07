@@ -84,10 +84,10 @@ Api.addCollection(Topograms, {
     post: {
       action() {
         const data = createTopogram({
-          name : this.bodyParams.name,
+          title : this.bodyParams.title,
           userId: this.userId
         })
-        if (data.body.status === 'error') return data
+        if (typeof(data.body) !== 'undefined' && data.body.status === 'error') return data
         return buildSuccessAnswer({ statusCode : 201, data })
       }
     },
@@ -105,10 +105,10 @@ Api.addRoute('topograms/getByName', {
   post: {
     authRequired: false,
     action() {
-      const name = this.bodyParams.name
+      const title = this.bodyParams.name
       return buildSuccessAnswer({
         'statusCode': 200,
-        'data' : Topograms.findOne({ name }, { _id : 1 })
+        'data' : Topograms.findOne({ "title":title })
       })
     }
   }

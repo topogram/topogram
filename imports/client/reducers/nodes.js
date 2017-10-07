@@ -10,6 +10,7 @@ const initialState = {
   ready: false,
   nodes: [],
   nodesSubscriptionStopped: false,
+  nodeCategories : []
 }
 
 
@@ -28,6 +29,7 @@ export function nodes(state = initialState, action) {
       .map(d => JSON.parse(JSON.stringify(d)))
       .map( (n,i) => {
         n.data.i = i // add index as reference
+        n.storedPosition = Object.assign({}, n.position) // backup position from the db
         return n
       })
 
@@ -43,6 +45,13 @@ export function nodes(state = initialState, action) {
 
     const hasTimeInfo = !!(starts.length || ends.length)
 
+    const nodeCategories = [
+      ...new Set(
+        nodes.map(n => n.data.group)
+          .filter(n => !!n)
+      )
+    ]
+
     const latLngs = nodes
       .filter(n => !!(n.data.lat && n.data.lng))
 
@@ -53,6 +62,7 @@ export function nodes(state = initialState, action) {
       nodes,
       hasTimeInfo,
       hasGeoInfo,
+      nodeCategories,
       minTime: starts[0],
       maxTime: ends[0]
     }

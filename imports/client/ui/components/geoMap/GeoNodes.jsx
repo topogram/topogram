@@ -5,35 +5,43 @@ export default class GeoNodes extends React.Component {
 
   static propTypes = {
     nodes : PropTypes.array.isRequired,
-    selectionModeOn : PropTypes.bool,
-    onClickGeoElement : PropTypes.func.isRequired,
-    selectGeoElement : PropTypes.func.isRequired,
-    unselectGeoElement : PropTypes.func.isRequired,
-    unselectAllElements : PropTypes.func.isRequired
+    isolateMode : PropTypes.bool,
+    handleClickGeoElement : PropTypes.func.isRequired,
+    onFocusElement : PropTypes.func.isRequired,
+    onUnfocusElement : PropTypes.func.isRequired
   }
 
+
   render() {
-    const { selectionModeOn } = this.props
+    const {
+      isolateMode,
+      handleClickGeoElement,
+      onFocusElement,
+      onUnfocusElement
+    } = this.props
+
     const nodes = this.props.nodes.map((n,i) => {
-      const filter = `node[i=${i}]`
       return (
         <CircleMarker
           radius={10}
           key={`node-${i}`}
           center={n.coords}
           color={n.data.selected ? 'yellow' : 'steelblue'}
-          onClick={() => selectionModeOn ?
-            this.props.onClickGeoElement(filter)
+          onClick={() => !isolateMode ?
+            handleClickGeoElement({
+              group : 'node',
+              el: n
+            })
             :
             null
           }
-          onMouseDown={() => !selectionModeOn ?
-            this.props.selectGeoElement(filter)
+          onMouseDown={() => isolateMode ?
+            onFocusElement(n)
             :
             null
           }
-          onMouseUp={()=> !selectionModeOn ?
-            this.props.unselectAllElements()
+          onMouseUp={()=> isolateMode ?
+            onUnfocusElement()
             :
             null
           }
