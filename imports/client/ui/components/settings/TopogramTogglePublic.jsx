@@ -2,6 +2,9 @@ import React, { PropTypes } from 'react'
 
 import MenuItem from 'material-ui/MenuItem'
 import { topogramTogglePublic } from '../../../../api/topograms/topogramsMethods.js'
+import WorldIcon from 'material-ui/svg-icons/social/public'
+import CheckedIcon from 'material-ui/svg-icons/navigation/check'
+
 
 export default class TopogramTogglePublic extends React.Component {
 
@@ -18,9 +21,15 @@ export default class TopogramTogglePublic extends React.Component {
   render() {
     return (
       <MenuItem
-        checked={this.props.topogramSharedPublic}
+        rightIcon={
+          this.props.topogramSharedPublic ? <CheckedIcon /> : null
+        }
+        style={
+          this.props.topogramSharedPublic ? {color : '#BDBDBD'} : {}
+        }
         primaryText={this.props.topogramSharedPublic ? 'Is Visible Online' : 'Share Publicly'}
         onClick={this.handleOnClick}
+        leftIcon={<WorldIcon />}
       />
     )
   }

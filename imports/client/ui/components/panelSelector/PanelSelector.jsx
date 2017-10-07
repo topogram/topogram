@@ -1,15 +1,10 @@
 import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
-import Paper from 'material-ui/Paper'
+import Menu from 'material-ui/Menu'
+import MenuItem from 'material-ui/MenuItem'
 import Checkbox from 'material-ui/Checkbox'
 
-const buttonGroupStyle = {
-  left :20,
-  position : 'absolute',
-  display: 'flex',
-  flexDirection: 'row'
-}
 
 const buttonStyle = {
   margin: 2,
@@ -21,8 +16,8 @@ export default class PanelSelector extends React.Component {
 
   static propTypes = {
     bottom : PropTypes.string,
-    hasGeoInfo : PropTypes.bool,
-    hasTimeInfo : PropTypes.bool
+    hasGeoInfo : PropTypes.bool.isRequired,
+    hasTimeInfo : PropTypes.bool.isRequired
   }
 
   toggleGeo() {
@@ -48,41 +43,48 @@ export default class PanelSelector extends React.Component {
       graphVisible
     } = this.props.ui
 
-    const { bottom, hasGeoInfo, hasTimeInfo } = this.props
+    const {
+      bottom,
+      hasGeoInfo,
+      hasTimeInfo
+    } = this.props
 
     return (
-      <div style={Object.assign({}, buttonGroupStyle, { bottom })}>
-        <Paper style={buttonStyle}>
+      <Menu
+        desktop={true}
+        style={{maxWidth:'100%'}}
+        >
+        <MenuItem style={buttonStyle}>
           <Checkbox
             label={ 'Graph'}
             checked={graphVisible}
             onClick={ () => this.toggleGraph()}
           />
-        </Paper>
-        <Paper style={buttonStyle}>
+        </MenuItem>
+        <MenuItem style={buttonStyle}>
           <Checkbox
             label={'Geo'}
             checked={geoMapVisible}
             disabled={!hasGeoInfo}
             onClick={ () => this.toggleGeo()}
           />
-        </Paper>
-        <Paper style={buttonStyle}>
+        </MenuItem>
+        <MenuItem style={buttonStyle}>
           <Checkbox
             label={'Time'}
             checked={timeLineVisible}
             disabled={!hasTimeInfo}
             onClick={ () => this.toggleTimeline()}
           />
-        </Paper>
-        {/* <Paper style={buttonStyle}>
+        </MenuItem>
+        {/* <MenuItem style={buttonStyle}>
           <Checkbox
             label={"Selection"}
             checked={selectionPanelPinned}
             onClick={ () => this.toggleSelectionPanel()}
           />
-        </Paper> */}
-      </div>
+        </MenuItem> */}
+      </Menu>
     )
   }
 }

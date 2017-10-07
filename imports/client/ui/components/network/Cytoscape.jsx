@@ -67,12 +67,6 @@ class Cytoscape extends Component {
       layoutConfig.padding= 80  // Padding
     }
 
-    if (layoutName == 'preset') {
-      const {nodes} = this.props.elements
-      // get positions from the db
-      layoutConfig.positions = (n) => (nodes[n.data('i')].storedPosition)
-    }
-
     this.cy.layout(layoutConfig)
   }
 

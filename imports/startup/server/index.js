@@ -9,6 +9,7 @@
 import '/imports/api/edges/edgesMethods.js'
 import '/imports/api/nodes/nodesMethods.js'
 import '/imports/api/topograms/topogramsMethods.js'
+import '/imports/api/users/userMethods.js'
 // import '/imports/api/comments/commentsMethods.js'
 
 // some helpers

@@ -12,12 +12,19 @@ Meteor.publish( 'topograms.private', function topogramsPrivate() {
 } )
 
 Meteor.publish( 'topograms.public', function topogramsPrivate() {
-  return Topograms.find({
-    'sharedPublic' : true
-  }, {
-    'sort': { 'createdAt': -1 },
-    'limit': 20
-  })
+
+  Topograms.find({'sharedPublic' : true},
+    {
+      'sort': { 'createdAt': -1 },
+      'limit': 20
+    }
+  )
+  .forEach( t => {
+      const author = t.author()
+      this.added("topograms", t._id, {...t, author});
+        });
+
+  this.ready();
 })
 
 /*

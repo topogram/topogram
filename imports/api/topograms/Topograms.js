@@ -2,6 +2,8 @@ import { Mongo } from 'meteor/mongo'
 import { SimpleSchema } from 'meteor/aldeed:simple-schema'
 
 import { Nodes } from '../nodes/Nodes.js'
+import { Meteor } from 'meteor/meteor'
+const Users = Meteor.users  // alias Users : handle by Meteor.users
 
 class TopogramsCollection extends Mongo.Collection {
 
@@ -60,6 +62,14 @@ Topograms.helpers({
   },
   isPrivate() {
     return !!this.userId || !!this.sharedPublic
+  },
+  author() {
+    return !this.userId ?
+      {}
+        :
+      Users.findOne(
+        {_id : this.userId}, { fields: { username : 1, createdAt :1 } }
+      )
   },
   editableBy(userId) {
     if (!this.userId) return true
