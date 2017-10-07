@@ -54,7 +54,11 @@ if (Meteor.isServer) {
 
           // and never modified
           let position = { x : 10, y : 10 }
-          nodeMove._execute({}, { nodeId : n.data.id,  position } );
+          nodeMove._execute({}, {
+            nodeId : n.data.id,
+            position,
+            topogramId
+          });
 
           assert.equal( Nodes.findOne(nodeId).data.id, idBefore)
           done()
@@ -93,7 +97,12 @@ if (Meteor.isServer) {
 
           // and never modified
           let position = { x : 10, y : 10 }
-          nodeMove._execute({}, { nodeId : n.data.id,  position } );
+          nodeMove._execute({}, {
+            nodeId : n.data.id,
+            position,
+            topogramId
+          });
+
           let nAfter = Nodes.findOne()
           assert.equal( n.createdAt.getTime(), nAfter.createdAt.getTime())
           done()
@@ -110,7 +119,12 @@ if (Meteor.isServer) {
 
           // and never modified
           let position = { x : 10, y : 10 }
-          nodeMove._execute({}, { nodeId : n.data.id,  position } );
+          nodeMove._execute({}, {
+            nodeId : n.data.id,
+            position,
+            topogramId
+          });
+
           let nAfter = Nodes.findOne()
           assert.notEqual( n.createdAt.getTime(), nAfter.updatedAt.getTime())
           assert.isAbove( nAfter.updatedAt.getTime(), n.createdAt.getTime())
@@ -198,7 +212,11 @@ if (Meteor.isServer) {
           let position = { x : 10, y : 10 }
           let nodeBefore = Nodes.findOne(nodeId) // get data id
 
-          nodeMove._execute({}, { nodeId : nodeBefore.data.id,  position } );
+          nodeMove._execute({}, {
+            nodeId : nodeBefore.data.id,
+            position,
+            topogramId
+          });
 
           let nodeAfter = Nodes.findOne(nodeId)
 
