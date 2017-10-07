@@ -2,8 +2,11 @@ import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
-import SideNav from '/imports/client/ui/components/SideNav.jsx'
-import SelectionPanel from '/imports/client/ui/components/selectionPanel/SelectionPanel.jsx'
+import TitleBox from '/imports/client/ui/components/TitleBox.jsx'
+import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
+
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ExploreIcon from 'material-ui/svg-icons/action/explore';
 
 // UI state default values
 @ui({
@@ -13,20 +16,22 @@ import SelectionPanel from '/imports/client/ui/components/selectionPanel/Selecti
     minTime : null,
     maxTime : null,
     currentSliderTime : () => new Date().getTime(), // TODO set default to minTime
+    selectedNodeCategories: [],
     // viz layout settings
     graphVisible : true, // default to graph view
     geoMapVisible : false,
     timeLineVisible : false,
-    // selectionPanelVisible : false,
     // network/map
     layoutName : 'preset',
     nodeRadius : 'degree',
     geoMapTile : 'default',
     // selection
-    selectionModeOn : false,
-    selectionPanelVisible : false,
     selectedElements : [],
-    cy : null // cytoscape graph
+    focusElement: null,
+    cy : null, // cytoscape graph
+    // isolate
+    isolateMode : false,
+    prevPositions : null
   }
 })
 export class TopogramViewComponent extends React.Component {
@@ -38,6 +43,7 @@ export class TopogramViewComponent extends React.Component {
     hasGeoInfo: PropTypes.bool,
     maxTime: PropTypes.instanceOf(Date),
     minTime: PropTypes.instanceOf(Date),
+    nodeCategories: PropTypes.array,
     nodes: PropTypes.array,
     edges: PropTypes.array,
     topogram: PropTypes.object,
@@ -58,7 +64,7 @@ export class TopogramViewComponent extends React.Component {
 
   constructor(props) {
     super(props)
-    this.toggleSideNav = this.toggleSideNav.bind(this)
+    this.toggleTitleBox = this.toggleTitleBox.bind(this)
 
     // snackbar
     this.state = {
@@ -81,7 +87,129 @@ export class TopogramViewComponent extends React.Component {
     this.props.stopTopogramSubscription()
   }
 
-  toggleSideNav() {
+  handleToggleSelectionMode = () =>
+    this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
+
+  handleEnterIsolateMode = () => {
+
+    const {
+      cy,
+      selectedElements,
+      isolateMode
+    } = this.props.ui
+
+    // store previous nodes position
+    const prevPositions = {}
+    if (!isolateMode) {
+      cy.nodes().forEach(n =>
+        prevPositions[n.id()] = {...n.position()}
+      )
+      this.props.updateUI('prevPositions', {...prevPositions})
+    }
+
+    // isolate mode ON
+    this.props.updateUI('isolateMode', true)
+
+    // get my nodes/edges
+    const selectedIds = selectedElements.map(e => e.data.id)
+    const focusedNodes = cy.filter((i, e) =>
+      selectedIds.includes(e.id())
+    )
+
+    cy.nodes().style({ 'opacity': '0' });
+    cy.edges().style({ 'opacity': '0' });
+
+    // select
+    var subGraph = focusedNodes.openNeighborhood();
+    focusedNodes.style({ 'opacity': '1' });
+    subGraph.style({ 'opacity': '1'});
+
+    // apply focus layout
+    subGraph.layout({
+      'name':"spread",
+      'minDist' : 30,
+      'padding' : 50
+    })
+  }
+
+  handleExitIsolateMode = () => {
+
+    const {
+      cy,
+      prevPositions
+    } = this.props.ui
+
+    // isolate mode ON
+    this.props.updateUI('isolateMode', false)
+
+    // show all again
+    cy.nodes().style({ 'opacity': '1' });
+    cy.edges().style({ 'opacity': '1' });
+
+    // bring back positions
+    cy.nodes().positions((i,n) => prevPositions[n.id()])
+    this.props.updateUI('prevPositions', null)
+
+    cy.fit()
+  }
+
+
+  onFocusElement = (el) => this.props.updateUI('focusElement', el)
+  onUnfocusElement = () => this.props.updateUI('focusElement', null)
+
+  selectElement = (el) => {
+
+    el.data.selected = true
+
+    const { cy } = this.props.ui
+    let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
+    cy.filter(filter).data('selected', true)
+
+    this.props.updateUI(
+      'selectedElements',
+      [...this.props.ui.selectedElements, el]
+    )
+
+  }
+
+  unselectElement = (el) => {
+
+    el.data.selected = false
+
+    const { cy, isolateMode } = this.props.ui
+    let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
+    cy.filter(filter).data('selected', false)
+
+    const {selectedElements} = this.props.ui
+
+    const remainingElements = [...
+        selectedElements.filter(n =>
+          !(
+            n.data.id === el.data.id
+            &&
+            n.group === el.group
+          )
+        )
+    ]
+
+    this.props.updateUI('selectedElements', remainingElements)
+    console.log(remainingElements, isolateMode);
+
+    if(!remainingElements.length && isolateMode)
+      this.handleExitIsolateMode()
+  }
+
+  unselectAllElements = () => {
+    const { cy, selectedElements } = this.props.ui
+
+    cy.elements().data('selected', false)
+    selectedElements.forEach(el=> el.data.selected = false)
+
+    this.props.updateUI('selectedElements', [])
+
+  }
+
+  toggleTitleBox() {
     const toggled = this.refs.sideNav.state.open ? false : true
     this.refs.sideNav.setState({ open : toggled })
   }
@@ -99,28 +227,57 @@ export class TopogramViewComponent extends React.Component {
     })
   }
 
-  componentWillUpdate() {
+  componentWillUpdate(nextProps) {
 
     // // show timeline if time info
     // if (this.props.hasTimeInfo)
     //   this.props.updateUI('timeLineVisible', true)
 
-    if (this.props.hasTimeInfo && !this.props.ui.minTime && !this.props.ui.maxTime) {
+    const {
+      ui,
+      hasTimeInfo,
+      nodeCategories,
+      minTime,
+      maxTime
+    } = this.props
+
+    if (hasTimeInfo && !ui.minTime && !ui.maxTime) {
       // pass value to UI as default
-      this.props.updateUI('minTime', this.props.minTime)
-      this.props.updateUI('maxTime', this.props.maxTime)
+      this.props.updateUI('minTime', minTime)
+      this.props.updateUI('maxTime', maxTime)
     }
+
+    // default value to all
+    if (nodeCategories && !ui.selectedNodeCategories.length)
+      this.props.updateUI('selectedNodeCategories', nodeCategories)
+
   }
 
   render() {
 
-    const nodes = this.props.hasTimeInfo ?
-      this.props.nodes
-        .filter(n => new Date(this.props.ui.maxTime) >= new Date(n.data.end))
-        .filter(n => new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end))
-        .filter(n => new Date(n.data.start) >= new Date(this.props.ui.minTime))
+    const {
+      hasTimeInfo,
+      nodeCategories,
+      user,
+      router
+    } = this.props
+
+    const filterTime = (n) => hasTimeInfo ?
+      new Date(this.props.ui.maxTime) >= new Date(n.data.end)
+      && new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end)
+      && new Date(n.data.start) >= new Date(this.props.ui.minTime)
       :
-      this.props.nodes
+      true
+
+    const filterCategories = (n) => !!nodeCategories.length ?
+      this.props.ui.selectedNodeCategories.includes(n.data.group)
+      :
+      true
+
+    const nodes =  this.props.nodes.filter(n =>
+        filterTime(n)
+        && filterCategories(n)
+      )
 
     const nodeIds = nodes.map(n => n.data.id)
 
@@ -135,28 +292,68 @@ export class TopogramViewComponent extends React.Component {
     return (
       <div>
 
+        <FloatingActionButton
+          style={{
+            position: 'fixed',
+            right: '20px',
+            top: '20px'
+          }}
+          onClick={this.handleToggleSelectionMode}
+          >
+          <ExploreIcon />
+        </FloatingActionButton>
+
         <MainViz
           topogramId={ this.props.params.topogramId }
           nodes={ nodes }
           edges={ edges }
+          onFocusElement={this.onFocusElement}
+          onUnfocusElement={this.onUnfocusElement}
+          onClickElement={this.onClickElement}
+          selectElement={this.selectElement}
+          unselectElement={this.unselectElement}
+          unselectAllElements={this.unselectAllElements}
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
         />
-        { this.props.ui.filterPanelIsOpen ?
-          <SideNav
-            topogramId={ this.props.params.topogramId }
-            topogramTitle={ this.props.topogram.title }
-            authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
-            topogramIsPublic={ this.props.topogram.sharedPublic }
-            nodes={ nodes }
-            edges={ edges }
-            router={this.props.router}
-          />
-          :
-          null
-        }
-        <SelectionPanel
-          open={!!this.props.ui.selectionPanelVisible}
+
+        <TitleBox
+          topogramTitle={ this.props.topogram.title }
+          selectedElements={this.props.ui.selectedElements}
+          focusElement={this.props.ui.focusElement}
+          cy={this.props.ui.cy}
+          onFocusElement={this.onFocusElement}
+          onUnfocusElement={this.onUnfocusElement}
+          isolateMode={this.props.ui.isolateMode}
+          handleEnterIsolateMode={this.handleEnterIsolateMode}
+          handleExitIsolateMode={this.handleExitIsolateMode}
+          selectElement={this.selectElement}
+          unselectAllElements={this.unselectAllElements}
+          unselectElement={this.unselectElement}
+        />
+
+        <SidePanel
+          nodes={ nodes }
+          edges={ edges }
+          topogram={ this.props.topogram }
+          nodeCategories={this.props.nodeCategories}
+
+          user={user}
+          router={router}
+
+          hasTimeInfo={ this.props.hasTimeInfo }
+          hasGeoInfo={ this.props.hasGeoInfo }
+
+          open={this.props.ui.filterPanelIsOpen}
+
+          router={this.props.router}
+          authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
+
+          onFocusElement={this.onFocusElement}
+          onUnfocusElement={this.onUnfocusElement}
+          selectElement={this.selectElement}
+          unselectAllElements={this.unselectAllElements}
+          unselectElement={this.unselectElement}
         />
       </div>
     )

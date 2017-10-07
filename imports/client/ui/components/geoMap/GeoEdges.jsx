@@ -6,34 +6,41 @@ import ui from 'redux-ui'
 export default class GeoEdges extends React.Component {
   static propTypes = {
     edges : PropTypes.array.isRequired,
-    selectionModeOn : PropTypes.bool,
-    onClickGeoElement : PropTypes.func.isRequired,
-    selectGeoElement : PropTypes.func.isRequired,
-    unselectGeoElement : PropTypes.func.isRequired,
-    unselectAllElements : PropTypes.func.isRequired
+    isolateMode : PropTypes.bool,
+    handleClickGeoElement : PropTypes.func.isRequired,
+    onFocusElement : PropTypes.func.isRequired,
+    onUnfocusElement : PropTypes.func.isRequired
   }
 
   render() {
-    const { selectionModeOn } = this.props
+    const {
+      isolateMode,
+      handleClickGeoElement,
+      onFocusElement,
+      onUnfocusElement
+     } = this.props
+
     const edges = this.props.edges.map( (e,i) => {
-      const filter = `edge[source="${e.data.source}"][target="${e.data.target}"]`
       return (
         <Polyline
           key={`edge-${i}`}
           color={e.selected ? 'yellow' : 'purple'}
           positions={e.coords}
-          onClick={() => selectionModeOn ?
-            this.props.onClickGeoElement(filter)
+          onClick={() => !isolateMode ?
+            handleClickGeoElement({
+              group : 'edge',
+              el: e
+            })
             :
             null
           }
-          onMouseDown={() => !selectionModeOn ?
-            this.props.selectGeoElement(filter)
+          onMouseDown={() => isolateMode ?
+            onFocusElement(e)
             :
             null
           }
-          onMouseUp={()=> !selectionModeOn ?
-            this.props.unselectAllElements()
+          onMouseUp={()=> isolateMode ?
+            onUnfocusElement()
             :
             null
           }

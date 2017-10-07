@@ -12,7 +12,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
-import UserMenu from '../components/UserMenu.jsx'
+// import UserMenu from '../components/UserMenu.jsx'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -24,22 +24,33 @@ const muiTheme = getMuiTheme({
 })
 
 
-const App = ({ children, classNames, locale, messages, user, loadUser, router }) =>
-  (
-    <IntlProvider locale={locale}
-      messages={messages}>
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div className={ classNames }>
-          <UserMenu
-            user={user}
-            loadUser={loadUser}
-            router={router}
-          />
-          {children}
-        </div>
-      </MuiThemeProvider>
-    </IntlProvider>
-  )
+export class App extends React.Component {
+
+  componentDidMount = () => {
+    this.props.loadUser() // load current user
+  }
+
+  render = () => {
+    const {
+     children,
+     classNames,
+     locale,
+     messages,
+     user,
+     router
+   } = this.props
+    return (
+      <IntlProvider locale={locale}
+        messages={messages}>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <div className={ classNames }>
+            {React.cloneElement(children, {user, router})}
+          </div>
+        </MuiThemeProvider>
+      </IntlProvider>
+    )
+  }
+}
 
 App.propTypes = {
   children : PropTypes.node,

@@ -24,6 +24,7 @@ const TopogramListItem = ({
   topogramTitle,
   topogramId,
   lastModified,
+  author
   // topogramSharedPublic,
   // router
 }) => (
@@ -32,7 +33,11 @@ const TopogramListItem = ({
       title={topogramTitle}
       // title={<Link to={`/topograms/${topogramId}`}>{title}</Link>}
       titleStyle={{ fontSize:'13pt', lineHeight:'1.1em', paddingBottom : '.2em' }}
-      subtitle={<span>{moment(lastModified).fromNow()}</span>}
+      subtitle={
+        <span>
+          { author ? `By ${author ? author : 'Author'}` : 'Anonymous' } &bull; {moment(lastModified).fromNow()}
+        </span>
+      }
     />
     <CardActions>
       <FlatButton
@@ -57,6 +62,7 @@ const TopogramListItem = ({
 )
 
 TopogramListItem.propTypes = {
+  author : PropTypes.string,
   topogramTitle: PropTypes.string.isRequired,
   topogramId: PropTypes.string.isRequired,
   lastModified: PropTypes.instanceOf(Date).isRequired
