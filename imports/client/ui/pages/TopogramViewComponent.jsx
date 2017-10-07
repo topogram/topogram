@@ -304,6 +304,7 @@ export class TopogramViewComponent extends React.Component {
         </FloatingActionButton>
 
         <MainViz
+          topogramId={ this.props.params.topogramId }
           nodes={ nodes }
           edges={ edges }
           onFocusElement={this.onFocusElement}

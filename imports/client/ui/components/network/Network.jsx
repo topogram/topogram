@@ -4,7 +4,7 @@ import ui from 'redux-ui'
 import Cytoscape from './Cytoscape.jsx'
 import NetworkDefaultStyle from './NetworkDefaultStyle'
 
-// import { nodeMove } from '/imports/api/nodes/nodesMethods'
+import { nodeMove } from '/imports/api/nodes/nodesMethods'
 
 @ui()
 class Network extends React.Component {
@@ -30,6 +30,15 @@ class Network extends React.Component {
         :
         this.props.selectElement(e.cyTarget.json())
       )
+      .on('free','node', e => {
+        let node = e.cyTarget
+        let position = node.position()
+        const topogramId = this.props.topogramId
+
+        // Truncate postion values to integers
+        Object.keys(position).map( n => position[n] = Math.trunc(position[n]))
+        nodeMove.call({ topogramId : topogramId, nodeId : node.id(), position : position})
+      })
   }
 
   setUpGrabFreeEvents() {
@@ -145,6 +154,12 @@ class Network extends React.Component {
     }
 
     // TODO : proper nodes/edges diff...
+    this.props.nodes.forEach((el, ix) => {
+                                if ( JSON.stringify(el) != JSON.stringify(nodes[ix]) ) {
+                                  shouldUpdate = true
+                                }
+    })
+
     return shouldUpdate
   }
 
@@ -189,6 +204,7 @@ class Network extends React.Component {
 }
 
 Network.propTypes = {
+  topogramId : PropTypes.string.isRequired,
   nodes : PropTypes.array,
   nodesReady : PropTypes.bool,
   edges : PropTypes.array,
