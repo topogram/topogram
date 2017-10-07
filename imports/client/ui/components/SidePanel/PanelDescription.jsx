@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import { CardTitle, CardText } from 'material-ui/Card'
 import moment from 'moment'
+import Markdown from '../markdown/Markdown.jsx'
 
 const PanelDescription = ({
   topogram,
@@ -14,7 +15,7 @@ const PanelDescription = ({
       subtitle={`${nodesCount} nodes, ${edgesCount} edges`}
       />
     <CardText>
-      {topogram.description}
+      <Markdown source={topogram.description} />
 
       <p>Last modified {moment(topogram.lastModified).fromNow()}</p>
       <p>Created {moment(topogram.createdAt).fromNow()}</p>
