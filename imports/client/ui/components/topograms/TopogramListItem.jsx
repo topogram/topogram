@@ -35,7 +35,7 @@ const TopogramListItem = ({
       titleStyle={{ fontSize:'13pt', lineHeight:'1.1em', paddingBottom : '.2em' }}
       subtitle={
         <span>
-        { author ? `By ${author.username ? author.username : 'Author'}` : 'Anonymous' }  {moment(lastModified).fromNow()}
+          { author ? `By ${author ? author : 'Author'}` : 'Anonymous' }  {moment(lastModified).fromNow()}
         </span>
       }
     />
