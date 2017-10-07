@@ -66,7 +66,7 @@ export default class UserMenu extends React.Component {
 
           <IconMenu
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            // style={this.props.style}
+            style={this.props.style}
             open={this.state.open}
             anchorOrigin={{vertical: 'top', horizontal: 'left'}}
             // onClick={() => this.setState({open : true})}
