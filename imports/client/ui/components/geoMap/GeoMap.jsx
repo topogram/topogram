@@ -29,25 +29,44 @@ class GeoMap extends React.Component {
   }
 
   static propTypes = {
-    onClickElement : PropTypes.func.isRequired,
+    nodes : PropTypes.array,
+    edges : PropTypes.array,
+    width : PropTypes.string.isRequired,
+    height : PropTypes.string.isRequired,
     selectElement : PropTypes.func.isRequired,
     unselectElement : PropTypes.func.isRequired,
-    unselectAllElements : PropTypes.func.isRequired,
-    width : PropTypes.string.isRequired,
-    height : PropTypes.string.isRequired
+    onFocusElement: PropTypes.func.isRequired,
+    onUnfocusElement: PropTypes.func.isRequired
+  }
+
+  handleClickGeoElement({group, el}) {
+    const {cy} = this.props.ui
+    const filter = `${group}[id='${el.data.id}']`
+    const cyEl = cy.filter(filter)
+    cyEl.data('selected') ?
+      this.props.unselectElement(cyEl.json())
+      :
+      this.props.selectElement(cyEl.json())
   }
 
   render() {
-    const { geoMapTile, filterPanelIsOpen } = this.props.ui
-    const { zoom, position } = this.state
     const nodesById = {}
+
+    const {
+      geoMapTile,
+      isolateMode
+    } = this.props.ui
+
+    const {
+      zoom,
+      position
+    } = this.state
+
     const {
       width,
       height,
-      onClickElement,
-      selectElement,
-      unselectElement,
-      unselectAllElements
+      onFocusElement,
+      onUnfocusElement
     } = this.props
 
     // resize dynamically using d3
@@ -72,10 +91,13 @@ class GeoMap extends React.Component {
         return { ...e, source, target, coords, selected }
       })
 
-    // console.log(nodes);
-    // console.log(edges);
-
-    const { url, attribution, minZoom, maxZoom, ext } = mapTiles[geoMapTile]
+    const {
+      url,
+      attribution,
+      minZoom,
+      maxZoom,
+      ext
+    } = mapTiles[geoMapTile]
 
     return (
       <div
@@ -91,11 +113,12 @@ class GeoMap extends React.Component {
             edges.length ?
               <GeoEdges
                 edges={edges}
-                filterPanelIsOpen={filterPanelIsOpen}
-                onClickElement={onClickElement}
-                selectElement={selectElement}
-                unselectElement={unselectElement}
-                unselectAllElements={unselectAllElements}
+                isolateMode={isolateMode}
+                handleClickGeoElement={
+                  (e)=>this.handleClickGeoElement(e)
+                }
+                onFocusElement={onFocusElement}
+                onUnfocusElement={onUnfocusElement}
               />
               :
               null
@@ -104,11 +127,12 @@ class GeoMap extends React.Component {
             nodes.length ?
               <GeoNodes
                 nodes={nodes}
-                filterPanelIsOpen={filterPanelIsOpen}
-                onClickElement={onClickElement}
-                selectElement={selectElement}
-                unselectElement={unselectElement}
-                unselectAllElements={unselectAllElements}
+                isolateMode={isolateMode}
+                handleClickGeoElement={
+                  (e) => this.handleClickGeoElement(e)
+                }
+                onFocusElement={onFocusElement}
+                onUnfocusElement={onUnfocusElement}
               />
               :
               null

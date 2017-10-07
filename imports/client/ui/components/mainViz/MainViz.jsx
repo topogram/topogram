@@ -47,7 +47,8 @@ export default class MainViz extends React.Component {
               edges={ edges }
               width={ width }
               height={ height }
-              onClickElement={onClickElement}
+              onFocusElement={onFocusElement}
+              onUnfocusElement={onUnfocusElement}
               selectElement={selectElement}
               unselectElement={unselectElement}
               unselectAllElements={unselectAllElements}

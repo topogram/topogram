@@ -6,33 +6,41 @@ import ui from 'redux-ui'
 export default class GeoEdges extends React.Component {
   static propTypes = {
     edges : PropTypes.array.isRequired,
-    filterPanelIsOpen : PropTypes.bool,
-    onClickElement : PropTypes.func.isRequired,
-    selectElement : PropTypes.func.isRequired,
-    unselectElement : PropTypes.func.isRequired,
-    unselectAllElements : PropTypes.func.isRequired
+    isolateMode : PropTypes.bool,
+    handleClickGeoElement : PropTypes.func.isRequired,
+    onFocusElement : PropTypes.func.isRequired,
+    onUnfocusElement : PropTypes.func.isRequired
   }
 
   render() {
-    const { filterPanelIsOpen } = this.props
+    const {
+      isolateMode,
+      handleClickGeoElement,
+      onFocusElement,
+      onUnfocusElement
+     } = this.props
+
     const edges = this.props.edges.map( (e,i) => {
       return (
         <Polyline
           key={`edge-${i}`}
           color={e.selected ? 'yellow' : 'purple'}
           positions={e.coords}
-          onClick={() => filterPanelIsOpen ?
-            this.props.onClickElement(e)
+          onClick={() => !isolateMode ?
+            handleClickGeoElement({
+              group : 'edge',
+              el: e
+            })
             :
             null
           }
-          onMouseDown={() => !filterPanelIsOpen ?
-            this.props.selectElement(e)
+          onMouseDown={() => isolateMode ?
+            onFocusElement(e)
             :
             null
           }
-          onMouseUp={()=> !filterPanelIsOpen ?
-            this.props.unselectAllElements()
+          onMouseUp={()=> isolateMode ?
+            onUnfocusElement()
             :
             null
           }
