@@ -42,7 +42,10 @@ const NetworkDefaultStyle = () =>
     .style({
       'target-arrow-shape': 'none', // default is undirected graph
       'line-color'(e) {
-        return e.data('selected') ? 'yellow' : '#AAAAAA'
+        return e.data('selected') ?
+          'yellow'
+          :
+          e.data('color') ? e.data('color') : '#AAAAAA'
       },
       'width'(e) {
         return e.data('weight') ? e.data('weight') : .3
