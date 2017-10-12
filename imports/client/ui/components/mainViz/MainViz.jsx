@@ -10,7 +10,7 @@ export default class MainViz extends React.Component {
 
 
   render() {
-    
+
     const {
       topogramId,
       nodes,
