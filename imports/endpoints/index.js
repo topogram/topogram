@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
 import { Restivus } from 'meteor/nimble:restivus'
 
-import logger from '/imports/logger.js'
+// import logger from '/imports/logger.js'
 
 import { createNodes, updateNode, deleteNodes } from '/imports/endpoints/nodes.js'
 import { createEdges, updateEdge, deleteEdges } from '/imports/endpoints/edges.js'
@@ -21,10 +21,10 @@ export const Api = new Restivus({
   useDefaultAuth: true,
   prettyJson: true,
   onLoggedIn() {
-    logger.log(this.user.username + ' (' + this.userId + ') logged in')
+    // logger.log(this.user.username + ' (' + this.userId + ') logged in')
   },
   onLoggedOut() {
-    logger.log(this.user.username + ' (' + this.userId + ') logged out')
+    // logger.log(this.user.username + ' (' + this.userId + ') logged out')
   }
 })
 

@@ -193,7 +193,7 @@ export class TopogramViewComponent extends React.Component {
     ]
 
     this.props.updateUI('selectedElements', remainingElements)
-    console.log(remainingElements, isolateMode);
+    // console.log(remainingElements, isolateMode);
 
     if(!remainingElements.length && isolateMode)
       this.handleExitIsolateMode()
@@ -274,10 +274,17 @@ export class TopogramViewComponent extends React.Component {
       :
       true
 
+    const selectedIds = this.props.ui.selectedElements.map(d=>d.data.id)
     const nodes =  this.props.nodes.filter(n =>
         filterTime(n)
         && filterCategories(n)
       )
+      .map(n => {
+        let selected = selectedIds.includes(n.data.id)
+        let node = Object.assign( {}, n)
+        node.data.selected = selected
+        return node
+      })
 
     const nodeIds = nodes.map(n => n.data.id)
 
