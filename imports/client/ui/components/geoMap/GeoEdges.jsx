@@ -24,7 +24,7 @@ export default class GeoEdges extends React.Component {
       return (
         <Polyline
           key={`edge-${i}`}
-          color={e.selected ? 'yellow' : 'purple'}
+          color={e.selected ? 'yellow' : e.data.color ? e.data.color : 'purple'}
           positions={e.coords}
           onClick={() => !isolateMode ?
             handleClickGeoElement({

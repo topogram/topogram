@@ -26,7 +26,7 @@ export default class GeoNodes extends React.Component {
           radius={10}
           key={`node-${i}`}
           center={n.coords}
-          color={n.data.selected ? 'yellow' : 'steelblue'}
+          color={n.data.selected ? 'yellow' : n.data.color ? n.data.color : 'steelblue'}
           onClick={() => !isolateMode ?
             handleClickGeoElement({
               group : 'node',
