@@ -37,6 +37,15 @@ export default class TimeLine extends React.Component {
     this.refs.maxDatePicker.focus()
   }
 
+
+  playOrPause = () =>{
+    console.log('maxTime')
+    for (var i = 0; i < 'maxTime'; i++) {
+
+    }
+
+  }
+
   render() {
 
     const { minTime, maxTime } = this.props.ui
@@ -59,13 +68,16 @@ export default class TimeLine extends React.Component {
                     style={{ cursor : 'pointer', color : 'black' }}>
                     {`${moment(minTime).format('MMM Do YYYY')}`}
                   </a>
-                  to <a onClick={this.openMaxDatePicker}
+                   to <a onClick={this.openMaxDatePicker}
                     style={{ cursor : 'pointer', color : 'black' }}>
                     {`${moment(maxTime).format('MMM Do YYYY')}`}
                   </a>
                 </p>
               }
             />
+
+
+
             <DatePicker
               onChange={this.handleChangeMinTime}
               ref="minDatePicker"
@@ -84,10 +96,22 @@ export default class TimeLine extends React.Component {
             />
             <CardText>
               { minTime && maxTime ?
+                <div>
+
+
+                            <IconButton
+                            onPress={this.playOrPause}
+                            title="play/pause"
+                            color="#841584"
+                            style={{ float:'right', zIndex : 20 }}
+                            accessibilityLabel="play/pause the dataset view"
+                            />
+
                 <TimeSlider
                   minTime={new Date(minTime).getTime()}
                   maxTime={new Date(maxTime).getTime()}
                 />
+                </div>
                 :
                 null
               }
