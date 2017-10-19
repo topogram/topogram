@@ -4,7 +4,8 @@ import moment from 'moment'
 
 import { Card, CardText, CardHeader } from 'material-ui/Card'
 import DatePicker from 'material-ui/DatePicker'
-
+import IconButton from 'material-ui/IconButton'
+import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
 import TimeSlider from './TimeSlider.jsx'
 
 const styleTimeLine = {
@@ -38,11 +39,11 @@ export default class TimeLine extends React.Component {
   }
 
 
-  playOrPause = () =>{
+  playOrPause = (event) => {
     console.log('maxTime')
-    for (var i = 0; i < 'maxTime'; i++) {
+    //for (var i = 0; i < 'maxTime'; i++) {
 
-    }
+    //}
 
   }
 
@@ -72,6 +73,10 @@ export default class TimeLine extends React.Component {
                     style={{ cursor : 'pointer', color : 'black' }}>
                     {`${moment(maxTime).format('MMM Do YYYY')}`}
                   </a>
+
+                  <IconButton onClick={this.playOrPause}>
+                    <PlayCircleFilled />
+                  </IconButton>     
                 </p>
               }
             />
@@ -99,18 +104,11 @@ export default class TimeLine extends React.Component {
                 <div>
 
 
-                            <IconButton
-                            onPress={this.playOrPause}
-                            title="play/pause"
-                            color="#841584"
-                            style={{ float:'right', zIndex : 20 }}
-                            accessibilityLabel="play/pause the dataset view"
-                            />
+                      <TimeSlider
+                        minTime={new Date(minTime).getTime()}
+                        maxTime={new Date(maxTime).getTime()}
+                    />
 
-                <TimeSlider
-                  minTime={new Date(minTime).getTime()}
-                  maxTime={new Date(maxTime).getTime()}
-                />
                 </div>
                 :
                 null
