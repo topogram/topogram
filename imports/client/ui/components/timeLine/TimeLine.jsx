@@ -6,8 +6,6 @@ import { Card, CardText, CardHeader } from 'material-ui/Card'
 import DatePicker from 'material-ui/DatePicker'
 import IconButton from 'material-ui/IconButton'
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
-import TimerMixin from 'react-timer-mixin';
-
 import TimeSlider from './TimeSlider.jsx'
 
 const styleTimeLine = {
@@ -18,59 +16,6 @@ const styleTimeLine = {
 }
 
 @ui()
-//https://stackoverflow.com/questions/40885923/countdown-timer-in-react
-class TimerForTopogram extends React.Component {
-  constructor() {
-    super();
-    this.state = { time: {}, seconds: 5 };
-    this.timer = 0;
-    this.startTimer = this.startTimer.bind(this);
-    this.countDown = this.countDown.bind(this);
-  }
-
-  secondsToTime(secs){
-    let hours = Math.floor(secs / (60 * 60));
-
-    let divisor_for_minutes = secs % (60 * 60);
-    let minutes = Math.floor(divisor_for_minutes / 60);
-
-    let divisor_for_seconds = divisor_for_minutes % 60;
-    let seconds = Math.ceil(divisor_for_seconds);
-
-    let obj = {
-      "h": hours,
-      "m": minutes,
-      "s": seconds
-    };
-    return obj;
-  }
-
-  componentDidMount() {
-    let timeLeftVar = this.secondsToTime(this.state.seconds);
-    this.setState({ time: timeLeftVar });
-  }
-
-  startTimer() {
-    if (this.timer == 0) {
-      this.timer = setInterval(this.countDown, 1000);
-    }
-  }
-
-  countDown() {
-    // Remove one second, set state so a re-render happens.
-    let seconds = this.state.seconds - 1;
-    this.setState({
-      time: this.secondsToTime(seconds),
-      seconds: seconds,
-    });
-
-    // Check if we're at zero.
-    if (seconds == 0) {
-      clearInterval(this.timer);
-    }
-  }
-
-}
 
 
 export default class TimeLine extends React.Component {
@@ -100,25 +45,35 @@ export default class TimeLine extends React.Component {
   playOrPause = ( ) => {
     console.log('maxTime', this.props.ui.maxTime)
     console.log('minTime', this.props.ui.minTime)
+    console.log("pros.ui.all", this.props.ui);
     console.log('ran playOrPause')
 
     var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
     var tempo = Math.floor(seconds/60);
-    var k = 0;
-    while (k < seconds) {
-      this.countDown
-      k+=tempo
-      this.props.updateUI( 'currentSliderTime' , k )
-
-    }
+    //var k = Math.round(this.props.ui.minTime/1000);
+    var k = Math.round(this.props.ui.minTime)
+    console.log("k ,",k);
+    this.props.updateUI({currentSliderTime : Math.round(this.props.ui.minTime)} )
+     while (Math.round(k) < Math.round(this.props.ui.maxTime)) {
+       console.log("tempo",tempo);
+       console.log("k",k);
+    //
+       setInterval(function(){
+           console.log("momk",moment(k));
+            k = Math.round(k + tempo)
+            console.log("k_add",k);
+            this.props.updateUI({currentSliderTime :  k })
+    //        ;
+        }, 1000);
+     }
+     clearInterval()
   }
-
-}
 
   render() {
 
     const { minTime, maxTime } = this.props.ui
     const { hasTimeInfo } = this.props
+//FOR TIMER
 
     return (
       <Card
