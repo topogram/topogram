@@ -60,9 +60,9 @@ export default class TimeLine extends React.Component {
     //
        setInterval(function(){
            console.log("momk",moment(k));
-            k = Math.round(k + tempo)
-            console.log("k_add",k);
-            this.props.updateUI({currentSliderTime :  k })
+           k = Math.round(k + tempo)
+           console.log("k_add",k);
+           this.props.updateUI({currentSliderTime :  k })
     //        ;
         }, 1000);
      }
