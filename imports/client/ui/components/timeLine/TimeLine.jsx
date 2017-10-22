@@ -49,7 +49,7 @@ export default class TimeLine extends React.Component {
     if (playOrPauseTrig == 1) {
       console.log("CLEARING A MESSY SCREEN THERE, LETS STOP THAT LOOP");
       console.log(tid)
-      clearInterval(timerPlayPause);
+      clearInterval(tid);
 
       var playOrPauseTrig = 0;
       return;}
@@ -72,9 +72,7 @@ export default class TimeLine extends React.Component {
        console.log("k",k);
     // var
       var that = this
-
-
-      var timerPlayPause = function(){
+      var tid = setInterval(function(){
            console.log("momk",moment(k));
            console.log("pros.ui.all", that.props.ui);
            that.props.updateUI({currentSliderTime :  k })
@@ -88,7 +86,6 @@ export default class TimeLine extends React.Component {
            }
     //        ;
         }
-        var tid = setInterval(timerPlayPause, 10);
   //   }
   }
 
