@@ -49,11 +49,12 @@ export default class TimeLine extends React.Component {
     if (playOrPauseTrig == 1) {
       console.log("CLEARING A MESSY SCREEN THERE, LETS STOP THAT LOOP");
       console.log(tid)
-      clearInterval(tid);
-
+      window.clearInterval(tid);
+      var k = Math.round(this.props.ui.minTime)
       var playOrPauseTrig = 0;
       return;}
 
+      else {
 
     var playOrPauseTrig = 1
     console.log('maxTime', this.props.ui.maxTime)
@@ -71,22 +72,22 @@ export default class TimeLine extends React.Component {
        console.log("tempo",tempo);
        console.log("k",k);
     // var
-      var that = this
-      var tid = setInterval(function(){
-           console.log("momk",moment(k));
-           console.log("pros.ui.all", that.props.ui);
-           that.props.updateUI({currentSliderTime :  k })
+      //var that = this
+       tid = window.setInterval(function(){
+           //console.log("momk",moment(k));
+           //console.log("pros.ui.all", this.props.ui);
+           this.props.updateUI({currentSliderTime :  k })
            console.log("k_add",k);
-           console.log(Math.round(that.props.ui.maxTime));
+           console.log(Math.round(this.props.ui.maxTime));
            k = Math.round(k + tempo)
-           if (k >= Math.round(that.props.ui.maxTime))
-           {
-             clearInterval(tid)
+           if (k >= Math.round(this.props.ui.maxTime))
+            {
+             window.clearInterval(tid).bind(this)
 
-           }
+            }
     //        ;
-        }
-  //   }
+  }.bind(this),10)
+     }
   }
 
   render() {
