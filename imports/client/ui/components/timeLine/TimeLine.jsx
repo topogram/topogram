@@ -18,6 +18,9 @@ const styleTimeLine = {
 @ui()
 
 
+
+
+
 export default class TimeLine extends React.Component {
 
   static propTypes = {
@@ -42,31 +45,51 @@ export default class TimeLine extends React.Component {
   }
 
 
-  playOrPause = ( ) => {
+  playOrPause = (event ) => {
+    if (playOrPauseTrig == 1) {
+      console.log("CLEARING A MESSY SCREEN THERE, LETS STOP THAT LOOP");
+      console.log(tid)
+      clearInterval(timerPlayPause);
+
+      var playOrPauseTrig = 0;
+      return;}
+
+
+    var playOrPauseTrig = 1
     console.log('maxTime', this.props.ui.maxTime)
     console.log('minTime', this.props.ui.minTime)
     console.log("pros.ui.all", this.props.ui);
     console.log('ran playOrPause')
 
     var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
-    var tempo = Math.floor(seconds/60);
+    var tempo = Math.floor(seconds);
     //var k = Math.round(this.props.ui.minTime/1000);
     var k = Math.round(this.props.ui.minTime)
     console.log("k ,",k);
-    this.props.updateUI({currentSliderTime : Math.round(this.props.ui.minTime)} )
-     while (Math.round(k) < Math.round(this.props.ui.maxTime)) {
+    //this.props.updateUI({currentSliderTime : Math.round(this.props.ui.minTime)} )
+    // while (Math.round(k) < Math.round(this.props.ui.maxTime)) {
        console.log("tempo",tempo);
        console.log("k",k);
-    //
-       setInterval(function(){
+    // var
+      var that = this
+
+
+      var timerPlayPause = function(){
            console.log("momk",moment(k));
-           k = Math.round(k + tempo)
+           console.log("pros.ui.all", that.props.ui);
+           that.props.updateUI({currentSliderTime :  k })
            console.log("k_add",k);
-           this.props.updateUI({currentSliderTime :  k })
+           console.log(Math.round(that.props.ui.maxTime));
+           k = Math.round(k + tempo)
+           if (k >= Math.round(that.props.ui.maxTime))
+           {
+             clearInterval(tid)
+
+           }
     //        ;
-        }, 1000);
-     }
-     clearInterval()
+        }
+        var tid = setInterval(timerPlayPause, 10);
+  //   }
   }
 
   render() {
