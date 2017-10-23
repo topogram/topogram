@@ -56,26 +56,28 @@ PauseOrClearTrig= 1
  }
 
   PlayOrResume = (event ) => {
+    k = Math.round(this.props.ui.minTime)
     if (PauseOrClearTrig && PauseOrClearTrig== 1) {
       console.log("CLEARING A MESSY SCREEN THERE, LETS STOP THAT LOOP");
       console.log(tid)
-      window.clearInterval(tid);
-      var playOrResumeTrig = 0;
+      PauseOrClearTrig = 0;
       //return;
+      k = this.props.ui.currentSliderTime
     }
 
-      else {
+     else {
+    //
+    //     /*console.log('maxTime', this.props.ui.maxTime)
+    //     console.log('minTime', this.props.ui.minTime)
+    //     console.log("pros.ui.all", this.props.ui);
+    //     console.log('ran playOrPause')*/
+    //   window.clearInterval(tid);
 
-    var playOrResumeTrig = 1
-    /*console.log('maxTime', this.props.ui.maxTime)
-    console.log('minTime', this.props.ui.minTime)
-    console.log("pros.ui.all", this.props.ui);
-    console.log('ran playOrPause')*/
 
+    playOrResumeTrig = 1
     var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
     var tempo = Math.floor(seconds);
     //var k = Math.round(this.props.ui.minTime/1000);
-    k = Math.round(this.props.ui.minTime)
     //console.log("k ,",k);
     //this.props.updateUI({currentSliderTime : Math.round(this.props.ui.minTime)} )
     // while (Math.round(k) < Math.round(this.props.ui.maxTime)) {
