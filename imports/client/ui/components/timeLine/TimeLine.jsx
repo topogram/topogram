@@ -59,7 +59,6 @@ PauseOrClear = (event ) => {
     else {
 
       this.PauseOrClearTrig= 1
-      console.log("PAUSING");
       }
     }
   else {
