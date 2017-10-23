@@ -45,72 +45,71 @@ export default class TimeLine extends React.Component {
     //console.log('maxDAte')
   }
 PauseOrClear = (event ) => {
-  console.log("CLEARING A MESSY SCREEN THERE, LETS STOP THAT LOOP");
-   window.clearInterval(tid);
-if (playOrResumeTrig == 1)
-{
-k = Math.round(this.props.ui.minTime)
-this.props.updateUI({currentSliderTime :  k })
-}
-PauseOrClearTrig= 1
+
+
+   window.clearInterval(this.tid);
+  if (this.playOrResumeTrig == 1){
+    //if paused before :clean
+    if (this.PauseOrClearTrig ==1) {
+      k = Math.round(this.props.ui.minTime)
+      this.props.updateUI({currentSliderTime :  k })
+      this.PauseOrClearTrig= 0
+      this.playOrResumeTrig =0
+      }
+    else {
+
+      this.PauseOrClearTrig= 1
+      console.log("PAUSING");
+      }
+    }
+  else {
+    this.PauseOrClearTrig= 1
+    this.playOrResumeTrig =0
+  }
  }
 
   PlayOrResume = (event ) => {
     k = Math.round(this.props.ui.minTime)
-    if (PauseOrClearTrig && PauseOrClearTrig== 1) {
-      console.log("CLEARING A MESSY SCREEN THERE, LETS STOP THAT LOOP");
-      console.log(tid)
-      PauseOrClearTrig = 0;
-      //return;
+
+    if (!this.PauseOrClearTrig){
+      this.playOrResumeTrig = 0
+      this.PauseOrClearTrig =0
+      }
+
+
+
+    if (this.PauseOrClearTrig== 1) {
+      this.PauseOrClearTrig = 0;
       k = this.props.ui.currentSliderTime
-    }
+      }
 
-     else {
-    //
-    //     /*console.log('maxTime', this.props.ui.maxTime)
-    //     console.log('minTime', this.props.ui.minTime)
-    //     console.log("pros.ui.all", this.props.ui);
-    //     console.log('ran playOrPause')*/
-    //   window.clearInterval(tid);
+    else {
+      if (this.tid){
+        window.clearInterval(this.tid);
+        }
+      }
 
-
-    playOrResumeTrig = 1
+    this.playOrResumeTrig = 1
     var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
     var tempo = Math.floor(seconds);
-    //var k = Math.round(this.props.ui.minTime/1000);
-    //console.log("k ,",k);
-    //this.props.updateUI({currentSliderTime : Math.round(this.props.ui.minTime)} )
-    // while (Math.round(k) < Math.round(this.props.ui.maxTime)) {
-      // console.log("tempo",tempo);
-      // console.log("k",k);
-    // var
-      //var that = this
-       tid = window.setInterval(function(){
-           //console.log("momk",moment(k));
-           //console.log("pros.ui.all", this.props.ui);
-           this.props.updateUI({currentSliderTime :  k })
-           //console.log("k_add",k);
-           //console.log(Math.round(this.props.ui.maxTime));
-           k = Math.round(k + tempo)
-           if (k >= Math.round(this.props.ui.maxTime))
-            {
-             window.clearInterval(tid).bind(this)
 
+    this.tid = window.setInterval(function(){
 
+       this.props.updateUI({currentSliderTime :  k })
+       this.playOrResumeTrig = 1
 
+       k = Math.round(k + tempo)
+       if (k >= Math.round(this.props.ui.maxTime)){
+         window.clearInterval(this.tid).bind(this)
+        }
+      }.bind(this),10)
 
-            }
-    //        ;
-  }.bind(this),10)
-     }
-  }
+    }
 
   render() {
-    playOrResumeTrig = null
-    PauseOrClearTrig =null
+
     const { minTime, maxTime } = this.props.ui
     const { hasTimeInfo } = this.props
-//FOR TIMER
 
     return (
       <Card
@@ -134,10 +133,11 @@ PauseOrClearTrig= 1
                     {`${moment(maxTime).format('MMM Do YYYY')}`}
                   </a>
 
-                  <IconButton onClick={this.PlayOrResume}>
+                  <IconButton onClick={this.PlayOrResume} alt="Play/Resume" title="Play/Resume">
                     <PlayCircleFilled />
+
                   </IconButton>
-                  <IconButton onClick={this.PauseOrClear}>
+                  <IconButton onClick={this.PauseOrClear}  alt="Pause/Stop" title="Pause/Stop">
                     <Pause />
                   </IconButton>
                 </p>
