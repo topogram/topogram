@@ -6,6 +6,7 @@ import { Card, CardText, CardHeader } from 'material-ui/Card'
 import DatePicker from 'material-ui/DatePicker'
 import IconButton from 'material-ui/IconButton'
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
+import Pause from 'material-ui/svg-icons/av/pause';
 import TimeSlider from './TimeSlider.jsx'
 
 const styleTimeLine = {
@@ -41,48 +42,60 @@ export default class TimeLine extends React.Component {
 
   openMaxDatePicker = () => {
     this.refs.maxDatePicker.focus()
-    console.log('maxDAte')
+    //console.log('maxDAte')
   }
+PauseOrClear = (event ) => {
+  console.log("CLEARING A MESSY SCREEN THERE, LETS STOP THAT LOOP");
+   window.clearInterval(tid);
+if (playOrResumeTrig == 1)
+{
+k = Math.round(this.props.ui.minTime)
+this.props.updateUI({currentSliderTime :  k })
+}
+PauseOrClearTrig= 1
+ }
 
-
-  playOrPause = (event ) => {
-    if (playOrPauseTrig == 1) {
+  PlayOrResume = (event ) => {
+    if (PauseOrClearTrig && PauseOrClearTrig== 1) {
       console.log("CLEARING A MESSY SCREEN THERE, LETS STOP THAT LOOP");
       console.log(tid)
       window.clearInterval(tid);
-      var k = Math.round(this.props.ui.minTime)
-      var playOrPauseTrig = 0;
-      return;}
+      var playOrResumeTrig = 0;
+      //return;
+    }
 
       else {
 
-    var playOrPauseTrig = 1
-    console.log('maxTime', this.props.ui.maxTime)
+    var playOrResumeTrig = 1
+    /*console.log('maxTime', this.props.ui.maxTime)
     console.log('minTime', this.props.ui.minTime)
     console.log("pros.ui.all", this.props.ui);
-    console.log('ran playOrPause')
+    console.log('ran playOrPause')*/
 
     var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
     var tempo = Math.floor(seconds);
     //var k = Math.round(this.props.ui.minTime/1000);
-    var k = Math.round(this.props.ui.minTime)
-    console.log("k ,",k);
+    k = Math.round(this.props.ui.minTime)
+    //console.log("k ,",k);
     //this.props.updateUI({currentSliderTime : Math.round(this.props.ui.minTime)} )
     // while (Math.round(k) < Math.round(this.props.ui.maxTime)) {
-       console.log("tempo",tempo);
-       console.log("k",k);
+      // console.log("tempo",tempo);
+      // console.log("k",k);
     // var
       //var that = this
        tid = window.setInterval(function(){
            //console.log("momk",moment(k));
            //console.log("pros.ui.all", this.props.ui);
            this.props.updateUI({currentSliderTime :  k })
-           console.log("k_add",k);
-           console.log(Math.round(this.props.ui.maxTime));
+           //console.log("k_add",k);
+           //console.log(Math.round(this.props.ui.maxTime));
            k = Math.round(k + tempo)
            if (k >= Math.round(this.props.ui.maxTime))
             {
              window.clearInterval(tid).bind(this)
+
+
+
 
             }
     //        ;
@@ -91,7 +104,8 @@ export default class TimeLine extends React.Component {
   }
 
   render() {
-
+    playOrResumeTrig = null
+    PauseOrClearTrig =null
     const { minTime, maxTime } = this.props.ui
     const { hasTimeInfo } = this.props
 //FOR TIMER
@@ -118,8 +132,11 @@ export default class TimeLine extends React.Component {
                     {`${moment(maxTime).format('MMM Do YYYY')}`}
                   </a>
 
-                  <IconButton onClick={this.playOrPause}>
+                  <IconButton onClick={this.PlayOrResume}>
                     <PlayCircleFilled />
+                  </IconButton>
+                  <IconButton onClick={this.PauseOrClear}>
+                    <Pause />
                   </IconButton>
                 </p>
               }
