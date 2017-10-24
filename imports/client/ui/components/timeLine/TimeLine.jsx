@@ -48,23 +48,23 @@ export default class TimeLine extends React.Component {
   pauseOrClear = (event ) => {
 
 
-     window.clearInterval(this.timerForPlay);
-    if (this.playOrResumeTrig == 1){
+     clearInterval(this.timerForPlay);
+    if (this.state.playOrResumeTrig == true){
       //if paused before :clean
-      if (this.pauseOrClearTrig ==1) {
+      if (this.state.pauseOrClearTrig == true) {
         k = Math.round(this.props.ui.minTime)
         this.props.updateUI({currentSliderTime :  k })
-        this.pauseOrClearTrig= 0
-        this.playOrResumeTrig =0
+        this.setState ({ pauseOrClearTrig : false})
+        this.setState ({ playOrResumeTrig : false})
         }
       else {
 
-        this.pauseOrClearTrig= 1
+        this.setState ({ pauseOrClearTrig : true})
         }
       }
     else {
-      this.pauseOrClearTrig= 1
-      this.playOrResumeTrig =0
+      this.setState ({ pauseOrClearTrig :true})
+      this.setState ({ playOrResumeTrig : false})
     }
    }
 
@@ -72,35 +72,35 @@ export default class TimeLine extends React.Component {
     k = Math.round(this.props.ui.minTime)
 
     if (!this.pauseOrClearTrig){
-      this.playOrResumeTrig = 0
-      this.pauseOrClearTrig =0
+      this.setState ({ playOrResumeTrig : false})
+      this.setState({ pauseOrClearTrig : false})
       }
 
 
 
-    if (this.pauseOrClearTrig== 1) {
-      this.pauseOrClearTrig = 0;
+    if (this.state.pauseOrClearTrig == true) {
+      this.setState({pauseOrClearTrig : false});
       k = this.props.ui.currentSliderTime
       }
 
     else {
       if (this.timerForPlay){
-        window.clearInterval(this.timerForPlay);
+        clearInterval(this.timerForPlay);
         }
       }
 
-    this.playOrResumeTrig = 1
+    this.setState ({ playOrResumeTrig : true})
     var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
     var tempo = Math.floor(seconds);
 
-    this.timerForPlay = window.setInterval(function(){
+    this.timerForPlay = setInterval(function(){
 
        this.props.updateUI({currentSliderTime :  k })
-       this.playOrResumeTrig = 1
+       this.setState ({ playOrResumeTrig :true})
 
        k = Math.round(k + tempo)
        if (k >= Math.round(this.props.ui.maxTime)){
-         window.clearInterval(this.timerForPlay).bind(this)
+         clearInterval(this.timerForPlay).bind(this)
         }
       }.bind(this),10)
 
