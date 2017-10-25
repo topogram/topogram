@@ -75,7 +75,8 @@ class Cytoscape extends Component {
     const weights = this.cy.nodes().map( d => d.data('weight') )
     const min = Math.min.apply(Math, weights)
     const max = Math.max.apply(Math, weights)
-
+    console.log("graph legend : min : ", min," max : ",max," units of weight");
+    console.log(max);
     // calculate radius range
     const weightDomain = scaleLinear()
       .domain([ min, max ])
@@ -100,7 +101,7 @@ class Cytoscape extends Component {
       this.cy.nodes().minDegree(),
       this.cy.nodes().maxDegree()
     ]).range([6,40])
-
+    console.log("graph legend : min : ", this.cy.nodes().minDegree()," max : ",this.cy.nodes().maxDegree()," degrees");
     // apply size
     this.cy.style()
       .selector('node')
