@@ -102,12 +102,11 @@ export default class TimeLine extends React.Component {
           <div>
             <CardHeader
               subtitle={
-                <p>
+                <span>
                   From <a onClick={this.openMinDatePicker}
                     style={{ cursor : 'pointer', color : 'black' }}>
                     {`${moment(minTime).format('MMM Do YYYY')}`}
-                  </a>
-                   to <a onClick={this.openMaxDatePicker}
+                  </a> to <a onClick={this.openMaxDatePicker}
                     style={{ cursor : 'pointer', color : 'black' }}>
                     {`${moment(maxTime).format('MMM Do YYYY')}`}
                   </a>
@@ -136,7 +135,7 @@ export default class TimeLine extends React.Component {
                     >
                     <Stop />
                   </IconButton>
-                </p>
+                </span>
               }
             />
 
@@ -160,13 +159,10 @@ export default class TimeLine extends React.Component {
             />
             <CardText>
               { minTime && maxTime ?
-                <div>
-                      <TimeSlider
-                        minTime={new Date(minTime).getTime()}
-                        maxTime={new Date(maxTime).getTime()}
-                    />
-
-                </div>
+                <TimeSlider
+                  minTime={new Date(minTime).getTime()}
+                  maxTime={new Date(maxTime).getTime()}
+                  />
                 :
                 null
               }
