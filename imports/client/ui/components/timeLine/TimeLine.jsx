@@ -3,6 +3,7 @@ import ui from 'redux-ui'
 import moment from 'moment'
 
 import { Card, CardText, CardHeader } from 'material-ui/Card'
+import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker'
 import IconButton from 'material-ui/IconButton'
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
@@ -11,7 +12,7 @@ import Stop from 'material-ui/svg-icons/av/stop';
 import TimeSlider from './TimeSlider.jsx'
 
 const styleTimeLine = {
-  height: '20vh',
+  height: '30vh',
   position: 'fixed',
   bottom: 0,
   width: '100vw'
@@ -26,9 +27,12 @@ export default class TimeLine extends React.Component {
    var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
    var tempo = Math.floor(seconds);
 
+   this.originalTempo = tempo
+
    this.state = {
      playing : false,
      tempo,
+     step : 1,
      timer : null
    }
   }
@@ -85,6 +89,12 @@ export default class TimeLine extends React.Component {
     })
   }
 
+  handleChangeStep = (e) => {
+    const step = e.target.value
+    const tempo = this.originalTempo*step
+    this.setState({ step, tempo })
+  }
+
   render() {
 
     const { minTime, maxTime } = this.props.ui
@@ -135,6 +145,21 @@ export default class TimeLine extends React.Component {
                     >
                     <Stop />
                   </IconButton>
+
+                  <TextField
+                    name='stepSetter'
+                    type='number'
+                    min={0.1}
+                    max={10}
+                    step={.1}
+                    floatingLabelFixed={true}
+                    floatingLabelText='Speed'
+                    style={{width : '3em', margin: '0 2em'}}
+                    value={this.state.step}
+                    columns={3}
+                    onChange={this.handleChangeStep}
+                    />
+
                 </span>
               }
             />

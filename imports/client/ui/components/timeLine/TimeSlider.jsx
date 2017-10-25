@@ -29,6 +29,7 @@ export default class TimeSlider extends React.Component {
   render() {
     const { minTime, maxTime } = this.props
     const { currentSliderTime } = this.props.ui
+
     const minYear = moment(minTime).year(),
       maxYear = moment(maxTime).year()
 
