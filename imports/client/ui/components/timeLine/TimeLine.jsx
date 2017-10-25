@@ -7,6 +7,7 @@ import DatePicker from 'material-ui/DatePicker'
 import IconButton from 'material-ui/IconButton'
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
 import Pause from 'material-ui/svg-icons/av/pause';
+import Stop from 'material-ui/svg-icons/av/stop';
 import TimeSlider from './TimeSlider.jsx'
 
 const styleTimeLine = {
@@ -17,17 +18,21 @@ const styleTimeLine = {
 }
 
 @ui()
-
-
-
-
-
 export default class TimeLine extends React.Component {
 
   constructor(props) {
    super(props)
-   this.state = { pauseOrClearState : false, playOrResumeState : false}
-}
+
+   var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
+   var tempo = Math.floor(seconds);
+
+   this.state = {
+     playing : false,
+     tempo,
+     timer : null
+   }
+  }
+
   static propTypes = {
     hasTimeInfo : PropTypes.bool
   }
@@ -46,69 +51,39 @@ export default class TimeLine extends React.Component {
 
   openMaxDatePicker = () => {
     this.refs.maxDatePicker.focus()
-
   }
 
-  pauseOrClear = (event ) => {
+  pause = () => {
+    // clearInterval
+    clearInterval(this.state.timer)
+    this.setState({playing : false, timer : null})
+  }
 
+  play = () => {
 
-     clearInterval(this.timerForPlay);
-    if (this.state.playOrResumeState){
-      //if paused before :clean
-      if (this.state.pauseOrClearState) {
-        k = Math.round(this.props.ui.minTime)
-        this.props.updateUI({currentSliderTime :  k })
-        this.setState ({ pauseOrClearState : false})
-        this.setState ({ playOrResumeState : false})
-        }
-      else {
+    const { tempo } = this.state;
+    const { maxTime } = this.props.ui
 
-        this.setState ({ pauseOrClearState : true})
-        }
-      }
-    else {
-      this.setState ({ pauseOrClearState :true})
-      this.setState ({ playOrResumeState : false})
-    }
-   }
+    // start setInterval
+    const timer = setInterval( () => {
+      const newTime = Math.round(this.props.ui.currentSliderTime) + tempo;
+      if (newTime >= Math.round(maxTime)) this.pause()
 
-  playOrResume = (event ) => {
-    k = Math.round(this.props.ui.minTime)
+      this.props.updateUI({currentSliderTime :  newTime })
+    },10)
 
-    if (!this.pauseOrClearState){
-      this.setState ({ playOrResumeState : false})
-      this.setState({ pauseOrClearState : false})
-      }
+    this.setState({
+      playing : true,
+      timer
+    })
+  }
 
-
-
-    if (this.state.pauseOrClearState) {
-      this.setState({pauseOrClearState : false});
-      k = this.props.ui.currentSliderTime
-      }
-
-    else {
-      if (this.timerForPlay){
-        clearInterval(this.timerForPlay);
-        }
-      }
-
-    this.setState ({ playOrResumeState : true})
-    var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
-    var tempo = Math.floor(seconds);
-
-    this.timerForPlay = setInterval(function(){
-
-       this.props.updateUI({currentSliderTime :  k })
-       this.setState ({ playOrResumeState :true})
-
-       k = Math.round(k + tempo)
-       if (k >= Math.round(this.props.ui.maxTime)){
-         clearInterval(this.timerForPlay).bind(this)
-        }
-      }.bind(this),10)
-
-    }
+  stop = () => {
+    this.pause()
+    this.props.updateUI({
+      currentSliderTime : Math.round(this.props.ui.minTime)
+    })
+  }
 
   render() {
 
@@ -137,12 +112,29 @@ export default class TimeLine extends React.Component {
                     {`${moment(maxTime).format('MMM Do YYYY')}`}
                   </a>
 
-                  <IconButton onClick={this.playOrResume} alt="Play/Resume" title="Play/Resume">
-                    <PlayCircleFilled />
-
+                  <IconButton
+                    onClick={
+                      this.state.playing ?
+                        () => this.pause()
+                        :
+                        () => this.play()
+                      }
+                    alt="Play/Resume"
+                    title="Play/Resume"
+                    >
+                    {
+                      this.state.playing ?
+                        <Pause />
+                        :
+                        <PlayCircleFilled />
+                    }
                   </IconButton>
-                  <IconButton onClick={this.pauseOrClear}  alt="Pause/Stop" title="Pause/Stop">
-                    <Pause />
+                  <IconButton
+                    onClick={() => this.stop()}
+                    alt="Stop"
+                    title="Stop"
+                    >
+                    <Stop />
                   </IconButton>
                 </p>
               }
@@ -169,8 +161,6 @@ export default class TimeLine extends React.Component {
             <CardText>
               { minTime && maxTime ?
                 <div>
-
-
                       <TimeSlider
                         minTime={new Date(minTime).getTime()}
                         maxTime={new Date(maxTime).getTime()}
