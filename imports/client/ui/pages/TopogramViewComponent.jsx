@@ -291,7 +291,12 @@ export class TopogramViewComponent extends React.Component {
     const nodeIds = nodes.map(n => n.data.id)
 
     const edges = this.props.edges
-      .filter(e =>
+
+      .filter(e => hasTimeInfo ?
+        new Date(e.data.start) >= new Date(this.props.ui.minTime)
+        && new Date(this.props.ui.currentSliderTime) >= new Date(e.data.start)
+        && nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
+       :
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
       )
 
