@@ -163,9 +163,9 @@ export class TopogramViewComponent extends React.Component {
 
     // select ,need to catch type error since layout is not redefined, but it is OK for what we want
     try {
-    var subGraph = focusedNodes.openNeighborhood();
-    focusedNodes.style({ 'opacity': '1' });
-    subGraph.style({ 'opacity': '1'});
+      var subGraph = focusedNodes.openNeighborhood();
+      focusedNodes.style({ 'opacity': '1' });
+      subGraph.style({ 'opacity': '1'});
 
     } catch (e) {
       console.log(e instanceof TypeError);
