@@ -156,7 +156,7 @@ export default class TimeLine extends React.Component {
                     floatingLabelText='Speed'
                     style={{width : '3em', margin: '0 2em'}}
                     value={this.state.step}
-                    columns={3}
+                    // columns={3}
                     onChange={this.handleChangeStep}
                     />
 
