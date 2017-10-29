@@ -112,6 +112,7 @@ export default class TimeLine extends React.Component {
           <div>
             <CardHeader
               subtitle={
+                <div>
                 <span>
                   From <a onClick={this.openMinDatePicker}
                     style={{ cursor : 'pointer', color : 'black' }}>
@@ -156,11 +157,11 @@ export default class TimeLine extends React.Component {
                     floatingLabelText='Speed'
                     style={{width : '3em', margin: '0 2em'}}
                     value={this.state.step}
-                    columns={3}
                     onChange={this.handleChangeStep}
                     />
 
                 </span>
+                </div>
               }
             />
 
