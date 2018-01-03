@@ -20,9 +20,9 @@ const SidePanelActions = ({
 
   <Toolbar
     style={{
-      position:'absolute',
+      position:'sticky',
       width : '100%',
-      bottom : 0
+      top : 0
     }}
     >
     <IconButton onClick={() => setPanelName('main')}>
