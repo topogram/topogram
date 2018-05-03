@@ -12,7 +12,7 @@ import Stop from 'material-ui/svg-icons/av/stop';
 import TimeSlider from './TimeSlider.jsx'
 
 const styleTimeLine = {
-  height: '30vh',
+  height: '165px',
   position: 'fixed',
   bottom: 0,
   width: '100vw'
