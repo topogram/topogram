@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import d3 from 'd3'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, TileLayer,ScaleControl } from 'react-leaflet'
 
 import 'leaflet/dist/leaflet.css'
 import './GeoMap.css'
@@ -143,6 +143,8 @@ class GeoMap extends React.Component {
             minZoom={minZoom}
             maxZoom={maxZoom}
             ext={ext}
+          />
+          <ScaleControl
           />
         </Map>
       </div>
