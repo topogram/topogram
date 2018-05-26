@@ -20,6 +20,8 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     // viz layout settings
     graphVisible : true, // default to graph view
     geoMapVisible : false,
+    hasCharts : true,
+    chartsVisible : false,
     timeLineVisible : false,
     // network/map
     layoutName : 'preset',
@@ -41,6 +43,7 @@ export class TopogramViewComponent extends React.Component {
     updateUI: PropTypes.func,
     hasTimeInfo: PropTypes.bool,
     hasGeoInfo: PropTypes.bool,
+    hasCharts : PropTypes.bool,
     maxTime: PropTypes.instanceOf(Date),
     minTime: PropTypes.instanceOf(Date),
     nodeCategories: PropTypes.array,

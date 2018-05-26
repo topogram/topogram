@@ -10,12 +10,14 @@ import Settings from '../settings/Settings.jsx'
 
 const PanelSettings = ({
   geoMapVisible,
+  chartsVisible,
   authorIsLoggedIn,
   topogramId,
   topogramTitle,
   topogramIsPublic,
   hasTimeInfo,
   hasGeoInfo,
+  hasCharts,
   router
 }) => (
   <span>
@@ -25,10 +27,13 @@ const PanelSettings = ({
       // bottom={timeLineVisible ? '21vh' : '1em'}
       hasTimeInfo={ hasTimeInfo }
       hasGeoInfo={ hasGeoInfo }
+      hasCharts={ hasCharts }
     />
 
     { geoMapVisible ? <GeoMapOptions/> : null }
+    { chartsVisible ? <ChartsOptions/> : null }
     <NetworkOptions/>
+
     {
       authorIsLoggedIn ?
       <Settings

@@ -17,11 +17,17 @@ export default class PanelSelector extends React.Component {
   static propTypes = {
     bottom : PropTypes.string,
     hasGeoInfo : PropTypes.bool.isRequired,
-    hasTimeInfo : PropTypes.bool.isRequired
+    hasTimeInfo : PropTypes.bool.isRequired,
+    hasCharts :  PropTypes.bool,
   }
 
   toggleGeo() {
     this.props.updateUI( 'geoMapVisible', !this.props.ui.geoMapVisible )
+  }
+
+  toggleCharts() {
+    this.props.updateUI( 'chartsVisible', !this.props.ui.chartsVisible,
+  !this.props.hasCharts )
   }
 
   toggleGraph() {
@@ -40,13 +46,15 @@ export default class PanelSelector extends React.Component {
     const {
       timeLineVisible,
       geoMapVisible,
-      graphVisible
+      graphVisible,
+      chartsVisible,
     } = this.props.ui
 
     const {
       bottom,
       hasGeoInfo,
-      hasTimeInfo
+      hasTimeInfo,
+      hasCharts,
     } = this.props
 
     return (
@@ -75,6 +83,14 @@ export default class PanelSelector extends React.Component {
             checked={timeLineVisible}
             disabled={!hasTimeInfo}
             onClick={ () => this.toggleTimeline()}
+          />
+        </MenuItem>
+        <MenuItem style={buttonStyle}>
+          <Checkbox
+            label={'Charts'}
+            checked={chartsVisible}
+            //disabled={!chartsVisible}
+            onClick={ () => this.toggleCharts()}
           />
         </MenuItem>
         {/* <MenuItem style={buttonStyle}>

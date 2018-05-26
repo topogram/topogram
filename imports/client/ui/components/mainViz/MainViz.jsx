@@ -4,6 +4,7 @@ import ui from 'redux-ui'
 import Network from '/imports/client/ui/components/network/Network.jsx'
 import GeoMap from '/imports/client/ui/components/geoMap/GeoMap.jsx'
 import TimeLine from '/imports/client/ui/components/timeLine/TimeLine.jsx'
+import Charts from '/imports/client/ui/components/charts/Charts.jsx'
 
 @ui()
 export default class MainViz extends React.Component {
@@ -17,6 +18,7 @@ export default class MainViz extends React.Component {
       edges,
       hasGeoInfo,
       hasTimeInfo,
+      hasCharts,
       onFocusElement,
       onUnfocusElement,
       onClickElement,
@@ -29,10 +31,11 @@ export default class MainViz extends React.Component {
     const {
       timeLineVisible,
       geoMapVisible,
+      chartsVisible,
       graphVisible
     } = this.props.ui
 
-    const panelsCount = [geoMapVisible, graphVisible]
+    const panelsCount = [geoMapVisible, graphVisible,chartsVisible]
       .filter(d => d).length
 
     //const height = timeLineVisible ? '70vh' : '100vh'
@@ -85,6 +88,16 @@ export default class MainViz extends React.Component {
             :
             null
         }
+        {
+          chartsVisible && hasCharts ?
+
+            <Charts
+              hasCharts={hasCharts}
+            />
+            :
+            null
+        }
+
       </div>
     )
   }
@@ -96,6 +109,7 @@ MainViz.propTypes = {
   edges: PropTypes.array,
   hasGeoInfo : PropTypes.bool,
   hasTimeInfo :  PropTypes.bool,
+  hasCharts : PropTypes.bool,
   onFocusElement : PropTypes.func.isRequired,
   onUnfocusElement : PropTypes.func.isRequired,
   selectElement : PropTypes.func.isRequired,

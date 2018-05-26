@@ -5,6 +5,7 @@
   "main": "topogram.js",
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "c3": "^0.4.23",
     "cytoscape": "2.7.2",
     "cytoscape-cola": "^1.4.1",
     "cytoscape-cxtmenu": "^2.7.1",
@@ -29,6 +30,7 @@
     "prop-types": "^15.5.10",
     "rc-slider": "^8.3.1",
     "react": "^15.4.2",
+    "react-c3js": "^0.1.20",
     "react-dom": "^15.4.0",
     "react-intl": "^2.1.5",
     "react-leaflet": "^1.6.6",

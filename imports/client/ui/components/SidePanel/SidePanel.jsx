@@ -42,6 +42,7 @@ export default class SidePanel extends React.Component {
       edges,
       hasTimeInfo,
       hasGeoInfo,
+      hasCharts,
       onFocusElement,
       onUnfocusElement,
       selectElement,
@@ -57,7 +58,8 @@ export default class SidePanel extends React.Component {
       selectedElements,
       filterPanelIsOpen,
       focusElement,
-      geoMapVisible
+      geoMapVisible,
+      chartsVisible,
     } = this.props.ui
 
     return (
@@ -108,6 +110,7 @@ export default class SidePanel extends React.Component {
           panelName === 'edit' ?
             <PanelSettings
               geoMapVisible={geoMapVisible}
+              hasCharts={hasCharts}
               hasTimeInfo={hasTimeInfo}
               hasGeoInfo={hasGeoInfo}
               authorIsLoggedIn={authorIsLoggedIn}
