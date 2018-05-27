@@ -1,4 +1,7 @@
-
+.c3 svg {
+ font:10px sans-serif;
+ -webkit-tap-highlight-color:transparent
+}
 .c3 line,.c3 path {
  fill:none;
  stroke:#000

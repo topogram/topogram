@@ -411,6 +411,7 @@ export class TopogramViewComponent extends React.Component {
 
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
+          hasCharts={ this.props.hasCharts }
 
           open={this.props.ui.filterPanelIsOpen}
 

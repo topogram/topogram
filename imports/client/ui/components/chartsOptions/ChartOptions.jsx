@@ -1,10 +1,9 @@
 import React from 'react'
 import ui from 'redux-ui'
 
-import MenuItem from 'material-ui/MenuItem'
+
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 
-import mapTiles from '../geoMap/mapTiles'
 
 @ui()
 export default class ChartOptions extends React.Component {
@@ -23,13 +22,13 @@ export default class ChartOptions extends React.Component {
 //      />
 //    ))
 //
-//    return (
+    return (
  <MenuItem
        primaryText="Map Background"
 
       menuItems={}
      rightIcon={<ArrowDropRight />}
      />
-
+)
   }
 }
