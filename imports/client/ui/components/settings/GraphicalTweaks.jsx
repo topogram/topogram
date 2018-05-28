@@ -10,8 +10,8 @@ import ui from 'redux-ui'
 
 @ui(
    {
-   state: {
-     fontSizeNetwork: 8}
+   //state: {
+     //fontSizeNetwork: 8}
    }
   )
 
@@ -24,7 +24,6 @@ this.state = {
   fontSizeNetwork : 2
 
 }
-this.updateState = this.updateState.bind(this);
 }
 
 
@@ -45,8 +44,11 @@ this.updateState = this.updateState.bind(this);
     const fontSizeNetwork = e.target.value
     console.log(fontSizeNetwork);
     this.setState({ fontSizeNetwork })
-    //this.props.updateUI({fontSizeNetwork :  this.state.fontSizeNetwork })
-    //this.props.ui.fontSizeNetwork=fontSizeNetwork
+console.log(this.state)
+console.log(this.props)
+
+    this.props.updateUI({fontSizeNetwork :  this.state.fontSizeNetwork })
+    //this.props.ui.fontSizeNetwork=this.state.fontSizeNetwork
 
   }
 

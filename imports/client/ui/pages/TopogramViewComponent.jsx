@@ -33,7 +33,9 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     cy : null, // cytoscape graph
     // isolate
     isolateMode : false,
-    prevPositions : null
+    prevPositions : null,
+    //styling
+    fontSizeNetwork :  8
   }
 })
 export class TopogramViewComponent extends React.Component {
@@ -382,6 +384,7 @@ export class TopogramViewComponent extends React.Component {
           unselectAllElements={this.unselectAllElements}
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
+          fontSizeNetwork={this.props.ui.fontSizeNetwork}
         />
 
         <TitleBox
@@ -412,7 +415,7 @@ export class TopogramViewComponent extends React.Component {
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
           hasCharts={ this.props.hasCharts }
-
+          fontSizeNetwork={this.props.ui.fontSizeNetwork}
           open={this.props.ui.filterPanelIsOpen}
 
           router={this.props.router}

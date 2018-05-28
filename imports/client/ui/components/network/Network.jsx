@@ -62,9 +62,11 @@ class Network extends React.Component {
     cy.on('mouseover', 'node', e => {
 
       const node = e.cyTarget
+      console.log("WANT STATE?",this.state)
+      console.log("HERE PROPS:",this.props)
       node.style({
         'border-width': 2,
-        'font-size' : 8,
+        'font-size' : this.props.ui.fontSizeNetwork ? this.props.ui.fontSizeNetwork : 6,
         'color' : 'black',
         'label'(d) {
           return d.data('name') ? d.data('name') : ''
@@ -89,7 +91,7 @@ class Network extends React.Component {
           'border-width'(d) {
             return (d.data('group') == 'ghosts') ? 3 : 0
           },
-          'font-size' : 8,
+          'font-size' : this.props.ui.fontSizeNetwork ? this.props.ui.fontSizeNetwork : 40,
           'color' : 'gray',
           'label'(d) {
             return d.data('name') ? d.data('name').trunc(20) : ''
@@ -103,6 +105,8 @@ class Network extends React.Component {
         // reset opacity
       if(!this.props.ui.isolateMode) {
         cy.edges().css({ 'opacity' : '.7' })
+        cy.nodes().css({'font-size': this.props.ui.fontSizeNetwork})
+
       }
     })
 
@@ -113,7 +117,7 @@ class Network extends React.Component {
     // store cytoscape object
     this.props.updateUI('cy', cy)
     this.cy = cy
-    console.log(this.props);
+    //console.log(this.props);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -150,7 +154,7 @@ class Network extends React.Component {
     if ( this.props.edges.length !== edges.length) shouldUpdate = true
     //FOR BANDSTOUR MAPS
     if ( this.props.nodes.style !== nodes.style) {
-      console.log("styles of nodes not matching");
+    console.log("styles of nodes not matching");
 
       shouldUpdate = true
 }

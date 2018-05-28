@@ -1,13 +1,13 @@
 import { stylesheet } from 'cytoscape'
 import { colors } from '/imports/client/helpers/colors.js'
-import {fontSizeNetwork}  from '/imports/client/ui/components/settings/GraphicalTweaks.jsx'
+import  React, { PropTypes } from 'react'
 
 const NetworkDefaultStyle = () =>
 
   stylesheet()
     .selector('node')
     .style({
-      'font-size' : {fontSizeNetwork}  ,
+      'font-size' : 4  ,
       'text-valign': 'center',
       'text-halign': 'right',
       'color': 'gray',

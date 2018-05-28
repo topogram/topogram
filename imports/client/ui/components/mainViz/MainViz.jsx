@@ -32,7 +32,9 @@ export default class MainViz extends React.Component {
       timeLineVisible,
       geoMapVisible,
       chartsVisible,
-      graphVisible
+      graphVisible,
+      fontSizeNetwork,
+
     } = this.props.ui
 
     const panelsCount = [geoMapVisible, graphVisible,chartsVisible]
@@ -43,7 +45,8 @@ export default class MainViz extends React.Component {
 
     let width = '100vw'
     if (panelsCount === 2) width = '50vw'
-    // if (panelsCount === 3) width = '33vw'
+
+    if (panelsCount === 3) width = '33vw'
 
     return (
       <div>
@@ -76,6 +79,7 @@ export default class MainViz extends React.Component {
               selectElement={selectElement}
               unselectElement={unselectElement}
               unselectAllElements={unselectAllElements}
+              fontSizeNetwork={fontSizeNetwork}
             />
             :
             null
@@ -110,6 +114,7 @@ MainViz.propTypes = {
   hasGeoInfo : PropTypes.bool,
   hasTimeInfo :  PropTypes.bool,
   hasCharts : PropTypes.bool,
+  fontSizeNetwork :PropTypes.number.isRequired,
   onFocusElement : PropTypes.func.isRequired,
   onUnfocusElement : PropTypes.func.isRequired,
   selectElement : PropTypes.func.isRequired,
