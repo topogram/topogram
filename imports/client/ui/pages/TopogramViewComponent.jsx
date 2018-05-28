@@ -19,14 +19,14 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     selectedNodeCategories: [],
     // viz layout settings
     graphVisible : true, // default to graph view
-    geoMapVisible : false,
+    geoMapVisible : true,
     hasCharts : true,
     chartsVisible : false,
     timeLineVisible : false,
     // network/map
     layoutName : 'preset',
-    nodeRadius : 'degree',
-    geoMapTile : 'default',
+    nodeRadius : 'weight',
+    geoMapTile : 'blackAndWhite',
     // selection
     selectedElements : [],
     focusElement: null,
@@ -35,7 +35,7 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     isolateMode : false,
     prevPositions : null,
     //styling
-    fontSizeNetwork :  8
+    fontSizeNetwork :  8,
   }
 })
 export class TopogramViewComponent extends React.Component {

@@ -66,8 +66,8 @@ class Network extends React.Component {
       console.log("HERE PROPS:",this.props)
       node.style({
         'border-width': 2,
-        'font-size' : this.props.ui.fontSizeNetwork ? this.props.ui.fontSizeNetwork : 6,
-        'color' : 'black',
+        'font-size' : this.props.ui.fontSizeNetwork ? 1.5*this.props.ui.fontSizeNetwork : 6,
+        'color' : 'grey',
         'label'(d) {
           return d.data('name') ? d.data('name') : ''
         },
@@ -92,7 +92,8 @@ class Network extends React.Component {
             return (d.data('group') == 'ghosts') ? 3 : 0
           },
           'font-size' : this.props.ui.fontSizeNetwork ? this.props.ui.fontSizeNetwork : 40,
-          'color' : 'gray',
+          'color' : 'black',
+          'text-wrap': 'ellipsis',
           'label'(d) {
             return d.data('name') ? d.data('name').trunc(20) : ''
           }
@@ -105,13 +106,13 @@ class Network extends React.Component {
         // reset opacity
       if(!this.props.ui.isolateMode) {
         cy.edges().css({ 'opacity' : '.7' })
-        cy.nodes().css({'font-size': this.props.ui.fontSizeNetwork})
+        //cy.nodes().css({'font-size': this.props.ui.fontSizeNetwork})
 
       }
     })
 
     // set grab / free events
-    if (!this.props.ui.isolateMode) {this.setUpClickEvents()}
+    if (!this.props.ui.isolateMode)  {this.setUpClickEvents()}
     else {this.setUpGrabFreeEvents()}
 
     // store cytoscape object

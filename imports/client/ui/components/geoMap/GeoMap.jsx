@@ -145,6 +145,7 @@ class GeoMap extends React.Component {
             ext={ext}
           />
           <ScaleControl
+            position='bottomright'
           />
         </Map>
       </div>

@@ -10,9 +10,9 @@ const NetworkDefaultStyle = () =>
       'font-size' : 4  ,
       'text-valign': 'center',
       'text-halign': 'right',
-      'color': 'gray',
-      'text-max-width': 20,
-      'text-wrap': 'wrap',
+      'color': 'black',
+      'text-max-width': 5,
+      'text-wrap': 'ellipsis',
       'min-zoomed-font-size': 0.4,
       'border-color': '#D84315',
       'background-color'(e) {

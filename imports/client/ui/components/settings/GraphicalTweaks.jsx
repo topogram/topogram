@@ -21,7 +21,7 @@ export default class GraphicalTweaks extends React.Component {
    super(props)
 
 this.state = {
-  fontSizeNetwork : 2
+  fontSizeNetwork : 4
 
 }
 }
@@ -48,6 +48,12 @@ console.log(this.state)
 console.log(this.props)
 
     this.props.updateUI({fontSizeNetwork :  this.state.fontSizeNetwork })
+
+    const { cy } = this.props.ui
+
+
+    cy.nodes().style({'font-size': this.props.ui.fontSizeNetwork})
+
     //this.props.ui.fontSizeNetwork=this.state.fontSizeNetwork
 
   }
