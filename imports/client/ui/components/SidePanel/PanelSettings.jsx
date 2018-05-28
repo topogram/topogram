@@ -7,7 +7,7 @@ import PanelSelector from '../panelSelector/PanelSelector.jsx'
 import NetworkOptions from '../networkOptions/NetworkOptions.jsx'
 import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
 import Settings from '../settings/Settings.jsx'
-
+import GraphicalTweaks from '../settings/GraphicalTweaks.jsx'
 const PanelSettings = ({
   geoMapVisible,
   chartsVisible,
@@ -44,6 +44,10 @@ const PanelSettings = ({
       />
       :
       null
+    }
+    {
+      <GraphicalTweaks
+      />
     }
   </span>
 )

@@ -1,10 +1,13 @@
 import React, { PropTypes } from 'react'
-
+import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader'
 
 import TopogramTogglePublic from './TopogramTogglePublic.jsx'
 import TopogramEditTitle from './TopogramEditTitle.jsx'
 import TopogramDelete from './TopogramDelete.jsx'
+
+
+
 
 const Settings = ({
   topogramTitle,
@@ -30,6 +33,7 @@ const Settings = ({
       router={router}
       key="DeleteTopogram"
     />
+
   </span>
 )
 

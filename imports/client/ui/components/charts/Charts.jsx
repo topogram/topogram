@@ -17,7 +17,7 @@ const mountNode = document.getElementById('react-c3js');
 
 @ui()
 
-class Charts extends React.Component {
+export class Charts extends React.Component {
 render( ) {
 
   let data = {
@@ -50,5 +50,3 @@ return (
 }
 
 }
-
-export default Charts
