@@ -1,16 +1,17 @@
 import { stylesheet } from 'cytoscape'
 import { colors } from '/imports/client/helpers/colors.js'
-import {fontSizeNetwork} from '/imports/client/ui/components/settings/GraphicalTweaks.jsx'
+import {fontSizeNetwork}  from '/imports/client/ui/components/settings/GraphicalTweaks.jsx'
+
 const NetworkDefaultStyle = () =>
 
   stylesheet()
     .selector('node')
     .style({
-      'font-size': 4,
+      'font-size' : {fontSizeNetwork}  ,
       'text-valign': 'center',
       'text-halign': 'right',
       'color': 'gray',
-      'text-max-width': 60,
+      'text-max-width': 20,
       'text-wrap': 'wrap',
       'min-zoomed-font-size': 0.4,
       'border-color': '#D84315',
@@ -28,7 +29,7 @@ const NetworkDefaultStyle = () =>
     // node with degree zero
     .selector('node[[degree = 0]]')
     .style({
-      'background-color': '#656565'
+      'background-color': '#111111'
       // 'display' :"none"
     })
     .selector('node[group="ghosts"]')
@@ -41,7 +42,7 @@ const NetworkDefaultStyle = () =>
     })
     .selector('edge')
     .style({
-      'target-arrow-shape': 'none', // default is undirected graph
+      'target-arrow-shape': 'diamond', // default is undirected graph
       'line-color'(e) {
         return e.data('selected') ?
           'yellow'
@@ -54,10 +55,11 @@ const NetworkDefaultStyle = () =>
       'opacity'(e) {
         return e.data('selected') ? 1 : .7
       },
-      'font-size':8,
-      'text-opacity' : 0, // hide label by default
+      'font-size':2,
+      'text-rotation' : 'autorotate',
+      'text-opacity' : 1, // hide label by default
       'label'(e) {
-        return e.data('group') ? e.data('group') : ''
+        return e.data('source') ? e.data('source')+" => "+e.data('target') : ''
       }
     })
     .selector('.edgehandles-hover')

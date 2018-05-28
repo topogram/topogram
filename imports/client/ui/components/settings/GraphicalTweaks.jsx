@@ -8,32 +8,34 @@ import Subheader from 'material-ui/Subheader'
 import TextField from 'material-ui/TextField';
 import ui from 'redux-ui'
 
-@ui()
+@ui(
+   {
+   state: {
+     fontSizeNetwork: 8}
+   }
+  )
+
 export default class GraphicalTweaks extends React.Component {
 
   constructor(props) {
    super(props)
 
-var originalfontSizeNetwork = 8
-this.fontSizeNetwork = originalfontSizeNetwork
-
-
-
 this.state = {
-  fontSizeNetwork : 8
+  fontSizeNetwork : 2
 
 }
+this.updateState = this.updateState.bind(this);
 }
 
 
 
 
 
-  static propTypes = {
-    fontSizeNetwork : PropTypes.number
-    //topogramId : PropTypes.string.isRequired,
-    //topogramSharedPublic : PropTypes.bool.isRequired
-  }
+//  static propTypes = {
+//    fontSizeNetwork : PropTypes.number//.isRequired
+//    //topogramId : PropTypes.string.isRequired,
+//    //topogramSharedPublic : PropTypes.bool.isRequired
+//_  }
 
 //  handleOnClick = () =>
   //  topogramTogglePublic.call({
@@ -41,9 +43,10 @@ this.state = {
   //  })
   handleChangefontSizeNetwork = (e) => {
     const fontSizeNetwork = e.target.value
-    console.log(this.fontSizeNetwork);
+    console.log(fontSizeNetwork);
     this.setState({ fontSizeNetwork })
-    this.props.updateUI({fontSizeNetwork :  this.state.fontSizeNetwork })
+    //this.props.updateUI({fontSizeNetwork :  this.state.fontSizeNetwork })
+    //this.props.ui.fontSizeNetwork=fontSizeNetwork
 
   }
 

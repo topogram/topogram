@@ -6,6 +6,8 @@ import NetworkDefaultStyle from './NetworkDefaultStyle'
 
 import { nodeMove } from '/imports/api/nodes/nodesMethods'
 
+
+
 @ui()
 class Network extends React.Component {
 
@@ -87,7 +89,7 @@ class Network extends React.Component {
           'border-width'(d) {
             return (d.data('group') == 'ghosts') ? 3 : 0
           },
-          'font-size' : 6,
+          'font-size' : 8,
           'color' : 'gray',
           'label'(d) {
             return d.data('name') ? d.data('name').trunc(20) : ''
@@ -111,6 +113,7 @@ class Network extends React.Component {
     // store cytoscape object
     this.props.updateUI('cy', cy)
     this.cy = cy
+    console.log(this.props);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -140,11 +143,17 @@ class Network extends React.Component {
     }
 
     // list of checks
+
     if ( this.props.ui.layoutName !== layoutName) shouldUpdate = true
     if ( this.props.ui.nodeRadius !== nodeRadius) shouldUpdate = true
     if ( this.props.nodes.length !== nodes.length) shouldUpdate = true
     if ( this.props.edges.length !== edges.length) shouldUpdate = true
+    //FOR BANDSTOUR MAPS
+    if ( this.props.nodes.style !== nodes.style) {
+      console.log("styles of nodes not matching");
 
+      shouldUpdate = true
+}
     // selected CATEGORIES
     if ( this.props.ui.selectedNodeCategories.length !== selectedNodeCategories.length) shouldUpdate = true
 
@@ -161,6 +170,7 @@ class Network extends React.Component {
     })
 
     return shouldUpdate
+    //return true
   }
 
   componentDidUpdate() {
