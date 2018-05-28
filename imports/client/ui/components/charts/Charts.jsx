@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
+import { Card, CardTitle, CardActions } from 'material-ui/Card'
 
 
 import C3Chart from 'react-c3js';
@@ -17,7 +18,15 @@ const mountNode = document.getElementById('react-c3js');
 
 @ui()
 
-export class Charts extends React.Component {
+export default class Charts extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hasCharts : true
+    }
+  }
+
+
 render( ) {
 
   let data = {
@@ -35,18 +44,26 @@ const {
 //const mountNode = document.getElementById('react-c3js');
 
 return (
-  <div
-    id={CHARTS_DIV_ID}
-    style={Object.assign({}, divChartsStyle,{ left, height })}
-    className="react-c3js"
+
+
+  <Card
+    style={{
+      bottom: 10,
+      maxWidth : '30%',
+      minWidth : '25%',
+      float : 'left'
+    }}
   >
-
-    <Chart data={data}  ref="charts"
+    <CardTitle
+      title='Charts'
+      titleStyle={{ fontSize : '12pt', lineHeight : '1em' }}
     />
-    </div>
+    <C3Chart data={data}  
+    />
+    </Card>
 
 
-),mountNode
+)
 }
 
 }
