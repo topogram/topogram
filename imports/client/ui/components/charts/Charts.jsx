@@ -40,15 +40,16 @@ render( ) {
 
    const { cy } = this.props.ui
 
-
-   if (this.props.ui.cy){console.log(this.props.ui.cy.filter())}
-   if (this.props.ui.cy){this.nodes=this.props.ui.cy.filter()
+//##FILTERNODES AND CREATE DATASET
+   if (this.props.ui.cy){console.log(this.props.ui.cy.filter('node'))}
+   if (this.props.ui.cy){this.nodes=this.props.ui.cy.filter('node')
 
 for (var i = 0; i < this.nodes.length; i++) {
-  console.log(this.nodes[i]["_private"]["data"]);}
+  console.log(this.nodes[i]["_private"]["data"])
+  ;}
 }
 
-
+//IDEM FOR EDGES SO THAT WE HAVE DATAS FOR EDGES AND NODES
 
   let data = {
     columns: [
