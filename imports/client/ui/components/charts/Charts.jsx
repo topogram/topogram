@@ -21,6 +21,14 @@ const divChartsStyle = {
 @ui()
 
 export default class Charts extends React.Component {
+  static propTypes = {
+    //edges : PropTypes.array.isRequired,
+    // isolateMode : PropTypes.bool,
+    // handleClickGeoElement : PropTypes.func.isRequired,
+    // onFocusElement : PropTypes.func.isRequired,
+    // onUnfocusElement : PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -34,20 +42,100 @@ render( ) {
   const {
     topogramId,
     nodes,
-    edges
+    //edges
 
    } = this.props
 
    const { cy } = this.props.ui
 
+//    function sizeObj(obj) {
+//   return Object.keys(obj).length;
+// }
 //##FILTERNODES AND CREATE DATASET
-   if (this.props.ui.cy){console.log(this.props.ui.cy.filter('node'))}
-   if (this.props.ui.cy){this.nodes=this.props.ui.cy.filter('node')
+  if (this.props.ui.cy && !!this.props.ui.cy.initrender ){console.log("THISCY",this.props.ui.cy)}
+   if (this.props.ui.cy && !!this.props.ui.cy.initrender) {
 
-for (var i = 0; i < this.nodes.length; i++) {
-  console.log(this.nodes[i]["_private"]["data"])
-  ;}
+        this.nodes=this.props.ui.cy.filter('node')
+        console.log(this.nodes.length);
+        var edges =[]
+        var j =0
+        for ( ;  j < this.nodes.length ; j++) {
+          //console.log(this.nodes[j]["_private"])
+           edges.push(this.nodes[j]["_private"])
+        }
+        var j =0
+        var edges2 =[]
+        console.log(edges.length);
+         for (;  j < edges.length ; j++)
+         {
+         //console.log(edges[j]["edges"])//edges ={edges}
+         edges2.push(edges[j]["edges"])
+       }
+
+       var edges3 =[]
+       var edgtmp =[]
+       console.log(edges2.length);
+        for (var k =0;  k < edges2.length ; k++)
+        {
+          console.log("k",k);
+          console.log("2K",edges2[k]);
+          edgtmp = edges2[k]
+          var edgesbk= edges3
+          console.log("edgtmp",edgtmp.keys())
+           edges3 = edgesbk.concat(edgtmp)
+          console.log("edges3",edges3)
+        }
+
+
+//         edges.push(this.nodes.map((n) =>{
+//          return(
+//             n._private.edges
+    //
+    //     )
+    //     }
+    //   )
+    // )
+
+        console.log("THISEDGES",edges)
+        console.log("THISEDGES2",edges2)
+        console.log("THISEDGES3",edges3)
+
+
+
+   const nodesforCharts = this.nodes.map((n,i) => {
+
+     return (
+
+
+           { 'data' : n._private.data,
+             'key':`node-${i}`,
+              'center': {'lat':n._private.data.lat,'lng' :n._private.data.lng},
+              'color' : n._private.data.selected ? 'yellow' : n._private.data.color
+
+           }
+     )
+   }
+   )
+   // const edgesforCharts = this.edges.map((n,i) => {
+   //
+   //   return (
+   //
+   //
+   //         { 'data' : n._private.data,
+   //           'key':`edge-${i}`,
+   //          //  'center': {'lat':n._private.data.lat,'lng' :n._private.data.lng},
+   //          //  'color' : n._private.data.selected ? 'yellow' : n._private.data.color
+   //
+   //         }
+   //   )
+   // }
+   // )
+
+  console.log("NODES",nodesforCharts)
+  //console.log("EDGES",edgesforCharts)
+  //console.log(this.nodes[i]["_private"]["data"])
 }
+
 
 //IDEM FOR EDGES SO THAT WE HAVE DATAS FOR EDGES AND NODES
 

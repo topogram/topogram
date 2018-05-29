@@ -35,6 +35,7 @@ export default class MainViz extends React.Component {
       graphVisible,
       fontSizeNetwork,
 
+
     } = this.props.ui
 
     const panelsCount = [geoMapVisible, graphVisible]
