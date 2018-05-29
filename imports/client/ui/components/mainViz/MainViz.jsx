@@ -37,7 +37,7 @@ export default class MainViz extends React.Component {
 
     } = this.props.ui
 
-    const panelsCount = [geoMapVisible, graphVisible,chartsVisible]
+    const panelsCount = [geoMapVisible, graphVisible]
       .filter(d => d).length
 
     //const height = timeLineVisible ? '70vh' : '100vh'
@@ -48,7 +48,7 @@ export default class MainViz extends React.Component {
 
     if (panelsCount === 3) width = '33vw'
 
-    console.log("logging",this.props.ui.chartsVisible,this.props.ui.hasCharts);
+    //console.log("logging",this.props.ui.chartsVisible,this.props.ui.hasCharts);
     console.log("logging",this.props)
 
     return (

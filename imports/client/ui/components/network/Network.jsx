@@ -62,8 +62,8 @@ class Network extends React.Component {
     cy.on('mouseover', 'node', e => {
 
       const node = e.cyTarget
-      console.log("WANT STATE?",this.state)
-      console.log("HERE PROPS:",this.props)
+      //console.log("WANT STATE?",this.state)
+      //console.log("HERE PROPS:",this.props)
       node.style({
         'border-width': 2,
         'font-size' : this.props.ui.fontSizeNetwork ? 1.5*this.props.ui.fontSizeNetwork : 6,

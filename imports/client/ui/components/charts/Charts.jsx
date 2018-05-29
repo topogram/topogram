@@ -48,17 +48,32 @@ return (
 
   <Card
     style={{
-      bottom: 10,
-      maxWidth : '30%',
-      minWidth : '25%',
-      float : 'left'
+      //top:100,
+      bottom: -100,
+
+      maxWidth : '60%',
+      minWidth : '20%',
+
+
+      float : 'right',
+      //zDepth: -10000,
+      border : 10,
+      position: 'relative',
+
+      zIndex: -1
     }}
   >
     <CardTitle
+
       title='Charts'
       titleStyle={{ fontSize : '12pt', lineHeight : '1em' }}
     />
-    <C3Chart data={data}  
+    <C3Chart
+    data={data}
+    style={{
+
+    size: { width :10}
+    }}
     />
     </Card>
 

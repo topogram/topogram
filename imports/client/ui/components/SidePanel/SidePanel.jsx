@@ -71,7 +71,7 @@ export default class SidePanel extends React.Component {
 
         <IconButton
           onClick={this.handleExpandChange}
-          style={{ float:'right', zIndex : 20 }}
+          style={{ float:'right', zIndex : 20000 }}
           >
             <ClearIcon color='#CCC' />
         </IconButton>

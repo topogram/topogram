@@ -11,7 +11,7 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
 // UI state default values
 @ui({
   state: {
-    filterPanelIsOpen: true,
+    filterPanelIsOpen: false,
     // filters
     minTime : null,
     maxTime : null,
@@ -21,8 +21,8 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     graphVisible : true, // default to graph view
     geoMapVisible : true,
     hasCharts : true,
-    chartsVisible : false,
-    timeLineVisible : false,
+    chartsVisible : true,
+    timeLineVisible : true,
     // network/map
     layoutName : 'preset',
     nodeRadius : 'weight',
