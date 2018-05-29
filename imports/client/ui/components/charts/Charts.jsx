@@ -3,6 +3,8 @@ import ui from 'redux-ui'
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
 
 
+
+
 import C3Chart from 'react-c3js';
 import './c3.css';
 
@@ -13,7 +15,7 @@ const divChartsStyle = {
   top: '0',
   zIndex : -1
 }
-const mountNode = document.getElementById('react-c3js');
+//const mountNode = document.getElementById('react-c3js');
 
 
 @ui()
@@ -27,7 +29,26 @@ export default class Charts extends React.Component {
   }
 
 
+
 render( ) {
+  const {
+    topogramId,
+    nodes,
+    edges
+
+   } = this.props
+
+   const { cy } = this.props.ui
+
+
+   if (this.props.ui.cy){console.log(this.props.ui.cy.filter())}
+   if (this.props.ui.cy){this.nodes=this.props.ui.cy.filter()
+
+for (var i = 0; i < this.nodes.length; i++) {
+  console.log(this.nodes[i]["_private"]["data"]);}
+}
+
+
 
   let data = {
     columns: [
@@ -49,13 +70,13 @@ return (
   <Card
     style={{
       //top:100,
-      bottom: -100,
+      //bottom: -120,
 
-      maxWidth : '60%',
+      maxWidth : '50%',
       minWidth : '20%',
 
 
-      float : 'right',
+      float : 'left',
       //zDepth: -10000,
       border : 10,
       position: 'relative',
@@ -67,9 +88,11 @@ return (
 
       title='Charts'
       titleStyle={{ fontSize : '12pt', lineHeight : '1em' }}
+
     />
     <C3Chart
     data={data}
+
     style={{
 
     size: { width :10}

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import Cytoscape from './Cytoscape.jsx'
-import NetworkDefaultStyle from './NetworkDefaultStyle'
+import NetworkDefaultStyle from './NetworkDefaultStyle.js'
 
 import { nodeMove } from '/imports/api/nodes/nodesMethods'
 
