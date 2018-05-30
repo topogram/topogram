@@ -50,7 +50,7 @@ export default class MainViz extends React.Component {
     if (panelsCount === 3) width = '33vw'
 
     //console.log("logging",this.props.ui.chartsVisible,this.props.ui.hasCharts);
-    console.log("logging",this.props)
+    //console.log("logging",this.props)
 
     return (
       <div>

@@ -15,16 +15,16 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     // filters
     minTime : null,
     maxTime : null,
-    currentSliderTime : () => new Date().getTime(),
-    currentSliderTimeMin : () => new Date().getTime(),
-    valueRange : [0,0],
+    // currentSliderTime : () => new Date().getTime(),
+    // currentSliderTimeMin : () => new Date().getTime(),
+    valueRange : () => [1284866786842,new Date().getTime()],
      // TODO set default to minTime
     selectedNodeCategories: [],
     // viz layout settings
     graphVisible : true, // default to graph view
     geoMapVisible : true,
     hasCharts : true,
-    chartsVisible : true,
+    chartsVisible : false,
     timeLineVisible : true,
     // network/map
     layoutName : 'preset',
@@ -303,6 +303,7 @@ export class TopogramViewComponent extends React.Component {
       // pass value to UI as default
       this.props.updateUI('minTime', minTime)
       this.props.updateUI('maxTime', maxTime)
+    
     }
 
     // default value to all
@@ -323,10 +324,10 @@ export class TopogramViewComponent extends React.Component {
     const filterTime = (n) => hasTimeInfo ?
       //new Date(this.props.ui.maxTime) >= new Date(n.data.end)
       //&&
-       new Date(this.props.ui.currentSliderTimeMin) < new Date(n.data.end)
+       new Date(this.props.ui.valueRange[0]) < new Date(n.data.end)
       &&
        new Date(n.data.start) >= new Date(this.props.ui.minTime)
-       && new Date(this.props.ui.currentSliderTime) >= new Date(n.data.start)
+       && new Date(this.props.ui.valueRange[1]) >= new Date(n.data.start)
       :
       true
 
@@ -353,7 +354,7 @@ export class TopogramViewComponent extends React.Component {
 
       .filter(e => hasTimeInfo ?
         new Date(e.data.start) >= new Date(this.props.ui.minTime)
-        && new Date(this.props.ui.currentSliderTime) >= new Date(e.data.start)
+        && new Date(this.props.ui.valueRange[1]) >= new Date(e.data.start)
         && nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
        :
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)

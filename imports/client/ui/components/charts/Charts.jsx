@@ -44,16 +44,16 @@ render( ) {
    } = this.props
 
    const { cy } = this.props.ui
-
+console.log("THISUI=",this.props.ui);
 //    function sizeObj(obj) {
 //   return Object.keys(obj).length;
 // }
 //##FILTERNODES AND CREATE DATASET
-  if (this.props.ui.cy && !!this.props.ui.cy.initrender ){console.log("THISCY",this.props.ui.cy)}
-   if (this.props.ui.cy && !!this.props.ui.cy.initrender) {
+  // if (this.props.ui.cy && !!this.props.ui.cy.initrender ){console.log("THISCY",this.props.ui.cy)}
+   if (this.props.ui.cy && !!this.props.ui.cy._private.initrender) {
 //EASY NODES
         this.nodes=this.props.ui.cy.filter('node')
-        console.log(this.nodes.length);
+        //console.log(this.nodes.length);
 //HARD EDGES
         var edges =[]
         var j =0
@@ -153,8 +153,8 @@ var regenerale= /.*/g;
    )
 
 
-  console.log("NODES",nodesforCharts)
-  console.log("EDGES",edgesforCharts)
+//  console.log("NODES",nodesforCharts)
+//  console.log("EDGES",edgesforCharts)
   //console.log(this.nodes[i]["_private"]["data"])
 
   var resweig = nodesforCharts.map((n)=>{
@@ -182,8 +182,8 @@ const statistical = require('statistical-js');
 
 
   resweig.unshift('nodes weight')
-      console.log("NODESWEIGHT",resweig)
-console.log("NODESWEIGHT2",resweig2)
+//      console.log("NODESWEIGHT",resweig)
+//console.log("NODESWEIGHT2",resweig2)
 
 }
 

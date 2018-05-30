@@ -25,6 +25,7 @@ export default class TimeLine extends React.Component {
    super(props)
 
    var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
+   //console.log("seconds",seconds)
    var tempo = Math.floor(seconds);
 
    this.originalTempo = tempo
@@ -64,16 +65,25 @@ export default class TimeLine extends React.Component {
   }
 
   play = () => {
+    var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
+    console.log("seconds",seconds)
+    var tempo = Math.floor(seconds);
 
-    const { tempo } = this.state;
+    this.originalTempo = tempo
+
+
     const { maxTime } = this.props.ui
+
 
     // start setInterval
     const timer = setInterval( () => {
-      const newTime = Math.round(this.props.ui.currentSliderTime) + tempo;
+      const newTime = Math.round(this.props.ui.valueRange[1]) + tempo;
+      //console.log("newtime",newTime);
       if (newTime >= Math.round(maxTime)) this.pause()
-
-      this.props.updateUI({currentSliderTime :  newTime })
+       var newValue = [this.props.ui.valueRange[0],newTime]
+      this.props.updateUI({
+                          valueRange: newValue
+                            })
     },10)
 
     this.setState({
@@ -84,14 +94,18 @@ export default class TimeLine extends React.Component {
 
   stop = () => {
     this.pause()
+     var newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]
     this.props.updateUI({
-      currentSliderTimeMin : Math.round(this.props.ui.minTime),
-      currentSliderTime : Math.round(this.props.ui.maxTime)
+
+      valueRange: newValueStop
+
+
 
     })
   }
 
   handleChangeStep = (e) => {
+
     const step = e.target.value
     const tempo = this.originalTempo*step
     this.setState({ step, tempo })

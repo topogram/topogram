@@ -29,13 +29,13 @@ export default class TimeSlider extends React.Component {
   }
 
   onSliderChange = (value) => {
-    this.props.updateUI({ currentSliderTime : value[1],
-      currentSliderTimeMin : value[0],
+    this.props.updateUI({ //currentSliderTime : value[1],
+      //currentSliderTimeMin : value[0],
       valueRange : value
 
      })
      //console.log(valueRange)
-     console.log(value[1],value[0])
+     //console.log(value[1],value[0])
 
   }
 
@@ -44,8 +44,7 @@ export default class TimeSlider extends React.Component {
   render() {
     const { minTime, maxTime
      } = this.props
-    const { currentSliderTime,
-    currentSliderTimeMin,valueRange
+    const { valueRange
 
    } = this.props.ui
 
@@ -73,14 +72,15 @@ export default class TimeSlider extends React.Component {
             value={valueRange}
             min={minTime}
             max={maxTime}
-            defaultValue={[ 1281214800000, 1284866786842 ]}
+            //defaultValue={[ 1281214800000, 1284866786842 ]}
             step={1}
             marks={marksYears}
             tipFormatter={dateFormatter}
             tipProps={{ overlayClassName: 'foo' }}
+            onClick={this.onSliderChange}
             onChange={this.onSliderChange}
-            pushable={true}
-            allowCross={false}
+            //pushable={true}
+            allowCross={true}
             />
           </div>
         </div>
