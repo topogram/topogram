@@ -1,11 +1,8 @@
 import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
-
-
-
-
 import C3Chart from 'react-c3js';
+
 import './c3.css';
 
 
@@ -170,6 +167,20 @@ var regenerale= /.*/g;
   var resweig2=resweig.reduce(function(prevVal, elem) {
     return prevVal + elem ;
 }, 0);
+
+//#WE NEED TO FIGURE OUT HOW OT INSTALL STDLIBs
+//ChiSquare Calculation
+// var ChiSquare = require( '@stdlib/stats/base/dists/chisquare' ).ChiSquare;
+// var chisquare = new ChiSquare( resweig );
+// var mu = chisquare.mean;
+// console.log("mu",mu);
+
+//#SO WE SWITCH TO js-statsXXX NOPE Statistical-js
+const statistical = require('statistical-js');
+
+
+
+
   resweig.unshift('nodes weight')
       console.log("NODESWEIGHT",resweig)
 console.log("NODESWEIGHT2",resweig2)

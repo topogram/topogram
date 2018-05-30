@@ -85,7 +85,9 @@ export default class TimeLine extends React.Component {
   stop = () => {
     this.pause()
     this.props.updateUI({
-      currentSliderTime : Math.round(this.props.ui.minTime)
+      currentSliderTimeMin : Math.round(this.props.ui.minTime),
+      currentSliderTime : Math.round(this.props.ui.maxTime)
+
     })
   }
 

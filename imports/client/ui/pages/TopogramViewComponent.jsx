@@ -15,7 +15,10 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     // filters
     minTime : null,
     maxTime : null,
-    currentSliderTime : () => new Date().getTime(), // TODO set default to minTime
+    currentSliderTime : () => new Date().getTime(),
+    currentSliderTimeMin : () => new Date().getTime(),
+    valueRange : [0,0],
+     // TODO set default to minTime
     selectedNodeCategories: [],
     // viz layout settings
     graphVisible : true, // default to graph view
@@ -319,8 +322,9 @@ export class TopogramViewComponent extends React.Component {
 
     const filterTime = (n) => hasTimeInfo ?
       //new Date(this.props.ui.maxTime) >= new Date(n.data.end)
-      //&& new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end)
       //&&
+       new Date(this.props.ui.currentSliderTimeMin) < new Date(n.data.end)
+      &&
        new Date(n.data.start) >= new Date(this.props.ui.minTime)
        && new Date(this.props.ui.currentSliderTime) >= new Date(n.data.start)
       :
