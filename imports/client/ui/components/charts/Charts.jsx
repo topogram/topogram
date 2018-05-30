@@ -54,9 +54,10 @@ render( ) {
 //##FILTERNODES AND CREATE DATASET
   if (this.props.ui.cy && !!this.props.ui.cy.initrender ){console.log("THISCY",this.props.ui.cy)}
    if (this.props.ui.cy && !!this.props.ui.cy.initrender) {
-
+//EASY NODES
         this.nodes=this.props.ui.cy.filter('node')
         console.log(this.nodes.length);
+//HARD EDGES
         var edges =[]
         var j =0
         for ( ;  j < this.nodes.length ; j++) {
@@ -65,7 +66,7 @@ render( ) {
         }
         var j =0
         var edges2 =[]
-        console.log(edges.length);
+        //console.log(edges.length);
          for (;  j < edges.length ; j++)
          {
          //console.log(edges[j]["edges"])//edges ={edges}
@@ -74,33 +75,67 @@ render( ) {
 
        var edges3 =[]
        var edgtmp =[]
-       console.log(edges2.length);
+       //console.log(edges2.length);
         for (var k =0;  k < edges2.length ; k++)
         {
-          console.log("k",k);
-          console.log("2K",edges2[k]);
+          //console.log("k",k);
+          //console.log("2K",edges2[k]);
           edgtmp = edges2[k]
           var edgesbk= edges3
-          console.log("edgtmp",edgtmp.keys())
+          //console.log("edgtmp",edgtmp.keys())
            edges3 = edgesbk.concat(edgtmp)
-          console.log("edges3",edges3)
+          //console.log("edges3",edges3)
         }
 
-
-//         edges.push(this.nodes.map((n) =>{
-//          return(
-//             n._private.edges
-    //
-    //     )
-    //     }
-    //   )
-    // )
-
-        console.log("THISEDGES",edges)
-        console.log("THISEDGES2",edges2)
-        console.log("THISEDGES3",edges3)
+        let edges4 = [...new Set(edges3)];
 
 
+var regenerale= /.*/g;
+// 0: "distance : 4205.973563 km  "
+// 1: ""
+// 2: "source : infinity-hall41-73  target : daniel-street41-73  "
+// 3: ""
+// 4: "datesource : 2010-12-18T19:00:00  "
+// 5: ""
+// 6: "datetarget : 2010-12-19T19:00:00  "
+// 7: ""
+// 8: "group: 6  "
+// 9: ""
+// 10: " tournée déjà grandement optimisée  "
+// 11: ""
+// 12: "Distance parcourue pendant le tour: 13762.3555564 km  "
+// 13: ""
+// 14: "Distance recalculée: 19362.6829578 km  "
+// 15: ""
+// 16: "Taux d'optimisation -0.406930875931 %  "
+// 17: ""
+// 18: "counted 1  times"
+
+// 19: ""
+
+      var edgesforCharts = edges4.map((n,i) =>{
+          return(
+             {data: n._private.data,
+             key : `edge-${i}`,
+              notes: n._private.data.notes,
+              distance : n._private.data.notes.match(regenerale)[0].split(": ")[1].split(" km")[0],
+              group: n._private.data.notes.match(regenerale)[8].split(": ")[1].split("  ")[0],
+
+            }
+
+   )
+   }
+  )
+
+
+        //console.log("THISEDGES",edges)
+        //console.log("THISEDGES2",edges2)
+        //console.log("THISEDGES3",edges3)
+        //console.log("EDGES:",edgesforCharts)
+      //  #YEAH GOT IT
+      //\HARD EDGES
+
+//#UNDER PRIVATE.DATA FOR NODES AND DATA FOR EDGE
 
    const nodesforCharts = this.nodes.map((n,i) => {
 
@@ -110,42 +145,57 @@ render( ) {
            { 'data' : n._private.data,
              'key':`node-${i}`,
               'center': {'lat':n._private.data.lat,'lng' :n._private.data.lng},
-              'color' : n._private.data.selected ? 'yellow' : n._private.data.color
+              'color' : n._private.data.selected ? 'yellow' : n._private.data.color,
+
+              //'notes' :  n._private.data.notes
+              //''
 
            }
      )
    }
    )
-   // const edgesforCharts = this.edges.map((n,i) => {
-   //
-   //   return (
-   //
-   //
-   //         { 'data' : n._private.data,
-   //           'key':`edge-${i}`,
-   //          //  'center': {'lat':n._private.data.lat,'lng' :n._private.data.lng},
-   //          //  'color' : n._private.data.selected ? 'yellow' : n._private.data.color
-   //
-   //         }
-   //   )
-   // }
-   // )
+
 
   console.log("NODES",nodesforCharts)
-  //console.log("EDGES",edgesforCharts)
+  console.log("EDGES",edgesforCharts)
   //console.log(this.nodes[i]["_private"]["data"])
+
+  var resweig = nodesforCharts.map((n)=>{
+    return(
+      n.data.weight
+    )
+
+  }
+  )
+  var resweig2=resweig.reduce(function(prevVal, elem) {
+    return prevVal + elem ;
+}, 0);
+  resweig.unshift('nodes weight')
+      console.log("NODESWEIGHT",resweig)
+console.log("NODESWEIGHT2",resweig2)
+
 }
 
 
 //IDEM FOR EDGES SO THAT WE HAVE DATAS FOR EDGES AND NODES
 
+
+  // NOW DATA's HERE IS AN EXAMPLE:
+  // let data = {
+  //   columns: [
+  //     ['nodes Weight', 30, 200, 100, 400, 150, 250],
+  //     ['Tour distances', 50, 20, 10, 40, 15, 25]
+  //   ]
+  // };
+
   let data = {
     columns: [
-      ['data1', 30, 200, 100, 400, 150, 250],
-      ['data2', 50, 20, 10, 40, 15, 25]
+      this.props.ui.cy && !!this.props.ui.cy.initrender ?  resweig : ['nodes weight', 30, 200, 100, 400, 150, 250]
     ]
-  };
+  , type :"bar"
 
+
+};
 
 const {
   chartsVisible
