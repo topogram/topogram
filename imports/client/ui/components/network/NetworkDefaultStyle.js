@@ -56,7 +56,19 @@ const NetworkDefaultStyle = () =>
     })
     .selector('edge')
       .style({
-        'target-arrow-shape': 'diamond', // default is undirected graph
+        'target-arrow-shape': 'triangle',
+        'target-arrow-color'(e) {
+          if (e.data('selected')) {
+            return 'yellow'
+
+          }
+          else if (e.data('color')){
+          return e.data('color')
+        }
+        else {
+          return '#AAAAAA'
+        }
+        }, // default is undirected graph
         'line-color'(e) {
           if (e.data('selected')) {
             return 'yellow'
@@ -70,6 +82,7 @@ const NetworkDefaultStyle = () =>
         }
         }
         ,
+
         'width'(e) {
           return e.data('weight') ? e.data('weight') : .3
         },
