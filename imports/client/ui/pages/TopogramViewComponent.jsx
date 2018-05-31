@@ -8,6 +8,7 @@ import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ExploreIcon from 'material-ui/svg-icons/action/explore';
 
+
 // UI state default values
 @ui({
   state: {
@@ -303,7 +304,7 @@ export class TopogramViewComponent extends React.Component {
       // pass value to UI as default
       this.props.updateUI('minTime', minTime)
       this.props.updateUI('maxTime', maxTime)
-    
+
     }
 
     // default value to all
@@ -369,12 +370,16 @@ export class TopogramViewComponent extends React.Component {
         <FloatingActionButton
           style={{
             position: 'fixed',
-            right: '20px',
-            top: '20px'
+            right: '10px',
+            top: '5px',
+            scaleType:"center",
+            //NotWorking
+            size: '10px'
           }}
           onClick={this.handleToggleSelectionMode}
           >
-          <ExploreIcon />
+          <ExploreIcon
+           />
         </FloatingActionButton>
 
         <MainViz

@@ -29,15 +29,16 @@ const TitleBox = ({
 }) => (
   <Card
     style={{
-      bottom: 10,
-      maxWidth : '30%',
-      minWidth : '25%',
-      float : 'left'
+      //bottom: 5,
+      maxWidth : '20%',
+      minWidth : '15%',
+      float : 'left',
+
     }}
   >
     <CardTitle
       title={topogramTitle}
-      titleStyle={{ fontSize : '12pt', lineHeight : '1em' }}
+      titleStyle={{ fontSize : '10pt', lineHeight : '1em' }}
     />
     {
       !!selectedElements.length ?

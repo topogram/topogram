@@ -177,10 +177,64 @@ const ttestN = statistical.methods.tTestOneSample(resweig, 4)
 console.log("Student NW",ttestN);
 
 
+var resweigUniquesPoids={}
 
-  var resweig2=resweig.reduce(function(prevVal, elem) {
-    return prevVal + elem ;
-}, 0);
+//var resweigUniquesStr = []
+// for (var i = 0; i < resweigUniques.length; i++) {
+//   resweigUniquesStr.push(resweigUniques[i].toString())
+// }
+// var resweigStr = []
+// for (var i = 0; i < resweig.length; i++) {
+//   resweigUniquesStr.push(resweigUniques[i].toString())
+// }
+// console.log("resweigUniques",resweigUniques);
+// console.log("resweigUniquesStr",resweigUniquesStr);
+// console.log("resweigStr",resweigStr);
+
+
+for (var i = 0; i < resweig.length; i++) {
+  // console.log(resweig[i].toString());
+  // if (typeof resweig[i].toString() === 'string' || resweig[i].toString() instanceof String)
+  // {console.log("string");}
+
+
+  if (!resweigUniquesPoids.hasOwnProperty(resweig[i].toString()))
+
+
+
+  {resweigUniquesPoids[resweig[i].toString()]=1
+//  console.log("strTYPE",resweigUniquesPoids[resweig[i].toString()]);
+}
+
+else  {
+  //console.log(resweigUniquesPoids[resweig[i].toString()]);
+
+  resweigUniquesPoids[resweig[i].toString()]=parseInt(resweigUniquesPoids[resweig[i].toString()])+1
+}
+// else {
+//   console.log("ERROR");
+// }
+}
+
+//console.log("resweigUniquesPoids",resweigUniquesPoids);
+
+var ArrayresweigUniquesPoids=[]
+for (var key in resweigUniquesPoids) {
+  ArrayresweigUniquesPoids.push(resweigUniquesPoids[key])
+}
+
+
+//HERE WE FINALLY GET OCCURENCE OF WEIGHT
+var resweigUniques = [...new Set(resweig)];
+for (var i = 0; i < resweigUniques.length; i++) {
+  resweigUniques[i]=resweigUniques[i].toString().substring(0,5)
+}
+console.log(resweigUniques);
+console.log(ArrayresweigUniquesPoids);
+
+
+
+
 
 //#WE NEED TO FIGURE OUT HOW OT INSTALL STDLIBs
 //ChiSquare Calculation
@@ -190,14 +244,15 @@ console.log("Student NW",ttestN);
 // console.log("mu",mu);
 
 //#SO WE SWITCH TO js-statsXXX NOPE Statistical-js
-// const statistical = require('statistical-js');
-// const distributionType = statistical.methods.poisson;
-//const chiSquaredGoodnessOfFit = statistical.methods.chiSquaredGoodnessOfFit(resweig, distributionType, 0.005);
+//const statistical = require('statistical-js');
+const distributionType = statistical.methods.poisson;
+const chiSquaredGoodnessOfFit = statistical.methods.chiSquaredGoodnessOfFit(ArrayresweigUniquesPoids, distributionType, 0.005);
 
-//console.log(chiSquaredGoodnessOfFit);
+console.log("chi2",chiSquaredGoodnessOfFit);
 
-
-
+///HERE WE FORMAT DATAS FOR CHART BY ADDIJNG A HEADER TO OUR ARRAYS
+  resweigUniques.unshift('nodes weight elements')
+  ArrayresweigUniquesPoids.unshift('nodes weight count')
   resweig.unshift('nodes weight')
 //      console.log("NODESWEIGHT",resweig)
 //console.log("NODESWEIGHT2",resweig2)
@@ -223,9 +278,15 @@ console.log("Student NW",ttestN);
 
 
   let data = {
-    columns: [
-      (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  resweig : ['nodes weight', 30, 200, 100, 400, 150, 250]
-    ]
+
+    xs:{
+       'nodes weight count':'nodes weight elements'
+    },
+
+
+    columns:
+      (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  [resweigUniques,ArrayresweigUniquesPoids] : [['nodes weight', 30, 200, 100, 400, 150, 250]]
+
   , type :"bar"
 
 
@@ -255,7 +316,7 @@ return (
       minWidth : '20%',
 
 
-      float : 'left',
+      float : 'right',
       //zDepth: -10000,
       border : 10,
       position: 'relative',
