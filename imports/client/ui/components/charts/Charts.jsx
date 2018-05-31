@@ -40,6 +40,8 @@ render( ) {
     topogramId,
     nodes,
     //edges
+    nodesforCharts,
+    edgesforCharts
 
    } = this.props
 
@@ -50,7 +52,7 @@ console.log("THISUI=",this.props.ui);
 // }
 //##FILTERNODES AND CREATE DATASET
   // if (this.props.ui.cy && !!this.props.ui.cy.initrender ){console.log("THISCY",this.props.ui.cy)}
-   if (this.props.ui.cy && !!this.props.ui.cy._private.initrender) {
+   if (this.props.ui.cy && (this.props.ui.cy._private.initrender == false)) {
 //EASY NODES
         this.nodes=this.props.ui.cy.filter('node')
         //console.log(this.nodes.length);
@@ -110,7 +112,7 @@ var regenerale= /.*/g;
 
 // 19: ""
 
-      var edgesforCharts = edges4.map((n,i) =>{
+      const edgesforCharts = edges4.map((n,i) =>{
           return(
              {data: n._private.data,
              key : `edge-${i}`,
