@@ -30,7 +30,7 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     // network/map
     layoutName : 'preset',
     nodeRadius : 'weight',
-    geoMapTile : 'blackAndWhite',
+    geoMapTile : 'default',
     // selection
     selectedElements : [],
     focusElement: null,
