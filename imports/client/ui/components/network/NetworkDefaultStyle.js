@@ -56,20 +56,31 @@ const NetworkDefaultStyle = () =>
     })
     .selector('edge')
       .style({
-        'target-arrow-shape': 'none', // default is undirected graph
+        'target-arrow-shape': 'diamond', // default is undirected graph
         'line-color'(e) {
-          return e.data('selected') ? 'yellow' : '#AAAAAA'
-        },
+          if (e.data('selected')) {
+            return 'yellow'
+
+          }
+          else if (e.data('color')){
+          return e.data('color')
+        }
+        else {
+          return '#AAAAAA'
+        }
+        }
+        ,
         'width'(e) {
           return e.data('weight') ? e.data('weight') : .3
         },
         'opacity'(e) {
           return e.data('selected') ? 1 : .7
         },
-        'font-size':8,
-        'text-opacity' : 0, // hide label by default
+        'font-size':2,
+        'text-rotation': 'autorotate',
+        'text-opacity' : 1, // hide label by default
         'label'(e) {
-          return e.data('group') ? e.data('group') : ''
+          return e.data('source')+"=>"+e.data('target')
         }
       })
     .selector('.edgehandles-hover')
