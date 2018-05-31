@@ -5,7 +5,7 @@ import C3Chart from 'react-c3js';
 
 import './c3.css';
 
-
+/*APPLYS TO NODES AND EDGES SELECTED ON SCREEN, SO CY IS THE TARGET OF IMPLANT :)*/
 const CHARTS_DIV_ID = "charts"
 const divChartsStyle = {
   position: 'fixed',
@@ -46,7 +46,7 @@ render( ) {
    } = this.props
 
    const { cy } = this.props.ui
-console.log("THISUI=",this.props.ui);
+//console.log("THISUI=",this.props.ui);
 //    function sizeObj(obj) {
 //   return Object.keys(obj).length;
 // }
@@ -166,6 +166,18 @@ var regenerale= /.*/g;
 
   }
   )
+
+  console.log("NODE WEIGHT LIST/RESULT N",resweig);
+
+  const statistical = require('statistical-js');
+const summaryNode = statistical.methods.summary(resweig);
+
+console.log(" SUMMARY NODES  RESULTS",summaryNode);
+const ttestN = statistical.methods.tTestOneSample(resweig, 4)
+console.log("Student NW",ttestN);
+
+
+
   var resweig2=resweig.reduce(function(prevVal, elem) {
     return prevVal + elem ;
 }, 0);
@@ -178,8 +190,11 @@ var regenerale= /.*/g;
 // console.log("mu",mu);
 
 //#SO WE SWITCH TO js-statsXXX NOPE Statistical-js
-const statistical = require('statistical-js');
+// const statistical = require('statistical-js');
+// const distributionType = statistical.methods.poisson;
+//const chiSquaredGoodnessOfFit = statistical.methods.chiSquaredGoodnessOfFit(resweig, distributionType, 0.005);
 
+//console.log(chiSquaredGoodnessOfFit);
 
 
 
@@ -201,18 +216,30 @@ const statistical = require('statistical-js');
   //   ]
   // };
 
+
+  const {
+    chartsVisible
+  } = this.state
+
+
   let data = {
     columns: [
-      this.props.ui.cy && !!this.props.ui.cy.initrender ?  resweig : ['nodes weight', 30, 200, 100, 400, 150, 250]
+      (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  resweig : ['nodes weight', 30, 200, 100, 400, 150, 250]
     ]
   , type :"bar"
 
 
 };
+if (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)&&data){
+//#SO WE SWITCH TO js-statsXXX NOPE Statistical-js
+const sample = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
 
-const {
-  chartsVisible
-} = this.state
+}
+
+
+
+
+
 
 //const mountNode = document.getElementById('react-c3js');
 
