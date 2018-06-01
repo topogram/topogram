@@ -4,7 +4,11 @@ import { Card, CardTitle, CardActions } from 'material-ui/Card'
 import C3Chart from 'react-c3js';
 
 import './c3.css';
+import Tooltip from 'rc-tooltip';
+import Slider from 'rc-slider';
 
+
+import 'rc-slider/assets/index.css';
 /*APPLYS TO NODES AND EDGES SELECTED ON SCREEN, SO CY IS THE TARGET OF IMPLANT :)*/
 const CHARTS_DIV_ID = "charts"
 const divChartsStyle = {
@@ -14,17 +18,35 @@ const divChartsStyle = {
 }
 //const mountNode = document.getElementById('react-c3js');
 
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+
+
 
 @ui()
 
 export default class Charts extends React.Component {
   static propTypes = {
+    minWeight : PropTypes.number,
+    maxWeight : PropTypes.number
     //edges : PropTypes.array.isRequired,
     // isolateMode : PropTypes.bool,
     // handleClickGeoElement : PropTypes.func.isRequired,
     // onFocusElement : PropTypes.func.isRequired,
     // onUnfocusElement : PropTypes.func.isRequired
   }
+
+  onSliderWChange = (valueWeight) => {
+      this.props.updateUI({ //currentSliderTime : value[1],
+        //currentSliderTimeMin : value[0],
+        valueRangeWeight : valueWeight
+
+       })
+     }
+
+
+
+
 
   constructor(props) {
     super(props)
@@ -35,17 +57,44 @@ export default class Charts extends React.Component {
 
 
 
-render( ) {
+render() {
   const {
     topogramId,
     nodes,
     //edges
     nodesforCharts,
-    edgesforCharts
+    edgesforCharts,
+    minWeigh,
+    maxWeigh,
+
 
    } = this.props
 
-   const { cy } = this.props.ui
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   const { cy, valueRangeWeight } = this.props.ui
+
+
+
+
+
+
+
+
+
+
 //console.log("THISUI=",this.props.ui);
 //    function sizeObj(obj) {
 //   return Object.keys(obj).length;
@@ -53,6 +102,19 @@ render( ) {
 //##FILTERNODES AND CREATE DATASET
   // if (this.props.ui.cy && !!this.props.ui.cy.initrender ){console.log("THISCY",this.props.ui.cy)}
    if (this.props.ui.cy && (this.props.ui.cy._private.initrender == false)) {
+
+
+
+
+// console.log(this.props.maxWeight,"this.props.maxWeight-this.props.minWeight",this.props.minWeight);
+//      const marksWeight = {}
+//      Array(this.props.maxWeight-this.props.minWeight)
+//        .fill(0)
+//        .map((n,i) => minWeight+i)
+//        .forEach(n => marksWeight[n] = n)
+
+
+
 //EASY NODES
         this.nodes=this.props.ui.cy.filter('node')
         //console.log(this.nodes.length);
@@ -199,31 +261,22 @@ for (var i = 0; i < resweig.length; i++) {
 
 
   if (!resweigUniquesPoids.hasOwnProperty(resweig[i].toString()))
-
-
-
   {resweigUniquesPoids[resweig[i].toString()]=1
 //  console.log("strTYPE",resweigUniquesPoids[resweig[i].toString()]);
 }
-
 else  {
   //console.log(resweigUniquesPoids[resweig[i].toString()]);
-
   resweigUniquesPoids[resweig[i].toString()]=parseInt(resweigUniquesPoids[resweig[i].toString()])+1
 }
 // else {
 //   console.log("ERROR");
 // }
 }
-
 //console.log("resweigUniquesPoids",resweigUniquesPoids);
-
 var ArrayresweigUniquesPoids=[]
 for (var key in resweigUniquesPoids) {
   ArrayresweigUniquesPoids.push(resweigUniquesPoids[key])
 }
-
-
 //HERE WE FINALLY GET OCCURENCE OF WEIGHT
 var resweigUniques = [...new Set(resweig)];
 for (var i = 0; i < resweigUniques.length; i++) {
@@ -324,12 +377,14 @@ return (
       zIndex: -1
     }}
   >
+  <div>
     <CardTitle
 
       title='Charts'
       titleStyle={{ fontSize : '12pt', lineHeight : '1em' }}
 
     />
+
     <C3Chart
     data={data}
 
@@ -338,6 +393,28 @@ return (
     size: { width :10}
     }}
     />
+    </div>
+    <div>
+    <Range
+
+            style={{ zIndex : 100 }}
+            value={valueRangeWeight}
+            min={this.props.minWeight}
+            max={this.props.maxWeight}
+            //defaultValue={[ 1281214800000, 1284866786842 ]}
+            step={1}
+            //marks={marksWeight}
+            // tipFormatter={dateFormatter}
+            tipProps={{ overlayClassName: 'foo' }}
+            onClick={this.onSliderWChange}
+            onChange={this.onSliderWChange}
+            //pushable={true}
+            allowCross={true}
+            />
+
+
+
+    </div>
     </Card>
 
 

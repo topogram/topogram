@@ -22,7 +22,9 @@ const TitleBox = ({
   handleEnterIsolateMode,
   handleEnterExtractMode,
   handleExitIsolateMode,
-
+  handleSaveSelection,
+  handleLoadSelection,
+  handleFilterByWeight,
   focusElement,
   onFocusElement,
   onUnfocusElement
@@ -77,7 +79,22 @@ const TitleBox = ({
                 icon={<FocusIcon />}
                 onClick={handleEnterExtractMode}
                 />
+                <RaisedButton
+                  label="Save selection"
+                  labelPosition="before"
+                  icon={<FocusIcon />}
+                  onClick={handleSaveSelection}
+                  />
+                  <RaisedButton
+                    label="Load Selection"
+                    labelPosition="before"
+                    icon={<FocusIcon />}
+                    onClick={handleLoadSelection}
+                    />
               </div>
+
+
+
           }
       </CardActions>
       :

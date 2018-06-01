@@ -1,4 +1,4 @@
-import 'rc-slider/assets/index.css'
+
 import './timeline.css'
 
 import React, { PropTypes } from 'react'
@@ -11,7 +11,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const createSliderWithTooltip =   Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 //const SliderWithTooltip = createSliderWithTooltip(Slider)

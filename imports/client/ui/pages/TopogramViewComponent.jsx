@@ -16,9 +16,13 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     // filters
     minTime : null,
     maxTime : null,
+    minWeight : null,
+    maxWeight : null,
     // currentSliderTime : () => new Date().getTime(),
     // currentSliderTimeMin : () => new Date().getTime(),
     valueRange : () => [1284866786842,new Date().getTime()],
+    valueRangeWeight : () => [1,10],
+
      // TODO set default to minTime
     selectedNodeCategories: [],
     // viz layout settings
@@ -52,6 +56,9 @@ export class TopogramViewComponent extends React.Component {
     hasCharts : PropTypes.bool,
     maxTime: PropTypes.instanceOf(Date),
     minTime: PropTypes.instanceOf(Date),
+    maxWeight: PropTypes.number,
+    minWeight: PropTypes.number,
+
     nodeCategories: PropTypes.array,
     nodes: PropTypes.array,
     edges: PropTypes.array,
@@ -98,6 +105,30 @@ export class TopogramViewComponent extends React.Component {
 
   handleToggleSelectionMode = () =>
     this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
+
+handleSaveSelection = () =>{
+
+
+}
+
+
+handleLoadSelection = () =>{
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   handleEnterIsolateMode = () => {
 
@@ -295,9 +326,12 @@ export class TopogramViewComponent extends React.Component {
     const {
       ui,
       hasTimeInfo,
+      hasCharts,
       nodeCategories,
       minTime,
-      maxTime
+      maxTime,
+      maxWeight,
+      minWeight,
     } = this.props
 
     if (hasTimeInfo && !ui.minTime && !ui.maxTime) {
@@ -307,17 +341,29 @@ export class TopogramViewComponent extends React.Component {
 
     }
 
+      if (nodeCategories && !ui.minWeight && !ui.maxWeight){
+      this.props.updateUI('minWeight', minWeight)
+      this.props.updateUI('maxWeight', maxWeight)
+
+    }
+
+
     // default value to all
     if (nodeCategories && !ui.selectedNodeCategories.length)
       this.props.updateUI('selectedNodeCategories', nodeCategories)
 
   }
 
+
+
+
+
   render() {
 
     const {
       hasTimeInfo,
       nodeCategories,
+      hasCharts,
       user,
       router
     } = this.props
@@ -331,6 +377,20 @@ export class TopogramViewComponent extends React.Component {
        && new Date(this.props.ui.valueRange[1]) >= new Date(n.data.start)
       :
       true
+      console.log("hasCharts",hasCharts);
+
+      const filterWeight = (n) => hasTimeInfo ?
+        //new Date(this.props.ui.maxTime) >= new Date(n.data.end)
+        //&&
+         this.props.ui.valueRangeWeight[0] <= n.data.weight
+        //&& n.data.weight >= this.props.ui.minWeight
+        && this.props.ui.valueRangeWeight[1] >= n.data.weight
+         :
+         true
+
+
+
+
 
     const filterCategories = (n) => !!nodeCategories.length ?
       this.props.ui.selectedNodeCategories.includes(n.data.group)
@@ -341,6 +401,7 @@ export class TopogramViewComponent extends React.Component {
     const nodes =  this.props.nodes.filter(n =>
         filterTime(n)
         && filterCategories(n)
+        &&filterWeight(n)
       )
       .map(n => {
         let selected = selectedIds.includes(n.data.id)
@@ -348,6 +409,7 @@ export class TopogramViewComponent extends React.Component {
         node.data.selected = selected
         return node
       })
+      console.log(nodes);
 
     const nodeIds = nodes.map(n => n.data.id)
 
@@ -356,6 +418,8 @@ export class TopogramViewComponent extends React.Component {
       .filter(e => hasTimeInfo ?
         new Date(e.data.start) >= new Date(this.props.ui.minTime)
         && new Date(this.props.ui.valueRange[1]) >= new Date(e.data.start)
+        && new Date(this.props.ui.valueRange[0]) < new Date(e.data.end)
+
         && nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
        :
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
