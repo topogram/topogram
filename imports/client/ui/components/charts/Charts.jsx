@@ -231,13 +231,6 @@ var regenerale= /.*/g;
 
   console.log("NODE WEIGHT LIST/RESULT N",resweig);
 
-  const statistical = require('statistical-js');
-const summaryNode = statistical.methods.summary(resweig);
-
-console.log(" SUMMARY NODES  RESULTS",summaryNode);
-const ttestN = statistical.methods.tTestOneSample(resweig, 4)
-console.log("Student NW",ttestN);
-
 
 var resweigUniquesPoids={}
 
@@ -298,11 +291,24 @@ console.log(ArrayresweigUniquesPoids);
 
 //#SO WE SWITCH TO js-statsXXX NOPE Statistical-js
 //const statistical = require('statistical-js');
+
+  const statistical = require('statistical-js');
+  try{
+const summaryNode = statistical.methods.summary(resweig);
+
+
+console.log(" SUMMARY NODES  RESULTS",summaryNode);
+const ttestN = statistical.methods.tTestOneSample(resweig, 4)
+console.log("Student NW",ttestN);
+
 const distributionType = statistical.methods.poisson;
 const chiSquaredGoodnessOfFit = statistical.methods.chiSquaredGoodnessOfFit(ArrayresweigUniquesPoids, distributionType, 0.005);
 
 console.log("chi2",chiSquaredGoodnessOfFit);
 
+}
+catch(error)
+{console.log(error);}
 ///HERE WE FORMAT DATAS FOR CHART BY ADDIJNG A HEADER TO OUR ARRAYS
   resweigUniques.unshift('nodes weight elements')
   ArrayresweigUniquesPoids.unshift('nodes weight count')
@@ -398,7 +404,7 @@ return (
     <Range
 
             style={{ zIndex : 100 }}
-            value={valueRangeWeight}
+            value={this.props.ui.valueRangeWeight}
             min={this.props.minWeight}
             max={this.props.maxWeight}
             //defaultValue={[ 1281214800000, 1284866786842 ]}

@@ -379,15 +379,6 @@ handleLoadSelection = () =>{
       true
       console.log("hasCharts",hasCharts);
 
-      const filterWeight = (n) => hasTimeInfo ?
-        //new Date(this.props.ui.maxTime) >= new Date(n.data.end)
-        //&&
-         this.props.ui.valueRangeWeight[0] <= n.data.weight
-        //&& n.data.weight >= this.props.ui.minWeight
-        && this.props.ui.valueRangeWeight[1] >= n.data.weight
-         :
-         true
-
 
 
 
@@ -401,7 +392,7 @@ handleLoadSelection = () =>{
     const nodes =  this.props.nodes.filter(n =>
         filterTime(n)
         && filterCategories(n)
-        &&filterWeight(n)
+
       )
       .map(n => {
         let selected = selectedIds.includes(n.data.id)
