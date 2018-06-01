@@ -80,7 +80,7 @@ class Cytoscape extends Component {
     // calculate radius range
     const weightDomain = scaleLinear()
       .domain([ min, max ])
-      .range([5,30])
+      .range([5,15])
 
     // apply size
     this.cy.style()
