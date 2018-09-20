@@ -42,9 +42,9 @@ export function nodes(state = initialState, action) {
       .filter(n => n.data.end)
       .map(n => new Date(n.data.end))
       .sort((a,b) => b.getTime()-a.getTime())
-console.log(ends,"ends");
+//console.log(ends,"ends");
 
-console.log(nodes,"nodes");
+//console.log(nodes,"nodes");
 
 //TODOIMPROVE THIS
       const weighsMin = nodes
@@ -63,8 +63,8 @@ console.log(nodes,"nodes");
           .filter(n => n.data.weight)
           .map(n => n.data.weight)
           .sort((a,b) =>b-a)
-console.log(weighsMin,"weighsMin");
-console.log(weighsMax,"weighsMax");
+//console.log(weighsMin,"weighsMin");
+//console.log(weighsMax,"weighsMax");
     const hasTimeInfo = !!(starts.length || ends.length)
 
     const nodeCategories = [

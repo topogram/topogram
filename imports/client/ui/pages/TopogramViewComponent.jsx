@@ -377,7 +377,7 @@ handleLoadSelection = () =>{
        && new Date(this.props.ui.valueRange[1]) >= new Date(n.data.start)
       :
       true
-      console.log("hasCharts",hasCharts);
+      //console.log("hasCharts",hasCharts);
 
 
 
@@ -400,7 +400,7 @@ handleLoadSelection = () =>{
         node.data.selected = selected
         return node
       })
-      console.log(nodes);
+//      console.log(nodes);
 
     const nodeIds = nodes.map(n => n.data.id)
 

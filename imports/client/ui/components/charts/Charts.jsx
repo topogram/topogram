@@ -280,8 +280,65 @@ console.log(ArrayresweigUniquesPoids);
 
 
 
+//===============================================================>
+
+  var resweigEdges = edgesforCharts.map((n)=>{
+    return(
+      n.data.weight
+    )
+
+  }
+  )
+
+  console.log("EDGE WEIGHT LIST/RESULT N",resweigEdges);
 
 
+var resweigEdgesUniquesPoids={}
+
+//var resweigUniquesStr = []
+// for (var i = 0; i < resweigUniques.length; i++) {
+//   resweigUniquesStr.push(resweigUniques[i].toString())
+// }
+// var resweigStr = []
+// for (var i = 0; i < resweig.length; i++) {
+//   resweigUniquesStr.push(resweigUniques[i].toString())
+// }
+// console.log("resweigUniques",resweigUniques);
+// console.log("resweigUniquesStr",resweigUniquesStr);
+// console.log("resweigStr",resweigStr);
+
+
+for (var i = 0; i < resweigEdges.length; i++) {
+  // console.log(resweig[i].toString());
+  // if (typeof resweig[i].toString() === 'string' || resweig[i].toString() instanceof String)
+  // {console.log("string");}
+
+
+  if (!resweigEdgesUniquesPoids.hasOwnProperty(resweigEdges[i].toString()))
+  {resweigEdgesUniquesPoids[resweigEdges[i].toString()]=1
+//  console.log("strTYPE",resweigUniquesPoids[resweig[i].toString()]);
+}
+else  {
+  //console.log(resweigUniquesPoids[resweig[i].toString()]);
+  resweigEdgesUniquesPoids[resweigEdges[i].toString()]=parseInt(resweigEdgesUniquesPoids[resweigEdges[i].toString()])+1
+}
+// else {
+//   console.log("ERROR");
+// }
+}
+//console.log("resweigUniquesPoids",resweigUniquesPoids);
+var ArrayresweigEdgesUniquesPoids=[]
+for (var key in resweigEdgesUniquesPoids) {
+  ArrayresweigEdgesUniquesPoids.push(resweigEdgesUniquesPoids[key])
+}
+//HERE WE FINALLY GET OCCURENCE OF WEIGHT
+var resweigEdgesUniques = [...new Set(resweigEdges)];
+for (var i = 0; i < resweigEdgesUniques.length; i++) {
+  resweigEdgesUniques[i]=resweigEdgesUniques[i].toString().substring(0,5)
+}
+console.log(resweigEdgesUniques);
+console.log(ArrayresweigEdgesUniquesPoids);
+//================================================================>
 //#WE NEED TO FIGURE OUT HOW OT INSTALL STDLIBs
 //ChiSquare Calculation
 // var ChiSquare = require( '@stdlib/stats/base/dists/chisquare' ).ChiSquare;
@@ -294,28 +351,37 @@ console.log(ArrayresweigUniquesPoids);
 
   const statistical = require('statistical-js');
   try{
-const summaryNode = statistical.methods.summary(resweig);
+const summaryNodes = statistical.methods.summary(resweig);
+const summaryEdges = statistical.methods.summary(resweigEdges);
 
-
-console.log(" SUMMARY NODES  RESULTS",summaryNode);
+console.log(" SUMMARY NODES  RESULTS",summaryNodes);
+console.log(" SUMMARY EDGES  RESULTS",summaryEdges);
 const ttestN = statistical.methods.tTestOneSample(resweig, 4)
 console.log("Student NW",ttestN);
+const ttestE = statistical.methods.tTestOneSample(resweigEdges, 4)
+console.log("Student EW",ttestE);
+
 
 const distributionType = statistical.methods.poisson;
+const distributionTypeEdges = statistical.methods.poisson;
+
 const chiSquaredGoodnessOfFit = statistical.methods.chiSquaredGoodnessOfFit(ArrayresweigUniquesPoids, distributionType, 0.005);
-
-console.log("chi2",chiSquaredGoodnessOfFit);
-
+const chiSquaredGoodnessOfFitEdges = statistical.methods.chiSquaredGoodnessOfFit(ArrayresweigEdgesUniquesPoids, distributionTypeEdges, 0.005);
+console.log("chi2 Nodes",chiSquaredGoodnessOfFit);
+console.log("chi2 Edges",chiSquaredGoodnessOfFitEdges);
 }
 catch(error)
-{console.log(error);}
+{//console.log(error);
+}
 ///HERE WE FORMAT DATAS FOR CHART BY ADDIJNG A HEADER TO OUR ARRAYS
   resweigUniques.unshift('nodes weight elements')
   ArrayresweigUniquesPoids.unshift('nodes weight count')
   resweig.unshift('nodes weight')
+  resweigEdgesUniques.unshift('edges weight elements')
+  ArrayresweigEdgesUniquesPoids.unshift('edges weight count')
+  resweigEdges.unshift('edges weight')
 //      console.log("NODESWEIGHT",resweig)
 //console.log("NODESWEIGHT2",resweig2)
-
 }
 
 
@@ -335,18 +401,33 @@ catch(error)
     chartsVisible
   } = this.state
 
-
+console.log(resweigUniques,"resweigUniques");
   let data = {
 
-    xs:{
-       'nodes weight count':'nodes weight elements'
-    },
 
 
     columns:
-      (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  [resweigUniques,ArrayresweigUniquesPoids] : [['nodes weight', 30, 200, 100, 400, 150, 250]]
+      (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  [ArrayresweigUniquesPoids] : [['nodes weight', 30, 200, 100, 400, 150, 250]]
 
-  , type :"bar"
+  , bar: {
+        width: {
+            ratio: 0.5 // this makes bar width 50% of length between ticks
+        }
+      }
+  ,axis: {
+  x: {
+label: 'nodes weight',
+type: "category",
+categories:resweigUniques,
+  tick: {
+      fit: true,
+      multiline: true,
+    },
+  },
+  y: {
+            label: 'numbr of nodes'
+        },
+}
 
 
 };
