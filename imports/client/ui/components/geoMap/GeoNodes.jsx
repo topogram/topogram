@@ -23,7 +23,8 @@ export default class GeoNodes extends React.Component {
     const nodes = this.props.nodes.map((n,i) => {
       return (
         <CircleMarker
-          radius={n.data.weight? n.data.weight*5: 3}
+        //LIMIT MAX RADIUS IN GEOMAP
+          radius={n.data.weight? n.data.weight > 100? 167 : n.data.weight*5: 3}
           key={`node-${i}`}
           center={n.coords}
           color={n.data.selected ? 'yellow' : n.data.color ? n.data.color : 'steelblue'}

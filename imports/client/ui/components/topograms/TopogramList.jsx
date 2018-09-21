@@ -5,12 +5,32 @@ import SubHeader from 'material-ui/Subheader'
 import { GridList } from 'material-ui/GridList'
 
 import TopogramListItem from './TopogramListItem.jsx'
+import ui from 'redux-ui'
+import { defineMessages, injectIntl } from 'react-intl'
 
+import AutoComplete from 'material-ui/AutoComplete'
+
+const messages = defineMessages({
+  hint : {
+    'id': 'queryBox.hint',
+    'defaultMessage': 'Search for a Map',
+    'message': ''
+  },
+  label : {
+    'id': 'queryBox.label',
+    'defaultMessage': 'Map search',
+    'message': ''
+  }
+})
+
+@ui()
 class TopogramList extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { anonymousOnly : false }
+    this.state = { anonymousOnly : false ,
+      currentValue : null
+    }
   }
 
   static propTypes = {
@@ -24,10 +44,39 @@ class TopogramList extends React.Component {
     this.setState({ anonymousOnly : !this.state.anonymousOnly })
   }
 
+  handleNewRequest = ({value, text, topogram}, index) => {
+    //const {selectElement} = this.props
+    //console.log("VALUE",value)
+    //console.log("TEXT",text)
+    //console.log("topogram",topogram)
+
+  const {win} = window.open(`/topograms/${topogram._id}`, '_blank');
+
+
+
+  }
+
+
   render() {
+
+    const { formatMessage } = this.props.intl
+
+
 
     const { anonymousOnly } = this.state
     const { showFilters, title, topograms } = this.props
+
+    const dataSource = topograms
+      .filter(d => anonymousOnly ? d.userId === null : true)
+      .sort( (a, b) => b.createdAt - a.createdAt)
+      .map( n => (
+        {
+          value : n.title.substr(0, 20),
+          text : n.title.substr(0, 20),
+          topogram : n
+        }
+      ))
+    //console.log("dataSource",dataSource);
 
     const topogramItems = topograms
       .filter(d => anonymousOnly ? d.userId === null : true)
@@ -45,6 +94,21 @@ class TopogramList extends React.Component {
       ))
 
     return (
+      <div>
+      <AutoComplete
+        ref="queryBox"
+        filter={AutoComplete.fuzzyFilter}
+        dataSource={dataSource}
+        maxSearchResults={70}
+        fullWidth={true}
+        style={this.props.style}
+        menuProps={{desktop:true}}
+        hintText={formatMessage(messages.hint)}
+        floatingLabelText={formatMessage(messages.label)}
+        onNewRequest={this.handleNewRequest}
+        // onUpdateInput={this.handleUpdateInput}
+      />
+
       <section
         className="home-public-list"
         style={{ width : '80vw', margin : '0 auto 1em auto' }}
@@ -65,7 +129,7 @@ class TopogramList extends React.Component {
         {
           topogramItems.length ?
             <GridList
-              cellHeight={180}
+              cellHeight={240}
               cols={3}
             >
               {topogramItems}
@@ -74,9 +138,26 @@ class TopogramList extends React.Component {
             <p>No topograms yet!</p>
         }
       </section>
+      </div>
     )
   }
 }
 
+TopogramList.propTypes = {
+  // promptSnackbar: PropTypes.func,
+  topogram : PropTypes.object,
+  //nodes : PropTypes.array,
+  // edges : PropTypes.array,
+  // style : PropTypes.object,
+  // intl : PropTypes.shape({
+  //   formatMessage : PropTypes.func
+  // })
+}
 
-export default TopogramList
+TopogramList.defaultProps = {
+  topogram : {},
+  nodes : [],
+  edges : []
+}
+
+export default injectIntl(TopogramList)
