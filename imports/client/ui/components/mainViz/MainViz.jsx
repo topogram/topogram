@@ -5,7 +5,7 @@ import Network from '/imports/client/ui/components/network/Network.jsx'
 import GeoMap from '/imports/client/ui/components/geoMap/GeoMap.jsx'
 import TimeLine from '/imports/client/ui/components/timeLine/TimeLine.jsx'
 import Charts from '/imports/client/ui/components/charts/Charts.jsx'
-
+import Legend from '/imports/client/ui/components/legend/Legend.jsx'
 @ui()
 export default class MainViz extends React.Component {
 
@@ -32,6 +32,7 @@ export default class MainViz extends React.Component {
       timeLineVisible,
       geoMapVisible,
       chartsVisible,
+      legendVisible,
       graphVisible,
       fontSizeNetwork,
 
@@ -102,6 +103,15 @@ export default class MainViz extends React.Component {
             <Charts
               hasCharts={hasCharts}
               chartsVisible={chartsVisible}
+            />
+            :
+            null
+        }
+        {
+          this.props.ui.legendVisible?
+
+            <Legend
+              legendVisible={legendVisible}
             />
             :
             null

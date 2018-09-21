@@ -404,8 +404,6 @@ catch(error)
 console.log(resweigUniques,"resweigUniques");
   let data = {
 
-
-
     columns:
       (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  [ArrayresweigUniquesPoids] : [['nodes weight', 30, 200, 100, 400, 150, 250]]
 

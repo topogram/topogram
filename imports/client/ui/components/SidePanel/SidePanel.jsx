@@ -60,6 +60,7 @@ export default class SidePanel extends React.Component {
       focusElement,
       geoMapVisible,
       chartsVisible,
+      legendVisible
     } = this.props.ui
 
     return (

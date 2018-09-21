@@ -29,6 +29,11 @@ export default class PanelSelector extends React.Component {
     this.props.updateUI( 'chartsVisible', !this.props.ui.chartsVisible,
   !this.props.hasCharts )
   }
+  toggleLegend() {
+    this.props.updateUI( 'legendVisible', !this.props.ui.legendVisible )
+  }
+
+
 
   toggleGraph() {
     this.props.updateUI( 'graphVisible', !this.props.ui.graphVisible )
@@ -48,6 +53,7 @@ export default class PanelSelector extends React.Component {
       geoMapVisible,
       graphVisible,
       chartsVisible,
+      legendVisible
     } = this.props.ui
 
     const {
@@ -91,6 +97,14 @@ export default class PanelSelector extends React.Component {
             checked={chartsVisible}
             //disabled={!chartsVisible}
             onClick={ () => this.toggleCharts()}
+          />
+        </MenuItem>
+        <MenuItem style={buttonStyle}>
+          <Checkbox
+            label={'Legend'}
+            checked={legendVisible}
+            //disabled={!legendVisible}
+            onClick={ () => this.toggleLegend()}
           />
         </MenuItem>
         {/* <MenuItem style={buttonStyle}>

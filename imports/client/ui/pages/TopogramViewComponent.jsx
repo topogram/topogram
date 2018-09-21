@@ -30,6 +30,7 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     geoMapVisible : true,
     hasCharts : true,
     chartsVisible : false,
+    legendVisible : false,
     timeLineVisible : true,
     // network/map
     layoutName : 'preset',
