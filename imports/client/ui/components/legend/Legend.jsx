@@ -2,17 +2,15 @@ import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
 import d3 from 'd3'
+import { CircleMarker } from 'react-leaflet'
 
 
 const LEGEND_DIV_ID = "legend"
 const divLegendStyle = {
-  position: 'fixed',
+  //position: 'fixed',
   top: '0',
-  zIndex : -1
+  //zIndex : -1
 }
-
-
-
 
 
 
@@ -49,11 +47,14 @@ render() {
     minWeight,
     maxWeight,
     minEdgesWeight,
-    maxEdgesWeight
+    maxEdgesWeight,
+    height,
+    width
 
 
    } = this.props
 
+const right = width === '50vw' ? '50vw' : 0
    const { cy } = this.props.ui
 
   // if (this.props.ui.cy && !!this.props.ui.cy.initrender ){console.log("THISCY",this.props.ui.cy)}
@@ -70,9 +71,6 @@ return (
 
   <Card
     style={{
-      //top:100,
-      //bottom: -120,
-
       maxWidth : '50%',
       minWidth : '20%',
 
@@ -86,6 +84,7 @@ return (
     }}
   >
   <div>
+
     <CardTitle
 
       title='Legend'
@@ -100,10 +99,21 @@ return (
 
     />
 
-    </div>
-    <div>
 
-    </div>
+
+
+    <div
+    style= {{
+      boxSizing: 'border-box',
+       border: '3px solid red',
+        borderRadius: '10px',
+         width: '10px',
+          height: '10px',
+        }}
+    />
+
+
+</div>
     </Card>
 
 
