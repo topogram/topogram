@@ -101,19 +101,166 @@ return (
 
 
 
-
+<table>
+    <tbody>
+<tr>
+<td>
+    <div
+    style= {{
+      boxSizing: 'border-box',
+       border: '3px solid red',
+       background: 'red',
+        borderRadius: '10px',
+         width: '6px',
+          height: '6px',
+        }}
+    />
+</td>
+<td>
+<div> 1 date</div>
+</td>
+</tr>
+<tr>
+<td>
     <div
     style= {{
       boxSizing: 'border-box',
        border: '3px solid red',
         borderRadius: '10px',
-         width: '10px',
-          height: '10px',
+        background: 'red',
+         width: '20px',
+          height: '20px',
         }}
     />
+</td>
+<td>
+  <div>
+  10 dates
+  </div>
+</td>
+</tr>
+    </tbody>
+</table>
+    <CardTitle
+
+      title='Map'
+      titleStyle={{ fontSize : '10pt', lineHeight : '1em' }}
+
+    />
+
+    <table>
+    <tbody>
+    <tr>
+    <td>
+        <div
+        style= {{
+          boxSizing: 'border-box',
+           border: '3px solid red',
+
+            borderRadius: '10px',
+             width: '15px',
+              height: '15px',
+            }}
+        />
+    </td>
+    <td>
+    <div> 1 date</div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div
+        style= {{
+          boxSizing: 'border-box',
+           border: '3px solid red',
+            borderRadius: '10px',
+
+             width: '20px',
+              height: '20px',
+            }}
+        />
+    </td>
+    <td>
+      <div>
+      10 dates
+      </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div>
+        <svg
+        style= {{height:"20px", width:"30px"}}>
+ <line x1="0" y1="0" x2="30" y2="0"
+  style={{stroke:"rgb(255,0,0)",strokeWidth:4, strokeDasharray:"5 2"}} />
+</svg>
+        </div>
+    </td>
+    <td>
+      <div>
+    trajet type DASHED2
+      </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div>
+        <svg
+        style= {{height:"20px", width:"30px"}}>
+ <line x1="0" y1="0" x2="30" y2="0"
+  style={{stroke:"rgb(255,0,0)",strokeWidth:4, strokeDasharray:"5 4"}} />
+</svg>
+        </div>
+    </td>
+    <td>
+      <div>
+    trajet type DASHED1
+      </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div>
+        <svg
+        style= {{height:"20px", width:"30px"}}>
+ <line x1="0" y1="0" x2="30" y2="0"
+  style={{stroke:"rgb(255,0,0)",strokeWidth:4,strokeDasharray:"5 2 2 5 2 2 5"}} />
+</svg>
+        </div>
+    </td>
+    <td>
+      <div>
+    trajet type DASHED-2
+      </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div>
+        <svg
+        style= {{height:"20px", width:"30px"}}>
+ <line x1="0" y1="0" x2="30" y2="0"
+  style={{stroke:"rgb(255,0,0)",strokeWidth:4, strokeDasharray:"1 5 5 1"}} />
+</svg>
+        </div>
+    </td>
+    <td>
+      <div>
+    trajet type DASHED-1
+      </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+
 
 
 </div>
+
+
+
+
+
     </Card>
 
 
