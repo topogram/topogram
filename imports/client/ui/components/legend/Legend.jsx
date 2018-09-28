@@ -147,9 +147,10 @@ return (
       titleStyle={{ fontSize : '10pt', lineHeight : '1em' }}
 
     />
-
+<div> l'échelle de la carte est visible en bas à droite de celle-ci</div>
     <table>
     <tbody>
+
     <tr>
     <td>
         <div
@@ -190,15 +191,15 @@ return (
     <td>
         <div>
         <svg
-        style= {{height:"20px", width:"30px"}}>
- <line x1="0" y1="0" x2="30" y2="0"
-  style={{stroke:"rgb(255,0,0)",strokeWidth:4, strokeDasharray:"5 2"}} />
-</svg>
+        style= {{height:"5px", width:"40px"}}>
+    <line x1="0" y1="0" x2="40" y2="0"
+    style={{stroke:"rgb(255,0,0)",strokeWidth:4}} />
+    </svg>
         </div>
     </td>
     <td>
       <div>
-    trajet type DASHED2
+    tournée ni optimisée ni optimisable
       </div>
     </td>
     </tr>
@@ -206,15 +207,31 @@ return (
     <td>
         <div>
         <svg
-        style= {{height:"20px", width:"30px"}}>
- <line x1="0" y1="0" x2="30" y2="0"
+        style= {{height:"5px", width:"40px"}}>
+ <line x1="0" y1="0" x2="40" y2="0"
+  style={{stroke:"rgb(255,0,0)",strokeWidth:4, strokeDasharray:"9 2"}} />
+</svg>
+        </div>
+    </td>
+    <td>
+      <div>
+    tournée grandement optimisable (DASHED2)
+      </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div>
+        <svg
+        style= {{height:"5px", width:"40px"}}>
+ <line x1="0" y1="0" x2="40" y2="0"
   style={{stroke:"rgb(255,0,0)",strokeWidth:4, strokeDasharray:"5 4"}} />
 </svg>
         </div>
     </td>
     <td>
       <div>
-    trajet type DASHED1
+    tournée optimisable (DASHED1)
       </div>
     </td>
     </tr>
@@ -222,15 +239,15 @@ return (
     <td>
         <div>
         <svg
-        style= {{height:"20px", width:"30px"}}>
- <line x1="0" y1="0" x2="30" y2="0"
+        style= {{height:"5px", width:"40px"}}>
+ <line x1="0" y1="0" x2="40" y2="0"
   style={{stroke:"rgb(255,0,0)",strokeWidth:4,strokeDasharray:"5 2 2 5 2 2 5"}} />
 </svg>
         </div>
     </td>
     <td>
       <div>
-    trajet type DASHED-2
+    tournée déjà grandement optimisée (DASHED-2)
       </div>
     </td>
     </tr>
@@ -238,15 +255,15 @@ return (
     <td>
         <div>
         <svg
-        style= {{height:"20px", width:"30px"}}>
- <line x1="0" y1="0" x2="30" y2="0"
-  style={{stroke:"rgb(255,0,0)",strokeWidth:4, strokeDasharray:"1 5 5 1"}} />
+        style= {{height:"5px", width:"40px"}}>
+ <line x1="0" y1="0" x2="40" y2="0"
+  style={{stroke:"rgb(255,0,0)",strokeWidth:4, strokeDasharray:"7 1 7 7 1 7 7 1 7"}} />
 </svg>
         </div>
     </td>
     <td>
       <div>
-    trajet type DASHED-1
+    tournée déjà optimisée (DASHED-1)
       </div>
     </td>
     </tr>

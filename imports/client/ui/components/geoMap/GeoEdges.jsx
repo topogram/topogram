@@ -31,8 +31,8 @@ export default class GeoEdges extends React.Component {
              (
                e.data.group.includes("DASHED2")?"5,2":
                e.data.group.includes("DASHED1")?"5,4":
-               e.data.group.includes("DASHED-2")?"5,2,2,2,2,2,5":
-               e.data.group.includes("DASHED-1")? "1,5,5,1":
+               e.data.group.includes("DASHED-2")?"5,2,2,5,2,2,5":
+               e.data.group.includes("DASHED-1")? "1,5,1,5,1":
                ""
              )
              :""
