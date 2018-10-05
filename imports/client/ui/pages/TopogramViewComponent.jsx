@@ -21,6 +21,7 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     // currentSliderTime : () => new Date().getTime(),
     // currentSliderTimeMin : () => new Date().getTime(),
     valueRange : () => [1284866786842,new Date().getTime()],
+    pageTopos :  1,
     valueRangeWeight : () => [1,10],
 
      // TODO set default to minTime
