@@ -26,8 +26,9 @@ class TopogramList extends React.Component {
   constructor(props) {
     super(props)
     this.state = { anonymousOnly : false ,
-      currentValue : null
-      //, pageTopos : 1
+      currentValue : null,
+      //pageTopos : 1
+
     }
   }
 
@@ -35,7 +36,9 @@ class TopogramList extends React.Component {
     title: PropTypes.string.isRequired,
     showFilters : PropTypes.bool.isRequired,
     topograms: PropTypes.array.isRequired,
-    router: PropTypes.object.isRequired
+    router: PropTypes.object.isRequired,
+
+
   }
 
   handleOnToggle = () => {
@@ -45,20 +48,28 @@ class TopogramList extends React.Component {
 
 
 
-  handlePageTopoUp = ({numbTopopages}) => {
+  handlePageTopoUp = (numbTopopages) => {
     console.log(this.props.pageTopos);
-    console.log(this.numbTopopages);
-  if (this.props.pageTopos < numbTopopages) {
-    valuepageTopos=this.props.pageTopos
+    console.log(this.props);
+    console.log(this.state);
+    console.log(this.props.ui);
+    console.log(this.numbTopopages)
+    console.log(numbTopopages)
+    console.log({numbTopopages})
+  if (this.state.pageTopos < numbTopopages) {
+   var valuepageTopos=this.state.pageTopos
     valuepageTopos+=1
-   this.props.updateUI({
-     pageTopos :valuepageTopos
-   })
+    console.log(valuepageTopos)
+   this.props.updateUI(
+     'pageTopos' ,valuepageTopos
+
+   )
+
   }}
 
   handlePageTopoDown = (numbTopopages) => {
   if (pageTopos > 1) {
-  valuepageTopos=this.props.pageTopos
+  var valuepageTopos=this.props.pageTopos
   valuepageTopos-=1
   this.props.updateUI({
     pageTopos :valuepageTopos
@@ -75,9 +86,7 @@ class TopogramList extends React.Component {
 
   const {win} = window.open(`/topograms/${topogram._id}`, '_blank');
 
-  this.setState({ numbTopopages : Math.ceil(topogramItems.length/128)})
-console.log({numbTopopages});
-console.log(this.props);
+
 
   }
 
@@ -91,7 +100,7 @@ console.log(this.props);
 
     //this.props.updateUI({pageTopos:1})
     const { anonymousOnly } = this.state
-    const { showFilters, title, topograms, numbTopopages } = this.props
+    const { showFilters, title, topograms } = this.props
 
     const dataSource = topograms
       .filter(d => anonymousOnly ? d.userId === null : true)
@@ -119,6 +128,9 @@ console.log(this.props);
           lastModified={ topogram.createdAt }
         />
       ))
+
+  const   numbTopopages = Math.ceil(topogramItems.length/128)
+  export { numbTopopages}
 
 
 
@@ -166,19 +178,19 @@ console.log(this.props);
               cellHeight={240}
               cols={3}
             >
-              {topogramItems.slice(0*pageTopos,128*pageTopos)}
+              {topogramItems.slice(0*this.state.pageTopos,128*this.state.pageTopos)}
             </GridList>
             <RaisedButton
             label="previous"
             primary={true}
-            onClick={this.handlePageTopoDown}
+            onClick={() => this.handlePageTopoDown(numbTopopages)}
             />
             <RaisedButton
             label="next"
             primary={true}
-            onClick={this.handlePageTopoUp}
+            onClick={() => this.handlePageTopoUp(numbTopopages)}
             />
-            <p>{pageTopos}/{this.numbTopopages} </p>
+            <p>{this.state.pageTopos}/{numbTopopages} </p>
             </div>
             :
             topogramItems.length ?
@@ -212,7 +224,7 @@ TopogramList.defaultProps = {
   topogram : {},
   nodes : [],
   edges : [],
-  pageTopos: 1
+  //pageTopos: 1
 }
 
 export default injectIntl(TopogramList)
