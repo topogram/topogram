@@ -8,7 +8,7 @@ import FocusIcon from 'material-ui/svg-icons/image/center-focus-strong'
 
 import SelectionChips from './selectionItem/SelectionChips.jsx'
 import SelectedItem from './selectionItem/SelectedItem.jsx'
-
+import './TitleBox.css';
 
 const TitleBox = ({
   cy,
@@ -40,7 +40,7 @@ const TitleBox = ({
   >
     <CardTitle
       title={topogramTitle}
-      titleStyle={{ fontSize : '10pt', lineHeight : '1em' }}
+      titleStyle={{ fontSize : '8.2pt', lineHeight : '1.1em' }}
     />
     {
       !!selectedElements.length ?

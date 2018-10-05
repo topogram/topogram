@@ -6,12 +6,12 @@
   },
   {
     "id": "home.subtitle",
-    "defaultMessage": "An open-source toolkit to process, visualize and analyze networks.",
-    "message": "Un outil open-source pour créer,visualiser et analyser des réseaux."
+    "defaultMessage": "An open-source toolkit to process, visualize and analyze the music networks by Gregory Bahde",
+    "message": "An open-source toolkit to process, visualize and analyze the music networks by Gregory Bahde"
   },
   {
     "id": "home.tagline",
-    "defaultMessage": "Social Network Analysis for humans.",
+    "defaultMessage": "Let's Visualize How Bands Tour!",
     "message": "L'analyse de réseaux sociaux enfin à la portée des humains."
   },
   {

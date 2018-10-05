@@ -10,13 +10,13 @@ import TopogramList from '/imports/client/ui/components/topograms/TopogramList.j
 const messages = defineMessages({
   tagline : {
     'id': 'home.tagline',
-    'defaultMessage': 'Social Network Analysis for humans.',
-    'message': 'Social Network Analysis for humans.'
+    'defaultMessage': 'Let\'s Visualize How Bands Tour!',
+    'message': 'Let\'s Visualize How Bands Tour!'
   },
   subtitle : {
     'id': 'home.subtitle',
-    'defaultMessage': 'An open-source toolkit to process, visualize and analyze networks.',
-    'message': 'An open-source toolkit to process, visualize and analyze networks.'
+    'defaultMessage': 'An open-source dataviz project by Gregory Bahde',
+    'message': 'An open-source toolkit to process, visualize and analyze the music networks by Gregory Bahde'
   },
   browseTopograms: {
     'id': 'home.browseTopograms',
@@ -30,7 +30,7 @@ const HomeHeader = () => (
     className="home-header"
   >
     <div>
-      <h1>Topogram</h1>
+      <h1>Bands Tour</h1>
       <h4>
         <FormattedMessage {...messages.tagline} />
       </h4>

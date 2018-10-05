@@ -12,10 +12,16 @@ import Stop from 'material-ui/svg-icons/av/stop';
 import TimeSlider from './TimeSlider.jsx'
 
 const styleTimeLine = {
-  height: '165px',
+  height: '100px',
   position: 'fixed',
   bottom: 0,
-  width: '100vw'
+  width: '80vw',
+  fontSize: '8pt',
+  display: 'inline-block',
+  margin: '2px 2px',
+  align: 'left',
+  marginBottom: '12px'
+
 }
 
 @ui()
@@ -126,11 +132,15 @@ export default class TimeLine extends React.Component {
           />
           :
           <div>
-            <CardHeader
-              subtitle={
+
+            <table>
+            <tbody>
+
+            <tr>
+            <td width= "30%">
                 <div>
                 <span>
-                  From <a onClick={this.openMinDatePicker}
+                    From <a onClick={this.openMinDatePicker}
                     style={{ cursor : 'pointer', color : 'black' }}>
                     {`${moment(minTime).format('MMM Do YYYY')}`}
                   </a> to <a onClick={this.openMaxDatePicker}
@@ -139,6 +149,7 @@ export default class TimeLine extends React.Component {
                   </a>
 
                   <IconButton
+                    size="small"
                     onClick={
                       this.state.playing ?
                         () => this.pause()
@@ -147,6 +158,7 @@ export default class TimeLine extends React.Component {
                       }
                     alt="Play/Resume"
                     title="Play/Resume"
+
                     >
                     {
                       this.state.playing ?
@@ -156,6 +168,7 @@ export default class TimeLine extends React.Component {
                     }
                   </IconButton>
                   <IconButton
+                    size="small"
                     onClick={() => this.stop()}
                     alt="Stop"
                     title="Stop"
@@ -171,7 +184,7 @@ export default class TimeLine extends React.Component {
                     step={.1}
                     floatingLabelFixed={true}
                     floatingLabelText='Speed'
-                    style={{width : '3em', margin: '0 2em'}}
+                    style={{width : '3em', margin: '0 2em',fontSize: "10pt"}}
                     value={this.state.step}
 
                     // columns={3}
@@ -181,11 +194,14 @@ export default class TimeLine extends React.Component {
 
                 </span>
                 </div>
-              }
-            />
+</td>
+<td width= "7%">
 
+</td>
+<td width= "60%" align="right">
 
-
+<div>
+<span>
             <DatePicker
               onChange={this.handleChangeMinTime}
               ref="minDatePicker"
@@ -212,6 +228,14 @@ export default class TimeLine extends React.Component {
                 null
               }
             </CardText>
+</span>
+</div>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
           </div>
         }
       </Card>
