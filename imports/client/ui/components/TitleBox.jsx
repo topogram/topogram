@@ -8,6 +8,8 @@ import FocusIcon from 'material-ui/svg-icons/image/center-focus-strong'
 
 import SelectionChips from './selectionItem/SelectionChips.jsx'
 import SelectedItem from './selectionItem/SelectedItem.jsx'
+import SvgIcon from 'material-ui/SvgIcon';
+
 import './TitleBox.css';
 
 const TitleBox = ({
@@ -40,7 +42,7 @@ const TitleBox = ({
   >
     <CardTitle
       title={topogramTitle}
-      titleStyle={{ fontSize : '8.2pt', lineHeight : '1.1em' }}
+      titleStyle={{ fontSize : '8.5pt', lineHeight : '1.2em',fontWeight:  'bold' }}
     />
     {
       !!selectedElements.length ?
@@ -49,13 +51,15 @@ const TitleBox = ({
         selectedElements={selectedElements}
         unselectElement={unselectElement}
         onFocusElement={onFocusElement}
+        variant="outlined"
+        className="ChipSelect"
         />
         :
         null
     }
     {
       !! selectedElements.length ?
-      <CardActions>
+      <CardActions >
         {
           isolateMode ?
             <FlatButton
@@ -66,29 +70,33 @@ const TitleBox = ({
               />
             :
             <div>
-            <RaisedButton
+            <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
               label="Focus and rearrange"
+
+              width="50%"
               labelPosition="before"
-              icon={<FocusIcon />}
+              //icon={<FocusIcon />}
               onClick={handleEnterIsolateMode}
+
               />
 
-              <RaisedButton
+              <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
                 label="Focus only"
                 labelPosition="before"
-                icon={<FocusIcon />}
+                //icon={<FocusIcon />}
                 onClick={handleEnterExtractMode}
                 />
-                <RaisedButton
+                <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
                   label="Save selection"
                   labelPosition="before"
-                  icon={<FocusIcon />}
+                //  icon={<FocusIcon />}
                   onClick={handleSaveSelection}
                   />
-                  <RaisedButton
+                  <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+                    className= "Titbox"
                     label="Load Selection"
                     labelPosition="before"
-                    icon={<FocusIcon />}
+                    //icon={<FocusIcon />}
                     onClick={handleLoadSelection}
                     />
               </div>

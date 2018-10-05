@@ -24,17 +24,17 @@ const SelectedItem = ({
     <Card
       onExpandChange={() => onUnfocusElement(el)}
       >
-      <CardTitle
+      <CardTitle style={{fontSize: "10pt", fontWeight: 'bold' }}
         showExpandableButton={true}
         title={title}
         titleStyle={{
-          lineHeight :'1.3em',
-          fontSize:'1.1em'
+          lineHeight :'1.2em',
+          fontSize:'0.8em'
         }}
         subtitle={el.group}
         closeIcon={<ClearIcon />}
       />
-      <CardText>
+      <CardText style={{fontSize: "8pt"}}>
         {/* {
           el.group === 'nodes' ?
             <p>lat/lng : {`${lat}/${lng}`}</p>
