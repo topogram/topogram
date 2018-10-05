@@ -9,7 +9,8 @@ const LEGEND_DIV_ID = "legend"
 const divLegendStyle = {
   //position: 'fixed',
   top: '0',
-  //zIndex : -1
+  //zIndex : -1,
+  fontSize: "60%"
 }
 
 
@@ -87,22 +88,22 @@ return (
 
     <CardTitle
 
-      title='Legend'
-      titleStyle={{ fontSize : '12pt', lineHeight : '1em' }}
+      title='BandsTour (Beta.1) GPL V3 by Gregory Bahde'
+      titleStyle={{ fontSize : '10pt', lineHeight : '1em',  fontWeight: 'bold' }}
 
     />
 
     <CardTitle
 
-      title='Network'
-      titleStyle={{ fontSize : '10pt', lineHeight : '1em' }}
+      title='Network Legends'
+      titleStyle={{ fontSize : '8pt', lineHeight : '1em' }}
 
     />
 
 
 
 <table>
-    <tbody>
+    <tbody  style= {{fontSize: "8pt"}}>
 <tr>
 <td>
     <div
@@ -117,7 +118,7 @@ return (
     />
 </td>
 <td>
-<div> 1 date</div>
+<div style={{paddingLeft: "10px"}} > 1 date</div>
 </td>
 </tr>
 <tr>
@@ -134,7 +135,7 @@ return (
     />
 </td>
 <td>
-  <div>
+  <div style={{paddingLeft: "10px"}}>
   10 dates
   </div>
 </td>
@@ -147,9 +148,9 @@ return (
       titleStyle={{ fontSize : '10pt', lineHeight : '1em' }}
 
     />
-<div> l'échelle de la carte est visible en bas à droite de celle-ci</div>
+  <div  style= {{fontSize: "9pt"}}> l'échelle de la carte est visible en bas à droite de celle-ci</div>
     <table>
-    <tbody>
+    <tbody  style= {{fontSize: "8pt"}}>
 
     <tr>
     <td>
@@ -198,7 +199,7 @@ return (
         </div>
     </td>
     <td>
-      <div>
+      <div style={{paddingLeft: "10px"}}>
     tournée ni optimisée ni optimisable
       </div>
     </td>
@@ -214,8 +215,8 @@ return (
         </div>
     </td>
     <td>
-      <div>
-    tournée grandement optimisable (DASHED2)
+      <div style={{paddingLeft: "10px"}}>
+    tournée grandement optimisable (D2)
       </div>
     </td>
     </tr>
@@ -230,8 +231,8 @@ return (
         </div>
     </td>
     <td>
-      <div>
-    tournée optimisable (DASHED1)
+      <div style={{paddingLeft: "10px"}}>
+    tournée optimisable (D1)
       </div>
     </td>
     </tr>
@@ -246,8 +247,8 @@ return (
         </div>
     </td>
     <td>
-      <div>
-    tournée déjà grandement optimisée (DASHED-2)
+      <div style={{paddingLeft: "10px"}}>
+    tournée déjà grandement optimisée (D-2)
       </div>
     </td>
     </tr>
@@ -262,8 +263,8 @@ return (
         </div>
     </td>
     <td>
-      <div>
-    tournée déjà optimisée (DASHED-1)
+      <div style={{paddingLeft: "10px"}}>
+    tournée déjà optimisée (D-1)
       </div>
     </td>
     </tr>

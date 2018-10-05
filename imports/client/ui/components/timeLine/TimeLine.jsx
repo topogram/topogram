@@ -15,12 +15,12 @@ const styleTimeLine = {
   height: '100px',
   position: 'fixed',
   bottom: 0,
-  width: '80vw',
+  width: '70vw',
   fontSize: '8pt',
   display: 'inline-block',
   margin: '2px 2px',
   align: 'left',
-  marginBottom: '12px'
+  marginBottom: '10px'
 
 }
 
@@ -137,9 +137,12 @@ export default class TimeLine extends React.Component {
             <tbody>
 
             <tr>
-            <td width= "30%">
-                <div>
-                <span>
+            <td style={{width: "30%",marginBottom: '0em',
+            marginTop: '0em',whiteSpace: 'nowrap'}}>
+                <div style={{height: '0.5em',marginBottom: '0em',
+                marginTop: '0em'}}>
+                <span  style={{marginBottom: '0em',
+                marginTop: '0em'}}>
                     From <a onClick={this.openMinDatePicker}
                     style={{ cursor : 'pointer', color : 'black' }}>
                     {`${moment(minTime).format('MMM Do YYYY')}`}
@@ -148,6 +151,7 @@ export default class TimeLine extends React.Component {
                     {`${moment(maxTime).format('MMM Do YYYY')}`}
                   </a>
 
+                </span>
                   <IconButton
                     size="small"
                     onClick={
@@ -192,13 +196,12 @@ export default class TimeLine extends React.Component {
                     onChange={this.handleChangeStep}
                     />
 
-                </span>
                 </div>
 </td>
-<td width= "7%">
+<td style={{width: "7%"}}>
 
 </td>
-<td width= "60%" align="right">
+<td style={{width: "60%", align:"right"}}>
 
 <div>
 <span>
