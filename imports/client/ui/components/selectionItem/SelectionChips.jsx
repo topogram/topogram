@@ -13,7 +13,9 @@ const styles = {
   chip: {
     margin: 2,
     fontSize: "6px",
-    //maxWidth:"10%"
+    //maxWidth:"10%",
+   opacity: "0.9",
+   textOpacity : 1
   },
   wrapper: {
     display: 'flex',
@@ -33,6 +35,8 @@ const SelectionChips = ({
         <Chip
           key={`selected-item-${i}`}
           onRequestDelete={() => unselectElement(el)}
+
+
           backgroundColor={
             el.data.color ?
             //el.group === "nodes" ?

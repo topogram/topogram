@@ -427,8 +427,8 @@ handleLoadSelection = () =>{
         <FloatingActionButton
           style={{
             position: 'fixed',
-            right: '10px',
-            top: '5px',
+            right: '-20px',
+            top: '-20px',
             scaleType:"center",
             //NotWorking
             size: '10px'

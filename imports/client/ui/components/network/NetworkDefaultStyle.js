@@ -57,6 +57,7 @@ const NetworkDefaultStyle = () =>
     .selector('edge')
       .style({
         'target-arrow-shape': 'triangle',
+
         'target-arrow-color'(e) {
           if (e.data('selected')) {
             return 'yellow'
@@ -87,7 +88,7 @@ const NetworkDefaultStyle = () =>
           return e.data('weight') ? e.data('weight') : .3
         },
         'opacity'(e) {
-          return e.data('selected') ? 1 : .7
+          return e.data('selected') ? .8 : .6
         },
         'font-size':2,
         'text-rotation': 'autorotate',

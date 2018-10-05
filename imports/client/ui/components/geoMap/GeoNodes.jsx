@@ -26,7 +26,9 @@ export default class GeoNodes extends React.Component {
         //LIMIT MAX RADIUS IN GEOMAP
           radius={n.data.weight? n.data.weight > 100? 167 : n.data.weight*5: 3}
           key={`node-${i}`}
+
           center={n.coords}
+          opacity={"0.8"}
           color={n.data.selected ? 'yellow' : n.data.color ? n.data.color : 'steelblue'}
           onClick={() => !isolateMode ?
             handleClickGeoElement({
