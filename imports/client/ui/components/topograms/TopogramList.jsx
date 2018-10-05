@@ -27,7 +27,7 @@ class TopogramList extends React.Component {
     super(props)
     this.state = { anonymousOnly : false ,
       currentValue : null,
-      //pageTopos : 1
+      pageTopos : 1
 
     }
   }
@@ -48,30 +48,23 @@ class TopogramList extends React.Component {
 
 
 
-  handlePageTopoUp = (numbTopopages) => {
-    console.log(this.props.pageTopos);
-    console.log(this.props);
-    console.log(this.state);
-    console.log(this.props.ui);
-    console.log(this.numbTopopages)
-    console.log(numbTopopages)
-    console.log({numbTopopages})
+  handlePageTopoUp = (pageTopos,numbTopopages) => {
+
   if (this.state.pageTopos < numbTopopages) {
    var valuepageTopos=this.state.pageTopos
     valuepageTopos+=1
-    console.log(valuepageTopos)
-   this.props.updateUI(
-     'pageTopos' ,valuepageTopos
 
-   )
+   this.setState({
+     pageTopos :valuepageTopos
+  })
 
   }}
 
   handlePageTopoDown = (numbTopopages) => {
   if (pageTopos > 1) {
-  var valuepageTopos=this.props.pageTopos
+  var valuepageTopos=this.state.pageTopos
   valuepageTopos-=1
-  this.props.updateUI({
+  this.setState({
     pageTopos :valuepageTopos
     })
   }}
@@ -178,7 +171,7 @@ class TopogramList extends React.Component {
               cellHeight={240}
               cols={3}
             >
-              {topogramItems.slice(0*this.state.pageTopos,128*this.state.pageTopos)}
+              {topogramItems.slice(0+128*this.state.pageTopos,128+128*this.state.pageTopos)}
             </GridList>
             <RaisedButton
             label="previous"
@@ -188,7 +181,7 @@ class TopogramList extends React.Component {
             <RaisedButton
             label="next"
             primary={true}
-            onClick={() => this.handlePageTopoUp(numbTopopages)}
+            onClick={() => this.handlePageTopoUp({pageTopos},numbTopopages)}
             />
             <p>{this.state.pageTopos}/{numbTopopages} </p>
             </div>

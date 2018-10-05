@@ -41,8 +41,9 @@ const TopogramListItem = ({
     />
     <CardActions>
       <FlatButton
-        href={`/topograms/${topogramId}`}
+        //href={`/topograms/${topogramId}`}
         // labelPosition="before"
+        onClick={ ()=>window.open(`/topograms/${topogramId}`, '_blank')}
         label="Browse"
       />
 

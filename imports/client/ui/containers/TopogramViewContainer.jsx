@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
   maxTime : state.nodes.maxTime,
   minWeight : state.nodes.minWeight,
   maxWeight : state.nodes.maxWeight,
-  pageTopos : state.nodes.pageTopos,
+  pageTopos : state.pageTopos,
 
 
   nodeCategories : state.nodes.nodeCategories,
