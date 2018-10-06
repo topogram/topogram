@@ -2,5 +2,23 @@
   height: 100vh;
   width : 100vw;
   margin: 0 auto;
-  
+
+}
+div.leaflet-control-container{
+height: 50px!important;
+  width: 20px !important;
+}
+div.leaflet-control-zoom {
+  height: 50px!important;
+    width: 20px !important;
+}
+
+a.leaflet-control-zoom-in{
+  height: 25px !important;
+  width: 20px !important;
+}
+
+a.leaflet-control-zoom-out{
+  height: 25px !important;
+  width: 20px !important;
 }

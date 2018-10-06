@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
+import Divider from 'material-ui/Divider'
 import d3 from 'd3'
 import { CircleMarker } from 'react-leaflet'
 
@@ -78,79 +79,67 @@ return (
 
       float : 'right',
       //zDepth: -10000,
-      border : 10,
+      border : "10px",
       position: 'relative',
+      borderBottomLeftRadius: '20px',
+      borderTopLeftRadius: '5px',
+      borderTopRightRadius: '5px',
+      borderBottomRightRadius: '5px',
+      padding: "10px",
 
       zIndex: -1
     }}
   >
   <div>
 
-    <CardTitle
+    {/* <CardTitle
 
       title='BandsTour (Beta.1) GPL V3 by Gregory Bahde'
       titleStyle={{ fontSize : '10pt', lineHeight : '1em',  fontWeight: 'bold' }}
 
-    />
-
-    <CardTitle
-
-      title='Network Legends'
-      titleStyle={{ fontSize : '8pt', lineHeight : '1em' }}
-
-    />
-
+    /> */}
+<Divider/>
+    <a style={{ fontSize : '8pt' }}>Network Legends</a>
+<Divider/>
+<br/>
 
 
 <table>
     <tbody  style= {{fontSize: "8pt"}}>
-<tr>
+
+<tr display="inline">
 <td>
-    <div
-    style= {{
-      boxSizing: 'border-box',
-       border: '3px solid red',
-       background: 'red',
-        borderRadius: '10px',
-         width: '6px',
-          height: '6px',
-        }}
-    />
+<div>
+  <svg height="36" width="36">
+
+    <circle cx="15" cy="15" r="12" stroke="black" strokeWidth="1" fill="blue" />
+    <circle cx="15" cy="7" r="4" stroke="black" strokeWidth="1" fill="red" />
+  </svg>
+</div>
 </td>
-<td>
-<div style={{paddingLeft: "10px"}} > 1 date</div>
-</td>
-</tr>
-<tr>
-<td>
-    <div
-    style= {{
-      boxSizing: 'border-box',
-       border: '3px solid red',
-        borderRadius: '10px',
-        background: 'red',
-         width: '20px',
-          height: '20px',
-        }}
-    />
-</td>
-<td>
-  <div style={{paddingLeft: "10px"}}>
-  10 dates
-  </div>
+<td >
+<div>
+<a>1 date </a>
+<br/>
+<a>10 dates</a>
+</div>
 </td>
 </tr>
+
+
+
     </tbody>
 </table>
-    <CardTitle
+<Divider/>
+  <a style={{ fontSize : '8pt',textStyle:'bold' }}>Map Legends</a>
+<Divider/>
 
-      title='Map'
-      titleStyle={{ fontSize : '10pt', lineHeight : '1em' }}
+<div  style= {{fontSize: "8pt" ,textAlign:'center'}}> map scale => bottom right</div>
+<br/>
 
-    />
-  <div  style= {{fontSize: "9pt"}}> l'échelle de la carte est visible en bas à droite de celle-ci</div>
     <table>
     <tbody  style= {{fontSize: "8pt"}}>
+
 
     <tr>
     <td>

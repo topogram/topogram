@@ -12,15 +12,21 @@ import Stop from 'material-ui/svg-icons/av/stop';
 import TimeSlider from './TimeSlider.jsx'
 
 const styleTimeLine = {
-  height: '100px',
+  //height: '100px',
   position: 'fixed',
   bottom: 0,
   width: '70vw',
   fontSize: '8pt',
   display: 'inline-block',
-  margin: '2px 2px',
-  align: 'left',
-  marginBottom: '10px'
+  //margin: '20px 2px',
+
+  //align: 'left',
+  //marginBottom: '10px',
+  borderTopRightRadius: '20px',
+  borderBottomRightRadius: '5px',
+  padding:"2px 2px 15px 15px ",
+  transitionEnabled: "true"
+  //paddingBottom:"15px"
 
 }
 

@@ -459,7 +459,12 @@ return (
       border : 10,
       position: 'relative',
 
-      zIndex: -1
+      zIndex: -1,
+      borderBottomLeftRadius: '20px',
+      borderTopLeftRadius: '5px',
+      borderTopRightRadius: '20px',
+      borderBottomRightRadius: '5px',
+      padding:"10px"
     }}
   >
   <div>

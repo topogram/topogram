@@ -65,7 +65,9 @@ export default class SidePanel extends React.Component {
 
     return (
       <Drawer
-        width={250}
+
+        width={200}
+        height={10}
         openSecondary={true}
         open={filterPanelIsOpen}
         >
