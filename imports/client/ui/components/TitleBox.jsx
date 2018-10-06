@@ -110,12 +110,12 @@ const TitleBox = ({
                 //icon={<FocusIcon />}
                 onClick={handleEnterExtractMode}
                 />
-                <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+                {/* <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
                   label="Save selection"
                   labelPosition="before"
                 //  icon={<FocusIcon />}
                   onClick={handleSaveSelection}
-                  />
+                  /> */}
                   <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
                     className= "Titbox"
                     label="Load Selection"

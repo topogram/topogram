@@ -112,10 +112,14 @@ handleSaveSelection = () =>{
   const {
     cy,
     selectedElements,
-    isolateMode
+    isolateMode,
+    prevPositions
   } = this.props.ui
-
-
+if (isolateMode) {
+console.log({...prevPositions})
+// check imports/client/store/index.js
+//AND https://github.com/rt2zz/redux-persist/issues/99
+}
 }
 
 
@@ -126,7 +130,7 @@ handleLoadSelection = () =>{
 
 
 handleSaveSVGs =() =>{
-  
+
 }
 
 
@@ -153,6 +157,7 @@ handleSaveSVGs =() =>{
       cy.nodes().forEach(n =>
         prevPositions[n.id()] = {...n.position()}
       )
+      console.log({...prevPositions})
       this.props.updateUI('prevPositions', {...prevPositions})
     }
 
@@ -473,6 +478,9 @@ handleSaveSVGs =() =>{
           handleEnterIsolateMode={this.handleEnterIsolateMode}
           handleEnterExtractMode={this.handleEnterExtractMode}
           handleExitIsolateMode={this.handleExitIsolateMode}
+          handleSaveSelection={this.handleSaveSelection}
+          handleLoadSelection={this.handleLoadSelection}
+          handleSaveSVGs={this.handleSaveSVGs}
           selectElement={this.selectElement}
           unselectAllElements={this.unselectAllElements}
           unselectElement={this.unselectElement}
