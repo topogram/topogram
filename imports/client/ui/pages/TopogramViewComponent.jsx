@@ -109,6 +109,11 @@ export class TopogramViewComponent extends React.Component {
     this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
 
 handleSaveSelection = () =>{
+  const {
+    cy,
+    selectedElements,
+    isolateMode
+  } = this.props.ui
 
 
 }
@@ -120,7 +125,9 @@ handleLoadSelection = () =>{
 }
 
 
-
+handleSaveSVGs =() =>{
+  
+}
 
 
 

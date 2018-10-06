@@ -26,6 +26,7 @@ const TitleBox = ({
   handleExitIsolateMode,
   handleSaveSelection,
   handleLoadSelection,
+  handleSaveSVGs,
   handleFilterByWeight,
   focusElement,
   onFocusElement,
@@ -69,12 +70,28 @@ const TitleBox = ({
       <CardActions >
         {
           isolateMode ?
+          <div>
             <FlatButton
               label="Clear"
               labelPosition="before"
               icon={<ClearIcon />}
               onClick={handleExitIsolateMode}
               />
+
+              <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+                label="Save selection"
+                labelPosition="before"
+              //  icon={<FocusIcon />}
+                onClick={handleSaveSelection}
+                />
+              <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+                className= "Titbox"
+                label="SaveSVGs"
+                labelPosition="before"
+                //icon={<FocusIcon />}
+                onClick={handleSaveSVGs}
+                />
+          </div>
             :
             <div>
             <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
@@ -106,6 +123,14 @@ const TitleBox = ({
                     //icon={<FocusIcon />}
                     onClick={handleLoadSelection}
                     />
+
+                    <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+                      className= "Titbox"
+                      label="SaveSVGs"
+                      labelPosition="before"
+                      //icon={<FocusIcon />}
+                      onClick={handleSaveSVGs}
+                      />
               </div>
 
 
