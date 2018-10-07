@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import d3 from 'd3'
 import { Map, TileLayer,ScaleControl } from 'react-leaflet'
+//import {smoothZoom} from 'leaflet.smoothzoom'
 
 import 'leaflet/dist/leaflet.css'
 import './GeoMap.css'
@@ -109,6 +110,10 @@ class GeoMap extends React.Component {
         <Map
           center={position}
           zoom={zoom}
+          zoomSnap= "0.01"
+           zoomDelta= "0.05"
+
+
           ref="map"
         >
           {

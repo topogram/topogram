@@ -114,10 +114,25 @@ handleSaveSelection = () =>{
     cy,
     selectedElements,
     isolateMode,
-    prevPositions
+    prevPositions,
+    topogramId,
+//selectedIds,
+//nodeIds,
+//edges
   } = this.props.ui
 if (isolateMode) {
-console.log({...prevPositions})
+console.log("prev pos",{...prevPositions})
+console.log("selectedElements",{...selectedElements})
+console.log("cy",{...cy})
+    const selectedIds = selectedElements.map(e => e.data.id)
+    console.log("selectedIds",selectedIds)
+    const focusedNodes = cy.filter((i, e) =>
+      selectedIds.includes(e.id())
+    )
+console.log(focusedNodes)
+
+    //console.log("nodeId",{...nodeIds}),
+    //console.log("edges",{...edges})
 // check imports/client/store/index.js
 //AND https://github.com/rt2zz/redux-persist/issues/99
 }
