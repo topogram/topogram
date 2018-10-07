@@ -7,18 +7,25 @@
 div.leaflet-control-container{
 height: 50px!important;
   width: 20px !important;
+
 }
 div.leaflet-control-zoom {
   height: 50px!important;
     width: 20px !important;
+
 }
 
 a.leaflet-control-zoom-in{
   height: 25px !important;
   width: 20px !important;
+
 }
 
 a.leaflet-control-zoom-out{
   height: 25px !important;
   width: 20px !important;
+
 }
+div.leaflet-top:nth-child(1){  z-index: 10000 !important;
+  float: left;
+  }

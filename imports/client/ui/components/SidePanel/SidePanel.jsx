@@ -66,10 +66,11 @@ export default class SidePanel extends React.Component {
     return (
       <Drawer
 
-        width={200}
+        width={220}
         height={10}
         openSecondary={true}
         open={filterPanelIsOpen}
+
         >
 
         <IconButton

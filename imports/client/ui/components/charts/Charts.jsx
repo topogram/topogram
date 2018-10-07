@@ -37,11 +37,12 @@ export default class Charts extends React.Component {
   }
 
   onSliderWChange = (valueWeight) => {
-      this.props.updateUI({ //currentSliderTime : value[1],
-        //currentSliderTimeMin : value[0],
+      this.props.updateUI({ //
+
         valueRangeWeight : valueWeight
 
        })
+       console.log('VRW',this.props.ui.valueRangeWeight);
      }
 
 
@@ -456,7 +457,7 @@ return (
 
       float : 'right',
       //zDepth: -10000,
-      border : 10,
+      //border : 10,
       position: 'relative',
 
       zIndex: -1,
@@ -464,7 +465,10 @@ return (
       borderTopLeftRadius: '5px',
       borderTopRightRadius: '20px',
       borderBottomRightRadius: '5px',
-      padding:"10px"
+      padding:"10px",
+      boxShadow: '1px 1px 8px  #000',
+      border: '3px solid #222',
+      backgroundColor: 'rgba(256,256,256,0.8)'
     }}
   >
   <div>
@@ -496,7 +500,7 @@ return (
             //marks={marksWeight}
             // tipFormatter={dateFormatter}
             tipProps={{ overlayClassName: 'foo' }}
-            onClick={this.onSliderWChange}
+            //onClick={this.onSliderWChange}
             onChange={this.onSliderWChange}
             //pushable={true}
             allowCross={true}

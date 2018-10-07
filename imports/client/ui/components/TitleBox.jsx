@@ -40,7 +40,10 @@ const TitleBox = ({
       float : 'left',
       borderBottomRightRadius:"20px",
       borderTopRightRadius:"5px",
-      borderBottomLeftRadius:"5px"
+      borderBottomLeftRadius:"5px",
+      boxShadow: '1px 1px 8px  #000',
+      border: '3px solid #222',
+      backgroundColor: 'rgba(120,120,120,0.7)',
 
     }}
   >

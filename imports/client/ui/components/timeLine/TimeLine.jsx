@@ -18,6 +18,9 @@ const styleTimeLine = {
   width: '70vw',
   fontSize: '8pt',
   display: 'inline-block',
+   boxShadow: '1px 1px 8px  #000',
+   border: '3px solid #222',
+   backgroundColor: 'rgba(120,120,120,0.7)',
   //margin: '20px 2px',
 
   //align: 'left',
@@ -25,7 +28,7 @@ const styleTimeLine = {
   borderTopRightRadius: '20px',
   borderBottomRightRadius: '5px',
   padding:"2px 2px 15px 15px ",
-  transitionEnabled: "true"
+  transitionEnabled: "true",
   //paddingBottom:"15px"
 
 }

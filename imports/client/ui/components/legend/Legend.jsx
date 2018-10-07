@@ -12,6 +12,7 @@ const divLegendStyle = {
   top: '0',
   //zIndex : -1,
   fontSize: "60%"
+
 }
 
 
@@ -86,7 +87,9 @@ return (
       borderTopRightRadius: '5px',
       borderBottomRightRadius: '5px',
       padding: "10px",
-
+      boxShadow: '1px 1px 8px  #000',
+      border: '3px solid #222',
+      backgroundColor: 'rgba(255,255,255,0.8)',
       zIndex: -1
     }}
   >

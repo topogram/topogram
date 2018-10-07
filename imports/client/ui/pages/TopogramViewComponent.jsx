@@ -455,11 +455,12 @@ handleSaveSVGs =() =>{
         <FloatingActionButton
           style={{
             position: 'fixed',
-            right: '-20px',
-            top: '-20px',
+            right: '-22px',
+            top: '-22px',
             scaleType:"center",
             //NotWorking
-            size: '10px'
+            size: '10px',
+
           }}
           onClick={this.handleToggleSelectionMode}
           >
