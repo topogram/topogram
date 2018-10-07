@@ -39,7 +39,10 @@ class Network extends React.Component {
 
         // Truncate postion values to integers
         Object.keys(position).map( n => position[n] = Math.trunc(position[n]))
-        nodeMove.call({ topogramId : topogramId, nodeId : node.id(), position : position})
+        if (this.props.ui.SaveNodeMovesToDB) {
+          nodeMove.call({ topogramId : topogramId, nodeId : node.id(), position : position})
+
+        }
       })
   }
 
