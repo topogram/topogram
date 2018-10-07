@@ -35,6 +35,7 @@ export default class MainViz extends React.Component {
       legendVisible,
       graphVisible,
       fontSizeNetwork,
+      SaveNodeMovesToDB
 
 
     } = this.props.ui
@@ -85,6 +86,7 @@ export default class MainViz extends React.Component {
               unselectElement={unselectElement}
               unselectAllElements={unselectAllElements}
               fontSizeNetwork={fontSizeNetwork}
+              SaveNodeMovesToDB={SaveNodeMovesToDB}
             />
             :
             null
@@ -130,6 +132,7 @@ MainViz.propTypes = {
   hasTimeInfo :  PropTypes.bool,
   hasCharts : PropTypes.bool,
   fontSizeNetwork :PropTypes.number.isRequired,
+  SaveNodeMovesToDB:PropTypes.bool.isRequired,
   onFocusElement : PropTypes.func.isRequired,
   onUnfocusElement : PropTypes.func.isRequired,
   selectElement : PropTypes.func.isRequired,

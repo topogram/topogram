@@ -6,6 +6,8 @@ import CheckedIcon from 'material-ui/svg-icons/navigation/check'
 import Subheader from 'material-ui/Subheader'
 import TextField from 'material-ui/TextField';
 import ui from 'redux-ui'
+import Checkbox from 'material-ui/Checkbox'
+
 
 @ui()
 
@@ -15,7 +17,8 @@ export default class GraphicalTweaks extends React.Component {
    super(props)
 
 this.state = {
-  fontSizeNetwork : 4
+  fontSizeNetwork : 4,
+  //SaveNodeMovesToDB : false
 
 }
 }
@@ -40,16 +43,30 @@ this.state = {
     //this.props.ui.fontSizeNetwork=this.state.fontSizeNetwork
 
   }
+  toggleChangeSaveNodeMovesToDB () {
+
+ //console.log(this.props.ui.SaveNodeMovesToDB);
+ //this.setState({ SaveNodeMovesToDB })
+ this.props.updateUI( 'SaveNodeMovesToDB', !this.props.ui.SaveNodeMovesToDB)
+  }
+
+
+
+
+
 
   render() {
     const {fontSizeNetwork}=this.props.ui
 
     return (
-      <span>
-
+      <div>
       <Subheader>
       Font Size settings
         </Subheader>
+        <table>
+          <tbody>
+            <tr>
+        <td>
       <TextField
         name='CytoscapeJsFontSizeSetter'
         type='number'
@@ -65,10 +82,24 @@ this.state = {
         // columns={3}
         onChange={ this.handleChangefontSizeNetwork}
           />
+      </td>
+
+      <td>
+        <Checkbox
+          label={'Save\nGraph\nNodes\nMove\nToDB'}
+
+          checked={this.props.ui.SaveNodeMovesToDB}
+          //disabled={!SaveNodeMovesToDB}
+          onClick={ () => this.toggleChangeSaveNodeMovesToDB()}
+          />
+
+      </td>
+      </tr>
+      </tbody>
+</table>
 
 
-
-      </span>
+      </div>
     )
   }
 }

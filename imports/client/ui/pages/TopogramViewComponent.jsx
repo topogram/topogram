@@ -37,6 +37,7 @@ import ExploreIcon from 'material-ui/svg-icons/action/explore';
     layoutName : 'preset',
     nodeRadius : 'weight',
     geoMapTile : 'default',
+    SaveNodeMovesToDB: false,
     // selection
     selectedElements : [],
     focusElement: null,
@@ -465,6 +466,7 @@ handleSaveSVGs =() =>{
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
           fontSizeNetwork={this.props.ui.fontSizeNetwork}
+          SaveNodeMovesToDB={this.props.ui.SaveNodeMovesToDB}
         />
 
         <TitleBox
