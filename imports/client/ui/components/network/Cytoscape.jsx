@@ -13,7 +13,8 @@ const cyStyle = {
   position: 'fixed',
   top: '0px',
   left: '0',
-  zIndex : -1
+  zIndex : -1,
+  background : "rgba(77,182,172,0.2)"
 }
 
 class Cytoscape extends Component {

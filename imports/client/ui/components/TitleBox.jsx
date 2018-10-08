@@ -10,7 +10,7 @@ import SelectionChips from './selectionItem/SelectionChips.jsx'
 import SelectedItem from './selectionItem/SelectedItem.jsx'
 import SvgIcon from 'material-ui/SvgIcon';
 
-import './TitleBox.css';
+
 
 const TitleBox = ({
   cy,

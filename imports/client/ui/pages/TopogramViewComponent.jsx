@@ -7,7 +7,7 @@ import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ExploreIcon from 'material-ui/svg-icons/action/explore';
-
+import '../../../css/TopogramViewComponent.css'
 
 // UI state default values
 @ui({
