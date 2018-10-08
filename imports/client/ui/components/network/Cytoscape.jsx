@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import cytoscape from 'cytoscape'
+import panzoom from 'cytoscape-panzoom'
 import spread from 'cytoscape-spread'
-
+import './Cytoscape.css'
 import { scaleLinear } from 'd3-scale'
 
 // register force layout
 spread(cytoscape)
+panzoom(cytoscape)
 
 const cyStyle = {
   height: '100%',
@@ -16,9 +18,40 @@ const cyStyle = {
   zIndex : -1,
   background : "rgba(77,182,172,0.2)"
 }
+//PANZOOM DEFAULTS
+var defaults = {
+  position : "float !important",
+  align : "center",
+  zoomFactor: 0.02, // zoom factor per zoom tick
+  zoomDelay: 70, // how many ms between zoom ticks
+  minZoom: 0.1, // min zoom level
+  maxZoom: 10, // max zoom level
+  fitPadding: 50, // padding when fitting
+  panSpeed: 10, // how many ms in between pan ticks
+  panDistance: 10, // max pan distance per tick
+  panDragAreaSize: 75, // the length of the pan drag box in which the vector for panning is calculated (bigger = finer control of pan speed and direction)
+  panMinPercentSpeed: 0.25, // the slowest speed we can pan by (as a percent of panSpeed)
+  panInactiveArea: 8, // radius of inactive area in pan drag box
+  panIndicatorMinOpacity: 0.5, // min opacity of pan indicator (the draggable nib); scales from this to 1.0
+  zoomOnly: false, // a minimal version of the ui only with zooming (useful on systems with bad mousewheel resolution)
+  fitSelector: undefined, // selector of elements to fit
+  animateOnFit: function(){ // whether to animate on fit
+    return false;
+  },
+  fitAnimationDuration: 1000, // duration of animation on fit
+
+  // icon class names
+  sliderHandleIcon: 'fa fa-minus',
+  zoomInIcon: 'fa fa-plus',
+  zoomOutIcon: 'fa fa-minus',
+  resetIcon: 'fa fa-expand'
+};
+
+
 
 class Cytoscape extends Component {
   cy = null;
+
 
   // static propTypes = {
   //   elements : {
@@ -45,6 +78,7 @@ class Cytoscape extends Component {
       style,
       elements
     })
+    cy.panzoom( defaults );
 
     this.cy = cy
 
@@ -155,7 +189,10 @@ class Cytoscape extends Component {
     return (<div
       style={Object.assign({}, cyStyle, { width, height })}
       ref="cyelement"
-    />)
+      >
+      //<cytoscapePanzoom/>
+
+    </div>)
   }
 }
 
