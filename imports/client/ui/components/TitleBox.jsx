@@ -80,7 +80,7 @@ const TitleBox = ({
               icon={<ClearIcon />}
               onClick={handleExitIsolateMode}
               />
-
+            {/*
               <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
                 label="Save selection"
                 labelPosition="before"
@@ -94,6 +94,7 @@ const TitleBox = ({
                 //icon={<FocusIcon />}
                 onClick={handleSaveSVGs}
                 />
+                */}
           </div>
             :
             <div>
@@ -118,7 +119,7 @@ const TitleBox = ({
                   labelPosition="before"
                 //  icon={<FocusIcon />}
                   onClick={handleSaveSelection}
-                  /> */}
+                  />
                   <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
                     className= "Titbox"
                     label="Load Selection"
@@ -134,6 +135,7 @@ const TitleBox = ({
                       //icon={<FocusIcon />}
                       onClick={handleSaveSVGs}
                       />
+                       */}
               </div>
 
 
