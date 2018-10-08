@@ -42,15 +42,15 @@ const TitleBox = ({
       borderTopRightRadius:"5px",
       borderBottomLeftRadius:"5px",
       boxShadow: '1px 1px 8px  #000',
-      border: '3px solid #222',
-      backgroundColor: 'rgba(120,120,120,0.7)',
+      border: '1px solid #222',
+      backgroundColor: 'rgba(69,90,100,0.7)',
 
     }}
   >
     <CardTitle
       title={
-        <a  href="mailto:greg@grrrndzero.org">BandsTour (Beta.1) GPL V3 by Gregory Bahde /UJM/ENSSIB/RAIL</a>}
-      titleStyle={{ fontSize : '8.5pt', lineHeight : '1.2em',fontWeight:  'bold',padding:"0px 2px 5px 2px" }}
+        <a   href="mailto:greg@grrrndzero.org">BandsTour (Beta.1) GPL V3 by Gregory Bahde UJM/ENSSIB/RAIL</a>}
+      titleStyle={{ fontSize : '8.5pt', lineHeight : '1.2em',fontWeight:  'bold',padding:"0px 2px 5px 2px",color: "black !important",textDecoration:'none !important'}}
       subtitle={
         topogramTitle}
         subtitleStyle={{ fontSize : '8.2pt', lineHeight : '1.3em',fontWeight:  'bold' }}

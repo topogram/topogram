@@ -88,7 +88,7 @@ return (
       borderBottomRightRadius: '5px',
       padding: "10px",
       boxShadow: '1px 1px 8px  #000',
-      border: '3px solid #222',
+      border: '1px solid #222',
       backgroundColor: 'rgba(255,255,255,0.8)',
       zIndex: -1
     }}

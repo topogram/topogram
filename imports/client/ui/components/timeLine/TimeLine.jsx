@@ -19,8 +19,8 @@ const styleTimeLine = {
   fontSize: '8pt',
   display: 'inline-block',
    boxShadow: '1px 1px 8px  #000',
-   border: '3px solid #222',
-   backgroundColor: 'rgba(120,120,120,0.7)',
+   border: '1px solid #222',
+   backgroundColor: 'rgba(69,90,100 ,0.7)',
   //margin: '20px 2px',
 
   //align: 'left',
@@ -190,6 +190,7 @@ export default class TimeLine extends React.Component {
                   </IconButton>
 
                   <TextField
+                    className= 'textFTime'
                     name='stepSetter'
                     type='number'
                     min={0.1}
@@ -197,6 +198,7 @@ export default class TimeLine extends React.Component {
                     step={.1}
                     floatingLabelFixed={true}
                     floatingLabelText='Speed'
+                    floatingLabelStyle={{color: 'black'}}
                     style={{width : '3em', margin: '0 2em',fontSize: "10pt"}}
                     value={this.state.step}
 

@@ -12,7 +12,7 @@ import PanelSettings from './PanelSettings.jsx'
 
 import TitleBox from '../TitleBox.jsx'
 import UserMenu from '../UserMenu.jsx'
-
+import './SidePanel.css'
 
 @ui()
 export default class SidePanel extends React.Component {
@@ -65,7 +65,19 @@ export default class SidePanel extends React.Component {
 
     return (
       <Drawer
+        containerStyle={{
 
+          boxShadow: '1px 1px 8px  #000',
+          border: '1px solid #222',
+          backgroundColor: 'rgba(69,90,100 ,0.7)',
+         //margin: '20px 2px',
+
+         //align: 'left',
+         //marginBottom: '10px',
+         borderTopLeftRadius: '20px',
+         borderBottomLeftRadius: '20px',
+         //padding:"2px 2px 15px 15px ",
+         transitionEnabled: "true",}}
         width={220}
         height={10}
         openSecondary={true}
@@ -77,10 +89,13 @@ export default class SidePanel extends React.Component {
           onClick={this.handleExpandChange}
           style={{ float:'right', zIndex : 20000 }}
           >
-            <ClearIcon color='#CCC' />
+            <ClearIcon color='#000' />
         </IconButton>
 
         <SidePanelActions
+          className={"sidepandiv"}
+          style={{backgroundColor: 'rgba(0,150,136,.7) !important'}}
+
           setPanelName={this.setPanelName}
           user={user}
           router={router}
@@ -90,6 +105,7 @@ export default class SidePanel extends React.Component {
           panelName === 'main' ?
             <span>
               <PanelFilters
+
                 nodes={nodes}
                 nodeCategories={nodeCategories}
                 selectElement={selectElement}
