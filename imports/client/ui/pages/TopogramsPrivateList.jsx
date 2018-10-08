@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import TopogramsLayout from './TopogramsLayout.jsx'
 
 import TopogramList from '/imports/client/ui/components/topograms/TopogramList.jsx'
-import TopogramAddForm from '/imports/client/ui/components/topograms/TopogramAddForm.jsx'
+//import TopogramAddForm from '/imports/client/ui/components/topograms/TopogramAddForm.jsx'
 
 // define and export our Welcome component
 export default class TopogramsPrivateList extends React.Component {
@@ -42,10 +42,7 @@ export default class TopogramsPrivateList extends React.Component {
         user={user}
         router={router}
         >
-        <TopogramAddForm
-          promptSnackbar={promptSnackbar}
-          router={router}
-        />
+
         <TopogramList
           topograms={topograms}
           router={router}
