@@ -10,7 +10,7 @@ import SelectionChips from '../selectionItem/SelectionChips.jsx'
 import SelectedItem from '../selectionItem/SelectedItem.jsx'
 import SvgIcon from 'material-ui/SvgIcon'
 import Modal from './Modal';
-
+import './TitleBox.css'
 
 @ui()
 export default class TitleBox extends React.Component {
@@ -100,30 +100,30 @@ return(
       borderBottomLeftRadius:"5px",
       boxShadow: '1px 1px 8px  #000',
       border: '1px solid #222',
-      backgroundColor: 'rgba(69,90,100,0.7)',
+      backgroundColor: 'rgba(69,90,100,0.9)',
 
     }}
   >
   <div>
     <CardTitle
       title={
-        <a   href="mailto:greg@grrrndzero.org">BandsTour (Beta.1) GPL V3 by Gregory Bahde UJM/ENSSIB/RAIL</a>}
-      titleStyle={{ fontSize : '8.5pt', lineHeight : '1.2em',fontWeight:  'bold',padding:"0px 2px 5px 2px",color: "black !important",textDecoration:'none !important'}}
+        <div style={{fontSize:"8pt", color: '#D3E8E6',fontWeight:  'bold'}}>BandsTour (Beta .1) GPL V3 by <a href="mailto:greg@grrrndzero.org">Gregory Bahde</a>@UJM-ENSSIB--GZ</div>}
+      titleStyle={{ fontSize : '8pt', lineHeight : '1em',fontWeight:  'bold',padding:"0px 2px 5px 2px",fontColor: "#D3E8E6  !important"}}
       subtitle={TitleForBox}
-        subtitleStyle={{ fontSize : '10pt', lineHeight : '1.3em',fontWeight:  'bold' }}
+        subtitleStyle={{ fontSize : '12pt', color: '#aa8dc6', lineHeight : '1.3em',fontWeight:  'bold' }}
     />
-
-      <RaisedButton style={{fontSize: "8pt" ,Width : "15px",height:"15px",backgroundColor:"#D3E8E6 !important"}} onClick={this.toggleModal}>
-                More infos...
-              </RaisedButton>
-
-              <Modal show={this.state.isOpen}
+{this.state.isOpen?
+  null:
+<RaisedButton style={{fontSize: "8pt" ,Width : "15px",height:"15px",backgroundColor:"#D3E8E6 !important",fontWeight:  'bold'}} onClick={this.toggleModal}>DATAS...</RaisedButton>
+}
+              <Modal style={{fontSize:"8pt"}}show={this.state.isOpen}
                 onClose={this.toggleModal}>
-
-                <a>{Title2ForBox}</a>
-                <a>{Title3ForBox}</a>
-                <a>{Title4ForBox}</a>
-                <a>{Title5ForBox}</a>
+<span style={{fontSize:"10pt"}}>
+                {Title2ForBox}<br/>
+                {Title3ForBox}<br/>
+                {Title4ForBox}<br/>
+                <a style={{fontWeight:"bold"}}>{Title5ForBox}</a>
+</span>
               </Modal>
     </div>
     {

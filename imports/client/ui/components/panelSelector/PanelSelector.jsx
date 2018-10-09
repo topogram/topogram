@@ -4,7 +4,7 @@ import ui from 'redux-ui'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
 import Checkbox from 'material-ui/Checkbox'
-
+import './PanelSelector.css'
 
 const buttonStyle = {
   margin: 2,
@@ -73,6 +73,7 @@ export default class PanelSelector extends React.Component {
             label={ 'Graph'}
             checked={graphVisible}
             onClick={ () => this.toggleGraph()}
+            style={{fill : '#D3E8E6 !important' }}
           />
         </MenuItem>
         <MenuItem style={buttonStyle}>
