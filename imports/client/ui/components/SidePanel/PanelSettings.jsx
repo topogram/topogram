@@ -22,10 +22,11 @@ const PanelSettings = ({
   router
 }) => (
   <span>
-    <Subheader>Settings</Subheader>
+    <Subheader
+    >Settings</Subheader>
 
     <PanelSelector
-      
+
       hasTimeInfo={ hasTimeInfo }
       hasGeoInfo={ hasGeoInfo }
       hasCharts={ hasCharts }
@@ -38,6 +39,7 @@ const PanelSettings = ({
     {
       authorIsLoggedIn ?
       <Settings
+      style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)'}}
         topogramId={topogramId}
         topogramTitle= {topogramTitle}
         topogramSharedPublic={topogramIsPublic}
@@ -48,6 +50,7 @@ const PanelSettings = ({
     }
     {
       <GraphicalTweaks
+      style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)'}}
       />
     }
   </span>
