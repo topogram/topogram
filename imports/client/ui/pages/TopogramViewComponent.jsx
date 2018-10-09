@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
-import TitleBox from '/imports/client/ui/components/TitleBox.jsx'
+import TitleBox from '/imports/client/ui/components/titlebox/TitleBox.jsx'
 import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';

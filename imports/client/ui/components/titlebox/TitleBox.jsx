@@ -6,9 +6,10 @@ import RaisedButton from 'material-ui/RaisedButton'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
 import FocusIcon from 'material-ui/svg-icons/image/center-focus-strong'
 
-import SelectionChips from './selectionItem/SelectionChips.jsx'
-import SelectedItem from './selectionItem/SelectedItem.jsx'
-import SvgIcon from 'material-ui/SvgIcon';
+import SelectionChips from '../selectionItem/SelectionChips.jsx'
+import SelectedItem from '../selectionItem/SelectedItem.jsx'
+import SvgIcon from 'material-ui/SvgIcon'
+import Modal from './Modal';
 
 
 @ui()
@@ -16,8 +17,7 @@ export default class TitleBox extends React.Component {
 
 static propTypes = {
     topogramTitle : PropTypes.string,
-    topogramtit :PropTypes.string,
-    topogramtit2:PropTypes.string
+
   }
 
 
@@ -26,7 +26,19 @@ static propTypes = {
   constructor(props) {
     super(props)
 
+    this.state = { isOpen: false };
   }
+  toggleModal = () => {
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+    }
+//
+//    TitleForBox =(this.props.topogramTitle)=>{
+//     return(
+//       this.props.topogramTitle.split("/B")[0]
+// )
+//     }
 
 render(){
 
@@ -51,6 +63,31 @@ const {
   onUnfocusElement
 } = this.props
 
+const modalStyle = {
+  backgroundColor: '#fff',
+  borderRadius: 5,
+  maxWidth: 500,
+  minHeight: 300,
+  margin: '0 auto',
+  padding: 30
+};
+
+if (this.props.topogramTitle){
+console.log(this.props.topogramTitle);
+
+var   TitleForBox =this.props.topogramTitle.split("\n")[0]
+console.log(TitleForBox);
+var   Title2ForBox =this.props.topogramTitle.split("\n")[1]
+console.log(Title2ForBox);
+ var   Title3ForBox =this.props.topogramTitle.split("\n")[2]
+ console.log(Title3ForBox);
+ var   Title4ForBox =this.props.topogramTitle.split("\n")[3]
+ console.log(Title4ForBox);
+ var   Title5ForBox =this.props.topogramTitle.split("\n")[4]
+ console.log(Title5ForBox);
+//
+
+
 return(
   <Card
     style={{
@@ -67,14 +104,28 @@ return(
 
     }}
   >
+  <div>
     <CardTitle
       title={
         <a   href="mailto:greg@grrrndzero.org">BandsTour (Beta.1) GPL V3 by Gregory Bahde UJM/ENSSIB/RAIL</a>}
       titleStyle={{ fontSize : '8.5pt', lineHeight : '1.2em',fontWeight:  'bold',padding:"0px 2px 5px 2px",color: "black !important",textDecoration:'none !important'}}
-      subtitle={
-        topogramTitle}
-        subtitleStyle={{ fontSize : '8.2pt', lineHeight : '1.3em',fontWeight:  'bold' }}
+      subtitle={TitleForBox}
+        subtitleStyle={{ fontSize : '10pt', lineHeight : '1.3em',fontWeight:  'bold' }}
     />
+
+      <RaisedButton style={{fontSize: "8pt" ,Width : "15px",height:"15px",backgroundColor:"#D3E8E6 !important"}} onClick={this.toggleModal}>
+                More infos...
+              </RaisedButton>
+
+              <Modal show={this.state.isOpen}
+                onClose={this.toggleModal}>
+
+                <a>{Title2ForBox}</a>
+                <a>{Title3ForBox}</a>
+                <a>{Title4ForBox}</a>
+                <a>{Title5ForBox}</a>
+              </Modal>
+    </div>
     {
       !!selectedElements.length ?
       <SelectionChips
@@ -179,5 +230,9 @@ return(
 
   </Card>
 )
+}
+else {return(
+  null)
+}
 }
 }

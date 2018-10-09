@@ -10,7 +10,7 @@ import PanelDescription from './PanelDescription.jsx'
 import PanelFilters from './PanelFilters.jsx'
 import PanelSettings from './PanelSettings.jsx'
 
-import TitleBox from '../TitleBox.jsx'
+import TitleBox from '../titlebox/TitleBox.jsx'
 import UserMenu from '../UserMenu.jsx'
 import './SidePanel.css'
 
