@@ -8,7 +8,9 @@ import './PanelSelector.css'
 
 const buttonStyle = {
   margin: 2,
-  padding: '10px 20px'
+  padding: '10px 20px',
+  backgroundColor: 'rgba(69,90,100 ,0.9)',
+  color:'#F2EFE9 !important'
 }
 
 @ui()
@@ -66,11 +68,15 @@ export default class PanelSelector extends React.Component {
     return (
       <Menu
         desktop={true}
-        style={{maxWidth:'100%'}}
+        style={{maxWidth:'100%',backgroundColor: 'rgba(69,90,100 ,0.9)',
+        color:'#F2EFE9',}}
         >
         <MenuItem style={buttonStyle}>
-          <Checkbox
+          <Checkbox style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+          color:'#F2EFE9',}}
             label={ 'Graph'}
+            labelStyle={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}
             checked={graphVisible}
             onClick={ () => this.toggleGraph()}
             style={{fill : '#D3E8E6 !important' }}
@@ -79,6 +85,8 @@ export default class PanelSelector extends React.Component {
         <MenuItem style={buttonStyle}>
           <Checkbox
             label={'Geo'}
+            labelStyle={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}
             checked={geoMapVisible}
             disabled={!hasGeoInfo}
             onClick={ () => this.toggleGeo()}
@@ -87,6 +95,8 @@ export default class PanelSelector extends React.Component {
         <MenuItem style={buttonStyle}>
           <Checkbox
             label={'Time'}
+            labelStyle={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}
             checked={timeLineVisible}
             disabled={!hasTimeInfo}
             onClick={ () => this.toggleTimeline()}
@@ -95,6 +105,8 @@ export default class PanelSelector extends React.Component {
         <MenuItem style={buttonStyle}>
           <Checkbox
             label={'Charts'}
+            labelStyle={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}
             checked={chartsVisible}
             //disabled={!chartsVisible}
             onClick={ () => this.toggleCharts()}
@@ -103,6 +115,8 @@ export default class PanelSelector extends React.Component {
         <MenuItem style={buttonStyle}>
           <Checkbox
             label={'Legend'}
+            labelStyle={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}
             checked={legendVisible}
             //disabled={!legendVisible}
             onClick={ () => this.toggleLegend()}
@@ -111,6 +125,8 @@ export default class PanelSelector extends React.Component {
         {/* <MenuItem style={buttonStyle}>
           <Checkbox
             label={"Selection"}
+            labelStyle={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}
             checked={selectionPanelPinned}
             onClick={ () => this.toggleSelectionPanel()}
           />

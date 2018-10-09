@@ -55,7 +55,7 @@ class QueryBox extends React.Component {
         style={this.props.style}
         menuProps={{desktop:true}}
         hintText={formatMessage(messages.hint)}
-        
+
         floatingLabelText={formatMessage(messages.label)}
         onNewRequest={this.handleNewRequest}
         // onUpdateInput={this.handleUpdateInput}

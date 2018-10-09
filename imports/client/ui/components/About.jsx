@@ -25,36 +25,46 @@ class About extends React.Component {
   render() {
     const actions = [
       <FlatButton
+      style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+      color:'#F2EFE9',}}
         label="Close"
         primary={true}
         onTouchTap={this.handleClose}
       />
     ]
     return (
-      <div>
+      <div style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+      color:'#F2EFE9',}}>
         <MenuItem
+        style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+        color:'#F2EFE9',}}
           primaryText="About"
           onClick={this.handleOpen}
           leftIcon={<InfoIcon />}
         />
         <Dialog
+        style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+        color:'#F2EFE9',}}
           title="About Topogram"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
+
           <p>
-            Topogram is a free and open-source software. Read more at
-            <a href="http://topogram.io">topogram.io</a>.
+            BandsTour is a a free and open-source software under GPL V3
+            Topogram is a free and open-source software  under GPL V3.
+            Read more at<a href="http://topogram.io">topogram.io</a>.
           </p>
 
 
           <p>
-            Please feel free to get in touch with us at <a href="mailto:hi@topogram.io">hi@topogram.io</a> or via <a href="http://twitter.com/topoviz">Twitter</a>.
+            Please feel free to get in touch at <a href="mailto:greg@grrrndzero.org"></a>.
           </p>
           <p><small>
-            2015-2017 (cc). Thanks to Clément Renaud, Grégory Bahde and Lionel Radisson.
+            BandsTour 2015-2018 (cc). Thanks to Grégory Bahde,Clément Renaud.
+            Topogram 2015-2017 (cc). Thanks to Clément Renaud, Grégory Bahde and Lionel Radisson.
           </small></p>
           {/* <Version /> */}
         </Dialog>

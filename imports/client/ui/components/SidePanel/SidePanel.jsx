@@ -95,7 +95,7 @@ export default class SidePanel extends React.Component {
 
         <SidePanelActions
           className={"sidepandiv"}
-          style={{backgroundColor: '#D4E6CC!important'}}
+          style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)'}}
 
           setPanelName={this.setPanelName}
           user={user}

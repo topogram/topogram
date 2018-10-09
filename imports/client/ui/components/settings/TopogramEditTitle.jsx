@@ -65,11 +65,15 @@ export default class TopogramEditTitle extends React.Component {
     return (
       <div>
         <MenuItem
+          style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+          color:'#F2EFE9',}}
           primaryText="Update Title"
           onTouchTap={this.handleOpen}
           leftIcon={<ModeEdit />}
         />
         <Dialog
+        style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+        color:'#F2EFE9',}}
           title={this.props.topogramTitle}
           actions={actions}
           modal={false}
@@ -77,6 +81,8 @@ export default class TopogramEditTitle extends React.Component {
           onRequestClose={this.handleClose}
         >
           <TextField
+          style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+          color:'#F2EFE9',}}
             floatingLabelText="Edit Title"
             fullWidth={true}
             value={this.state.title}

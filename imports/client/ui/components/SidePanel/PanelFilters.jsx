@@ -10,7 +10,9 @@ const PanelFilters = ({
   nodeCategories,
   selectElement
 }) => (
-  <CardText>
+  <CardText
+  style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+  color:'#F2EFE9',}}>
     <QueryBox
       nodes={nodes}
       selectElement={selectElement}

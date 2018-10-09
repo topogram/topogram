@@ -32,7 +32,8 @@ export default class NetworkOptions extends React.Component {
   render() {
 
     const layoutMenuItems = layouts.map( d => (
-      <MenuItem
+      <MenuItem style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+      color:'#F2EFE9',}}
         value={d}
         key={d}
         primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
@@ -42,7 +43,8 @@ export default class NetworkOptions extends React.Component {
 
     const NodeRadiusMenuItems = ['degree', 'weight']
       .map(d => (
-        <MenuItem
+        <MenuItem style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+        color:'#F2EFE9',}}
           value={d}
           key={d}
           primaryText={d.charAt(0).toUpperCase() + d.slice(1)}
@@ -53,6 +55,8 @@ export default class NetworkOptions extends React.Component {
     return (
       <div>
         <MenuItem
+        style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+        color:'#F2EFE9',}}
           primaryText="Network Layout"
           onChange={(e, i, value) => this.handleSelectLayout(e, i, value)}
           rightIcon={<ArrowDropRight />}
@@ -60,6 +64,8 @@ export default class NetworkOptions extends React.Component {
           menuItems={layoutMenuItems}
         />
         <MenuItem
+        style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+        color:'#F2EFE9',}}
           primaryText="Node Radius"
           onChange={(e, i, value) => this.handleSelectNodeRadius(e, i, value)}
           rightIcon={<ArrowDropRight />}

@@ -62,6 +62,8 @@ const TopogramDelete = React.createClass({
         onTouchTap={this.handleClose}
       />,
       <FlatButton
+      style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+      color:'#F2EFE9',}}
         label={formatMessage(messages.delete)}
         primary={true}
         keyboardFocused={true}
@@ -71,6 +73,8 @@ const TopogramDelete = React.createClass({
     return (
       <div>
         <MenuItem
+        style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+        color:'#F2EFE9',}}
           // style={{backgroundColor : 'red', color : 'white'}}
           primaryText={formatMessage(messages.delete)}
           onTouchTap={this.handleOpen}

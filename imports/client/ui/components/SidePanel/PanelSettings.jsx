@@ -11,6 +11,7 @@ import GraphicalTweaks from '../settings/GraphicalTweaks.jsx'
 const PanelSettings = ({
   geoMapVisible,
   chartsVisible,
+
   authorIsLoggedIn,
   topogramId,
   topogramTitle,
@@ -24,7 +25,7 @@ const PanelSettings = ({
     <Subheader>Settings</Subheader>
 
     <PanelSelector
-      // bottom={timeLineVisible ? '21vh' : '1em'}
+      
       hasTimeInfo={ hasTimeInfo }
       hasGeoInfo={ hasGeoInfo }
       hasCharts={ hasCharts }

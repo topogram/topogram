@@ -57,7 +57,7 @@ export default class UserMenu extends React.Component {
     // })
 
       return (
-        <span>
+        <span >
           <UserNameEdit
             userName={this.props.user.username}
             open={this.state.userNameOpen}
@@ -72,12 +72,14 @@ export default class UserMenu extends React.Component {
             // onClick={() => this.setState({open : true})}
             onRequestChange={()=> this.setState({open : !this.state.open})}
           >
-            <MenuItem
+            <MenuItem style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}
               primaryText="Home"
               leftIcon={<Home />}
               onClick={() => this.props.router.push('/')}
             />
-            <About />
+            <About style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}/>
             {/*
           <Divider />
           <MenuItem
@@ -88,7 +90,10 @@ export default class UserMenu extends React.Component {
 
             {
               isLoggedIn ?
-                <MenuItem
+                <MenuItem style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                color:'#F2EFE9',}}
+                style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                color:'#F2EFE9',}}
                   primaryText="My Topograms"
                   onClick={() => this.props.router.push('/topograms')}
                 />
@@ -96,35 +101,44 @@ export default class UserMenu extends React.Component {
                 null
             }
 
-            <Divider />
+            <Divider style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+            color:'#F2EFE9',}}/>
             {
               !isLoggedIn
                 ?
-                <span>
+                <span style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                color:'#F2EFE9',}}>
                   <MenuItem
+                  style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                  color:'#F2EFE9',}}
                     primaryText="Login"
                     onClick={() => this.props.router.push('/login')}
                   />
-                  <MenuItem
+                  <MenuItem style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                  color:'#F2EFE9',}}
                     primaryText="Sign Up"
                     onClick={() => this.props.router.push('/signup')}
                   />
                 </span>
                 :
-                <span>
-                  <Subheader>
+                <span style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                color:'#F2EFE9',}}>
+                  <Subheader style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                  color:'#F2EFE9',}}>
                     {
                       this.props.user.username
                     }
                   </Subheader>
-                  <MenuItem
+                  <MenuItem style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                  color:'#F2EFE9',}}
                     primaryText="Change Username"
                     onClick={() => this.setState({
                       userNameOpen : true,
                       open: false
                     })}
                   />
-                  <MenuItem
+                  <MenuItem style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
+                  color:'#F2EFE9',}}
                     primaryText="Sign out"
                     onClick={() => this.logout()}
                   />
