@@ -16,7 +16,7 @@ const cyStyle = {
   top: '0px',
   left: '0',
   zIndex : -1,
-  background : "rgba(77,182,172,0.2)"
+  background : "rgba(168,221,207,1)"
 }
 //PANZOOM DEFAULTS
 var defaults = {
