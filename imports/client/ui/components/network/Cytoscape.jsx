@@ -73,7 +73,9 @@ class Cytoscape extends Component {
     const cy = cytoscape({
       container: this.refs.cyelement,
       layout: {
-        name: 'preset' // load saved positions
+      //  name: 'preset' // load saved positions
+        name: 'spread' // load saved positions
+
       },
       style,
       elements
@@ -99,7 +101,8 @@ class Cytoscape extends Component {
 
     if (layoutName == 'spread') {
       layoutConfig.minDist= 50  // Minimum distance between nodes
-      layoutConfig.padding= 80  // Padding
+      layoutConfig.padding= 80
+      layoutConfig.fontSize= 11
     }
 
     this.cy.layout(layoutConfig)
@@ -145,6 +148,7 @@ class Cytoscape extends Component {
           return degreeDomain(e.degree())
         },
         'height'(e) {
+
           return degreeDomain(e.degree())
         }
       }).update()

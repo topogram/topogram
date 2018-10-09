@@ -11,18 +11,18 @@ const PanelDescription = ({
   <span>
     <CardTitle
       title={topogram.title}
-      titleStyle={{ fontSize : '8pt', lineHeight : '1em',padding:"2px 2px 10px 2px" }}
+      titleStyle={{ color: '#F2EFE9',fontSize : '8pt', lineHeight : '1em',padding:"2px 2px 10px 2px" }}
 
       subtitle={`${nodesCount} nodes, ${edgesCount} edges`}
-        subtitleStyle={{ fontSize : '8pt', lineHeight : '1em' }}
+        subtitleStyle={{ color: '#F2EFE9', fontSize : '8pt', lineHeight : '1em' }}
       />
 
     <Divider />
-    <CardText style={{ fontSize : '8pt', lineHeight : '1em' }}>
+    <CardText style={{ color: '#F2EFE9',fontSize : '8pt', lineHeight : '1em' }}>
       {topogram.description}
 
-      <p style={{ fontSize : '8pt', lineHeight : '1em' }}>Last modified {moment(topogram.lastModified).fromNow()}</p>
-      <p style={{ fontSize : '8pt', lineHeight : '1em' }}>Created {moment(topogram.createdAt).fromNow()}</p>
+      <p style={{ color: '#F2EFE9',fontSize : '8pt', lineHeight : '1em' }}>Last modified {moment(topogram.lastModified).fromNow()}</p>
+      <p style={{ color: '#F2EFE9',fontSize : '8pt', lineHeight : '1em' }}>Created {moment(topogram.createdAt).fromNow()}</p>
     </CardText>
 
   </span>

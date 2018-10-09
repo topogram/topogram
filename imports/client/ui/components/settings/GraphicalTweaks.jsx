@@ -17,7 +17,7 @@ export default class GraphicalTweaks extends React.Component {
    super(props)
 
 this.state = {
-  fontSizeNetwork : 4,
+  fontSizeNetwork : 11,
   //SaveNodeMovesToDB : false
 
 }

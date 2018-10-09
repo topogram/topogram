@@ -69,7 +69,8 @@ export default class SidePanel extends React.Component {
 
           boxShadow: '1px 1px 8px  #000',
           border: '1px solid #222',
-          backgroundColor: 'rgba(69,90,100 ,0.7)',
+          backgroundColor: 'rgba(69,90,100 ,0.9)',
+          color:'#F2EFE9',
          //margin: '20px 2px',
 
          //align: 'left',
@@ -89,12 +90,12 @@ export default class SidePanel extends React.Component {
           onClick={this.handleExpandChange}
           style={{ float:'right', zIndex : 20000 }}
           >
-            <ClearIcon color='#000' />
+            <ClearIcon color='#F2EFE9' />
         </IconButton>
 
         <SidePanelActions
           className={"sidepandiv"}
-          style={{backgroundColor: 'rgba(0,150,136,.7) !important'}}
+          style={{backgroundColor: '#D4E6CC!important'}}
 
           setPanelName={this.setPanelName}
           user={user}

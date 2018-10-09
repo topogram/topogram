@@ -32,7 +32,7 @@ import '../../../css/TopogramViewComponent.css'
     hasCharts : true,
     chartsVisible : false,
     legendVisible : false,
-    timeLineVisible : true,
+    timeLineVisible : false,
     // network/map
     layoutName : 'preset',
     nodeRadius : 'weight',

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-
+import ui from 'redux-ui'
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -11,8 +11,26 @@ import SelectedItem from './selectionItem/SelectedItem.jsx'
 import SvgIcon from 'material-ui/SvgIcon';
 
 
+@ui()
+export default class TitleBox extends React.Component {
 
-const TitleBox = ({
+static propTypes = {
+    topogramTitle : PropTypes.string,
+    topogramtit :PropTypes.string,
+    topogramtit2:PropTypes.string
+  }
+
+
+
+
+  constructor(props) {
+    super(props)
+
+  }
+
+render(){
+
+const {
   cy,
   topogramTitle,
 
@@ -31,7 +49,9 @@ const TitleBox = ({
   focusElement,
   onFocusElement,
   onUnfocusElement
-}) => (
+} = this.props
+
+return(
   <Card
     style={{
       //bottom: 5,
@@ -159,8 +179,5 @@ const TitleBox = ({
 
   </Card>
 )
-
-TitleBox.propTypes = {
-  topogramTitle : PropTypes.string,
 }
-export default TitleBox
+}

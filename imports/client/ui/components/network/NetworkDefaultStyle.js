@@ -23,11 +23,19 @@ const NetworkDefaultStyle = () =>
         },
 
         'text-halign': 'right',
-        'color': 'gray',
-        'text-max-width': 60,
-        'text-wrap': 'wrap',
+        'color' (e) {
+          let color = 'gray';  // default
+          if (e.data('group')) color = colors(e.data('group'))
+          else if (e.data('color')) color = e.data('color')
+          return e.data('selected') ? 'yellow' : color
+        },
+        'text-outline-color' : 'black',
+        'text-outline-width' : '.1px',
 
-        'min-zoomed-font-size': 0.4,
+        'text-max-width': 50,
+        'text-wrap': 'wrap',
+        'text-rotation': '100°',
+        'min-zoomed-font-size': 4,
         'border-color': '#D84315',
         'background-color'(e) {
           let color = 'steelblue';  // default
@@ -101,6 +109,7 @@ const NetworkDefaultStyle = () =>
       .style({
         'background-color': 'red'
       })
+
     .selector('.edgehandles-source')
     .selector('.edgehandles-target')
     .selector('.edgehandles-preview, .edgehandles-ghost-edge')

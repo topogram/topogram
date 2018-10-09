@@ -26,6 +26,7 @@ export default class GeoMapOptions extends React.Component {
     return (
       <MenuItem
         primaryText="Map Background"
+        color="#D3E8E6"
         value={this.props.ui.geoMapTile}
         menuItems={mapTilesMenuItems}
         rightIcon={<ArrowDropRight />}

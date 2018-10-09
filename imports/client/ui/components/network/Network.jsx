@@ -243,6 +243,6 @@ Network.defaultProps = {
   edges : [],
   edgesReady : false,
   style : NetworkDefaultStyle(),
-  layoutName : 'preset'
+  layoutName : 'spread'
 }
 export default Network
