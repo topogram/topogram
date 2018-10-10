@@ -73,18 +73,12 @@ const modalStyle = {
 };
 
 if (this.props.topogramTitle){
-console.log(this.props.topogramTitle);
 
 var   TitleForBox =this.props.topogramTitle.split("\n")[0]
-console.log(TitleForBox);
 var   Title2ForBox =this.props.topogramTitle.split("\n")[1]
-console.log(Title2ForBox);
  var   Title3ForBox =this.props.topogramTitle.split("\n")[2]
- console.log(Title3ForBox);
  var   Title4ForBox =this.props.topogramTitle.split("\n")[3]
- console.log(Title4ForBox);
  var   Title5ForBox =this.props.topogramTitle.split("\n")[4]
- console.log(Title5ForBox);
 //
 
 

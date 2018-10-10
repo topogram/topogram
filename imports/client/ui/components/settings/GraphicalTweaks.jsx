@@ -28,7 +28,8 @@ this.state = {
 
   handleChangefontSizeNetwork = (e) => {
     const fontSizeNetwork = e.target.value
-    //console.log(fontSizeNetwork);
+    console.log(fontSizeNetwork);
+    console.log(e.target.value);
     this.setState({ fontSizeNetwork })
 //console.log(this.state)
 //console.log(this.props)

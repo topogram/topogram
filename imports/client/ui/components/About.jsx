@@ -45,7 +45,7 @@ class About extends React.Component {
         <Dialog
         style={{backgroundColor: 'rgba(69,90,100 ,0.9)',
         color:'#F2EFE9',}}
-          title="About Topogram"
+          title="About Bandstour and Topogram"
           actions={actions}
           modal={false}
           open={this.state.open}
@@ -53,7 +53,8 @@ class About extends React.Component {
         >
 
           <p>
-            BandsTour is a a free and open-source software under GPL V3
+            BandsTour is a a free and open-source software under GPL V3.
+            it is a fork of Topogram...
             Topogram is a free and open-source software  under GPL V3.
             Read more at<a href="http://topogram.io">topogram.io</a>.
           </p>
