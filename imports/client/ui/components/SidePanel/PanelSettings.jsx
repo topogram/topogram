@@ -22,7 +22,7 @@ const PanelSettings = ({
   router
 }) => (
   <span>
-    <Subheader
+    <Subheader style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)'}}
     >Settings</Subheader>
 
     <PanelSelector
@@ -34,7 +34,10 @@ const PanelSettings = ({
 
     { geoMapVisible ? <GeoMapOptions/> : null }
     { chartsVisible ? <ChartsOptions/> : null }
-    <NetworkOptions/>
+    <NetworkOptions
+    style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)'}}
+
+    />
 
     {
       authorIsLoggedIn ?
