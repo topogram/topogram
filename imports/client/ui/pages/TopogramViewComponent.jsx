@@ -34,7 +34,7 @@ import '../../../css/TopogramViewComponent.css'
     legendVisible : false,
     timeLineVisible : false,
     // network/map
-    layoutName : 'preset',
+    layoutName : 'spread',
     nodeRadius : 'weight',
     geoMapTile : 'default',
     SaveNodeMovesToDB: false,
@@ -368,7 +368,6 @@ handleSaveSVGs =() =>{
       // pass value to UI as default
       this.props.updateUI('minTime', minTime)
       this.props.updateUI('maxTime', maxTime)
-
     }
 
       if (nodeCategories && !ui.minWeight && !ui.maxWeight){
@@ -395,7 +394,8 @@ handleSaveSVGs =() =>{
       nodeCategories,
       hasCharts,
       user,
-      router
+      router,
+      timeLineVisible
     } = this.props
 
     const filterTime = (n) => hasTimeInfo ?
@@ -420,8 +420,8 @@ handleSaveSVGs =() =>{
 
     const selectedIds = this.props.ui.selectedElements.map(d=>d.data.id)
     const nodes =  this.props.nodes.filter(n =>
-        filterTime(n)
-        && filterCategories(n)
+        timeLineVisible?filterTime(n)&& filterCategories(n)
+         : filterCategories(n)
 
       )
       .map(n => {
@@ -436,7 +436,11 @@ handleSaveSVGs =() =>{
 
     const edges = this.props.edges
 
-      .filter(e => hasTimeInfo ?
+      .filter(e =>
+
+
+timeLineVisible?
+         hasTimeInfo ?
         new Date(e.data.start) >= new Date(this.props.ui.minTime)
         && new Date(this.props.ui.valueRange[1]) >= new Date(e.data.start)
         && new Date(this.props.ui.valueRange[0]) < new Date(e.data.end)
@@ -444,6 +448,8 @@ handleSaveSVGs =() =>{
         && nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
        :
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
+
+      : nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
       )
 
     // console.log(this.props.userId, this.props.topogram.userId, this.props.isLoggedIn);
