@@ -28,8 +28,8 @@ this.state = {
 
   handleChangefontSizeNetwork = (e) => {
     const fontSizeNetwork = e.target.value
-    console.log(fontSizeNetwork);
-    console.log(e.target.value);
+    // console.log(fontSizeNetwork);
+    // console.log(e.target.value);
     this.setState({ fontSizeNetwork })
 //console.log(this.state)
 //console.log(this.props)
@@ -69,19 +69,19 @@ this.state = {
             <tr>
         <td>
       <TextField
-      style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)'}}
+      style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)',width : '3em', margin: '0 2em'}}
         name='CytoscapeJsFontSizeSetter'
         type='number'
         className=''
         min={0.1}
         max={1000}
         step={.5}
-        //default={8}
+        autoComplete={'on'}
         floatingLabelFixed={true}
         floatingLabelText='Network'
-        style={{width : '3em', margin: '0 2em'}}
+      
         value={this.state.fontSizeNetwork}
-        // columns={3}
+
         onChange={ this.handleChangefontSizeNetwork}
           />
       </td>
