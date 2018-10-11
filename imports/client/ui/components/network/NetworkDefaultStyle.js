@@ -7,7 +7,7 @@ const NetworkDefaultStyle = () =>
   stylesheet()
     .selector('node')
       .style({
-        'font-size': 8,
+        'font-size': 12,
         'text-valign' (ele) {
 
           //console.log("alternate",alternate);
@@ -22,7 +22,7 @@ const NetworkDefaultStyle = () =>
             return txt
         },
 
-        'text-halign': 'right',
+        'text-halign': 'center',
         'color' (e) {
           let color = 'gray';  // default
           if (e.data('group')) color = colors(e.data('group'))
@@ -30,9 +30,9 @@ const NetworkDefaultStyle = () =>
           return e.data('selected') ? 'yellow' : color
         },
         'text-outline-color' : 'black',
-        'text-outline-width' : '.1px',
+        'text-outline-width' : '.2px',
 
-        'text-max-width': 50,
+        'text-max-width': 40,
         'text-wrap': 'wrap',
         'text-rotation': '100°',
         'min-zoomed-font-size': 4,

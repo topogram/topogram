@@ -86,6 +86,7 @@ export function nodes(state = initialState, action) {
       hasGeoInfo,
       nodeCategories,
       minTime: starts[0],
+      valueRangeInit: () => [starts[0],ends[0]],
       maxTime: ends[0],
       minWeight: weighsMin[0],
       maxWeight: weighsMax[1],

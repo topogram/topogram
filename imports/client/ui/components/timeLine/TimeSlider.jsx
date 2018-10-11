@@ -34,7 +34,7 @@ export default class TimeSlider extends React.Component {
       valueRange : value
 
      })
-     //console.log(valueRange)
+     console.log(this.props.ui.valueRange)
      //console.log(value[1],value[0])
 
   }
@@ -67,7 +67,7 @@ export default class TimeSlider extends React.Component {
           <div>
 
             <Range
-            //defaultValue={{minTime,maxTime}}
+            defaultValue={[minTime,maxTime]}
             style={{ zIndex : 100 }}
             value={valueRange}
             min={minTime}

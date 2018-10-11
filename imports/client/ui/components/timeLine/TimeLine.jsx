@@ -42,14 +42,17 @@ export default class TimeLine extends React.Component {
    var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
    //console.log("seconds",seconds)
    var tempo = Math.floor(seconds);
+   var valueRange=[Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*tempo]
 
    this.originalTempo = tempo
 
    this.state = {
      playing : false,
-     tempo,
+     tempo: tempo,
      step : 1,
-     timer : null
+     timer : null,
+     stopPressedOnce:true,
+     valueRange : [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*tempo]
    }
   }
 
@@ -84,6 +87,7 @@ export default class TimeLine extends React.Component {
     console.log("seconds",seconds)
     var tempo = Math.floor(seconds);
 
+
     this.originalTempo = tempo
 
 
@@ -109,14 +113,31 @@ export default class TimeLine extends React.Component {
 
   stop = () => {
     this.pause()
-     var newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]
+
+
+
+console.log( [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]);
+var newValueStop =0
+     if (this.state.stopPressedOnce) {
+     newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*this.state.tempo]
+     }
+     else {
+     newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]
+     }
+
     this.props.updateUI({
+
 
       valueRange: newValueStop
 
+  })
 
 
-    })
+
+    console.log(this.state.stopPressedOnce);
+    console.log(!this.state.stopPressedOnce);
+
+    this.setState({stopPressedOnce : !this.state.stopPressedOnce})
   }
 
   handleChangeStep = (e) => {
@@ -125,11 +146,11 @@ export default class TimeLine extends React.Component {
     const tempo = this.originalTempo*step
     this.setState({ step, tempo })
   }
-
   render() {
 
     const { minTime, maxTime } = this.props.ui
     const { hasTimeInfo } = this.props
+
 
     return (
       <Card

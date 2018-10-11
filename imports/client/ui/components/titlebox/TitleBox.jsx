@@ -73,18 +73,12 @@ const modalStyle = {
 };
 
 if (this.props.topogramTitle){
-console.log(this.props.topogramTitle);
 
 var   TitleForBox =this.props.topogramTitle.split("\n")[0]
-console.log(TitleForBox);
 var   Title2ForBox =this.props.topogramTitle.split("\n")[1]
-console.log(Title2ForBox);
  var   Title3ForBox =this.props.topogramTitle.split("\n")[2]
- console.log(Title3ForBox);
  var   Title4ForBox =this.props.topogramTitle.split("\n")[3]
- console.log(Title4ForBox);
  var   Title5ForBox =this.props.topogramTitle.split("\n")[4]
- console.log(Title5ForBox);
 //
 
 
@@ -107,14 +101,14 @@ return(
   <div>
     <CardTitle
       title={
-        <div style={{fontSize:"8pt", color: '#D3E8E6',fontWeight:  'bold'}}>BandsTour (Beta .1) GPL V3 by <a href="mailto:greg@grrrndzero.org">Gregory Bahde</a>@UJM-ENSSIB--GZ</div>}
-      titleStyle={{ fontSize : '8pt', lineHeight : '1em',fontWeight:  'bold',padding:"0px 2px 5px 2px",fontColor: "#D3E8E6  !important"}}
+        <div style={{fontSize:"8pt", color: '#D3E8E6',fontWeight:  'bold'}}>BandsTour v\.2 GPLv3 by <a  href="mailto:greg@grrrndzero.org">Gregory Bahde</a>@UJM-ENSSIB--GZ</div>}
+      titleStyle={{ fontSize : '8pt', lineHeight : '1em',padding:"0px 2px 5px 2px",fontColor: "#D3E8E6  !important"}}
       subtitle={TitleForBox}
         subtitleStyle={{ fontSize : '12pt', color: '#aa8dc6', lineHeight : '1.3em',fontWeight:  'bold' }}
     />
 {this.state.isOpen?
   null:
-<RaisedButton style={{fontSize: "8pt" ,Width : "15px",height:"15px",backgroundColor:"#D3E8E6 !important",fontWeight:  'bold'}} onClick={this.toggleModal}>DATAS...</RaisedButton>
+<RaisedButton style={{fontSize: "8pt" ,Width : "15px",height:"15px",backgroundColor:"#aa8dc6 !important",fontWeight:  'bold'}} onClick={this.toggleModal}>DATAS...</RaisedButton>
 }
               <Modal style={{fontSize:"8pt"}}show={this.state.isOpen}
                 onClose={this.toggleModal}>

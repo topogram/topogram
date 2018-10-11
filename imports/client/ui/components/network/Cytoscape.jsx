@@ -16,7 +16,7 @@ const cyStyle = {
   top: '0px',
   left: '0',
   zIndex : -1,
-  background : "rgba(168,221,207,1)"
+  background : "rgba(168,221,207,0.4)"
 }
 //PANZOOM DEFAULTS
 var defaults = {
@@ -73,8 +73,8 @@ class Cytoscape extends Component {
     const cy = cytoscape({
       container: this.refs.cyelement,
       layout: {
-      //  name: 'preset' // load saved positions
-        name: 'spread' // load saved positions
+        name: 'preset' // load saved positions
+      //  name: 'spread' // load saved positions
 
       },
       style,
@@ -194,7 +194,7 @@ class Cytoscape extends Component {
       style={Object.assign({}, cyStyle, { width, height })}
       ref="cyelement"
       >
-      //<cytoscapePanzoom/>
+      <cytoscapePanzoom/>
 
     </div>)
   }
