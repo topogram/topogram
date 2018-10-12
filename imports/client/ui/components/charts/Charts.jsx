@@ -8,7 +8,7 @@ import Tooltip from 'rc-tooltip';
 import Slider from 'rc-slider';
 
 
-import 'rc-slider/assets/index.css';
+//import 'rc-slider/assets/index.css';
 /*APPLYS TO NODES AND EDGES SELECTED ON SCREEN, SO CY IS THE TARGET OF IMPLANT :)*/
 const CHARTS_DIV_ID = "charts"
 const divChartsStyle = {

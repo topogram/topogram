@@ -42,17 +42,17 @@ export default class TimeLine extends React.Component {
    var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
    //console.log("seconds",seconds)
    var tempo = Math.floor(seconds);
-   var valueRange=[Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*tempo]
-
+   // var valueRange=[Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*tempo]
+console.log(tempo,"tempo");
    this.originalTempo = tempo
 
    this.state = {
      playing : false,
-     tempo: tempo,
+     tempo,
      step : 1,
      timer : null,
      stopPressedOnce:true,
-     //valueRange : [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*tempo]
+     // valueRange : [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*tempo]
    }
   }
 
@@ -115,17 +115,27 @@ export default class TimeLine extends React.Component {
     this.pause()
 
 
-
-console.log( [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]);
+//console.log( [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]);
 var newValueStop =0
+console.log(this );
      if (this.state.stopPressedOnce) {
-    console.log(this.props.ui.minTime,
-    this.props.ui.maxTime,Math.round(this.props.ui.minTime)+10*this.state.tempo );
-     newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+1000*this.state.tempo]
+       var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
+       console.log("seconds",seconds)
+       var tempo = Math.floor(seconds);
+       var temp=(moment(this.props.ui.minTime))
+       var temp2=temp
+       temp2.add(10,'days')
+      // console.log(new Date(this.props.ui.minTime).add(tempo,'seconds'))
+       console.log("temostop",typeof(Math.round(this.props.ui.minTime)));
+console.log(tempo);
+       console.log(temp.format());
+       console.log(temp2.format());
+     newValueStop = [Math.round(this.props.ui.minTime),temp2]
      console.log(newValueStop);
    }
      else {
      newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]
+     console.log(newValueStop);
      }
 
     this.props.updateUI({

@@ -8,7 +8,7 @@ import Tooltip from 'rc-tooltip';
 import Slider from 'rc-slider';
 
 
-import 'rc-slider/assets/index.css';
+import './indexRCSLIDER.css';
 
 
 const createSliderWithTooltip =   Slider.createSliderWithTooltip;
@@ -68,18 +68,19 @@ export default class TimeSlider extends React.Component {
 
             <Range
             defaultValue={[minTime,maxTime]}
-            style={{ zIndex : 100 }}
+            style={{ zIndex : 1000 }}
             value={valueRange}
             min={minTime}
             max={maxTime}
             //defaultValue={[ 1281214800000, 1284866786842 ]}
             step={1}
             marks={marksYears}
+            marksStyle={{ zIndex : 10 }}
             tipFormatter={dateFormatter}
             tipProps={{ overlayClassName: 'foo' }}
-            onClick={this.onSliderChange}
+            //onAfterChange={this.onSliderChange}
             onChange={this.onSliderChange}
-            //pushable={true}
+            pushable={true}
             allowCross={true}
             />
           </div>
