@@ -51,6 +51,16 @@ class QueryBox extends React.Component {
         filter={AutoComplete.fuzzyFilter}
         dataSource={dataSource}
         maxSearchResults={7}
+        floatingLabelStyle= {{
+          color: '#fff !important',
+        }}
+
+        underlineStyle={{
+          display:"none",
+
+
+        }}
+
         fullWidth={true}
         style={this.props.style}
         menuProps={{desktop:true}}

@@ -52,7 +52,7 @@ export default class TimeLine extends React.Component {
      step : 1,
      timer : null,
      stopPressedOnce:true,
-     valueRange : [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*tempo]
+     //valueRange : [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*tempo]
    }
   }
 
@@ -119,8 +119,11 @@ export default class TimeLine extends React.Component {
 console.log( [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]);
 var newValueStop =0
      if (this.state.stopPressedOnce) {
-     newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+10*this.state.tempo]
-     }
+    console.log(this.props.ui.minTime,
+    this.props.ui.maxTime,Math.round(this.props.ui.minTime)+10*this.state.tempo );
+     newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.minTime)+1000*this.state.tempo]
+     console.log(newValueStop);
+   }
      else {
      newValueStop = [Math.round(this.props.ui.minTime),Math.round(this.props.ui.maxTime)]
      }
