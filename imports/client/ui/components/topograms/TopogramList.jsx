@@ -7,6 +7,7 @@ import ui from 'redux-ui'
 import { defineMessages, injectIntl } from 'react-intl'
 import AutoComplete from 'material-ui/AutoComplete'
 import RaisedButton from 'material-ui/RaisedButton'
+import './TopogramList.css'
 const messages = defineMessages({
   hint : {
     'id': 'queryBox.hint',
@@ -188,6 +189,7 @@ class TopogramList extends React.Component {
                     {topogramItems.slice(0+128*this.state.pageTopos,128+128*this.state.pageTopos)}
                   </GridList>
                   <RaisedButton
+                    style={{backgroundColor: "#aa8dc6 !important"}}
                     label="previous"
                     primary={true}
                     onClick={() => this.handlePageTopoDown(numbTopopages)}
