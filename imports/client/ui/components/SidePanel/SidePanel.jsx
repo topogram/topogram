@@ -20,7 +20,7 @@ export default class SidePanel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      panelName : 'main'
+      panelName : 'about'
     }
   }
 
@@ -126,23 +126,23 @@ export default class SidePanel extends React.Component {
             :
             null
         }
-
         {
           panelName === 'edit' ?
-            <PanelSettings
-              geoMapVisible={geoMapVisible}
-              hasCharts={hasCharts}
-              hasTimeInfo={hasTimeInfo}
-              hasGeoInfo={hasGeoInfo}
-              authorIsLoggedIn={authorIsLoggedIn}
-              topogramId={topogram._id}
-              topogramTitle={topogram.title}
-              topogramIsPublic={topogram.sharedPublic}
-              router={router}
-              />
-            :
-            null
+          <PanelSettings
+            geoMapVisible={geoMapVisible}
+            hasCharts={hasCharts}
+            hasTimeInfo={hasTimeInfo}
+            hasGeoInfo={hasGeoInfo}
+            authorIsLoggedIn={authorIsLoggedIn}
+            topogramId={topogram._id}
+            topogramTitle={topogram.title}
+            topogramIsPublic={topogram.sharedPublic}
+            router={router}
+            />
+          :
+          null
         }
+
 
       </Drawer>
     )

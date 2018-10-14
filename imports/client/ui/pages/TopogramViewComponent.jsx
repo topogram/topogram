@@ -12,7 +12,7 @@ import '../../../css/TopogramViewComponent.css'
 // UI state default values
 @ui({
   state: {
-    filterPanelIsOpen: false,
+    filterPanelIsOpen: true,
     // filters
     minTime : null,
     maxTime : null,

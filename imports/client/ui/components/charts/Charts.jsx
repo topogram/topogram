@@ -276,8 +276,8 @@ var resweigUniques = [...new Set(resweig)];
 for (var i = 0; i < resweigUniques.length; i++) {
   resweigUniques[i]=resweigUniques[i].toString().substring(0,5)
 }
-console.log(resweigUniques);
-console.log(ArrayresweigUniquesPoids);
+// console.log(resweigUniques);
+// console.log(ArrayresweigUniquesPoids);
 
 
 
@@ -367,8 +367,8 @@ const distributionType = statistical.methods.poisson;
 const distributionTypeEdges = statistical.methods.poisson;
 
 const chiSquaredGoodnessOfFit = statistical.methods.chiSquaredGoodnessOfFit(ArrayresweigUniquesPoids, distributionType, 0.005);
-const chiSquaredGoodnessOfFitEdges = statistical.methods.chiSquaredGoodnessOfFit(ArrayresweigEdgesUniquesPoids, distributionTypeEdges, 0.005);
 console.log("chi2 Nodes",chiSquaredGoodnessOfFit);
+const chiSquaredGoodnessOfFitEdges = statistical.methods.chiSquaredGoodnessOfFit(ArrayresweigEdgesUniquesPoids, distributionTypeEdges, 0.005);
 console.log("chi2 Edges",chiSquaredGoodnessOfFitEdges);
 }
 catch(error)

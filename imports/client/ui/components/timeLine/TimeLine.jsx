@@ -114,14 +114,23 @@ export default class TimeLine extends React.Component {
 
   next=()=>{
     var newValue =0
+// if (this.props.ui.valueRange[0]==this.props.ui.minTime &&this.props.ui.valueRange[1]==this.props.ui.maxTime ) {
+//   newValue = [
+//     this.props.ui.minTime,moment(this.props.ui.minTime).add(1,'years').unix()]
+//
+// } else {
+//
+
     newValue = [
       moment(this.props.ui.valueRange[0]).add(1,'years').unix()*1000,moment(this.props.ui.valueRange[1]).add(1,'years').unix()*1000]
 
       if (newValue[1]>this.props.ui.maxTime) {
         newValue[1]=this.props.ui.maxTime
-
-
       }
+      if (newValue[0]>=this.props.ui.maxTime) {
+        newValue[0]=moment(this.props.ui.maxTime).add(-1,'years').unix()*1000
+      }
+    // }
 
       this.props.updateUI({
 
