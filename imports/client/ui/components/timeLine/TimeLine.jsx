@@ -124,13 +124,14 @@ console.log(this );
        var tempo = Math.floor(seconds);
        var temp=(moment(this.props.ui.minTime))
        var temp2=temp
-       temp2.add(10,'days')
+       temp2.add(1,'years')
       // console.log(new Date(this.props.ui.minTime).add(tempo,'seconds'))
        console.log("temostop",typeof(Math.round(this.props.ui.minTime)));
 console.log(tempo);
        console.log(temp.format());
        console.log(temp2.format());
-     newValueStop = [Math.round(this.props.ui.minTime),temp2]
+       console.log(temp2.unix());
+     newValueStop = [Math.round(this.props.ui.minTime),temp2.unix()*1000]
      console.log(newValueStop);
    }
      else {
