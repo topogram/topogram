@@ -106,6 +106,7 @@ export class HomeComponent extends React.Component {
           title="Browse publics topograms"
           showFilters={false}
           router={router}
+
         />
 
         <Snackbar

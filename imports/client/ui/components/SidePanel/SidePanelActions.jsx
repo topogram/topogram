@@ -25,6 +25,9 @@ const SidePanelActions = ({
       top : 0
     }}
     >
+    <IconButton onClick={() => setPanelName('edit')}>
+      <SettingsIcon />
+    </IconButton>
     <IconButton onClick={() => setPanelName('main')}>
       <ActionHome />
     </IconButton>
@@ -33,9 +36,6 @@ const SidePanelActions = ({
       <InfoIcon />
     </IconButton>
 
-    <IconButton onClick={() => setPanelName('edit')}>
-      <SettingsIcon />
-    </IconButton>
 
     <UserMenu
       user={user}

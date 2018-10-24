@@ -62,7 +62,7 @@ this.state = {
     return (
       <div style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)'}}>
       <Subheader style={{backgroundColor: '#D4E6CC!important', color:'rgb(242, 239, 233)'}}>
-      Font Size settings
+      Font Size and DB Settings
         </Subheader>
         <table>
           <tbody>
@@ -79,7 +79,7 @@ this.state = {
         autoComplete={'on'}
         floatingLabelFixed={true}
         floatingLabelText='Network'
-      
+
         value={this.state.fontSizeNetwork}
 
         onChange={ this.handleChangefontSizeNetwork}

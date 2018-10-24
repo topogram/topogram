@@ -101,7 +101,7 @@ return(
   <div>
     <CardTitle
       title={
-        <div style={{fontSize:"8pt", color: '#D3E8E6',fontWeight:  'bold'}}>BandsTour v\.2 GPLv3 by <a  href="mailto:greg@grrrndzero.org">Gregory Bahde</a>@UJM-ENSSIB--GZ</div>}
+        <div style={{fontSize:"8pt", color: '#D3E8E6',fontWeight:  'bold'}}>BandsTour v.2 GPLv3 by <a  href="mailto:greg@grrrndzero.org">Gregory Bahde</a>@UJM-ENSSIB--GZ</div>}
       titleStyle={{ fontSize : '8pt', lineHeight : '1em',padding:"0px 2px 5px 2px",fontColor: "#D3E8E6  !important"}}
       subtitle={TitleForBox}
         subtitleStyle={{ fontSize : '12pt', color: '#aa8dc6', lineHeight : '1.3em',fontWeight:  'bold' }}
