@@ -90,7 +90,7 @@ export default class MainViz extends React.Component {
 }
 
 MainViz.propTypes = {
-  topogramId: PropTypes.string.isRequired,
+  // topogramId: PropTypes.string.isRequired,
   nodes: PropTypes.array,
   edges: PropTypes.array,
   hasGeoInfo : PropTypes.bool,

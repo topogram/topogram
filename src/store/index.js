@@ -1,17 +1,11 @@
-import { Tracker } from 'meteor/tracker'
 import { applyMiddleware, createStore, compose } from 'redux'
-import createReactiveMiddlewares from 'meteor-redux-middlewares'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 
-import rootReducer from '/imports/client/reducers'
+import rootReducer from '../reducers'
 
-const {
-  sources,
-  subscriptions,
-} = createReactiveMiddlewares(Tracker)
+const middlewares = [ thunk ]
 
-const middlewares = [ sources, subscriptions, thunk ]
 // if (process.env.NODE_ENV !== 'production') {
 //   middlewares.push(createLogger())
 // }

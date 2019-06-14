@@ -13,3 +13,5 @@ update.log
 _docpress
 dist
 legacy.eslintrc
+
+src/data

@@ -1,25 +1,25 @@
 import {
-  EDGES_LOADING,
-  EDGES_LOADED
+  CONFIG_LOADING,
+  CONFIG_LOADED
 } from '../actions'
 
 const initialState = {
   loading: false,
   ready: false,
-  edges: []
+  config: {}
 }
 
-export function edges(state = initialState, action) {
+export function config(state = initialState, action) {
   switch (action.type) {
-  case EDGES_LOADING:
+  case CONFIG_LOADING:
     return {
       ...state,
       loading: true
     }
-  case EDGES_LOADED:
+  case CONFIG_LOADED:
     return {
       ...state,
-      edges: action.payload,
+      config: action.payload,
       loading: false,
       ready: true
     }

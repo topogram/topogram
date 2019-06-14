@@ -20,20 +20,12 @@ export class TopogramViewComponent extends React.Component {
     nodeCategories: PropTypes.array,
     nodes: PropTypes.array,
     edges: PropTypes.array,
-    topogram: PropTypes.object,
-    topogramId: PropTypes.string,
+    config: PropTypes.object,
     isLoggedIn : PropTypes.bool,
     userId: PropTypes.string,
-    loadTopogram : PropTypes.func.isRequired,
+    // loadTopogram : PropTypes.func.isRequired,
     loadNodes : PropTypes.func.isRequired,
-    loadEdges : PropTypes.func.isRequired,
-    stopNodesSubscription : PropTypes.func.isRequired,
-    stopEdgesSubscription : PropTypes.func.isRequired,
-    stopTopogramSubscription : PropTypes.func.isRequired,
-    router : PropTypes.object.isRequired,
-    params : PropTypes.shape({
-      topogramId : PropTypes.string.isRequired
-    })
+    loadEdges : PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -50,15 +42,15 @@ export class TopogramViewComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadTopogram(this.props.params.topogramId)
-    this.props.loadNodes(this.props.params.topogramId)
-    this.props.loadEdges(this.props.params.topogramId)
+    // this.props.loadTopogram(this.props.params.topogramId)
+    this.props.loadNodes()
+    this.props.loadEdges()
   }
 
   componentWillUnmount() {
-    this.props.stopNodesSubscription()
-    this.props.stopEdgesSubscription()
-    this.props.stopTopogramSubscription()
+    // this.props.stopNodesSubscription()
+    // this.props.stopEdgesSubscription()
+    // this.props.stopTopogramSubscription()
   }
 
   handleToggleSelectionMode = () =>
@@ -285,7 +277,6 @@ export class TopogramViewComponent extends React.Component {
         </FloatingActionButton>
 
         <MainViz
-          topogramId={ this.props.params.topogramId }
           nodes={ nodes }
           edges={ edges }
           onFocusElement={this.onFocusElement}
@@ -299,7 +290,7 @@ export class TopogramViewComponent extends React.Component {
         />
 
         <TitleBox
-          topogramTitle={ this.props.topogram.title }
+          topogramTitle={ this.props.config.title }
           selectedElements={this.props.ui.selectedElements}
           focusElement={this.props.ui.focusElement}
           cy={this.props.ui.cy}
@@ -316,7 +307,7 @@ export class TopogramViewComponent extends React.Component {
         <SidePanel
           nodes={ nodes }
           edges={ edges }
-          topogram={ this.props.topogram }
+          topogram={ this.props.config }
           nodeCategories={this.props.nodeCategories}
 
           user={user}
@@ -328,7 +319,7 @@ export class TopogramViewComponent extends React.Component {
           open={this.props.ui.filterPanelIsOpen}
 
           router={this.props.router}
-          authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
+          authorIsLoggedIn={ true }
 
           onFocusElement={this.onFocusElement}
           onUnfocusElement={this.onUnfocusElement}
