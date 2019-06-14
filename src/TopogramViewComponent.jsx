@@ -301,8 +301,7 @@ export class TopogramViewComponent extends React.Component {
       .filter(e =>
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
       )
-
-    return (
+return (
       <div>
 
         <FloatingActionButton

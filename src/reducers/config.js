@@ -19,7 +19,7 @@ export function config(state = initialState, action) {
   case CONFIG_LOADED:
     return {
       ...state,
-      config: action.payload,
+      ...action.payload,
       loading: false,
       ready: true
     }
