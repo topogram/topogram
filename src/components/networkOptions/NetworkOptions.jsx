@@ -1,5 +1,5 @@
 import React from 'react'
-import ui from 'redux-ui'
+import store from '../../store'
 
 import MenuItem from 'material-ui/MenuItem'
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
@@ -22,11 +22,17 @@ const layouts = [
 export default class NetworkOptions extends React.Component {
 
   handleSelectLayout = (value) => {
-    this.props.updateUI('layoutName', value)
+    store.dispatch({
+      type : 'NETWORK_SET_LAYOUT',
+      layoutName : value
+    })
   }
 
   handleSelectNodeRadius = (value) => {
-    this.props.updateUI('nodeRadius', value)
+    store.dispatch({
+      type : 'NETWORK_SET_NODE_RADIUS',
+      nodeRadius : value
+    })
   }
 
   render() {

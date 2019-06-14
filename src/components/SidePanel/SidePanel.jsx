@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import ui from 'redux-ui'
+import store from '../../store'
 
 import Drawer from 'material-ui/Drawer'
 import ClearIcon from 'material-ui/svg-icons/content/clear'
@@ -25,7 +25,9 @@ export default class SidePanel extends React.Component {
   }
 
   handleExpandChange = () =>
-    this.props.updateUI('filterPanelIsOpen', false)
+    store.dispatch({
+      type : 'FILTER_PANEL_CLOSE'
+    })
 
   setPanelName = (panelName) => this.setState({panelName})
 
@@ -58,7 +60,9 @@ export default class SidePanel extends React.Component {
       selectedNodeCategories,
       filterPanelIsOpen,
       focusElement,
-      geoMapVisible
+      timeLineVisible,
+      geoMapVisible,
+      graphVisible
     } = this.props.ui
 
     return (
@@ -110,13 +114,11 @@ export default class SidePanel extends React.Component {
           panelName === 'edit' ?
             <PanelSettings
               geoMapVisible={geoMapVisible}
+              timeLineVisible={ timeLineVisible }
+              geoMapVisible={ geoMapVisible }
+              graphVisible={ graphVisible }
               hasTimeInfo={hasTimeInfo}
               hasGeoInfo={hasGeoInfo}
-              authorIsLoggedIn={authorIsLoggedIn}
-              topogramId={topogram._id}
-              topogramTitle={topogram.title}
-              topogramIsPublic={topogram.sharedPublic}
-              router={router}
               />
             :
             null

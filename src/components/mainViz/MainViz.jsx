@@ -28,7 +28,10 @@ export default class MainViz extends React.Component {
     const {
       timeLineVisible,
       geoMapVisible,
-      graphVisible
+      graphVisible,
+      currentSliderTime,
+      minTime,
+      maxTime
     } = this.props.ui
 
     const panelsCount = [geoMapVisible, graphVisible]
@@ -80,6 +83,8 @@ export default class MainViz extends React.Component {
           this.props.ui.timeLineVisible ?
             <TimeLine
               hasTimeInfo={hasTimeInfo}
+              maxTime={maxTime}
+              minTime={minTime}
             />
             :
             null

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import ui from 'redux-ui'
+import store from '../../store'
 
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
@@ -11,7 +11,6 @@ const buttonStyle = {
   padding: '10px 20px'
 }
 
-
 export default class PanelSelector extends React.Component {
 
   static propTypes = {
@@ -21,32 +20,29 @@ export default class PanelSelector extends React.Component {
   }
 
   toggleGeo() {
-    this.props.updateUI( 'geoMapVisible', !this.props.ui.geoMapVisible )
+    store.dispatch({ type : 'GEO_MAP_TOGGLE' })
   }
 
   toggleGraph() {
-    this.props.updateUI( 'graphVisible', !this.props.ui.graphVisible )
+    store.dispatch({ type : 'GRAPH_TOGGLE' })
   }
 
   toggleTimeline() {
-    this.props.updateUI( 'timeLineVisible', !this.props.ui.timeLineVisible )
+    store.dispatch({ type : 'TIMELINE_TOGGLE' })
   }
 
-  toggleSelectionPanel() {
-    this.props.updateUI( 'selectionPanelPinned', !this.props.ui.selectionPanelPinned )
-  }
+  // toggleSelectionPanel() {
+  //   this.props.updateUI( 'selectionPanelPinned', !this.props.ui.selectionPanelPinned )
+  // }
 
   render() {
     const {
+      bottom,
+      hasGeoInfo,
+      hasTimeInfo,
       timeLineVisible,
       geoMapVisible,
       graphVisible
-    } = this.props.ui
-
-    const {
-      bottom,
-      hasGeoInfo,
-      hasTimeInfo
     } = this.props
 
     return (

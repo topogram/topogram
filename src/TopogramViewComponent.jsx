@@ -13,17 +13,17 @@ export class TopogramViewComponent extends React.Component {
 
   static propTypes = {
     ui: PropTypes.object,
-    updateUI: PropTypes.func,
+
     hasTimeInfo: PropTypes.bool,
     hasGeoInfo: PropTypes.bool,
     maxTime: PropTypes.instanceOf(Date),
     minTime: PropTypes.instanceOf(Date),
     nodeCategories: PropTypes.array,
+
     nodes: PropTypes.array,
     edges: PropTypes.array,
     config: PropTypes.object,
-    isLoggedIn : PropTypes.bool,
-    userId: PropTypes.string,
+
     // loadTopogram : PropTypes.func.isRequired,
     loadNodes : PropTypes.func.isRequired,
     loadEdges : PropTypes.func.isRequired
@@ -48,15 +48,10 @@ export class TopogramViewComponent extends React.Component {
     this.props.loadEdges()
   }
 
-  componentWillUnmount() {
-    // this.props.stopNodesSubscription()
-    // this.props.stopEdgesSubscription()
-    // this.props.stopTopogramSubscription()
-  }
-
-  handleToggleSelectionMode = () =>
-
-    this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
+  openSidePanel = () =>
+    store.dispatch({
+      type: 'FILTER_PANEL_OPEN'
+    })
 
   handleEnterIsolateMode = () => {
 
@@ -72,11 +67,16 @@ export class TopogramViewComponent extends React.Component {
       cy.nodes().forEach(n =>
         prevPositions[n.id()] = {...n.position()}
       )
-      this.props.updateUI('prevPositions', {...prevPositions})
+      store.dispatch({
+        type : 'PREV_POSITIONS_SET',
+        prevPositions : { ...prevPositions }
+      })
     }
 
     // isolate mode ON
-    this.props.updateUI('isolateMode', true)
+    store.dispatch({
+      type : 'ISOLATE_MODE_ENTER'
+    })
 
     // get my nodes/edges
     const selectedIds = selectedElements.map(e => e.data.id)
@@ -108,7 +108,9 @@ export class TopogramViewComponent extends React.Component {
     } = this.props.ui
 
     // isolate mode ON
-    this.props.updateUI('isolateMode', false)
+    store.dispatch({
+      type : 'ISOLATE_MODE_EXIT'
+    })
 
     // show all again
     cy.nodes().style({ 'opacity': '1' });
@@ -116,13 +118,23 @@ export class TopogramViewComponent extends React.Component {
 
     // bring back positions
     cy.nodes().positions((i,n) => prevPositions[n.id()])
-    this.props.updateUI('prevPositions', null)
+
+    store.dispatch({
+      type : 'PREV_POSITIONS_CLEAR'
+    })
 
     cy.fit()
   }
 
-  onFocusElement = (el) => this.props.updateUI('focusElement', el)
-  onUnfocusElement = () => this.props.updateUI('focusElement', null)
+  onFocusElement = (el) => store.dispatch({
+    type : 'FOCUS_ELEMENTS',
+    'focusElement' : el
+  })
+
+  onUnfocusElement = () => store.dispatch({
+    type : 'FOCUS_ELEMENTS',
+    'focusElement' : null
+  })
 
   selectElement = (el) => {
 
@@ -132,10 +144,10 @@ export class TopogramViewComponent extends React.Component {
     let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
     cy.filter(filter).data('selected', true)
 
-    this.props.updateUI(
-      'selectedElements',
-      [...this.props.ui.selectedElements, el]
-    )
+    store.dispatch({
+      type : 'SELECT_ELEMENTS',
+      selectedElements : [...this.props.ui.selectedElements, el]
+    })
 
   }
 
@@ -159,7 +171,11 @@ export class TopogramViewComponent extends React.Component {
         )
     ]
 
-    this.props.updateUI('selectedElements', remainingElements)
+    store.dispatch({
+      type : 'SELECT_ELEMENTS',
+      selectedElements : remainingElements
+    })
+
     // console.log(remainingElements, isolateMode);
 
     if(!remainingElements.length && isolateMode)
@@ -172,7 +188,10 @@ export class TopogramViewComponent extends React.Component {
     cy.elements().data('selected', false)
     selectedElements.forEach(el=> el.data.selected = false)
 
-    this.props.updateUI('selectedElements', [])
+    store.dispatch({
+      type : 'SELECT_ELEMENTS',
+      selectedElements : []
+    })
 
   }
 
@@ -292,7 +311,7 @@ export class TopogramViewComponent extends React.Component {
             right: '20px',
             top: '20px'
           }}
-          onClick={this.handleToggleSelectionMode}
+          onClick={this.openSidePanel}
           >
           <ExploreIcon />
         </FloatingActionButton>

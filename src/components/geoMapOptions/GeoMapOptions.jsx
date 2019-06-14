@@ -1,5 +1,5 @@
 import React from 'react'
-import ui from 'redux-ui'
+import store from '../../store'
 
 import MenuItem from 'material-ui/MenuItem'
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
@@ -10,7 +10,10 @@ import mapTiles from '../geoMap/mapTiles'
 export default class GeoMapOptions extends React.Component {
 
   handleSelectGeoMapTile = (value) => {
-    this.props.updateUI('geoMapTile', value)
+    store.dispatch({
+      type: 'GEO_SET_TILE', 
+      geoMapTile : value
+    })
   }
 
   render() {

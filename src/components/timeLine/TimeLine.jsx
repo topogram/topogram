@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import ui from 'redux-ui'
+import store from '../../store'
 import moment from 'moment'
 
 import { Card, CardText, CardHeader } from 'material-ui/Card'
@@ -24,7 +24,7 @@ export default class TimeLine extends React.Component {
   constructor(props) {
    super(props)
 
-   var seconds = parseInt((this.props.ui.maxTime-this.props.ui.minTime)/1000);
+   var seconds = parseInt((this.props.maxTime-this.props.minTime)/1000);
    var tempo = Math.floor(seconds);
 
    this.originalTempo = tempo
@@ -42,11 +42,17 @@ export default class TimeLine extends React.Component {
   }
 
   handleChangeMinTime = (event, date) => {
-    this.props.updateUI('minTime', date)
+    store.dispatch({
+      type : 'SET_MIN_TIME',
+      minTime:  date
+    })
   }
 
   handleChangeMaxTime = (event, date) => {
-    this.props.updateUI('maxTime', date)
+    store.dispatch({
+      type : 'SET_MAX_TIME',
+      maxTime:  date
+    })
   }
 
   openMinDatePicker = () => {
@@ -66,14 +72,21 @@ export default class TimeLine extends React.Component {
   play = () => {
 
     const { tempo } = this.state;
-    const { maxTime } = this.props.ui
+    const {
+      currentSliderTime,
+      maxTime
+     } = this.props
 
     // start setInterval
     const timer = setInterval( () => {
-      const newTime = Math.round(this.props.ui.currentSliderTime) + tempo;
+      const newTime = Math.round(currentSliderTime) + tempo;
       if (newTime >= Math.round(maxTime)) this.pause()
 
-      this.props.updateUI({currentSliderTime :  newTime })
+      store.dispatch({
+        type : 'SET_CURRENT_SLIDER_TIME',
+        currentSliderTime:  newTime
+      })
+
     },10)
 
     this.setState({
@@ -84,8 +97,9 @@ export default class TimeLine extends React.Component {
 
   stop = () => {
     this.pause()
-    this.props.updateUI({
-      currentSliderTime : Math.round(this.props.ui.minTime)
+    store.dispatch({
+      type : 'SET_CURRENT_SLIDER_TIME',
+      currentSliderTime:  Math.round(this.props.minTime)
     })
   }
 
@@ -97,8 +111,12 @@ export default class TimeLine extends React.Component {
 
   render() {
 
-    const { minTime, maxTime } = this.props.ui
-    const { hasTimeInfo } = this.props
+    const {
+      minTime,
+      maxTime,
+      currentSliderTime,
+      hasTimeInfo
+    } = this.props
 
     return (
       <Card
@@ -186,6 +204,7 @@ export default class TimeLine extends React.Component {
                 <TimeSlider
                   minTime={new Date(minTime).getTime()}
                   maxTime={new Date(maxTime).getTime()}
+                  currentSliderTime={currentSliderTime}
                   />
                 :
                 null

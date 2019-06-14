@@ -1,8 +1,9 @@
 import 'rc-slider/assets/index.css'
 import './timeline.css'
 
+import store from '../../store'
+
 import React, { PropTypes } from 'react'
-import ui from 'redux-ui'
 import moment from 'moment'
 
 
@@ -14,7 +15,6 @@ function dateFormatter(v) {
   return moment(v).format('MMM D, YYYY')
 }
 
-
 export default class TimeSlider extends React.Component {
 
   static propTypes = {
@@ -23,12 +23,18 @@ export default class TimeSlider extends React.Component {
   }
 
   onSliderChange = (value) => {
-    this.props.updateUI({ currentSliderTime : value })
+    store.dispatch({
+      type : 'SET_CURRENT_SLIDER_TIME',
+      currentSliderTime:  new Date(value)
+    })
   }
 
   render() {
-    const { minTime, maxTime } = this.props
-    const { currentSliderTime } = this.props.ui
+    const {
+      minTime,
+      maxTime,
+      currentSliderTime
+    } = this.props
 
     const minYear = moment(minTime).year(),
       maxYear = moment(maxTime).year()

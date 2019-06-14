@@ -10,13 +10,10 @@ import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
 
 const PanelSettings = ({
   geoMapVisible,
-  authorIsLoggedIn,
-  topogramId,
-  topogramTitle,
-  topogramIsPublic,
+  timeLineVisible,
+  graphVisible,
   hasTimeInfo,
-  hasGeoInfo,
-  router
+  hasGeoInfo
 }) => (
   <span>
     <Subheader>Settings</Subheader>
@@ -25,6 +22,9 @@ const PanelSettings = ({
       // bottom={timeLineVisible ? '21vh' : '1em'}
       hasTimeInfo={ hasTimeInfo }
       hasGeoInfo={ hasGeoInfo }
+      timeLineVisible={ timeLineVisible }
+      geoMapVisible={ geoMapVisible }
+      graphVisible={ graphVisible }
     />
 
     { geoMapVisible ? <GeoMapOptions/> : null }
