@@ -1,3 +1,9 @@
+import pjson  from '../package.json'
+
+// get app version
+export const getVersion = () => pjson.version
+
+// convert to slug
 export const slugify = function ( text ) {
   return text.toString().toLowerCase()
     .replace( /\s+/g, '-' ) // Replace spaces with -
