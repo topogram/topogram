@@ -15,3 +15,5 @@ dist
 legacy.eslintrc
 
 src/data
+examples/data
+data/

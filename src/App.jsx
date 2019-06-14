@@ -12,8 +12,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
-// import UserMenu from '../components/UserMenu.jsx'
-
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color : green500,

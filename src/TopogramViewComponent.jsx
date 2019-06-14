@@ -24,9 +24,6 @@ export class TopogramViewComponent extends React.Component {
     edges: PropTypes.array,
     config: PropTypes.object,
 
-    // loadTopogram : PropTypes.func.isRequired,
-    loadNodes : PropTypes.func.isRequired,
-    loadEdges : PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -40,12 +37,6 @@ export class TopogramViewComponent extends React.Component {
     }
     this.promptSnackbar = this.promptSnackbar.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
-  }
-
-  componentDidMount() {
-    this.props.loadConfig()
-    this.props.loadNodes()
-    this.props.loadEdges()
   }
 
   openSidePanel = () =>
