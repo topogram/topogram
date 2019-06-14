@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react'
-import ui from 'redux-ui'
-
-// import SelectField from 'material-ui/SelectField';
+import store from '../../store'
 
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -15,23 +13,27 @@ import { colors } from '../../helpers/colors.js'
 export default class NodeCategoriesMenu extends React.Component {
 
   static propTypes = {
-    nodeCategories : PropTypes.array
+    nodeCategories : PropTypes.array,
+    selectedNodeCategories : PropTypes.array
   }
 
   handleSelectNodeCategory = (category) => {
-    const selectedNodeCategories = [... this.props.ui.selectedNodeCategories]
+    const selectedNodeCategories = [... this.props.selectedNodeCategories]
 
     let i = selectedNodeCategories.indexOf(category)
     if (i > -1) selectedNodeCategories.splice(i, 1)
     else selectedNodeCategories.push(category)
 
-    this.props.updateUI('selectedNodeCategories', selectedNodeCategories)
+    store.dispatch({
+      type: 'SET_NODES_CATEGORIES',
+      selectedNodeCategories
+    })
   }
 
   render() {
 
     const {nodeCategories} = this.props
-    const {selectedNodeCategories} = this.props.ui
+    const {selectedNodeCategories} = this.props
 
     const menuItems = nodeCategories.map((d,i) => (
       <MenuItem

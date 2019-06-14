@@ -8,6 +8,7 @@ import QueryBox from '../queryBox/QueryBox.jsx'
 const PanelFilters = ({
   nodes,
   nodeCategories,
+  selectedNodeCategories,
   selectElement
 }) => (
   <CardText>
@@ -19,6 +20,7 @@ const PanelFilters = ({
       !!nodeCategories.length ?
         <NodeCategoriesMenu
           nodeCategories={nodeCategories}
+          selectedNodeCategories={selectedNodeCategories}
           />
         :
         null

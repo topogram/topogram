@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
-import ui from 'redux-ui'
+
+import store from '../store'
 
 import MainViz from '../components/mainViz/MainViz.jsx'
 import TitleBox from '../components/TitleBox.jsx'
@@ -54,6 +55,7 @@ export class TopogramViewComponent extends React.Component {
   }
 
   handleToggleSelectionMode = () =>
+
     this.props.updateUI('filterPanelIsOpen', !this.props.ui.filterPanelIsOpen)
 
   handleEnterIsolateMode = () => {
@@ -215,7 +217,13 @@ export class TopogramViewComponent extends React.Component {
 
     // default value to all
     if (nodeCategories && !ui.selectedNodeCategories.length)
-      this.props.updateUI('selectedNodeCategories', nodeCategories)
+      store.dispatch({
+        type: 'SET_NODES_CATEGORIES',
+        selectedNodeCategories: nodeCategories
+      })
+
+
+
 
   }
 

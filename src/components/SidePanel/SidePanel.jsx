@@ -55,6 +55,7 @@ export default class SidePanel extends React.Component {
     const {
       cy,
       selectedElements,
+      selectedNodeCategories,
       filterPanelIsOpen,
       focusElement,
       geoMapVisible
@@ -87,6 +88,7 @@ export default class SidePanel extends React.Component {
                 nodes={nodes}
                 nodeCategories={nodeCategories}
                 selectElement={selectElement}
+                selectedNodeCategories={selectedNodeCategories}
                 />
             </span>
             :

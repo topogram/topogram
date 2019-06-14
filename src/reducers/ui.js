@@ -29,6 +29,11 @@ export function ui(state = initialState, action) {
         ...state,
         cy: action.cy
       }
+    case 'SET_NODES_SELECTED_CATEGORIES':
+      return {
+        ...state,
+        selectedNodeCategories: action.selectedNodeCategories
+      }
     default:
       return state
   }
