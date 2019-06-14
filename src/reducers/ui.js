@@ -24,6 +24,11 @@ const initialState = {
 
 export function ui(state = initialState, action) {
   switch (action.type) {
+    case 'SET_CY_INSTANCE':
+      return {
+        ...state,
+        cy: action.cy
+      }
     default:
       return state
   }

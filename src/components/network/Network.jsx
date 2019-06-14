@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import ui from 'redux-ui'
+import store from '../../store'
 
 import Cytoscape from './Cytoscape.jsx'
 import NetworkDefaultStyle from './NetworkDefaultStyle'
@@ -30,7 +30,7 @@ class Network extends React.Component {
       .on('free','node', e => {
         let node = e.cyTarget
         let position = node.position()
-        const topogramId = this.props.topogramId
+        // const topogramId = this.props.topogramId
 
         // Truncate postion values to integers
         Object.keys(position).map( n => position[n] = Math.trunc(position[n]))
@@ -108,7 +108,10 @@ class Network extends React.Component {
     else {this.setUpGrabFreeEvents()}
 
     // store cytoscape object
-    this.props.updateUI('cy', cy)
+    store.dispatch({
+      type : 'SET_CY_INSTANCE',
+      cy : cy
+    })
     this.cy = cy
   }
 
@@ -203,7 +206,6 @@ class Network extends React.Component {
 }
 
 Network.propTypes = {
-  topogramId : PropTypes.string.isRequired,
   nodes : PropTypes.array,
   nodesReady : PropTypes.bool,
   edges : PropTypes.array,

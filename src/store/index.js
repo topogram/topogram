@@ -6,9 +6,9 @@ import rootReducer from '../reducers'
 
 const middlewares = [ thunk ]
 
-// if (process.env.NODE_ENV !== 'production') {
-//   middlewares.push(createLogger())
-// }
+if (process.env.NODE_ENV !== 'production') {
+  middlewares.push(createLogger())
+}
 
 const store = createStore(rootReducer, compose(
   applyMiddleware(...middlewares),

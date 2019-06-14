@@ -287,6 +287,7 @@ export class TopogramViewComponent extends React.Component {
           unselectAllElements={this.unselectAllElements}
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
+          ui={this.props.ui}
         />
 
         <TitleBox
@@ -310,15 +311,13 @@ export class TopogramViewComponent extends React.Component {
           topogram={ this.props.config }
           nodeCategories={this.props.nodeCategories}
 
-          user={user}
-          router={router}
+          ui={this.props.ui}
 
           hasTimeInfo={ this.props.hasTimeInfo }
           hasGeoInfo={ this.props.hasGeoInfo }
 
           open={this.props.ui.filterPanelIsOpen}
 
-          router={this.props.router}
           authorIsLoggedIn={ true }
 
           onFocusElement={this.onFocusElement}

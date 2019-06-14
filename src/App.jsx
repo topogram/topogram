@@ -26,10 +26,6 @@ const muiTheme = getMuiTheme({
 
 export class App extends React.Component {
 
-  componentDidMount = () => {
-    this.props.loadUser() // load current user
-  }
-
   render = () => {
     const {
      children,

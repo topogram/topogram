@@ -8,7 +8,6 @@ import TimeLine from '../timeLine/TimeLine.jsx'
 
 export default class MainViz extends React.Component {
 
-
   render() {
 
     const {
@@ -72,6 +71,7 @@ export default class MainViz extends React.Component {
               selectElement={selectElement}
               unselectElement={unselectElement}
               unselectAllElements={unselectAllElements}
+              ui={this.props.ui}
             />
             :
             null

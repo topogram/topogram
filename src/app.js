@@ -12,11 +12,6 @@ import { TopogramViewComponent } from "./ui/TopogramViewComponent.jsx"
 import nodes from './data/arc5/arc5-nodes.json';
 import edges from './data/arc5/arc5-edges.json';
 import topogram from './data/arc5/arc5-topogram.json';
-// console.log(nodes, edges, topogram);
-
-const mockPromise = (data) => new Promise( (resolve, reject) => {
-  resolve(data)
-})
 
 const mapStateToProps = state => ({
   nodesReady: state.nodes.ready,
@@ -34,9 +29,9 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
-  // loadConfig: () => dispatch(mockPromise(topogram)),
-  loadNodes: () => dispatch(mockPromise(nodes)),
-  loadEdges: () => dispatch(mockPromise(edges))
+  loadConfig: () => dispatch({ type: 'CONFIG_LOADED', payload : topogram }),
+  loadNodes: () => dispatch({ type: 'NODES_LOADED', payload : nodes }),
+  loadEdges: () => dispatch({ type: 'EDGES_LOADED', payload : edges })
 })
 
 const TopogramViewContainer = connect(
