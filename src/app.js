@@ -6,7 +6,7 @@ import store from "./store";
 
 import "./css/topogram.scss";
 import App from './App.jsx'
-import { TopogramViewComponent } from "./ui/TopogramViewComponent.jsx"
+import { TopogramViewComponent } from "./TopogramViewComponent.jsx"
 
 // load mock data
 import nodes from './data/arc5/arc5-nodes.json';

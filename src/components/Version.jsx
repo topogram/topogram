@@ -1,19 +1,11 @@
 import React from 'react'
-import { Meteor } from 'meteor/meteor'
+import pjson  from '../package.json'
 
 export default class Version extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { version: '' }
-  }
-
   render() {
-    Meteor.call('getVersion', (err, data) => {
-      if (err) throw err
-      this.setState({ 'version' : data })
-    })
+    // get app version
     return (
-      <p className="version">Version {this.state.version}</p>
+      <p className="version">Version {pjson.version}</p>
     )
   }
 }

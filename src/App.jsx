@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import './css/topogram.scss'
 
 import { IntlProvider } from 'react-intl'
-import { messages } from './i18n.js'
+import { messages } from './helpers/i18n.js'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { green500, indigo700, redA200 } from 'material-ui/styles/colors'

@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
 
-import store from '../store'
+import store from './store'
 
-import MainViz from '../components/mainViz/MainViz.jsx'
-import TitleBox from '../components/TitleBox.jsx'
-import SidePanel from '../components/SidePanel/SidePanel.jsx'
+import MainViz from './components/mainViz/MainViz.jsx'
+import TitleBox from './components/TitleBox.jsx'
+import SidePanel from './components/SidePanel/SidePanel.jsx'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ExploreIcon from 'material-ui/svg-icons/action/explore';
@@ -198,7 +198,9 @@ export class TopogramViewComponent extends React.Component {
 
     // // show timeline if time info
     // if (this.props.hasTimeInfo)
-    //   this.props.updateUI('timeLineVisible', true)
+    //   store.dispatch({
+    //     type: 'SHOW_TIMELINE'
+    //   })
 
     const {
       ui,
@@ -280,8 +282,6 @@ export class TopogramViewComponent extends React.Component {
       .filter(e =>
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
       )
-
-      console.log(nodes, edges);
 
     return (
       <div>
