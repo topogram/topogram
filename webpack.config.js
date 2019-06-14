@@ -1,0 +1,50 @@
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+
+  context: __dirname + "/imports",
+  entry: {
+    javascript: "./app.js"
+    // html: "./index.html"
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader'],
+      },
+      {
+        test: /\.html$/,
+        loader: "file-loader?name=[name].[ext]",
+      }
+    ],
+  },
+
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
+  },
+
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebPackPlugin({
+      template: "./index.html",
+      filename: "./dist/index.html"
+    })
+  ],
+
+  output: {
+    path: __dirname + '/dist',
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: './dist',
+    hot: true,
+    // Display only errors to reduce the amount of output.
+    // stats: "errors-only",
+    writeToDisk: true
+  }
+}

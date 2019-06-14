@@ -11,3 +11,5 @@ oldies
 .apiDocs
 update.log
 _docpress
+dist
+legacy.eslintrc
