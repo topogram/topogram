@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const title = 'Topogram React Webpack Babel Setup... ok';
-
 import "./css/topogram.scss";
+import HomeComponent from "./ui/pages/HomeComponent.jsx"
+
 
 ReactDOM.render(
-  <div>
-    <h2>{title}</h2>
-  </div>,
+  <HomeComponent />,
   document.getElementById('app')
 );
 
