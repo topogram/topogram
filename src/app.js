@@ -27,10 +27,22 @@ const mapStateToProps = state => ({
   config: state.config
 })
 
+// fix dates
+const nodesFix = nodes.map(n => ({
+  ...n,
+  data : {
+    ...n.data,
+    start : new Date(n.data.start,0,1),
+    end: new Date(n.data.end,0,1)
+  }
+}))
 
 const mapDispatchToProps = dispatch => ({
   loadConfig: () => dispatch({ type: 'CONFIG_LOADED', payload : topogram }),
-  loadNodes: () => dispatch({ type: 'NODES_LOADED', payload : nodes }),
+  loadNodes: () => dispatch({
+    type: 'NODES_LOADED',
+    payload : nodesFix
+  }),
   loadEdges: () => dispatch({ type: 'EDGES_LOADED', payload : edges })
 })
 

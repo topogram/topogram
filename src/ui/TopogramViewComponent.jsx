@@ -43,7 +43,7 @@ export class TopogramViewComponent extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.loadTopogram(this.props.params.topogramId)
+    this.props.loadConfig()
     this.props.loadNodes()
     this.props.loadEdges()
   }
@@ -120,7 +120,6 @@ export class TopogramViewComponent extends React.Component {
 
     cy.fit()
   }
-
 
   onFocusElement = (el) => this.props.updateUI('focusElement', el)
   onUnfocusElement = () => this.props.updateUI('focusElement', null)
@@ -211,19 +210,29 @@ export class TopogramViewComponent extends React.Component {
 
     if (hasTimeInfo && !ui.minTime && !ui.maxTime) {
       // pass value to UI as default
-      this.props.updateUI('minTime', minTime)
-      this.props.updateUI('maxTime', maxTime)
+      store.dispatch({
+        type: 'SET_MIN_TIME',
+        minTime
+      })
+
+      store.dispatch({
+        type: 'SET_MAX_TIME',
+        maxTime
+      })
+
+      store.dispatch({
+        type: 'SET_CURRENT_SLIDER_TIME',
+        currentSliderTime: maxTime
+      })
+
     }
 
     // default value to all
     if (nodeCategories && !ui.selectedNodeCategories.length)
       store.dispatch({
-        type: 'SET_NODES_CATEGORIES',
+        type: 'SET_NODES_SELECTED_CATEGORIES',
         selectedNodeCategories: nodeCategories
       })
-
-
-
 
   }
 
@@ -231,20 +240,25 @@ export class TopogramViewComponent extends React.Component {
 
     const {
       hasTimeInfo,
-      nodeCategories,
-      user,
-      router
+      nodeCategories
     } = this.props
 
+    const {
+      minTime,
+      maxTime,
+      currentSliderTime,
+      selectedNodeCategories
+    } = this.props.ui
+
     const filterTime = (n) => hasTimeInfo ?
-      new Date(this.props.ui.maxTime) >= new Date(n.data.end)
-      && new Date(this.props.ui.currentSliderTime) >= new Date(n.data.end)
-      && new Date(n.data.start) >= new Date(this.props.ui.minTime)
+      new Date(maxTime) >= new Date(n.data.end)
+      && new Date(currentSliderTime) >= new Date(n.data.end)
+      && new Date(n.data.start) >= new Date(minTime)
       :
       true
 
     const filterCategories = (n) => !!nodeCategories.length ?
-      this.props.ui.selectedNodeCategories.includes(n.data.group)
+      selectedNodeCategories.includes(n.data.group)
       :
       true
 
@@ -267,8 +281,7 @@ export class TopogramViewComponent extends React.Component {
         nodeIds.includes(e.data.source) && nodeIds.includes(e.data.target)
       )
 
-    // console.log(this.props.userId, this.props.topogram.userId, this.props.isLoggedIn);
-    // console.log(this.props.userId === this.props.topogram.userId && this.props.isLoggedIn);
+      console.log(nodes, edges);
 
     return (
       <div>

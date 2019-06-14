@@ -3,7 +3,7 @@ const initialState = {
   // filters
   minTime : null,
   maxTime : null,
-  currentSliderTime : () => new Date().getTime(), // TODO set default to minTime
+  currentSliderTime : null,
   selectedNodeCategories: [],
   // viz layout settings
   graphVisible : true, // default to graph view
@@ -33,6 +33,21 @@ export function ui(state = initialState, action) {
       return {
         ...state,
         selectedNodeCategories: action.selectedNodeCategories
+      }
+    case 'SET_CURRENT_SLIDER_TIME':
+      return {
+        ...state,
+        currentSliderTime: action.currentSliderTime
+      }
+    case 'SET_MIN_TIME':
+      return {
+        ...state,
+        minTime: action.minTime
+      }
+    case 'SET_MAX_TIME':
+      return {
+        ...state,
+        maxTime: action.maxTime
       }
     default:
       return state
