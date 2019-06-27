@@ -1,14 +1,19 @@
 const webpack = require('webpack');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-
+  target: "web", // frontend only
   context: __dirname + "/src",
   entry: {
     javascript: "./index.js"
     // html: "./index.html"
   },
-
+  output: {
+   // path: path.resolve(__dirname, "../build"),
+   path: __dirname + '/dist',
+   filename: "bundle.js",
+   library: 'Topograph',
+   libraryTarget: 'umd'
+ },
   module: {
     rules: [
       {
@@ -35,29 +40,23 @@ module.exports = {
       },
     ],
   },
-
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
-
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebPackPlugin({
-      template: "./index.html",
-      filename: "./dist/index.html"
-    })
-  ],
-
-  output: {
-    path: __dirname + '/dist',
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
-  devServer: {
-    contentBase: './dist',
-    hot: true,
-    // Display only errors to reduce the amount of output.
-    // stats: "errors-only",
-    writeToDisk: true
-  }
+  externals: [
+      {
+          "react": {
+              root: "React",
+              commonjs2: "react",
+              commonjs: "react",
+              amd: "react"
+          },
+          "react-dom": {
+              root: "ReactDOM",
+              commonjs2: "react-dom",
+              commonjs: "react-dom",
+              amd: "react-dom"
+          }
+      }
+  ]
 }

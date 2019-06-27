@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import './css/topogram.scss'
 
@@ -9,8 +10,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { green500, indigo700, redA200 } from 'material-ui/styles/colors'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-import injectTapEventPlugin from 'react-tap-event-plugin'
-injectTapEventPlugin()
+// import injectTapEventPlugin from 'react-tap-event-plugin'
+// injectTapEventPlugin()
 
 const muiTheme = getMuiTheme({
   palette: {
