@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import ui from 'redux-ui'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import Network from '../network/Network.jsx'
 import GeoMap from '../geoMap/GeoMap.jsx'

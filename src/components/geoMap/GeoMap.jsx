@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import ui from 'redux-ui'
+import React from 'react'
+import PropTypes from 'prop-types'
 import d3 from 'd3'
 import { Map, TileLayer } from 'react-leaflet'
 

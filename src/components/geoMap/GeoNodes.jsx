@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { FeatureGroup, CircleMarker } from 'react-leaflet'
 
 export default class GeoNodes extends React.Component {

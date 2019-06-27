@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'

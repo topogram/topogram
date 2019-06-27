@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { FeatureGroup, Polyline } from 'react-leaflet'
-import ui from 'redux-ui'
 
 
 export default class GeoEdges extends React.Component {

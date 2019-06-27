@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import cytoscape from 'cytoscape'
 import spread from 'cytoscape-spread'
 
@@ -16,7 +17,7 @@ const cyStyle = {
   zIndex : -1
 }
 
-class Cytoscape extends Component {
+class Cytoscape extends React.Component {
   cy = null;
 
   // static propTypes = {
