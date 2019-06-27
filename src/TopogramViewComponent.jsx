@@ -221,6 +221,7 @@ export class TopogramViewComponent extends React.Component {
       maxTime
     } = this.props
 
+
     if (hasTimeInfo && !ui.minTime && !ui.maxTime) {
       // pass value to UI as default
       store.dispatch({
@@ -241,7 +242,7 @@ export class TopogramViewComponent extends React.Component {
     }
 
     // default value to all
-    if (nodeCategories && !ui.selectedNodeCategories.length)
+    if (nodeCategories && nodeCategories.length && !ui.selectedNodeCategories.length)
       store.dispatch({
         type: 'SET_NODES_SELECTED_CATEGORIES',
         selectedNodeCategories: nodeCategories
