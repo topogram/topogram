@@ -58,6 +58,7 @@ export default class SidePanel extends React.Component {
       focusElement,
       timeLineVisible,
       geoMapVisible,
+      geoMapTile,
       graphVisible
     } = this.props.ui
 
@@ -115,6 +116,7 @@ export default class SidePanel extends React.Component {
               graphVisible={ graphVisible }
               hasTimeInfo={hasTimeInfo}
               hasGeoInfo={hasGeoInfo}
+              geoMapTile={geoMapTile}
               />
             :
             null

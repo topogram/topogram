@@ -11,6 +11,7 @@ import GeoMapOptions from '../geoMapOptions/GeoMapOptions.jsx'
 
 const PanelSettings = ({
   geoMapVisible,
+  geoMapTile,
   timeLineVisible,
   graphVisible,
   hasTimeInfo,
@@ -28,7 +29,12 @@ const PanelSettings = ({
       graphVisible={ graphVisible }
     />
 
-    { geoMapVisible ? <GeoMapOptions/> : null }
+    { geoMapVisible ?
+      <GeoMapOptions
+        geoMapTile={geoMapTile}
+        />
+      : null
+    }
     <NetworkOptions/>
     {
       // authorIsLoggedIn ?

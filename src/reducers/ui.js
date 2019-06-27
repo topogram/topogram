@@ -60,7 +60,7 @@ export function ui(state = initialState, action) {
         ...state,
         timeLineVisible : true
       }
-    case 'GEO_SET_TILE':
+    case 'GEO_SET_MAP_TILE':
       return {
         ...state,
         geoMapTile : action.geoMapTile

@@ -6,17 +6,18 @@ import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 
 import mapTiles from '../geoMap/mapTiles'
 
-
 export default class GeoMapOptions extends React.Component {
 
   handleSelectGeoMapTile = (value) => {
     store.dispatch({
-      type: 'GEO_SET_TILE', 
+      type: 'GEO_SET_MAP_TILE',
       geoMapTile : value
     })
   }
 
   render() {
+
+    const { geoMapTile } = this.props
     const mapTilesMenuItems = Object.keys(mapTiles).map( d => (
       <MenuItem
         value={d}
@@ -29,7 +30,7 @@ export default class GeoMapOptions extends React.Component {
     return (
       <MenuItem
         primaryText="Map Background"
-        value={this.props.ui.geoMapTile}
+        value={geoMapTile}
         menuItems={mapTilesMenuItems}
         rightIcon={<ArrowDropRight />}
       />
