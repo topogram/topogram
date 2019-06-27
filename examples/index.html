@@ -47,7 +47,7 @@
         header: true,
         skipEmptyLines: true,
         complete: (results) => {
-          const edges = results.data
+          const edges = results.data.map( e => ({ data : e }))
           this.setState({edges})
         }
       })

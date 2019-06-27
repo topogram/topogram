@@ -34,28 +34,35 @@ export default class Topograph extends React.Component {
     config : PropTypes.object
   }
 
-  componentDidMount() {
+  componentWillUpdate(nextProps) {
 
     const {
       config,
       nodes,
       edges
-    } = this.props
+    } = nextProps
 
-    store.dispatch({
-      type: 'CONFIG_LOADED',
-      payload : config
-    })
+    if (nodes.length) {
+      store.dispatch({
+        type: 'NODES_LOADED',
+        payload : nodes
+      })
+    }
 
-    store.dispatch({
-      type: 'NODES_LOADED',
-      payload : nodes
-    })
+    if (edges.length) {
+      store.dispatch({
+        type: 'EDGES_LOADED',
+        payload : edges
+      })
+    }
 
-    store.dispatch({
-      type: 'EDGES_LOADED',
-      payload : edges
-    })
+    if (config) {
+      store.dispatch({
+        type: 'CONFIG_LOADED',
+        payload : config
+      })
+    }
+
   }
 
   render() {
