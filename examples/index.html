@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Topogram - Geo-networks for the masses</title>
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.0.0/papaparse.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+
+<script src="../dist/bundle.js" charset="utf-8"></script>
+<script type="text/babel">
+
+  class TopogramApp extends React.Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        nodes: [],
+        edges: []
+      }
+    }
+
+    componentDidMount() {
+      // load the data
+      Papa.parse('./data/nodes.csv', {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const nodes = results.data.map(n => ({
+            id: n.id,
+            data : n
+          }))
+          this.setState({nodes})
+        }
+      })
+
+      Papa.parse('./data/edges.csv', {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const edges = results.data
+          this.setState({edges})
+        }
+      })
+
+    }
+
+    render() {
+      if (!this.state.nodes || ! this.state.edges) {
+        return 'Loading...';
+      } else {
+        const { nodes, edges } = this.state
+        const config = { hello: "world" }
+        return (
+          <div>
+            <Topograph.Topograph
+              nodes={nodes}
+              edges={edges}
+              config={config}
+              />
+          </div>
+        )
+      }
+    }
+}
+
+  ReactDOM.render(
+      <TopogramApp />,
+      document.getElementById('app')
+  );
+</script>
+</html>
