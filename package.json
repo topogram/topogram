@@ -8,6 +8,7 @@
     "react-dom": "^15.4.0"
   },
   "dependencies": {
+    "babel-plugin-react-intl": "^3.3.3",
     "cytoscape": "2.7.2",
     "cytoscape-cola": "^1.4.1",
     "cytoscape-cxtmenu": "^2.7.1",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-export-default-from": "^7.2.0",
     "@babel/preset-env": "^7.4.5",
@@ -42,6 +44,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.0",
     "sass-loader": "^7.1.0",
+    "shelljs": "^0.8.3",
     "style-loader": "^0.23.1",
     "webpack": "^4.34.0",
     "webpack-cli": "^3.3.4"
@@ -50,7 +53,7 @@
     "start": "webpack --mode development --watch --inline",
     "build": "webpack --mode production",
     "lint": "eslint --ext .jsx --ext .js --quiet .",
-    "extract-intl": "babel-node --presets es2015,stage-0 -- ./.scripts/extract-intl.js"
+    "extract-intl": "npx babel-node --presets @babel/preset-env .scripts/extract-intl.js"
   },
   "repository": {
     "type": "git",

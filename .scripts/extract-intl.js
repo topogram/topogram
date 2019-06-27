@@ -5,18 +5,20 @@
  */
 const fs = require('fs');
 const nodeGlob = require('glob');
-const transform = require('babel-core').transform;
+import { transformAsync } from "@babel/core";
 
 const animateProgress = require('./helpers/progress');
 const addCheckmark = require('./helpers/checkmark');
 
-const pkg = require('../package.json');
-const i18n = require('../imports/i18n.js');
+const i18n = require('../src/helpers/i18n.js');
 
 require('shelljs/global');
 
+// parse babelrc for transpiling
+const babelrc = JSON.parse(fs.readFileSync('./.babelrc'));
+
 // Glob to match all js files except test files
-const FILES_TO_PARSE = 'imports/**/*.jsx'
+const FILES_TO_PARSE = './src/**/*.jsx'
  // 'imports/client/**/*.jsx!(*.test).js!(*.spec).js!imports/client/helpers';
 const DEST_FOLDER = 'i18n'
 const locales = i18n.appLocales;
@@ -44,7 +46,7 @@ const glob = (pattern) => new Promise((resolve, reject) => {
 });
 
 const readFile = (fileName) => new Promise((resolve, reject) => {
-  fs.readFile(fileName, (error, value) => (error ? reject(error) : resolve(value)));
+  fs.readFile(fileName, 'utf-8', (error, value) => (error ? reject(error) : resolve(value)));
 });
 
 const writeFile = (fileName, data) => new Promise((resolve, reject) => {
@@ -78,15 +80,16 @@ for (const locale of locales) {
 
 const extractFromFile = async (fileName) => {
   try {
-    const code = await readFile(fileName);
     // Use babel plugin to extract instances where react-intl is used
-    const { metadata: result } = await transform(code, {
-      presets: pkg.babel.presets,
-      plugins: [
-        ['react-intl'],
-      ],
-    });
+    const code = await readFile(fileName);
+    const plugins = [...babelrc.plugins, 'react-intl']
+    // console.log(code);
+    const { metatada : result } = await transformAsync(code, {
+      presets: babelrc.presets,
+      plugins: plugins,
+    }).catch(e => console.log(e))
 
+    console.log(metatada)
 
     for (const message of result['react-intl'].messages) {
       for (const locale of locales) {
@@ -131,11 +134,8 @@ const extractFromFile = async (fileName) => {
       let messages = Object.values(localeMappings[locale]).sort((a, b) => {
         a = a.id.toUpperCase();
         b = b.id.toUpperCase();
-        return do {
-          if (a < b) -1;
-          else if (a > b) 1;
-          else 0;
-        };
+        return a < b ? -1 :
+            a > b ? 1 : 0
       });
 
       // Write to file the JSON representation of the translation messages
