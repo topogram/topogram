@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import d3 from 'd3'
 import { Map, TileLayer } from 'react-leaflet'
 
 import 'leaflet/dist/leaflet.css'
@@ -69,9 +68,10 @@ class GeoMap extends React.Component {
       onUnfocusElement
     } = this.props
 
-    // resize dynamically using d3
-    d3.select('.leaflet-container')
-      .style('width', width)
+    // resize container dynamically
+    const leafletContainer = document.querySelector('.leaflet-container')
+    if(leafletContainer) leafletContainer.style.width = width
+
     const left = width === '50vw' ? '50vw' : 0
 
     const nodes = this.props.nodes

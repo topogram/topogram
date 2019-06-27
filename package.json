@@ -14,7 +14,6 @@
     "cytoscape-edgehandles": "^2.4.2",
     "cytoscape-spread": "^1.2.0",
     "cytoscape-springy": "^1.2.1",
-    "d3": "^3.5.17",
     "d3-scale": "^1.0.6",
     "github-markdown-css": "^2.4.1",
     "leaflet": "^1.2.0",
