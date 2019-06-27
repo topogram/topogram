@@ -5,7 +5,7 @@ import store from '../../store'
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
+import format from 'date-fns/format';
 
 
 import Slider, { createSliderWithTooltip } from 'rc-slider'
@@ -13,7 +13,7 @@ import Slider, { createSliderWithTooltip } from 'rc-slider'
 const SliderWithTooltip = createSliderWithTooltip(Slider)
 
 function dateFormatter(v) {
-  return moment(v).format('MMM D, YYYY')
+  return format(v, 'MMM D, YYYY, h:mm:ss aa')
 }
 
 export default class TimeSlider extends React.Component {
@@ -37,8 +37,8 @@ export default class TimeSlider extends React.Component {
       currentSliderTime
     } = this.props
 
-    const minYear = moment(minTime).year(),
-      maxYear = moment(maxTime).year()
+    const minYear = minTime.getYear(),
+      maxYear = maxTime.getYear()
 
     // generate list of years (in ms)
     const marksYears = {}

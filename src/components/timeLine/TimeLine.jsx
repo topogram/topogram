@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import store from '../../store'
-import moment from 'moment'
+import format from 'date-fns/format';
 
 import { Card, CardText, CardHeader } from 'material-ui/Card'
 import TextField from 'material-ui/TextField';
@@ -134,10 +134,10 @@ export default class TimeLine extends React.Component {
                 <span>
                   From <a onClick={this.openMinDatePicker}
                     style={{ cursor : 'pointer', color : 'black' }}>
-                    {`${moment(minTime).format('MMM Do YYYY')}`}
+                    {`${format(minTime, 'MMM Do YYYY')}`}
                   </a> to <a onClick={this.openMaxDatePicker}
                     style={{ cursor : 'pointer', color : 'black' }}>
-                    {`${moment(maxTime).format('MMM Do YYYY')}`}
+                    {`${format(maxTime, 'MMM Do YYYY')}`}
                   </a>
 
                   <IconButton

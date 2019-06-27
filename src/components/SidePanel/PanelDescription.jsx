@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react'
 import { CardTitle, CardText } from 'material-ui/Card'
-import moment from 'moment'
 
 const PanelDescription = ({
   topogram,
@@ -15,9 +14,6 @@ const PanelDescription = ({
       />
     <CardText>
       {topogram.description}
-
-      <p>Last modified {moment(topogram.lastModified).fromNow()}</p>
-      <p>Created {moment(topogram.createdAt).fromNow()}</p>
     </CardText>
 
   </span>
