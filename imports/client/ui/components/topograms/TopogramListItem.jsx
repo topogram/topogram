@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react'
 import moment from 'moment'
 // import { defineMessages, injectIntl } from 'react-intl'
 
-import { Card, CardActions, CardTitle } from 'material-ui/Card'
+import { Card, CardActions, CardTitle, CardHeader } from 'material-ui/Card'
 
 // import IconMenu from 'material-ui/IconMenu'
 // import IconButton from 'material-ui/IconButton'
 // import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 // import Settings from '../settings/Settings.jsx'
 
-import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/FlatButton'
 
 // const messages = defineMessages({
 //   browse : {
@@ -22,6 +22,8 @@ import FlatButton from 'material-ui/FlatButton'
 
 const TopogramListItem = ({
   topogramTitle,
+  topogramDesc,
+  topogramVersion,
   topogramId,
   lastModified,
   author
@@ -35,36 +37,44 @@ const TopogramListItem = ({
       titleStyle={{ fontSize:'13pt', lineHeight:'1.1em', paddingBottom : '.2em' }}
       subtitle={
         <span>
-          { author ? `By ${author ? author : 'Author'}` : 'Anonymous' } &bull; {moment(lastModified).fromNow()}
+          { author ? `By ${author ? author : 'Author'}` : ' By Gregory Bahde' } &bull; {moment(lastModified).fromNow()}
         </span>
       }
+//      content={topogramDesc}
+      subtitleStyle={{ fontSize:'8pt'/*, lineHeight:'1.1em', paddingBottom : '.2em'*/ }}
+
     />
+    <CardHeader
+
+
+    title={topogramDesc}
+    titleStyle={{ fontSize:'8pt'/*, lineHeight:'0.8em', paddingBottom : '.2em'*/ }}
+    subtitle={topogramVersion}
+    subtitleStyle={{ fontSize:'7pt'/*, lineHeight:'0.8em', paddingBottom : '.2em'*/ }}
+
+/>
     <CardActions>
-      <FlatButton
+      <RaisedButton
+
+
+      style={{
+        color:"black", backgroundColor:"#A98CC5"
+      }}
         //href={`/topograms/${topogramId}`}
         // labelPosition="before"
         onClick={ ()=>window.open(`/topograms/${topogramId}`, '_blank')}
-        label="Browse"
+        label="Check its tours"
       />
-
-      {/* <IconMenu
-         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-       >
-        <Settings
-          topogramId={topogramId}
-          topogramTitle={topogramTitle}
-          topogramSharedPublic={topogramSharedPublic}
-          router={router}
-          />
-      </IconMenu> */}
-
     </CardActions>
+
   </Card>
 )
 
 TopogramListItem.propTypes = {
   author : PropTypes.string,
   topogramTitle: PropTypes.string.isRequired,
+  topogramDesc: PropTypes.string,
+  topogramVersion: PropTypes.string,
   topogramId: PropTypes.string.isRequired,
   lastModified: PropTypes.instanceOf(Date).isRequired
 }

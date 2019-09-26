@@ -28,7 +28,9 @@ class TopogramList extends React.Component {
     super(props)
     this.state = { anonymousOnly : false ,
       currentValue : null,
-      pageTopos : 1
+      pageTopos : 1,
+      order : null,
+      direction : true,
 
     }
   }
@@ -61,7 +63,7 @@ class TopogramList extends React.Component {
 
     }}
 
-    handlePageTopoDown = (numbTopopages) => {
+    handlePageTopoDown = (pageTopos,numbTopopages) => {
       if (pageTopos > 1) {
         var valuepageTopos=this.state.pageTopos
         valuepageTopos-=1
@@ -115,7 +117,9 @@ class TopogramList extends React.Component {
           <TopogramListItem
             key={ topogram._id }
             topogramId={ topogram._id }
-            topogramTitle={ topogram.title }
+            topogramTitle={ topogram.title.split(/\SBETA.*/gm).slice(0)[0] }
+            topogramDesc={ topogram.title.split(/\SBETA.*/gm).slice(1)[0] }
+            topogramVersion={ topogram.title.match(/BETA..../gm).slice(0)[0] }
             author={topogram.author &&  topogram.author.username ? topogram.author.username : null}
             topogramSharedPublic={topogram.sharedPublic}
             router={this.props.router}
