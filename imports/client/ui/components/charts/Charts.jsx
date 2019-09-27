@@ -6,8 +6,11 @@ import C3Chart from 'react-c3js';
 import './c3.css';
 import Tooltip from 'rc-tooltip';
 import Slider from 'rc-slider';
+import d3  from 'd3/d3';
+//import { scaleLinear } from 'd3-scale'
+//import {schemeCategory10} from 'd3/d3'
 
-
+//math.sqrt(float(my_nodesdict[idd]["data"].get("weight"))+1) ,
 //import 'rc-slider/assets/index.css';
 /*APPLYS TO NODES AND EDGES SELECTED ON SCREEN, SO CY IS THE TARGET OF IMPLANT :)*/
 const CHARTS_DIV_ID = "charts"
@@ -224,7 +227,8 @@ var regenerale= /.*/g;
 
   var resweig = nodesforCharts.map((n)=>{
     return(
-      n.data.weight
+      Math.round(Math.pow(n.data.weight,2),0)
+//      n.data.weight
     )
 
   }
@@ -266,18 +270,27 @@ else  {
 //   console.log("ERROR");
 // }
 }
-//console.log("resweigUniquesPoids",resweigUniquesPoids);
+console.log("resweigUniquesPoids",resweigUniquesPoids);
 var ArrayresweigUniquesPoids=[]
+var ArrayresweigUniquesPoidsDATA=[]
+var ArrayValresweigUniquesPoids=[]
 for (var key in resweigUniquesPoids) {
   ArrayresweigUniquesPoids.push(resweigUniquesPoids[key])
+  ArrayresweigUniquesPoidsDATA.push([Number(key),resweigUniquesPoids[key]])
+
 }
 //HERE WE FINALLY GET OCCURENCE OF WEIGHT
 var resweigUniques = [...new Set(resweig)];
 for (var i = 0; i < resweigUniques.length; i++) {
+  console.log(resweigUniques[i]);
   resweigUniques[i]=resweigUniques[i].toString().substring(0,5)
 }
-// console.log(resweigUniques);
-// console.log(ArrayresweigUniquesPoids);
+ArrayresweigUniquesPoidsDATA.sort()
+ console.log(resweigUniques);
+ArrayValresweigUniquesPoids =Object.keys(resweigUniquesPoids)
+ console.log("ArrayresweigUniquesPoids",ArrayresweigUniquesPoids);
+ console.log("ArrayValresweigUniquesPoids",ArrayValresweigUniquesPoids);
+ console.log("ArrayresweigUniquesPoidsDATA",ArrayresweigUniquesPoidsDATA);
 
 
 
@@ -329,16 +342,23 @@ else  {
 }
 //console.log("resweigUniquesPoids",resweigUniquesPoids);
 var ArrayresweigEdgesUniquesPoids=[]
+var ArrayresweigEdgesUniquesPoidsDATA=[]
 for (var key in resweigEdgesUniquesPoids) {
   ArrayresweigEdgesUniquesPoids.push(resweigEdgesUniquesPoids[key])
+  ArrayresweigEdgesUniquesPoidsDATA.push([Number(key),resweigEdgesUniquesPoids[key]])
 }
 //HERE WE FINALLY GET OCCURENCE OF WEIGHT
 var resweigEdgesUniques = [...new Set(resweigEdges)];
 for (var i = 0; i < resweigEdgesUniques.length; i++) {
-  resweigEdgesUniques[i]=resweigEdgesUniques[i].toString().substring(0,5)
+  resweigEdgesUniques[i]=resweigEdgesUniques[i]/*.toString().substring(0,5)*/
 }
 console.log(resweigEdgesUniques);
 console.log(ArrayresweigEdgesUniquesPoids);
+
+ArrayresweigEdgesUniquesPoidsDATA.sort()
+console.log(ArrayresweigEdgesUniquesPoidsDATA);
+
+
 //================================================================>
 //#WE NEED TO FIGURE OUT HOW OT INSTALL STDLIBs
 //ChiSquare Calculation
@@ -401,14 +421,58 @@ catch(error)
   const {
     chartsVisible
   } = this.state
-
+/*var colorsNode= scaleLinear(schemeCategory10)
+  .domain(ArrayresweigUniquesPoidsDATA)
+  .range([5,15])*/
+/*  var colorsNode= ['red','green','blue','yellow','black','red']*/
+  /*['#2d335b', '#535b2d', '#494949', '#d7d7d7', '9ad4ce']*/
+//console.log(colorsNode);
 console.log(resweigUniques,"resweigUniques");
   let data = {
 
     columns:
-      (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  [ArrayresweigUniquesPoids] : [['nodes weight', 30, 200, 100, 400, 150, 250]]
+      (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  /*[ArrayresweigUniquesPoids]*/ ArrayresweigUniquesPoidsDATA : [['nodes weight', 30, 200, 100, 400, 150, 250]]
 
-  , bar: {
+      ,
+          type: 'donut'/*,
+
+        color:function(d){
+                return colorsNode[d.index];
+        }*/
+
+
+          /*pie: {
+            title:{
+  text: 'My Title'
+}
+        }
+*/
+
+        }
+        let data2 = {
+
+          columns:
+            (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)) ?  /*[ArrayresweigUniquesPoids]*/ ArrayresweigEdgesUniquesPoidsDATA : [['edges weight', 30, 200, 100, 400, 150, 250]]
+
+            ,
+                type: 'donut',
+                /*pie: {
+                  title:{
+        text: 'My Title'
+        }
+              }
+        */
+
+              }
+
+
+/*    var firstLegend = d3.select(".c3-title");
+    console.log("firstLegend",firstLegend);
+    var legendCon = d3.select(firstLegend.node().parentNode);
+    legendCon
+  .append('text')
+  .text('Legend Title')*/
+/*  , bar: {
         width: {
             ratio: 0.5 // this makes bar width 50% of length between ticks
         }
@@ -421,15 +485,16 @@ categories:resweigUniques,
   tick: {
       fit: true,
       multiline: true,
+      values: ArrayValresweigUniquesPoids
     },
   },
   y: {
-            label: 'numbr of nodes'
+            label: 'number of shows per venue'
         },
 }
 
 
-};
+};*/
 if (this.props.ui.cy && (this.props.ui.cy._private.initrender==false)&&data){
 //#SO WE SWITCH TO js-statsXXX NOPE Statistical-js
 const sample = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
@@ -476,19 +541,46 @@ return (
 
       title='Charts'
       titleStyle={{ fontSize : '12pt', lineHeight : '1em' }}
+      subtitle='Nodes repartition (how often the band has played the same venue)'
+      subtitleStyle={{ fontSize : '8pt', lineHeight : '1em' }}
 
     />
 
     <C3Chart
     data={data}
-
+    title={"nodes"}
     style={{
+
+
 
     size: { width :10}
     }}
     />
     </div>
     <div>
+    <CardTitle
+
+      //title='Charts'
+      //titleStyle={{ fontSize : '12pt', lineHeight : '1em' }}
+      subtitle='Edges repartition (how often the band has followed the same route)'
+      subtitleStyle={{ fontSize : '8pt', lineHeight : '1em' }}
+  />
+  <C3Chart
+  data={data2}
+  title={"edges"}
+  style={{
+
+
+
+  size: { width :10}
+  }}
+  />
+</div>
+
+
+
+  /*  <div>
+
     <Range
 
             style={{ zIndex : 100 }}
@@ -504,11 +596,13 @@ return (
             onChange={this.onSliderWChange}
             //pushable={true}
             allowCross={true}
+
+
             />
 
 
 
-    </div>
+    </div>*/
     </Card>
 
 

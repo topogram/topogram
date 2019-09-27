@@ -119,24 +119,19 @@ class TopogramList extends React.Component {
             topogramId={ topogram._id }
             topogramTitle={ topogram.title.split(/\SBETA.*/gm).slice(0)[0] }
             topogramDesc={ topogram.title.split(/\SBETA.*/gm).slice(1)[0] }
+            //topogramDesc={topogram.title.split(/Distance totale parcourue par l'artiste: /gm).slice(1)[0].split(/km/gm).match() }
             topogramVersion={ topogram.title.match(/BETA..../gm).slice(0)[0] }
+
             author={topogram.author &&  topogram.author.username ? topogram.author.username : null}
             topogramSharedPublic={topogram.sharedPublic}
             router={this.props.router}
             lastModified={ topogram.createdAt }
             />
+
         ))
 
         const   numbTopopages = Math.ceil(topogramItems.length/128)
         export { numbTopopages}
-
-
-
-
-
-
-
-
 
         return (
           <div style={{backgroundColor:'#D6EBE6',color: '#000  !important'}}>
@@ -185,6 +180,7 @@ class TopogramList extends React.Component {
               }
               {
                 topogramItems.length > 128 ?
+
                 <div>
                   <GridList
                     cellHeight={240}

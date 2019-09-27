@@ -10,8 +10,8 @@ import TopogramList from '/imports/client/ui/components/topograms/TopogramList.j
 const messages = defineMessages({
   tagline : {
     'id': 'home.tagline',
-    'defaultMessage': 'Let\'s Visualize How Bands Tour!',
-    'message': 'Let\'s Visualize How Bands Tour!'
+    'defaultMessage': 'Let\'s Visualize How Bands Tour! (ßversion)',
+    'message': 'Let\'s Visualize How Bands Tour!(ßversion)'
   },
   subtitle : {
     'id': 'home.subtitle',
@@ -31,6 +31,7 @@ const HomeHeader = () => (
   >
     <div>
       <h1>Bands Tour</h1>
+
       <h4>
         <FormattedMessage {...messages.tagline} />
       </h4>

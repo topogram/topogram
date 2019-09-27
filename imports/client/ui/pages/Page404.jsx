@@ -5,7 +5,7 @@ export default class Page404 extends React.Component {
     return (
       <div>
         <h1>Topogram</h1>
-        <p>Wooops... nothing here !</p>
+        <p>What the heck?!</p>
       </div>
     )
   }
