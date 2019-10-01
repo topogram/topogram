@@ -16,7 +16,7 @@ Meteor.publish( 'topograms.public', function topogramsPrivate() {
   Topograms.find({'sharedPublic' : true},
     {
       'sort': { 'createdAt': -1 },
-      'limit': 20
+      //'limit': 20
     }
   )
   .forEach( t => {
