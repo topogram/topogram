@@ -43,8 +43,11 @@ class GeoMap extends React.Component {
   handleClickGeoElement({group, el}) {
     const {cy} = this.props.ui
     console.log("group",`${group}`);
+    console.log("${el.data.id}",el.data.id);
     const filter = `${group}[id='${el.data.id}']`
+    console.log(filter);
     const cyEl = cy.filter(filter)
+    console.log(cyEl);
     cyEl.data('selected') ?
       this.props.unselectElement(cyEl.json())
       :

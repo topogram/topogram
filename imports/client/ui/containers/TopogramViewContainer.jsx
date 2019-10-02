@@ -26,7 +26,7 @@ const mapStateToProps = state => ({
   topogramReady : state.topogram.ready,
   userId : state.user._id,
   isLoggedIn : state.user.isLoggedIn,
-  hasCharts : state.hasCharts
+  hasCharts : state.nodes.hasCharts
 })
 
 const mapDispatchToProps = dispatch => ({

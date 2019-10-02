@@ -28,16 +28,81 @@ const Range = createSliderWithTooltip(Slider.Range);
 
 @ui()
 
-export default class Charts extends React.Component {
+class Charts extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hasCharts : true
+    }
+  }
+
+
+
   static propTypes = {
     minWeight : PropTypes.number,
-    maxWeight : PropTypes.number
+    maxWeight : PropTypes.number,
     //edges : PropTypes.array.isRequired,
     // isolateMode : PropTypes.bool,
-    // handleClickGeoElement : PropTypes.func.isRequired,
+    //handleClickChartNodeElement : PropTypes.func,
     // onFocusElement : PropTypes.func.isRequired,
-    // onUnfocusElement : PropTypes.func.isRequired
+    // onUnfocusElement : PropTypes.func.isRequired,
+    selectElement : PropTypes.func,
+    unselectElement : PropTypes.func
   }
+
+  selectElement = (el) => {
+
+    el.data.selected = true
+
+    const { cy } = this.props.ui
+    let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
+    cy.filter(filter).data('selected', true)
+
+    this.props.updateUI(
+      'selectedElements',
+      [...this.props.ui.selectedElements, el]
+    )
+
+  }
+
+  unselectElement = (el) => {
+
+    el.data.selected = false
+
+    const { cy, isolateMode } = this.props.ui
+    let filter = `${el.group.slice(0,-1)}[id='${el.data.id}']`
+    cy.filter(filter).data('selected', false)
+
+    const {selectedElements} = this.props.ui
+
+    const remainingElements = [...
+      selectedElements.filter(n =>
+        !(
+          n.data.id === el.data.id
+          &&
+          n.group === el.group
+        )
+      )
+    ]
+
+    this.props.updateUI('selectedElements', remainingElements)
+    // console.log(remainingElements, isolateMode);
+
+    if(!remainingElements.length && isolateMode)
+    this.handleExitIsolateMode()
+  }
+
+  unselectAllElements = () => {
+    const { cy, selectedElements } = this.props.ui
+
+    cy.elements().data('selected', false)
+    selectedElements.forEach(el=> el.data.selected = false)
+
+    this.props.updateUI('selectedElements', [])
+
+  }
+
+
 
   onSliderWChange = (valueWeight) => {
       this.props.updateUI({ //
@@ -45,19 +110,48 @@ export default class Charts extends React.Component {
         valueRangeWeight : valueWeight
 
        })
-       console.log('VRW',this.props.ui.valueRangeWeight);
+       //console.log('VRW',this.props.ui.valueRangeWeight);
      }
 
 
+   handleClickChartNodeElement(el) {
+       const {cy} = this.props.ui
+       //console.log("elelel",el);
+       //console.log(cy);
+       //console.log("FILT",this.props.ui.cy.filter('node'));
+       var cyFIL=this.props.ui.cy.filter('node')
+       //console.log(cyFIL[0]["_private"]);
+       //console.log(cyFIL[1]["_private"]);
+       //console.log(cyFIL.length);
+
+       for (var i = 0; i < cyFIL.length; i++)
+
+      {
+
+      var group = 'node'
+
+      //if (node count = el.???:) {
 
 
+      const filter = `${group}[id='${cyFIL[i]["_private"]["data"]["id"]}']`
+      //console.log(filter)
+      const cyEl = cy.filter(filter)
+      /*console.log("cyEL ",cyEl);
+      console.log("cyEL selected",cyEl.data('selected'));
+      console.log("cyEL weight",cyEl.data('weight'));
+      console.log("cyEL weightsquared",parseInt(cyEl.data('weight')**2));
+      console.log("elelel",el['name']);*/
+      if (parseInt(cyEl.data('weight')**2) == el['name']) {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      hasCharts : true
-    }
-  }
+        cyEl.data('selected') ?
+         this.unselectElement(cyEl.json())
+         :
+         this.selectElement(cyEl.json())
+       }
+         //}
+      }
+     }
+
 
 
 
@@ -439,6 +533,9 @@ console.log(resweigUniques,"resweigUniques");
         color:function(d){
                 return colorsNode[d.index];
         }*/
+        ,
+                onclick: (e) => this.handleClickChartNodeElement(e)
+                ,
 
 
           /*pie: {
@@ -549,7 +646,11 @@ return (
     <C3Chart
     data={data}
     title={"nodes"}
+    unselectAllElements={this.unselectAllElements}
+    unselectElement={this.unselectElement}
+    selectElement={this.selectElement}
     style={{
+
 
 
 
@@ -610,3 +711,5 @@ return (
 }
 
 }
+
+export default Charts

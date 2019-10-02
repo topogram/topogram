@@ -79,6 +79,8 @@ export function nodes(state = initialState, action) {
 
     const hasGeoInfo = !!latLngs.length
 
+    const hasCharts = true
+
     return {
       ...state,
       nodes,

@@ -500,6 +500,7 @@ render() {
         unselectElement={this.unselectElement}
         unselectAllElements={this.unselectAllElements}
         hasTimeInfo={ this.props.hasTimeInfo }
+        hasCharts={ this.props.hasCharts }
         hasGeoInfo={ this.props.hasGeoInfo }
         fontSizeNetwork={this.props.ui.fontSizeNetwork}
         SaveNodeMovesToDB={this.props.ui.SaveNodeMovesToDB}
@@ -519,6 +520,7 @@ render() {
         handleSaveSelection={this.handleSaveSelection}
         handleLoadSelection={this.handleLoadSelection}
         handleSaveSVGs={this.handleSaveSVGs}
+        hasCharts={ this.props.hasCharts }
         selectElement={this.selectElement}
         unselectAllElements={this.unselectAllElements}
         unselectElement={this.unselectElement}
