@@ -136,12 +136,13 @@ class Charts extends React.Component {
       const filter = `${group}[id='${cyFIL[i]["_private"]["data"]["id"]}']`
       //console.log(filter)
       const cyEl = cy.filter(filter)
-      /*console.log("cyEL ",cyEl);
-      console.log("cyEL selected",cyEl.data('selected'));
-      console.log("cyEL weight",cyEl.data('weight'));
-      console.log("cyEL weightsquared",parseInt(cyEl.data('weight')**2));
-      console.log("elelel",el['name']);*/
-      if (parseInt(cyEl.data('weight')**2) == el['name']) {
+      //console.log("cyEL ",cyEl);
+      //console.log("cyEL selected",cyEl.data('selected'));
+      //console.log("cyEL weight",cyEl.data('weight'));
+      //console.log("cyEL weightsquared",parseInt(cyEl.data('weight')**2));
+      //console.log("elelel",el['name']);
+      //console.log(Math.round(Math.pow(cyEl.data('weight'),2)));
+      if (Math.round(Math.pow(cyEl.data('weight'),2)) == el['name']) {
 
         cyEl.data('selected') ?
          this.unselectElement(cyEl.json())
@@ -150,6 +151,7 @@ class Charts extends React.Component {
        }
          //}
       }
+      console.log("LOOP ENDED");
      }
 
 
@@ -215,7 +217,7 @@ render() {
 
 //EASY NODES
         this.nodes=this.props.ui.cy.filter('node')
-        //console.log(this.nodes.length);
+        console.log(this.nodes.length);
 //HARD EDGES
         var edges =[]
         var j =0
@@ -315,7 +317,7 @@ var regenerale= /.*/g;
    )
 
 
-//  console.log("NODES",nodesforCharts)
+  console.log("NODES",nodesforCharts)
 //  console.log("EDGES",edgesforCharts)
   //console.log(this.nodes[i]["_private"]["data"])
 
