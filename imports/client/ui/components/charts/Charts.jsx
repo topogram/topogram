@@ -2,10 +2,12 @@ import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 import { Card, CardTitle, CardActions } from 'material-ui/Card'
 import C3Chart from 'react-c3js';
+import RaisedButton from 'material-ui/RaisedButton'
+
 
 import './c3.css';
-import Tooltip from 'rc-tooltip';
-import Slider from 'rc-slider';
+//import Tooltip from 'rc-tooltip';
+//import Slider from 'rc-slider';
 import d3  from 'd3/d3';
 //import { scaleLinear } from 'd3-scale'
 //import {schemeCategory10} from 'd3/d3'
@@ -21,8 +23,8 @@ const divChartsStyle = {
 }
 //const mountNode = document.getElementById('react-c3js');
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-const Range = createSliderWithTooltip(Slider.Range);
+//const createSliderWithTooltip = Slider.createSliderWithTooltip;
+//const Range = createSliderWithTooltip(Slider.Range);
 
 
 
@@ -39,8 +41,8 @@ class Charts extends React.Component {
 
 
   static propTypes = {
-    minWeight : PropTypes.number,
-    maxWeight : PropTypes.number,
+    //minWeight : PropTypes.number,
+    //maxWeight : PropTypes.number,
     //edges : PropTypes.array.isRequired,
     // isolateMode : PropTypes.bool,
     //handleClickChartNodeElement : PropTypes.func,
@@ -103,7 +105,7 @@ class Charts extends React.Component {
   }
 
 
-
+/*
   onSliderWChange = (valueWeight) => {
       this.props.updateUI({ //
 
@@ -112,7 +114,7 @@ class Charts extends React.Component {
        })
        //console.log('VRW',this.props.ui.valueRangeWeight);
      }
-
+*/
 
    handleClickChartNodeElement(el) {
        const {cy} = this.props.ui
@@ -228,7 +230,7 @@ render() {
 
 
 
-   const { cy, valueRangeWeight } = this.props.ui
+   const { cy, /*valueRangeWeight*/ } = this.props.ui
 
 
 
@@ -725,33 +727,17 @@ return (
   }}
   />
 </div>
+<div>
+<RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+  label="Reset selection"
+  labelPosition="before"
+//  icon={<FocusIcon />}
+  onClick={this.unselectAllElements}
+  />
+  </div>
 
 
 
-  /*  <div>
-
-    <Range
-
-            style={{ zIndex : 100 }}
-            value={this.props.ui.valueRangeWeight}
-            min={this.props.minWeight}
-            max={this.props.maxWeight}
-            //defaultValue={[ 1281214800000, 1284866786842 ]}
-            step={1}
-            //marks={marksWeight}
-            // tipFormatter={dateFormatter}
-            tipProps={{ overlayClassName: 'foo' }}
-            //onClick={this.onSliderWChange}
-            onChange={this.onSliderWChange}
-            //pushable={true}
-            allowCross={true}
-
-
-            />
-
-
-
-    </div>*/
     </Card>
 
 
@@ -761,3 +747,28 @@ return (
 }
 
 export default Charts
+
+/*  <div>
+
+  <Range
+
+          style={{ zIndex : 100 }}
+          value={this.props.ui.valueRangeWeight}
+          min={this.props.minWeight}
+          max={this.props.maxWeight}
+          //defaultValue={[ 1281214800000, 1284866786842 ]}
+          step={1}
+          //marks={marksWeight}
+          // tipFormatter={dateFormatter}
+          tipProps={{ overlayClassName: 'foo' }}
+          //onClick={this.onSliderWChange}
+          onChange={this.onSliderWChange}
+          //pushable={true}
+          allowCross={true}
+
+
+          />
+
+
+
+  </div>*/
