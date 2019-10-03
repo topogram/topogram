@@ -130,7 +130,6 @@ class Charts extends React.Component {
 
       var group = 'node'
 
-      //if (node count = el.???:) {
 
 
       const filter = `${group}[id='${cyFIL[i]["_private"]["data"]["id"]}']`
@@ -149,10 +148,55 @@ class Charts extends React.Component {
          :
          this.selectElement(cyEl.json())
        }
-         //}
+
       }
       console.log("LOOP ENDED");
      }
+
+     handleClickChartEdgeElement(el) {
+         const {cy} = this.props.ui
+         //console.log("elelel",el);
+         //console.log(cy);
+         //console.log("FILT",this.props.ui.cy.filter('node'));
+         var cyFIL=this.props.ui.cy.filter('edge')
+         //console.log(cyFIL[0]["_private"]);
+         //console.log(cyFIL[1]["_private"]);
+         //console.log(cyFIL.length);
+
+         for (var i = 0; i < cyFIL.length; i++)
+
+        {
+
+        var group = 'edge'
+
+
+
+        const filter = `${group}[id='${cyFIL[i]["_private"]["data"]["id"]}']`
+        //console.log(filter)
+        //console.log(cyFIL[i]["_private"]["data"]["id"]);
+        const cyEl = cy.filter(filter)
+        //console.log("cyEL ",cyEl);
+        //console.log("cyEL priv",cyEl["_private"]);
+        //console.log("cyEL priv",cyEl["_private"]["ids"][cyFIL[i]["_private"]["data"]["id"]]["_private"]);
+        //console.log("cyEL selected",cyEl["_private"]["ids"][cyFIL[i]["_private"]["data"]["id"]]["_private"]["selected"]);
+        //console.log("cyEL weight",cyEl.data('weight'));
+        //console.log("cyEL weightsquared",parseInt(cyEl.data('weight')**2));
+        //console.log("elelel",el['name']);
+        //console.log(Math.round(Math.pow(cyEl.data('weight'),2)));
+
+        //console.log("WEIGHT",cyEl["_private"]["ids"][cyFIL[i]["_private"]["data"]["id"]]["_private"]["data"]['weight']);
+        //console.log("TARGET WEIGHT",el['name']);
+        if (cyEl["_private"]["ids"][cyFIL[i]["_private"]["data"]["id"]]["_private"]["data"]['weight'] == el['name']) {
+
+          cyEl["_private"]["ids"][cyFIL[i]["_private"]["data"]["id"]]["_private"]["selected"] ?
+           this.unselectElement(cyEl.json())
+           :
+           this.selectElement(cyEl.json())
+         }
+
+        }
+        console.log("LOOP ENDED");
+       }
 
 
 
@@ -217,7 +261,7 @@ render() {
 
 //EASY NODES
         this.nodes=this.props.ui.cy.filter('node')
-        console.log(this.nodes.length);
+        //console.log(this.nodes.length);
 //HARD EDGES
         var edges =[]
         var j =0
@@ -366,7 +410,7 @@ else  {
 //   console.log("ERROR");
 // }
 }
-console.log("resweigUniquesPoids",resweigUniquesPoids);
+//console.log("resweigUniquesPoids",resweigUniquesPoids);
 var ArrayresweigUniquesPoids=[]
 var ArrayresweigUniquesPoidsDATA=[]
 var ArrayValresweigUniquesPoids=[]
@@ -378,14 +422,14 @@ for (var key in resweigUniquesPoids) {
 //HERE WE FINALLY GET OCCURENCE OF WEIGHT
 var resweigUniques = [...new Set(resweig)];
 for (var i = 0; i < resweigUniques.length; i++) {
-  console.log(resweigUniques[i]);
+  //console.log(resweigUniques[i]);
   resweigUniques[i]=resweigUniques[i].toString().substring(0,5)
 }
 ArrayresweigUniquesPoidsDATA.sort()
- console.log(resweigUniques);
+ //console.log(resweigUniques);
 ArrayValresweigUniquesPoids =Object.keys(resweigUniquesPoids)
- console.log("ArrayresweigUniquesPoids",ArrayresweigUniquesPoids);
- console.log("ArrayValresweigUniquesPoids",ArrayValresweigUniquesPoids);
+ //console.log("ArrayresweigUniquesPoids",ArrayresweigUniquesPoids);
+ //console.log("ArrayValresweigUniquesPoids",ArrayValresweigUniquesPoids);
  console.log("ArrayresweigUniquesPoidsDATA",ArrayresweigUniquesPoidsDATA);
 
 
@@ -555,6 +599,8 @@ console.log(resweigUniques,"resweigUniques");
 
             ,
                 type: 'donut',
+                onclick: (e) => this.handleClickChartEdgeElement(e)
+                ,
                 /*pie: {
                   title:{
         text: 'My Title'
