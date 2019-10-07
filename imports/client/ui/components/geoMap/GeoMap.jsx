@@ -25,7 +25,7 @@ class GeoMap extends React.Component {
     super(props)
     this.state = {
       zoom : 3,
-      position : [51.505, -0.09]
+      position : [20.505, 22]
     }
   }
 

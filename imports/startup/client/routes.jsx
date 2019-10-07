@@ -9,6 +9,9 @@ import { HomeContainer } from '/imports/client/ui/containers/HomeContainer.jsx'
 import App from '/imports/client/ui/containers/App.jsx'
 
 import { TopogramViewContainer } from '/imports/client/ui/containers/TopogramViewContainer.jsx'
+import { TopogramViewContainerForMapScreenshots } from '/imports/client/ui/containers/TopogramViewContainerForMapScreenshots.jsx'
+
+import { TopogramViewContainerForNetScreenshots } from '/imports/client/ui/containers/TopogramViewContainerForNetScreenshots.jsx'
 
 import { TopogramsPrivateListContainer } from '/imports/client/ui/containers/TopogramsPrivateListContainer.jsx'
 
@@ -28,6 +31,10 @@ export const renderRoutes = () => (
           component={TopogramViewContainer}/>
         <Route path="topograms/:topogramId/view"
           component={TopogramViewContainer}/>
+        <Route path="topograms/:topogramId/map"
+            component={TopogramViewContainerForMapScreenshots}/>
+          <Route path="topograms/:topogramId/network"
+                component={TopogramViewContainerForNetScreenshots}/>
         <Route path="/signup"
           component={SignUpPage}/>
         <Route path="/login"
