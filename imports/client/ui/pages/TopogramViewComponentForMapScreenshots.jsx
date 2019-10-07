@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import ui from 'redux-ui'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
-import TitleBox from '/imports/client/ui/components/titlebox/TitleBox.jsx'
+//import TitleBox from '/imports/client/ui/components/titlebox/TitleBox.jsx'
 //import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
 
 //import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -490,25 +490,7 @@ render() {
         SaveNodeMovesToDB={this.props.ui.SaveNodeMovesToDB}
         />
 
-      <TitleBox
-        topogramTitle={ this.props.topogram.title }
-        selectedElements={this.props.ui.selectedElements}
-        focusElement={this.props.ui.focusElement}
-        cy={this.props.ui.cy}
-        onFocusElement={this.onFocusElement}
-        onUnfocusElement={this.onUnfocusElement}
-        isolateMode={this.props.ui.isolateMode}
-        handleEnterIsolateMode={this.handleEnterIsolateMode}
-        handleEnterExtractMode={this.handleEnterExtractMode}
-        handleExitIsolateMode={this.handleExitIsolateMode}
-        handleSaveSelection={this.handleSaveSelection}
-        handleLoadSelection={this.handleLoadSelection}
-        handleSaveSVGs={this.handleSaveSVGs}
-        hasCharts={ this.props.hasCharts }
-        selectElement={this.selectElement}
-        unselectAllElements={this.unselectAllElements}
-        unselectElement={this.unselectElement}
-        />
+
 
 
     </div>
