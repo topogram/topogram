@@ -118,109 +118,111 @@ return(
                 {Title4ForBox}<br/>
                 <a style={{fontWeight:"bold"}}>{Title5ForBox}</a>
 </span>
-              </Modal>
-    </div>
+{
+  !!selectedElements.length&&this.state.isOpen ?
+  <SelectionChips
+    cy={cy}
+    selectedElements={selectedElements}
+    unselectElement={unselectElement}
+    onFocusElement={onFocusElement}
+    variant="outlined"
+    className="ChipSelect"
+    />
+    :
+    null
+}
+{
+  !! selectedElements.length ?
+  <CardActions >
     {
-      !!selectedElements.length ?
-      <SelectionChips
-        cy={cy}
-        selectedElements={selectedElements}
-        unselectElement={unselectElement}
-        onFocusElement={onFocusElement}
-        variant="outlined"
-        className="ChipSelect"
-        />
+      isolateMode ?
+      <div>
+        <FlatButton
+          label="Clear"
+          labelPosition="before"
+          icon={<ClearIcon />}
+          onClick={handleExitIsolateMode}
+          />
+        {/*
+          <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+            label="Save selection"
+            labelPosition="before"
+          //  icon={<FocusIcon />}
+            onClick={handleSaveSelection}
+            />
+          <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+            className= "Titbox"
+            label="SaveSVGs"
+            labelPosition="before"
+            //icon={<FocusIcon />}
+            onClick={handleSaveSVGs}
+            />
+            */}
+      </div>
         :
-        null
-    }
-    {
-      !! selectedElements.length ?
-      <CardActions >
-        {
-          isolateMode ?
-          <div>
-            <FlatButton
-              label="Clear"
+        <div>
+        <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+          label="Focus and rearrange"
+
+          width="50%"
+          labelPosition="before"
+          //icon={<FocusIcon />}
+          onClick={handleEnterIsolateMode}
+
+          />
+
+          <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+            label="Focus only"
+            labelPosition="before"
+            //icon={<FocusIcon />}
+            onClick={handleEnterExtractMode}
+            />
+            {/* <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+              label="Save selection"
               labelPosition="before"
-              icon={<ClearIcon />}
-              onClick={handleExitIsolateMode}
+            //  icon={<FocusIcon />}
+              onClick={handleSaveSelection}
               />
-            {/*
-              <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
-                label="Save selection"
-                labelPosition="before"
-              //  icon={<FocusIcon />}
-                onClick={handleSaveSelection}
-                />
               <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
                 className= "Titbox"
-                label="SaveSVGs"
+                label="Load Selection"
                 labelPosition="before"
                 //icon={<FocusIcon />}
-                onClick={handleSaveSVGs}
+                onClick={handleLoadSelection}
                 />
-                */}
-          </div>
-            :
-            <div>
-            <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
-              label="Focus and rearrange"
 
-              width="50%"
-              labelPosition="before"
-              //icon={<FocusIcon />}
-              onClick={handleEnterIsolateMode}
-
-              />
-
-              <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
-                label="Focus only"
-                labelPosition="before"
-                //icon={<FocusIcon />}
-                onClick={handleEnterExtractMode}
-                />
-                {/* <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
-                  label="Save selection"
+                <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
+                  className= "Titbox"
+                  label="SaveSVGs"
                   labelPosition="before"
-                //  icon={<FocusIcon />}
-                  onClick={handleSaveSelection}
+                  //icon={<FocusIcon />}
+                  onClick={handleSaveSVGs}
                   />
-                  <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
-                    className= "Titbox"
-                    label="Load Selection"
-                    labelPosition="before"
-                    //icon={<FocusIcon />}
-                    onClick={handleLoadSelection}
-                    />
-
-                    <RaisedButton style={{fontSize: "6pt" ,Width : "15px",height:"15px"}}
-                      className= "Titbox"
-                      label="SaveSVGs"
-                      labelPosition="before"
-                      //icon={<FocusIcon />}
-                      onClick={handleSaveSVGs}
-                      />
-                       */}
-              </div>
+                   */}
+          </div>
 
 
 
-          }
-      </CardActions>
-      :
-      null
-    }
-    {
-      !!focusElement ?
-      <SelectedItem
-        key={focusElement.data.id}
-        el={focusElement}
-        cy={cy}
-        onUnfocusElement={onUnfocusElement}
-      />
-      :
-      null
-    }
+      }
+  </CardActions>
+  :
+  null
+}
+{
+  !!focusElement ?
+  <SelectedItem
+    key={focusElement.data.id}
+    el={focusElement}
+    cy={cy}
+    onUnfocusElement={onUnfocusElement}
+  />
+  :
+  null
+}
+
+
+              </Modal>
+    </div>
 
   </Card>
 )
