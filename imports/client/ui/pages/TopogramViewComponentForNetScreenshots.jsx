@@ -3,10 +3,10 @@ import ui from 'redux-ui'
 
 import MainViz from '/imports/client/ui/components/mainViz/MainViz.jsx'
 import TitleBox from '/imports/client/ui/components/titlebox/TitleBox.jsx'
-import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
+//import SidePanel from '/imports/client/ui/components/SidePanel/SidePanel.jsx'
 
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ExploreIcon from 'material-ui/svg-icons/action/explore';
+//import FloatingActionButton from 'material-ui/FloatingActionButton';
+//import ExploreIcon from 'material-ui/svg-icons/action/explore';
 import '../../../css/TopogramViewComponent.css'
 
 // UI state default values
@@ -47,7 +47,7 @@ import '../../../css/TopogramViewComponent.css'
     isolateMode : false,
     prevPositions : null,
     //styling
-    fontSizeNetwork :  8,
+    fontSizeNetwork :  12,
   }
 })
 export class TopogramViewComponentForNetScreenshots extends React.Component {
@@ -472,22 +472,6 @@ render() {
   return (
     <div>
 
-      <FloatingActionButton
-        style={{
-          position: 'fixed',
-          right: '-22px',
-          top: '-22px',
-          scaleType:"center",
-          //NotWorking
-          size: '10px',
-
-        }}
-        onClick={this.handleToggleSelectionMode}
-        >
-        <ExploreIcon
-          />
-      </FloatingActionButton>
-
 
       <MainViz
         topogramId={ this.props.params.topogramId }
@@ -526,30 +510,7 @@ render() {
         unselectElement={this.unselectElement}
         />
 
-      <SidePanel
-        nodes={ nodes }
-        edges={ edges }
-        topogram={ this.props.topogram }
-        nodeCategories={this.props.nodeCategories}
 
-        user={user}
-        router={router}
-
-        hasTimeInfo={ this.props.hasTimeInfo }
-        hasGeoInfo={ this.props.hasGeoInfo }
-        hasCharts={ this.props.hasCharts }
-        fontSizeNetwork={this.props.ui.fontSizeNetwork}
-        open={this.props.ui.filterPanelIsOpen}
-
-        router={this.props.router}
-        authorIsLoggedIn={ this.props.userId === this.props.topogram.userId && this.props.isLoggedIn }
-
-        onFocusElement={this.onFocusElement}
-        onUnfocusElement={this.onUnfocusElement}
-        selectElement={this.selectElement}
-        unselectAllElements={this.unselectAllElements}
-        unselectElement={this.unselectElement}
-        />
     </div>
   )
 }
