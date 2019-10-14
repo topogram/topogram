@@ -13,6 +13,7 @@ import { TopogramViewContainerForMapScreenshots } from '/imports/client/ui/conta
 
 import { TopogramViewContainerForNetScreenshots } from '/imports/client/ui/containers/TopogramViewContainerForNetScreenshots.jsx'
 import { TopogramViewContainerForMapScreenshotsNoTiles } from '/imports/client/ui/containers/TopogramViewContainerForMapScreenshotsNoTiles.jsx'
+import { TopogramViewContainerForMapScreenshotsNoTilesWithMainVenuesHighlighted} from '/imports/client/ui/containers/TopogramViewContainerForMapScreenshotsNoTilesWithMainVenuesHighlighted.jsx'
 
 import { TopogramsPrivateListContainer } from '/imports/client/ui/containers/TopogramsPrivateListContainer.jsx'
 
@@ -34,8 +35,10 @@ export const renderRoutes = () => (
           component={TopogramViewContainer}/>
         <Route path="topograms/:topogramId/map"
             component={TopogramViewContainerForMapScreenshots}/>
-          <Route path="topograms/:topogramId/map_without_tiles"
+        <Route path="topograms/:topogramId/map_without_tiles"
                 component={TopogramViewContainerForMapScreenshotsNoTiles}/>
+              <Route path="topograms/:topogramId/map_without_tiles_highlighted"
+                        component={TopogramViewContainerForMapScreenshotsNoTilesWithMainVenuesHighlighted}/>
         <Route path="topograms/:topogramId/network"
             component={TopogramViewContainerForNetScreenshots}/>
 

@@ -27,7 +27,7 @@ export default class GeoEdges extends React.Component {
           opacity={"0.8"}
           color={e.selected ? 'yellow' : e.data.color ? e.data.color : 'purple'}
           //LIMIT THE EDGES MAX WIDTH
-          weight={e.data.weight?e.data.weight > 6 ? 40 : Math.pow(e.data.weight,2):1}
+          weight={e.data.weight?e.data.weight > 6 ? 20 : Math.pow(e.data.weight,2):1}
           dashArray= {e.data.group?
              (
                e.data.group.includes("DASHED2")?"5,2":
