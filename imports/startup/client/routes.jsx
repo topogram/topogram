@@ -37,7 +37,7 @@ export const renderRoutes = () => (
             component={TopogramViewContainerForMapScreenshots}/>
         <Route path="topograms/:topogramId/map_without_tiles"
                 component={TopogramViewContainerForMapScreenshotsNoTiles}/>
-              <Route path="topograms/:topogramId/map_without_tiles_highlighted"
+        <Route path="topograms/:topogramId/map_without_tiles_highlighted"
                         component={TopogramViewContainerForMapScreenshotsNoTilesWithMainVenuesHighlighted}/>
         <Route path="topograms/:topogramId/network"
             component={TopogramViewContainerForNetScreenshots}/>

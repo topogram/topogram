@@ -131,8 +131,10 @@ export const topogramTogglePublic = new ValidatedMethod({
   validate: TOPOGRAM_ID_ONLY,
   run({ topogramId }) {
     const t = Topograms.findOne(topogramId, { sharedPublic : 1 })
+    console.log(t);
+    const sharedPublic= t.sharedPublic || false 
     return Topograms.update( topogramId,
-      { '$set' : { 'sharedPublic' : !t.sharedPublic },
+      { '$set' : { 'sharedPublic' : !sharedPublic },
         'updatedAt' : new Date()
       }
     )

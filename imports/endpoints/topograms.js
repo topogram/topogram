@@ -11,5 +11,5 @@ export const getTopograms = () =>
 export const createTopogram = (data) =>
   topogramCreate.call(data)
 
-export const togglePublicTopogram = (name) =>
-  topogramTogglePublic.call({ name })
+export const togglePublicTopogram = (topogramId) =>
+  topogramTogglePublic.call( topogramId )

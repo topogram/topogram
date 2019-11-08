@@ -114,11 +114,12 @@ Api.addRoute('topograms/getByName', {
   }
 })
 
-Api.addRoute('topograms/:_id/togglePublic', {
+Api.addRoute('topograms/:_id/public', {
   post: {
     authRequired: true,
     action() {
       const _id = this.urlParams._id
+      //console.log(_id);
       togglePublicTopogram({ topogramId : _id })
       return {
         'status': 'success',
