@@ -20,7 +20,27 @@
 body {
   background: #F5F5F5;
 }
+.home-explainer{
+  display: flex;
+  height : 98vh;
+  background-image : linear-gradient(to bottom right,#536870,#aa8dc6);
+  text-shadow: 2px 2px 4px #000000;
+  flex-direction: column;
+  align-items: center;
 
+  div{
+    height: 300px;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+
+    color: #D6EBE6;
+
+    h1{
+      font-size: 12.063em;
+    }
+  }
+}
 .home-header{
   display: flex;
   height : 98vh;
